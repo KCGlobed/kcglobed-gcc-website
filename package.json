@@ -12,11 +12,13 @@
   "dependencies": {
     "nuxt": "^3.11.2",
     "nuxt-swiper": "^1.2.2",
+    "pg": "^8.16.3",
     "vue": "^3.4.27",
     "vue-router": "^4.3.2"
   },
   "devDependencies": {
     "@bootstrap-vue-next/nuxt": "^0.18.0",
+    "@types/pg": "^8.16.0",
     "bootstrap": "^5.3.3",
     "bootstrap-vue-next": "^0.18.0",
     "nuxt-aos": "^1.2.4",
