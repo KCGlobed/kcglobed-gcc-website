@@ -2,15 +2,16 @@
   <div>
     <LayoutTopHeader class="style2-top-header" />
     <LayoutNavbarStyleTwo class="inner-navbar" />
-    <CommonInnerPageBanner pageTitle="About Tuva" mainTitle="OVERVIEW" />
+    <CommonInnerPageBanner pageTitle="About GCC School" mainTitle="OVERVIEW" />
     <CommonAboutPagesList />
     <AboutOverviewAboutUniversity />
-    <AboutOverviewAboutImages />
-    <AboutOverviewVisitingAt />
+    <AboutOverviewSustainability />
+    <AboutOverviewAboutGCC />
+    <AboutOverviewVisionMission />
+    <AboutOverviewLeadership />
     <CommonFunFact />
     <AboutOverviewCultureWarp />
     <AboutOverviewAdmissionAndAid />
-    <AboutOverviewSustainability />
     <AboutOverviewProfessionalLearning />
     <AboutOverviewServicesContent />
     <AboutOverviewLatestNews />

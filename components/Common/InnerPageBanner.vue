@@ -7,18 +7,14 @@
           <li>
             <NuxtLink to="/">HOME</NuxtLink>
           </li>
-          <li>
+          <!-- <li>
             <span>{{ mainTitle }}</span>
-          </li>
+          </li> -->
         </ul>
       </div>
     </div>
     <div class="all-shapes">
-      <img
-        src="~/assets/img/shapes/inner-page-shape1.png"
-        class="inner-page-shape1"
-        alt="image"
-      />
+      <img src="~/assets/img/shapes/inner-page-shape1.png" class="inner-page-shape1" alt="image" />
     </div>
   </div>
 </template>

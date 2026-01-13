@@ -1,45 +1,24 @@
 <template>
-  <div class="sustainability-warp pb-100">
+  <div class="sustainability-warp pb-100" style="margin-top: 12rem;">
     <div class="container">
       <div class="row">
         <div class="col-lg-6">
           <div class="sustainability-content">
-            <h2>Sustainability</h2>
+            <h2>Industry Alignment</h2>
             <p>
-              Sheridan continues to lead, manage and innovate for long-term
-              sustainability, seeking novel approaches to funding options and
-              partnerships, and reinforcing our leadership in green campus
-              initiatives.
+              To meet the growing demand for GCC-ready professionals, GCC School works in alignment with Consulting
+              Firms &
+              MNCs The focus is on:
             </p>
-            <ul class="sustainability-list">
+            <ul>
               <li>
-                <i class="ti ti-check"></i>
-                <span>
-                  In 2021, Tuva was recognized as the EnVisioneer of the Year by
-                  Danfoss,
-                </span>
-                a global supplier of energy-efficient solutions, for developing
-                innovative energy savings systems. Sheridan uses pre-engineered,
-                factory-built energy transfer stations (ETS) in its recently
-                upgraded district heating system.
+                <i class="fa-solid fa-check"></i>Practical training
               </li>
               <li>
-                <i class="ti ti-check"></i>
-                <span>
-                  We reduced our annual natural gas consumption by more than
-                  280,000m3 —
-                </span>
-                which equates to an annual greenhouse gas emission reduction of
-                530 metric tonnes.
+                <i class="fa-solid fa-check"></i>Real GCC exposure
               </li>
               <li>
-                <i class="ti ti-check"></i>
-                <span>
-                  Tuva was named the sole Canadian International Green Gown
-                  Award
-                </span>
-                finalist in the Benefitting Society category for its Sustainable
-                Development Innovation Ecosystem Project.
+                <i class="fa-solid fa-check"></i>Industry-driven capability building
               </li>
             </ul>
           </div>
@@ -61,6 +40,7 @@
           </div>
         </div>
       </div>
+
     </div>
   </div>
 </template>

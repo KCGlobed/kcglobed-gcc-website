@@ -3,7 +3,7 @@
     <div class="container">
       <div class="inner-all-pages">
         <ul class="about-pages-list">
-          <li>
+          <!-- <li>
             <NuxtLink to="/about-overview">OVERVIEW</NuxtLink>
           </li>
           <li>
@@ -17,7 +17,12 @@
           </li>
           <li>
             <NuxtLink to="/facilities">Facilities</NuxtLink>
-          </li>
+          </li> -->
+
+          <li><a href="javascript:void(0)" @click="scrollToSection('overview')">Overview</a></li>
+          <li><a href="javascript:void(0)" @click="scrollToSection('vision-mission')">Vision & Mission</a></li>
+          <li><a href="javascript:void(0)" @click="scrollToSection('leadership')">Leadership</a></li>
+          <li><a href="javascript:void(0)" @click="scrollToSection('gcc-think-tank')">GCC Campus Think Tank</a></li>
         </ul>
       </div>
     </div>
@@ -27,5 +32,13 @@
 <script>
 export default {
   name: "AboutPagesList",
+  methods: {
+    scrollToSection(id) {
+      const element = document.getElementById(id);
+      if (element) {
+        element.scrollIntoView({ behavior: "smooth", block: "start" });
+      }
+    },
+  },
 };
 </script>
