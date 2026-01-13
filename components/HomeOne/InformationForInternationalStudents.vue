@@ -81,7 +81,8 @@
               <img src="~/assets/img/informations/information1.jpg" class="information" alt="image" />
             </div>
             <div class="round-shape">
-              <img src="~/assets/img/svgs/main-log.svg" class="main-logo" alt="image" />
+              <img src="~/assets/Logo/Logo/GCC-School-Logo-White.png" class="main-logo" alt="image"
+                style="width: 150px;" />
               <img src="~/assets/img/shapes/text-shape1.png" class="text-shape" alt="" />
             </div>
           </div>

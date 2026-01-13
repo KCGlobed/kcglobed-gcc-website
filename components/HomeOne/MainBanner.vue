@@ -35,7 +35,8 @@
 
             <div class="content" style="margin-top: 20px;">
               <h1 class="title" style="font-size: 40px;line-height: 1.4;">
-                {{ banner.heading }}
+                <!-- {{ banner.heading }} -->
+                World’s 1st School <br> Backed by Industry, <br> Built on Execution
               </h1>
               <p style="color: #fff;">
                 {{ banner.description }}
@@ -45,10 +46,10 @@
                   {{ banner.btnText }}
                   <i class="ti ti-arrow-narrow-right"></i>
                 </NuxtLink>
-                <NuxtLink :to="banner.btnLinkTwo" class="default-btn style2">
+                <a :href="banner.btnLinkTwo" class="default-btn style2" download="Brochure.pdf">
                   {{ banner.btnTextTwo }}
                   <i class="ti ti-arrow-narrow-right"></i>
-                </NuxtLink>
+                </a>
               </div>
             </div>
             <!-- <ul class="information">
@@ -80,6 +81,7 @@ import { defineComponent } from "vue";
 
 import image1 from "../../assets/img/heros/hero1.jpg";
 import image2 from "../../assets/img/heros/hero2.jpg";
+import gccPdf from "../../assets/gcc.pdf";
 
 export default defineComponent({
   name: "MainBanner",
@@ -91,12 +93,12 @@ export default defineComponent({
           bgClass: "bg1",
           subTitle: "Cohort 2026 Applications Open",
           image: image1,
-          heading: "World’s 1st School Backed by Industry, Built on Execution",
+          heading: "World’s 1st School Backed  by Industry, Built on Execution",
           description: "At GCC School, students don’t wait for placements. They start with them. Learning is structured around real roles, real work, and real responsibility because capability is built on execution.",
           btnText: "Apply Now",
           btnLink: "/about-overview",
           btnTextTwo: "Download Brochure",
-          btnLinkTwo: "/programs",
+          btnLinkTwo: gccPdf,
           updateTitle: "View all latest news updates of Tuva",
           updateLink: "/blog",
           informations: [
@@ -119,71 +121,7 @@ export default defineComponent({
               link: "/personal-information",
             },
           ],
-        },
-        {
-          id: 2,
-          bgClass: "bg2",
-          image: image2,
-          heading: "Tuva tops the best world higher education ranking in 2024",
-          btnText: "View Report",
-          btnLink: "/about-overview",
-          btnTextTwo: "View All Programs",
-          btnLinkTwo: "/programs",
-          updateTitle: "View all latest news updates of Tuva",
-          updateLink: "/blog",
-          informations: [
-            {
-              id: 1,
-              icon: "ti ti-world",
-              title: "Take A Tour",
-              link: "/schedule",
-            },
-            {
-              id: 2,
-              icon: "ti ti-info-hexagon",
-              title: "Campus Information",
-              link: "/about-campus",
-            },
-            {
-              id: 3,
-              icon: "ti ti-ballpen",
-              title: "Apply Now",
-              link: "/personal-information",
-            },
-          ],
-        },
-        {
-          id: 3,
-          bgClass: "bg1",
-          image: image1,
-          heading: "Tuva tops the best world higher education ranking in 2024",
-          btnText: "View Report",
-          btnLink: "/about-overview",
-          btnTextTwo: "View All Programs",
-          btnLinkTwo: "/programs",
-          updateTitle: "View all latest news updates of Tuva",
-          updateLink: "/blog",
-          informations: [
-            {
-              id: 1,
-              icon: "ti ti-world",
-              title: "Take A Tour",
-              link: "/schedule",
-            },
-            {
-              id: 2,
-              icon: "ti ti-info-hexagon",
-              title: "Campus Information",
-              link: "/about-campus",
-            },
-            {
-              id: 3,
-              icon: "ti ti-ballpen",
-              title: "Apply Now",
-              link: "/personal-information",
-            },
-          ],
-        },
+        }
       ],
     };
   },

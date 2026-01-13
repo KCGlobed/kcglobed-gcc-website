@@ -10,10 +10,10 @@
     <HomeOneFutureStudents />
     <HomeOneCultureWarp />
     <HomeOneCurrentAcademicStudents />
-    <HomeOneProfessionalLearning />
+    <!-- <HomeOneProfessionalLearning />
     <HomeOneServicesContent />
     <HomeOneWeAreInTheWave />
-    <HomeOneLatestNews />
+    <HomeOneLatestNews /> -->
     <LayoutMainFooter />
     <LayoutCopyRight />
   </div>

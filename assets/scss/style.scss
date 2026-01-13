@@ -49,6 +49,7 @@ body {
   padding: 0;
   margin: 0;
 }
+
 .h1,
 .h2,
 .h3,
@@ -62,102 +63,133 @@ h4,
 h5,
 h6 {
   color: var(--dark);
+
   font: {
     family: var(--headingFont);
     weight: 700;
   }
+
   line-height: 1.4;
 }
+
 .container-fluid {
   max-width: 1745px;
 }
+
 .pb-75 {
   padding-bottom: 75px;
 }
+
 .pb-130 {
   padding-bottom: 130px;
 }
+
 .pt-130 {
   padding-top: 130px;
 }
+
 .pt-50 {
   padding-top: 50px;
 }
+
 .pt-80 {
   padding-top: 80px;
 }
+
 .pb-80 {
   padding-bottom: 80px;
 }
+
 .pt-100 {
   padding-top: 100px;
 }
+
 .pb-100 {
   padding-bottom: 100px;
 }
+
 .ptb-100 {
   padding-top: 100px;
   padding-bottom: 100px;
 }
+
 .ptb-130 {
   padding-top: 130px;
   padding-bottom: 130px;
 }
+
 .mt-30 {
   margin-top: 30px;
 }
+
 .mb-30 {
   margin-bottom: 30px;
 }
+
 .mb-50 {
   margin-bottom: 50px;
 }
+
 .mb-100 {
   margin-bottom: 100px;
 }
+
 .mt-100 {
   margin-top: 100px;
 }
+
 .ml-0 {
   margin-left: 0 !important;
 }
+
 .pt-30 {
   padding-top: 30px;
 }
+
 .pb-30 {
   padding-bottom: 30px;
 }
+
 img {
   max-width: 100%;
   height: auto;
 }
+
 a {
   transition: 0.6s;
   text-decoration: none;
+
   &:hover {
     color: var(--paragraph);
   }
 }
+
 p {
   font-size: 16px;
   margin-bottom: 15px;
   line-height: 1.7;
+
   &:last-child {
     margin-bottom: 0;
   }
 }
+
 .bg-F8F8F9 {
   background: #f8f8f9;
 }
+
 .bg-FAF6F6 {
   background: #faf6f6;
 }
+
 .bg-E8E8F4 {
   background: #e8e8f4;
 }
+
 .bg-FAFAFA {
   background: #fafafa;
 }
+
 .bg-EEEEF5 {
   background: #eeeef5;
 }
@@ -165,9 +197,11 @@ p {
 .border-right {
   border-right: solid 1px #ebeaf0;
 }
+
 .border-bottom {
   border-bottom: solid 1px #e8e9ed;
 }
+
 .only-992-device {
   display: none;
 }
@@ -184,6 +218,7 @@ p {
   border: none;
   font-weight: 600;
   text-align: center;
+
   &:hover {
     color: #fff;
     box-shadow: 0 0 40px 40px rgba(248, 202, 77, 1) inset;
@@ -193,6 +228,7 @@ p {
     color: #fff;
     outline: 0;
   }
+
   i {
     position: relative;
     top: 5px;
@@ -202,9 +238,11 @@ p {
     line-height: 0;
   }
 }
+
 .section-title {
   margin-bottom: 40px;
   text-align: center;
+
   h2 {
     font-family: Alfa Slab One;
     font-size: 32px;
@@ -213,11 +251,13 @@ p {
     margin-bottom: 0;
   }
 }
+
 .section-warp {
   display: flex;
   align-items: center;
   justify-content: space-between;
   margin-bottom: 40px;
+
   h2 {
     color: #0d0d25;
     font-family: Alfa Slab One;
@@ -226,16 +266,19 @@ p {
     font-weight: 400;
     margin-bottom: 0;
   }
+
   .section-link {
     color: #fc6441;
     font-family: Work Sans;
     font-weight: 600;
+
     i {
       position: relative;
       font-size: 20px;
       left: 2px;
       top: 2px;
     }
+
     .article-link {
       color: #362983;
     }
@@ -258,38 +301,49 @@ Back To Top Warp Style
   line-height: 49px;
   background-color: var(--primary);
   animation: border-transform 10s linear infinite alternate forwards;
+
   &:hover {
     background-color: var(--primary);
     color: var(--white);
   }
+
   &.active {
     opacity: 100%;
     visibility: visible;
   }
 }
+
 #backtotop i {
   color: var(--white);
 }
+
 @keyframes border-transform {
+
   0%,
   100% {
     border-radius: 63% 37% 54% 46%/55% 48% 52% 45%;
   }
+
   14% {
     border-radius: 40% 60% 54% 46%/49% 60% 40% 51%;
   }
+
   28% {
     border-radius: 54% 46% 38% 62%/49% 70% 30% 51%;
   }
+
   42% {
     border-radius: 61% 39% 55% 45%/61% 38% 62% 39%;
   }
+
   56% {
     border-radius: 61% 39% 67% 33%/70% 50% 50% 30%;
   }
+
   70% {
     border-radius: 50% 50% 34% 66%/56% 68% 32% 44%;
   }
+
   84% {
     border-radius: 46% 54% 50% 50%/35% 61% 39% 65%;
   }
@@ -303,16 +357,19 @@ Navbar Warp  Style
   right: 0;
   height: auto;
   z-index: 1030;
+
   padding: {
     left: 0;
     right: 0;
     top: 12px;
     bottom: 12px;
   }
+
   position: relative;
   z-index: 999;
   background-color: var(--white);
   box-shadow: 0px 2px 20px 0px rgba(0, 0, 0, 0.05);
+
   &.sticky {
     top: -1px;
     left: 0;
@@ -323,21 +380,26 @@ Navbar Warp  Style
     position: sticky;
     animation: 500ms ease-in-out 0s normal none 1 running fadeInDown;
     border-color: transparent;
+
     .navbar-logo {
       position: relative;
       margin-top: 0;
     }
+
     .inner-navbar-warp {
       margin-top: 0;
     }
+
     .navbar-toggler {
       color: var(--paragraph);
       font-size: inherit;
       box-shadow: unset;
       border: none;
       padding: 0;
+
       .burger-menu {
         cursor: pointer;
+
         span {
           height: 3px;
           width: 30px;
@@ -347,32 +409,39 @@ Navbar Warp  Style
         }
       }
     }
+
     .inner-navbar-widget {
       margin-bottom: 0;
+
       padding: {
         left: 0;
         right: 0;
       }
+
       border: none !important;
     }
   }
+
   .navbar-brand {
     font-size: inherit;
     line-height: 1;
     padding: 0;
   }
+
   ul {
     padding-left: 0;
     margin-bottom: 0;
     padding-right: 0;
     list-style-type: none;
   }
+
   .navbar-toggler {
     color: var(--bs-dark);
     font-size: inherit;
     box-shadow: unset;
     border: none;
     padding: 0;
+
     .burger-menu {
       cursor: pointer;
 
@@ -385,37 +454,47 @@ Navbar Warp  Style
       }
     }
   }
+
   .navbar-nav {
     margin-right: 50px;
+
     .nav-item {
       position: relative;
+
       margin: {
         left: 20px;
         right: 20px;
       }
+
       .nav-link {
         position: relative;
         color: #0d0d25;
+
         font: {
           family: Work Sans;
           size: 16px;
           weight: 500;
         }
+
         &::after {
           display: none;
         }
+
         padding: {
           left: 0;
           right: 0;
           top: 25px;
           bottom: 25px;
         }
+
         &:hover,
         &.router-link-active {
           color: var(--primary);
         }
+
         &.with-image {
           position: relative;
+
           .navbar-image {
             position: absolute;
             bottom: -12px;
@@ -426,11 +505,14 @@ Navbar Warp  Style
           }
         }
       }
+
       .dropdown-toggle {
         padding-right: 18px;
+
         &::after {
           left: -5px;
         }
+
         &::before {
           position: absolute;
           content: "\fb2a";
@@ -442,28 +524,35 @@ Navbar Warp  Style
           font-family: "tabler-icons" !important;
           font-size: 16px;
         }
+
         &:hover,
         &.active {
           color: var(--primary);
+
           &::before {
             color: var(--primary);
           }
         }
       }
+
       &:last-child {
         margin-right: 0;
       }
+
       &:first-child {
         margin-left: 0;
       }
+
       &:hover,
       &.active {
         color: var(--primary);
         font-weight: 600;
+
         .nav-link {
           color: var(--primary);
         }
       }
+
       .dropdown-menu {
         left: 0;
         top: 85px;
@@ -481,23 +570,28 @@ Navbar Warp  Style
         transition: all 0.2s ease-in-out;
         transform: translate3d(0, 18px, 0);
         box-shadow: rgba(4, 4, 5, 0.2) 0px 7px 36px -8px;
+
         .nav-item {
           margin: 0;
           border-bottom: solid 1px #e8e9ed;
+
           &:last-child {
             border: none;
           }
+
           .nav-link {
             display: block;
             padding: 10px 20px;
             transition: 0.6s;
             position: relative;
             color: var(--dark);
+
             font: {
               family: var(--bodyFont);
               size: 15px;
               weight: 400;
             }
+
             &::after {
               display: none;
             }
@@ -506,11 +600,13 @@ Navbar Warp  Style
             &:hover {
               color: var(--white);
               background-color: #14191c;
+
               &::before {
                 opacity: 1;
                 color: var(--white);
               }
             }
+
             &.dropdown-toggle {
               &::before {
                 content: "\fb2c";
@@ -520,6 +616,7 @@ Navbar Warp  Style
               }
             }
           }
+
           .dropdown-menu {
             top: 0;
             opacity: 0;
@@ -537,6 +634,7 @@ Navbar Warp  Style
                   color: var(--white);
                 }
               }
+
               .dropdown-menu {
                 top: 0;
                 opacity: 0;
@@ -553,6 +651,7 @@ Navbar Warp  Style
                       color: var(--primary);
                     }
                   }
+
                   .dropdown-menu {
                     top: 0;
                     opacity: 0;
@@ -569,11 +668,13 @@ Navbar Warp  Style
                           color: var(--primary);
                         }
                       }
+
                       &.active {
                         .nav-link {
                           color: var(--primary);
                         }
                       }
+
                       &:hover {
                         .dropdown-menu {
                           opacity: 1;
@@ -582,11 +683,13 @@ Navbar Warp  Style
                       }
                     }
                   }
+
                   &.active {
                     .nav-link {
                       color: var(--primary);
                     }
                   }
+
                   &:hover {
                     .dropdown-menu {
                       opacity: 1;
@@ -596,11 +699,13 @@ Navbar Warp  Style
                   }
                 }
               }
+
               &.active {
                 .nav-link {
                   color: var(--primary);
                 }
               }
+
               &:hover {
                 .dropdown-menu {
                   opacity: 1;
@@ -610,11 +715,13 @@ Navbar Warp  Style
               }
             }
           }
+
           &.active {
             .nav-link {
               color: var(--primary);
             }
           }
+
           &:hover {
             .dropdown-menu {
               opacity: 1;
@@ -625,6 +732,7 @@ Navbar Warp  Style
           }
         }
       }
+
       &:hover {
         .dropdown-menu {
           opacity: 1;
@@ -634,26 +742,33 @@ Navbar Warp  Style
       }
     }
   }
+
   .others-option {
     position: relative;
     margin-top: -5px;
+
     .option-item {
       padding-right: 40px;
+
       &:last-child {
         padding-right: 0;
       }
+
       .search-bar {
         .search-btn {
           position: relative;
         }
       }
+
       .side-bar-btn {
         padding: 0;
         border: none;
+
         &:focus {
           box-shadow: unset;
           outline: 0;
         }
+
         &.active {
           box-shadow: unset;
           outline: 0;
@@ -662,24 +777,26 @@ Navbar Warp  Style
       }
     }
   }
+
   &.second-navbar {
     box-shadow: unset;
     padding-top: 25px;
-    background: linear-gradient(
-      90deg,
-      #dee1e6 0%,
-      #e5e6ea 17.57%,
-      #ebecf0 34.86%,
-      #e8e9ed 52.23%,
-      #e7e8ec 65.17%,
-      #d7dadf 97.75%
-    );
+    background: linear-gradient(90deg,
+        #dee1e6 0%,
+        #e5e6ea 17.57%,
+        #ebecf0 34.86%,
+        #e8e9ed 52.23%,
+        #e7e8ec 65.17%,
+        #d7dadf 97.75%);
+
     .navbar-style2 {
       margin-left: 35px;
     }
+
     &.sticky {
       padding-top: 12px;
     }
+
     .navbar-nav {
       .nav-item {
         .dropdown-menu {
@@ -688,42 +805,47 @@ Navbar Warp  Style
       }
     }
   }
+
   &.inner-navbar {
     box-shadow: unset;
     padding-top: 20px;
     background: transparent;
     padding-bottom: 20px;
     border-bottom: solid 1px rgba(255, 255, 255, 0.4);
+
     .navbar-style2 {
       margin-left: 35px;
     }
+
     &.sticky {
-      background: linear-gradient(
-        90deg,
-        #dde6f4 0%,
-        #e6eaf8 17.57%,
-        #d4dcfc 34.86%,
-        #e2e6f6 52.23%,
-        #e0e5f8 65.17%,
-        #eef4fd 97.75%
-      );
+      background: linear-gradient(90deg,
+          #dde6f4 0%,
+          #e6eaf8 17.57%,
+          #d4dcfc 34.86%,
+          #e2e6f6 52.23%,
+          #e0e5f8 65.17%,
+          #eef4fd 97.75%);
     }
   }
+
   .social-list {
     padding-left: 142px;
     position: relative;
+
     li {
       padding-right: 15px;
       display: inline-block;
+
       &:last-child {
         padding-right: 0;
       }
+
       .icon {
-        filter: brightness(0) saturate(100%) invert(7%) sepia(7%)
-          saturate(7253%) hue-rotate(209deg) brightness(99%) contrast(103%);
+        filter: brightness(0) saturate(100%) invert(7%) sepia(7%) saturate(7253%) hue-rotate(209deg) brightness(99%) contrast(103%);
       }
     }
   }
+
   .navbar-style2 {
     .nav-item {
       &:nth-child(1) {
@@ -735,6 +857,7 @@ Navbar Warp  Style
           }
         }
       }
+
       &:nth-child(2) {
         .dropdown-menu {
           .nav-item {
@@ -747,11 +870,13 @@ Navbar Warp  Style
     }
   }
 }
+
 @keyframes fadeInDown {
   0% {
     opacity: 0;
     transform: translate3d(0, -100%, 0);
   }
+
   to {
     opacity: 1;
     transform: translateZ(0);
@@ -763,6 +888,7 @@ Responsive Warp  Style
 ======================================================*/
 .responsive-navbar {
   border: 0 !important;
+
   .offcanvas-header {
     padding: 15px;
     border-bottom: 1px solid #eeeeee;
@@ -778,8 +904,10 @@ Responsive Warp  Style
       color: var(--bs-dark);
     }
   }
+
   .offcanvas-body {
     padding: 30px 15px 15px;
+
     .accordion {
       .accordion-item {
         border: 0;
@@ -787,8 +915,10 @@ Responsive Warp  Style
         border-radius: 0;
         margin-bottom: 25px;
         background-color: transparent;
+
         .accordion-link {
           color: var(--paragraph);
+
           &:hover,
           &.active,
           &.router-link-active {
@@ -804,16 +934,20 @@ Responsive Warp  Style
           padding: 0 18px 0 0;
           color: var(--paragraph);
           background-color: transparent;
+
           font: {
             size: 15px;
           }
+
           &::after {
             display: none;
           }
+
           &:hover,
           &.active {
             color: var(--primary);
           }
+
           &::before {
             position: absolute;
             content: "\fb2a";
@@ -825,12 +959,14 @@ Responsive Warp  Style
             font-family: "tabler-icons" !important;
             font-size: 16px;
           }
+
           &.without-icon {
             &::before {
               display: none;
             }
           }
         }
+
         .accordion-collapse {
           .accordion-body {
             padding: 20px;
@@ -847,15 +983,18 @@ Responsive Warp  Style
                 display: block;
                 color: var(--paragraph);
                 background-color: transparent;
+
                 font: {
                   size: 15px;
                   weight: 400;
                 }
+
                 &:hover,
                 &.active {
                   color: var(--primary);
                 }
               }
+
               .accordion-button {
                 width: 100%;
                 display: block;
@@ -864,13 +1003,16 @@ Responsive Warp  Style
                 padding: 0 18px 0 0;
                 color: var(--paragraph);
                 background-color: transparent;
+
                 font: {
                   size: 15px;
                   weight: 500;
                 }
+
                 &::after {
                   display: none;
                 }
+
                 &::before {
                   position: absolute;
                   content: "\fb2a";
@@ -882,14 +1024,17 @@ Responsive Warp  Style
                   font-family: "tabler-icons" !important;
                   font-size: 16px;
                 }
+
                 &:hover,
                 &.active {
                   color: var(--primary);
                 }
               }
+
               .accordion-collapse {
                 .accordion-body {
                   background-color: #dfdfdf;
+
                   .accordion-item {
                     .accordion-collapse {
                       .accordion-body {
@@ -899,39 +1044,48 @@ Responsive Warp  Style
                   }
                 }
               }
+
               &:last-child {
                 margin-bottom: 0;
               }
             }
           }
         }
+
         &:last-child {
           margin-bottom: 0;
         }
       }
     }
   }
+
   .others-option {
     position: relative;
+
     .option-item {
       padding-right: 30px;
+
       &:last-child {
         padding-right: 0;
       }
+
       .search-bar {
         .search-btn {
           position: relative;
         }
       }
+
       .side-bar-btn {
         padding: 0;
       }
     }
   }
 }
+
 .modal-header {
   border-bottom: none;
   padding: 20px 20px 0 28px;
+
   .btn-close {
     &:focus {
       box-shadow: unset;
@@ -951,9 +1105,11 @@ Search Popup Warp  Style
   z-index: -999;
   opacity: 0;
   transition: 0.6s;
+
   &.active {
     z-index: 9999;
     opacity: 1;
+
     .search-popup-overlay {
       top: auto;
       z-index: 6;
@@ -975,6 +1131,7 @@ Search Popup Warp  Style
       -o-transition: transform 1.2s cubic-bezier(0.4, 0, 0, 1);
       transition: transform 1.2s cubic-bezier(0.4, 0, 0, 1);
     }
+
     .search-popup-content {
       width: 100%;
       opacity: 1;
@@ -982,6 +1139,7 @@ Search Popup Warp  Style
       transition: var(--transition);
     }
   }
+
   .search-popup-overlay {
     position: fixed;
     width: 224vw;
@@ -992,6 +1150,7 @@ Search Popup Warp  Style
     background-color: #000;
     cursor: url(../img/shapes/cross-btn.png), auto;
   }
+
   .search-popup-content {
     position: fixed;
     width: 0;
@@ -1004,8 +1163,10 @@ Search Popup Warp  Style
     margin-right: auto;
     opacity: 0;
     z-index: 3;
+
     .search-popup-form {
       position: relative;
+
       .form-control {
         width: 100%;
         background-color: #ffffff;
@@ -1017,12 +1178,15 @@ Search Popup Warp  Style
         padding-top: 5px;
         border-radius: 0;
         padding-left: 30px;
+
         &:focus {
           box-shadow: unset;
+
           &::placeholder {
             color: transparent;
           }
         }
+
         &::placeholder {
           color: var(--paragraph);
           transition: 0.6s;
@@ -1030,6 +1194,7 @@ Search Popup Warp  Style
       }
     }
   }
+
   .search-popup-form {
     .default-btn {
       padding: 20px 0;
@@ -1045,9 +1210,11 @@ Search Popup Warp  Style
       border-radius: 0;
       transition: 0.6s;
       font-size: 22px;
+
       &:focus {
         box-shadow: unset;
       }
+
       &:hover {
         background-color: var(--bs-dark);
       }
@@ -1064,25 +1231,31 @@ Top Header Warp  Style
   padding-bottom: 12px;
   position: relative;
   z-index: 999;
+
   &.style2-top-header {
     background-color: var(--white);
   }
 }
+
 .top-header-details {
   display: flex;
   align-items: center;
+
   ul {
     list-style: none;
     padding-left: 0;
     margin-bottom: 0;
+
     li {
       display: inline-block;
       position: relative;
     }
   }
+
   .social-list {
     padding-right: 95px;
     position: relative;
+
     &::before {
       content: "";
       position: absolute;
@@ -1093,36 +1266,44 @@ Top Header Warp  Style
       width: 335px;
       background: #7768e5;
     }
+
     li {
       padding-right: 15px;
+
       &:last-child {
         padding-right: 0;
       }
+
       &:hover {
         .icon {
-          filter: brightness(0) saturate(100%) invert(97%) sepia(50%)
-            saturate(4378%) hue-rotate(318deg) brightness(102%) contrast(94%);
+          filter: brightness(0) saturate(100%) invert(97%) sepia(50%) saturate(4378%) hue-rotate(318deg) brightness(102%) contrast(94%);
         }
       }
     }
   }
+
   .header-contact {
     padding-left: 30px;
+
     li {
       font-size: 13px;
       font-weight: 500;
       position: relative;
       padding-left: 20px;
       padding-right: 30px;
+
       &:last-child {
         padding-right: 0;
       }
+
       a {
         color: #525271;
+
         &:hover {
           color: var(--primary);
         }
       }
+
       i {
         position: absolute;
         left: 0;
@@ -1132,22 +1313,27 @@ Top Header Warp  Style
     }
   }
 }
+
 .top-header-link-details {
   display: flex;
   align-items: center;
   justify-content: end;
+
   ul {
     list-style: none;
     padding-left: 0;
     margin-bottom: 0;
+
     li {
       display: inline-block;
       position: relative;
     }
   }
+
   .header-link {
     padding-right: 35px;
     position: relative;
+
     &::before {
       content: "";
       position: absolute;
@@ -1158,25 +1344,32 @@ Top Header Warp  Style
       width: 1px;
       background: #b3b3d6;
     }
+
     li {
       padding-right: 40px;
+
       &:last-child {
         padding-right: 0;
       }
+
       a {
         font-size: 13px;
         font-weight: 500;
         color: #525271;
+
         &:hover {
           color: var(--primary);
         }
       }
     }
   }
+
   .header-account {
     padding-left: 35px;
+
     li {
       padding-right: 30px;
+
       .form-select {
         background-color: transparent;
         padding: 1px 0 0 0;
@@ -1189,15 +1382,18 @@ Top Header Warp  Style
         background-position: right center;
         background-image: url(../img/svgs/caret-down.svg);
       }
+
       &:last-child {
         padding-left: 20px;
         padding-right: 0;
+
         i {
           position: absolute;
           left: 0;
           top: 7px;
           color: rgba(13, 13, 37, 1);
         }
+
         a {
           color: #525271;
           font-size: 13px;
@@ -1220,14 +1416,18 @@ Hero Warp Style
   padding-bottom: 296px;
   z-index: 1;
   animation-duration: 110ms;
+
   &.bg1 {
     background-image: url(../img/heros/hero1.jpg);
   }
+
   &.bg2 {
     background-image: url(../img/heros/hero2.jpg);
   }
+
   .content {
     max-width: 655px;
+
     h1 {
       font-size: 60px;
       font-family: Alfa Slab One;
@@ -1237,12 +1437,14 @@ Hero Warp Style
       margin-bottom: 26px;
       line-height: 75px;
     }
+
     .default-btn {
       &.style2 {
         background-color: transparent;
         border: 1px solid #f8ca4d;
         color: #f8ca4d;
         margin-left: 10px;
+
         &:hover {
           color: var(--white);
         }
@@ -1250,14 +1452,17 @@ Hero Warp Style
     }
   }
 }
+
 .hero-warp {
   position: relative;
   margin-top: -150px;
+
   .pagination-bullet-btn {
     position: absolute;
     left: 100px;
     bottom: 100px;
     z-index: 999;
+
     .swiper-pagination-bullet {
       height: 6px;
       transition: 0.6s;
@@ -1266,17 +1471,20 @@ Hero Warp Style
       margin-right: 12px;
       background: rgba(255, 255, 255, 0.5);
     }
+
     .swiper-pagination-bullet-active {
       width: 10px;
       height: 10px;
       background-color: rgba(255, 255, 255, 1);
     }
+
     .swiper-pagination2 {
       display: flex;
       align-items: center;
     }
   }
 }
+
 .information {
   list-style: none;
   padding-left: 0;
@@ -1285,20 +1493,25 @@ Hero Warp Style
   position: absolute;
   right: 0;
   bottom: 0;
+
   li {
     display: inline-block;
     width: 353px;
     text-align: center;
     padding: 36px 30px;
+
     &:first-child {
       background: #f8ca4d;
     }
+
     &:nth-child(2) {
       background: #4569b4;
     }
+
     &:last-child {
       background: #353688;
     }
+
     a {
       font-family: Alfa Slab One;
       letter-spacing: 0.64px;
@@ -1306,6 +1519,7 @@ Hero Warp Style
       font-size: 16px;
       color: var(--white);
     }
+
     i {
       position: relative;
       color: var(--white);
@@ -1315,6 +1529,7 @@ Hero Warp Style
     }
   }
 }
+
 .update-link {
   position: absolute;
   font-weight: 500;
@@ -1322,8 +1537,10 @@ Hero Warp Style
   right: 100px;
   bottom: 155px;
   font-family: Work Sans;
+
   span {
     position: relative;
+
     &::before {
       content: "";
       position: absolute;
@@ -1335,6 +1552,7 @@ Hero Warp Style
       transition: 0.6s;
       background-color: var(--white);
     }
+
     &::after {
       content: "";
       position: absolute;
@@ -1347,18 +1565,22 @@ Hero Warp Style
       background-color: var(--primary);
     }
   }
+
   i {
     position: relative;
     font-size: 20px;
     left: 5px;
     top: 4px;
   }
+
   &:hover {
     color: var(--primary);
+
     span {
       &::before {
         width: 0;
       }
+
       &::after {
         width: 100%;
       }
@@ -1371,6 +1593,7 @@ Program Warp Style
 ======================================================*/
 .program-images {
   padding-right: 15px;
+
   .logo-content {
     display: flex;
     align-items: center;
@@ -1380,12 +1603,15 @@ Program Warp Style
     padding: 25px;
     margin-top: 40px;
     margin-right: -75px;
+
     .logo {
       width: 121px;
       height: 89px;
     }
+
     .content {
       padding-left: 10px;
+
       h2 {
         color: #0d0d25;
         font-family: Alfa Slab One;
@@ -1394,23 +1620,28 @@ Program Warp Style
         margin-bottom: 1px;
         letter-spacing: 1.2px;
       }
+
       p {
         font-size: 14px;
         line-height: 1.5;
       }
     }
   }
+
   .big-image {
     padding-right: 20px;
     margin-left: -5px;
   }
 }
+
 .find-program-warp {
   padding-top: 145px;
 }
+
 .program-content {
   padding-left: 55px;
   padding-right: 52px;
+
   h2 {
     font-size: 32px;
     color: #0d0d25;
@@ -1418,13 +1649,16 @@ Program Warp Style
     font-weight: 400;
     font-family: Alfa Slab One;
   }
+
   p {
     margin-bottom: 20px;
   }
+
   .program-input {
     height: 70px;
     position: relative;
     margin-bottom: 15px;
+
     .form-control {
       height: 70px;
       background: #e8e8f4;
@@ -1432,17 +1666,21 @@ Program Warp Style
       border-radius: 0;
       font-size: 14px;
       border: transparent;
+
       &:focus {
         box-shadow: unset;
+
         &::placeholder {
           color: transparent;
         }
       }
+
       &::placeholder {
         transition: 0.6s;
         color: #89899f;
       }
     }
+
     .search-btn {
       position: absolute;
       background: transparent;
@@ -1453,37 +1691,45 @@ Program Warp Style
       transform: translateY(-50%);
     }
   }
+
   .blank-program {
     display: inline-block;
     margin-bottom: 30px;
   }
+
   .program-list {
     list-style: none;
     padding-left: 0;
     margin-left: -25px;
     margin-bottom: 0;
+
     span {
       width: 100%;
       display: inline-block;
     }
+
     li {
       padding-right: 5px;
       display: inline-block;
+
       a {
         font-size: 14px;
         color: #525271;
         text-decoration: underline;
+
         &:hover {
           color: var(--primary);
         }
       }
     }
   }
+
   .search-list {
     font-size: 14px;
     color: #89899f;
     font-weight: 500;
   }
+
   .program-item {
     margin-top: 30px;
     border: 1px solid #e8e8f4;
@@ -1491,22 +1737,28 @@ Program Warp Style
     display: flex;
     position: relative;
     align-items: center;
+
     .image {
       width: 114px;
       height: 90px;
     }
+
     .content {
       padding-left: 20px;
+
       h4 {
         font-size: 16px;
         font-weight: 600;
+
         a {
           color: #000000;
+
           &:hover {
             color: var(--primary);
           }
         }
       }
+
       span {
         font-size: 12px;
         line-height: 1;
@@ -1518,6 +1770,7 @@ Program Warp Style
         margin-bottom: 10px;
       }
     }
+
     .icon {
       position: absolute;
       width: 40px;
@@ -1529,6 +1782,7 @@ Program Warp Style
       line-height: 40px;
       display: inline-block;
       background: #e8e8f4;
+
       &:hover {
         color: var(--white);
         background-color: var(--primary);
@@ -1543,6 +1797,7 @@ Mission Warp Style
 .mission-tab {
   display: block;
   padding-right: 40px;
+
   .tablinks {
     margin-bottom: 20px;
     width: 100%;
@@ -1553,9 +1808,11 @@ Mission Warp Style
     z-index: 999;
     position: relative;
     background-color: var(--white);
+
     &.active {
       width: 135%;
     }
+
     .mission-tab-btn {
       width: 100%;
       display: flex;
@@ -1568,6 +1825,7 @@ Mission Warp Style
       font-weight: 600;
       letter-spacing: -0.32px;
       padding: 0;
+
       .icon {
         width: 40px;
         border-radius: 2px;
@@ -1578,6 +1836,7 @@ Mission Warp Style
         color: rgba(252, 100, 65, 1);
         display: inline-block;
         transition: 0.6s;
+
         &:hover {
           color: var(--white);
           background-color: var(--primary);
@@ -1586,63 +1845,77 @@ Mission Warp Style
     }
   }
 }
+
 .mission-content {
   padding-left: 38px;
+
   h3 {
     font-family: Alfa Slab One;
     font-size: 32px;
     font-weight: 400;
     margin-bottom: 45px;
   }
+
   .mission-box {
     .icon {
       margin-bottom: 16px;
     }
+
     h5 {
       font-size: 22px;
       margin-bottom: 10px;
     }
+
     p {
       margin-bottom: 18px;
     }
+
     .mission-link {
       font-weight: 600;
       color: #353688;
       font-family: Work Sans;
       display: block;
       margin-bottom: 75px;
+
       i {
         position: relative;
         left: 4px;
         top: 4px;
         font-size: 20px;
       }
+
       span {
         text-decoration: underline;
       }
     }
   }
 }
+
 .mission-warp {
   .tabcontent {
     display: none;
     transition: 0.6s;
+
     &.active {
       display: block !important;
     }
   }
+
   .mission-image {
     padding-left: 20px;
     padding-right: 25px;
     position: relative;
+
     .mission-shape {
       position: absolute;
       top: 90px;
       right: 0;
     }
   }
+
   position: relative;
   z-index: 1;
+
   &::before {
     content: "";
     position: absolute;
@@ -1667,11 +1940,13 @@ Fun Fact Warp Style
     margin-bottom: -13px;
     line-height: 1;
   }
+
   .icon {
     .style {
       margin-right: 20px;
     }
   }
+
   p {
     font-size: 14px;
     letter-spacing: 1.4px;
@@ -1680,26 +1955,32 @@ Fun Fact Warp Style
     padding-right: 90px;
   }
 }
+
 .col-lg-3 {
   &:nth-child(4) {
     .fun-fact-card {
       margin-left: 150px;
+
       p {
         padding-right: 0;
       }
     }
   }
+
   &:nth-child(3) {
     .fun-fact-card {
       margin-left: 100px;
+
       p {
         padding-right: 0;
       }
     }
   }
+
   &:nth-child(2) {
     .fun-fact-card {
       margin-left: 50px;
+
       p {
         padding-right: 0;
       }
@@ -1715,9 +1996,11 @@ Features Warp Style
     max-width: 1500px;
   }
 }
+
 .features-box {
   .content {
     padding-top: 20px;
+
     .title {
       font-size: 12px;
       font-family: Work Sans;
@@ -1727,29 +2010,36 @@ Features Warp Style
       display: inline-block;
       color: var(--white);
       margin-bottom: 12px;
+
       &.bg1 {
         background: #fc6441;
       }
     }
+
     h3 {
       font-size: 22px;
       margin-bottom: 15px;
       padding-right: 30px;
+
       a {
         color: #0d0d25;
+
         &:hover {
           color: var(--primary);
         }
       }
     }
+
     .features-link {
       color: #353688;
       font-family: Work Sans;
       font-size: 16px;
       font-weight: 600;
+
       span {
         text-decoration: underline;
       }
+
       i {
         position: relative;
         left: 2px;
@@ -1758,23 +2048,28 @@ Features Warp Style
       }
     }
   }
+
   video {
     object-fit: cover;
     height: 468px;
     width: 100%;
   }
 }
+
 .features-item {
   padding-left: 40px;
   margin-bottom: 32px;
   display: flex;
   align-items: center;
+
   .image {
     width: 150px;
     height: 134px;
   }
+
   .content {
     margin-left: 20px;
+
     .title {
       font-size: 12px;
       font-family: Work Sans;
@@ -1784,35 +2079,44 @@ Features Warp Style
       display: inline-block;
       color: var(--white);
       margin-bottom: 12px;
+
       &.bg1 {
         background: #7768e5;
       }
+
       &.bg2 {
         background: #5ca89f;
       }
+
       &.bg3 {
         background: #4569b4;
       }
     }
+
     h3 {
       font-size: 22px;
       margin-bottom: 15px;
       font-weight: 600;
+
       a {
         color: #0d0d25;
+
         &:hover {
           color: var(--primary);
         }
       }
     }
+
     .features-link {
       color: #353688;
       font-family: Work Sans;
       font-size: 16px;
       font-weight: 600;
+
       span {
         text-decoration: underline;
       }
+
       i {
         position: relative;
         left: 2px;
@@ -1822,37 +2126,45 @@ Features Warp Style
     }
   }
 }
+
 .features-item-link {
   display: flex;
   margin-left: 40px;
   align-items: center;
   background-color: var(--white);
   padding: 38px;
+
   .icon {
     width: 48px;
     height: 48px;
   }
+
   .content {
     padding-left: 38px;
+
     p {
       color: #0d0d25;
       font-family: Work Sans;
       font-size: 16px;
       font-weight: 500;
       margin-bottom: 1px;
+
       span {
         font-weight: 700;
         color: #0d0d25;
       }
     }
+
     .features-link {
       color: #353688;
       font-family: Work Sans;
       font-size: 16px;
       font-weight: 600;
+
       span {
         text-decoration: underline;
       }
+
       i {
         position: relative;
         left: 2px;
@@ -1869,17 +2181,20 @@ Information Warp Style
 .information-image {
   padding-left: 220px;
   position: relative;
+
   .small-image {
     position: absolute;
     bottom: 78px;
     left: 38px;
     width: 204px;
     height: 204px;
+
     .information {
       width: 204px;
       height: 204px;
     }
   }
+
   .round-shape {
     width: 192.2px;
     height: 192.249px;
@@ -1888,6 +2203,7 @@ Information Warp Style
     top: -50px;
     left: 69px;
     line-height: 192px;
+
     .text-shape {
       position: absolute;
       left: 0;
@@ -1896,6 +2212,7 @@ Information Warp Style
     }
   }
 }
+
 .information-content {
   h2 {
     font-size: 32px;
@@ -1906,6 +2223,7 @@ Information Warp Style
     margin-bottom: 20px;
     line-height: 1.5;
   }
+
   .information-list {
     list-style: none;
     padding-left: 0;
@@ -1913,13 +2231,16 @@ Information Warp Style
     font-weight: 500;
     color: #3a3a5e;
     margin-top: 20px;
+
     li {
       position: relative;
       padding-left: 32px;
       margin-bottom: 12px;
+
       &:last-child {
         margin-bottom: 0;
       }
+
       i {
         position: absolute;
         left: 0;
@@ -1929,51 +2250,64 @@ Information Warp Style
       }
     }
   }
+
   .info-button {
     margin-bottom: 25px;
+
     .style2 {
       background: #7768e5;
       margin-right: 15px;
     }
   }
+
   .info-link-chat {
     display: flex;
     align-items: center;
+
     .chat-list {
       list-style: none;
       padding-left: 0;
       margin-bottom: 0;
+
       li {
         display: inline-block;
         margin-left: -25px;
+
         &:first-child {
           margin-left: 0;
         }
+
         .image {
           width: 50px;
           height: 50px;
         }
       }
     }
+
     .content {
       margin-left: 15px;
+
       p {
         color: #0d0d25;
         font-family: Work Sans;
         font-weight: 500;
         margin-bottom: 2px;
       }
+
       .chat-link {
         color: #353688;
         font-family: Work Sans;
         font-size: 16px;
         font-weight: 600;
+
         &:hover {
           color: var(--primary);
         }
+
         span {
           text-decoration: underline;
         }
+
         i {
           position: relative;
           left: 2px;
@@ -1990,14 +2324,17 @@ Culture Warp Style
 ======================================================*/
 .culture-warp {
   overflow: hidden;
+
   .container-fluid {
     max-width: 100%;
     padding: 0 !important;
   }
 }
+
 .culture-box {
   position: relative;
   overflow: hidden;
+
   .content {
     position: absolute;
     padding: 30px 50px;
@@ -2008,27 +2345,34 @@ Culture Warp Style
     transition: 0.8s;
     left: -200px;
     bottom: -100px;
+
     h3 {
       font-size: 22px;
       margin-bottom: 15px;
+
       a {
         color: var(--white);
+
         &:hover {
           color: var(--primary);
         }
       }
     }
+
     p {
       color: #d8d8e5;
       margin-bottom: 15px;
     }
+
     .culture-link {
       color: #fc6441;
       font-family: Work Sans;
       font-weight: 600;
+
       span {
         text-decoration: underline;
       }
+
       i {
         position: relative;
         left: 2px;
@@ -2037,6 +2381,7 @@ Culture Warp Style
       }
     }
   }
+
   &:hover {
     .content {
       left: 0;
@@ -2052,6 +2397,7 @@ Academic Warp Style
 .academic-item {
   background: #faf6f6;
   padding: 35px 30px 35px 30px;
+
   .academic-card {
     span {
       padding: 5px 6px;
@@ -2064,20 +2410,25 @@ Academic Warp Style
       display: inline-block;
       margin-bottom: 10px;
     }
+
     h3 {
       font-size: 22px;
       margin-bottom: 20px;
+
       a {
         color: #0d0d25;
       }
     }
+
     .image {
       margin-bottom: 15px;
     }
   }
 }
+
 .academic-box {
   margin-bottom: 25px;
+
   span {
     padding: 5px 6px;
     background: #fff;
@@ -2089,28 +2440,36 @@ Academic Warp Style
     display: inline-block;
     margin-bottom: 10px;
   }
+
   h3 {
     font-size: 22px;
     margin-bottom: 10px;
+
     a {
       color: #0d0d25;
     }
   }
+
   p {
     padding-bottom: 5px;
   }
+
   .image {
     margin-bottom: 15px;
   }
+
   .default-btn {
     background: #f8ca4d;
   }
+
   .image {
     position: relative;
     overflow: hidden;
+
     img {
       transition: 0.6s;
     }
+
     &::before {
       position: absolute;
       top: 0;
@@ -2121,56 +2480,61 @@ Academic Warp Style
       width: 50%;
       transition: 0.6s;
       height: 100%;
-      background: -webkit-linear-gradient(
-        left,
-        rgba(255, 255, 255, 0) 0%,
-        rgba(255, 255, 255, 0.3) 100%
-      );
-      background: linear-gradient(
-        to right,
-        rgba(255, 255, 255, 0) 0%,
-        rgba(255, 255, 255, 0.3) 100%
-      );
+      background: -webkit-linear-gradient(left,
+          rgba(255, 255, 255, 0) 0%,
+          rgba(255, 255, 255, 0.3) 100%);
+      background: linear-gradient(to right,
+          rgba(255, 255, 255, 0) 0%,
+          rgba(255, 255, 255, 0.3) 100%);
       -webkit-transform: skewX(-25deg);
       transform: skewX(-25deg);
     }
   }
+
   &:hover {
     .image {
       &::before {
         -webkit-animation: shine 0.75s;
         animation: shine 0.75s;
       }
+
       img {
         transform: scale(1.1);
       }
     }
   }
 }
+
 .academic-slider-warp {
   background: #f8f8f9;
   padding: 25px 30px 25px 30px;
   position: relative;
+
   .swiper-pagination2 {
     line-height: 1;
     margin-top: 48px;
+
     .swiper-pagination-bullet {
       height: 6px;
       width: 6px;
       opacity: 1;
       background-color: #c5c5d3;
     }
+
     .swiper-pagination-bullet-active {
       background-color: #5c5c7e;
     }
   }
 }
+
 .academic-option {
   position: relative;
+
   .content {
     padding-bottom: 25px;
     margin-bottom: 25px;
     position: relative;
+
     &::before {
       content: "";
       position: absolute;
@@ -2181,22 +2545,27 @@ Academic Warp Style
       width: 120%;
       background: #ece5e5;
     }
+
     .academic-link {
       display: block;
       color: #353688;
       font-weight: 600;
       margin-bottom: 10px;
+
       &:nth-child(3) {
         margin-bottom: 0;
       }
+
       i {
         position: relative;
         left: 2px;
         top: 4px;
         font-size: 20px;
       }
+
       span {
         position: relative;
+
         &::before {
           content: "";
           position: absolute;
@@ -2209,8 +2578,10 @@ Academic Warp Style
           background-color: rgba(252, 100, 65, 1);
         }
       }
+
       &:hover {
         color: rgba(252, 100, 65, 1);
+
         span {
           &::before {
             width: 100%;
@@ -2218,13 +2589,16 @@ Academic Warp Style
         }
       }
     }
+
     h3 {
       font-size: 22px;
       margin-bottom: 18px;
     }
   }
+
   .academic-date {
     padding-bottom: 25px;
+
     .title {
       display: block;
       font-weight: 600;
@@ -2232,24 +2606,30 @@ Academic Warp Style
       display: block;
       margin-bottom: 5px;
     }
+
     &:nth-child(5) {
       padding-bottom: 0;
     }
+
     .date-link {
       display: block;
       color: #353688;
       font-weight: 600;
+
       &:nth-child(4) {
         margin-bottom: 0;
       }
+
       i {
         position: relative;
         left: 2px;
         top: 4px;
         font-size: 20px;
       }
+
       span {
         position: relative;
+
         &::before {
           content: "";
           position: absolute;
@@ -2262,8 +2642,10 @@ Academic Warp Style
           background-color: rgba(252, 100, 65, 1);
         }
       }
+
       &:hover {
         color: rgba(252, 100, 65, 1);
+
         span {
           &::before {
             width: 100%;
@@ -2279,6 +2661,7 @@ Recognized Warp Style
 ======================================================*/
 .recognized-content {
   padding-left: 90px;
+
   h2 {
     letter-spacing: 1.28px;
     font-family: Alfa Slab One;
@@ -2286,25 +2669,31 @@ Recognized Warp Style
     font-weight: 400;
     margin-bottom: 25px;
   }
+
   p {
     margin-bottom: 20px;
   }
+
   .recognized-link {
     display: block;
     color: #353688;
     font-weight: 600;
     margin-bottom: 10px;
+
     &:nth-child(3) {
       margin-bottom: 0;
     }
+
     i {
       position: relative;
       left: 2px;
       top: 2px;
       font-size: 20px;
     }
+
     span {
       position: relative;
+
       &::before {
         content: "";
         position: absolute;
@@ -2317,8 +2706,10 @@ Recognized Warp Style
         background-color: rgba(252, 100, 65, 1);
       }
     }
+
     &:hover {
       color: rgba(252, 100, 65, 1);
+
       span {
         &::before {
           width: 100%;
@@ -2334,6 +2725,7 @@ Choose Warp Style
 .choose-warp {
   position: relative;
   z-index: 1;
+
   &::before {
     content: "";
     position: absolute;
@@ -2344,36 +2736,45 @@ Choose Warp Style
     height: 50%;
     background: #e8e8f4;
   }
+
   .container-fluid {
     max-width: 1820px;
   }
 }
+
 .choose-card {
   padding: 42px 40px;
+
   h3 {
     font-size: 22px;
     color: var(--white);
     margin-bottom: 15px;
   }
+
   p {
     color: #effffd;
     margin-bottom: 15px;
   }
+
   .choose-link {
     display: block;
     color: #f8ca4d;
     font-weight: 600;
+
     &:nth-child(3) {
       margin-bottom: 0;
     }
+
     i {
       position: relative;
       left: 2px;
       top: 4px;
       font-size: 20px;
     }
+
     span {
       position: relative;
+
       &::before {
         content: "";
         position: absolute;
@@ -2386,8 +2787,10 @@ Choose Warp Style
         background-color: var(--white);
       }
     }
+
     &:hover {
       color: var(--white);
+
       span {
         &::before {
           width: 100%;
@@ -2395,15 +2798,19 @@ Choose Warp Style
       }
     }
   }
+
   &.bg-1 {
     background: #fc6441;
   }
+
   &.bg-2 {
     background: #5ca89f;
   }
+
   &.bg-3 {
     background: #4569b4;
   }
+
   &.bg-4 {
     background: #1d5f72;
   }
@@ -2414,6 +2821,7 @@ Service Warp Style
 ======================================================*/
 .service-content {
   padding-right: 50px;
+
   h2 {
     color: #0d0d25;
     font-family: Alfa Slab One;
@@ -2422,27 +2830,33 @@ Service Warp Style
     letter-spacing: 1.28px;
     margin-bottom: 20px;
   }
+
   p {
     margin-bottom: 20px;
     padding-right: 55px;
   }
+
   .default-btn {
     background: #7768e5;
   }
+
   .service-list {
     list-style: none;
     padding-left: 0;
     margin-top: 30px;
     margin-bottom: 0;
+
     li {
       position: relative;
       padding-left: 30px;
       margin-bottom: 12px;
       color: #3a3a5e;
       font-weight: 500;
+
       &:last-child {
         margin-bottom: 0;
       }
+
       i {
         position: absolute;
         left: 0;
@@ -2453,9 +2867,11 @@ Service Warp Style
     }
   }
 }
+
 .service-image {
   padding-left: 40px;
   position: relative;
+
   .service-counter {
     padding: 30px;
     text-align: center;
@@ -2464,6 +2880,7 @@ Service Warp Style
     background-color: var(--white);
     bottom: 0;
     left: -140px;
+
     h2 {
       color: #0d0d25;
       font-family: Alfa Slab One;
@@ -2471,11 +2888,13 @@ Service Warp Style
       font-weight: 400;
       margin-bottom: -5px;
     }
+
     .icon {
       .style {
         margin-right: 15px;
       }
     }
+
     p {
       font-size: 14px;
       letter-spacing: 1.4px;
@@ -2483,6 +2902,7 @@ Service Warp Style
       line-height: 1.8;
     }
   }
+
   .image {
     &.style2 {
       margin-top: 66px;
@@ -2495,6 +2915,7 @@ Blog Warp Style
 ======================================================*/
 .image-blog-card {
   position: relative;
+
   &::before {
     content: "";
     position: absolute;
@@ -2504,17 +2925,17 @@ Blog Warp Style
     right: 0;
     height: 100%;
     width: 100%;
-    background: linear-gradient(
-      180deg,
-      rgba(13, 13, 37, 0.1) 68.67%,
-      #0d0d25 100%
-    );
+    background: linear-gradient(180deg,
+        rgba(13, 13, 37, 0.1) 68.67%,
+        #0d0d25 100%);
   }
+
   .content {
     position: absolute;
     bottom: 25px;
     left: 25px;
     right: 25px;
+
     span {
       line-height: 1;
       display: inline-flex;
@@ -2527,11 +2948,14 @@ Blog Warp Style
       background: var(--white);
       box-shadow: 0px 4px 12px 0px rgba(119, 104, 229, 0.1);
     }
+
     h3 {
       font-size: 22px;
       margin-bottom: 0;
+
       a {
         color: var(--white);
+
         &:hover {
           color: var(--primary);
         }
@@ -2539,6 +2963,7 @@ Blog Warp Style
     }
   }
 }
+
 .content-blog-card {
   span {
     line-height: 1;
@@ -2552,25 +2977,31 @@ Blog Warp Style
     background: var(--white);
     box-shadow: 0px 4px 12px 0px rgba(119, 104, 229, 0.1);
   }
+
   h3 {
     font-size: 22px;
     margin-bottom: 15px;
+
     a {
       color: #0d0d25;
+
       &:hover {
         color: var(--primary);
       }
     }
   }
+
   .blog-list {
     list-style: none;
     margin-bottom: 20px;
     padding-left: 0;
+
     li {
       display: inline-block;
       padding-right: 36px;
       color: #525271;
       position: relative;
+
       &::before {
         content: "";
         position: absolute;
@@ -2581,8 +3012,10 @@ Blog Warp Style
         width: 1px;
         background: #e8e8f4;
       }
+
       &:last-child {
         padding-right: 0;
+
         &::before {
           display: none;
         }
@@ -2590,13 +3023,16 @@ Blog Warp Style
     }
   }
 }
+
 .blog-content-widget {
   padding-left: 30px;
+
   .blog-donate {
     display: flex;
     padding: 24px 30px;
     align-items: center;
     background: linear-gradient(90deg, #b0c2ff 0%, #f1f1fc 100%);
+
     .icon {
       width: 64px;
       height: 64px;
@@ -2605,27 +3041,34 @@ Blog Warp Style
       text-align: center;
       background-color: var(--white);
     }
+
     .content {
       padding-left: 35px;
+
       h6 {
         font-size: 22px;
         margin-bottom: 5px;
       }
+
       .donate-link {
         display: block;
         color: #353688;
         font-weight: 600;
+
         &:nth-child(3) {
           margin-bottom: 0;
         }
+
         i {
           position: relative;
           left: 2px;
           top: 2px;
           font-size: 20px;
         }
+
         span {
           position: relative;
+
           &::before {
             content: "";
             position: absolute;
@@ -2638,8 +3081,10 @@ Blog Warp Style
             background-color: rgba(252, 100, 65, 1);
           }
         }
+
         &:hover {
           color: rgba(252, 100, 65, 1);
+
           span {
             &::before {
               width: 100%;
@@ -2657,25 +3102,31 @@ Footer Warp Style
 .footer-warp {
   background: #28283f;
 }
+
 .footer-widget {
   h3 {
     font-size: 20px;
     margin-bottom: 25px;
     color: var(--white);
   }
+
   .footer-list {
     list-style: none;
     padding-left: 0;
     margin-bottom: 0;
     margin-top: 10px;
+
     li {
       position: relative;
       margin-bottom: 8px;
+
       &:last-child {
         margin-bottom: 0;
       }
+
       a {
         color: #c5c5cf;
+
         &:hover {
           color: var(--primary);
           letter-spacing: 1px;
@@ -2683,6 +3134,7 @@ Footer Warp Style
       }
     }
   }
+
   .form-control {
     height: 70px;
     background: #595970;
@@ -2693,17 +3145,21 @@ Footer Warp Style
     border: none;
     transition: 0.6s;
     margin-bottom: 20px;
+
     &:focus {
       box-shadow: unset;
+
       &::placeholder {
         color: transparent;
       }
     }
+
     &::placeholder {
       transition: 0.6s;
       color: #cacad1;
     }
   }
+
   .footer-btn {
     display: block;
     color: #f8ca4d;
@@ -2711,17 +3167,21 @@ Footer Warp Style
     font-family: Work Sans;
     background-color: transparent;
     border: none;
+
     &:nth-child(3) {
       margin-bottom: 0;
     }
+
     i {
       position: relative;
       left: 2px;
       top: 2px;
       font-size: 20px;
     }
+
     span {
       position: relative;
+
       &::before {
         content: "";
         position: absolute;
@@ -2734,8 +3194,10 @@ Footer Warp Style
         background-color: rgba(252, 100, 65, 1);
       }
     }
+
     &:hover {
       color: rgba(252, 100, 65, 1);
+
       span {
         &::before {
           width: 100%;
@@ -2743,22 +3205,27 @@ Footer Warp Style
       }
     }
   }
+
   .footer-form {
     margin-bottom: 50px;
   }
+
   .footer-logos {
     list-style: none;
     padding-left: 0;
     margin-bottom: 0;
+
     li {
       display: inline-block;
       padding-right: 24px;
+
       &:last-child {
         padding-right: 0;
       }
     }
   }
 }
+
 .col-lg-4 {
   &:nth-child(4) {
     .footer-widget {
@@ -2766,6 +3233,7 @@ Footer Warp Style
     }
   }
 }
+
 .col-lg-3 {
   &:nth-child(2) {
     .footer-widget {
@@ -2773,6 +3241,7 @@ Footer Warp Style
     }
   }
 }
+
 .col-lg-2 {
   &:nth-child(3) {
     .footer-widget {
@@ -2780,19 +3249,24 @@ Footer Warp Style
     }
   }
 }
+
 .copy-right-warp {
   background: #353688;
   padding-top: 25px;
   padding-bottom: 25px;
+
   .copy-right-content {
     text-align: center;
+
     p {
       color: #b8b8b8;
       font-weight: 400;
+
       a {
         color: var(--white);
         font-weight: 700;
       }
+
       span {
         color: var(--white);
         font-weight: 700;
@@ -2809,15 +3283,14 @@ Hero Style2 Warp Style
   padding-bottom: 130px;
   padding-top: 448px;
   z-index: 1;
-  background: linear-gradient(
-    90deg,
-    #dee1e6 0%,
-    #e5e6ea 17.57%,
-    #ebecf0 34.86%,
-    #e8e9ed 52.23%,
-    #e7e8ec 65.17%,
-    #d7dadf 97.75%
-  );
+  background: linear-gradient(90deg,
+      #dee1e6 0%,
+      #e5e6ea 17.57%,
+      #ebecf0 34.86%,
+      #e8e9ed 52.23%,
+      #e7e8ec 65.17%,
+      #d7dadf 97.75%);
+
   &::before {
     content: "";
     position: absolute;
@@ -2833,6 +3306,7 @@ Hero Style2 Warp Style
     background-size: cover;
     background-image: url(../img/heros/style2-hero1.png);
   }
+
   .hero-item-box {
     max-width: 425px;
     display: flex;
@@ -2842,12 +3316,15 @@ Hero Style2 Warp Style
     right: 0;
     bottom: 100px;
     background-color: var(--white);
+
     .image {
       width: 135px;
       height: 160px;
     }
+
     .content {
       margin-left: 30px;
+
       .title {
         line-height: 1;
         color: #7768e5;
@@ -2857,30 +3334,37 @@ Hero Style2 Warp Style
         display: inline-flex;
         margin-bottom: 8px;
       }
+
       h4 {
         font-size: 16px;
         margin-bottom: 12px;
+
         a {
           color: #0d0d25;
+
           &:hover {
             color: var(--primary);
           }
         }
       }
+
       .item-link {
         display: block;
         color: #fc6441;
         font-family: Work Sans;
         font-weight: 600;
         font-size: 14px;
+
         i {
           position: relative;
           left: 2px;
           top: 2px;
           font-size: 20px;
         }
+
         span {
           position: relative;
+
           &::before {
             content: "";
             position: absolute;
@@ -2896,6 +3380,7 @@ Hero Style2 Warp Style
       }
     }
   }
+
   .big-size-text {
     display: flex;
     align-items: center;
@@ -2909,6 +3394,7 @@ Hero Style2 Warp Style
     top: -70px;
     z-index: -2;
     justify-content: space-between;
+
     span {
       font-weight: 900;
       color: #fff;
@@ -2918,18 +3404,22 @@ Hero Style2 Warp Style
     }
   }
 }
+
 .hero-style2-content {
   max-width: 520px;
+
   h2 {
     font-family: Alfa Slab One;
     font-size: 40px;
     font-weight: 400;
     letter-spacing: 1.6px;
     margin-bottom: 10px;
+
     span {
       margin-right: 50px;
     }
   }
+
   p {
     margin-bottom: 20px;
     padding-right: 30px;
@@ -2942,13 +3432,16 @@ About Warp Style
 .about-logo-content {
   display: flex;
   align-items: center;
+
   .logo {
     width: 179px;
     height: 160px;
   }
+
   .content {
     margin-left: 40px;
     max-width: 230px;
+
     h3 {
       color: #0d0d25;
       font-family: Alfa Slab One;
@@ -2956,28 +3449,34 @@ About Warp Style
       font-weight: 400;
       margin-bottom: 12px;
     }
+
     p {
       color: #525271;
       font-weight: 600;
     }
   }
 }
+
 .about-content {
   padding-right: 115px;
+
   .about-link {
     display: block;
     color: #353688;
     font-family: Work Sans;
     font-weight: 600;
     margin-top: 20px;
+
     i {
       position: relative;
       left: 2px;
       top: 4px;
       font-size: 20px;
     }
+
     span {
       position: relative;
+
       &::before {
         content: "";
         position: absolute;
@@ -2990,8 +3489,10 @@ About Warp Style
         background-color: var(--primary);
       }
     }
+
     &:hover {
       color: var(--primary);
+
       span {
         &::before {
           width: 100%;
@@ -3010,23 +3511,29 @@ Program Style2 Warp Style
     padding-right: 100px;
   }
 }
+
 .program-images {
   &.style2 {
     padding-left: 35px;
     padding-right: 0;
+
     .big-image {
       margin-left: 0;
       margin-right: -8px;
     }
+
     .image {
       margin-right: -5px;
     }
+
     .logo-content {
       background: #fc6441;
+
       .content {
         h2 {
           color: var(--white);
         }
+
         p {
           color: #fff1ee;
         }
@@ -3034,11 +3541,14 @@ Program Style2 Warp Style
     }
   }
 }
+
 .find-program-warp {
   position: relative;
+
   &.style2 {
     padding-top: 100px;
     z-index: 1;
+
     .program-shape {
       position: absolute;
       right: 29%;
@@ -3054,20 +3564,24 @@ Places Warp Style
 ======================================================*/
 .places-warp {
   position: relative;
+
   .container-fluid {
     max-width: 100%;
     padding: 0 !important;
   }
+
   .swiper-slide-active {
     .places-widget {
       .content {
         background: rgba(255, 255, 255, 0.2);
         backdrop-filter: blur(12px);
+
         h3 {
           a {
             color: var(--white);
           }
         }
+
         .icon {
           background: var(--white);
         }
@@ -3075,8 +3589,10 @@ Places Warp Style
     }
   }
 }
+
 .places-widget {
   position: relative;
+
   .content {
     width: 100%;
     position: absolute;
@@ -3089,6 +3605,7 @@ Places Warp Style
     justify-content: space-between;
     background: rgba(255, 255, 255, 0.9);
     padding: 20px 20px 20px 30px;
+
     .icon {
       width: 40px;
       height: 40px;
@@ -3099,9 +3616,11 @@ Places Warp Style
       transition: 0.6s;
       color: rgba(119, 104, 229, 1);
     }
+
     h3 {
       font-size: 22px;
       margin-bottom: 0;
+
       a {
         color: #0d0d25;
       }
@@ -3120,22 +3639,28 @@ Academic Style2 Warp Style
     }
   }
 }
+
 .news-optional-item {
   background: #faf6f6;
   padding: 40px 25px 22px 25px;
+
   .news-item {
     display: flex;
     align-items: center;
     margin-bottom: 42px;
+
     &:nth-child(3) {
       margin-bottom: 20px;
     }
+
     .image {
       width: 100px;
       height: 145px;
     }
+
     .content {
       margin-left: 20px;
+
       .title {
         padding: 5px 6px;
         background: #fff;
@@ -3147,26 +3672,32 @@ Academic Style2 Warp Style
         display: inline-block;
         margin-bottom: 10px;
       }
+
       h3 {
         font-size: 18px;
         margin-bottom: 12px;
+
         a {
           color: #0d0d25;
         }
       }
+
       .news-link {
         display: block;
         color: #fc6441;
         font-weight: 600;
         font-family: Work Sans;
+
         i {
           position: relative;
           left: 2px;
           top: 4px;
           font-size: 20px;
         }
+
         span {
           position: relative;
+
           &::before {
             content: "";
             position: absolute;
@@ -3182,6 +3713,7 @@ Academic Style2 Warp Style
       }
     }
   }
+
   .default-btn {
     width: 100%;
   }
@@ -3193,8 +3725,10 @@ Admission Warp Style
 .admission-image {
   padding-right: 35px;
 }
+
 .admission-content {
   padding-left: 60px;
+
   h3 {
     color: #0d0d25;
     font-family: Alfa Slab One;
@@ -3203,30 +3737,37 @@ Admission Warp Style
     letter-spacing: 1.28px;
     margin-bottom: 20px;
   }
+
   p {
     margin-bottom: 40px;
   }
+
   .admission-list {
     list-style: none;
     padding-left: 0;
     margin-bottom: 0;
+
     li {
       position: relative;
       padding-bottom: 20px;
       margin-bottom: 20px;
       border-bottom: solid 1px #f3f3f6;
+
       &:last-child {
         margin-bottom: 0;
       }
+
       &:first-child {
         padding-top: 20px;
         border-top: solid 1px #f3f3f6;
       }
+
       a {
         color: #353688;
         font-family: Work Sans;
         font-size: 16px;
         font-weight: 600;
+
         i {
           position: relative;
           left: 4px;
@@ -3245,11 +3786,13 @@ Apply Warp Style
   background: #b7d8ef;
   position: relative;
   z-index: 1;
+
   .section-title {
     max-width: 460px;
     margin-left: auto;
     margin-right: auto;
   }
+
   .apply-shape1 {
     position: absolute;
     top: 0;
@@ -3258,26 +3801,33 @@ Apply Warp Style
     pointer-events: none;
   }
 }
+
 .apply-card {
   padding: 55px 52px;
   background: #cde4f4;
   transition: 0.6s;
+
   .icon {
     margin-bottom: 25px;
   }
+
   h3 {
     font-size: 22px;
     margin-bottom: 10px;
   }
+
   p {
     margin-bottom: 20px;
   }
+
   .apply-link {
     color: #fc6441;
     font-family: Work Sans;
     font-weight: 600;
+
     span {
       position: relative;
+
       &::before {
         content: "";
         position: absolute;
@@ -3288,6 +3838,7 @@ Apply Warp Style
         width: 100%;
         background-color: #fc6441;
       }
+
       i {
         position: relative;
         left: 2px;
@@ -3295,6 +3846,7 @@ Apply Warp Style
         top: 2px;
       }
     }
+
     i {
       position: relative;
       left: 2px;
@@ -3302,6 +3854,7 @@ Apply Warp Style
       top: 4px;
     }
   }
+
   &:hover {
     background-color: var(--white);
   }
@@ -3314,16 +3867,19 @@ Video Warp Style
   max-width: 100%;
   height: 475px;
   position: relative;
+
   &.style2 {
     .video-btn {
       top: 40%;
     }
   }
+
   video {
     object-fit: cover;
     width: 100%;
     height: 475px;
   }
+
   .video-btn {
     position: absolute;
     top: 50%;
@@ -3342,6 +3898,7 @@ Video Warp Style
     height: 110px;
     background: rgba(255, 255, 255, 0.9);
   }
+
   h2 {
     color: var(--white);
     font-family: Alfa Slab One;
@@ -3357,10 +3914,12 @@ Video Warp Style
     text-align: center;
   }
 }
+
 .video-warp {
   background: #b7d8ef;
   position: relative;
   z-index: 1;
+
   .apply-shape2 {
     position: absolute;
     bottom: 50%;
@@ -3368,6 +3927,7 @@ Video Warp Style
     z-index: -1;
     pointer-events: none;
   }
+
   &::before {
     content: "";
     position: absolute;
@@ -3386,11 +3946,13 @@ Students Review Warp Style
 ======================================================*/
 .student-review-slider-warp {
   position: relative;
+
   .swiper-pagination1 {
     margin-top: 45px;
     position: relative !important;
     height: 4px !important;
     background: #e4ecf2 !important;
+
     .swiper-pagination-progressbar-fill {
       opacity: 1 !important;
       background: #91a8b9 !important;
@@ -3399,45 +3961,55 @@ Students Review Warp Style
     }
   }
 }
+
 .review-widget {
   .star-list {
     list-style: none;
     padding-left: 0;
     margin-bottom: 5px;
+
     li {
       display: inline-block;
       margin-right: 4px;
       color: rgba(226, 186, 45, 1);
     }
   }
+
   h4 {
     color: #353688;
     font-size: 18px;
     margin-bottom: 15px;
   }
+
   p {
     margin-bottom: 20px;
   }
+
   .review-details {
     list-style: none;
     padding-left: 0;
     margin-bottom: 0;
+
     li {
       display: inline-block;
       font-weight: 400;
       color: #3f3f60;
       padding-right: 20px;
+
       span {
         font-weight: 600;
       }
+
       &:first-child {
         padding-right: 12px;
+
         img {
           width: 36px;
           height: 36px;
           border-radius: 50%;
         }
       }
+
       &:nth-child(2) {
         span {
           color: #3f3f60;
@@ -3446,6 +4018,7 @@ Students Review Warp Style
           letter-spacing: 1.4px;
         }
       }
+
       &:last-child {
         padding-right: 0;
       }
@@ -3458,12 +4031,15 @@ Events Warp Style
 ======================================================*/
 .event-widget {
   padding: 40px 30px 50px 40px;
+
   &.bg-1 {
     background: #ecf3f8;
   }
+
   &.bg-2 {
     background: #eeeef5;
   }
+
   span {
     color: #7768e5;
     font-family: Work Sans;
@@ -3476,20 +4052,25 @@ Events Warp Style
     box-shadow: 0px 4px 12px 0px rgba(119, 104, 229, 0.1);
     margin-bottom: 8px;
   }
+
   h3 {
     font-size: 22px;
     margin-bottom: 15px;
+
     a {
       color: #0d0d25;
+
       &:hover {
         color: var(--primary);
       }
     }
   }
+
   .event-list {
     list-style: none;
     padding-left: 0;
     margin-bottom: 0;
+
     li {
       position: relative;
       display: inline-block;
@@ -3497,30 +4078,36 @@ Events Warp Style
       padding-right: 40px;
       font-family: Inter;
       font-size: 15px;
+
       i {
         position: absolute;
         left: 0;
         top: 1px;
         font-size: 20px;
       }
+
       &:last-child {
         padding-right: 0;
       }
     }
   }
 }
+
 .event-slider-warp {
   position: relative;
+
   .swiper-pagination3 {
     line-height: 1;
     margin-top: 40px;
     text-align: center;
+
     .swiper-pagination-bullet {
       height: 6px;
       width: 6px;
       opacity: 1;
       background-color: #c5c5d3;
     }
+
     .swiper-pagination-bullet-active {
       background-color: #5c5c7e;
     }
@@ -3538,15 +4125,19 @@ Question Warp Style
     margin-bottom: 25px;
     font-weight: 400;
   }
+
   .tabs {
     .nav-tabs {
       margin-bottom: 35px !important;
       border: none;
+
       .nav-item {
         padding-right: 10px;
+
         &:last-child {
           padding-right: 0;
         }
+
         .nav-link {
           font-size: 13px;
           letter-spacing: 1.3px;
@@ -3559,6 +4150,7 @@ Question Warp Style
           box-shadow: 0px 4px 12px 0px rgba(119, 104, 229, 0.1);
           border-radius: 2px;
           border: none;
+
           &.active,
           &:hover {
             color: #7768e5;
@@ -3568,6 +4160,7 @@ Question Warp Style
       }
     }
   }
+
   .accordion-question {
     .accordion {
       .accordion-item {
@@ -3576,6 +4169,7 @@ Question Warp Style
         border-left: none;
         padding-bottom: 0;
         border-color: #f3f3f6;
+
         .accordion-button {
           background-color: transparent;
           border: none;
@@ -3584,18 +4178,21 @@ Question Warp Style
           font-family: Work Sans;
           font-size: 16px;
           font-weight: 600;
+
           padding: {
             left: 0;
             right: 0;
             top: 16px;
             bottom: 16px;
           }
+
           &:not(.collapsed) {
             &::after {
               background-image: url(../img/svgs/accordion2.svg);
               transform: unset;
             }
           }
+
           &::after {
             background-size: auto;
             line-height: 1;
@@ -3604,19 +4201,23 @@ Question Warp Style
             top: 4px;
           }
         }
+
         .accordion-body {
           padding-left: 0;
+
           padding: {
             left: 0;
             bottom: 20px;
             top: 20px;
           }
+
           border-top: solid 1px #f3f3f6;
         }
       }
     }
   }
 }
+
 .question-images {
   padding-left: 43px;
 }
@@ -3633,18 +4234,23 @@ Hero Style2 Warp Style
   padding-bottom: 20px;
   margin-top: -150px !important;
   background-color: var(--white);
+
   &.bg-1 {
     background-image: url(../img/heros/style3-hero1.png);
   }
+
   &.bg-2 {
     background-image: url(../img/heros/style3-hero2.png);
   }
+
   &.bg-3 {
     background-image: url(../img/heros/style3-hero3.png);
   }
 }
+
 .transparent-bg {
   background-color: transparent !important;
+
   .top-header-details {
     .social-list {
       &::before {
@@ -3652,18 +4258,23 @@ Hero Style2 Warp Style
       }
     }
   }
+
   &.sticky {
     background-color: var(--white) !important;
+
     .sticky-logo {
       display: block;
     }
+
     .style3-logo {
       display: none;
     }
   }
+
   .sticky-logo {
     display: none;
   }
+
   &.navbar {
     padding-top: 6px;
     padding-bottom: 18px;
@@ -3675,6 +4286,7 @@ Hero Style3 Warp Style
 ======================================================*/
 .hero-style3-warp {
   position: relative;
+
   .tabs {
     .nav-tabs {
       position: absolute;
@@ -3703,6 +4315,7 @@ Hero Style3 Warp Style
           text-align: center;
           position: relative;
           border: none;
+
           &::before {
             content: "";
             position: absolute;
@@ -3715,9 +4328,11 @@ Hero Style3 Warp Style
             border-radius: 4px;
             background: #0d0d25;
           }
+
           &:hover {
             border: none;
           }
+
           &.active {
             &::before {
               width: 100%;
@@ -3728,18 +4343,22 @@ Hero Style3 Warp Style
     }
   }
 }
+
 .top-header-warp {
   &.style3 {
     padding-top: 20px;
+
     .container-fluid {
       padding-left: 255px;
     }
   }
 }
+
 .hero-style3-content {
   max-width: 580px;
   position: relative;
   top: -10px;
+
   h1 {
     color: #0d0d25;
     font-family: Alfa Slab One;
@@ -3756,11 +4375,13 @@ About Style3 Warp Style
 .about-style2-image {
   position: relative;
   padding-right: 40px;
+
   .image {
     &.style2 {
       margin-top: 50px;
     }
   }
+
   .round-shape {
     width: 192.2px;
     height: 192.249px;
@@ -3769,6 +4390,7 @@ About Style3 Warp Style
     bottom: -50px;
     left: 33%;
     line-height: 192px;
+
     .text-shape {
       position: absolute;
       left: 0;
@@ -3777,10 +4399,13 @@ About Style3 Warp Style
     }
   }
 }
+
 .about-style2-content {
   padding-left: 15px;
+
   .content {
     max-width: 230px;
+
     h2 {
       color: #0d0d25;
       font-family: Alfa Slab One;
@@ -3789,6 +4414,7 @@ About Style3 Warp Style
       letter-spacing: 1.28px;
       margin-bottom: 12px;
     }
+
     .title {
       color: #525271;
       font-weight: 600;
@@ -3796,11 +4422,13 @@ About Style3 Warp Style
       margin-bottom: 20px;
     }
   }
+
   .about-link {
     color: #353688;
     font-family: Work Sans;
     font-size: 16px;
     font-weight: 600;
+
     i {
       position: relative;
       left: 2px;
@@ -3809,8 +4437,10 @@ About Style3 Warp Style
     }
   }
 }
+
 .about-style2-warp {
   position: relative;
+
   .about-logo {
     position: absolute;
     top: 85px;
@@ -3823,12 +4453,15 @@ About Style3 Warp Style
 Management Warp Style
 ======================================================*/
 .swiper-btn {
+
   .swiper-button-next,
   .swiper-button-prev {
     top: var(--swiper-navigation-top-offset, 45%);
+
     &::after {
       display: none;
     }
+
     &::before {
       position: absolute;
       display: block;
@@ -3841,54 +4474,67 @@ Management Warp Style
       text-align: center;
       border-radius: 50%;
     }
+
     &:hover {
       &::before {
         color: var(--primary);
       }
     }
   }
+
   .swiper-button-next {
     left: auto;
     right: -10px;
+
     &:before {
       content: "\ea1c";
     }
   }
+
   .swiper-button-prev {
     left: -10px;
     right: auto;
+
     &:before {
       content: "\ea1b";
     }
   }
+
   &.style2 {
     position: absolute;
     top: -50px;
     right: 0;
+
     .swiper-button-next,
     .swiper-button-prev {
       &::before {
         color: #5d5d72;
       }
     }
+
     .swiper-button-prev {
       left: -70px;
       right: auto;
     }
+
     .swiper-button-next {
       left: auto;
       right: 10px;
     }
   }
+
   &.style3 {
+
     .swiper-button-next,
     .swiper-button-prev {
       top: var(--swiper-navigation-top-offset, 96%);
       z-index: 999;
+
       &::before {
         background: #14191c;
         color: #5d5d72;
       }
+
       &:hover {
         &::before {
           color: var(--primary);
@@ -3896,38 +4542,47 @@ Management Warp Style
         }
       }
     }
+
     .swiper-button-prev {
       left: 41%;
       right: auto;
     }
+
     .swiper-button-next {
       left: auto;
       right: 41%;
     }
   }
 }
+
 .management-warp {
   overflow: hidden;
+
   .management-slider-warp {
     position: relative;
+
     .swiper {
       margin-right: -322px;
     }
   }
 }
+
 .management-widget {
   .content {
     padding-top: 20px;
+
     ul {
       list-style: none;
       padding-left: 0;
       margin-bottom: 8px;
+
       li {
         display: inline-block;
         padding-left: 35px;
         font-family: Inter;
         font-size: 12px;
         position: relative;
+
         img {
           position: absolute;
           left: 0;
@@ -3935,11 +4590,14 @@ Management Warp Style
         }
       }
     }
+
     h3 {
       font-size: 22px;
       margin-bottom: 15px;
+
       a {
         color: #0d0d25;
+
         &:hover {
           color: var(--primary);
         }
@@ -3956,6 +4614,7 @@ Undergraduate Warp Style
   margin-left: auto;
   margin-right: auto;
 }
+
 .undergraduate-widget {
   h3 {
     color: #0d0d25;
@@ -3965,17 +4624,21 @@ Undergraduate Warp Style
     letter-spacing: 1.28px;
     margin-bottom: 30px;
   }
+
   .undergraduate-list {
     list-style: none;
     padding-left: 0;
     margin-bottom: 25px;
+
     li {
       position: relative;
       padding-left: 50px;
       margin-bottom: 26px;
+
       &:last-child {
         margin-bottom: 0;
       }
+
       &::before {
         content: "";
         position: absolute;
@@ -3987,10 +4650,12 @@ Undergraduate Warp Style
         border-radius: 50%;
         background: #d9d9d9;
       }
+
       a {
         color: #353688;
         font-family: Work Sans;
         font-weight: 600;
+
         i {
           position: relative;
           font-size: 25px;
@@ -3998,6 +4663,7 @@ Undergraduate Warp Style
           left: 10px;
           top: 6px;
         }
+
         &:hover {
           letter-spacing: 1px;
           color: var(--primary);
@@ -4005,16 +4671,19 @@ Undergraduate Warp Style
       }
     }
   }
+
   .default-btn {
     background-color: transparent;
     border: 1px solid #fc6441;
     color: rgba(252, 100, 65, 1);
+
     &:hover {
       color: var(--white);
       border-color: rgb(248, 202, 77);
     }
   }
 }
+
 .col-lg-6 {
   &:nth-child(2) {
     .undergraduate-widget {
@@ -4031,22 +4700,26 @@ Campus Warp Style
     max-width: 100%;
   }
 }
+
 .campus-widget {
   .image {
     img {
       border-radius: 4px;
     }
   }
+
   .content {
     display: flex;
     align-items: center;
     justify-content: space-between;
+
     padding: {
       left: 40px;
       right: 40px;
       top: 18px;
       bottom: 18px;
     }
+
     h3 {
       color: #0d0d25;
       font-family: Alfa Slab One;
@@ -4055,6 +4728,7 @@ Campus Warp Style
       letter-spacing: 1.28px;
       margin-bottom: 0;
     }
+
     .icon {
       display: inline-block;
       width: 40px;
@@ -4065,18 +4739,22 @@ Campus Warp Style
       font-size: 22px;
       border-radius: 2px;
       background: #7768e5;
+
       &:hover {
         color: #7768e5;
         background-color: #f8ca4d;
       }
     }
   }
+
   .image {
     position: relative;
     overflow: hidden;
+
     img {
       transition: 0.6s;
     }
+
     &::before {
       position: absolute;
       top: 0;
@@ -4087,26 +4765,24 @@ Campus Warp Style
       width: 50%;
       transition: 0.6s;
       height: 100%;
-      background: -webkit-linear-gradient(
-        left,
-        rgba(255, 255, 255, 0) 0%,
-        rgba(255, 255, 255, 0.3) 100%
-      );
-      background: linear-gradient(
-        to right,
-        rgba(255, 255, 255, 0) 0%,
-        rgba(255, 255, 255, 0.3) 100%
-      );
+      background: -webkit-linear-gradient(left,
+          rgba(255, 255, 255, 0) 0%,
+          rgba(255, 255, 255, 0.3) 100%);
+      background: linear-gradient(to right,
+          rgba(255, 255, 255, 0) 0%,
+          rgba(255, 255, 255, 0.3) 100%);
       -webkit-transform: skewX(-25deg);
       transform: skewX(-25deg);
     }
   }
+
   &:hover {
     .image {
       &::before {
         -webkit-animation: shine 0.75s;
         animation: shine 0.75s;
       }
+
       img {
         transform: scale(1.1);
       }
@@ -4121,11 +4797,13 @@ Tuva  Warp Style
   max-width: 825px;
   margin-left: auto;
   margin-right: auto;
+
   .blog-donate {
     display: flex;
     padding: 24px 30px;
     align-items: center;
     background: linear-gradient(90deg, #b0c2ff 0%, #f1f1fc 100%);
+
     .icon {
       width: 64px;
       height: 64px;
@@ -4134,27 +4812,34 @@ Tuva  Warp Style
       text-align: center;
       background-color: var(--white);
     }
+
     .content {
       padding-left: 35px;
+
       h6 {
         font-size: 22px;
         margin-bottom: 5px;
       }
+
       .donate-link {
         display: block;
         color: #353688;
         font-weight: 600;
+
         &:nth-child(3) {
           margin-bottom: 0;
         }
+
         i {
           position: relative;
           left: 2px;
           top: 2px;
           font-size: 20px;
         }
+
         span {
           position: relative;
+
           &::before {
             content: "";
             position: absolute;
@@ -4167,8 +4852,10 @@ Tuva  Warp Style
             background-color: rgba(252, 100, 65, 1);
           }
         }
+
         &:hover {
           color: rgba(252, 100, 65, 1);
+
           span {
             &::before {
               width: 100%;
@@ -4186,6 +4873,7 @@ Video Warp Style
 .video-warp-style2 {
   position: relative;
   z-index: 1;
+
   &::before {
     content: "";
     position: absolute;
@@ -4205,12 +4893,15 @@ Event Plan Warp Style
 .event-plan-widget {
   display: flex;
   align-items: center;
+
   .image {
     width: 298px;
     height: 248px;
   }
+
   .content {
     margin-left: 25px;
+
     span {
       color: #7768e5;
       font-family: Work Sans;
@@ -4223,32 +4914,39 @@ Event Plan Warp Style
       box-shadow: 0px 4px 12px 0px rgba(119, 104, 229, 0.1);
       margin-bottom: 8px;
     }
+
     h3 {
       font-size: 22px;
       margin-bottom: 15px;
+
       a {
         color: #0d0d25;
+
         &:hover {
           color: var(--primary);
         }
       }
     }
+
     .event-plan-list {
       list-style: none;
       padding-left: 0;
       margin-bottom: 0;
+
       li {
         position: relative;
         padding-left: 28px;
         font-family: Inter;
         margin-bottom: 12px;
         font-size: 15px;
+
         i {
           position: absolute;
           left: 0;
           top: 1px;
           font-size: 20px;
         }
+
         &:last-child {
           margin-bottom: 0;
         }
@@ -4256,14 +4954,18 @@ Event Plan Warp Style
     }
   }
 }
+
 .event-plan-warp {
   overflow: hidden;
+
   .event-plan-slider-warp {
     position: relative;
+
     .swiper {
       margin-right: -650px;
       position: relative;
       padding-top: 20px;
+
       &::before {
         content: "";
         position: absolute;
@@ -4276,6 +4978,7 @@ Event Plan Warp Style
       }
     }
   }
+
   .section-warp {
     margin-bottom: 25px;
   }
@@ -4287,6 +4990,7 @@ Enquiry Warp Style
 .enquiry-warp {
   position: relative;
   z-index: 1;
+
   &::before {
     content: "";
     position: absolute;
@@ -4299,8 +5003,10 @@ Enquiry Warp Style
     background: #f8ca4d;
   }
 }
+
 .enquiry-image {
   padding-right: 30px;
+
   h2 {
     color: #0d0d25;
     font-family: Alfa Slab One;
@@ -4310,14 +5016,17 @@ Enquiry Warp Style
     margin-bottom: 30px;
   }
 }
+
 .enquiry-content {
   position: relative;
+
   p {
     span {
       font-weight: 600;
       color: #494968;
     }
   }
+
   .enquiry-link {
     display: inline-block;
     margin-top: 10px;
@@ -4326,6 +5035,7 @@ Enquiry Warp Style
     font-size: 16px;
     font-weight: 600;
     margin-bottom: 65px;
+
     i {
       position: relative;
       left: 2px;
@@ -4333,9 +5043,11 @@ Enquiry Warp Style
       font-size: 20px;
     }
   }
+
   .enquiry-content-style {
     display: flex;
     align-items: center;
+
     .icon {
       width: 68px;
       height: 68px;
@@ -4347,13 +5059,16 @@ Enquiry Warp Style
       font-size: 22px;
       line-height: 68px;
       box-shadow: (0px 4px 60px rgba(252, 100, 65, 0.15));
+
       &:hover {
         color: var(--white);
         background-color: var(--bs-dark);
       }
     }
+
     .content {
       padding-left: 25px;
+
       h4 {
         font-size: 20px;
         font-weight: 600;
@@ -4362,6 +5077,7 @@ Enquiry Warp Style
       }
     }
   }
+
   .enquiry-shape {
     position: absolute;
     right: 0;
@@ -4374,13 +5090,16 @@ Optional Events Warp Style
 ======================================================*/
 .optional-events-warp {
   margin-bottom: 5px;
+
   .container-fluid {
     max-width: 100%;
   }
 }
+
 .optional-event-widget {
   position: relative;
   overflow: hidden;
+
   &::before {
     content: "";
     position: absolute;
@@ -4393,6 +5112,7 @@ Optional Events Warp Style
     background: rgba(255, 255, 255, 0.2);
     backdrop-filter: blur(12px);
   }
+
   .optional-content {
     position: absolute;
     top: 50%;
@@ -4408,11 +5128,13 @@ Optional Events Warp Style
     text-align: center;
     z-index: 999;
   }
+
   &:hover {
     &::before {
       height: 100%;
       width: 100%;
     }
+
     .optional-content {
       opacity: 1;
     }
@@ -4426,16 +5148,15 @@ Inner Hero Warp Style
   padding-top: 305px;
   padding-bottom: 50px;
   position: relative;
-  background: linear-gradient(
-    90deg,
-    #dde6f4 0%,
-    #e6eaf8 17.57%,
-    #d4dcfc 34.86%,
-    #e2e6f6 52.23%,
-    #e0e5f8 65.17%,
-    #eef4fd 97.75%
-  );
+  background: linear-gradient(90deg,
+      #dde6f4 0%,
+      #e6eaf8 17.57%,
+      #d4dcfc 34.86%,
+      #e2e6f6 52.23%,
+      #e0e5f8 65.17%,
+      #eef4fd 97.75%);
   margin-top: -155px;
+
   .inner-page-shape1 {
     position: absolute;
     bottom: 0;
@@ -4443,10 +5164,12 @@ Inner Hero Warp Style
     right: 31%;
   }
 }
+
 .inner-hero-content {
   display: flex;
   align-items: end;
   justify-content: space-between;
+
   h1 {
     color: #0d0d25;
     font-family: Alfa Slab One;
@@ -4455,10 +5178,12 @@ Inner Hero Warp Style
     letter-spacing: 1.6px;
     margin-bottom: 0;
   }
+
   .inner-hero-list {
     list-style: none;
     padding-left: 0;
     margin-bottom: 5px;
+
     li {
       display: inline-block;
       padding-right: 30px;
@@ -4469,24 +5194,30 @@ Inner Hero Warp Style
       line-height: 1;
       position: relative;
       letter-spacing: 1.3px;
+
       &::before {
         content: ">";
         position: absolute;
         right: 8px;
         top: 0;
       }
+
       &:last-child {
         padding-right: 0;
+
         &::before {
           display: none;
         }
       }
+
       a {
         color: #0d0d25;
+
         &:hover {
           color: var(--primary);
         }
       }
+
       span {
         color: #6c6c7e;
       }
@@ -4503,12 +5234,15 @@ Inner About Link Warp Style
     padding-left: 0;
     margin-bottom: 0;
     text-align: center;
+
     li {
       display: inline-block;
       padding-right: 6px;
+
       &:last-child {
         padding-right: 0;
       }
+
       a {
         line-height: 1;
         display: inline-flex;
@@ -4520,22 +5254,26 @@ Inner About Link Warp Style
         letter-spacing: 1.3px;
         background: #ededf5;
         position: relative;
+
         &:hover {
           color: var(--white);
           background: #7768e5;
           box-shadow: 0px 4px 12px 0px rgba(119, 104, 229, 0.1);
         }
+
         &.active,
         &.router-link-active {
           color: var(--white);
           background: #7768e5;
           box-shadow: 0px 4px 12px 0px rgba(119, 104, 229, 0.1);
         }
+
         &.active-check {
           &::before {
             opacity: 1;
           }
         }
+
         &::before {
           content: "\ea5e";
           position: absolute;
@@ -4554,22 +5292,26 @@ Inner About Link Warp Style
         }
       }
     }
+
     &.style2 {
       li {
         a {
           background-color: var(--white);
           box-shadow: 0px 4px 12px 0px rgba(119, 104, 229, 0.1);
+
           &:hover {
             color: var(--white);
             background: #7768e5;
             box-shadow: 0px 4px 12px 0px rgba(119, 104, 229, 0.1);
           }
+
           &.active,
           &.router-link-active {
             color: var(--white);
             background: #7768e5;
             box-shadow: 0px 4px 12px 0px rgba(119, 104, 229, 0.1);
           }
+
           &.active-check {
             &::before {
               opacity: 1;
@@ -4580,6 +5322,7 @@ Inner About Link Warp Style
     }
   }
 }
+
 .inner-page-about {
   padding-right: 0;
 }
@@ -4589,6 +5332,7 @@ About Visiting Warp Style
 ======================================================*/
 .visiting-content {
   padding-right: 100px;
+
   h2 {
     color: #0d0d25;
     font-family: Alfa Slab One;
@@ -4596,11 +5340,13 @@ About Visiting Warp Style
     font-weight: 400;
     margin-bottom: 15px;
   }
+
   .visiting-content-style {
     margin-top: 40px;
     display: flex;
     align-items: center;
     margin-bottom: 30px;
+
     .icon {
       width: 68px;
       height: 68px;
@@ -4612,32 +5358,39 @@ About Visiting Warp Style
       font-size: 22px;
       line-height: 72px;
       box-shadow: (0px 4px 60px rgba(252, 100, 65, 0.15));
+
       &:hover {
         color: var(--white);
         background-color: var(--bs-dark);
       }
     }
+
     .content {
       padding-left: 25px;
+
       h4 {
         font-size: 20px;
         font-weight: 600;
         color: #7768e5;
         margin-bottom: 8px;
       }
+
       a {
         color: #7768e5;
       }
     }
   }
+
   .default-btn {
     background: #353688;
+
     padding: {
       left: 104px;
       right: 104px;
     }
   }
 }
+
 .about-images-warp {
   padding-top: 60px;
 }
@@ -4654,19 +5407,23 @@ About Sustainability Warp Style
     font-weight: 400;
     letter-spacing: 1.28px;
   }
+
   .sustainability-list {
     list-style: none;
     padding-left: 0;
     margin-bottom: 0;
     margin-top: 30px;
+
     li {
       position: relative;
       padding-left: 35px;
       margin-bottom: 20px;
       color: #525271;
+
       &:last-child {
         margin-bottom: 0;
       }
+
       i {
         position: absolute;
         left: 0;
@@ -4674,6 +5431,7 @@ About Sustainability Warp Style
         color: #fc6441;
         font-size: 22px;
       }
+
       span {
         font-weight: 500;
         color: #3a3a5e;
@@ -4681,24 +5439,29 @@ About Sustainability Warp Style
     }
   }
 }
+
 .sustainability-image {
   margin-left: 115px;
   margin-right: -160px;
   padding-left: 45px;
+
   .image {
     &.style1 {
       padding-right: 5px;
       padding-left: 5px;
       margin-top: 115px;
     }
+
     &.style2 {
       padding-left: 10px;
     }
   }
 }
+
 .sustainability-warp {
   position: relative;
   z-index: 1;
+
   &::before {
     content: "";
     position: absolute;
@@ -4718,18 +5481,22 @@ About Choose Warp Style
   &::before {
     display: none;
   }
+
   .choose-card {
     &.bg-5 {
       background: #b74f56;
     }
   }
 }
+
 .inner-about-style2-image {
   margin-bottom: 60px;
 }
+
 .about-campus-title {
   position: relative;
   max-width: 235px;
+
   h2 {
     color: #0d0d25;
     font-family: Alfa Slab One;
@@ -4738,11 +5505,13 @@ About Choose Warp Style
     letter-spacing: 1.28px;
     margin-bottom: 0;
   }
+
   .about-logo {
     position: absolute;
     bottom: -55px;
     right: -108px;
   }
+
   .about-logo2 {
     position: absolute;
     bottom: -130px;
@@ -4756,6 +5525,7 @@ Build Campus Warp Style
 .build-campus-title {
   max-width: 1100px;
   margin-bottom: 70px;
+
   h2 {
     color: #0d0d25;
     font-family: Alfa Slab One;
@@ -4765,20 +5535,25 @@ Build Campus Warp Style
     margin-bottom: 0;
   }
 }
+
 .build-campus-list {
   max-width: 490px;
   margin-left: auto;
+
   .build-list {
     list-style: none;
     padding-left: 0;
     margin-bottom: 0;
+
     li {
       position: relative;
       padding-left: 50px;
       margin-bottom: 25px;
+
       &:last-child {
         margin-bottom: 0;
       }
+
       &::before {
         content: "";
         position: absolute;
@@ -4789,14 +5564,17 @@ Build Campus Warp Style
         border-radius: 100%;
         background-color: rgba(217, 217, 217, 1);
       }
+
       a {
         font-weight: 600;
         color: #353688;
         font-family: Work Sans;
+
         &:hover {
           color: var(--primary);
           letter-spacing: 1px;
         }
+
         i {
           position: relative;
           font-size: 20px;
@@ -4805,19 +5583,24 @@ Build Campus Warp Style
         }
       }
     }
+
     &.style2 {
       padding-left: 50px;
     }
+
     &.style1 {
       margin-right: -20px;
     }
   }
 }
+
 .build-campus-content {
   padding-right: 30px;
 }
+
 .building-hours-title {
   max-width: 300px;
+
   h2 {
     letter-spacing: 1.28px;
     margin-bottom: 0;
@@ -4826,6 +5609,7 @@ Build Campus Warp Style
     font-size: 32px;
   }
 }
+
 .building-hours-content {
   p {
     span {
@@ -4833,29 +5617,35 @@ Build Campus Warp Style
       color: #303050;
     }
   }
+
   .building-hours-list {
     list-style: none;
     padding-left: 0;
     margin-bottom: 0;
     margin-top: 20px;
+
     li {
       margin-bottom: 8px;
       font-weight: 600;
       color: #353688;
       font-family: Work Sans;
+
       span {
         padding-left: 8px;
         padding-right: 8px;
       }
+
       &:last-child {
         margin-bottom: 0;
       }
+
       &:last-child {
         color: #c1272d;
       }
     }
   }
 }
+
 .inner-campus-map {
   iframe {
     width: 100%;
@@ -4863,10 +5653,12 @@ Build Campus Warp Style
     display: block;
   }
 }
+
 .map-content {
   padding: 40px;
   background: #b7d8ef;
   margin-top: -115px;
+
   h2 {
     color: #0d0d25;
     font-family: Alfa Slab One;
@@ -4876,26 +5668,31 @@ Build Campus Warp Style
     letter-spacing: 1.28px;
     padding-right: 100px;
   }
+
   .details-icon {
     display: flex;
     align-items: center;
     justify-content: space-between;
+
     p {
       color: #525271;
       font-size: 15px;
       margin-bottom: 0;
+
       i {
         position: relative;
         padding-right: 5px;
         font-size: 20px;
       }
     }
+
     .icon {
       font-size: 30px;
       line-height: 0;
     }
   }
 }
+
 .inner-about-style3-image {
   margin-top: 60px;
 }
@@ -4905,6 +5702,7 @@ About Value Warp Style
 ======================================================*/
 .value-title {
   max-width: 330px;
+
   h2 {
     color: #0d0d25;
     font-family: Alfa Slab One;
@@ -4914,18 +5712,22 @@ About Value Warp Style
     margin-bottom: 0;
   }
 }
+
 .value-content {
   .value-list {
     list-style: none;
     padding-left: 0;
     margin-bottom: 0;
+
     li {
       padding-left: 20px;
       position: relative;
       margin-bottom: 5px;
+
       &:last-child {
         margin-bottom: 0;
       }
+
       span {
         padding-right: 10px;
         position: absolute;
@@ -4934,9 +5736,11 @@ About Value Warp Style
     }
   }
 }
+
 .duties-accordion {
   .accordion-item {
     border: none;
+
     .accordion-button {
       background-color: transparent;
       border-left: none;
@@ -4951,11 +5755,13 @@ About Value Warp Style
       font-size: 32px;
       font-weight: 400;
       letter-spacing: 1.28px;
+
       &::after {
         background-image: url(../img/svgs/about-accordion.svg);
       }
     }
   }
+
   .accordion-body {
     padding-left: 0;
     padding-top: 30px;
@@ -4971,15 +5777,19 @@ About History Warp Style
     color: #525271;
   }
 }
+
 .history-images-warp {
   position: relative;
   overflow: hidden;
+
   .swiper {
     margin-right: -320px;
   }
 }
+
 .about-history-title {
   max-width: 330px;
+
   h2 {
     color: #0d0d25;
     font-family: Alfa Slab One;
@@ -4988,6 +5798,7 @@ About History Warp Style
     letter-spacing: 1.28px;
     margin-bottom: 0;
   }
+
   &.style2 {
     max-width: 420px;
   }
@@ -4999,10 +5810,12 @@ About Faculty Warp Style
 .faculty-link-warp {
   padding-top: 60px;
 }
+
 .faculty-list {
   list-style: none;
   padding-left: 0;
   margin-bottom: 0;
+
   li {
     position: relative;
     display: flex;
@@ -5014,33 +5827,42 @@ About Faculty Warp Style
     font-size: 20px;
     font-weight: 600;
     transition: 0.6s;
+
     a {
       color: #0d0d25;
       width: 100%;
       padding: 18px 0;
     }
+
     &:first-child {
       border-top: solid 1px #e8e9ed;
     }
+
     &:hover {
       background: #e8e9ed;
       padding: 0 20px;
+
       a {
         padding: 18px 0;
       }
     }
+
     .another-link-color {
       color: rgba(252, 100, 65, 1);
     }
   }
+
   &.style2 {
     margin-bottom: 20px;
   }
 }
+
 .facilities-details-widget {
   padding-right: 100px;
+
   .content1 {
     margin-bottom: 35px;
+
     h3 {
       color: #0d0d25;
       font-family: Alfa Slab One;
@@ -5051,28 +5873,35 @@ About Faculty Warp Style
       max-width: 420px;
     }
   }
+
   .image {
     margin-bottom: 35px;
   }
+
   .content2 {
     margin-bottom: 35px;
+
     h5 {
       color: #0d0d25;
       font-size: 22px;
       margin-bottom: 15px;
     }
   }
+
   .accreditation {
     padding: 30px;
     background: #fafafa;
     margin-bottom: 40px;
+
     h5 {
       font-size: 20px;
       font-weight: 600;
       margin-bottom: 20px;
     }
+
     .dges {
       margin-bottom: 25px;
+
       h6 {
         font-weight: 600;
         font-size: 16px;
@@ -5081,8 +5910,10 @@ About Faculty Warp Style
         margin-bottom: 5px;
       }
     }
+
     .a3es {
       max-width: 480px;
+
       h6 {
         font-weight: 600;
         font-size: 16px;
@@ -5092,24 +5923,29 @@ About Faculty Warp Style
       }
     }
   }
+
   .default-btn {
     border: 1px solid #fc6441;
     background: transparent;
     color: #fc6441;
+
     &:hover {
       color: var(--white);
       border-color: rgb(248, 202, 77);
     }
+
     i {
       left: 0;
       right: 4px;
     }
   }
 }
+
 .facilities-small-widget {
   padding: 35px;
   background: #e8e9ed;
   margin-bottom: 15px;
+
   h5 {
     font-size: 20px;
     font-weight: 600;
@@ -5117,30 +5953,37 @@ About Faculty Warp Style
     padding-bottom: 30px;
     border-bottom: solid 1px var(--white);
   }
+
   .facilities-item {
     margin-bottom: 25px;
+
     span {
       font-weight: 600;
       color: #494968;
       display: block;
       margin-bottom: 8px;
     }
+
     p {
       margin-bottom: 4px;
+
       &:last-child {
         margin-bottom: 0;
       }
     }
   }
+
   .info {
     color: #353688;
     font-size: 13px;
   }
 }
+
 .facilities-small {
   background: #353688;
   width: 100%;
 }
+
 .facilities-requirements {
   text-align: center;
   text-decoration-line: underline;
@@ -5157,10 +6000,12 @@ About Requirements Warp Style
   background: #e8e9ed;
   max-width: 420px;
   padding: 5px 0;
+
   .requirement-list {
     list-style: none;
     padding-left: 0;
     margin-bottom: 0;
+
     li {
       display: flex;
       align-items: center;
@@ -5169,15 +6014,18 @@ About Requirements Warp Style
       font-size: 18px;
       transition: 0.6s;
       border-bottom: solid 1px var(--white);
+
       &:last-child {
         border: none;
       }
+
       a {
         line-height: 1;
         color: #0d0d25;
         padding: 25px;
         width: 100%;
       }
+
       i {
         line-height: 1;
         opacity: 0;
@@ -5185,6 +6033,7 @@ About Requirements Warp Style
         left: -50px;
         transition: 0.6s;
       }
+
       &:hover {
         i {
           opacity: 1;
@@ -5194,6 +6043,7 @@ About Requirements Warp Style
     }
   }
 }
+
 .requirement-big-warp {
   h2 {
     color: #0d0d25;
@@ -5203,9 +6053,11 @@ About Requirements Warp Style
     font-weight: 400;
     margin-bottom: 25px;
   }
+
   p {
     margin-bottom: 20px;
   }
+
   span {
     font-weight: 600;
     color: #353688;
@@ -5213,15 +6065,18 @@ About Requirements Warp Style
     margin-top: 40px;
     margin-bottom: 25px;
   }
+
   .default-btn {
     &.style1 {
       background: #fc6441;
     }
+
     &.style2 {
       border: 1px solid #7768e5;
       color: #7768e5;
       margin-left: 12px;
       background: transparent;
+
       &:hover {
         border-color: rgb(248, 202, 77);
         color: var(--white);
@@ -5235,12 +6090,15 @@ Program Warp Style
 ======================================================*/
 .program-page-image {
   margin-top: 50px;
+
   .image {
     position: relative;
     overflow: hidden;
+
     img {
       transition: 0.6s;
     }
+
     &::before {
       position: absolute;
       top: 0;
@@ -5251,30 +6109,29 @@ Program Warp Style
       width: 50%;
       transition: 0.6s;
       height: 100%;
-      background: -webkit-linear-gradient(
-        left,
-        rgba(255, 255, 255, 0) 0%,
-        rgba(255, 255, 255, 0.3) 100%
-      );
-      background: linear-gradient(
-        to right,
-        rgba(255, 255, 255, 0) 0%,
-        rgba(255, 255, 255, 0.3) 100%
-      );
+      background: -webkit-linear-gradient(left,
+          rgba(255, 255, 255, 0) 0%,
+          rgba(255, 255, 255, 0.3) 100%);
+      background: linear-gradient(to right,
+          rgba(255, 255, 255, 0) 0%,
+          rgba(255, 255, 255, 0.3) 100%);
       -webkit-transform: skewX(-25deg);
       transform: skewX(-25deg);
     }
+
     &:hover {
       &::before {
         -webkit-animation: shine 0.75s;
         animation: shine 0.75s;
       }
+
       img {
         transform: scale(1.1);
       }
     }
   }
 }
+
 .program-page-title {
   h2 {
     color: #0d0d25;
@@ -5283,6 +6140,7 @@ Program Warp Style
     font-weight: 400;
     letter-spacing: 1.28px;
     margin-bottom: 0;
+
     span {
       display: inline-block;
       background: #f8ca4d;
@@ -5291,8 +6149,10 @@ Program Warp Style
     }
   }
 }
+
 .program-main-title {
   max-width: 430px;
+
   h2 {
     color: #0d0d25;
     font-family: Alfa Slab One;
@@ -5307,6 +6167,7 @@ Undergraduate Program Warp Style
 ======================================================*/
 .undergraduate-program-content {
   padding-left: 20px;
+
   h2 {
     color: #0d0d25;
     font-family: Alfa Slab One;
@@ -5314,6 +6175,7 @@ Undergraduate Program Warp Style
     font-weight: 400;
     letter-spacing: 1.28px;
     margin-bottom: 20px;
+
     span {
       display: inline-block;
       background: #f8ca4d;
@@ -5329,6 +6191,7 @@ Graduate Program Warp Style
 .inner-graduate-program-image {
   margin-top: 50px;
 }
+
 .graduate-program-content {
   h2 {
     color: #0d0d25;
@@ -5338,6 +6201,7 @@ Graduate Program Warp Style
     letter-spacing: 1.28px;
     margin-bottom: 20px;
     padding-right: 200px;
+
     span {
       display: inline-block;
       background: #f8ca4d;
@@ -5346,11 +6210,13 @@ Graduate Program Warp Style
     }
   }
 }
+
 .graduate-program-button {
   .default-btn {
     border: 1px solid #7768e5;
     color: #7768e5;
     background: transparent;
+
     &:hover {
       border-color: rgb(248, 202, 77);
       color: var(--white);
@@ -5364,6 +6230,7 @@ Personal Information Warp Style
 .select-option {
   margin-top: 50px;
   margin-bottom: 50px;
+
   h3 {
     color: #0d0d25;
     font-family: Alfa Slab One;
@@ -5371,32 +6238,39 @@ Personal Information Warp Style
     margin-bottom: 20px;
     font-weight: 400;
   }
+
   .select-option-list {
     list-style: none;
     padding-left: 0;
     margin-bottom: 0;
+
     li {
       display: block;
       position: relative;
       margin-bottom: 12px;
+
       &:last-child {
         margin-bottom: 0;
       }
+
       .form-check-input {
         width: 20px;
         height: 20px;
         border-radius: 0;
         border: 1px solid #9b9bad;
         background-color: #f3f3f6;
+
         &:focus {
           box-shadow: unset;
         }
+
         &:checked[type="radio"] {
           background-image: url(../img/svgs/select.svg);
           background-size: 12px 12px;
           background-position: center center;
         }
       }
+
       .form-check-label {
         font-weight: 500;
         color: #525271;
@@ -5406,6 +6280,7 @@ Personal Information Warp Style
     }
   }
 }
+
 .applicant-details {
   h3 {
     color: #0d0d25;
@@ -5415,16 +6290,20 @@ Personal Information Warp Style
     letter-spacing: 0.88px;
     margin-bottom: 20px;
   }
+
   .input-box {
     margin-bottom: 20px;
+
     .form-label {
       font-size: 15px;
       font-weight: 500;
       margin-bottom: 5px;
+
       span {
         color: #c1272d;
       }
     }
+
     .form-control {
       height: 60px;
       padding-left: 20px;
@@ -5433,16 +6312,20 @@ Personal Information Warp Style
       font-size: 13px;
       border-radius: 0;
       background-color: #f3f3f6;
+
       &::placeholder {
         transition: 0.6s;
       }
+
       &:focus {
         box-shadow: unset;
+
         &::placeholder {
           color: transparent;
         }
       }
     }
+
     .form-select {
       height: 60px;
       padding-left: 20px;
@@ -5452,13 +6335,16 @@ Personal Information Warp Style
       border-radius: 0;
       background-color: #f3f3f6;
       background-image: url(../img/svgs/caret-down.svg);
+
       &:focus {
         box-shadow: unset;
       }
     }
+
     .input-with-icon {
       height: 60px;
       position: relative;
+
       &::before {
         content: "";
         position: absolute;
@@ -5469,10 +6355,12 @@ Personal Information Warp Style
         height: 100%;
         background: #d8d8e7;
       }
+
       .form-control {
         padding-left: 75px;
         background: #f3f3f6;
       }
+
       i {
         position: absolute;
         left: 20px;
@@ -5481,28 +6369,34 @@ Personal Information Warp Style
         font-size: 20px;
       }
     }
+
     textarea {
       padding-top: 15px;
       height: 194px !important;
     }
   }
+
   .form-check {
     margin-bottom: 20px;
+
     .form-check-input {
       width: 20px;
       height: 20px;
       border-radius: 0;
       border: 1px solid #9b9bad;
       background-color: #f3f3f6;
+
       &:focus {
         box-shadow: unset;
       }
+
       &:checked[type="radio"] {
         background-image: url(../img/svgs/select.svg);
         background-size: 12px 12px;
         background-position: center center;
       }
     }
+
     .form-check-label {
       font-weight: 500;
       color: #525271;
@@ -5518,6 +6412,7 @@ Academic Information Warp Style
 .academic-info-content {
   padding-top: 40px;
   padding-bottom: 50px;
+
   p {
     color: #525271;
     font-family: Work Sans;
@@ -5526,18 +6421,22 @@ Academic Information Warp Style
     font-weight: 500;
   }
 }
+
 .academic-info-heading {
   margin-bottom: 15px;
+
   h5 {
     color: #0d0d25;
     font-size: 16px;
     font-weight: 600;
   }
 }
+
 .input-bg {
   background: #f3f3f6;
   margin-bottom: 20px;
   padding: 10px 20px;
+
   .form-select {
     height: 60px;
     padding-left: 20px;
@@ -5547,10 +6446,12 @@ Academic Information Warp Style
     border-radius: 0;
     background-color: var(--white);
     background-image: url(../img/svgs/caret-down.svg);
+
     &:focus {
       box-shadow: unset;
     }
   }
+
   .institution {
     p {
       color: #525271;
@@ -5558,12 +6459,14 @@ Academic Information Warp Style
       font-size: 15px;
       font-weight: 500;
       padding-left: 15px;
+
       span {
         color: #c1272d;
       }
     }
   }
 }
+
 .next-button {
   .default-btn {
     &.style2 {
@@ -5571,11 +6474,13 @@ Academic Information Warp Style
       color: #fc6441;
       border: solid 1px #fc6441;
       margin-right: 10px;
+
       i {
         position: relative;
         left: 0;
         right: 5px;
       }
+
       &:hover {
         color: var(--white);
         border-color: #f8ca4d;
@@ -5589,6 +6494,7 @@ English Proficiency Warp Style
 ======================================================*/
 .english-proficiency-content {
   padding-top: 40px;
+
   p {
     color: #0d0d25;
     font-family: Work Sans;
@@ -5596,32 +6502,39 @@ English Proficiency Warp Style
     font-weight: 600;
     margin-bottom: 25px;
   }
+
   .english-proficiency-list {
     list-style: none;
     padding-left: 0;
     margin-bottom: 0;
+
     li {
       display: block;
       position: relative;
       margin-bottom: 14px;
+
       &:last-child {
         margin-bottom: 0;
       }
+
       .form-check-input {
         width: 20px;
         height: 20px;
         border-radius: 0;
         border: 1px solid #9b9bad;
         background-color: #f3f3f6;
+
         &:focus {
           box-shadow: unset;
         }
+
         &:checked[type="radio"] {
           background-image: url(../img/svgs/select.svg);
           background-size: 12px 12px;
           background-position: center center;
         }
       }
+
       .form-check-label {
         font-weight: 500;
         color: #525271;
@@ -5631,9 +6544,11 @@ English Proficiency Warp Style
     }
   }
 }
+
 .program-choose-content {
   padding-top: 50px;
   margin-bottom: 45px;
+
   h4 {
     color: #0d0d25;
     font-family: Alfa Slab One;
@@ -5641,6 +6556,7 @@ English Proficiency Warp Style
     font-weight: 400;
     margin-bottom: 15px;
   }
+
   p {
     margin-bottom: 0;
     padding-right: 100px;
@@ -5657,6 +6573,7 @@ Document Warp Style
   background: #f3f3f6;
   z-index: 1;
   padding: 35px 35px 45px 35px;
+
   &::before {
     content: "";
     position: absolute;
@@ -5665,42 +6582,35 @@ Document Warp Style
     left: 10px;
     right: 10px;
     z-index: -1;
-    background-image: repeating-linear-gradient(
-        -37deg,
+    background-image: repeating-linear-gradient(-37deg,
         #bfbbbb,
         #bfbbbb 5px,
         transparent 5px,
         transparent 16px,
-        #bfbbbb 16px
-      ),
-      repeating-linear-gradient(
-        53deg,
+        #bfbbbb 16px),
+      repeating-linear-gradient(53deg,
         #bfbbbb,
         #bfbbbb 5px,
         transparent 5px,
         transparent 16px,
-        #bfbbbb 16px
-      ),
-      repeating-linear-gradient(
-        143deg,
+        #bfbbbb 16px),
+      repeating-linear-gradient(143deg,
         #bfbbbb,
         #bfbbbb 5px,
         transparent 5px,
         transparent 16px,
-        #bfbbbb 16px
-      ),
-      repeating-linear-gradient(
-        233deg,
+        #bfbbbb 16px),
+      repeating-linear-gradient(233deg,
         #bfbbbb,
         #bfbbbb 5px,
         transparent 5px,
         transparent 16px,
-        #bfbbbb 16px
-      );
+        #bfbbbb 16px);
     background-size: 1px 100%, 100% 1px, 1px 100%, 100% 1px;
     background-position: 0 0, 0 0, 100% 0, 0 100%;
     background-repeat: no-repeat;
   }
+
   span {
     display: block;
     color: #525271;
@@ -5710,21 +6620,26 @@ Document Warp Style
     font-weight: 500;
     cursor: pointer;
   }
+
   .browse-files {
     margin-bottom: 15px;
     cursor: default;
   }
+
   .default-file-input {
     opacity: 0;
     display: none;
   }
+
   .remove-file-icon {
     cursor: pointer;
   }
 }
+
 .document-content {
   padding-top: 50px;
   margin-bottom: 40px;
+
   h4 {
     color: #0d0d25;
     font-family: Alfa Slab One;
@@ -5742,31 +6657,37 @@ Submission Warp Style
   border-top: 2px solid #7768e5;
   background: #f3f3f6;
   padding: 5px;
+
   .info-content-icon {
     padding: 10px 20px;
     display: flex;
     align-items: center;
     justify-content: space-between;
+
     h5 {
       color: #0d0d25;
       font-size: 16px;
       margin-bottom: 0;
       font-weight: 600;
     }
+
     a {
       color: rgba(82, 82, 113, 1);
       font-family: Inter;
       font-size: 14px;
     }
   }
+
   .information-list {
     list-style: none;
     padding-left: 0;
     margin-bottom: 0;
+
     li {
       position: relative;
       display: flex;
       padding: 10px 15px;
+
       p {
         width: 215px;
         font-size: 14px;
@@ -5774,6 +6695,7 @@ Submission Warp Style
         font-weight: 600;
         margin-bottom: 0;
       }
+
       span {
         font-size: 14px;
         width: 390px;
@@ -5782,24 +6704,30 @@ Submission Warp Style
       &:nth-child(1) {
         background-color: var(--white);
       }
+
       &:nth-child(3) {
         background-color: var(--white);
       }
+
       &:nth-child(5) {
         background-color: var(--white);
       }
+
       &:nth-child(7) {
         background-color: var(--white);
       }
+
       &:nth-child(9) {
         background-color: var(--white);
       }
     }
   }
+
   &.academic-info {
     .information-list {
       li {
         padding: 13px;
+
         span {
           line-height: 1.9;
         }
@@ -5807,9 +6735,11 @@ Submission Warp Style
     }
   }
 }
+
 .submission-content {
   margin-bottom: 30px;
   margin-top: 50px;
+
   h3 {
     color: #0d0d25;
     font-family: Alfa Slab One;
@@ -5819,23 +6749,28 @@ Submission Warp Style
     margin-bottom: 20px;
   }
 }
+
 .submission-check {
   margin-top: 30px;
+
   .form-check-input {
     width: 20px;
     height: 20px;
     border-radius: 0;
     border: 1px solid #9b9bad;
     background-color: #f3f3f6;
+
     &:focus {
       box-shadow: unset;
     }
+
     &:checked[type="radio"] {
       background-image: url(../img/svgs/select.svg);
       background-size: 12px 12px;
       background-position: center center;
     }
   }
+
   .form-check-label {
     font-weight: 500;
     color: #525271;
@@ -5851,6 +6786,7 @@ Administration Requirements Warp Style
   padding: 35px;
   background: #e8e9ed;
   margin-bottom: 15px;
+
   h5 {
     font-size: 20px;
     font-weight: 600;
@@ -5858,33 +6794,41 @@ Administration Requirements Warp Style
     padding-bottom: 30px;
     border-bottom: solid 1px var(--white);
   }
+
   .administration-item {
     margin-bottom: 25px;
+
     &:last-child {
       margin-bottom: 0;
     }
+
     span {
       font-weight: 600;
       color: #494968;
       display: block;
       margin-bottom: 8px;
     }
+
     p {
       margin-bottom: 4px;
+
       &:last-child {
         margin-bottom: 0;
       }
     }
   }
+
   .info {
     color: #353688;
     font-size: 13px;
   }
 }
+
 .administration-small {
   background: #353688;
   width: 100%;
 }
+
 .administration-requirements {
   text-align: center;
   text-decoration-line: underline;
@@ -5892,15 +6836,19 @@ Administration Requirements Warp Style
   color: #353688;
   display: block;
   margin-top: 20px;
+
   &:hover {
     color: var(--primary);
     letter-spacing: 1px;
   }
 }
+
 .administration-content {
   padding-right: 30px;
+
   .content-one {
     margin-bottom: 40px;
+
     h2 {
       color: #0d0d25;
       font-family: Alfa Slab One;
@@ -5912,8 +6860,10 @@ Administration Requirements Warp Style
       border-left: solid 4px #b0c2ff;
     }
   }
+
   .content-two {
     margin-bottom: 40px;
+
     h4 {
       color: #0d0d25;
       font-family: Work Sans;
@@ -5921,30 +6871,37 @@ Administration Requirements Warp Style
       margin-bottom: 15px;
     }
   }
+
   .content-with-list {
     position: relative;
     padding-right: 120px;
+
     h4 {
       color: #0d0d25;
       font-family: Work Sans;
       font-size: 22px;
       margin-bottom: 15px;
     }
+
     p {
       margin-bottom: 20px;
     }
+
     .content-list {
       list-style: none;
       padding-left: 0;
       margin-bottom: 0;
+
       li {
         position: relative;
         padding-left: 30px;
         margin-bottom: 12px;
         color: #0d0d25;
+
         &:last-child {
           margin-bottom: 0;
         }
+
         &::before {
           content: "";
           position: absolute;
@@ -5957,6 +6914,7 @@ Administration Requirements Warp Style
         }
       }
     }
+
     .administration-shape {
       position: absolute;
       right: -20px;
@@ -5964,14 +6922,17 @@ Administration Requirements Warp Style
     }
   }
 }
+
 .administration-accordion {
   .accordion-item {
     border: 1px solid #7b7b93;
     border-radius: 0;
     margin-bottom: 20px;
+
     &:last-child {
       margin-bottom: 0;
     }
+
     .accordion-button {
       border: none;
       color: #0d0d25;
@@ -5980,33 +6941,41 @@ Administration Requirements Warp Style
       font-weight: 600;
       background: #f4f4fc;
       box-shadow: unset;
+
       &::after {
         background-image: url(../img/svgs/caret-down.svg);
       }
     }
+
     .accordion-body {
       padding: 0;
       background: #f4f4fc;
     }
+
     .semester-list {
       list-style: none;
       padding-left: 0;
       margin-bottom: 0;
+
       li {
         display: flex;
         align-items: center;
+
         padding: {
           top: 25px;
           bottom: 25px;
           left: 30px;
           right: 50px;
         }
+
         &:first-child {
           padding: {
             top: 14px;
             bottom: 14px;
           }
+
           background: #7b7b93;
+
           p,
           h6,
           span {
@@ -6018,15 +6987,19 @@ Administration Requirements Warp Style
             text-decoration: none;
           }
         }
+
         &:nth-child(3) {
           background-color: var(--white);
         }
+
         &:nth-child(5) {
           background-color: var(--white);
         }
+
         &:nth-child(7) {
           background-color: var(--white);
         }
+
         h6 {
           margin-bottom: 0;
           width: 262px;
@@ -6037,12 +7010,14 @@ Administration Requirements Warp Style
           font-weight: 500;
           text-decoration-line: underline;
         }
+
         span {
           display: inline-block;
           line-height: 1;
           color: #0d0d25;
           font-family: Work Sans;
         }
+
         p {
           margin-bottom: 0;
           width: 425px;
@@ -6054,8 +7029,10 @@ Administration Requirements Warp Style
     }
   }
 }
+
 .administration-requirement-content {
   margin-bottom: 40px;
+
   h4 {
     color: #0d0d25;
     font-family: Work Sans;
@@ -6063,15 +7040,18 @@ Administration Requirements Warp Style
     font-weight: 600;
     margin-bottom: 12px;
   }
+
   .administration-requirement-list {
     list-style: none;
     padding-left: 0;
     margin-bottom: 0;
+
     li {
       position: relative;
       padding-left: 40px;
       margin-bottom: 12px;
       color: #0d0d25;
+
       &::before {
         content: "";
         position: absolute;
@@ -6082,18 +7062,21 @@ Administration Requirements Warp Style
         background-color: #d9d9d9;
         border-radius: 50%;
       }
+
       &:last-child {
         margin-bottom: 0;
       }
     }
   }
 }
+
 .requirement-language {
   p {
     a {
       color: #353688;
       font-weight: 500;
       text-decoration-line: underline;
+
       &:hover {
         color: var(--primary);
         letter-spacing: 1px;
@@ -6110,17 +7093,21 @@ Administration Finance Warp Style
   align-items: center;
   justify-content: space-between;
   margin-bottom: 20px;
+
   &:nth-child(3) {
     margin-bottom: 60px;
   }
+
   padding: {
     top: 30px;
     left: 34px;
     right: 34px;
     bottom: 30px;
   }
+
   border-top: 3px solid #353688;
   background: #f4f4fc;
+
   h3 {
     color: #0d0d25;
     font-family: Alfa Slab One;
@@ -6130,6 +7117,7 @@ Administration Finance Warp Style
     margin-bottom: 0;
     max-width: 300px;
   }
+
   h1 {
     color: #353688;
     font-family: Alfa Slab One;
@@ -6138,16 +7126,19 @@ Administration Finance Warp Style
     letter-spacing: 1.28px;
   }
 }
+
 .administration-finance-content {
   h4 {
     font-size: 22px;
     font-weight: 600;
     margin-bottom: 15px;
   }
+
   .administration-finance-list {
     list-style: none;
     padding-left: 0;
     margin-bottom: 35px;
+
     li {
       position: relative;
       margin-bottom: 12px;
@@ -6157,9 +7148,11 @@ Administration Finance Warp Style
       font-family: Inter;
       font-size: 16px;
       font-weight: 500;
+
       &:last-child {
         margin-bottom: 0;
       }
+
       &::before {
         content: "";
         position: absolute;
@@ -6180,6 +7173,7 @@ Administration Availability Warp Style
 .administration-availability-content {
   border: 1px solid #7b7b93;
   background: #f4f4fc;
+
   .title {
     h4 {
       font-size: 22px;
@@ -6189,25 +7183,31 @@ Administration Availability Warp Style
       padding: 25px 30px;
     }
   }
+
   .availability-list {
     list-style: none;
     padding-left: 0;
     margin-bottom: 0;
+
     li {
       display: flex;
       align-items: center;
+
       padding: {
         left: 30px;
         right: 50px;
         top: 25px;
         bottom: 25px;
       }
+
       &:first-child {
         padding: {
           top: 14px;
           bottom: 14px;
         }
+
         background: #7b7b93;
+
         p,
         h6,
         span {
@@ -6219,30 +7219,39 @@ Administration Availability Warp Style
           text-decoration: none;
         }
       }
+
       &:nth-child(3) {
         background-color: var(--white);
       }
+
       &:nth-child(5) {
         background-color: var(--white);
       }
+
       &:nth-child(7) {
         background-color: var(--white);
       }
+
       .content1 {
         width: 165px;
       }
+
       .content2 {
         width: 315px;
       }
+
       .content3 {
         width: 175px;
       }
+
       .content4 {
         color: #2b7258;
+
         &.style1 {
           color: #c1272d;
         }
       }
+
       h6 {
         margin-bottom: 0;
         line-height: 1;
@@ -6250,12 +7259,14 @@ Administration Availability Warp Style
         font-size: 16px;
         font-weight: 500;
       }
+
       p {
         line-height: 1;
         margin-bottom: 0;
         color: #0d0d25;
         font-family: Work Sans;
       }
+
       span {
         line-height: 1;
         font-family: Work Sans;
@@ -6264,6 +7275,7 @@ Administration Availability Warp Style
     }
   }
 }
+
 .laptop-content {
   color: #494968;
   font-family: Inter;
@@ -6271,6 +7283,7 @@ Administration Availability Warp Style
   font-weight: 600;
   margin-bottom: 0;
   margin-top: 15px;
+
   i {
     position: relative;
     padding-right: 10px;
@@ -6285,6 +7298,7 @@ Blog & Blog Details Page Style
 .main-blog-card {
   .content {
     padding-top: 15px;
+
     span {
       line-height: 1;
       display: inline-flex;
@@ -6297,22 +7311,27 @@ Blog & Blog Details Page Style
       background: var(--white);
       box-shadow: 0px 4px 12px 0px rgba(119, 104, 229, 0.1);
     }
+
     h3 {
       font-size: 22px;
       margin-bottom: 15px;
+
       a {
         color: #0d0d25;
       }
     }
+
     .blog-list {
       list-style: none;
       margin-bottom: 0;
       padding-left: 0;
+
       li {
         display: inline-block;
         padding-right: 36px;
         color: #525271;
         position: relative;
+
         &::before {
           content: "";
           position: absolute;
@@ -6323,8 +7342,10 @@ Blog & Blog Details Page Style
           width: 1px;
           background: #e8e8f4;
         }
+
         &:last-child {
           padding-right: 0;
+
           &::before {
             display: none;
           }
@@ -6332,12 +7353,15 @@ Blog & Blog Details Page Style
       }
     }
   }
+
   .image {
     position: relative;
     overflow: hidden;
+
     img {
       transition: 0.6s;
     }
+
     &::before {
       position: absolute;
       top: 0;
@@ -6348,34 +7372,34 @@ Blog & Blog Details Page Style
       width: 50%;
       transition: 0.6s;
       height: 100%;
-      background: -webkit-linear-gradient(
-        left,
-        rgba(255, 255, 255, 0) 0%,
-        rgba(255, 255, 255, 0.3) 100%
-      );
-      background: linear-gradient(
-        to right,
-        rgba(255, 255, 255, 0) 0%,
-        rgba(255, 255, 255, 0.3) 100%
-      );
+      background: -webkit-linear-gradient(left,
+          rgba(255, 255, 255, 0) 0%,
+          rgba(255, 255, 255, 0.3) 100%);
+      background: linear-gradient(to right,
+          rgba(255, 255, 255, 0) 0%,
+          rgba(255, 255, 255, 0.3) 100%);
       -webkit-transform: skewX(-25deg);
       transform: skewX(-25deg);
     }
   }
+
   &:hover {
     .image {
       &::before {
         -webkit-animation: shine 0.75s;
         animation: shine 0.75s;
       }
+
       img {
         transform: scale(1.1);
       }
     }
   }
 }
+
 .blog-title {
   margin-bottom: 40px;
+
   h2 {
     color: #0d0d25;
     font-family: Alfa Slab One;
@@ -6387,12 +7411,15 @@ Blog & Blog Details Page Style
     border-left: solid 4px #b0c2ff;
   }
 }
+
 .search-widget {
   margin-bottom: 1px;
+
   .blog-input {
     height: 70px;
     position: relative;
     margin-bottom: 15px;
+
     .form-control {
       height: 70px;
       background: var(--white);
@@ -6400,17 +7427,21 @@ Blog & Blog Details Page Style
       border-radius: 0;
       font-size: 14px;
       border: transparent;
+
       &:focus {
         box-shadow: unset;
+
         &::placeholder {
           color: transparent;
         }
       }
+
       &::placeholder {
         transition: 0.6s;
         color: #89899f;
       }
     }
+
     .search-btn {
       position: absolute;
       background: transparent;
@@ -6421,28 +7452,34 @@ Blog & Blog Details Page Style
       transform: translateY(-50%);
     }
   }
+
   .program-list {
     list-style: none;
     padding-left: 0;
     margin-left: -5px;
     margin-bottom: 0;
+
     span {
       width: 100%;
       display: inline-block;
     }
+
     li {
       padding-right: 5px;
       display: inline-block;
+
       a {
         font-size: 14px;
         color: #525271;
         text-decoration: underline;
+
         &:hover {
           color: var(--primary);
         }
       }
     }
   }
+
   .search-list {
     font-size: 14px;
     color: #89899f;
@@ -6451,10 +7488,12 @@ Blog & Blog Details Page Style
     display: block;
   }
 }
+
 .blog-small-widget {
   .all-box {
     background: #e8e9ed;
     padding: 30px 30px 40px 30px;
+
     h4 {
       color: #0d0d25;
       font-size: 20px;
@@ -6463,24 +7502,30 @@ Blog & Blog Details Page Style
     }
   }
 }
+
 .categories-widget {
   margin-bottom: 1px;
+
   .categories-list {
     list-style: none;
     padding-left: 0;
     margin-bottom: 0;
+
     li {
       position: relative;
       padding-left: 35px;
       margin-bottom: 8px;
       font-family: Work Sans;
       font-weight: 500;
+
       a {
         color: #525271;
       }
+
       &:last-child {
         margin-bottom: 0;
       }
+
       &::before {
         content: "";
         position: absolute;
@@ -6492,10 +7537,12 @@ Blog & Blog Details Page Style
         border: 1px solid #9b9bad;
         background: #f3f3f6;
       }
+
       &:hover {
         a {
           color: var(--primary);
         }
+
         &::before {
           background-color: var(--primary);
           border-color: var(--primary);
@@ -6504,13 +7551,17 @@ Blog & Blog Details Page Style
     }
   }
 }
+
 .articles-widget {
   margin-bottom: 1px;
+
   .blog-article-item {
     margin-bottom: 20px;
+
     &:last-child {
       margin-bottom: 0;
     }
+
     span {
       line-height: 1;
       display: inline-flex;
@@ -6523,25 +7574,31 @@ Blog & Blog Details Page Style
       background: var(--white);
       box-shadow: 0px 4px 12px 0px rgba(119, 104, 229, 0.1);
     }
+
     h3 {
       font-size: 18px;
       margin-bottom: 15px;
+
       a {
         color: #0d0d25;
+
         &:hover {
           color: var(--primary);
         }
       }
     }
+
     .article-list {
       list-style: none;
       margin-bottom: 0;
       padding-left: 0;
+
       li {
         display: inline-block;
         padding-right: 36px;
         color: #525271;
         position: relative;
+
         &::before {
           content: "";
           position: absolute;
@@ -6552,8 +7609,10 @@ Blog & Blog Details Page Style
           width: 1px;
           background: #e8e8f4;
         }
+
         &:last-child {
           padding-right: 0;
+
           &::before {
             display: none;
           }
@@ -6562,16 +7621,19 @@ Blog & Blog Details Page Style
     }
   }
 }
+
 .tag-widget {
   .tag-list {
     list-style: none;
     padding-left: 0;
     margin-bottom: 0;
     padding-right: 30px;
+
     li {
       display: inline-block;
       margin-right: 8px;
       margin-bottom: 8px;
+
       a {
         line-height: 1;
         display: inline-flex;
@@ -6582,6 +7644,7 @@ Blog & Blog Details Page Style
         font-weight: 500;
         background: var(--white);
         box-shadow: 0px 4px 12px 0px rgba(119, 104, 229, 0.1);
+
         &:hover {
           color: var(--white);
           background-color: var(--bs-dark);
@@ -6590,17 +7653,23 @@ Blog & Blog Details Page Style
     }
   }
 }
+
 .blog-big-widget {
   padding-right: 15px;
 }
+
 .inner-pages-pagination {
   margin-top: 60px;
+
   .pagination {
     justify-content: center;
+
     .page-item {
       margin-right: 10px;
+
       &:last-child {
         margin-right: 0;
+
         .page-link {
           background: transparent;
           font-size: 35px;
@@ -6608,6 +7677,7 @@ Blog & Blog Details Page Style
           line-height: 45px;
         }
       }
+
       &:first-child {
         .page-link {
           background: transparent;
@@ -6617,6 +7687,7 @@ Blog & Blog Details Page Style
           line-height: 45px;
         }
       }
+
       .page-link {
         border-radius: 0;
         width: 40px;
@@ -6632,10 +7703,12 @@ Blog & Blog Details Page Style
         font-weight: 500;
         transition: 0.6s;
         letter-spacing: 0.3px;
+
         &.active {
           background: #fc6441;
           color: var(--white);
         }
+
         &:hover {
           background: #fc6441;
           opacity: 1;
@@ -6645,22 +7718,27 @@ Blog & Blog Details Page Style
     }
   }
 }
+
 .blog-details-big-widget {
   .blog-title {
     padding-right: 100px;
   }
 }
+
 .blog-image-with-content {
   margin-bottom: 40px;
+
   .blog-list {
     list-style: none;
     margin-bottom: 20px;
     padding-left: 0;
+
     li {
       display: inline-block;
       padding-right: 36px;
       color: #525271;
       position: relative;
+
       span {
         line-height: 1;
         display: inline-flex;
@@ -6673,6 +7751,7 @@ Blog & Blog Details Page Style
         background: var(--white);
         box-shadow: 0px 4px 12px 0px rgba(119, 104, 229, 0.1);
       }
+
       &::before {
         content: "";
         position: absolute;
@@ -6683,54 +7762,67 @@ Blog & Blog Details Page Style
         width: 1px;
         background: #e8e8f4;
       }
+
       &:last-child {
         padding-right: 0;
+
         &::before {
           display: none;
         }
       }
     }
   }
+
   .image {
     margin-bottom: 30px;
   }
 }
+
 .blog-content-one {
   margin-bottom: 50px;
+
   h4 {
     font-size: 22px;
     margin-bottom: 15px;
   }
 }
+
 .blog-style-content {
   border-top: 3px solid #353688;
   background: #f4f4fc;
   padding: 30px;
   position: relative;
   margin-bottom: 50px;
+
   p {
     font-size: 18px;
     padding-left: 70px;
   }
+
   .icon {
     position: absolute;
   }
 }
+
 .blog-content-two {
   margin-bottom: 60px;
+
   h4 {
     font-size: 22px;
     margin-bottom: 15px;
   }
+
   .image {
     margin-top: 20px;
     margin-bottom: 40px;
   }
 }
+
 .slider-article-details {
   padding-bottom: 50px;
   margin-bottom: 100px;
   border-bottom: solid 1px #e8e9ed;
+
   .blog-article-item {
     span {
       line-height: 1;
@@ -6744,25 +7836,31 @@ Blog & Blog Details Page Style
       background: var(--white);
       box-shadow: 0px 4px 12px 0px rgba(119, 104, 229, 0.1);
     }
+
     h3 {
       font-size: 18px;
       margin-bottom: 15px;
+
       a {
         color: #0d0d25;
+
         &:hover {
           color: var(--primary);
         }
       }
     }
+
     .article-list {
       list-style: none;
       margin-bottom: 0;
       padding-left: 0;
+
       li {
         display: inline-block;
         padding-right: 36px;
         color: #525271;
         position: relative;
+
         &::before {
           content: "";
           position: absolute;
@@ -6773,8 +7871,10 @@ Blog & Blog Details Page Style
           width: 1px;
           background: #e8e8f4;
         }
+
         &:last-child {
           padding-right: 0;
+
           &::before {
             display: none;
           }
@@ -6783,6 +7883,7 @@ Blog & Blog Details Page Style
     }
   }
 }
+
 .tags-share {
   display: flex;
   align-items: center;
@@ -6792,21 +7893,26 @@ Blog & Blog Details Page Style
   border-bottom: solid 1px #e8e9ed;
   border-top: solid 1px #e8e9ed;
   margin-bottom: 50px;
+
   .tags-list {
     list-style: none;
     padding-left: 0;
     margin-bottom: 0;
+
     li {
       display: inline-block;
       padding-right: 10px;
+
       &:last-child {
         padding-right: 0;
       }
+
       h5 {
         font-size: 16px;
         font-weight: 600;
         margin-bottom: 0;
       }
+
       a {
         line-height: 1;
         display: inline-flex;
@@ -6818,6 +7924,7 @@ Blog & Blog Details Page Style
         font-weight: 500;
         background: var(--white);
         box-shadow: 0px 4px 12px 0px rgba(119, 104, 229, 0.1);
+
         &:hover {
           color: var(--white);
           background-color: var(--bs-dark);
@@ -6825,42 +7932,48 @@ Blog & Blog Details Page Style
       }
     }
   }
+
   .share-list {
     position: relative;
     list-style: none;
     padding-left: 0;
     margin-bottom: 0;
+
     li {
       padding-right: 15px;
       display: inline-block;
+
       &:last-child {
         padding-right: 0;
       }
+
       h5 {
         font-size: 16px;
         font-weight: 600;
         margin-bottom: 0;
       }
+
       .icon {
         img {
-          filter: brightness(0) saturate(100%) invert(6%) sepia(23%)
-            saturate(3988%) hue-rotate(219deg) brightness(89%) contrast(100%);
+          filter: brightness(0) saturate(100%) invert(6%) sepia(23%) saturate(3988%) hue-rotate(219deg) brightness(89%) contrast(100%);
         }
+
         &:hover {
           img {
-            filter: brightness(0) saturate(100%) invert(52%) sepia(95%)
-              saturate(2641%) hue-rotate(335deg) brightness(100%) contrast(98%);
+            filter: brightness(0) saturate(100%) invert(52%) sepia(95%) saturate(2641%) hue-rotate(335deg) brightness(100%) contrast(98%);
           }
         }
       }
     }
   }
 }
+
 .previous-next {
   display: flex;
   align-items: center;
   justify-content: space-between;
   margin-bottom: 20px;
+
   button {
     background: transparent;
     border: none;
@@ -6868,23 +7981,28 @@ Blog & Blog Details Page Style
     font-family: Work Sans;
     font-size: 16px;
     font-weight: 600;
+
     i {
       font-size: 25px;
       line-height: 1;
       position: relative;
       top: 6px;
     }
+
     &:focus {
       box-shadow: unset;
     }
+
     &.active {
       color: #fc6441;
     }
+
     &.previous-btn {
       i {
         padding-right: 5px;
       }
     }
+
     &.next-btn {
       i {
         padding-left: 5px;
@@ -6892,8 +8010,10 @@ Blog & Blog Details Page Style
     }
   }
 }
+
 .comments-widget {
   padding-bottom: 100px;
+
   h2 {
     color: #0d0d25;
     font-family: Alfa Slab One;
@@ -6902,10 +8022,12 @@ Blog & Blog Details Page Style
     letter-spacing: 1.28px;
     margin-bottom: 5px;
   }
+
   p {
     color: #525271;
   }
 }
+
 .reply-widget {
   h3 {
     color: #0d0d25;
@@ -6915,16 +8037,20 @@ Blog & Blog Details Page Style
     letter-spacing: 1.28px;
     margin-bottom: 12px;
   }
+
   .input-box {
     margin-bottom: 20px;
+
     .form-label {
       font-size: 15px;
       font-weight: 500;
       margin-bottom: 5px;
+
       span {
         color: #c1272d;
       }
     }
+
     .form-control {
       height: 60px;
       padding-left: 20px;
@@ -6933,19 +8059,24 @@ Blog & Blog Details Page Style
       font-size: 13px;
       border-radius: 0;
       background-color: #f3f3f6;
+
       &::placeholder {
         transition: 0.6s;
       }
+
       &:focus {
         box-shadow: unset;
+
         &::placeholder {
           color: transparent;
         }
       }
     }
+
     .input-with-icon {
       height: 60px;
       position: relative;
+
       &::before {
         content: "";
         position: absolute;
@@ -6956,10 +8087,12 @@ Blog & Blog Details Page Style
         height: 100%;
         background: #d8d8e7;
       }
+
       .form-control {
         padding-left: 75px;
         background: #f3f3f6;
       }
+
       i {
         position: absolute;
         left: 20px;
@@ -6968,28 +8101,34 @@ Blog & Blog Details Page Style
         font-size: 20px;
       }
     }
+
     textarea {
       padding-top: 15px;
       height: 194px !important;
     }
   }
+
   .form-check {
     margin-bottom: 20px;
+
     .form-check-input {
       width: 20px;
       height: 20px;
       border-radius: 0;
       border: 1px solid #9b9bad;
       background-color: #f3f3f6;
+
       &:focus {
         box-shadow: unset;
       }
+
       &:checked[type="radio"] {
         background-image: url(../img/svgs/select.svg);
         background-size: 12px 12px;
         background-position: center center;
       }
     }
+
     .form-check-label {
       font-weight: 500;
       color: #525271;
@@ -7004,6 +8143,7 @@ Events & Event Details Page Style
 ======================================================*/
 .event-title-select {
   margin-bottom: 30px;
+
   .event-title {
     h2 {
       color: #0d0d25;
@@ -7016,9 +8156,11 @@ Events & Event Details Page Style
       border-left: solid 4px #b0c2ff;
     }
   }
+
   .event-select {
     max-width: 356px;
     margin-left: auto;
+
     .form-select {
       height: 60px;
       color: #0d0d25;
@@ -7028,12 +8170,14 @@ Events & Event Details Page Style
       font-weight: 500;
       padding-left: 25px;
       background-image: url(../img/svgs/caret-down.svg);
+
       &:focus {
         box-shadow: unset;
       }
     }
   }
 }
+
 .event-small-widget {
   .facilities-item {
     &:last-child {
@@ -7041,6 +8185,7 @@ Events & Event Details Page Style
     }
   }
 }
+
 .event-big-warp {
   .blog-title {
     h2 {
@@ -7048,14 +8193,17 @@ Events & Event Details Page Style
     }
   }
 }
+
 .event-details-content {
   margin-bottom: 50px;
+
   h4 {
     font-size: 22px;
     font-weight: 600;
     margin-bottom: 15px;
   }
 }
+
 .event-speaker-widget {
   h4 {
     font-size: 22px;
@@ -7063,8 +8211,10 @@ Events & Event Details Page Style
     margin-bottom: 25px;
   }
 }
+
 .event-details-content2 {
   margin-top: 50px;
+
   h4 {
     font-size: 22px;
     font-weight: 600;
@@ -7078,14 +8228,17 @@ Contact Page Style
 .main-contact-content {
   .input-box {
     margin-bottom: 20px;
+
     .form-label {
       font-size: 15px;
       font-weight: 500;
       margin-bottom: 5px;
+
       span {
         color: #c1272d;
       }
     }
+
     .form-control {
       height: 60px;
       padding-left: 20px;
@@ -7094,19 +8247,24 @@ Contact Page Style
       font-size: 13px;
       border-radius: 0;
       background-color: #f3f3f6;
+
       &::placeholder {
         transition: 0.6s;
       }
+
       &:focus {
         box-shadow: unset;
+
         &::placeholder {
           color: transparent;
         }
       }
     }
+
     .input-with-icon {
       height: 60px;
       position: relative;
+
       &::before {
         content: "";
         position: absolute;
@@ -7117,10 +8275,12 @@ Contact Page Style
         height: 100%;
         background: #d8d8e7;
       }
+
       .form-control {
         padding-left: 75px;
         background: #f3f3f6;
       }
+
       i {
         position: absolute;
         left: 20px;
@@ -7129,28 +8289,34 @@ Contact Page Style
         font-size: 20px;
       }
     }
+
     textarea {
       padding-top: 15px;
       height: 194px !important;
     }
   }
+
   .form-check {
     margin-bottom: 20px;
+
     .form-check-input {
       width: 20px;
       height: 20px;
       border-radius: 0;
       border: 1px solid #9b9bad;
       background-color: #f3f3f6;
+
       &:focus {
         box-shadow: unset;
       }
+
       &:checked[type="radio"] {
         background-image: url(../img/svgs/select.svg);
         background-size: 12px 12px;
         background-position: center center;
       }
     }
+
     .form-check-label {
       font-weight: 500;
       color: #525271;
@@ -7159,10 +8325,12 @@ Contact Page Style
     }
   }
 }
+
 .contact-small-widget {
   padding: 35px;
   background: #e8e9ed;
   margin-bottom: 15px;
+
   h5 {
     font-size: 20px;
     font-weight: 600;
@@ -7170,51 +8338,60 @@ Contact Page Style
     padding-bottom: 30px;
     border-bottom: solid 1px var(--white);
   }
+
   .contact-item {
     margin-bottom: 25px;
+
     &:last-child {
       margin-bottom: 0;
     }
+
     span {
       font-weight: 600;
       color: #494968;
       display: block;
       margin-bottom: 5px;
     }
+
     p {
       margin-bottom: 4px;
+
       &:last-child {
         margin-bottom: 0;
       }
     }
+
     a {
       display: block;
       color: #525271;
+
       &:hover {
         color: var(--primary);
       }
     }
+
     .social-list {
       position: relative;
       list-style: none;
       padding-left: 0;
       margin-bottom: 0;
+
       li {
         padding-right: 15px;
         display: inline-block;
+
         &:last-child {
           padding-right: 0;
         }
+
         .icon {
           img {
-            filter: brightness(0) saturate(100%) invert(6%) sepia(23%)
-              saturate(3988%) hue-rotate(219deg) brightness(89%) contrast(100%);
+            filter: brightness(0) saturate(100%) invert(6%) sepia(23%) saturate(3988%) hue-rotate(219deg) brightness(89%) contrast(100%);
           }
+
           &:hover {
             img {
-              filter: brightness(0) saturate(100%) invert(52%) sepia(95%)
-                saturate(2641%) hue-rotate(335deg) brightness(100%)
-                contrast(98%);
+              filter: brightness(0) saturate(100%) invert(52%) sepia(95%) saturate(2641%) hue-rotate(335deg) brightness(100%) contrast(98%);
             }
           }
         }
@@ -7232,17 +8409,21 @@ Academic Page Style
   justify-content: space-between;
   background: #ecf3f8;
   margin-bottom: 20px;
+
   &:last-child {
     margin-bottom: 0;
   }
+
   padding: {
     left: 40px;
     top: 20px;
     bottom: 20px;
     right: 20px;
   }
+
   .academic-event-content {
     max-width: 565px;
+
     span {
       color: #7768e5;
       font-family: Work Sans;
@@ -7255,20 +8436,25 @@ Academic Page Style
       box-shadow: 0px 4px 12px 0px rgba(119, 104, 229, 0.1);
       margin-bottom: 8px;
     }
+
     h3 {
       font-size: 22px;
       margin-bottom: 15px;
+
       a {
         color: #0d0d25;
+
         &:hover {
           color: var(--primary);
         }
       }
     }
+
     .academic-list {
       list-style: none;
       padding-left: 0;
       margin-bottom: 0;
+
       li {
         position: relative;
         display: inline-block;
@@ -7276,17 +8462,21 @@ Academic Page Style
         padding-right: 40px;
         font-family: Inter;
         font-size: 15px;
+
         i {
           position: absolute;
           left: 0;
           top: 1px;
           font-size: 20px;
         }
+
         &:last-child {
           padding-right: 0;
         }
+
         &:first-child {
           color: #353688;
+
           a {
             color: #353688;
           }
@@ -7294,14 +8484,17 @@ Academic Page Style
       }
     }
   }
+
   .date-box {
     padding: 40px 30px 28px 30px;
     width: 270px;
     text-align: center;
     background-color: var(--white);
     position: relative;
+
     .dot {
       position: relative;
+
       &::before {
         content: "";
         position: absolute;
@@ -7316,6 +8509,7 @@ Academic Page Style
         border-radius: 50%;
         background-color: #d7d7e5;
       }
+
       &::after {
         content: "";
         position: absolute;
@@ -7331,11 +8525,13 @@ Academic Page Style
         background-color: #d7d7e5;
       }
     }
+
     p {
       color: #525271;
       font-size: 15px;
       margin-bottom: 4px;
     }
+
     h4 {
       color: #353688;
       text-align: center;
@@ -7344,10 +8540,12 @@ Academic Page Style
       font-weight: 400;
       margin-bottom: 1px;
     }
+
     span {
       font-size: 15px;
       color: #525271;
     }
+
     &::before {
       content: "";
       position: absolute;
@@ -7360,6 +8558,7 @@ Academic Page Style
     }
   }
 }
+
 .inner-account-warp {
   max-width: 835px;
 }
@@ -7370,14 +8569,17 @@ My Account Page Style
 .inner-account-warp {
   .input-box {
     margin-bottom: 20px;
+
     .form-label {
       font-size: 15px;
       font-weight: 500;
       margin-bottom: 5px;
+
       span {
         color: #c1272d;
       }
     }
+
     .form-control {
       height: 60px;
       padding-left: 20px;
@@ -7386,19 +8588,24 @@ My Account Page Style
       font-size: 13px;
       border-radius: 0;
       background-color: #f3f3f6;
+
       &::placeholder {
         transition: 0.6s;
       }
+
       &:focus {
         box-shadow: unset;
+
         &::placeholder {
           color: transparent;
         }
       }
     }
+
     .input-with-icon {
       height: 60px;
       position: relative;
+
       &::before {
         content: "";
         position: absolute;
@@ -7409,10 +8616,12 @@ My Account Page Style
         height: 100%;
         background: #d8d8e7;
       }
+
       .form-control {
         padding-left: 75px;
         background: #f3f3f6;
       }
+
       i {
         position: absolute;
         left: 20px;
@@ -7421,28 +8630,34 @@ My Account Page Style
         font-size: 20px;
       }
     }
+
     textarea {
       padding-top: 15px;
       height: 194px !important;
     }
   }
+
   .form-check {
     margin-bottom: 20px;
+
     .form-check-input {
       width: 20px;
       height: 20px;
       border-radius: 0;
       border: 1px solid #9b9bad;
       background-color: #f3f3f6;
+
       &:focus {
         box-shadow: unset;
       }
+
       &:checked[type="radio"] {
         background-image: url(../img/svgs/select.svg);
         background-size: 12px 12px;
         background-position: center center;
       }
     }
+
     .form-check-label {
       font-weight: 500;
       color: #525271;
@@ -7450,8 +8665,10 @@ My Account Page Style
       margin-left: 15px;
     }
   }
+
   p {
     margin-top: 20px;
+
     a {
       color: #353688;
       font-weight: 600;
@@ -7459,6 +8676,7 @@ My Account Page Style
     }
   }
 }
+
 .inner-login-widget {
   max-width: 410px;
 }
@@ -7470,15 +8688,19 @@ Article Warp Style
   display: flex;
   align-items: center;
   margin-bottom: 42px;
+
   &:nth-child(3) {
     margin-bottom: 20px;
   }
+
   .image {
     width: 100px;
     height: 145px;
   }
+
   .content {
     margin-left: 20px;
+
     .title {
       padding: 5px 6px;
       background: #fff;
@@ -7490,27 +8712,33 @@ Article Warp Style
       display: inline-block;
       margin-bottom: 10px;
     }
+
     h3 {
       font-size: 18px;
       margin-bottom: 12px;
       padding-right: 30px;
+
       a {
         color: #0d0d25;
       }
     }
+
     .news-link {
       display: block;
       color: #fc6441;
       font-weight: 600;
       font-family: Work Sans;
+
       i {
         position: relative;
         left: 2px;
         top: 4px;
         font-size: 20px;
       }
+
       span {
         position: relative;
+
         &::before {
           content: "";
           position: absolute;
@@ -7525,16 +8753,20 @@ Article Warp Style
       }
     }
   }
+
   &.style2 {
     margin-left: 20px;
   }
+
   &:nth-child(2) {
     margin-bottom: 0;
   }
+
   &:nth-child(5) {
     margin-bottom: 0;
   }
 }
+
 .article-card {
   .content {
     padding: {
@@ -7543,7 +8775,9 @@ Article Warp Style
       right: 15px;
       bottom: 25px;
     }
+
     background-color: var(--white);
+
     .title {
       padding: 5px 6px;
       background: #fff;
@@ -7555,20 +8789,25 @@ Article Warp Style
       display: inline-block;
       margin-bottom: 10px;
     }
+
     h3 {
       font-size: 22px;
       margin-bottom: 8px;
+
       a {
         color: #0d0d25;
       }
     }
   }
+
   .image {
     overflow: hidden;
+
     img {
       transition: 0.6s;
     }
   }
+
   &:hover {
     .image {
       img {
@@ -7584,10 +8823,12 @@ International Page Style
 .international-list-widget {
   background: #e8e9ed;
   padding: 5px 0;
+
   .international-list {
     list-style: none;
     padding-left: 0;
     margin-bottom: 0;
+
     li {
       display: flex;
       align-items: center;
@@ -7597,24 +8838,29 @@ International Page Style
       font-size: 18px;
       transition: 0.6s;
       border-bottom: solid 1px var(--white);
+
       &:last-child {
         border: none;
       }
+
       a {
         line-height: 1;
         color: #0d0d25;
       }
+
       i {
         line-height: 1;
         position: relative;
         left: 0;
         transition: 0.6s;
       }
+
       &:hover {
         i {
           opacity: 1;
           left: 0;
         }
+
         a {
           letter-spacing: 1px;
           color: var(--primary);
@@ -7623,19 +8869,23 @@ International Page Style
     }
   }
 }
+
 .international-content {
   padding-right: 40px;
+
   .survey-result {
     h4 {
       font-size: 22px;
       margin-bottom: 20px;
       font-weight: 600;
     }
+
     a {
       color: #fc6441;
       font-family: Work Sans;
       font-size: 16px;
       font-weight: 600;
+
       i {
         position: relative;
         left: 5px;
@@ -7645,20 +8895,24 @@ International Page Style
     }
   }
 }
+
 .international-support-image {
   padding-right: 172px;
   position: relative;
+
   .small-image {
     position: absolute;
     bottom: 100px;
     right: 38px;
     width: 236px;
     height: 156px;
+
     .information {
       width: 204px;
       height: 204px;
     }
   }
+
   .round-shape {
     width: 192.2px;
     height: 192.249px;
@@ -7667,6 +8921,7 @@ International Page Style
     top: 50px;
     right: 69px;
     line-height: 192px;
+
     .text-shape {
       position: absolute;
       left: 0;
@@ -7675,6 +8930,7 @@ International Page Style
     }
   }
 }
+
 .international-support-content {
   h2 {
     color: #0d0d25;
@@ -7683,36 +8939,44 @@ International Page Style
     font-weight: 400;
     letter-spacing: 1.28px;
   }
+
   .info-button {
     margin-bottom: 25px;
+
     .style2 {
       background: #7768e5;
       margin-left: 15px;
     }
   }
+
   .international-info {
     margin-top: 30px;
+
     .item-one {
       h4 {
         font-size: 22px;
         font-weight: 600;
         margin-bottom: 10px;
       }
+
       p {
         font-weight: 600;
         color: #353688;
         font-family: Work Sans;
         font-size: 18px;
         margin-bottom: 10px;
+
         a {
           font-weight: 700;
           color: #353688;
         }
       }
+
       span {
         display: block;
       }
     }
+
     .item-two {
       h4 {
         font-size: 22px;
@@ -7732,17 +8996,21 @@ Accessibility Page Style
       padding-right: 100px;
     }
   }
+
   .accessibility-list {
     list-style: none;
     padding-left: 0;
     margin-bottom: 0;
+
     li {
       padding-left: 30px;
       position: relative;
       margin-bottom: 5px;
+
       &:last-child {
         margin-bottom: 0;
       }
+
       &::before {
         content: "";
         position: absolute;
@@ -7756,55 +9024,66 @@ Accessibility Page Style
     }
   }
 }
+
 .accessibility-content2 {
   h4 {
     font-size: 22px;
     font-weight: 600;
     margin-bottom: 12px;
   }
+
   p {
     span {
       color: #525271;
       font-weight: 600;
     }
   }
+
   .accessibility-contact-list {
     list-style: none;
     padding-left: 0;
     margin-bottom: 0;
     margin-top: 20px;
+
     li {
       position: relative;
       color: #525271;
       font-size: 16px;
       font-weight: 700;
       margin-bottom: 8px;
+
       &:last-child {
         margin-bottom: 0;
       }
+
       a {
         font-weight: 400;
         color: #525271;
       }
+
       span {
         font-weight: 400;
       }
     }
   }
 }
+
 .accessibility-accordion-warp {
   margin-top: 45px;
+
   h4 {
     font-size: 22px;
     font-weight: 600;
     margin-bottom: 20px;
   }
+
   .accessibility-accordion {
     .accordion-item {
       border-left: none;
       border-right: none;
       border-radius: 0;
       padding: 0;
+
       .accordion-button {
         background-color: transparent;
         box-shadow: unset;
@@ -7814,6 +9093,7 @@ Accessibility Page Style
         font-size: 16px;
         padding: 20px 0;
         font-weight: 500;
+
         &::after {
           content: "\fb2c";
           font-family: "tabler-icons" !important;
@@ -7821,22 +9101,27 @@ Accessibility Page Style
           font-size: 22px;
         }
       }
+
       .accordion-body {
         border-top: solid 1px #e8e9ed;
         margin-top: 0;
+
         padding: {
           left: 0;
           bottom: 20px;
           top: 15px;
         }
+
         p {
           color: #525271;
           font-family: Inter;
           font-size: 16px;
+
           a {
             color: #525271;
             font-weight: 700;
             text-decoration: underline;
+
             &:hover {
               color: var(--primary);
             }
@@ -7846,18 +9131,22 @@ Accessibility Page Style
     }
   }
 }
+
 .accessibility-link-widget {
   background: #e8e9ed;
   padding: 5px 0;
+
   .accessibility-link-list {
     list-style: none;
     padding-left: 0;
     margin-bottom: 0;
+
     li {
       display: flex;
       align-items: center;
       justify-content: space-between;
       border-bottom: solid 1px var(--white);
+
       a {
         color: #0d0d25;
         font-family: Work Sans;
@@ -7866,23 +9155,28 @@ Accessibility Page Style
         font-weight: 600;
         padding: 24px 25px;
         width: 100%;
+
         &.active,
         &.router-link-active {
           color: #353688;
         }
       }
+
       .icon {
         font-size: 20px;
         line-height: 1;
         position: relative;
         right: 20px;
+
         i {
           line-height: 1;
         }
       }
+
       &:last-child {
         border: none;
       }
+
       &:hover {
         a {
           color: #353688;
@@ -7891,6 +9185,7 @@ Accessibility Page Style
       }
     }
   }
+
   h5 {
     padding: 25px;
     color: #0d0d25;
@@ -7909,27 +9204,33 @@ Book Store Page Style
       max-width: 680px;
     }
   }
+
   .online-list-widget {
     h4 {
       font-size: 22px;
       font-weight: 600;
       margin-bottom: 20px;
     }
+
     .online-list {
       list-style: none;
       padding-left: 0;
       margin-bottom: 0;
+
       li {
         position: relative;
         margin-bottom: 10px;
         font-family: Inter;
         font-size: 16px;
         font-weight: 600;
+
         &:last-child {
           margin-bottom: 0;
         }
+
         a {
           color: #353688;
+
           &:hover {
             color: var(--primary);
           }
@@ -7938,6 +9239,7 @@ Book Store Page Style
     }
   }
 }
+
 .information-teach-content-widget {
   h4 {
     color: #0d0d25;
@@ -7947,38 +9249,46 @@ Book Store Page Style
     letter-spacing: 0.88px;
     margin-bottom: 20px;
   }
+
   .content1 {
     margin-bottom: 45px;
+
     h5 {
       font-size: 20px;
       font-weight: 600;
       margin-bottom: 12px;
     }
   }
+
   .content2 {
     h5 {
       font-size: 20px;
       font-weight: 600;
       margin-bottom: 12px;
     }
+
     .accessibility-contact-list {
       list-style: none;
       padding-left: 0;
       margin-bottom: 0;
       margin-top: 20px;
+
       li {
         position: relative;
         color: #525271;
         font-size: 16px;
         font-weight: 700;
         margin-bottom: 8px;
+
         &:last-child {
           margin-bottom: 0;
         }
+
         a {
           font-weight: 400;
           color: #525271;
         }
+
         span {
           font-weight: 400;
         }
@@ -7994,6 +9304,7 @@ Parking Page Style
   .blog-title {
     margin-bottom: 85px;
   }
+
   .parking-location-widget {
     h4 {
       color: #0d0d25;
@@ -8003,23 +9314,29 @@ Parking Page Style
       letter-spacing: 0.88px;
       margin-bottom: 30px;
     }
+
     .parking-item {
       margin-bottom: 30px;
+
       h5 {
         font-size: 20px;
         font-weight: 600;
         margin-bottom: 14px;
       }
+
       .parking-item-list {
         list-style: none;
         padding-left: 0;
         margin-bottom: 0;
+
         li {
           position: relative;
           margin-bottom: 2px;
+
           &:last-child {
             margin-bottom: 0;
           }
+
           a {
             font-weight: 500;
             color: #353688;
@@ -8028,8 +9345,10 @@ Parking Page Style
       }
     }
   }
+
   .parking-notice {
     margin-top: 55px;
+
     h4 {
       color: #0d0d25;
       font-family: Alfa Slab One;
@@ -8038,15 +9357,19 @@ Parking Page Style
       letter-spacing: 0.88px;
       margin-bottom: 20px;
     }
+
     .parking-notice-list {
       list-style: none;
       padding-left: 0;
       margin-bottom: 0;
+
       li {
         margin-bottom: 15px;
+
         &:last-child {
           margin-bottom: 0;
         }
+
         span {
           color: #525271;
           font-weight: 700;
@@ -8061,20 +9384,25 @@ Residence Page Style
 ======================================================*/
 .residence-content-widget {
   padding-right: 35px;
+
   .image {
     margin-bottom: 35px;
   }
+
   .residence-button {
     margin-top: 30px;
     display: flex;
     align-items: center;
+
     .default-btn {
       background: #353688;
+
       padding: {
         left: 105px;
         right: 105px;
       }
     }
+
     .residence-link {
       margin-left: 40px;
       color: #353688;
@@ -8090,11 +9418,13 @@ Career Service Page Style
 ======================================================*/
 .career-service-content {
   padding-right: 35px;
+
   .blog-title {
     .image {
       margin-top: 25px;
     }
   }
+
   .career-service-support {
     h3 {
       color: #0d0d25;
@@ -8104,8 +9434,10 @@ Career Service Page Style
       letter-spacing: 0.88px;
       margin-bottom: 25px;
     }
+
     .career-service-item {
       margin-bottom: 45px;
+
       h4 {
         font-size: 20px;
         font-weight: 600;
@@ -8113,29 +9445,35 @@ Career Service Page Style
       }
     }
   }
+
   .career-service-content {
     h4 {
       font-size: 20px;
       font-weight: 600;
       margin-bottom: 12px;
     }
+
     .accessibility-contact-list {
       list-style: none;
       padding-left: 0;
       margin-bottom: 0;
+
       li {
         position: relative;
         color: #525271;
         font-size: 16px;
         font-weight: 700;
         margin-bottom: 8px;
+
         &:last-child {
           margin-bottom: 0;
         }
+
         a {
           font-weight: 400;
           color: #525271;
         }
+
         span {
           font-weight: 400;
         }
@@ -8149,6 +9487,7 @@ Health Service Page Style
 ======================================================*/
 .health-service-content {
   padding-right: 30px;
+
   .health-service-location-widget {
     h4 {
       color: #0d0d25;
@@ -8158,23 +9497,29 @@ Health Service Page Style
       letter-spacing: 0.88px;
       margin-bottom: 30px;
     }
+
     .health-service-item {
       margin-bottom: 45px;
+
       h5 {
         font-size: 20px;
         font-weight: 600;
         margin-bottom: 14px;
       }
+
       .parking-item-list {
         list-style: none;
         padding-left: 0;
         margin-bottom: 0;
+
         li {
           position: relative;
           margin-bottom: 2px;
+
           &:last-child {
             margin-bottom: 0;
           }
+
           a {
             font-weight: 500;
             color: #353688;
@@ -8184,8 +9529,10 @@ Health Service Page Style
     }
   }
 }
+
 .health-service-appointment {
   margin-bottom: 45px;
+
   h4 {
     color: #0d0d25;
     font-family: Alfa Slab One;
@@ -8195,39 +9542,47 @@ Health Service Page Style
     margin-bottom: 20px;
   }
 }
+
 .health-service-contact {
   h4 {
     font-size: 22px;
     font-weight: 600;
     margin-bottom: 12px;
   }
+
   p {
     span {
       color: #525271;
       font-weight: 600;
     }
   }
+
   .health-service-contact-list {
     list-style: none;
     padding-left: 0;
     margin-bottom: 0;
     margin-top: 20px;
+
     li {
       position: relative;
       color: #525271;
       font-size: 16px;
       font-weight: 700;
       margin-bottom: 8px;
+
       &:last-child {
         margin-bottom: 0;
       }
+
       a {
         font-weight: 400;
         color: #525271;
+
         &:hover {
           color: var(--primary);
         }
       }
+
       span {
         font-weight: 400;
       }
@@ -8240,10 +9595,12 @@ Tutoring Center Page Style
 ======================================================*/
 .tutoring-center-content {
   padding-right: 30px;
+
   .blog-title {
     margin-bottom: 50px;
   }
 }
+
 .tutoring-problems-content {
   h4 {
     color: #0d0d25;
@@ -8253,11 +9610,14 @@ Tutoring Center Page Style
     letter-spacing: 0.88px;
     margin-bottom: 20px;
   }
+
   .tutoring-item {
     margin-bottom: 45px;
+
     &:last-child {
       margin-bottom: 0;
     }
+
     h5 {
       font-size: 20px;
       font-weight: 600;
@@ -8268,16 +9628,20 @@ Tutoring Center Page Style
 
 .experimental-learning-content {
   padding-right: 35px;
+
   .blog-title {
     h2 {
       max-width: 660px;
     }
   }
+
   .image {
     margin-top: 25px;
   }
+
   .experimental-question {
     padding-bottom: 45px;
+
     h4 {
       color: #0d0d25;
       font-family: Alfa Slab One;
@@ -8287,8 +9651,10 @@ Tutoring Center Page Style
       margin-bottom: 20px;
     }
   }
+
   .experimental-example {
     padding-bottom: 45px;
+
     h4 {
       color: #0d0d25;
       font-family: Alfa Slab One;
@@ -8297,17 +9663,21 @@ Tutoring Center Page Style
       letter-spacing: 0.88px;
       margin-bottom: 25px;
     }
+
     .examples-list {
       list-style: none;
       padding-left: 0;
       margin-bottom: 0;
+
       li {
         padding-left: 30px;
         position: relative;
         margin-bottom: 5px;
+
         &:last-child {
           margin-bottom: 0;
         }
+
         &::before {
           content: "";
           position: absolute;
@@ -8321,6 +9691,7 @@ Tutoring Center Page Style
       }
     }
   }
+
   .experimental-answer {
     h4 {
       color: #0d0d25;
@@ -8330,17 +9701,21 @@ Tutoring Center Page Style
       letter-spacing: 0.88px;
       margin-bottom: 25px;
     }
+
     .answer-list {
       list-style: none;
       padding-left: 0;
       margin-bottom: 0;
+
       li {
         padding-left: 30px;
         position: relative;
         margin-bottom: 5px;
+
         &:last-child {
           margin-bottom: 0;
         }
+
         &::before {
           content: "";
           position: absolute;
@@ -8355,10 +9730,12 @@ Tutoring Center Page Style
     }
   }
 }
+
 .inner-athletic-warp {
   max-width: 1080px;
   margin-left: auto;
   margin-right: auto;
+
   .athletic-image {
     margin-bottom: 30px;
   }
@@ -8366,23 +9743,28 @@ Tutoring Center Page Style
 
 .positive-section {
   margin-bottom: 50px;
+
   .blog-title {
     margin-bottom: 0;
+
     h2 {
       margin-bottom: 0;
       padding-right: 110px;
     }
   }
 }
+
 .positive-image {
   margin-right: -180px;
   position: relative;
   z-index: 2;
 }
+
 .positive-image-style2 {
   margin-left: -45px;
   position: relative;
   z-index: 1;
+
   .jobs-logo {
     margin-left: 252px;
     margin-bottom: 30px;
@@ -8394,13 +9776,16 @@ Tutoring Center Page Style
 
 .open-role-card {
   padding-bottom: 30px;
+
   .event-list {
     margin-bottom: 20px;
   }
+
   .default-btn {
     background: #353688;
   }
 }
+
 .open-roles-jobs-warp {
   .inner-pages-pagination {
     margin-top: 40px;
@@ -8412,25 +9797,31 @@ Tutoring Center Page Style
   margin-left: auto;
   margin-right: auto;
 }
+
 .inner-job-details {
   max-width: 1010px;
   margin-left: auto;
   margin-right: auto;
   background: #ecf3f8;
+
   padding: {
     top: 60px;
     bottom: 75px;
   }
 }
+
 .job-details-button-content {
   margin-top: 50px;
+
   p {
     margin-bottom: 35px;
   }
+
   .default-btn {
     background: #353688;
   }
 }
+
 .job-benefits {
   h3 {
     color: #0d0d25;
@@ -8440,45 +9831,56 @@ Tutoring Center Page Style
     letter-spacing: 0.88px;
     margin-bottom: 15px;
   }
+
   .benefits-list {
     list-style: none;
     padding-left: 0;
     margin-bottom: 0;
+
     li {
       margin-bottom: 10px;
       position: relative;
       display: inline-block;
+
       padding: {
         left: 40px;
         right: 30px;
         top: 8px;
         bottom: 8px;
       }
+
       i {
         position: absolute;
         left: 12px;
         font-size: 24px;
         color: #5754ff;
       }
+
       background-color: var(--white);
+
       &:last-child {
         margin-bottom: 0;
       }
     }
   }
 }
+
 .job-description {
   margin-bottom: 60px;
+
   .description-list {
     list-style: none;
     margin-bottom: 40px;
     padding-left: 0;
+
     li {
       display: inline-block;
       margin-right: 8px;
+
       &:last-child {
         margin-right: 0;
       }
+
       padding: 5px 6px;
       background: #fff;
       box-shadow: 0px 4px 12px 0px rgba(119, 104, 229, 0.1);
@@ -8488,12 +9890,14 @@ Tutoring Center Page Style
       line-height: 1;
       display: inline-block;
       margin-bottom: 10px;
+
       .bold {
         font-size: 12px;
         font-weight: 700;
       }
     }
   }
+
   h3 {
     color: #0d0d25;
     font-family: Alfa Slab One;
@@ -8503,8 +9907,10 @@ Tutoring Center Page Style
     margin-bottom: 20px;
   }
 }
+
 .job-responsibilities {
   margin-bottom: 50px;
+
   h3 {
     color: #0d0d25;
     font-family: Alfa Slab One;
@@ -8513,10 +9919,12 @@ Tutoring Center Page Style
     letter-spacing: 0.88px;
     padding-bottom: 15px;
   }
+
   .responsibilities-list {
     list-style: none;
     padding-left: 0;
     margin-bottom: 0;
+
     &.style2 {
       li {
         i {
@@ -8524,13 +9932,16 @@ Tutoring Center Page Style
         }
       }
     }
+
     li {
       position: relative;
       padding-left: 38px;
       margin-bottom: 10px;
+
       &:last-child {
         margin-bottom: 0;
       }
+
       i {
         position: absolute;
         left: 0;
@@ -8545,24 +9956,30 @@ Tutoring Center Page Style
 .transfer-credit-card {
   .content {
     padding-top: 20px;
+
     h3 {
       font-size: 22px;
       margin-bottom: 15px;
+
       a {
         color: #0d0d25;
+
         &:hover {
           color: var(--primary);
         }
       }
     }
+
     p {
       margin-bottom: 20px;
     }
+
     .apply-link {
       color: #fc6441;
       font-family: Work Sans;
       font-size: 16px;
       font-weight: 600;
+
       i {
         position: relative;
         left: 4px;
@@ -8570,17 +9987,21 @@ Tutoring Center Page Style
         font-size: 18px;
         top: 3px;
       }
+
       span {
         text-decoration-line: underline;
       }
     }
   }
+
   .image {
     position: relative;
     overflow: hidden;
+
     img {
       transition: 0.6s;
     }
+
     &::before {
       position: absolute;
       top: 0;
@@ -8591,26 +10012,24 @@ Tutoring Center Page Style
       width: 50%;
       transition: 0.6s;
       height: 100%;
-      background: -webkit-linear-gradient(
-        left,
-        rgba(255, 255, 255, 0) 0%,
-        rgba(255, 255, 255, 0.3) 100%
-      );
-      background: linear-gradient(
-        to right,
-        rgba(255, 255, 255, 0) 0%,
-        rgba(255, 255, 255, 0.3) 100%
-      );
+      background: -webkit-linear-gradient(left,
+          rgba(255, 255, 255, 0) 0%,
+          rgba(255, 255, 255, 0.3) 100%);
+      background: linear-gradient(to right,
+          rgba(255, 255, 255, 0) 0%,
+          rgba(255, 255, 255, 0.3) 100%);
       -webkit-transform: skewX(-25deg);
       transform: skewX(-25deg);
     }
   }
+
   &:hover {
     .image {
       &::before {
         -webkit-animation: shine 0.75s;
         animation: shine 0.75s;
       }
+
       img {
         transform: scale(1.1);
       }
@@ -8620,10 +10039,12 @@ Tutoring Center Page Style
 
 .tuition-content-widget {
   padding-right: 35px;
+
   .full-time-tuition {
     padding-top: 50px;
     border-top: solid 1px #e8e9ed;
     margin-bottom: 50px;
+
     h4 {
       color: #0d0d25;
       font-family: Alfa Slab One;
@@ -8632,19 +10053,24 @@ Tutoring Center Page Style
       letter-spacing: 0.88px;
       margin-bottom: 15px;
     }
+
     .tuition-fees {
       margin-top: 50px;
+
       .tuition-fees-list {
         list-style: none;
         padding-left: 0;
         margin-bottom: 0;
+
         li {
           position: relative;
           margin-bottom: 12px;
+
           span {
             font-weight: 600;
             color: #525271;
           }
+
           &:last-child {
             margin-bottom: 0;
           }
@@ -8652,10 +10078,12 @@ Tutoring Center Page Style
       }
     }
   }
+
   .international-students {
     padding-bottom: 50px;
     border-bottom: solid 1px #e8e9ed;
     margin-bottom: 50px;
+
     h4 {
       color: #0d0d25;
       font-family: Alfa Slab One;
@@ -8665,11 +10093,14 @@ Tutoring Center Page Style
       margin-bottom: 15px;
     }
   }
+
   .tuition-awards {
     margin-bottom: 50px;
+
     &:last-child {
       margin-bottom: 0;
     }
+
     h4 {
       color: #0d0d25;
       font-family: Alfa Slab One;
@@ -8691,32 +10122,40 @@ Tutoring Center Page Style
     margin-bottom: 40px;
     margin-top: 40px;
   }
+
   .content {
     margin-bottom: 40px;
   }
+
   h5 {
     font-size: 16px;
     font-weight: 600;
     margin-bottom: 10px;
+
     span {
       color: var(--primary);
     }
   }
+
   h4 {
     font-size: 18px;
     margin-bottom: 10px;
   }
+
   .privacy-list {
     list-style: none;
     padding-left: 0;
     margin-bottom: 0;
+
     li {
       position: relative;
       padding-left: 25px;
       margin-bottom: 8px;
+
       &:last-child {
         margin-bottom: 0;
       }
+
       &::before {
         content: "";
         position: absolute;
@@ -8738,29 +10177,37 @@ Tutoring Center Page Style
   background-size: cover;
   padding: 40px 30px;
   margin-bottom: 50px;
+
   .default-btn {
     margin-top: 190px;
   }
+
   p {
     width: 170px;
   }
 }
+
 .directory-widget {
   margin-bottom: 50px;
   padding-left: 30px;
+
   h3 {
     font-size: 22px;
     margin-bottom: 20px;
   }
+
   .directory-list {
     list-style: none;
     padding-left: 0;
     margin-bottom: 0;
+
     li {
       margin-bottom: 8px;
+
       &:last-child {
         margin-bottom: 0;
       }
+
       a {
         font-weight: 500;
         color: #0d0d25;
@@ -8768,14 +10215,17 @@ Tutoring Center Page Style
     }
   }
 }
+
 .latest-side-news {
   h3 {
     font-size: 22px;
     margin-bottom: 20px;
   }
+
   .blog-article-item {
     padding: 15px 30px 42px 25px;
     background: #e8e9ed;
+
     span {
       line-height: 1;
       display: inline-flex;
@@ -8788,25 +10238,31 @@ Tutoring Center Page Style
       background: var(--white);
       box-shadow: 0px 4px 12px 0px rgba(119, 104, 229, 0.1);
     }
+
     h3 {
       font-size: 18px;
       margin-bottom: 10px;
+
       a {
         color: #0d0d25;
+
         &:hover {
           color: var(--primary);
         }
       }
     }
+
     .article-list {
       list-style: none;
       margin-bottom: 0;
       padding-left: 0;
+
       li {
         display: inline-block;
         padding-right: 28px;
         color: #525271;
         font-size: 14px;
+
         &::before {
           content: "";
           position: absolute;
@@ -8817,8 +10273,10 @@ Tutoring Center Page Style
           width: 1px;
           background: #e8e8f4;
         }
+
         &:last-child {
           padding-right: 0;
+
           &::before {
             display: none;
           }
@@ -8827,9 +10285,11 @@ Tutoring Center Page Style
     }
   }
 }
+
 .slide-bar-offcanvas {
   width: 100% !important;
   background-color: #000000a8;
+
   .offcanvas-body {
     width: 460px;
     padding: 60px 40px 40px 40px;
@@ -8837,12 +10297,14 @@ Tutoring Center Page Style
     margin-left: auto;
     background-color: #ffffff;
   }
+
   .btn-close {
     position: absolute;
     top: 20px;
     color: #000000;
     opacity: 1;
     right: 40px;
+
     &:focus {
       outline: 0;
       box-shadow: unset;
@@ -8856,6 +10318,7 @@ Tutoring Center Page Style
     left: 125%;
   }
 }
+
 @keyframes shine {
   100% {
     left: 125%;
@@ -8867,6 +10330,7 @@ Tutoring Center Page Style
   transform: translateY(0);
   transition: all 0.6s ease;
   overflow: hidden;
+
   &::after {
     content: "";
     position: absolute;
@@ -8880,19 +10344,23 @@ Tutoring Center Page Style
     transition: 0.9s;
     border-radius: 0;
   }
+
   &.active {
     transform: translateY(0);
     opacity: 1;
+
     &::after {
       width: 0;
     }
   }
 }
+
 .reveal3 {
   position: relative;
   transform: translateY(0);
   transition: all 0.9s ease;
   overflow: hidden;
+
   &::after {
     content: "";
     position: absolute;
@@ -8905,9 +10373,11 @@ Tutoring Center Page Style
     transition: 0.9s;
     border-radius: 0;
   }
+
   &.active {
     transform: translateY(0);
     opacity: 1;
+
     &::after {
       width: 0;
     }
@@ -8920,6 +10390,7 @@ Tutoring Center Page Style
     filter: blur(12px);
     opacity: 0;
   }
+
   100% {
     filter: blur(0);
     opacity: 1;
@@ -8934,42 +10405,51 @@ All Key Style
     -webkit-border-radius: 50%;
   }
 }
+
 @keyframes simple-square-to-circle {
   100% {
     border-radius: 50%;
   }
 }
+
 @-webkit-keyframes simple-rotate {
   100% {
     -webkit-transform: rotate(360deg);
   }
 }
+
 @keyframes simple-rotate {
   100% {
     transform: rotate(360deg);
   }
 }
+
 @-webkit-keyframes simple-scale {
   100% {
     -webkit-transform: scale(1.5);
   }
 }
+
 @keyframes simple-scale {
   100% {
     transform: scale(1.5);
   }
 }
+
 @-webkit-keyframes simple-move {
   100% {
     -webkit-transform: translate(50px, 0);
   }
 }
+
 @keyframes simple-move {
   100% {
     transform: translate(50px, 0);
   }
 }
+
 @-webkit-keyframes bounce {
+
   0%,
   20%,
   50%,
@@ -8977,14 +10457,18 @@ All Key Style
   100% {
     -webkit-transform: translateY(0);
   }
+
   40% {
     -webkit-transform: translateY(-30px);
   }
+
   60% {
     -webkit-transform: translateY(-15px);
   }
 }
+
 @keyframes bounce {
+
   0%,
   20%,
   50%,
@@ -8992,76 +10476,94 @@ All Key Style
   100% {
     transform: translateY(0);
   }
+
   40% {
     transform: translateY(-30px);
   }
+
   60% {
     transform: translateY(-15px);
   }
 }
+
 @keyframes movebounce {
   0% {
     transform: translateY(0px);
   }
+
   50% {
     transform: translateY(50px);
   }
+
   100% {
     transform: translateY(0px);
   }
 }
+
 @keyframes moveleftbounce {
   0% {
     transform: translateX(100px);
   }
+
   50% {
     transform: translateX(300px);
   }
+
   100% {
     transform: translateX(100px);
   }
 }
+
 @keyframes rotateme {
   from {
     transform: rotate(0deg);
   }
+
   to {
     transform: rotate(360deg);
   }
 }
+
 @keyframes rotate3d {
   0% {
     -webkit-transform: rotateY(0deg);
     transform: rotateY(0deg);
   }
+
   100% {
     -webkit-transform: rotateY(360deg);
     transform: rotateY(360deg);
   }
 }
+
 @keyframes ripple {
   0% {
     transform: scale(1);
   }
+
   75% {
     transform: scale(1.5);
     opacity: 0.6;
   }
+
   100% {
     transform: scale(2);
     opacity: 0;
   }
 }
+
 .rotateme {
   animation-name: rotateme;
   animation-duration: 20s;
   animation-iteration-count: infinite;
   animation-timing-function: linear;
 }
+
 @keyframes rotateme {
   from {
     transform: rotate(0deg);
   }
+
   to {
     transform: rotate(360deg);
   }
