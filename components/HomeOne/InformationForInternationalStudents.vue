@@ -4,42 +4,49 @@
       <div class="row align-items-center g-4">
         <div class="col-lg-6" data-aos="fade-up" data-aos-delay="200">
           <div class="information-content">
-            <h2 class="reveal2">Information for International students</h2>
+            <h2 class="reveal2">Build a Global Career in 12 Months</h2>
             <p>
-              The mission of Tuva is to serve as a digital gateway and
-              information hub for all members of the university community.
-            </p>
-            <p>
-              Additionally, a university website seeks to foster a sense of
-              community and collaboration by facilitating communication and
-              engagement among students, faculty, alumni, and prospective
-              students.
+              GCC School is a career-first, globally aligned learning program designed for international students aiming
+              to work in Global Capability Centers and global enterprises. The program follows an
+              employment-to-education model, where outcomes come first.
             </p>
             <ul class="information-list">
               <li>
                 <i class="ti ti-check"></i>
-                Full time programs for the International students.
+                ₹10 LPA+ conditional offer letter after program completion
               </li>
               <li>
                 <i class="ti ti-check"></i>
-                Part time programs with stay.
+                6-month paid internship during the program
               </li>
               <li>
                 <i class="ti ti-check"></i>
-                Job opportunities for the best results.
+                ACCA classroom learning + full ACCA Qualification
+              </li>
+              <li>
+                <i class="ti ti-check"></i>
+                MSc Professional Accountancy (University of London pathway)
+              </li>
+              <li>
+                <i class="ti ti-check"></i>
+                British Council English Certification (A1–C1)
+              </li>
+              <li>
+                <i class="ti ti-check"></i>
+                PGCM from AIMA (AICTE-approved)
               </li>
             </ul>
             <div class="info-button">
               <NuxtLink to="/contact" class="default-btn style2">
-                Contact Form
+                Explore Programs
                 <i class="ti ti-arrow-narrow-right"></i>
               </NuxtLink>
               <NuxtLink to="/administration-availability" class="default-btn">
-                Program Availability
+                Check Eligibility
                 <i class="ti ti-arrow-narrow-right"></i>
               </NuxtLink>
             </div>
-            <div class="info-link-chat">
+            <!-- <div class="info-link-chat">
               <ul class="chat-list">
                 <li>
                   <div class="image">
@@ -64,30 +71,18 @@
                   <i class="ti ti-arrow-narrow-right"></i>
                 </a>
               </div>
-            </div>
+            </div> -->
           </div>
         </div>
         <div class="col-lg-6" data-aos="zoom-in-up" data-aos-delay="200">
           <div class="information-image">
             <img src="~/assets/img/informations/information2.jpg" alt="image" />
             <div class="small-image">
-              <img
-                src="~/assets/img/informations/information1.jpg"
-                class="information"
-                alt="image"
-              />
+              <img src="~/assets/img/informations/information1.jpg" class="information" alt="image" />
             </div>
             <div class="round-shape">
-              <img
-                src="~/assets/img/svgs/main-log.svg"
-                class="main-logo"
-                alt="image"
-              />
-              <img
-                src="~/assets/img/shapes/text-shape1.png"
-                class="text-shape"
-                alt=""
-              />
+              <img src="~/assets/img/svgs/main-log.svg" class="main-logo" alt="image" />
+              <img src="~/assets/img/shapes/text-shape1.png" class="text-shape" alt="" />
             </div>
           </div>
         </div>

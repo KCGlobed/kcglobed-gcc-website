@@ -1,28 +1,45 @@
 <template>
   <div class="hero-warp">
-    <Swiper
-      :loop="true"
-      :effect="'fade'"
-      :speed="2000"
-      :pagination="{
-        el: '.swiper-pagination2',
-        clickable: true,
-      }"
-      :modules="[SwiperEffectFade, SwiperPagination]"
-      class="hero-slider"
-    >
+    <Swiper :loop="true" :effect="'fade'" :speed="2000" :pagination="{
+      el: '.swiper-pagination2',
+      clickable: true,
+    }" :modules="[SwiperEffectFade, SwiperPagination]" class="hero-slider">
       <SwiperSlide v-for="banner in banners" :key="banner.id">
-        <div
-          class="hero-slider-warp"
-          :style="{
-            'background-image': `url(${banner.image})`,
-          }"
-        >
+        <div class="hero-slider-warp" :style="{
+          'background-image': `url(${banner.image})`,
+        }">
           <div class="container-fluid">
-            <div class="content">
-              <h1 class="title">
+            <span style="
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 6px 14px;
+    border-radius: 9999px;
+    background-color:#48526E; /* dark gray */
+    color: #facc15; /* yellow text */
+    font-size: 14px;
+    font-weight: 600;
+    line-height: 1;
+    border: 1px solid #facc15;
+    white-space: nowrap;
+  ">
+              <span style="
+      width: 8px;
+      height: 8px;
+      background-color: #facc15;
+      border-radius: 50%;
+      display: inline-block;
+    "></span>
+              {{ banner.subTitle }}
+            </span>
+
+            <div class="content" style="margin-top: 20px;">
+              <h1 class="title" style="font-size: 40px;line-height: 1.4;">
                 {{ banner.heading }}
               </h1>
+              <p style="color: #fff;">
+                {{ banner.description }}
+              </p>
               <div class="hero-btn">
                 <NuxtLink :to="banner.btnLink" class="default-btn">
                   {{ banner.btnText }}
@@ -34,29 +51,26 @@
                 </NuxtLink>
               </div>
             </div>
-            <ul class="information">
-              <li
-                v-for="information in banner.informations"
-                :key="information.id"
-              >
+            <!-- <ul class="information">
+              <li v-for="information in banner.informations" :key="information.id">
                 <i :class="information.icon"></i>
                 <NuxtLink :to="information.link">
                   {{ information.title }}
                 </NuxtLink>
               </li>
-            </ul>
-            <NuxtLink :to="banner.updateLink" class="update-link">
+            </ul> -->
+            <!-- <NuxtLink :to="banner.updateLink" class="update-link">
               <span>
                 {{ banner.updateTitle }}
               </span>
               <i class="ti ti-arrow-narrow-right"></i>
-            </NuxtLink>
+            </NuxtLink> -->
           </div>
         </div>
       </SwiperSlide>
-      <div class="pagination-bullet-btn text-end">
+      <!-- <div class="pagination-bullet-btn text-end">
         <div class="swiper-pagination2"></div>
-      </div>
+      </div> -->
     </Swiper>
   </div>
 </template>
@@ -75,11 +89,13 @@ export default defineComponent({
         {
           id: 1,
           bgClass: "bg1",
+          subTitle: "Cohort 2026 Applications Open",
           image: image1,
-          heading: "Tuva tops the best world higher education ranking in 2024",
-          btnText: "View Report",
+          heading: "World’s 1st School Backed by Industry, Built on Execution",
+          description: "At GCC School, students don’t wait for placements. They start with them. Learning is structured around real roles, real work, and real responsibility because capability is built on execution.",
+          btnText: "Apply Now",
           btnLink: "/about-overview",
-          btnTextTwo: "View All Programs",
+          btnTextTwo: "Download Brochure",
           btnLinkTwo: "/programs",
           updateTitle: "View all latest news updates of Tuva",
           updateLink: "/blog",

@@ -55,14 +55,6 @@
             </ul>
             <ul class="header-account">
               <li>
-                <select class="form-select" aria-label="Default select example">
-                  <option selected>ENG</option>
-                  <option value="1">ARB</option>
-                  <option value="2">FRS</option>
-                  <option value="3">ARG</option>
-                </select>
-              </li>
-              <li>
                 <i class="ti ti-user"></i>
                 <NuxtLink to="/login">Student Login</NuxtLink>
               </li>

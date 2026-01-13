@@ -4,13 +4,8 @@
       <div class="row">
         <div class="col-lg-4" data-aos="fade-up" data-aos-delay="200">
           <div class="mission-tab">
-            <button
-              class="tablinks"
-              v-for="(mission, index) in missions"
-              :key="mission.id"
-              :class="{ active: activeIndex === index }"
-              @mouseover="() => setActive(index)"
-            >
+            <button class="tablinks" v-for="(mission, index) in missions" :key="mission.id"
+              :class="{ active: activeIndex === index }" @mouseover="() => setActive(index)">
               <div class="mission-tab-btn">
                 {{ mission.title }}
                 <div class="icon">
@@ -21,30 +16,17 @@
           </div>
         </div>
         <div class="col-lg-8">
-          <div
-            class="tabcontent"
-            v-for="(mission, index) in missions"
-            :key="mission.id"
-            :class="['tabcontent', { active: activeIndex === index }]"
-            v-show="activeIndex === index"
-          >
+          <div class="tabcontent" v-for="(mission, index) in missions" :key="mission.id"
+            :class="['tabcontent', { active: activeIndex === index }]" v-show="activeIndex === index">
             <div class="row">
               <div class="col-lg-6" data-aos="zoom-in-up" data-aos-delay="200">
                 <div class="mission-image reveal2">
                   <img :src="mission.image" alt="Image" />
-                  <img
-                    src="assets/img/shapes/mission-shape1.png"
-                    class="mission-shape"
-                    alt="image"
-                  />
+                  <img src="assets/img/shapes/mission-shape1.png" class="mission-shape" alt="image" />
                 </div>
               </div>
               <div class="col-lg-6">
-                <div
-                  class="mission-content"
-                  data-aos="fade-up"
-                  data-aos-delay="200"
-                >
+                <div class="mission-content" data-aos="fade-up" data-aos-delay="200">
                   <h3>{{ mission.heading }}</h3>
                   <div class="mission-box">
                     <div class="icon">
@@ -90,9 +72,9 @@ export default defineComponent({
         id: 1,
         title: "Our Mission",
         image: image1,
-        heading: "About The Tuva University",
+        heading: "About The GCC School",
         description:
-          "The mission of Tuva is to serve as a digital gateway and information hub for all members of the university community.",
+          "To democratize access to global careers by pioneering an inverse education-to-employment model where verified industry demand precedes learning, ensuring a zero-risk, outcome-assured pathway that transforms high-potential individuals into day-one deployable, ethically grounded, globally credentialed professionals through deep industry immersion, digital excellence, and applied experiential learning.",
         viewBtnText: "View Details",
         viewBtnLink: "/event-details",
         btnText: "Take A Campus Tour",
@@ -102,45 +84,21 @@ export default defineComponent({
         id: 2,
         title: "Our Vision",
         image: image2,
-        heading: "About The Tuva University",
+        heading: "About The GCC School",
         description:
-          "The mission of Tuva is to serve as a digital gateway and information hub for all members of the university community.",
+          "To build a globally trusted, equitable, and sustainable talent ecosystem that identifies latent potential early, aligns it with real-world opportunity, and develops future-ready leaders capable of delivering measurable impact across global enterprises. ",
         viewBtnText: "View Details",
         viewBtnLink: "/program-choice",
         btnText: "Take A Campus Tour",
         btnLink: "/program-choice",
       },
       {
-        id: 3,
-        title: "Our Glorious History",
-        image: image3,
-        heading: "About The Tuva University",
-        description:
-          "The mission of Tuva is to serve as a digital gateway and information hub for all members of the university community.",
-        viewBtnText: "View Details",
-        viewBtnLink: "/graduate-programs",
-        btnText: "Take A Campus Tour",
-        btnLink: "/graduate-programs",
-      },
-      {
         id: 4,
-        title: "Leadership",
+        title: "Our Legacy",
         image: image4,
-        heading: "About The Tuva University",
+        heading: "About The GCC School",
         description:
-          "The mission of Tuva is to serve as a digital gateway and information hub for all members of the university community.",
-        viewBtnText: "View Details",
-        viewBtnLink: "/programs",
-        btnText: "Take A Campus Tour",
-        btnLink: "/programs",
-      },
-      {
-        id: 5,
-        title: "Membership",
-        image: image5,
-        heading: "About The Tuva University",
-        description:
-          "The mission of Tuva is to serve as a digital gateway and information hub for all members of the university community.",
+          "GCC School is powered by KC GlobEd, where we embody the ethos of “One Globe, One Education.” We are dedicated to making high-quality professional learning accessible to every learner, regardless of geography or background. At KC GlobEd, we break educational boundaries and transform aspirations into universal possibilities.  ",
         viewBtnText: "View Details",
         viewBtnLink: "/programs",
         btnText: "Take A Campus Tour",

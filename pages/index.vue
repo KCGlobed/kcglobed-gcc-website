@@ -3,11 +3,11 @@
     <LayoutTopHeader />
     <LayoutMainNavbar />
     <HomeOneMainBanner />
-    <HomeOneFindYourProgram />
+    <HomeOneInformationForInternationalStudents />
+    <!-- <HomeOneFindYourProgram /> -->
     <HomeOneAboutTheUniversity />
     <CommonFunFact />
     <HomeOneFutureStudents />
-    <HomeOneInformationForInternationalStudents />
     <HomeOneCultureWarp />
     <HomeOneCurrentAcademicStudents />
     <HomeOneProfessionalLearning />
