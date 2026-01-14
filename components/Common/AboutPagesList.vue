@@ -22,7 +22,7 @@
           <li><a href="javascript:void(0)" @click="scrollToSection('overview')">Overview</a></li>
           <li><a href="javascript:void(0)" @click="scrollToSection('vision-mission')">Vision & Mission</a></li>
           <li><a href="javascript:void(0)" @click="scrollToSection('leadership')">Leadership</a></li>
-          <li><a href="javascript:void(0)" @click="scrollToSection('gcc-think-tank')">GCC Campus Think Tank</a></li>
+          <li><a href="javascript:void(0)" @click="scrollToSection('our-legacy')">Our Legacy</a></li>
         </ul>
       </div>
     </div>

@@ -7,14 +7,19 @@
     <AboutOverviewAboutUniversity />
     <AboutOverviewSustainability />
     <AboutOverviewAboutGCC />
-    <AboutOverviewVisionMission />
+    <MissionAndValuesMissionAndValue />
+    <MissionAndValuesOfTheUniversity />
+
+    <!-- <AboutOverviewVisionMission /> -->
     <AboutOverviewLeadership />
-    <CommonFunFact />
+    <CommonOurLegacy />
+    <CommonOurMentor />
+    <!-- <CommonFunFact />
     <AboutOverviewCultureWarp />
     <AboutOverviewAdmissionAndAid />
     <AboutOverviewProfessionalLearning />
     <AboutOverviewServicesContent />
-    <AboutOverviewLatestNews />
+    <AboutOverviewLatestNews /> -->
     <LayoutMainFooter />
     <LayoutCopyRight />
   </div>

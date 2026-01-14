@@ -1,32 +1,29 @@
 <template>
-  <div class="about-style2-image-warp ptb-100">
+  <div class="about-style2-image-warp ptb-100 " id="vision-mission">
     <div class="container">
       <div class="row g-4">
         <div class="col-lg-6">
           <div class="about-campus-title">
-            <h2>Mission and Values</h2>
+            <h2>Vison and Mission</h2>
             <div class="about-campus-logo">
-              <img
-                src="~/assets/img/abouts/about-logo2.png"
-                class="about-logo2"
-                alt="logo"
-              />
+              <img src="~/assets/img/abouts/about-logo2.png" class="about-logo2" alt="logo" />
             </div>
           </div>
         </div>
         <div class="col-lg-6">
           <div class="about-campus-content">
+            <h3>Vison</h3>
             <p>
-              Tuva's mission is to produce scientific, cultural and artistic
-              knowledge, offer higher education firmly rooted in research,
-              invest in the social and economic valorization of knowledge and
-              actively participate in the progress of the communities to which
-              the university belongs.
+              To build a globally trusted, equitable, and sustainable talent ecosystem that identifies latent potential
+              early, aligns it with real-world opportunity, and develops future-ready leaders capable of delivering
+              measurable impact across global enterprises.
             </p>
+            <h3>Mission</h3>
             <p>
-              The University of Tuva is a public foundation regulated by private
-              law and with statutory, educational, scientific, cultural,
-              administrative, financial, patrimonial and disciplinary autonomy.
+              To democratize access to global careers by pioneering an inverse education-to-employment model where
+              verified industry demand precedes learning, ensuring a zero-risk, outcome-assured pathway that transforms
+              high-potential individuals into day-one deployable, ethically grounded, globally credentialed
+              professionals through deep industry immersion, digital excellence, and applied experiential learning.
             </p>
           </div>
         </div>

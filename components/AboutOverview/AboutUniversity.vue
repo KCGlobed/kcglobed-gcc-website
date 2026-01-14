@@ -26,6 +26,25 @@
               expectations from the start.
             </p>
           </div>
+            <div class="sustainability-content mt-2">
+            <h3>Industry Alignment</h3>
+            <p>
+              To meet the growing demand for GCC-ready professionals, GCC School works in alignment with Consulting
+              Firms &
+              MNCs The focus is on:
+            </p>
+            <ul>
+              <li>
+                <i class="fa-solid fa-check"></i>Practical training
+              </li>
+              <li>
+                <i class="fa-solid fa-check"></i>Real GCC exposure
+              </li>
+              <li>
+                <i class="fa-solid fa-check"></i>Industry-driven capability building
+              </li>
+            </ul>
+          </div>
         </div>
       </div>
       <img src="~/assets/img/abouts/inner-about1.jpg" alt="">

@@ -16,35 +16,57 @@
       </a>
       <div class="collapse navbar-collapse">
         <ul class="navbar-nav ms-auto">
-          <!-- <li class="nav-item">
-            <a href="javascript:void(0)" class="dropdown-toggle nav-link">
-              Home
-            </a>
-            <ul class="dropdown-menu">
-              <li class="nav-item">
-                <NuxtLink to="/" class="nav-link"> Home Demo - 1 </NuxtLink>
-              </li>
-              <li class="nav-item">
-                <NuxtLink to="/home-two" class="nav-link">
-                  Home Demo - 2
-                </NuxtLink>
-              </li>
-              <li class="nav-item">
-                <NuxtLink to="/home-three" class="nav-link">
-                  Home Demo - 3
-                </NuxtLink>
-              </li>
-            </ul>
-          </li> -->
+          
           <li class="nav-item">
             <NuxtLink to="/" class="nav-link">
               Home
             </NuxtLink>
           </li>
-          <li class="nav-item">
-            <NuxtLink to="/about-overview" class="nav-link">
-              About Us
-            </NuxtLink>
+       
+           <li class="nav-item">
+            <a href="javascript:void(0)" class="dropdown-toggle nav-link">
+            About Us
+            </a>
+            <ul class="dropdown-menu">
+              <li class="nav-item">
+                <NuxtLink to="/about-overview" class="nav-link"> Overview </NuxtLink>
+              </li>
+             <li class="nav-item">
+                <NuxtLink to="/about-accreditation" class="nav-link">
+                  Vision & Mission
+                </NuxtLink>
+              </li>
+              <li class="nav-item">
+                <NuxtLink to="/about-accreditation" class="nav-link">
+                  Leadership
+                </NuxtLink>
+              </li>
+              <li class="nav-item">
+                <NuxtLink to="/about-accreditation" class="nav-link">
+                  Our Legacy
+                </NuxtLink>
+              </li>
+              <li class="nav-item">
+                <NuxtLink to="/about-accreditation" class="nav-link">
+                 GCC School Think Tank
+                </NuxtLink>
+              </li>
+              <li class="nav-item">
+                <NuxtLink to="/about-accreditation" class="nav-link">
+                   ACCA Major Recruiters
+                </NuxtLink>
+              </li>
+              <li class="nav-item">
+                <NuxtLink to="/about-accreditation" class="nav-link">
+                   Subject Matter Experts
+                </NuxtLink>
+              </li>
+              <li class="nav-item">
+                <NuxtLink to="/about-accreditation" class="nav-link">
+                   Industry Mentors
+                </NuxtLink>
+              </li>
+            </ul>
           </li>
 
           <li class="nav-item">

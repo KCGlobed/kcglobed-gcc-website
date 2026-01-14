@@ -13,7 +13,7 @@
             <ul class="information-list">
               <li>
                 <i class="ti ti-check"></i>
-                ₹10 LPA+ conditional offer letter after program completion
+                ₹10 LPA+ conditional offer letter
               </li>
               <li>
                 <i class="ti ti-check"></i>
@@ -83,7 +83,7 @@
             <div class="round-shape">
               <img src="~/assets/Logo/Logo/GCC-School-Logo-White.png" class="main-logo" alt="image"
                 style="width: 150px;" />
-              <img src="~/assets/img/shapes/text-shape1.png" class="text-shape" alt="" />
+              <img src="~/assets/img/shapes/text-shape2.png" class="text-shape" alt="" />
             </div>
           </div>
         </div>

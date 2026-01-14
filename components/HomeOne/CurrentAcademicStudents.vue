@@ -2,7 +2,7 @@
   <div class="comparison-warp ptb-100">
     <div class="container">
       <div class="section-title text-center">
-        <span class="sub-title">Comparison</span>
+      <!-- <span class="sub-title">Comparison</span> -->
         <h2>Traditional Pathway vs GCC Pathway</h2>
         <p>See why the GCC Pathway is the superior choice for your career.</p>
       </div>

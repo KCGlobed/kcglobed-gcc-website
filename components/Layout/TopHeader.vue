@@ -38,7 +38,7 @@
               </li>
               <li>
                 <i class="ti ti-phone-call"></i>
-                <a href="tel:132313242354">+1 3231 3242 354</a>
+                <a href="tel:9773576111">9773576111</a>
               </li>
             </ul>
           </div>

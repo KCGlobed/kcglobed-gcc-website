@@ -5,7 +5,6 @@
                 <span class="sub-title">Guiding Principles</span>
                 <h2>Vision & Mission</h2>
             </div>
-
             <div class="row h-100">
                 <!-- Vision -->
                 <div class="col-lg-6 col-md-12 mb-4" data-aos="fade-up" data-aos-delay="200">

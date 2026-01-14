@@ -3,25 +3,30 @@
     <div class="container">
       <div class="row">
         <div class="col-lg-6">
-          <div class="sustainability-content">
-            <h2>Industry Alignment</h2>
-            <p>
-              To meet the growing demand for GCC-ready professionals, GCC School works in alignment with Consulting
-              Firms &
-              MNCs The focus is on:
-            </p>
-            <ul>
-              <li>
-                <i class="fa-solid fa-check"></i>Practical training
-              </li>
-              <li>
-                <i class="fa-solid fa-check"></i>Real GCC exposure
-              </li>
-              <li>
-                <i class="fa-solid fa-check"></i>Industry-driven capability building
-              </li>
-            </ul>
-          </div>
+          <div class="gcc-content">
+                        <div class="section-title text-start">
+                            <h2>What is Global Capability Center (GCC)?</h2>
+                        </div>
+                        <p>
+                            Global Capability Centers (GCCs) are strategic hubs established by multinational
+                            organizations to
+                            deliver business services for global operations.
+                        </p>
+                        <p>
+                            India has emerged as the GCC capital of the world, hosting over 1,950 Global Capability
+                            Centers with a
+                            workforce exceeding 26 million professionals. This ecosystem is expected to expand to more
+                            than 6,000 GCCs,
+                            employing over 65 million professionals in the next 4–5 years. Currently, 44% of GCCs in
+                            India operate
+                            end-to-end ownership models, driving innovation and global collaboration, and this share is
+                            projected to
+                            grow at a CAGR of approximately 14% in the coming years.
+                        </p>
+                        <p class="source-text">
+                            Source: IBEF (2024), JLL Report(2025), GCC Summit(2025)
+                        </p>
+                    </div>
         </div>
         <div class="col-lg-6">
           <div class="sustainability-image">

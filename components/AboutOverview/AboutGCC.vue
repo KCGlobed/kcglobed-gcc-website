@@ -3,7 +3,7 @@
         <div class="container">
             <div class="row">
                 <!-- What is GCC? -->
-                <div class="col-lg-12 mb-5">
+           <!--     <div class="col-lg-12 mb-5">
                     <div class="gcc-content">
                         <div class="section-title text-start">
                             <h2>What is Global Capability Center (GCC)?</h2>
@@ -28,7 +28,7 @@
                             Source: IBEF (2024), JLL Report(2025), GCC Summit(2025)
                         </p>
                     </div>
-                </div>
+                </div> -->
 
                 <!-- Why GCC School -->
                 <div class="col-lg-12">

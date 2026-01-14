@@ -2,8 +2,8 @@
     <div id="leadership" class="leadership-area ptb-100 bg-light-gradient">
         <div class="container">
             <div class="section-title text-center mb-5">
-                <span class="sub-title">VISIONARY LEADERSHIP</span>
-                <h2>Meet The Leaders</h2>
+                <!-- <span class="sub-title"></span> -->
+                <h2>Visionary Leadership</h2>
             </div>
 
             <!-- Leader 1: Dr. Kamal Chhabra -->
@@ -29,23 +29,47 @@
 
                                 <div class="leader-message">
                                     <p>
-                                        "The global finance industry does not suffer from a lack of degrees; it suffers
+                                        The global finance industry does not suffer from a lack of degrees; it suffers
                                         from a lack of job-ready
                                         professionals. For over two decades, I have witnessed this gap closely across
                                         audit, assurance, taxation,
                                         and advisory roles worldwide. Academic knowledge alone has never been enough.
                                         Careers are built where
-                                        learning meets real work."
+                                        learning meets real work.
                                     </p>
                                     <p>
-                                        "With this belief, I founded KC GlobEd, a finance-focused edutech platform
-                                        committed to bridging academic
-                                        learning with global professional practice. Today, that mission advances further
-                                        with the GCC School—a purpose-driven
-                                        campus built on a clear Employment-to-Education (E2E) philosophy."
+                                        With this belief, I founded KC GlobEd, a finance-focused edutech platform
+                                        committed to bridging academic learning with global professional practice
+                                        through deeply industry-aligned education. Today, that mission advances further
+                                        with the establishment of the world’s first GCC School.
                                     </p>
                                     <p>
-                                        "This is not a campus for certificates. This is a campus for careers."
+                                        Located at the heart of India’s Global Capability Centres in Cyber City,
+                                        Gurugram, the GCC School is a purpose-driven campus built on a clear
+                                        Employment-to-Education (E2E) philosophy. Here, careers come first; learning
+                                        follows with precision.
+                                        Our vision is simple yet bold: to build elite finance professionals by aligning
+                                        real roles before delivering targeted, outcome-driven education. High-potential
+                                        learners are honoured by being connected to actual global roles and then
+                                        equipped with exactly the skills, knowledge, and exposure those roles demand.
+                                    </p>
+                                    <p>
+                                        Our mission is to unify global qualifications, live industry exposure, and
+                                        professional capabilities into a single, structured pathway. Through a rigorous
+                                        one-year experiential learning model, learners progress from role alignment to
+                                        capability mastery, transforming ambition into measurable performance.
+                                    </p>
+
+                                    <p>
+                                        The GCC School exists to create professionals who are not just employable, but
+                                        indispensable, ready to contribute, adapt, and grow within global finance
+                                        ecosystems from day one.
+                                        This is not a campus for certificates. This is a campus for careers.
+                                    </p>
+                                    <p class="mt-2">
+                                    <div><strong>Dr. Kamal Chhabra</strong></div>
+                                    <div>Founder and Chief Executive Officer</div>
+                                    <div>US CPA | CA</div>
                                     </p>
                                 </div>
                             </div>
@@ -97,17 +121,25 @@
 
                                 <div class="leader-message">
                                     <p>
-                                        "Every learning ecosystem reaches a moment where relevance defines impact. At
-                                        GCC School, this is reflected
-                                        in our focus on transitional education that connects academic understanding with
-                                        professional execution."
+                                        Every educational institution eventually arrives at a transformative moment when
+                                        its mission perfectly aligns with the evolving demands of the world. At GCC
+                                        School, that moment defines us through our unwavering commitment to transitional
+                                        education that seamlessly bridges academic insight with real-world professional
+                                        excellence.
                                     </p>
                                     <p>
-                                        "Training is structured, applied, and strengthened through industry exposure,
-                                        digital capability, and continuous
-                                        mentoring. Learners progress with clarity, discipline, and confidence, prepared
-                                        to perform and adapt in global
-                                        finance roles."
+                                        Our pedagogy is anchored in a precise developmental blueprint. Campus training
+                                        is rigorously structured, practically oriented, and amplified by deep industry
+                                        immersion, cutting-edge digital proficiency, and dedicated, ongoing mentorship.
+                                        This empowers every young aspiring professionals to advance with purpose,
+                                        discipline, and unshakeable confidence.
+                                        GCC School is passionately dedicated to shaping finance professionals who lead
+                                        with integrity, thrive amid change, and deliver lasting impact on the global
+                                        stage.
+                                    </p>
+                                    <p class="mt-2">
+                                    <div><strong>Prof. (Dr.) Manpreet Singh Manna</strong></div>
+                                    <div>Executive Director</div>
                                     </p>
                                 </div>
                             </div>
