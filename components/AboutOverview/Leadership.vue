@@ -14,7 +14,7 @@
                             <div class="leader-image-section">
                                 <div class="purple-circle"></div>
                                 <!-- Placeholder for Kamal Image -->
-                                <img src="~/assets/img/kamal.png" class="leader-img" alt="Dr. Kamal Chhabra" />
+                                <img src="~/assets/img/Kamal.png" class="leader-img" alt="Dr. Kamal Chhabra" />
                             </div>
                         </div>
                         <div class="col-lg-7 order-lg-1">
