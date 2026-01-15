@@ -1,16 +1,27 @@
 <template>
   <div>
-    <LayoutTopHeader class="style2-top-header" />
-    <LayoutNavbarStyleTwo class="inner-navbar" />
-    <CommonInnerPageBanner pageTitle="All Programs" mainTitle="ALL PROGRAMS" />
-    <ProgramsInTotal />
-    <ProgramsUndergraduatePrograms />
-    <ProgramsGraduatePrograms />
-    <ProgramsOnlineEducation />
-    <ProgramsApplyUniversityInEasySteps />
-    <ProgramsVideoPlayer />
+    <LayoutTopHeader />
+    <LayoutMainNavbar />
+    <HomeThreeMainBanner />
+    <HomeThreeAboutUniversity />
+    <!-- <CommonFindYourProgram /> -->
+    <HomeThreeGraduatePrograms />
+    <!-- <HomeThreeUndergraduateOnlinePrograms /> -->
+    <!-- <HomeThreeCampusStory /> -->
+
+    <Events />
+    <HomeTwoApplyUniversityInEasySteps />
+    <NationalExecusive />
+
+
+    <!-- <CommonLatestNews class="pt-0" />
+    <HomeThreeVideoPlayer />
+    <HomeThreeUpcomingEvents />
     <CommonUniversityOfExcellence />
-    <CommonHelpCreate class="pt-100" />
+    <CommonFAQ class="pt-100" />
+    <CommonHelpCreate /> -->
+    <!-- <HomeThreeOptionalEvents /> -->
+
     <LayoutMainFooter />
     <LayoutCopyRight />
   </div>

@@ -2,38 +2,35 @@
   <div class="apply-warp ptb-100">
     <div class="container">
       <div class="section-title">
-        <h2 class="reveal3">Apply Tuva University In 3 Easy Steps</h2>
+        <!-- <h2 class="reveal3">Apply Tuva University In 3 Easy Steps</h2> -->
       </div>
       <div class="row justify-content-center align-items-center g-4 gx-5">
-        <div
-          class="col-lg-4 col-md-6"
-          v-for="apply in applyItems"
-          :key="apply.id"
-          data-aos="fade-up"
-          :data-aos-delay="apply.dataDelay"
-        >
+        <div class="col-lg-4 col-md-6" v-for="apply in applyItems" :key="apply.id" data-aos="fade-up"
+          :data-aos-delay="apply.dataDelay">
           <div class="apply-card">
             <div class="icon">
               <img :src="apply.icon" alt="icon" />
             </div>
             <h3>{{ apply.title }}</h3>
+
+            <ul class="module-list" v-if="apply.modules && apply.modules.length">
+              <li v-for="(module, mIndex) in apply.modules" :key="mIndex">
+                {{ module }}
+              </li>
+            </ul>
             <p>
               {{ apply.shortDesc }}
             </p>
-            <NuxtLink :to="apply.btnLink" class="apply-link">
+            <!-- <NuxtLink :to="apply.btnLink" class="apply-link">
               <span>{{ apply.btnText }}</span>
               <i class="ti ti-arrow-narrow-right"></i>
-            </NuxtLink>
+            </NuxtLink> -->
           </div>
         </div>
       </div>
     </div>
     <div class="all-shapes">
-      <img
-        src="~/assets/img/shapes/apply-shape1.png"
-        class="apply-shape1"
-        alt="image"
-      />
+      <img src="~/assets/img/shapes/apply-shape1.png" class="apply-shape1" alt="image" />
     </div>
   </div>
 </template>
@@ -53,9 +50,14 @@ export default defineComponent({
         {
           id: 1,
           icon: icon1,
-          title: "Apply through online form",
+          title: "Applied Knowledge Level",
+          modules: [
+            "Business and Technology (BT)",
+            "Management Accounting (MA)",
+            "Financial Accounting (FA)",
+          ],
           shortDesc:
-            "Tell us a little about yourself and we’ll help with the rest. Our convenient online application tool only takes 10 minutes to complete.",
+            "Exemptions available for B.Com-qualified student",
           btnText: "Apply Now",
           btnLink: "/personal-information",
           dataDelay: "200",
@@ -63,9 +65,17 @@ export default defineComponent({
         {
           id: 2,
           icon: icon2,
-          title: "Participate in online exam",
+          title: "Applied Skills Level",
           shortDesc:
-            "After you submit your application, an admissions representative will contact you and will help you to participate in the online exam.",
+            "LW & TX exemptions available for B.Com-qualified students.*",
+          modules: [
+            " Corporate & Business Law (LW)*",
+            " Performance Management (PM)",
+            "Taxation (TX)*",
+            "Financial Reporting (FR)",
+            "Audit & Assurance (AA)",
+            "Financial Management (FM)",
+          ],
           btnText: "Apply Now",
           btnLink: "/personal-information",
           dataDelay: "300",
@@ -73,9 +83,14 @@ export default defineComponent({
         {
           id: 3,
           icon: icon3,
-          title: "Get ready for start",
-          shortDesc:
-            "Once you’ve completed your application and connected with an admissions representative, you’re ready to create your schedule.",
+          title: "Strategic Professional Level",
+
+          modules: [
+            "Strategic Business Reporting (SBR)",
+            " Strategic Business Leader (SBL",
+            "Advanced Audit & Assurance (AAA)",
+            "Advanced Financial Management (AFM)",
+          ],
           btnText: "Apply Now",
           btnLink: "/personal-information",
           dataDelay: "400",

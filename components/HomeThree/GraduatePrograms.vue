@@ -2,54 +2,41 @@
   <div class="management-warp ptb-100">
     <div class="container">
       <div class="section-warp">
-        <h2 class="reveal3">Graduate Programs At Tuva</h2>
+        <h2 class="reveal3">Integrated Program Dedicated for GCC</h2>
       </div>
-      <div
-        class="management-slider-warp"
-        data-aos="zoom-in-up"
-        data-aos-delay="200"
-      >
-        <Swiper
-          :slidesPerView="5"
-          :spaceBetween="24"
-          :loop="true"
-          :speed="1400"
-          :navigation="{
-            nextEl: '.swiper-button-next',
-            prevEl: '.swiper-button-prev',
-          }"
-          :breakpoints="{
-            0: {
-              slidesPerView: 1,
-            },
-            576: {
-              slidesPerView: 1,
-            },
-            768: {
-              slidesPerView: 3,
-            },
-            992: {
-              slidesPerView: 3,
-            },
-            1200: {
-              slidesPerView: 5,
-            },
-          }"
-          :modules="[SwiperNavigation]"
-          class="management-slider"
-        >
+      <div class="management-slider-warp" data-aos="zoom-in-up" data-aos-delay="200">
+        <Swiper :slidesPerView="5" :spaceBetween="24" :loop="true" :speed="1400" :navigation="{
+          nextEl: '.swiper-button-next',
+          prevEl: '.swiper-button-prev',
+        }" :breakpoints="{
+          0: {
+            slidesPerView: 1,
+          },
+          576: {
+            slidesPerView: 1,
+          },
+          768: {
+            slidesPerView: 3,
+          },
+          992: {
+            slidesPerView: 3,
+          },
+          1200: {
+            slidesPerView: 5,
+          },
+        }" :modules="[SwiperNavigation]" class="management-slider">
           <SwiperSlide v-for="program in programs" :key="program.id">
             <div class="management-widget">
               <div class="image">
                 <img :src="program.image" alt="image" />
               </div>
               <div class="content">
-                <ul>
+                <!-- <ul>
                   <li>
                     <img src="~/assets/img/svgs/graduate.svg" alt="icon" />
                     {{ program.tag }}
                   </li>
-                </ul>
+                </ul> -->
                 <h3>
                   <NuxtLink to="/programs">
                     {{ program.title }}
@@ -74,11 +61,12 @@
 <script lang="ts">
 import { defineComponent } from "vue";
 
-import image1 from "~/assets/img/managements/management1.jpg";
-import image2 from "~/assets/img/managements/management2.jpg";
-import image3 from "~/assets/img/managements/management3.jpg";
-import image4 from "~/assets/img/managements/management4.jpg";
-import image5 from "~/assets/img/managements/management5.jpg";
+import image1 from "~/assets/img/integratedprogram/1.png";
+import image2 from "~/assets/img/integratedprogram/2.png";
+import image3 from "~/assets/img/integratedprogram/3.png";
+import image4 from "~/assets/img/integratedprogram/4.png";
+import image5 from "~/assets/img/integratedprogram/5.jpeg";
+
 
 export default defineComponent({
   name: "GraduatePrograms",
@@ -88,63 +76,38 @@ export default defineComponent({
         {
           id: 1,
           image: image1,
-          title: "Business Management",
+          title: "Global Financial Qualification ",
           link: "/programs",
           tag: "BUSINESS",
           shortDesc:
-            "Tell us a little about yourself and we’ll help with the rest.",
+            "ACCA exams within the program.",
         },
         {
           id: 2,
-          image: image2,
-          title: "Economics",
+          image: image3,
+          title: "Global Communication Certification",
           link: "/programs",
           tag: "ECONOMICS",
-          shortDesc: "we have a rich history of academic excellence.",
+          shortDesc: "British Council English certification (A1–C1)",
         },
         {
           id: 3,
-          image: image3,
-          title: "Business Media",
+          image: image2,
+          title: "Executive Management Certification ",
           link: "/programs",
           tag: "BUSINESS",
           shortDesc:
-            "Dating back to our founding in 2005. Our commitment is exceptional.",
+            "PGCM certification - AICTE-approved with exemptions based on ACCA, requiring completion of only the final examinations for certification. ",
         },
         {
           id: 4,
           image: image4,
-          title: "Public Administration",
+          title: "Work Experience",
           link: "/programs",
           tag: "PUBLIC",
-          shortDesc: "Explore our comprehensive range of academic programs.",
+          shortDesc: "6 months of on-campus professional training followed by 6 months of in-office industry training with a monthly stipend, ensuring continuous learning with real-world GCC exposure. ",
         },
-        {
-          id: 5,
-          image: image5,
-          title: "Social Relationship",
-          link: "/programs",
-          tag: "SOCIAL",
-          shortDesc:
-            "Tell us a little about yourself and we’ll help with the rest.",
-        },
-        {
-          id: 6,
-          image: image1,
-          title: "Business Management",
-          link: "/programs",
-          tag: "BUSINESS",
-          shortDesc:
-            "Tell us a little about yourself and we’ll help with the rest.",
-        },
-        {
-          id: 7,
-          image: image2,
-          title: "Economics",
-          link: "/programs",
-          tag: "ECONOMICS",
-          shortDesc: "we have a rich history of academic excellence.",
-        },
+
       ],
     };
   },
