@@ -1,5 +1,5 @@
 <template>
-  <div class="recognized-warp">
+  <div class="recognized-warp pt-5 mt-5">
     <div class="container">
       <div class="row align-items-start">
         <div class="col-lg-6" data-aos="fade-up" data-aos-delay="200">
@@ -9,13 +9,13 @@
         </div>
         <div class="col-lg-6" data-aos="fade-up" data-aos-delay="200">
           <div class="recognized-content">
-            <h2 class="reveal3">Professional learning that gets recognized</h2>
+            <h2 class="reveal3">Professional learning that gets recognised globally</h2>
             <p>
-              The mission of Tuva is to serve as a digital gateway and
-              information hub for all members of the university community.
+              NFET is designed to identify high-potential commerce graduates and connect them with
+              global finance, accounting, and corporate career pathways.
             </p>
             <NuxtLink to="/register" class="recognized-link">
-              Register Now For Fall 2024
+              Apply Now
               <i class="ti ti-arrow-narrow-right"></i>
             </NuxtLink>
           </div>
