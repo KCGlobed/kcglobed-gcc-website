@@ -46,10 +46,10 @@
                   {{ banner.btnText }}
                   <i class="ti ti-arrow-narrow-right"></i>
                 </NuxtLink>
-                <a :href="banner.btnLinkTwo" class="default-btn style2" download="Brochure.pdf">
+                <button class="default-btn style2" data-bs-toggle="modal" data-bs-target="#enquiryModal">
                   {{ banner.btnTextTwo }}
                   <i class="ti ti-arrow-narrow-right"></i>
-                </a>
+                </button>
               </div>
             </div>
             <!-- <ul class="information">
@@ -74,7 +74,171 @@
       </div> -->
     </Swiper>
   </div>
+  <div class="modal fade" id="enquiryModal" tabindex="-1">
+    <div class="modal-dialog modal-lg modal-dialog-centered">
+      <div class="modal-content">
+
+        <div class="modal-header">
+          <h5 class="modal-title">GCC School – Enquiry Form</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+        </div>
+
+        <div class="modal-body">
+          <form @submit.prevent="submitForm">
+
+            <h6 class="mb-3">Personal Details</h6>
+
+            <div class="row g-3">
+              <div class="col-md-6">
+                <div class="form-floating">
+                  <input v-model="form.name" class="form-control" placeholder="Full Name">
+                  <label>Full Name</label>
+                  <small class="text-danger" v-if="errors.name">{{ errors.name }}</small>
+                </div>
+              </div>
+
+              <div class="col-md-6">
+                <div class="form-floating">
+                <input v-model="form.mobile" class="form-control" placeholder="Mobile Number">
+                <label>Mobile Number</label>
+                <small class="text-danger" v-if="errors.mobile">{{ errors.mobile }}</small>
+                </div>
+              </div>
+
+              <div class="col-md-6">
+                <div class="form-floating">
+                <input v-model="form.email" class="form-control" placeholder="Email ID">
+                <label>Email ID</label>
+                <small class="text-danger" v-if="errors.email">{{ errors.email }}</small>
+                </div>
+              </div>
+
+              <div class="col-md-6">
+                <div class="form-floating">
+                <input v-model="form.city" class="form-control" placeholder="City">
+                <label>City</label>
+                <small class="text-danger" v-if="errors.city">{{ errors.city }}</small>
+                </div>
+              </div>
+
+              <div class="col-md-6">
+                <div class="form-floating">
+                <input v-model="form.state" class="form-control" placeholder="State">
+                <label>State</label>
+                <small class="text-danger" v-if="errors.state">{{ errors.state }}</small>
+                </div>
+              </div>
+            </div>
+
+            <hr class="my-4">
+
+            <h6 class="mb-3">Academic / Professional Background</h6>
+
+            <!-- Highest Qualification -->
+             <div class="form-floating mb-2">
+              <select v-model="form.qualification" class="form-select mb-3">
+                <option value="">Select Highest Qualification</option>
+                <option>B.Com (Pursuing)</option>
+                <option>B.Com (Completed)</option>
+                <option>M.Com (Pursuing)</option>
+                <option>M.Com (Completed)</option>
+                <option>Other</option>
+              </select>
+              <label>Highest Qualification</label>
+            </div>
+            <small class="text-danger" v-if="errors.qualification">{{ errors.qualification }}</small>
+
+            <!-- Current Status -->
+            <div class="form-floating mb-2">
+              <select v-model="form.status" class="form-select mb-3">
+                <option value="">Select Current Status</option>
+                <option>Student</option>
+                <option>Working Professional</option>
+                <option>Career Break</option>
+              </select>
+              <label>Current Status</label>
+            </div>
+            <small class="text-danger" v-if="errors.status">{{ errors.status }}</small>
+
+            <!-- College / University -->
+            <div class="form-floating mb-2">
+              <select v-model="form.college" class="form-select">
+                <option value="">Select College / University</option>
+
+                <option
+                  v-for="college in colleges"
+                  :key="college.id"
+                  :value="college.name"
+                >
+                  {{ college.name }}
+                </option>
+              </select>
+
+              <label>College / University</label>
+            </div>
+            <small class="text-danger" v-if="errors.college">{{ errors.college }}</small>
+
+            <hr class="my-4">
+
+            <h6 class="mb-3">How Did You Hear About GCC School?</h6>
+
+            <div class="form-floating mb-2">
+            <select v-model="form.source" class="form-select mb-3">
+              <option value="">Select Source</option>
+              <option>College / University</option>
+              <option>Event / Seminar</option>
+              <option>Friend / Referral</option>
+              <option>Social Media</option>
+              <option>Website</option>
+              <option>Other</option>
+            </select>
+            <label>How Did You Hear About GCC School?</label>
+            </div>
+            <small class="text-danger" v-if="errors.source">{{ errors.source }}</small>
+
+            <div class="form-floating mb-2">
+            <textarea v-model="form.remarks" class="form-control mt-3" rows="3"
+              placeholder="Query / Remarks (Optional)">
+            </textarea>
+            <label>Query / Remarks (Optional)</label>
+            </div>
+
+            <div class="form-check mt-3">
+              <input class="form-check-input" type="checkbox" v-model="form.consent">
+              <label class="form-check-label">
+                I agree to be contacted by GCC School.
+              </label>
+            </div>
+            <small class="text-danger" v-if="errors.consent">{{ errors.consent }}</small>
+
+            <div class="modal-footer">
+              <button class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+              <button class="btn btn-primary" type="submit">Submit</button>
+            </div>
+
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
 </template>
+
+<style>
+.form-floating > .form-select,
+.form-floating > textarea {
+  padding-top: 2rem !important;
+  padding-bottom: 1rem !important;
+  height: auto !important;
+}
+
+.form-floating > label {
+  padding-top: 0.9rem !important;
+}
+
+.form-floating {
+  margin-bottom: 1.2rem;
+}
+</style>
 
 <script lang="ts">
 import { defineComponent } from "vue";
@@ -85,8 +249,113 @@ import gccPdf from "../../assets/gcc.pdf";
 
 export default defineComponent({
   name: "MainBanner",
+  methods: {
+    validateForm() {
+      this.errors = {
+        name: "",
+        mobile: "",
+        email: "",
+        city: "",
+        state: "",
+        qualification: "",
+        status: "",
+        college: "",
+        source: "",
+        consent: ""
+      }
+
+      if (!this.form.name) this.errors.name = "Name is required"
+      if (!this.form.mobile) this.errors.mobile = "Mobile number is required"
+      if (!this.form.qualification) this.errors.qualification = "Select qualification"
+      if (!this.form.status) this.errors.status = "Select current status"
+      if (!this.form.college) this.errors.college = "Select college/university"
+      if (!this.form.source) this.errors.source = "Select how you heard about us"
+      if (!this.form.consent) this.errors.consent = "Consent is required"
+
+      return Object.keys(this.errors).length === 0
+    },
+
+    async submitForm() {
+      if (!this.validateForm()) return
+
+      try {
+        const response = await fetch("https://your-api-url.com/enquiry", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json"
+          },
+          body: JSON.stringify(this.form)
+        })
+
+        if (response.ok) {
+          alert("Thank you! Our team will contact you soon.")
+
+          this.form = {
+            name: "",
+            mobile: "",
+            email: "",
+            city: "",
+            state: "",
+            qualification: "",
+            status: "",
+            college: "",
+            source: "",
+            remarks: "",
+            consent: false
+          }
+        } else {
+          alert("Something went wrong. Please try again.")
+        }
+      } catch (error) {
+        console.error(error)
+        alert("Server error. Try later.")
+      }
+    }
+  },
   data() {
     return {
+      colleges: [
+        { "id": 1, "name": "Kaushalya the Skill University" },
+        { "id": 2, "name": "A.K.S. University" },
+        { "id": 3, "name": "A.P.G. (Alakh Prakash Goyal) Shimla University" },
+        { "id": 4, "name": "A.P.J. Abdul Kalam Technological University" },
+        { "id": 5, "name": "AAFT University of Media and Arts" },
+        { "id": 6, "name": "Abhilashi University" },
+        { "id": 7, "name": "Abhyuday University" },
+        { "id": 8, "name": "Academy of Maritime Education and Training" },
+        { "id": 9, "name": "Acharya N.G. Ranga Agricultural University" },
+        { "id": 10, "name": "Acharya Nagarjuna University" },
+        { "id": 11, "name": "Acharya Narendra Deva Krishi Evam Prodyogik Vishwavidyalaya" },
+        { "id": 12, "name": "Adamas University" },
+        { "id": 13, "name": "Adani University" },
+        { "id": 14, "name": "Adesh University" },
+        { "id": 15, "name": "Adichunchanagiri University" }
+      ],
+      form: {
+        name: "",
+        mobile: "",
+        email: "",
+        city: "",
+        state: "",
+        qualification: "",
+        status: "",
+        college: "",
+        source: "",
+        remarks: "",
+        consent: false,
+      },
+      errors: {
+        name: "",
+        mobile: "",
+        email: "",
+        city: "",
+        state: "",
+        qualification: "",
+        status: "",
+        college: "",
+        source: "",
+        consent: ""
+      },
       banners: [
         {
           id: 1,
