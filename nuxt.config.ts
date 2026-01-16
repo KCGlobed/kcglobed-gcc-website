@@ -25,7 +25,7 @@ export default defineNuxtConfig({
     once: true,
   },
   nitro: {
-    preset: "node-server",
+    preset: 'node-server',
     output: {
       dir: "dist",
       serverDir: "dist/server",
