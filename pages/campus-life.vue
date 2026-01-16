@@ -2,8 +2,9 @@
     <div>
         <LayoutTopHeader />
         <LayoutMainNavbar />
-        <ContactusBanner />
-        <Contact />
+        <CampusLifeCampusBanner />
+        <CampusLifeCampusOutcome />
+        <CampusLifeCampusGoal />
         <LayoutMainFooter />
         <LayoutCopyRight />
     </div>
@@ -12,5 +13,7 @@
 <script lang="ts">
 import { defineComponent } from "vue";
 
-export default defineComponent({});
+export default defineComponent({
+
+});
 </script>

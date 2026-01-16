@@ -16,22 +16,22 @@
       </a>
       <div class="collapse navbar-collapse">
         <ul class="navbar-nav ms-auto">
-          
+
           <li class="nav-item">
             <NuxtLink to="/" class="nav-link">
               Home
             </NuxtLink>
           </li>
-       
-           <li class="nav-item">
+
+          <li class="nav-item">
             <a href="javascript:void(0)" class="dropdown-toggle nav-link">
-            About Us
+              About Us
             </a>
             <ul class="dropdown-menu">
               <li class="nav-item">
                 <NuxtLink to="/about-overview" class="nav-link"> Overview </NuxtLink>
               </li>
-             <li class="nav-item">
+              <li class="nav-item">
                 <NuxtLink to="/about-accreditation" class="nav-link">
                   Vision & Mission
                 </NuxtLink>
@@ -48,43 +48,43 @@
               </li>
               <li class="nav-item">
                 <NuxtLink to="/about-accreditation" class="nav-link">
-                 GCC School Think Tank
+                  GCC School Think Tank
                 </NuxtLink>
               </li>
               <li class="nav-item">
                 <NuxtLink to="/about-accreditation" class="nav-link">
-                   ACCA Major Recruiters
+                  ACCA Major Recruiters
                 </NuxtLink>
               </li>
               <li class="nav-item">
                 <NuxtLink to="/about-accreditation" class="nav-link">
-                   Subject Matter Experts
+                  Subject Matter Experts
                 </NuxtLink>
               </li>
               <li class="nav-item">
                 <NuxtLink to="/about-accreditation" class="nav-link">
-                   Industry Mentors
+                  Industry Mentors
                 </NuxtLink>
               </li>
             </ul>
           </li>
 
           <li class="nav-item">
-            <a href="/programs" class="nav-link">
+            <NuxtLink to="/programs" class="nav-link">
               Programs
-            </a>
+            </NuxtLink>
 
           </li>
 
           <li class="nav-item">
-            <a href="/admissions" class="nav-link">
+            <NuxtLink to="/admissions" class="nav-link">
               Admissions
-            </a>
+            </NuxtLink>
           </li>
           <li class="nav-item">
-            <a href="/campus-life" class="nav-link">
+            <NuxtLink to="/campus-life" class="nav-link">
               Campus Life
-            </a>
+            </NuxtLink>
           </li>
 
           <li class="nav-item">
