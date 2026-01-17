@@ -10064,11 +10064,15 @@ All Key Style
 } */
 
 .information-content .info-button .style2 {
-  background-color: #463772;
+  background-color: #A13E99;
 }
 
 .secodary-btn {
-  background-color: #A13E99;
+  background-color: #F1A63E;
+}
+
+.third-btn {
+  background-color: #3D2C5E;
 }
 
 .inner-all-pages .about-pages-list li a {

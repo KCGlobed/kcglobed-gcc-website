@@ -39,7 +39,7 @@
                       <i class="ti ti-arrow-narrow-right"></i>
                     </NuxtLink>
                   </div>
-                  <NuxtLink :to="mission.btnLink" class="default-btn secodary-btn">
+                  <NuxtLink :to="mission.btnLink" class="default-btn third-btn">
                     {{ mission.btnText }}
                     <i class="ti ti-arrow-narrow-right"></i>
                   </NuxtLink>
