@@ -10044,6 +10044,9 @@ All Key Style
 
 
 /*-----typology css---------------*/
+.top-header-details .header-contact li i {
+  color: #fff;
+}
 
 .hero-btn a.default-btn {
   background: #862E84 !important;
