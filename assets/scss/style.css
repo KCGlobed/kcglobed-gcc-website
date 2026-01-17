@@ -10040,3 +10040,49 @@ All Key Style
 }
 
 /*# sourceMappingURL=style.css.map */
+
+
+
+/*-----typology css---------------*/
+
+.hero-btn a.default-btn {
+  background: #862E84 !important;
+}
+
+.hero-slider-warp .content .default-btn.style2 {
+  background-color: #fff;
+  border: 1px solid #862E84;
+  color: #862E84;
+  margin-left: 10px;
+}
+
+/* .hero-slider-warp .content .default-btn.style2 {
+  background-color: transparent;
+  border: 1px solid #F1A63E;
+  color: #F1A63E;
+  margin-left: 10px;
+} */
+
+.information-content .info-button .style2 {
+  background-color: #463772;
+}
+
+.secodary-btn {
+  background-color: #A13E99;
+}
+
+.inner-all-pages .about-pages-list li a {
+  background: #7969A5;
+  color: #fff;
+}
+
+.submit-btn {
+  background: #BC52B4;
+  color: #fff;
+}
+
+#backtotop {
+  background: #B5771D;
+}
+
+/*-----typology css---------------*/

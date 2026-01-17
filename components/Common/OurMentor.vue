@@ -355,7 +355,7 @@ export default {
 }
 
 .tab-button.active {
-    background: linear-gradient(135deg, #4299e1, #667eea);
+    background: linear-gradient(135deg, #9A8EBC, #3D2C5E);
     color: white;
     box-shadow: 0 4px 12px rgba(66, 153, 225, 0.3);
 }

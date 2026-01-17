@@ -22,51 +22,10 @@
               Home
             </NuxtLink>
           </li>
-
           <li class="nav-item">
-            <a href="javascript:void(0)" class="dropdown-toggle nav-link">
+            <NuxtLink to="/about-overview" class="nav-link">
               About Us
-            </a>
-            <ul class="dropdown-menu">
-              <li class="nav-item">
-                <NuxtLink to="/about-overview" class="nav-link"> Overview </NuxtLink>
-              </li>
-              <li class="nav-item">
-                <NuxtLink to="/about-accreditation" class="nav-link">
-                  Vision & Mission
-                </NuxtLink>
-              </li>
-              <li class="nav-item">
-                <NuxtLink to="/about-accreditation" class="nav-link">
-                  Leadership
-                </NuxtLink>
-              </li>
-              <li class="nav-item">
-                <NuxtLink to="/about-accreditation" class="nav-link">
-                  Our Legacy
-                </NuxtLink>
-              </li>
-              <li class="nav-item">
-                <NuxtLink to="/about-accreditation" class="nav-link">
-                  GCC School Think Tank
-                </NuxtLink>
-              </li>
-              <li class="nav-item">
-                <NuxtLink to="/about-accreditation" class="nav-link">
-                  ACCA Major Recruiters
-                </NuxtLink>
-              </li>
-              <li class="nav-item">
-                <NuxtLink to="/about-accreditation" class="nav-link">
-                  Subject Matter Experts
-                </NuxtLink>
-              </li>
-              <li class="nav-item">
-                <NuxtLink to="/about-accreditation" class="nav-link">
-                  Industry Mentors
-                </NuxtLink>
-              </li>
-            </ul>
+            </NuxtLink>
           </li>
 
           <li class="nav-item">
@@ -136,5 +95,27 @@ export default defineComponent({
       stateStoreInstance,
     };
   },
+  methods: {
+    scrollToSection(id: any) {
+      const element = document.getElementById(id);
+      if (element) {
+        element.scrollIntoView({ behavior: "smooth", block: "start" });
+      }
+    },
+  },
 });
 </script>
+
+<style>
+.navbar {
+  background-color: #3D2C5E;
+}
+
+.navbar .navbar-nav .nav-item .nav-link {
+  color: #fff;
+}
+
+.navbar.sticky {
+  background-color: #3D2C5E;
+}
+</style>

@@ -69,5 +69,35 @@
 <script>
 export default {
   name: "TopHeader",
+
 };
 </script>
+<style>
+.top-header-warp {
+  background-color: #862E84;
+}
+
+.top-header-details .social-list::before {
+  background-color: #F1A63E
+}
+
+.top-header-details .header-contact li a {
+  color: #fff;
+}
+
+.ti-mail:before {
+  color: #fff;
+}
+
+.top-header-link-details .header-link li a {
+  color: #fff;
+}
+
+.top-header-link-details .header-account li:last-child i {
+  color: #fff;
+}
+
+.top-header-link-details .header-account li:last-child a {
+  color: #fff;
+}
+</style>

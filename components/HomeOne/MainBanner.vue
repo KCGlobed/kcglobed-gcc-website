@@ -99,33 +99,33 @@
 
               <div class="col-md-6">
                 <div class="form-floating">
-                <input v-model="form.mobile" class="form-control" placeholder="Mobile Number">
-                <label>Mobile Number</label>
-                <small class="text-danger" v-if="errors.mobile">{{ errors.mobile }}</small>
+                  <input v-model="form.mobile" class="form-control" placeholder="Mobile Number">
+                  <label>Mobile Number</label>
+                  <small class="text-danger" v-if="errors.mobile">{{ errors.mobile }}</small>
                 </div>
               </div>
 
               <div class="col-md-6">
                 <div class="form-floating">
-                <input v-model="form.email" class="form-control" placeholder="Email ID">
-                <label>Email ID</label>
-                <small class="text-danger" v-if="errors.email">{{ errors.email }}</small>
+                  <input v-model="form.email" class="form-control" placeholder="Email ID">
+                  <label>Email ID</label>
+                  <small class="text-danger" v-if="errors.email">{{ errors.email }}</small>
                 </div>
               </div>
 
               <div class="col-md-6">
                 <div class="form-floating">
-                <input v-model="form.city" class="form-control" placeholder="City">
-                <label>City</label>
-                <small class="text-danger" v-if="errors.city">{{ errors.city }}</small>
+                  <input v-model="form.city" class="form-control" placeholder="City">
+                  <label>City</label>
+                  <small class="text-danger" v-if="errors.city">{{ errors.city }}</small>
                 </div>
               </div>
 
               <div class="col-md-6">
                 <div class="form-floating">
-                <input v-model="form.state" class="form-control" placeholder="State">
-                <label>State</label>
-                <small class="text-danger" v-if="errors.state">{{ errors.state }}</small>
+                  <input v-model="form.state" class="form-control" placeholder="State">
+                  <label>State</label>
+                  <small class="text-danger" v-if="errors.state">{{ errors.state }}</small>
                 </div>
               </div>
             </div>
@@ -135,7 +135,7 @@
             <h6 class="mb-3">Academic / Professional Background</h6>
 
             <!-- Highest Qualification -->
-             <div class="form-floating mb-2">
+            <div class="form-floating mb-2">
               <select v-model="form.qualification" class="form-select mb-3">
                 <option value="">Select Highest Qualification</option>
                 <option>B.Com (Pursuing)</option>
@@ -165,11 +165,7 @@
               <select v-model="form.college" class="form-select">
                 <option value="">Select College / University</option>
 
-                <option
-                  v-for="college in colleges"
-                  :key="college.id"
-                  :value="college.name"
-                >
+                <option v-for="college in colleges" :key="college.id" :value="college.name">
                   {{ college.name }}
                 </option>
               </select>
@@ -183,24 +179,24 @@
             <h6 class="mb-3">How Did You Hear About GCC School?</h6>
 
             <div class="form-floating mb-2">
-            <select v-model="form.source" class="form-select mb-3">
-              <option value="">Select Source</option>
-              <option>College / University</option>
-              <option>Event / Seminar</option>
-              <option>Friend / Referral</option>
-              <option>Social Media</option>
-              <option>Website</option>
-              <option>Other</option>
-            </select>
-            <label>How Did You Hear About GCC School?</label>
+              <select v-model="form.source" class="form-select mb-3">
+                <option value="">Select Source</option>
+                <option>College / University</option>
+                <option>Event / Seminar</option>
+                <option>Friend / Referral</option>
+                <option>Social Media</option>
+                <option>Website</option>
+                <option>Other</option>
+              </select>
+              <label>How Did You Hear About GCC School?</label>
             </div>
             <small class="text-danger" v-if="errors.source">{{ errors.source }}</small>
 
             <div class="form-floating mb-2">
-            <textarea v-model="form.remarks" class="form-control mt-3" rows="3"
-              placeholder="Query / Remarks (Optional)">
+              <textarea v-model="form.remarks" class="form-control mt-3" rows="3"
+                placeholder="Query / Remarks (Optional)">
             </textarea>
-            <label>Query / Remarks (Optional)</label>
+              <label>Query / Remarks (Optional)</label>
             </div>
 
             <div class="form-check mt-3">
@@ -224,14 +220,14 @@
 </template>
 
 <style>
-.form-floating > .form-select,
-.form-floating > textarea {
+.form-floating>.form-select,
+.form-floating>textarea {
   padding-top: 2rem !important;
   padding-bottom: 1rem !important;
   height: auto !important;
 }
 
-.form-floating > label {
+.form-floating>label {
   padding-top: 0.9rem !important;
 }
 
@@ -365,7 +361,7 @@ export default defineComponent({
           heading: "World’s 1st School Backed  by Industry, Built on Execution",
           description: "At GCC School, students don’t wait for placements. They start with them. Learning is structured around real roles, real work, and real responsibility because capability is built on execution.",
           btnText: "Apply Now",
-          btnLink: "/about-overview",
+          btnLink: "#",
           btnTextTwo: "Download Brochure",
           btnLinkTwo: gccPdf,
           updateTitle: "View all latest news updates of Tuva",

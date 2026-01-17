@@ -198,7 +198,7 @@
                 </div>
 
                 <div class="col-lg-12">
-                  <button class="default-btn mt-3" type="submit">
+                  <button class="default-btn submit-btn mt-3" type="submit">
                     Submit <i class="ti ti-arrow-narrow-right"></i>
                   </button>
                 </div>

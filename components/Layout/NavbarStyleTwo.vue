@@ -38,56 +38,17 @@
               Home
             </NuxtLink>
           </li>
-         <li class="nav-item">
-            <a href="javascript:void(0)" class="dropdown-toggle nav-link">
-            About Us
-            </a>
-            <ul class="dropdown-menu">
-              <li class="nav-item">
-                <NuxtLink to="/about-overview" class="nav-link"> Overview </NuxtLink>
-              </li>
-              <li class="nav-item">
-                <NuxtLink to="/about-accreditation" class="nav-link">
-                  Vision & Mission
-                </NuxtLink>
-              </li>
-              <li class="nav-item">
-                <NuxtLink to="/about-accreditation" class="nav-link">
-                  Leadership
-                </NuxtLink>
-              </li>
-              <li class="nav-item">
-                <NuxtLink to="/about-accreditation" class="nav-link">
-                  Our Legacy
-                </NuxtLink>
-              </li>
-              <li class="nav-item">
-                <NuxtLink to="/about-accreditation" class="nav-link">
-                 GCC School Think Tank
-                </NuxtLink>
-              </li>
-              <li class="nav-item">
-                <NuxtLink to="/about-accreditation" class="nav-link">
-                   ACCA Major Recruiters
-                </NuxtLink>
-              </li>
-              <li class="nav-item">
-                <NuxtLink to="/about-accreditation" class="nav-link">
-                   Subject Matter Experts
-                </NuxtLink>
-              </li>
-              <li class="nav-item">
-                <NuxtLink to="/about-accreditation" class="nav-link">
-                   Industry Mentors
-                </NuxtLink>
-              </li>
-            </ul>
+          <li class="nav-item">
+            <NuxtLink to="/about-overview" class="nav-link">
+              About Us
+            </NuxtLink>
           </li>
 
+
           <li class="nav-item">
-            <a href="/programs" class="nav-link">
+            <NuxtLink to="/programs" class="nav-link">
               Programs
-            </a>
+            </NuxtLink>
 
           </li>
 
