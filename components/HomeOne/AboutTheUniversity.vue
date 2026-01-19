@@ -1,5 +1,5 @@
 <template>
-  <div class="mission-warp pt-80 bg-FAF6F6">
+  <div class="mission-warp pt-80 " style="background-color: #FBDCB2">
     <div class="container">
       <div class="row">
         <div class="col-lg-4" data-aos="fade-up" data-aos-delay="200">
@@ -39,7 +39,7 @@
                       <i class="ti ti-arrow-narrow-right"></i>
                     </NuxtLink>
                   </div>
-                  <NuxtLink :to="mission.btnLink" class="default-btn">
+                  <NuxtLink :to="mission.btnLink" class="default-btn third-btn">
                     {{ mission.btnText }}
                     <i class="ti ti-arrow-narrow-right"></i>
                   </NuxtLink>
@@ -78,7 +78,7 @@ export default defineComponent({
         viewBtnText: "View Details",
         viewBtnLink: "/event-details",
         btnText: "Take A Campus Tour",
-        btnLink: "/schedule",
+        btnLink: "/campus-life",
       },
       {
         id: 2,
@@ -90,7 +90,7 @@ export default defineComponent({
         viewBtnText: "View Details",
         viewBtnLink: "/program-choice",
         btnText: "Take A Campus Tour",
-        btnLink: "/program-choice",
+        btnLink: "/campus-life",
       },
       {
         id: 4,
@@ -102,7 +102,7 @@ export default defineComponent({
         viewBtnText: "View Details",
         viewBtnLink: "/programs",
         btnText: "Take A Campus Tour",
-        btnLink: "/programs",
+        btnLink: "/campus-life",
       },
     ];
 

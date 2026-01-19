@@ -5,7 +5,7 @@
   ]">
     <div class="container-fluid">
       <NuxtLink class="navbar-brand" to="/">
-        <img src="~/assets/Logo/Logo/GCC-School-Logo-White.png" alt="Logo" style="height: 75px;" />
+        <img src="~/assets/Logo/Logo/GCC-School-Logo-White.jpeg" alt="Logo" style="height: 75px;" />
       </NuxtLink>
       <a class="navbar-toggler home1-one-toggler" @click="stateStoreInstance.onMobileNavbarShow">
         <span class="burger-menu">
@@ -16,75 +16,34 @@
       </a>
       <div class="collapse navbar-collapse">
         <ul class="navbar-nav ms-auto">
-          
+
           <li class="nav-item">
             <NuxtLink to="/" class="nav-link">
               Home
             </NuxtLink>
           </li>
-       
-           <li class="nav-item">
-            <a href="javascript:void(0)" class="dropdown-toggle nav-link">
-            About Us
-            </a>
-            <ul class="dropdown-menu">
-              <li class="nav-item">
-                <NuxtLink to="/about-overview" class="nav-link"> Overview </NuxtLink>
-              </li>
-             <li class="nav-item">
-                <NuxtLink to="/about-accreditation" class="nav-link">
-                  Vision & Mission
-                </NuxtLink>
-              </li>
-              <li class="nav-item">
-                <NuxtLink to="/about-accreditation" class="nav-link">
-                  Leadership
-                </NuxtLink>
-              </li>
-              <li class="nav-item">
-                <NuxtLink to="/about-accreditation" class="nav-link">
-                  Our Legacy
-                </NuxtLink>
-              </li>
-              <li class="nav-item">
-                <NuxtLink to="/about-accreditation" class="nav-link">
-                 GCC School Think Tank
-                </NuxtLink>
-              </li>
-              <li class="nav-item">
-                <NuxtLink to="/about-accreditation" class="nav-link">
-                   ACCA Major Recruiters
-                </NuxtLink>
-              </li>
-              <li class="nav-item">
-                <NuxtLink to="/about-accreditation" class="nav-link">
-                   Subject Matter Experts
-                </NuxtLink>
-              </li>
-              <li class="nav-item">
-                <NuxtLink to="/about-accreditation" class="nav-link">
-                   Industry Mentors
-                </NuxtLink>
-              </li>
-            </ul>
+          <li class="nav-item">
+            <NuxtLink to="/about-overview" class="nav-link">
+              About Us
+            </NuxtLink>
           </li>
 
           <li class="nav-item">
-            <a href="/programs" class="nav-link">
+            <NuxtLink to="/programs" class="nav-link">
               Programs
-            </a>
+            </NuxtLink>
 
           </li>
 
           <li class="nav-item">
-            <a href="/admissions" class="nav-link">
+            <NuxtLink to="/admissions" class="nav-link">
               Admissions
-            </a>
+            </NuxtLink>
           </li>
           <li class="nav-item">
-            <a href="/campus-life" class="nav-link">
+            <NuxtLink to="/campus-life" class="nav-link">
               Campus Life
-            </a>
+            </NuxtLink>
           </li>
 
           <li class="nav-item">
@@ -136,5 +95,27 @@ export default defineComponent({
       stateStoreInstance,
     };
   },
+  methods: {
+    scrollToSection(id: any) {
+      const element = document.getElementById(id);
+      if (element) {
+        element.scrollIntoView({ behavior: "smooth", block: "start" });
+      }
+    },
+  },
 });
 </script>
+
+<style>
+.navbar {
+  background-color: #3D2C5E;
+}
+
+.navbar .navbar-nav .nav-item .nav-link {
+  color: #fff;
+}
+
+.navbar.sticky {
+  background-color: #3D2C5E;
+}
+</style>

@@ -30,6 +30,7 @@ export default {
   text-align: center;
   z-index: 9999999;
   transition: 0.5s;
+
   .loader {
     position: absolute;
     width: 80px;
@@ -42,6 +43,7 @@ export default {
     top: 45%;
     transform: translateY(-45%);
     transition: 0.5s;
+
     .loader-outter {
       position: absolute;
       border: 4px solid #ffffff;
@@ -52,6 +54,7 @@ export default {
       border-radius: 50%;
       animation: loader-outter 1s cubic-bezier(0.42, 0.61, 0.58, 0.41) infinite;
     }
+
     .loader-inner {
       position: absolute;
       border: 4px solid #ffffff;
@@ -64,12 +67,14 @@ export default {
       border-top-color: transparent;
       animation: loader-inner 1s cubic-bezier(0.42, 0.61, 0.58, 0.41) infinite;
     }
+
     .indicator {
       position: absolute;
       right: 0;
       left: 0;
       top: 50%;
       transform: translateY(-50%) scale(1.5);
+
       svg {
         polyline {
           fill: none;
@@ -77,9 +82,11 @@ export default {
           stroke-linecap: round;
           stroke-linejoin: round;
         }
+
         polyline#back {
           stroke: #ffffff;
         }
+
         polyline#front {
           stroke: var(--primary);
           stroke-dasharray: 12, 36;
@@ -89,6 +96,7 @@ export default {
       }
     }
   }
+
   &::before {
     content: "";
     position: absolute;
@@ -100,6 +108,7 @@ export default {
     background: var(--primary);
     transition: 0.5s;
   }
+
   &::after {
     content: "";
     position: absolute;
@@ -113,40 +122,50 @@ export default {
     left: auto;
     right: 0;
   }
+
   &.preloader-deactivate {
     visibility: hidden;
+
     &::after {
       width: 0;
     }
+
     &::before {
       width: 0;
     }
+
     .loader {
       opacity: 0;
       visibility: hidden;
     }
   }
 }
+
 @keyframes loader-outter {
   0% {
     transform: rotate(0deg);
   }
+
   100% {
     transform: rotate(360deg);
   }
 }
+
 @keyframes loader-inner {
   0% {
     transform: rotate(0deg);
   }
+
   100% {
     transform: rotate(-360deg);
   }
 }
+
 @keyframes dash {
   62.5% {
     opacity: 0;
   }
+
   to {
     stroke-dashoffset: 0;
   }

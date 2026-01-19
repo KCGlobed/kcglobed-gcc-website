@@ -235,7 +235,7 @@ export default defineComponent({
 
 .date {
   display: inline-block;
-  background: #F57C00;
+  background: #D98E23;
   color: #fff;
   padding: 5px 15px;
   border-radius: 20px;
@@ -266,7 +266,7 @@ export default defineComponent({
 }
 
 .module-list li i {
-  color: #F57C00;
+  color: #D98E23;
   margin-right: 10px;
   margin-top: 4px;
 }

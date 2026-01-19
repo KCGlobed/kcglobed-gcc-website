@@ -1,7 +1,7 @@
 <template>
   <div>
-    <LayoutTopHeader class="style2-top-header" />
-    <LayoutNavbarStyleTwo class="inner-navbar" />
+    <LayoutTopHeader />
+    <LayoutMainNavbar />
     <CommonInnerPageBanner pageTitle="About GCC School" mainTitle="OVERVIEW" />
     <CommonAboutPagesList />
     <AboutOverviewAboutUniversity />

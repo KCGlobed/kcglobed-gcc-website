@@ -2,14 +2,9 @@
   <div class="choose-warp about-choose-warp">
     <div class="container-fluid">
       <div class="row g-0">
-        <div
-          class="col-lg-3 col-md-6"
-          v-for="service in services"
-          :key="service.id"
-          data-aos="zoom-in-up"
-          data-aos-delay="200"
-        >
-          <div :class="['choose-card', service.bgClass]">
+        <div class="col-lg-3 col-md-6" v-for="service in services" :key="service.id" data-aos="zoom-in-up"
+          data-aos-delay="200">
+          <div :class="['choose-card', service.bgClass]" style="height: 100%;">
             <h3>{{ service.title }}</h3>
             <p>{{ service.shortDesc }}</p>
             <NuxtLink :to="service.link" class="choose-link">
@@ -34,9 +29,9 @@ export default defineComponent({
         {
           id: 1,
           bgClass: "bg-5",
-          title: "You Choose",
+          title: "Academic Qualification",
           shortDesc:
-            "Six ways to stack your resume cover 16 areas of interest to advance your career.",
+            "Final-year B.Com students must have minimum 60% / 6.0 CGPA up to 5th Semester. B.Com graduates (passed out) ,or M.Com/MBA pursuing/completed candidates must have passed B.Com with First Division.",
           linkText: "Professional Learning",
           link: "/experiential-learning",
           dataDelay: "200",
@@ -44,9 +39,9 @@ export default defineComponent({
         {
           id: 2,
           bgClass: "bg-2",
-          title: "Tuva Pro",
+          title: "Backlog Status",
           shortDesc:
-            "Professionals can power up with immersive four-week micro-credentials.",
+            "Candidates pursuing a degree must have no pending backlogs at the time of application.",
           linkText: "Tuva Pro",
           link: "/accessibility",
           dataDelay: "300",
@@ -54,9 +49,9 @@ export default defineComponent({
         {
           id: 3,
           bgClass: "bg-3",
-          title: "Get Funded",
+          title: "Institution & Nationality",
           shortDesc:
-            "Learners, immigrants and employers have access to different funding opportunities.",
+            "Degree must be from a UGC-recognised university/institution, and the candidate must be an Indian citizen.",
           linkText: "See Funding Option",
           link: "/career-services",
           dataDelay: "400",
@@ -64,9 +59,9 @@ export default defineComponent({
         {
           id: 4,
           bgClass: "bg-4",
-          title: "Dream Bigger",
+          title: "Age Criteria:",
           shortDesc:
-            "Dream bigger with a 4 years honors degree with Tuva education.",
+            "Candidates must be born on or after 1st January 1996.",
           linkText: "Degree With Work Experience",
           link: "/graduate-programs",
           dataDelay: "500",

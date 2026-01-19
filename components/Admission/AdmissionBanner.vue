@@ -47,10 +47,10 @@
                                     {{ banner.btnText }}
                                     <i class="ti ti-arrow-narrow-right"></i>
                                 </NuxtLink>
-                                <a :href="banner.btnLinkTwo" class="default-btn style2" download="Brochure.pdf">
+                                <!-- <a :href="banner.btnLinkTwo" class="default-btn style2" download="Brochure.pdf">
                                     {{ banner.btnTextTwo }}
                                     <i class="ti ti-arrow-narrow-right"></i>
-                                </a>
+                                </a> -->
                             </div>
                         </div>
                         <!-- <ul class="information">
@@ -96,7 +96,7 @@ export default defineComponent({
                     heading: "World’s 1st School Backed  by Industry, Built on Execution",
                     description: "The National Future Employability Test (NFET) for Aspiring Finance & Accounting Professionals.",
                     btnText: "Apply Now",
-                    btnLink: "/about-overview",
+                    btnLink: "#",
                     btnTextTwo: "Download Brochure",
                     btnLinkTwo: gccPdf,
                     updateTitle: "View all latest news updates of Tuva",

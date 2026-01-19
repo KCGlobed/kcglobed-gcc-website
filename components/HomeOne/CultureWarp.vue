@@ -101,7 +101,7 @@ export default {
 
 <style scoped>
 .culture-warp {
-  background-color: #f8f9fa;
+  background-color: #862E84;
   /* Light background for contrast */
 }
 
@@ -113,13 +113,13 @@ export default {
 .section-title h2 {
   font-size: 32px;
   font-weight: 700;
-  color: #000;
+  color: #fff;
   margin-bottom: 15px;
 }
 
 .section-title .subtitle {
   font-size: 16px;
-  color: #666;
+  color: #c9a1a1;
   max-width: 800px;
   margin: 0 auto;
   font-weight: 400;
@@ -142,21 +142,21 @@ export default {
 .icon-box {
   width: 50px;
   height: 50px;
-  background-color: #eef2f6;
+  background-color: #F1A63E;
   /* Light blueish gray background for icons */
   border-radius: 8px;
   display: flex;
   align-items: center;
   justify-content: center;
   margin-bottom: 20px;
-  color: #38003c;
+  color: #fff;
   /* Brand color or dark blue */
 }
 
 .stat-number {
   font-size: 28px;
   font-weight: 800;
-  color: #f5a623;
+  color: #862E84;
   /* Gold/Orange accent color */
   margin-bottom: 10px;
 }

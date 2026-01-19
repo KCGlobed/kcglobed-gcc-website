@@ -11,7 +11,7 @@
                 Students receive a <b>₹10 LPA Conditional Offer Letter</b> from GCC partners before the program begins,
                 ensuring early career clarity.
               </p>
-              <a href="programs.html" class="default-btn">Apply Now
+              <a href="#" class="default-btn secodary-btn">Apply Now
                 <i class="ti ti-arrow-narrow-right"></i>
               </a>
             </div>

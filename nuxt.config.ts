@@ -3,6 +3,15 @@ export default defineNuxtConfig({
   devtools: { enabled: false },
   app: {
     // baseURL: "/tuva/",
+    head: {
+      link: [
+        {
+          rel: 'icon',
+          type: 'image/jpg',
+          href: '/favicon.jpg', // ya /favicon.ico
+        },
+      ],
+    },
     pageTransition: {
       name: "fade",
       mode: "out-in",
@@ -32,3 +41,5 @@ export default defineNuxtConfig({
     },
   },
 });
+
+
