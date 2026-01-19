@@ -1,5 +1,5 @@
 <template>
-  <div class="mission-warp pt-80 bg-FAF6F6">
+  <div class="mission-warp pt-80 " style="background-color: #FBDCB2">
     <div class="container">
       <div class="row">
         <div class="col-lg-4" data-aos="fade-up" data-aos-delay="200">

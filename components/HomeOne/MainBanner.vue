@@ -15,7 +15,7 @@
     gap: 8px;
     padding: 6px 14px;
     border-radius: 9999px;
-    background-color:#48526E; /* dark gray */
+    background-color:#231C39; /* dark gray */
     color: #facc15; /* yellow text */
     font-size: 14px;
     font-weight: 600;
