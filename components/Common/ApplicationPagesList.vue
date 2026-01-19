@@ -1,37 +1,16 @@
 <template>
-  <div class="about-all-pages pt-100">
+  <div class="about-all-pages pt-50 mb-50">
     <div class="container">
       <div class="inner-all-pages">
         <ul class="about-pages-list style2">
-          <li>
-            <NuxtLink :class="checkOne" to="/personal-information">
-              1. PERSONAL INFORMATION
-            </NuxtLink>
-          </li>
-          <li>
-            <NuxtLink :class="checkTwo" to="/academic-information">
-              2. ACADEMIC INFORMATION
-            </NuxtLink>
-          </li>
-          <li>
-            <NuxtLink :class="checkThree" to="/english-proficiency">
-              3. ENGLISH PROFICIENCY
-            </NuxtLink>
-          </li>
-          <li>
-            <NuxtLink :class="checkFour" to="/program-choice"
-              >4. PROGRAM CHOICE</NuxtLink
+          <li v-for="(step, index) in steps" :key="index">
+            <a 
+              style="cursor: pointer;" 
+              :class="{ 'active': activeStep === index + 1 }"
+              @click="$emit('step-selected', index + 1)"
             >
-          </li>
-          <li>
-            <NuxtLink :class="checkFive" to="/document-upload"
-              >5. DOCUMENT UPLOADS</NuxtLink
-            >
-          </li>
-          <li>
-            <NuxtLink :class="checkSix" to="/submission"
-              >6. SUBMISSION</NuxtLink
-            >
+              {{ step }}
+          </a>
           </li>
         </ul>
       </div>
@@ -42,13 +21,24 @@
 <script>
 export default {
   name: "ApplicationPagesList",
-  props: [
-    "checkOne",
-    "checkTwo",
-    "checkThree",
-    "checkFour",
-    "checkFive",
-    "checkSix",
-  ],
+  props: {
+    activeStep: {
+      type: Number,
+      required: true,
+      default: 1
+    }
+  },
+  data() {
+    return {
+      steps: [
+        "PERSONAL INFORMATION",
+        "ACADEMIC INFORMATION",
+        "WORK EXPERIENCE DETAILS",
+        "DOCUMENT UPLOADS",
+        "PRE-PAYMENT DECLARATION (MANDATORY)"
+      ]
+    };
+  },
+  emits: ['step-selected']
 };
 </script>
