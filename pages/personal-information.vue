@@ -10,7 +10,11 @@
     />
 
     <keep-alive>
-      <component :is="activeComponent" ref="currentStepComponent" />
+      <component 
+        :is="activeComponent" 
+        ref="currentStepComponent"
+        :formData="formData"
+      />
     </keep-alive>
 
     <div class="container pb-100">
@@ -69,6 +73,31 @@ export default defineComponent({
   setup() {
     const currentStep = ref(1);
     const totalSteps = 5;
+    const formData = reactive({
+      first_name: "",
+      last_name: "",
+      father_name: "",
+      father_mobile: "",
+      father_email: "",
+      mother_name: "",
+      mother_mobile: "",
+      mother_email: "",
+      dob: "",
+      gender: "",
+      nationality: "Indian",
+      email: "",
+      mobile: "",
+      city: "",
+      state: "",
+      pin_code: "",
+      highest_qualification: "",
+      university: "",
+      semester: "",
+      cgpa: "",
+      graduation_year: "",
+      work_experience: [],
+      documents: {}
+    });
     const currentStepComponent = ref<any>(null);
 
     const activeComponent = computed(() => {
@@ -116,15 +145,32 @@ export default defineComponent({
       }
     };
 
-    const handleFinalSubmit = () => {
-        // Final validation
-         if (currentStepComponent.value && currentStepComponent.value.validate) {
-            const isValid = currentStepComponent.value.validate();
-            if (!isValid) return;
+    const handleFinalSubmit = async () => {
+      if (currentStepComponent.value?.validate) {
+        const isValid = currentStepComponent.value.validate();
+        if (!isValid) return;
+      }
+
+      console.log("formData", formData);
+
+      try {
+        const response:any = await $fetch("/api/register-user", {
+          method: "POST",
+          body: formData
+        });
+
+        if (response.success) {
+          alert("Application submitted successfully!");
+          console.log("Server response:", response);
+          // Redirect to payment page here
+        } else {
+          alert(response.message || "Submission failed");
         }
-        // Proceed...
-        console.log("Form submitted");
-    }
+      } catch (error) {
+        console.error("API Error:", error);
+        alert("Something went wrong. Please try again.");
+      }
+    };
 
     return {
       currentStep,
@@ -134,7 +180,8 @@ export default defineComponent({
       nextStep,
       prevStep,
       currentStepComponent,
-      handleFinalSubmit
+      handleFinalSubmit,
+      formData
     };
   },
 });
