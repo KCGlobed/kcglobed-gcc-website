@@ -16,6 +16,9 @@
     <HomeOneLatestNews /> -->
     <LayoutMainFooter />
     <LayoutCopyRight />
+
+    <!-- Event Popup -->
+    <CommonEventPopup />
   </div>
 </template>
 

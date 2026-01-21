@@ -57,14 +57,14 @@
             <div class="search-bar main-menu__search search-toggler" @click="stateStoreInstance.onChange"
               style="cursor: pointer">
               <div class="search-btn">
-                <img src="~/assets/img/svgs/search.svg" alt="image" />
+                <img src="~/assets/img/svgs/search2.svg" alt="image" />
               </div>
             </div>
           </div>
 
           <div class="option-item">
             <button class="btn side-bar-btn" type="button" @click="stateStoreInstance.onSidebarShow">
-              <img src="~/assets/img/svgs/menu.svg" alt="svg" />
+              <img src="~/assets/img/svgs/menu2.svg" alt="svg" />
             </button>
           </div>
         </div>
