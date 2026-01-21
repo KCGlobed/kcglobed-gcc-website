@@ -57,7 +57,7 @@
           </div>
 
           <div class="ticket-footer">
-            Your Corporate Journey Begins Here.
+            Your Professional Journey Begins Here.
           </div>
 
           <!-- World Map Background (CSS Pattern) -->
@@ -90,7 +90,7 @@
 
           <div class="info-group mt-3">
             <label>BOARDING TIME</label>
-            <span class="dark-text">June 2026</span>
+            <span class="dark-text">July 2026</span>
           </div>
 
           <div class="info-group mt-3">

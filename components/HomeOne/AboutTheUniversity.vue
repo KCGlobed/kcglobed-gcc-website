@@ -69,20 +69,8 @@ export default defineComponent({
 
     const missions = [
       {
-        id: 1,
-        title: "Our Mission",
-        image: image1,
-        heading: "About The GCC School",
-        description:
-          "To democratize access to global careers by pioneering an inverse education-to-employment model where verified industry demand precedes learning, ensuring a zero-risk, outcome-assured pathway that transforms high-potential individuals into day-one deployable, ethically grounded, globally credentialed professionals through deep industry immersion, digital excellence, and applied experiential learning.",
-        viewBtnText: "View Details",
-        viewBtnLink: "/event-details",
-        btnText: "Take A Campus Tour",
-        btnLink: "/campus-life",
-      },
-      {
         id: 2,
-        title: "Our Vision",
+        title: "Vision",
         image: image2,
         heading: "About The GCC School",
         description:
@@ -93,12 +81,37 @@ export default defineComponent({
         btnLink: "/campus-life",
       },
       {
+        id: 1,
+        title: " Mission",
+        image: image1,
+        heading: "About The GCC School",
+        description:
+          "To democratize access to global careers by pioneering an inverse education-to-employment model where verified industry demand precedes learning, ensuring a zero-risk, outcome-assured pathway that transforms high-potential individuals into day-one deployable, ethically grounded, globally credentialed professionals through deep industry immersion, digital excellence, and applied experiential learning.",
+        viewBtnText: "View Details",
+        viewBtnLink: "/event-details",
+        btnText: "Take A Campus Tour",
+        btnLink: "/campus-life",
+      },
+
+      {
         id: 4,
-        title: "Our Legacy",
+        title: "Background",
         image: image4,
         heading: "About The GCC School",
         description:
           "GCC School is powered by KC GlobEd, where we embody the ethos of “One Globe, One Education.” We are dedicated to making high-quality professional learning accessible to every learner, regardless of geography or background. At KC GlobEd, we break educational boundaries and transform aspirations into universal possibilities.  ",
+        viewBtnText: "View Details",
+        viewBtnLink: "/programs",
+        btnText: "Take A Campus Tour",
+        btnLink: "/campus-life",
+      },
+      {
+        id: 4,
+        title: "Leadership",
+        image: image4,
+        heading: "About The GCC School",
+        description:
+          "The leadership of GCC School brings together experienced professionals from industry and academia to build a globally aligned ecosystem. With a strong focus on execution, mentorship, and ethical responsibility, the leadership ensures that Young Aspiring Professionals are guided by real-world insights and academic excellence. ",
         viewBtnText: "View Details",
         viewBtnLink: "/programs",
         btnText: "Take A Campus Tour",

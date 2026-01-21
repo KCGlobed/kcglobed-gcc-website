@@ -35,8 +35,7 @@
 
             <div class="content" style="margin-top: 20px;">
               <h1 class="title" style="font-size: 40px;line-height: 1.4;">
-                <!-- {{ banner.heading }} -->
-                World’s 1st School <br> Backed by Industry, <br> Built on Execution
+                World's 1st School <br> Backed by Industry, <br> Built on Execution
               </h1>
               <p style="color: #fff;">
                 {{ banner.description }}
@@ -52,28 +51,12 @@
                 </button>
               </div>
             </div>
-            <!-- <ul class="information">
-              <li v-for="information in banner.informations" :key="information.id">
-                <i :class="information.icon"></i>
-                <NuxtLink :to="information.link">
-                  {{ information.title }}
-                </NuxtLink>
-              </li>
-            </ul> -->
-            <!-- <NuxtLink :to="banner.updateLink" class="update-link">
-              <span>
-                {{ banner.updateTitle }}
-              </span>
-              <i class="ti ti-arrow-narrow-right"></i>
-            </NuxtLink> -->
           </div>
         </div>
       </SwiperSlide>
-      <!-- <div class="pagination-bullet-btn text-end">
-        <div class="swiper-pagination2"></div>
-      </div> -->
     </Swiper>
   </div>
+
   <div class="modal fade" id="enquiryModal" tabindex="-1">
     <div class="modal-dialog modal-lg modal-dialog-centered">
       <div class="modal-content">
@@ -98,7 +81,8 @@
               </div>
 
               <div class="col-md-6">
-                <div class="form-floating">
+                <div class="form-floating has-prefix">
+                  <div class="prefix">+91</div>
                   <input v-model="form.mobile" class="form-control" placeholder="Mobile Number">
                   <label>Mobile Number</label>
                   <small class="text-danger" v-if="errors.mobile">{{ errors.mobile }}</small>
@@ -116,7 +100,7 @@
               <div class="col-md-6">
                 <div class="form-floating">
                   <input v-model="form.city" class="form-control" placeholder="City">
-                  <label>City</label>
+                  <label>(District)City</label>
                   <small class="text-danger" v-if="errors.city">{{ errors.city }}</small>
                 </div>
               </div>
@@ -128,48 +112,100 @@
                   <small class="text-danger" v-if="errors.state">{{ errors.state }}</small>
                 </div>
               </div>
+
+              <div class="col-md-6">
+                <div class="form-floating">
+                  <input v-model="form.pincode" class="form-control" placeholder="Pincode">
+                  <label>Pincode</label>
+                  <small class="text-danger" v-if="errors.pincode">{{ errors.pincode }}</small>
+                </div>
+              </div>
             </div>
 
             <hr class="my-4">
 
-            <h6 class="mb-3">Academic / Professional Background</h6>
+            <h6 class="mb-3">Graduation Details</h6>
 
-            <!-- Highest Qualification -->
+            <!-- Graduation Program -->
             <div class="form-floating mb-2">
-              <select v-model="form.qualification" class="form-select mb-3">
-                <option value="">Select Highest Qualification</option>
-                <option>B.Com (Pursuing)</option>
-                <option>B.Com (Completed)</option>
-                <option>M.Com (Pursuing)</option>
-                <option>M.Com (Completed)</option>
+              <select v-model="form.graduationProgram" class="form-select mb-3" @change="resetGraduationFields">
+                <option value="">Select your graduation program</option>
+                <option>B.Com</option>
+                <option>B.B.A</option>
+                <option>B.Tech</option>
                 <option>Other</option>
               </select>
-              <label>Highest Qualification</label>
+              <label>Graduation Program</label>
             </div>
-            <small class="text-danger" v-if="errors.qualification">{{ errors.qualification }}</small>
+            <small class="text-danger" v-if="errors.graduationProgram">{{ errors.graduationProgram }}</small>
 
-            <!-- Current Status -->
-            <div class="form-floating mb-2">
-              <select v-model="form.status" class="form-select mb-3">
-                <option value="">Select Current Status</option>
-                <option>Student</option>
-                <option>Working Professional</option>
-                <option>Career Break</option>
-              </select>
-              <label>Current Status</label>
+            <!-- Other Graduation Program (if selected) -->
+            <div v-if="form.graduationProgram === 'Other'" class="form-floating mb-2">
+              <input v-model="form.graduationProgramOther" class="form-control" placeholder="Please specify">
+              <label>Please specify your graduation program</label>
+              <small class="text-danger" v-if="errors.graduationProgramOther">{{ errors.graduationProgramOther
+              }}</small>
             </div>
-            <small class="text-danger" v-if="errors.status">{{ errors.status }}</small>
+
+            <!-- Graduation Status -->
+            <div class="form-floating mb-2">
+              <select v-model="form.graduationStatus" class="form-select mb-3" @change="resetStatusFields">
+                <option value="">Have you completed or are you pursuing your graduation?</option>
+                <option>Completed</option>
+                <option>Pursuing</option>
+              </select>
+              <label>Graduation Status</label>
+            </div>
+            <small class="text-danger" v-if="errors.graduationStatus">{{ errors.graduationStatus }}</small>
+
+            <!-- If Pursuing - Current CGPA/Percentage -->
+            <div v-if="form.graduationStatus === 'Pursuing'" class="form-floating mb-2">
+              <input v-model="form.currentCGPA" class="form-control" placeholder="Enter your current CGPA/Percentage">
+              <label>Current CGPA/Percentage</label>
+              <small class="text-danger" v-if="errors.currentCGPA">{{ errors.currentCGPA }}</small>
+            </div>
+
+            <!-- If Completed - First Division Check -->
+            <div v-if="form.graduationStatus === 'Completed'">
+              <div class="form-floating mb-2">
+                <select v-model="form.firstDivision" class="form-select mb-3" @change="resetHigherQualification">
+                  <option value="">Did you pass with First Division (≥60%)?</option>
+                  <option>Yes</option>
+                  <option>No</option>
+                </select>
+                <label>First Division (≥60%)</label>
+              </div>
+              <small class="text-danger" v-if="errors.firstDivision">{{ errors.firstDivision }}</small>
+
+              <!-- If Yes - Higher Qualification (Optional) -->
+              <div v-if="form.firstDivision === 'Yes'" class="form-floating mb-2">
+                <select v-model="form.higherQualification" class="form-select mb-3">
+                  <option value="">Higher Qualification (Optional)</option>
+                  <option>M.Com</option>
+                  <option>M.B.A</option>
+                  <option>M.Tech</option>
+                  <option>Other</option>
+                </select>
+                <label>Higher Qualification (Optional)</label>
+              </div>
+
+              <!-- Other Higher Qualification (if selected) -->
+              <div v-if="form.higherQualification === 'Other'" class="form-floating mb-2">
+                <input v-model="form.higherQualificationOther" class="form-control" placeholder="Please specify">
+                <label>Please specify your higher qualification</label>
+              </div>
+            </div>
+
+
 
             <!-- College / University -->
             <div class="form-floating mb-2">
               <select v-model="form.college" class="form-select">
                 <option value="">Select College / University</option>
-
                 <option v-for="college in colleges" :key="college.id" :value="college.name">
                   {{ college.name }}
                 </option>
               </select>
-
               <label>College / University</label>
             </div>
             <small class="text-danger" v-if="errors.college">{{ errors.college }}</small>
@@ -186,6 +222,7 @@
                 <option>Friend / Referral</option>
                 <option>Social Media</option>
                 <option>Website</option>
+                <option>Student Ambassador / Faculty Ambassador</option>
                 <option>Other</option>
               </select>
               <label>How Did You Hear About GCC School?</label>
@@ -234,6 +271,25 @@
 .form-floating {
   margin-bottom: 1.2rem;
 }
+
+.prefix {
+  position: absolute;
+  top: 50%;
+  left: 15px;
+  transform: translateY(-50%);
+  font-weight: 600;
+  z-index: 5;
+  color: #333;
+  pointer-events: none;
+}
+
+.has-prefix .form-control {
+  padding-left: 50px !important;
+}
+
+.has-prefix label {
+  padding-left: 50px !important;
+}
 </style>
 
 <script lang="ts">
@@ -253,22 +309,55 @@ export default defineComponent({
         email: "",
         city: "",
         state: "",
-        qualification: "",
-        status: "",
+        graduationProgram: "",
+        graduationProgramOther: "",
+        graduationStatus: "",
+        currentCGPA: "",
+        firstDivision: "",
+
         college: "",
         source: "",
-        consent: ""
+        consent: "",
+        pincode: ""
       }
 
       if (!this.form.name) this.errors.name = "Name is required"
       if (!this.form.mobile) this.errors.mobile = "Mobile number is required"
-      if (!this.form.qualification) this.errors.qualification = "Select qualification"
-      if (!this.form.status) this.errors.status = "Select current status"
+      if (!this.form.graduationProgram) this.errors.graduationProgram = "Select graduation program"
+      if (this.form.graduationProgram === "Other" && !this.form.graduationProgramOther) {
+        this.errors.graduationProgramOther = "Please specify your graduation program"
+      }
+      if (!this.form.graduationStatus) this.errors.graduationStatus = "Select graduation status"
+      if (this.form.graduationStatus === "Pursuing" && !this.form.currentCGPA) {
+        this.errors.currentCGPA = "CGPA/Percentage is required"
+      }
+      if (this.form.graduationStatus === "Completed" && !this.form.firstDivision) {
+        this.errors.firstDivision = "Please indicate if you passed with First Division"
+      }
+
       if (!this.form.college) this.errors.college = "Select college/university"
       if (!this.form.source) this.errors.source = "Select how you heard about us"
       if (!this.form.consent) this.errors.consent = "Consent is required"
+      if (!this.form.pincode) this.errors.pincode = "Pincode is required"
 
-      return Object.keys(this.errors).length === 0
+      return Object.values(this.errors).every(error => error === "")
+    },
+
+    resetGraduationFields() {
+      this.form.graduationProgramOther = ""
+      this.form.graduationStatus = ""
+      this.resetStatusFields()
+    },
+
+    resetStatusFields() {
+      this.form.currentCGPA = ""
+      this.form.firstDivision = ""
+      this.resetHigherQualification()
+    },
+
+    resetHigherQualification() {
+      this.form.higherQualification = ""
+      this.form.higherQualificationOther = ""
     },
 
     async submitForm() {
@@ -292,11 +381,18 @@ export default defineComponent({
             email: "",
             city: "",
             state: "",
-            qualification: "",
-            status: "",
+            graduationProgram: "",
+            graduationProgramOther: "",
+            graduationStatus: "",
+            currentCGPA: "",
+            firstDivision: "",
+            higherQualification: "",
+            higherQualificationOther: "",
+
             college: "",
             source: "",
             remarks: "",
+            pincode: "",
             consent: false
           }
         } else {
@@ -333,11 +429,18 @@ export default defineComponent({
         email: "",
         city: "",
         state: "",
-        qualification: "",
-        status: "",
+        graduationProgram: "",
+        graduationProgramOther: "",
+        graduationStatus: "",
+        currentCGPA: "",
+        firstDivision: "",
+        higherQualification: "",
+        higherQualificationOther: "",
+
         college: "",
         source: "",
         remarks: "",
+        pincode: "",
         consent: false,
       },
       errors: {
@@ -346,11 +449,16 @@ export default defineComponent({
         email: "",
         city: "",
         state: "",
-        qualification: "",
-        status: "",
+        graduationProgram: "",
+        graduationProgramOther: "",
+        graduationStatus: "",
+        currentCGPA: "",
+        firstDivision: "",
+
         college: "",
         source: "",
-        consent: ""
+        consent: "",
+        pincode: ""
       },
       banners: [
         {
@@ -358,11 +466,11 @@ export default defineComponent({
           bgClass: "bg1",
           subTitle: "Cohort 2026 Applications Open",
           image: image1,
-          heading: "World’s 1st School Backed  by Industry, Built on Execution",
-          description: "At GCC School, students don’t wait for placements. They start with them. Learning is structured around real roles, real work, and real responsibility because capability is built on execution.",
+          heading: "World's 1st School Backed  by Industry, Built on Execution",
+          description: "At GCC School, Young Aspiring Professionals (YAPs) don't wait for placements, they start with them. Learning and training are structured around real job roles, professional work, and corporate responsibilities, with capabilities being built through execution itself.",
           btnText: "Apply Now",
-          btnLink: "#",
-          btnTextTwo: "Download Brochure",
+          btnLink: "/personal-information",
+          btnTextTwo: "Download Dossier",
           btnLinkTwo: gccPdf,
           updateTitle: "View all latest news updates of Tuva",
           updateLink: "/blog",
