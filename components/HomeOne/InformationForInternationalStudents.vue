@@ -6,18 +6,17 @@
           <div class="information-content">
             <h2 class="reveal2">Build a Global Career in 12 Months</h2>
             <p>
-              GCC School is a career-first, globally aligned learning program designed for international students aiming
-              to work in Global Capability Centers and global enterprises. The program follows an
-              employment-to-education model, where outcomes come first.
+              GCC School is a new-age, globally aligned corporate ecosystem designed for deserving Young Aspiring
+              Professionals (YAPs) who aim to become early leaders through GCCs in their chosen domains.
             </p>
             <ul class="information-list">
               <li>
                 <i class="ti ti-check"></i>
-                ₹10 LPA+ conditional offer letter
+                ₹10 LPA+ offer letter
               </li>
               <li>
                 <i class="ti ti-check"></i>
-                6-month paid internship during the program
+                6-month paid internship along with program
               </li>
               <li>
                 <i class="ti ti-check"></i>
@@ -38,7 +37,7 @@
             </ul>
             <div class="info-button">
               <NuxtLink to="#" class="default-btn style2">
-                Explore Programs
+                Explore 12-Month Journey
                 <i class="ti ti-arrow-narrow-right"></i>
               </NuxtLink>
               <NuxtLink to="#" class="default-btn secodary-btn">

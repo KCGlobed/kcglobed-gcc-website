@@ -3,8 +3,8 @@
     <div class="container">
       <div class="section-title text-center">
         <!-- <span class="sub-title">Comparison</span> -->
-        <h2>Traditional Pathway vs GCC Pathway</h2>
-        <p>See why the GCC Pathway is the superior choice for your career.</p>
+        <h2>Traditional Pathway vs GCC Journey</h2>
+        <p>See why GCC Journey is most suited for professional world of new tomorrow.</p>
       </div>
 
       <div class="table-responsive">
@@ -13,7 +13,7 @@
             <tr>
               <th scope="col" class="feature-col">Feature</th>
               <th scope="col" class="text-center">Traditional Pathway</th>
-              <th scope="col" class="text-center highlight-header">GCC Pathway</th>
+              <th scope="col" class="text-center highlight-header">GCC Journey</th>
             </tr>
           </thead>
           <tbody>
@@ -63,17 +63,17 @@ export default {
   data() {
     return {
       comparisonData: [
-        { feature: "Recognised academic degree", traditional: true, gcc: true },
+        { feature: "Globally Recognised Academic Credentials", traditional: true, gcc: true },
         { feature: "Strong theoretical foundation", traditional: true, gcc: true },
-        { feature: "Career clarity from Day 1", traditional: false, gcc: true },
-        { feature: "Learn while working", traditional: false, gcc: true },
-        { feature: "Real industry projects", traditional: false, gcc: true },
+        { feature: "Your Career Commitment & Confidence from Day 1", traditional: false, gcc: true },
+        { feature: "Get Hired First, Then Trained.", traditional: false, gcc: true },
+        { feature: "Real Time Industry Projects", traditional: false, gcc: true },
         { feature: "Global exposure", traditional: false, gcc: true },
-        { feature: "Role-based curriculum", traditional: false, gcc: true },
+        { feature: "Purpose Driven Curriculum", traditional: false, gcc: true },
         { feature: "Industry mentors", traditional: false, gcc: true },
-        { feature: "Technology-first learning", traditional: false, gcc: true },
-        { feature: "Performance-based assessment", traditional: false, gcc: true },
-        { feature: "Direct employability focus", traditional: false, gcc: true },
+        { feature: "Tech. Enabled Learning", traditional: false, gcc: true },
+        { feature: "Outcome Based Assessment", traditional: false, gcc: true },
+        { feature: "Employability Focused Training ", traditional: false, gcc: true },
       ],
     };
   },
