@@ -73,7 +73,7 @@
 
       <!-- Fee Concession -->
       <div class="mb-4">
-          <h5 class="mb-3">Fee Concession & NFET Payment</h5>
+          <h5 class="mb-3">Fee Concession & NEFT Payment</h5>
           <div class="mb-3">
               <label class="form-label">Select Concession Category (if applicable)</label>
               <select class="form-select" v-model="concessionCategory">
@@ -94,9 +94,6 @@
                   <div class="invalid-feedback" v-if="errors.concessionProof">{{ errors.concessionProof }}</div>
               </div>
           </div>
-           <div v-else class="alert alert-primary">
-              <p>Redirect to full NFET fee payment.</p>
-          </div>
       </div>
 
     </div>
@@ -106,6 +103,9 @@
 <script>
 export default {
   name: "DocumentUpload",
+  props: {
+    userId: Number,
+  },
   data() {
       return {
           concessionCategory: '',
@@ -121,14 +121,42 @@ export default {
       }
   },
   methods: {
-      handleFileUpload(field, event) {
-          const file = event.target.files[0];
-          if (file) {
-              this.files[field] = file;
-              delete this.errors[field];
-          } else {
-              this.files[field] = null;
-          }
+      async handleFileUpload(field, event) {
+        const file = event.target.files[0];
+        if (!file) return;
+
+        if (!this.userId) {
+            alert("User ID missing. Please complete previous steps.");
+            return;
+        }
+
+        const formData = new FormData();
+        formData.append("file", file);
+        formData.append("user_id", this.userId);
+        formData.append("document_type", field);
+
+        try {
+            const response = await fetch("/api/upload-document", {
+            method: "POST",
+            body: formData
+            });
+
+            const result = await response.json();
+
+            if (!result.success) {
+                alert(result.message || "Upload failed");
+                this.errors[field] = result.message;
+                return;
+            }
+
+            this.files[field] = file;
+            delete this.errors[field];
+
+            alert(result.message || "Upload successfully");
+        } catch (err) {
+            console.error("Upload error:", err);
+            alert("Upload failed. Please try again.");
+        }
       },
       validate() {
           this.errors = {};

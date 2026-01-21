@@ -11,10 +11,6 @@ export function validateUser(data: any) {
         return "Email and mobile are required"
     }
 
-    if (!data.highest_qualification || !data.university) {
-        return "Academic details missing"
-    }
-
     if (Number(data.cgpa) < 6.0) {
         return "Minimum CGPA is 6.0"
     }

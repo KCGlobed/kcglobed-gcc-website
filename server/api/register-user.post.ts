@@ -9,10 +9,11 @@ export default defineEventHandler(async (event) => {
         return { success: false, message: error }
     }
 
-    await saveUser(body)
+    const userId = await saveUser(body)
 
     return {
         success: true,
-        message: "User registered successfully"
+        message: "User registered successfully",
+        user_id: userId
     }
 })

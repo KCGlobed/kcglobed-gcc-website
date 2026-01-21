@@ -1,72 +1,141 @@
 <template>
   <div class="academic-information-warp pb-50">
     <div class="container">
-      <div class="academic-info-content pb-30">
-        <h3>Academic Information</h3>
-        <p>
-          Please provide details of your highest qualification.
-        </p>
-      </div>
-      
+      <h3>Academic Information</h3>
+
       <form>
         <div class="row applicant-details">
+
+          <!-- Class 10 -->
+          <div class="col-lg-6">
+            <div class="input-box">
+              <label>Class 10 – Year of Passing *</label>
+              <input type="number" class="form-control" v-model="formData.class10_year" />
+            </div>
+          </div>
+
+          <div class="col-lg-6">
+            <div class="input-box">
+              <label>Class 10 – Percentage / CGPA *</label>
+              <input type="number" step="0.01" max="100" class="form-control" v-model="formData.class10_score" />
+            </div>
+          </div>
+
+          <!-- Class 12 -->
+          <div class="col-lg-6">
+            <div class="input-box">
+              <label>Class 12 – Year of Passing *</label>
+              <input type="number" class="form-control" v-model="formData.class12_year" />
+            </div>
+          </div>
+
+          <div class="col-lg-6">
+            <div class="input-box">
+              <label>Class 12 – Percentage / CGPA *</label>
+              <input type="number" step="0.01" max="100" class="form-control" v-model="formData.class12_score" />
+            </div>
+          </div>
+
+          <!-- Medium of Instruction -->
           <div class="col-lg-12">
-             <!-- Highest Qualification -->
-              <div class="input-box">
-                <label class="form-label">Highest Qualification <span>*</span></label>
-                <div class="form-check">
-                  <input class="form-check-input" type="radio" name="highest_qualification" id="bcom" value="B.Com" v-model="formData.highest_qualification" :class="{ 'is-invalid': errors.highest_qualification }">
-                  <label class="form-check-label" for="bcom">
-                    B.Com (Pursuing / Completed)
-                  </label>
-                </div>
-                <div class="form-check">
-                  <input class="form-check-input" type="radio" name="highest_qualification" id="mcom" value="M.Com" v-model="formData.highest_qualification" :class="{ 'is-invalid': errors.highest_qualification }">
-                  <label class="form-check-label" for="mcom">
-                    M.Com (Pursuing / Completed)
-                  </label>
-                </div>
-                 <div class="invalid-feedback d-block" v-if="errors.highest_qualification">{{ errors.highest_qualification }}</div>
-              </div>
-
-              <!-- University -->
-              <div class="input-box">
-                <label class="form-label">Latest University / Institution Name <span>*</span></label>
-                <select class="form-select" v-model="formData.university" :class="{ 'is-invalid': errors.university }">
-                  <option selected disabled value="">--Select UGC-recognised institution--</option>
-                  <option value="University A">University A</option>
-                  <option value="University B">University B</option>
-                  <option value="Other">Other</option>
-                </select>
-                <div class="invalid-feedback" v-if="errors.university">{{ errors.university }}</div>
-              </div>
-          </div>
-
-          <div class="col-lg-6">
-            <!-- Semester -->
             <div class="input-box">
-              <label class="form-label">Current / Last Completed Semester <span>*</span></label>
-              <input type="number" class="form-control" placeholder="e.g. 6" v-model="formData.semester" :class="{ 'is-invalid': errors.semester }" />
-              <div class="invalid-feedback" v-if="errors.semester">{{ errors.semester }}</div>
+              <label>Medium of Instruction *</label><br />
+              <label><input type="radio" value="English" v-model="formData.medium" /> English</label>
+              <label class="ms-3"><input type="radio" value="Hindi" v-model="formData.medium" /> Hindi</label>
+              <label class="ms-3"><input type="radio" value="Other" v-model="formData.medium" /> Other</label>
             </div>
           </div>
 
-          <div class="col-lg-6">
-             <!-- CGPA -->
+          <div class="col-lg-6" v-if="formData.medium === 'Other'">
             <div class="input-box">
-              <label class="form-label">CGPA <span>*</span></label>
-              <input type="number" step="0.01" class="form-control" placeholder="Minimum 6.0 required" v-model="formData.cgpa" :class="{ 'is-invalid': errors.cgpa }" />
-              <small class="text-muted">Minimum 6.0 required. M.Com candidates eligible only if B.Com is with 6 CGPA.</small>
-               <div class="invalid-feedback" v-if="errors.cgpa">{{ errors.cgpa }}</div>
+              <label>Please Specify</label>
+              <input type="text" class="form-control" v-model="formData.medium_other" />
             </div>
           </div>
 
-           <div class="col-lg-6">
-             <!-- Graduation Year -->
+          <!-- Undergraduate -->
+          <div class="col-lg-12 mt-3">
+            <h5>Undergraduate Qualification (B.Com)</h5>
+
+            <label><input type="radio" value="Completed" v-model="formData.ug_status" /> Completed</label>
+            <label class="ms-3"><input type="radio" value="Pursuing" v-model="formData.ug_status" /> Pursuing</label>
+          </div>
+
+          <!-- If Completed -->
+          <div class="col-lg-6" v-if="formData.ug_status === 'Completed'">
             <div class="input-box">
-              <label class="form-label">Graduation / Expected Graduation Year <span>*</span></label>
-               <input type="number" class="form-control" placeholder="YYYY" v-model="formData.graduation_year" :class="{ 'is-invalid': errors.graduation_year }" />
-               <div class="invalid-feedback" v-if="errors.graduation_year">{{ errors.graduation_year }}</div>
+              <label>First Division (≥60%)?</label><br />
+              <label><input type="radio" value="Yes" v-model="formData.first_division" /> Yes</label>
+              <label class="ms-3"><input type="radio" value="No" v-model="formData.first_division" /> No</label>
+            </div>
+          </div>
+
+          <!-- If Pursuing -->
+          <div class="col-lg-6" v-if="formData.ug_status === 'Pursuing'">
+            <div class="input-box">
+              <label>Current CGPA / Percentage *</label>
+              <input type="number" step="0.01" max="10" class="form-control" v-model="formData.ug_cgpa" />
+              <small>Max 10.00</small>
+            </div>
+          </div>
+
+          <!-- UG Institution -->
+          <div class="col-lg-12">
+            <div class="input-box">
+              <label>Institution Name (B.Com) *</label>
+              <input type="text" class="form-control" v-model="formData.ug_institution" />
+            </div>
+          </div>
+
+          <!-- Higher Qualification -->
+          <div class="col-lg-12 mt-3">
+            <label>Do you have a Higher Qualification?</label><br />
+            <label><input type="radio" value="Yes" v-model="formData.pg_exists" /> Yes</label>
+            <label class="ms-3"><input type="radio" value="No" v-model="formData.pg_exists" /> No</label>
+          </div>
+
+          <div class="col-lg-6" v-if="formData.pg_exists === 'Yes'">
+            <div class="input-box">
+              <label>Select Qualification</label>
+              <select class="form-select" v-model="formData.pg_type">
+                <option value="">--Select--</option>
+                <option>M.Com</option>
+                <option>M.B.A</option>
+                <option>M.Tech</option>
+                <option>Other</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="col-lg-6" v-if="formData.pg_type === 'Other'">
+            <div class="input-box">
+              <label>Please Specify</label>
+              <input type="text" class="form-control" v-model="formData.pg_other" />
+            </div>
+          </div>
+
+          <div class="col-lg-12" v-if="formData.pg_exists === 'Yes'">
+            <div class="input-box">
+              <label>Institution Name (Postgraduate)</label>
+              <input type="text" class="form-control" v-model="formData.pg_institution" />
+            </div>
+          </div>
+
+          <!-- Semester -->
+          <div class="col-lg-6">
+            <div class="input-box">
+              <label>Current / Last Completed Semester *</label>
+              <input type="number" max="8" class="form-control" v-model="formData.semester" />
+              <small>Max 8</small>
+            </div>
+          </div>
+
+          <!-- CGPA -->
+          <div class="col-lg-6">
+            <div class="input-box">
+              <label>CGPA *</label>
+              <input type="number" step="0.01" max="10" class="form-control" v-model="formData.cgpa" />
+              <small>Max 10.00</small>
             </div>
           </div>
 
@@ -79,42 +148,31 @@
 <script>
 export default {
   name: "AcademicInformation",
-  props: {
-    formData: Object
-  },
+  props: { formData: Object },
   data() {
-    return {
-      errors: {}
-    };
+    return { errors: {} };
   },
   methods: {
     validate() {
       this.errors = {};
-      let isValid = true;
+      let ok = true;
 
-      if (!this.formData.highest_qualification) {
-        this.errors.highest_qualification = "Highest Qualification is required";
-        isValid = false;
-      }
-      if (!this.formData.university) {
-        this.errors.university = "University is required";
-        isValid = false;
-      }
-      if (!this.formData.semester) {
-        this.errors.semester = "Semester is required";
-        isValid = false;
-      }
-      if (!this.formData.cgpa) {
-        this.errors.cgpa = "CGPA is required";
-        isValid = false;
-      }
-      if (!this.formData.graduation_year) {
-        this.errors.graduation_year = "Graduation Year is required";
-        isValid = false;
+      if (!this.formData.class10_year) ok = false;
+      if (!this.formData.class12_year) ok = false;
+      if (!this.formData.medium) ok = false;
+
+      if (this.formData.ug_status === "Pursuing" && this.formData.ug_cgpa > 10) {
+        alert("CGPA cannot exceed 10.00");
+        ok = false;
       }
 
-      return isValid;
-    },
-  },
+      if (this.formData.semester > 8) {
+        alert("Semester cannot exceed 8");
+        ok = false;
+      }
+
+      return ok;
+    }
+  }
 };
 </script>
