@@ -4,11 +4,11 @@ export default defineEventHandler(async (event) => {
     const body = await readBody(event);
 
     const { user_id, amount, currency, name, email, mobile } = body;
-
+    console.log(body);
     if (!user_id || !amount) {
         return { success: false, message: "Missing required data" };
     }
-
+    console.log(process.env.RAZORPAY_KEY_ID, process.env.RAZORPAY_KEY_SECRET, '-----------sec')
     const razorpay = new Razorpay({
         key_id: process.env.RAZORPAY_KEY_ID!,
         key_secret: process.env.RAZORPAY_KEY_SECRET!

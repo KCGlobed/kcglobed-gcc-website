@@ -189,16 +189,23 @@ export default defineComponent({
         if (!isValid) return;
       }
       try {
+        console.log(process.env.PAYMENT_AMOUNT, '-----amount----------')
         // 1. Call your backend to create Razorpay order
         const res: any = await $fetch("/api/start-payment", {
           method: "POST",
           body: {
-            user_id: userId.value,
-            amount: process.env.PAYMENT_AMOUNT, // example amount
+            // user_id: userId.value,
+            // amount: process.env.PAYMENT_AMOUNT, // example amount
+            // currency: "INR",
+            // name: formData.first_name + " " + formData.last_name,
+            // email: formData.email,
+            // mobile: formData.mobile
+            user_id: 2,
+            amount: 2453, // example amount
             currency: "INR",
-            name: formData.first_name + " " + formData.last_name,
-            email: formData.email,
-            mobile: formData.mobile
+            name: "suneel kumar",
+            email: "suneel.kumar@kcglobed.com",
+            mobile: "8789098789"
           }
         });
 
@@ -229,7 +236,7 @@ export default defineComponent({
             });
 
             alert("Payment Successful!");
-            window.location.href = "/success";
+            // window.location.href = "/success";
           },
 
           prefill: {
@@ -244,8 +251,9 @@ export default defineComponent({
         };
 
         const rzp = new (window as any).Razorpay(options);
-        rzp.on("payment.failed", () => {
-          alert("Payment Failed");
+        rzp.on("payment.failed", (response: any) => {
+          console.error("Payment Failed:", response.error);
+          alert(`Payment Failed: ${response.error.description || "Unknown error"}`);
         });
 
         rzp.open();
