@@ -6,21 +6,23 @@
           <div class="col-lg-12">
             <div class="applicant-details">
               <h3>Personal Information</h3>
-              
+
               <!-- Applicant Name -->
               <div class="row">
                 <div class="col-lg-6">
                   <div class="input-box">
                     <label class="form-label">Applicant First Name <span>*</span></label>
-                    <input type="text" class="form-control" placeholder="First Name" v-model="form.firstName" :class="{ 'is-invalid': errors.firstName }" />
-                    <div class="invalid-feedback" v-if="errors.firstName">{{ errors.firstName }}</div>
+                    <input type="text" class="form-control" placeholder="First Name" v-model="formData.first_name"
+                      :class="{ 'is-invalid': errors.first_name }" />
+                    <div class="invalid-feedback" v-if="errors.first_name">{{ errors.first_name }}</div>
                   </div>
                 </div>
                 <div class="col-lg-6">
                   <div class="input-box">
                     <label class="form-label">Applicant Last Name <span>*</span></label>
-                    <input type="text" class="form-control" placeholder="Last Name" v-model="form.lastName" :class="{ 'is-invalid': errors.lastName }" />
-                    <div class="invalid-feedback" v-if="errors.lastName">{{ errors.lastName }}</div>
+                    <input type="text" class="form-control" placeholder="Last Name" v-model="formData.last_name"
+                      :class="{ 'is-invalid': errors.last_name }" />
+                    <div class="invalid-feedback" v-if="errors.last_name">{{ errors.last_name }}</div>
                   </div>
                 </div>
               </div>
@@ -30,26 +32,145 @@
                 <div class="col-lg-6">
                   <div class="input-box">
                     <label class="form-label">Email ID <span>*</span></label>
-                    <input type="email" class="form-control" placeholder="Email ID" v-model="form.email" :class="{ 'is-invalid': errors.email }" />
+                    <input type="email" class="form-control" placeholder="Email ID" v-model="formData.email"
+                      :class="{ 'is-invalid': errors.email }" />
                     <div class="invalid-feedback" v-if="errors.email">{{ errors.email }}</div>
                   </div>
                 </div>
-                 <div class="col-lg-6">
+                <div class="col-lg-6">
                   <div class="input-box">
                     <label class="form-label">Mobile Number <span>*</span></label>
-                    <input type="tel" class="form-control" placeholder="Mobile Number" v-model="form.mobile" :class="{ 'is-invalid': errors.mobile }" />
+                    <input type="tel" class="form-control" placeholder="Mobile Number" v-model="formData.mobile"
+                      :class="{ 'is-invalid': errors.mobile }" />
                     <div class="invalid-feedback" v-if="errors.mobile">{{ errors.mobile }}</div>
                   </div>
                 </div>
               </div>
 
+              <!-- Father's Details -->
+              <div class="row">
+                <div class="col-lg-6">
+                  <div class="input-box">
+                    <label class="form-label">Father's Name</label>
+                    <input type="text" class="form-control" placeholder="Father's Name" v-model="formData.father_name"
+                      :class="{ 'is-invalid': errors.father_name }" />
+                    <div class="invalid-feedback" v-if="errors.father_name">{{ errors.father_name }}</div>
+                  </div>
+                </div>
+                <div class="col-lg-6">
+                  <div class="input-box">
+                    <label class="form-label">Father's Mobile Number</label>
+                    <input type="tel" class="form-control" placeholder="Mobile Number" v-model="formData.father_mobile"
+                      :class="{ 'is-invalid': errors.father_mobile }" />
+                    <div class="invalid-feedback" v-if="errors.father_mobile">{{ errors.father_mobile }}</div>
+                  </div>
+                </div>
+                <div class="col-lg-6">
+                  <div class="input-box">
+                    <label class="form-label">Father's Email ID </label>
+                    <input type="email" class="form-control" placeholder="Email ID" v-model="formData.father_email"
+                      :class="{ 'is-invalid': errors.father_email }" />
+                    <div class="invalid-feedback" v-if="errors.father_email">{{ errors.father_email }}</div>
+                  </div>
+                </div>
+                <div class="col-lg-6">
+                  <div class="input-box">
+                    <label class="form-label">Father’s Occupation</label>
+                    <select class="form-select" v-model="formData.father_occupation"
+                      :class="{ 'is-invalid': errors.father_occupation }">
+                      <option value="">--Select--</option>
+                      <option>Government Service</option>
+                      <option>Private Sector – Corporate</option>
+                      <option>Private Sector – Non-Corporate</option>
+                      <option>Self-Employed / Business</option>
+                      <option>Professional (Doctor / Lawyer / CA / Engineer / Architect)</option>
+                      <option>Entrepreneur / Startup</option>
+                      <option>Defence / Paramilitary</option>
+                      <option>Farmer / Agriculture</option>
+                      <option>Shop Owner / Trader</option>
+                      <option>Retired</option>
+                      <option>Pensioner</option>
+                      <option>Unemployed</option>
+                      <option>Other</option>
+                    </select>
+                    <div class="invalid-feedback" v-if="errors.father_occupation">{{ errors.father_occupation }}</div>
+                  </div>
+                </div>
+
+                <div class="col-lg-12" v-if="formData.father_occupation === 'Other'">
+                  <div class="input-box">
+                    <label class="form-label">Please Specify</label>
+                    <input type="text" class="form-control" v-model="formData.father_occupation_other" />
+                  </div>
+                </div>
+              </div>
+
+              <!-- Mother's Details -->
+              <div class="row">
+                <div class="col-lg-6">
+                  <div class="input-box">
+                    <label class="form-label">Mother's Name</label>
+                    <input type="text" class="form-control" placeholder="Mother's Name" v-model="formData.mother_name"
+                      :class="{ 'is-invalid': errors.mother_name }" />
+                    <div class="invalid-feedback" v-if="errors.mother_name">{{ errors.mother_name }}</div>
+                  </div>
+                </div>
+                <div class="col-lg-6">
+                  <div class="input-box">
+                    <label class="form-label">Mother's Mobile Number</label>
+                    <input type="tel" class="form-control" placeholder="Mobile Number" v-model="formData.mother_mobile"
+                      :class="{ 'is-invalid': errors.mother_mobile }" />
+                    <div class="invalid-feedback" v-if="errors.mother_mobile">{{ errors.mother_mobile }}</div>
+                  </div>
+                </div>
+                <div class="col-lg-6">
+                  <div class="input-box">
+                    <label class="form-label">Mother's Email ID</label>
+                    <input type="email" class="form-control" placeholder="Email ID" v-model="formData.mother_email"
+                      :class="{ 'is-invalid': errors.mother_email }" />
+                    <div class="invalid-feedback" v-if="errors.mother_email">{{ errors.mother_email }}</div>
+                  </div>
+                </div>
+                <div class="col-lg-6">
+                  <div class="input-box">
+                        <label class="form-label">Mother’s Occupation</label>
+                        <select class="form-select" v-model="formData.mother_occupation"
+                          :class="{ 'is-invalid': errors.mother_occupation }">
+                          <option value="">--Select--</option>
+                          <option>Homemaker</option>
+                          <option>Government Service</option>
+                          <option>Private Sector – Corporate</option>
+                          <option>Private Sector – Non-Corporate</option>
+                          <option>Self-Employed / Business</option>
+                          <option>Professional (Doctor / Lawyer / CA / Engineer / Architect)</option>
+                          <option>Entrepreneur / Startup</option>
+                          <option>Farmer / Agriculture</option>
+                          <option>Shop Owner / Trader</option>
+                          <option>Retired</option>
+                          <option>Pensioner</option>
+                          <option>Unemployed</option>
+                          <option>Other</option>
+                        </select>
+                        <div class="invalid-feedback" v-if="errors.mother_occupation">{{ errors.mother_occupation }}
+                        </div>
+                  </div>
+                </div>
+                <div class="col-lg-12" v-if="formData.mother_occupation === 'Other'">
+                      <div class="input-box">
+                        <label class="form-label">Please Specify</label>
+                        <input type="text" class="form-control" v-model="formData.mother_occupation_other" />
+                      </div>
+                    </div>
+              </div>
+
               <!-- Personal Details -->
               <div class="row">
                 <div class="col-lg-4">
-                   <div class="input-box">
+                  <div class="input-box">
                     <label class="form-label">Date Of Birth <span>*</span></label>
                     <div class="input-with-icon">
-                      <input type="date" class="form-control" v-model="form.dob" :class="{ 'is-invalid': errors.dob }" />
+                      <input type="date" class="form-control" v-model="formData.dob"
+                        :class="{ 'is-invalid': errors.dob }" />
                       <i class="ti ti-calendar"></i>
                       <div class="invalid-feedback d-block" v-if="errors.dob">{{ errors.dob }}</div>
                     </div>
@@ -58,7 +179,7 @@
                 <div class="col-lg-4">
                   <div class="input-box">
                     <label class="form-label">Gender <span>*</span></label>
-                    <select class="form-select" v-model="form.gender" :class="{ 'is-invalid': errors.gender }">
+                    <select class="form-select" v-model="formData.gender" :class="{ 'is-invalid': errors.gender }">
                       <option selected disabled value="">--Select--</option>
                       <option value="Male">Male</option>
                       <option value="Female">Female</option>
@@ -69,85 +190,38 @@
                 </div>
                 <div class="col-lg-4">
                   <div class="input-box">
-                     <label class="form-label">Nationality <span>*</span></label>
-                    <select class="form-select" disabled v-model="form.nationality">
+                    <label class="form-label">Nationality <span>*</span></label>
+                    <select class="form-select" disabled v-model="formData.nationality">
                       <option selected value="Indian">Indian</option>
                     </select>
                   </div>
                 </div>
               </div>
-
-              <!-- Father's Details -->
-              <div class="row">
-                <div class="col-lg-4">
-                  <div class="input-box">
-                    <label class="form-label">Father's Name</label>
-                    <input type="text" class="form-control" placeholder="Father's Name" v-model="form.fatherName" :class="{ 'is-invalid': errors.fatherName }" />
-                    <div class="invalid-feedback" v-if="errors.fatherName">{{ errors.fatherName }}</div>
-                  </div>
-                </div>
-                <div class="col-lg-4">
-                  <div class="input-box">
-                    <label class="form-label">Father's Mobile Number</label>
-                    <input type="tel" class="form-control" placeholder="Mobile Number" v-model="form.fatherMobile" :class="{ 'is-invalid': errors.fatherMobile }" />
-                     <div class="invalid-feedback" v-if="errors.fatherMobile">{{ errors.fatherMobile }}</div>
-                  </div>
-                </div>
-                <div class="col-lg-4">
-                  <div class="input-box">
-                    <label class="form-label">Father's Email ID </label>
-                    <input type="email" class="form-control" placeholder="Email ID" v-model="form.fatherEmail" :class="{ 'is-invalid': errors.fatherEmail }" />
-                    <div class="invalid-feedback" v-if="errors.fatherEmail">{{ errors.fatherEmail }}</div>
-                  </div>
-                </div>
-              </div>
-
-              <!-- Mother's Details -->
-               <div class="row">
-                <div class="col-lg-4">
-                  <div class="input-box">
-                    <label class="form-label">Mother's Name</label>
-                    <input type="text" class="form-control" placeholder="Mother's Name" v-model="form.motherName" :class="{ 'is-invalid': errors.motherName }" />
-                    <div class="invalid-feedback" v-if="errors.motherName">{{ errors.motherName }}</div>
-                  </div>
-                </div>
-                <div class="col-lg-4">
-                  <div class="input-box">
-                    <label class="form-label">Mother's Mobile Number</label>
-                    <input type="tel" class="form-control" placeholder="Mobile Number" v-model="form.motherMobile" :class="{ 'is-invalid': errors.motherMobile }" />
-                     <div class="invalid-feedback" v-if="errors.motherMobile">{{ errors.motherMobile }}</div>
-                  </div>
-                </div>
-                <div class="col-lg-4">
-                  <div class="input-box">
-                    <label class="form-label">Mother's Email ID</label>
-                    <input type="email" class="form-control" placeholder="Email ID" v-model="form.motherEmail" :class="{ 'is-invalid': errors.motherEmail }" />
-                     <div class="invalid-feedback" v-if="errors.motherEmail">{{ errors.motherEmail }}</div>
-                  </div>
-                </div>
-              </div>  
-
+              
               <!-- Address -->
               <div class="row">
                 <div class="col-lg-4">
                   <div class="input-box">
                     <label class="form-label">City <span>*</span></label>
-                    <input type="text" class="form-control" placeholder="City" v-model="form.city" :class="{ 'is-invalid': errors.city }" />
+                    <input type="text" class="form-control" placeholder="City" v-model="formData.city"
+                      :class="{ 'is-invalid': errors.city }" />
                     <div class="invalid-feedback" v-if="errors.city">{{ errors.city }}</div>
                   </div>
                 </div>
                 <div class="col-lg-4">
-                   <div class="input-box">
+                  <div class="input-box">
                     <label class="form-label">State <span>*</span></label>
-                    <input type="text" class="form-control" placeholder="State" v-model="form.state" :class="{ 'is-invalid': errors.state }" />
+                    <input type="text" class="form-control" placeholder="State" v-model="formData.state"
+                      :class="{ 'is-invalid': errors.state }" />
                     <div class="invalid-feedback" v-if="errors.state">{{ errors.state }}</div>
                   </div>
                 </div>
-                 <div class="col-lg-4">
-                   <div class="input-box">
+                <div class="col-lg-4">
+                  <div class="input-box">
                     <label class="form-label">PIN Code <span>*</span></label>
-                    <input type="text" class="form-control" placeholder="PIN Code" v-model="form.pincode" :class="{ 'is-invalid': errors.pincode }" />
-                    <div class="invalid-feedback" v-if="errors.pincode">{{ errors.pincode }}</div>
+                    <input type="text" class="form-control" placeholder="PIN Code" v-model="formData.pin_code"
+                      :class="{ 'is-invalid': errors.pin_code }" />
+                    <div class="invalid-feedback" v-if="errors.pin_code">{{ errors.pin_code }}</div>
                   </div>
                 </div>
               </div>
@@ -163,27 +237,12 @@
 <script>
 export default {
   name: "PersonalInformation",
+  props: {
+    formData: Object
+  },
   data() {
     return {
-      form: {
-        firstName: "",
-        lastName: "",
-        email: "",
-        mobile: "",
-        dob: "",
-        gender: "",
-        nationality: "Indian",
-        fatherName: "",
-        fatherMobile: "",
-        fatherEmail: "",
-        motherName: "",
-        motherMobile: "",
-        motherEmail: "",
-        city: "",
-        state: "",
-        pincode: "",
-      },
-      errors: {},
+      errors: {}
     };
   },
   methods: {
@@ -193,46 +252,46 @@ export default {
       const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
       const phoneRegex = /^[0-9]{10}$/;
 
-      if (!this.form.firstName) {
-        this.errors.firstName = "First Name is required";
+      if (!this.formData.first_name) {
+        this.errors.first_name = "First Name is required";
         isValid = false;
       }
-      if (!this.form.lastName) {
-        this.errors.lastName = "Last Name is required";
+      if (!this.formData.last_name) {
+        this.errors.last_name = "Last Name is required";
         isValid = false;
       }
-      if (!this.form.email) {
+      if (!this.formData.email) {
         this.errors.email = "Email is required";
         isValid = false;
-      } else if (!emailRegex.test(this.form.email)) {
+      } else if (!emailRegex.test(this.formData.email)) {
         this.errors.email = "Invalid email format";
         isValid = false;
       }
-      if (!this.form.mobile) {
+      if (!this.formData.mobile) {
         this.errors.mobile = "Mobile Number is required";
         isValid = false;
-      } else if (!phoneRegex.test(this.form.mobile)) {
+      } else if (!phoneRegex.test(this.formData.mobile)) {
         this.errors.mobile = "Invalid mobile number (10 digits)";
         isValid = false;
       }
-      if (!this.form.dob) {
+      if (!this.formData.dob) {
         this.errors.dob = "Date of Birth is required";
         isValid = false;
       }
-      if (!this.form.gender) {
+      if (!this.formData.gender) {
         this.errors.gender = "Gender is required";
         isValid = false;
       }
-      if (!this.form.city) {
+      if (!this.formData.city) {
         this.errors.city = "City is required";
         isValid = false;
       }
-      if (!this.form.state) {
+      if (!this.formData.state) {
         this.errors.state = "State is required";
         isValid = false;
       }
-      if (!this.form.pincode) {
-        this.errors.pincode = "PIN Code is required";
+      if (!this.formData.pin_code) {
+        this.errors.pin_code = "PIN Code is required";
         isValid = false;
       }
 
