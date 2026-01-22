@@ -85,16 +85,17 @@
                                     <tbody>
                                         <tr>
                                             <td class="ps-4 text-dark">Accounting & Finance Fundamentals</td>
-                                            <td class="fw-bold text-success">25%</td>
-                                        </tr>
-                                        <tr>
-                                            <td class="ps-4 text-dark">Logical & Analytical Reasoning</td>
-                                            <td class="fw-bold text-success">25%</td>
+                                            <td class="fw-bold text-success">30%</td>
                                         </tr>
                                         <tr>
                                             <td class="ps-4 text-dark">English & Business Communication</td>
-                                            <td class="fw-bold text-success">25%</td>
+                                            <td class="fw-bold text-success">30%</td>
                                         </tr>
+                                        <tr>
+                                            <td class="ps-4 text-dark">Auditing & Analytical Reasoning</td>
+                                            <td class="fw-bold text-success">20%</td>
+                                        </tr>
+
                                         <tr>
                                             <td class="ps-4 text-dark">Quantitative Aptitude</td>
                                             <td class="fw-bold text-success">10%</td>
@@ -103,10 +104,10 @@
                                             <td class="ps-4 text-dark">Business & Economic Awareness</td>
                                             <td class="fw-bold text-success">10%</td>
                                         </tr>
-                                        <tr>
+                                        <!-- <tr>
                                             <td class="ps-4 text-dark">Psychometric Assessment</td>
                                             <td class="fw-bold text-secondary">5%</td>
-                                        </tr>
+                                        </tr> -->
                                     </tbody>
                                 </table>
                             </div>
