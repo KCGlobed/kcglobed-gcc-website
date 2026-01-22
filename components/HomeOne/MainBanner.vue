@@ -362,7 +362,7 @@ export default defineComponent({
 
     async submitForm() {
       if (!this.validateForm()) return
-
+      console.log(this.form, "form check")
       try {
         const response = await fetch("https://your-api-url.com/enquiry", {
           method: "POST",
