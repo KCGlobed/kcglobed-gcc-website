@@ -1,7 +1,8 @@
 <template>
   <div>
-    <LayoutTopHeader class="style2-top-header" />
-    <LayoutNavbarStyleTwo class="inner-navbar" />
+    <LayoutTopHeader />
+    <LayoutMainNavbar />
+    <!-- <LayoutNavbarStyleTwo class="inner-navbar" /> -->
     <CommonInnerPageBanner pageTitle="Application Form" />
 
     <CommonApplicationPagesList :activeStep="currentStep" @step-selected="handleStepSelection" />
@@ -36,6 +37,7 @@
 
 <script lang="ts">
 import { defineComponent, ref, computed } from "vue";
+import { useHead } from "#imports";
 import PersonalInformation from "../components/PersonalInformation/PersonalInformation.vue";
 import AcademicInformation from "../components/AcademicInformation/AcademicInformation.vue";
 import WorkExperienceDetails from "../components/WorkExperienceDetails/WorkExperienceDetails.vue";
@@ -52,6 +54,15 @@ export default defineComponent({
     PrePaymentDeclaration,
   },
   setup() {
+    useHead({
+      title: "Application Form",
+      meta: [
+        {
+          name: "description",
+          content: "Apply online to GCC University. Complete your application form and proceed with payment."
+        }
+      ]
+    });
     const currentStep = ref(4);
     const totalSteps = 5;
     const userId = ref<number | null>(2);

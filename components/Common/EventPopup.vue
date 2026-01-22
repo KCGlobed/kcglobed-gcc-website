@@ -20,7 +20,7 @@
 
 <script lang="ts">
 import { defineComponent, ref, onMounted } from 'vue';
-import eventImag from "../../assets/img/eventModal/event.jpg"
+import eventImag from "../../assets/img/eventModal/event2.png"
 
 export default defineComponent({
     name: 'EventPopup',
@@ -78,9 +78,8 @@ export default defineComponent({
     background: transparent;
     border-radius: 16px;
     max-width: 900px;
-    width: 100%;
+    width: fit-content;
     animation: slideUp 0.4s ease-out;
-    overflow: hidden;
 }
 
 @keyframes slideUp {
@@ -126,18 +125,24 @@ export default defineComponent({
 
 .popup-image {
     width: 100%;
-    max-height: 85vh;
-    overflow: hidden;
+    /* Removed max-height to prevent clipping, handled by img */
     position: relative;
     border-radius: 16px;
     box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    background: transparent;
+    overflow: hidden;
 }
 
 .popup-image img {
-    width: 100%;
-    height: 100%;
+    width: auto;
+    height: auto;
+    max-width: 100%;
+    max-height: 85vh;
     object-fit: contain;
     display: block;
+    border-radius: 16px;
 }
 
 /* Transition animations */
@@ -158,8 +163,15 @@ export default defineComponent({
     }
 
     .popup-image {
-        max-height: 80vh;
         border-radius: 12px;
+    }
+
+    .popup-image img {
+        border-radius: 12px;
+    }
+
+    .popup-image img {
+        max-height: 80vh;
     }
 
     .close-btn {
@@ -172,8 +184,15 @@ export default defineComponent({
 
 @media (max-width: 480px) {
     .popup-image {
-        max-height: 75vh;
         border-radius: 8px;
+    }
+
+    .popup-image img {
+        border-radius: 8px;
+    }
+
+    .popup-image img {
+        max-height: 75vh;
     }
 
     .close-btn {

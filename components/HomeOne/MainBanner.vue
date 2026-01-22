@@ -363,18 +363,35 @@ export default defineComponent({
     async submitForm() {
       if (!this.validateForm()) return
 
-      try {
-        const response = await fetch("https://your-api-url.com/enquiry", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json"
-          },
-          body: JSON.stringify(this.form)
-        })
+      // Transform camelCase form to snake_case payload for API
+      const payload = {
+        name: this.form.name,
+        mobile: this.form.mobile,
+        email: this.form.email,
+        city: this.form.city,
+        state: this.form.state,
+        graduation_program: this.form.graduationProgram,
+        graduation_program_other: this.form.graduationProgramOther,
+        graduation_status: this.form.graduationStatus,
+        current_cgpa: this.form.currentCGPA,
+        first_division: this.form.firstDivision,
+        college: this.form.college,
+        source: this.form.source,
+        remarks: this.form.remarks,
+        pincode: this.form.pincode
+      };
 
-        if (response.ok) {
+      try {
+        const response: any = await $fetch("/api/enquery", {
+          method: "POST",
+          body: payload
+        });
+
+        // $fetch throws automatically on 4xx/5xx errors, so if we reach here, it's success.
+        if (response.success) {
           alert("Thank you! Our team will contact you soon.")
 
+          // Reset form
           this.form = {
             name: "",
             mobile: "",
@@ -388,7 +405,6 @@ export default defineComponent({
             firstDivision: "",
             higherQualification: "",
             higherQualificationOther: "",
-
             college: "",
             source: "",
             remarks: "",
@@ -396,11 +412,11 @@ export default defineComponent({
             consent: false
           }
         } else {
-          alert("Something went wrong. Please try again.")
+          alert(response.message || "Something went wrong. Please try again.")
         }
-      } catch (error) {
-        console.error(error)
-        alert("Server error. Try later.")
+      } catch (error: any) {
+        console.error("Submission Error:", error)
+        alert(error.data?.message || "Server error. Try later.")
       }
     }
   },
