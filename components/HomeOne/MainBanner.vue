@@ -100,7 +100,7 @@
               <div class="col-md-6">
                 <div class="form-floating">
                   <input v-model="form.city" class="form-control" placeholder="City">
-                  <label>(District)City</label>
+                  <label>District/City</label>
                   <small class="text-danger" v-if="errors.city">{{ errors.city }}</small>
                 </div>
               </div>

@@ -2,10 +2,10 @@
     <div>
         <LayoutTopHeader />
         <LayoutMainNavbar />
-        <CampusLifeCampusBanner />
-        <CommonFloorMap />
-        <CampusLifeCampusOutcome />
-        <CampusLifeCampusGoal />
+        <!-- <CommonInnerPageBanner pageTitle="Campus CEO" mainTitle="FACULTY" /> -->
+
+        <CommonCommingSoon />
+
         <LayoutMainFooter />
         <LayoutCopyRight />
     </div>
@@ -15,6 +15,8 @@
 import { defineComponent } from "vue";
 
 export default defineComponent({
-
+    name: "CampusCeoFaculty"
 });
 </script>
+
+<style scoped></style>

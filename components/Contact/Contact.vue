@@ -112,38 +112,103 @@
                   </div>
                 </div>
 
+                <div class="col-lg-6">
+                  <div class="input-box">
+                    <label class="form-label">Pincode <span>*</span></label>
+                    <input v-model="form.pincode" class="form-control" placeholder="Pincode">
+                    <small class="text-danger" v-if="errors.pincode">{{ errors.pincode }}</small>
+                  </div>
+                </div>
+
                 <div class="col-lg-12">
                   <hr class="my-4">
-                  <h6 class="mb-3">Academic / Professional Background</h6>
+                  <h6 class="mb-3">Graduation Details</h6>
                 </div>
 
+                <!-- Graduation Program -->
                 <div class="col-lg-6">
                   <div class="input-box">
-                    <label class="form-label">Highest Qualification <span>*</span></label>
-                    <select v-model="form.qualification" class="form-control">
-                      <option value="">Select Highest Qualification</option>
-                      <option>B.Com (Pursuing)</option>
-                      <option>B.Com (Completed)</option>
-                      <option>M.Com (Pursuing)</option>
-                      <option>M.Com (Completed)</option>
+                    <label class="form-label">Graduation Program <span>*</span></label>
+                    <select v-model="form.graduationProgram" class="form-control" @change="resetGraduationFields">
+                      <option value="">Select your graduation program</option>
+                      <option>B.Com</option>
+                      <option>B.B.A</option>
+                      <option>B.Tech</option>
                       <option>Other</option>
                     </select>
-                    <small class="text-danger" v-if="errors.qualification">{{ errors.qualification }}</small>
+                    <small class="text-danger" v-if="errors.graduationProgram">{{ errors.graduationProgram }}</small>
                   </div>
                 </div>
 
-                <div class="col-lg-6">
+                <!-- Other Graduation Program (if selected) -->
+                <div v-if="form.graduationProgram === 'Other'" class="col-lg-6">
                   <div class="input-box">
-                    <label class="form-label">Current Status <span>*</span></label>
-                    <select v-model="form.status" class="form-control">
-                      <option value="">Select Current Status</option>
-                      <option>Student</option>
-                      <option>Working Professional</option>
-                      <option>Career Break</option>
-                    </select>
-                    <small class="text-danger" v-if="errors.status">{{ errors.status }}</small>
+                    <label class="form-label">Specify Graduation Program <span>*</span></label>
+                    <input v-model="form.graduationProgramOther" class="form-control" placeholder="Please specify">
+                    <small class="text-danger" v-if="errors.graduationProgramOther">{{ errors.graduationProgramOther
+                    }}</small>
                   </div>
                 </div>
+
+                <!-- Graduation Status -->
+                <div class="col-lg-6">
+                  <div class="input-box">
+                    <label class="form-label">Graduation Status <span>*</span></label>
+                    <select v-model="form.graduationStatus" class="form-control" @change="resetStatusFields">
+                      <option value="">Have you completed or are you pursuing your graduation?</option>
+                      <option>Completed</option>
+                      <option>Pursuing</option>
+                    </select>
+                    <small class="text-danger" v-if="errors.graduationStatus">{{ errors.graduationStatus }}</small>
+                  </div>
+                </div>
+
+                <!-- If Pursuing - Current CGPA/Percentage -->
+                <div v-if="form.graduationStatus === 'Pursuing'" class="col-lg-6">
+                  <div class="input-box">
+                    <label class="form-label">Current CGPA/Percentage <span>*</span></label>
+                    <input v-model="form.currentCGPA" class="form-control"
+                      placeholder="Enter your current CGPA/Percentage">
+                    <small class="text-danger" v-if="errors.currentCGPA">{{ errors.currentCGPA }}</small>
+                  </div>
+                </div>
+
+                <!-- If Completed - First Division Check -->
+                <template v-if="form.graduationStatus === 'Completed'">
+                  <div class="col-lg-6">
+                    <div class="input-box">
+                      <label class="form-label">Passed with First Division (≥60%)? <span>*</span></label>
+                      <select v-model="form.firstDivision" class="form-control" @change="resetHigherQualification">
+                        <option value="">Select option</option>
+                        <option>Yes</option>
+                        <option>No</option>
+                      </select>
+                      <small class="text-danger" v-if="errors.firstDivision">{{ errors.firstDivision }}</small>
+                    </div>
+                  </div>
+
+                  <!-- If Yes - Higher Qualification (Optional) -->
+                  <div v-if="form.firstDivision === 'Yes'" class="col-lg-6">
+                    <div class="input-box">
+                      <label class="form-label">Higher Qualification (Optional)</label>
+                      <select v-model="form.higherQualification" class="form-control">
+                        <option value="">Select Higher Qualification</option>
+                        <option>M.Com</option>
+                        <option>M.B.A</option>
+                        <option>M.Tech</option>
+                        <option>Other</option>
+                      </select>
+                    </div>
+                  </div>
+
+                  <!-- Other Higher Qualification (if selected) -->
+                  <div v-if="form.higherQualification === 'Other'" class="col-lg-6">
+                    <div class="input-box">
+                      <label class="form-label">Specify Higher Qualification</label>
+                      <input v-model="form.higherQualificationOther" class="form-control" placeholder="Please specify">
+                    </div>
+                  </div>
+                </template>
 
                 <div class="col-lg-12">
                   <div class="input-box">
@@ -212,7 +277,9 @@
   </div>
 </template>
 
-<script>
+<script lang="ts">
+import { defineComponent } from "vue";
+
 export default defineComponent({
   name: "Contact",
   methods: {
@@ -223,22 +290,53 @@ export default defineComponent({
         email: "",
         city: "",
         state: "",
-        qualification: "",
-        status: "",
+        graduationProgram: "",
+        graduationProgramOther: "",
+        graduationStatus: "",
+        currentCGPA: "",
+        firstDivision: "",
         college: "",
         source: "",
-        consent: ""
+        consent: "",
+        pincode: ""
       }
-
       if (!this.form.name) this.errors.name = "Name is required"
       if (!this.form.mobile) this.errors.mobile = "Mobile number is required"
-      if (!this.form.qualification) this.errors.qualification = "Select qualification"
-      if (!this.form.status) this.errors.status = "Select current status"
+      if (!this.form.graduationProgram) this.errors.graduationProgram = "Select graduation program"
+      if (this.form.graduationProgram === "Other" && !this.form.graduationProgramOther) {
+        this.errors.graduationProgramOther = "Please specify your graduation program"
+      }
+      if (!this.form.graduationStatus) this.errors.graduationStatus = "Select graduation status"
+      if (this.form.graduationStatus === "Pursuing" && !this.form.currentCGPA) {
+        this.errors.currentCGPA = "CGPA/Percentage is required"
+      }
+      if (this.form.graduationStatus === "Completed" && !this.form.firstDivision) {
+        this.errors.firstDivision = "Please indicate if you passed with First Division"
+      }
+
       if (!this.form.college) this.errors.college = "Select college/university"
       if (!this.form.source) this.errors.source = "Select how you heard about us"
       if (!this.form.consent) this.errors.consent = "Consent is required"
+      if (!this.form.pincode) this.errors.pincode = "Pincode is required"
 
-      return Object.keys(this.errors).length === 0
+      return Object.values(this.errors).every(error => error === "")
+    },
+
+    resetGraduationFields() {
+      this.form.graduationProgramOther = ""
+      this.form.graduationStatus = ""
+      this.resetStatusFields()
+    },
+
+    resetStatusFields() {
+      this.form.currentCGPA = ""
+      this.form.firstDivision = ""
+      this.resetHigherQualification()
+    },
+
+    resetHigherQualification() {
+      this.form.higherQualification = ""
+      this.form.higherQualificationOther = ""
     },
 
     async submitForm() {
@@ -262,11 +360,17 @@ export default defineComponent({
             email: "",
             city: "",
             state: "",
-            qualification: "",
-            status: "",
+            graduationProgram: "",
+            graduationProgramOther: "",
+            graduationStatus: "",
+            currentCGPA: "",
+            firstDivision: "",
+            higherQualification: "",
+            higherQualificationOther: "",
             college: "",
             source: "",
             remarks: "",
+            pincode: "",
             consent: false
           }
         } else {
@@ -303,11 +407,18 @@ export default defineComponent({
         email: "",
         city: "",
         state: "",
-        qualification: "",
-        status: "",
+        graduationProgram: "",
+        graduationProgramOther: "",
+        graduationStatus: "",
+        currentCGPA: "",
+        firstDivision: "",
+        higherQualification: "",
+        higherQualificationOther: "",
+
         college: "",
         source: "",
         remarks: "",
+        pincode: "",
         consent: false,
       },
       errors: {
@@ -316,11 +427,16 @@ export default defineComponent({
         email: "",
         city: "",
         state: "",
-        qualification: "",
-        status: "",
+        graduationProgram: "",
+        graduationProgramOther: "",
+        graduationStatus: "",
+        currentCGPA: "",
+        firstDivision: "",
+
         college: "",
         source: "",
-        consent: ""
+        consent: "",
+        pincode: ""
       },
 
     };

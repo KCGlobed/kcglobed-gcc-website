@@ -2,25 +2,19 @@
   <div>
     <LayoutTopHeader />
     <LayoutMainNavbar />
-    <HomeThreeMainBanner />
+    <CommonCommingSoon />
+    <!-- <HomeThreeMainBanner />
     <HomeThreeAboutUniversity />
-    <!-- <CommonFindYourProgram /> -->
+
     <HomeThreeGraduatePrograms />
-    <!-- <HomeThreeUndergraduateOnlinePrograms /> -->
-    <!-- <HomeThreeCampusStory /> -->
+
 
     <Events />
     <HomeTwoApplyUniversityInEasySteps />
-    <NationalExecusive />
+    <NationalExecusive /> -->
 
 
-    <!-- <CommonLatestNews class="pt-0" />
-    <HomeThreeVideoPlayer />
-    <HomeThreeUpcomingEvents />
-    <CommonUniversityOfExcellence />
-    <CommonFAQ class="pt-100" />
-    <CommonHelpCreate /> -->
-    <!-- <HomeThreeOptionalEvents /> -->
+
 
     <LayoutMainFooter />
     <LayoutCopyRight />
