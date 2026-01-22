@@ -195,8 +195,6 @@ export default defineComponent({
           method: "POST",
           body: {
             user_id: userId.value,
-            amount: useRuntimeConfig().public.paymentAmount, // example amount
-            currency: "INR",
             name: formData.first_name + " " + formData.last_name,
             email: formData.email,
             mobile: formData.mobile
