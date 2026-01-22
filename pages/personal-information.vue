@@ -52,9 +52,9 @@ export default defineComponent({
     PrePaymentDeclaration,
   },
   setup() {
-    const currentStep = ref(4);
+    const currentStep = ref(1);
     const totalSteps = 5;
-    const userId = ref<number | null>(2);
+    const userId = ref<number | null>(null);
     const formData = reactive({
       first_name: "",
       last_name: "",
@@ -137,10 +137,10 @@ export default defineComponent({
     };
 
     const nextStep = async () => {
-      // if (currentStepComponent.value?.validate) {
-      //   const isValid = currentStepComponent.value.validate();
-      //   if (!isValid) return;
-      // }
+      if (currentStepComponent.value?.validate) {
+        const isValid = currentStepComponent.value.validate();
+        if (!isValid) return;
+      }
 
       // Submit data after Work Experience (Step 3)
       if (currentStep.value === 3) {
