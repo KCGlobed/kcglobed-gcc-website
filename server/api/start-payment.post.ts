@@ -3,9 +3,9 @@ import Razorpay from "razorpay";
 export default defineEventHandler(async (event) => {
     const body = await readBody(event);
 
-    const { user_id, amount, currency, name, email, mobile } = body;
+    const { user_id, name, email, mobile } = body;
 
-    if (!user_id || !amount) {
+    if (!user_id) {
         return { success: false, message: "Missing required data" };
     }
 
@@ -16,8 +16,8 @@ export default defineEventHandler(async (event) => {
 
     try {
         const order = await razorpay.orders.create({
-            amount: amount * 100, // Razorpay expects paise
-            currency: currency || "INR",
+            amount: Number(process.env.RAZORPAY_PAYMENT_AMOUNT!) * 100, // Razorpay expects paise
+            currency: process.env.RAZORPAY_CURRENCY!,
             receipt: `receipt_${user_id}_${Date.now()}`,
             notes: {
                 user_id,

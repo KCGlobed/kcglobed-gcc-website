@@ -28,6 +28,11 @@ export default defineNuxtConfig({
     "/assets/scss/responsive.css",
   ],
   modules: ["@bootstrap-vue-next/nuxt", "nuxt-swiper", "nuxt-aos"],
+  runtimeConfig: {
+    public: {
+      paymentAmount: process.env.PAYMENT_AMOUNT
+    }
+  },
   plugins: ["~/plugins/scrollReveal.ts"],
   aos: {
     duration: 1000,
