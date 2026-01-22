@@ -49,7 +49,7 @@ export default defineEventHandler(async (event) => {
 
     await pool.query(
         `INSERT INTO student_documents
-     (user_id, document_type, file_name, gcs_path, file_size, file_type)
+     (student_id, document_type, file_name, gcs_path, file_size, file_type)
      VALUES ($1, $2, $3, $4, $5, $6)`,
         [
             userId,
