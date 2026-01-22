@@ -54,7 +54,7 @@ export default defineComponent({
     PrePaymentDeclaration,
   },
   setup() {
-    const currentStep = ref(1);
+    const currentStep = ref(4);
     useHead({
       title: "Application Form",
       meta: [
@@ -65,7 +65,7 @@ export default defineComponent({
       ]
     });
     const totalSteps = 5;
-    const userId = ref<number | null>(null);
+    const userId = ref<number | null>(2);
     const formData = reactive({
       first_name: "",
       last_name: "",
