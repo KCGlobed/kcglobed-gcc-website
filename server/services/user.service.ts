@@ -5,7 +5,7 @@ export async function saveUser(data: any) {
   data.cgpa = data.cgpa || 0;
   console.log("data", data)
   const query = `
-    INSERT INTO users (
+    INSERT INTO students_data (
       first_name, last_name,
       father_name, father_mobile, father_email, father_occupation,
       mother_name, mother_mobile, mother_email, mother_occupation,

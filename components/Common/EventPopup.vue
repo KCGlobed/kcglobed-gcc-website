@@ -20,7 +20,7 @@
 
 <script lang="ts">
 import { defineComponent, ref, onMounted } from 'vue';
-import eventImag from "../../assets/img/eventModal/event.jpg"
+import eventImag from "../../assets/img/eventModal/event2.png"
 
 export default defineComponent({
     name: 'EventPopup',
