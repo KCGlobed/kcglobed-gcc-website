@@ -194,18 +194,12 @@ export default defineComponent({
         const res: any = await $fetch("/api/start-payment", {
           method: "POST",
           body: {
-            // user_id: userId.value,
-            // amount: process.env.PAYMENT_AMOUNT, // example amount
-            // currency: "INR",
-            // name: formData.first_name + " " + formData.last_name,
-            // email: formData.email,
-            // mobile: formData.mobile
-            user_id: 2,
-            amount: 2453, // example amount
+            user_id: userId.value,
+            amount: useRuntimeConfig().public.paymentAmount, // example amount
             currency: "INR",
-            name: "suneel kumar",
-            email: "suneel.kumar@kcglobed.com",
-            mobile: "8789098789"
+            name: formData.first_name + " " + formData.last_name,
+            email: formData.email,
+            mobile: formData.mobile
           }
         });
 
@@ -251,8 +245,23 @@ export default defineComponent({
         };
 
         const rzp = new (window as any).Razorpay(options);
-        rzp.on("payment.failed", (response: any) => {
+        rzp.on("payment.failed", async (response: any) => {
           console.error("Payment Failed:", response.error);
+
+          // Report failure to backend
+          try {
+            await $fetch("/api/report-payment-failure", {
+              method: "POST",
+              body: {
+                razorpay_order_id: res.razorpay_order_id,
+                razorpay_payment_id: response.error.metadata?.payment_id,
+                error_details: response.error
+              }
+            });
+          } catch (reportError) {
+            console.error("Failed to report payment failure:", reportError);
+          }
+
           alert(`Payment Failed: ${response.error.description || "Unknown error"}`);
         });
 
