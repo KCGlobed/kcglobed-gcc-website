@@ -2,14 +2,14 @@
     <div>
         <LayoutTopHeader />
         <LayoutMainNavbar />
-        <CommonCommingSoon />
-        <!-- <AdmissionBanner />
+        <!-- <CommonCommingSoon /> -->
+        <AdmissionBanner />
         <AdmissionPremiumDigital />
         <AboutOverviewProfessionalLearning />
         <AboutOverviewServicesContent />
         <AdmissionStage />
         <AdmissionEntranceTest />
-        <AdmissionFeesConcession /> -->
+        <AdmissionFeesConcession />
         <LayoutMainFooter />
         <LayoutCopyRight />
     </div>
