@@ -61,6 +61,7 @@ import image2 from "~/assets/img/missions/mission2.jpg";
 import image3 from "~/assets/img/missions/mission3.jpg";
 import image4 from "~/assets/img/missions/mission4.jpg";
 import image5 from "~/assets/img/missions/mission5.jpg";
+import image6 from "~/assets/img/missions/mission6.png";
 
 export default defineComponent({
   name: "AboutTheUniversity",
@@ -83,7 +84,7 @@ export default defineComponent({
       {
         id: 1,
         title: " Mission",
-        image: image1,
+        image: image6,
         heading: "About The GCC School",
         description:
           "To democratize access to global careers by pioneering an inverse education-to-employment model where verified industry demand precedes learning, ensuring a zero-risk, outcome-assured pathway that transforms high-potential individuals into day-one deployable, ethically grounded, globally credentialed professionals through deep industry immersion, digital excellence, and applied experiential learning.",

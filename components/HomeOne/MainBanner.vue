@@ -63,7 +63,7 @@
 
         <div class="modal-header">
           <h5 class="modal-title">GCC School – Enquiry Form</h5>
-          <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" ref="closeModalBtn"></button>
         </div>
 
         <div class="modal-body">
@@ -81,8 +81,8 @@
               </div>
 
               <div class="col-md-6">
-                <div class="form-floating has-prefix">
-                  <div class="prefix">+91</div>
+                <div class="form-floating ">
+                  <!-- <div class="prefix">+91</div> -->
                   <input v-model="form.mobile" class="form-control" placeholder="Mobile Number">
                   <label>Mobile Number</label>
                   <small class="text-danger" v-if="errors.mobile">{{ errors.mobile }}</small>
@@ -246,7 +246,10 @@
 
             <div class="modal-footer">
               <button class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-              <button class="btn btn-primary" type="submit">Submit</button>
+              <button class="btn btn-primary" type="submit" :disabled="isSubmitting"> 
+                <span v-if="isSubmitting" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+                <span v-else>Submit</span>
+              </button>
             </div>
 
           </form>
@@ -382,6 +385,7 @@ export default defineComponent({
       };
 
       try {
+        this.isSubmitting = true;
         const response: any = await $fetch("/api/enquery", {
           method: "POST",
           body: payload
@@ -390,6 +394,9 @@ export default defineComponent({
         // $fetch throws automatically on 4xx/5xx errors, so if we reach here, it's success.
         if (response.success) {
           alert("Thank you! Our team will contact you soon.")
+
+          const closeBtn = this.$refs.closeModalBtn as HTMLButtonElement;
+          closeBtn.click();
 
           // Reset form
           this.form = {
@@ -417,6 +424,8 @@ export default defineComponent({
       } catch (error: any) {
         console.error("Submission Error:", error)
         alert(error.data?.message || "Server error. Try later.")
+      } finally {
+        this.isSubmitting = false;
       }
     }
   },
@@ -459,6 +468,7 @@ export default defineComponent({
         pincode: "",
         consent: false,
       },
+      isSubmitting: false,
       errors: {
         name: "",
         mobile: "",

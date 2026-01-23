@@ -84,6 +84,10 @@ h6 {
   line-height: 1.4;
 }
 
+a {
+  text-decoration: none;
+}
+
 .container-fluid {
   max-width: 1745px;
 }
@@ -1726,7 +1730,7 @@ Mission Warp Style
 }
 
 .mission-tab .tablinks.active {
-  width: 135%;
+  width: 110%;
 }
 
 .mission-tab .tablinks .mission-tab-btn {

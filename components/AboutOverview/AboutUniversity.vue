@@ -47,7 +47,7 @@
           </div>
         </div>
       </div>
-      <img src="~/assets/img/abouts/inner-about1.jpg" alt="">
+      <img src="~/assets/img/abouts/about-gcc.png" alt="">
     </div>
   </div>
 </template>
