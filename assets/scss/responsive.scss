@@ -3562,8 +3562,10 @@
     max-width: 1140px;
   }
 
-  .container-fluid {
-    max-width: 1140px;
+  .top-header-warp {
+    .container-fluid {
+      max-width: 100% !important;
+    }
   }
 
   .culture-warp {
