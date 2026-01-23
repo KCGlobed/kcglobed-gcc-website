@@ -1,6 +1,6 @@
 <template>
   <div>
-    <LayoutTopHeader class="style2-top-header" />
+    <!-- <LayoutTopHeader class="style2-top-header" />
     <LayoutNavbarStyleTwo class="inner-navbar" />
     <CommonInnerPageBanner pageTitle="Faq" mainTitle="FAQ" />
     <FAQ />
@@ -8,7 +8,14 @@
     <CommonUniversityOfExcellence />
     <CommonHelpCreate class="pt-100" />
     <LayoutMainFooter />
-    <LayoutCopyRight />
+    <LayoutCopyRight /> -->
+
+          <LayoutTopHeader />
+    <LayoutMainNavbar />
+    <!-- <FormsPartnerWithUsForm /> -->
+    <CommonCommingSoon />
+    <LayoutMainFooter />
+    <LayoutCopyRight /> 
   </div>
 </template>
 

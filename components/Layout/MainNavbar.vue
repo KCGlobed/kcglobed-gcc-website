@@ -62,11 +62,11 @@
             </div>
           </div>
 
-          <div class="option-item">
+          <!-- <div class="option-item">
             <button class="btn side-bar-btn" type="button" @click="stateStoreInstance.onSidebarShow">
               <img src="~/assets/img/svgs/menu2.svg" alt="svg" />
             </button>
-          </div>
+          </div> -->
         </div>
       </div>
     </div>

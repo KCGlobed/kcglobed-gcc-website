@@ -33,12 +33,12 @@
             <div class="row">
               <div class="col-lg-6 col-md-6">
                 <div class="image style1">
-                  <img src="~/assets/img/abouts/inner-about2.jpg" alt="image" />
+                  <img src="~/assets/img/abouts/about-gcc2.png" alt="image" />
                 </div>
               </div>
               <div class="col-lg-6 col-md-6">
                 <div class="image style2">
-                  <img src="~/assets/img/abouts/inner-about3.jpg" alt="image" />
+                  <img src="~/assets/img/abouts/about-gcc3.png" alt="image" />
                 </div>
               </div>
             </div>
