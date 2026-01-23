@@ -34,7 +34,7 @@
             <ul class="header-contact">
               <li>
                 <i class="ti ti-mail"></i>
-                <a href="mailto:info.gccschool.com">info.gccschool.com</a>
+                <a href="mailto:info@gccschool.com">info@gccschool.com</a>
               </li>
               <li>
                 <i class="ti ti-phone-call"></i>

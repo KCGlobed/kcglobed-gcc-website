@@ -16,14 +16,14 @@ export default defineComponent({});
 </script> -->
 
 <template>
-    <div>
-        <LayoutTopHeader />
-        <LayoutMainNavbar />
-        <!-- <FormsPartnerWithUsForm /> -->
-         <CommonCommingSoon />
-        <LayoutMainFooter />
-        <LayoutCopyRight />
-    </div>
+  <div>
+    <LayoutTopHeader />
+    <LayoutMainNavbar />
+    <!-- <FormsPartnerWithUsForm /> -->
+    <CommonCommingSoon />
+    <LayoutMainFooter />
+    <LayoutCopyRight />
+  </div>
 </template>
 
 <script setup lang="ts">
@@ -31,6 +31,6 @@ export default defineComponent({});
 
 // export default defineComponent({});
 useHead({
-    title: "GCC University | Login",
+  title: "GCC School | Login",
 })
 </script>
