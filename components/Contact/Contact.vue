@@ -11,13 +11,13 @@
             </div>
             <div class="contact-item">
               <span>Email:</span>
-              <a href="mailto:info.gccschool.com">info.gccschool.com</a>
+              <a href="mailto:info@gccschool.com">info@gccschool.com</a>
             </div>
             <div class="contact-item">
               <span>Campus Address Location:</span>
-              <p> 419-20 Unit, 16th Floor,</p>
-              <p> Building No. 9B, Cybercity,</p>
-              <p> Gurugram, Haryana, 122002 </p>
+              <p> 16th Floor, Tower-B,</p>
+              <p> DLF Building No. 09,</p>
+              <p> DLF Cyber City, Gurugram, Haryana, 122002 </p>
             </div>
             <div class="contact-item">
               <span>Office Address Location:</span>
@@ -42,7 +42,7 @@
                   </a>
                 </li>
                 <li>
-                  <a href="https://www.instagram.com/" target="_blank" class="icon">
+                  <a href="https://www.instagram.com/gccschool?igsh=MXQxc2JhazAwcG55cQ==" target="_blank" class="icon">
                     <img src="~/assets/img/svgs/instagram.svg" alt="icon" />
                   </a>
                 </li>

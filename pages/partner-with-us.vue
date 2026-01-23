@@ -3,7 +3,7 @@
         <LayoutTopHeader />
         <LayoutMainNavbar />
         <!-- <FormsPartnerWithUsForm /> -->
-         <CommonCommingSoon />
+        <CommonCommingSoon />
         <LayoutMainFooter />
         <LayoutCopyRight />
     </div>
@@ -14,6 +14,6 @@
 
 // export default defineComponent({});
 useHead({
-    title: "GCC University | Partner With Us",
+    title: "GCC School | Partner With Us",
 })
 </script>
