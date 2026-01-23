@@ -47,7 +47,7 @@
           <div class="top-header-link-details">
             <ul class="header-link">
               <li>
-                <NuxtLink to="https://kcglobed.com/" target="_blank">Kc GlobEd</NuxtLink>
+                <NuxtLink to="https://kcglobed.com/" target="_blank">KC GlobEd</NuxtLink>
               </li>
               <li class="dropdown-wrapper" @mouseenter="openDropdown" @mouseleave="closeDropdown">
                 <span class="dropdown-trigger">Campus CEO <i class="ti ti-chevron-down"></i></span>
@@ -152,6 +152,7 @@ export default {
   display: inline-flex;
   align-items: center;
   gap: 4px;
+  font-size: 13px;
 }
 
 .dropdown-trigger i {
