@@ -394,10 +394,10 @@ export default defineComponent({
         // $fetch throws automatically on 4xx/5xx errors, so if we reach here, it's success.
         if (response.success) {
           alert("Thank you! Our team will contact you soon.")
-
           const closeBtn = this.$refs.closeModalBtn as HTMLButtonElement;
           closeBtn.click();
-
+          window.open("https://storage.googleapis.com/static_files_backend/media/landing/GCC%20SCHOOL%20DOSSIER%20V9.pdf", "_blank");
+    
           // Reset form
           this.form = {
             name: "",
