@@ -16,7 +16,7 @@
                 </a>
               </li>
               <li>
-                <a href="https://www.instagram.com/" target="_blank" class="icon">
+                <a href="https://www.instagram.com/gccschool?igsh=MXQxc2JhazAwcG55cQ==" target="_blank" class="icon">
                   <img src="~/assets/img/svgs/instagram.svg" alt="icon" />
                 </a>
               </li>
