@@ -14,6 +14,6 @@
 
 // export default defineComponent({});
 useHead({
-    title: "GCC University | Contant us",
+    title: "GCC School | Contant us",
 })
 </script>

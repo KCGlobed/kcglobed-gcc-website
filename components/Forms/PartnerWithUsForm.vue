@@ -22,14 +22,15 @@
           <div class="main-contact-content">
             <form @submit.prevent="submitForm">
               <h4 class="mb-4">Role of Partner With Us – Application Form</h4>
-              
+
               <!-- Organization Details -->
               <h5 class="mb-3">Organization Details</h5>
               <div class="row">
                 <div class="col-lg-6">
                   <div class="input-box">
                     <label class="form-label">Organization / Company Name <span>*</span></label>
-                    <input v-model="form.organizationName" type="text" class="form-control" placeholder="Organization Name">
+                    <input v-model="form.organizationName" type="text" class="form-control"
+                      placeholder="Organization Name">
                     <small class="text-danger" v-if="errors.organizationName">{{ errors.organizationName }}</small>
                   </div>
                 </div>
@@ -37,10 +38,11 @@
                   <div class="input-box">
                     <label class="form-label">Year of Establishment <span>*</span></label>
                     <div class="input-with-icon">
-                        <input v-model="form.yearOfEstablishment" type="number" class="form-control" placeholder="YYYY">
-                        <i class="ti ti-calendar"></i>
+                      <input v-model="form.yearOfEstablishment" type="number" class="form-control" placeholder="YYYY">
+                      <i class="ti ti-calendar"></i>
                     </div>
-                    <small class="text-danger" v-if="errors.yearOfEstablishment">{{ errors.yearOfEstablishment }}</small>
+                    <small class="text-danger" v-if="errors.yearOfEstablishment">{{ errors.yearOfEstablishment
+                    }}</small>
                   </div>
                 </div>
                 <div class="col-lg-12">
@@ -58,18 +60,20 @@
                   </div>
                 </div>
                 <div v-if="form.organizationType === 'Other'" class="col-lg-12">
-                    <div class="input-box">
+                  <div class="input-box">
                     <label class="form-label">Please specify <span>*</span></label>
-                    <input v-model="form.organizationTypeOther" type="text" class="form-control" placeholder="Specify Organization Type">
-                    <small class="text-danger" v-if="errors.organizationTypeOther">{{ errors.organizationTypeOther }}</small>
-                    </div>
+                    <input v-model="form.organizationTypeOther" type="text" class="form-control"
+                      placeholder="Specify Organization Type">
+                    <small class="text-danger" v-if="errors.organizationTypeOther">{{ errors.organizationTypeOther
+                    }}</small>
+                  </div>
                 </div>
                 <div class="col-lg-12">
                   <div class="input-box">
                     <label class="form-label">Website (if any)</label>
                     <div class="input-with-icon">
-                        <input v-model="form.website" type="url" class="form-control" placeholder="https://example.com">
-                        <i class="ti ti-world"></i>
+                      <input v-model="form.website" type="url" class="form-control" placeholder="https://example.com">
+                      <i class="ti ti-world"></i>
                     </div>
                   </div>
                 </div>
@@ -84,28 +88,28 @@
                   <div class="input-box">
                     <label class="form-label">Full Name <span>*</span></label>
                     <div class="input-with-icon">
-                        <input v-model="form.contactName" type="text" class="form-control" placeholder="Full Name">
-                        <i class="ti ti-user"></i>
+                      <input v-model="form.contactName" type="text" class="form-control" placeholder="Full Name">
+                      <i class="ti ti-user"></i>
                     </div>
                     <small class="text-danger" v-if="errors.contactName">{{ errors.contactName }}</small>
                   </div>
                 </div>
                 <div class="col-lg-6">
-                    <div class="input-box">
-                      <label class="form-label">Designation <span>*</span></label>
-                      <div class="input-with-icon">
-                        <input v-model="form.designation" type="text" class="form-control" placeholder="Designation">
-                        <i class="ti ti-id-badge"></i>
-                      </div>
-                      <small class="text-danger" v-if="errors.designation">{{ errors.designation }}</small>
+                  <div class="input-box">
+                    <label class="form-label">Designation <span>*</span></label>
+                    <div class="input-with-icon">
+                      <input v-model="form.designation" type="text" class="form-control" placeholder="Designation">
+                      <i class="ti ti-id-badge"></i>
                     </div>
+                    <small class="text-danger" v-if="errors.designation">{{ errors.designation }}</small>
                   </div>
+                </div>
                 <div class="col-lg-6">
                   <div class="input-box">
                     <label class="form-label">Email ID <span>*</span></label>
                     <div class="input-with-icon">
-                        <input v-model="form.email" type="email" class="form-control" placeholder="Email ID">
-                        <i class="ti ti-mail"></i>
+                      <input v-model="form.email" type="email" class="form-control" placeholder="Email ID">
+                      <i class="ti ti-mail"></i>
                     </div>
                     <small class="text-danger" v-if="errors.email">{{ errors.email }}</small>
                   </div>
@@ -114,8 +118,8 @@
                   <div class="input-box">
                     <label class="form-label">Mobile Number <span>*</span></label>
                     <div class="input-with-icon">
-                        <input v-model="form.mobile" type="tel" class="form-control" placeholder="Mobile Number">
-                        <i class="ti ti-phone-call"></i>
+                      <input v-model="form.mobile" type="tel" class="form-control" placeholder="Mobile Number">
+                      <i class="ti ti-phone-call"></i>
                     </div>
                     <small class="text-danger" v-if="errors.mobile">{{ errors.mobile }}</small>
                   </div>
@@ -124,22 +128,22 @@
                   <div class="input-box">
                     <label class="form-label">City <span>*</span></label>
                     <div class="input-with-icon">
-                        <input v-model="form.city" type="text" class="form-control" placeholder="City">
-                        <i class="ti ti-map-pin"></i>
+                      <input v-model="form.city" type="text" class="form-control" placeholder="City">
+                      <i class="ti ti-map-pin"></i>
                     </div>
                     <small class="text-danger" v-if="errors.city">{{ errors.city }}</small>
                   </div>
                 </div>
                 <div class="col-lg-6">
-                    <div class="input-box">
-                      <label class="form-label">State <span>*</span></label>
-                      <div class="input-with-icon">
-                         <input v-model="form.state" type="text" class="form-control" placeholder="State">
-                         <i class="ti ti-map"></i>
-                      </div>
-                      <small class="text-danger" v-if="errors.state">{{ errors.state }}</small>
+                  <div class="input-box">
+                    <label class="form-label">State <span>*</span></label>
+                    <div class="input-with-icon">
+                      <input v-model="form.state" type="text" class="form-control" placeholder="State">
+                      <i class="ti ti-map"></i>
                     </div>
+                    <small class="text-danger" v-if="errors.state">{{ errors.state }}</small>
                   </div>
+                </div>
               </div>
 
               <hr class="my-4">
@@ -151,25 +155,30 @@
                   <div class="input-box">
                     <label class="form-label">Area of Partnership Interest <span>*</span></label>
                     <div class="d-flex flex-wrap gap-3 mt-2">
-                        <div class="form-check" v-for="interest in partnershipInterests" :key="interest">
-                            <input class="form-check-input" type="checkbox" :value="interest" :id="interest" v-model="form.interests">
-                            <label class="form-check-label" :for="interest">{{ interest }}</label>
-                        </div>
+                      <div class="form-check" v-for="interest in partnershipInterests" :key="interest">
+                        <input class="form-check-input" type="checkbox" :value="interest" :id="interest"
+                          v-model="form.interests">
+                        <label class="form-check-label" :for="interest">{{ interest }}</label>
+                      </div>
                     </div>
                     <small class="text-danger" v-if="errors.interests">{{ errors.interests }}</small>
                   </div>
                 </div>
                 <div class="col-lg-12 mt-3">
                   <div class="input-box">
-                    <label class="form-label">Brief Description of Your Organization (Technology Support / Curriculum & Course Development / Franchise or Satellite Centre – 50–100 words) <span>*</span></label>
-                    <textarea v-model="form.description" class="form-control" rows="4" placeholder="Brief Description..."></textarea>
+                    <label class="form-label">Brief Description of Your Organization (Technology Support / Curriculum &
+                      Course Development / Franchise or Satellite Centre – 50–100 words) <span>*</span></label>
+                    <textarea v-model="form.description" class="form-control" rows="4"
+                      placeholder="Brief Description..."></textarea>
                     <small class="text-danger" v-if="errors.description">{{ errors.description }}</small>
                   </div>
                 </div>
                 <div class="col-lg-12">
                   <div class="input-box">
-                    <label class="form-label">How would you like to add value to GCC School by partnering with us? (Short description) <span>*</span></label>
-                    <textarea v-model="form.valueAdd" class="form-control" rows="3" placeholder="Short description..."></textarea>
+                    <label class="form-label">How would you like to add value to GCC School by partnering with us?
+                      (Short description) <span>*</span></label>
+                    <textarea v-model="form.valueAdd" class="form-control" rows="3"
+                      placeholder="Short description..."></textarea>
                     <small class="text-danger" v-if="errors.valueAdd">{{ errors.valueAdd }}</small>
                   </div>
                 </div>
@@ -180,7 +189,8 @@
                 <div class="form-check mt-3">
                   <input class="form-check-input" type="checkbox" v-model="form.declaration" id="declarationCheck">
                   <label class="form-check-label" for="declarationCheck">
-                    I confirm that the above information is provided on behalf of our organization, is accurate, and there is no conflict with the entity's operations and policies of the organization.
+                    I confirm that the above information is provided on behalf of our organization, is accurate, and
+                    there is no conflict with the entity's operations and policies of the organization.
                   </label>
                 </div>
                 <small class="text-danger" v-if="errors.declaration">{{ errors.declaration }}</small>
@@ -281,7 +291,7 @@ export default defineComponent({
         this.errors.organizationType = "Organization Type is required";
         isValid = false;
       }
-       if (this.form.organizationType === 'Other' && !this.form.organizationTypeOther) {
+      if (this.form.organizationType === 'Other' && !this.form.organizationTypeOther) {
         this.errors.organizationTypeOther = "Please specify Organization Type";
         isValid = false;
       }
@@ -297,8 +307,8 @@ export default defineComponent({
         this.errors.email = "Email ID is required";
         isValid = false;
       } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(this.form.email)) {
-         this.errors.email = "Invalid Email ID";
-         isValid = false;
+        this.errors.email = "Invalid Email ID";
+        isValid = false;
       }
       if (!this.form.mobile) {
         this.errors.mobile = "Mobile Number is required";
@@ -333,45 +343,56 @@ export default defineComponent({
     },
     async submitForm() {
       if (this.validateForm()) {
-          // Prepare payload for API
-          const payload = {
-              organization_name: this.form.organizationName,
-              year_of_establishment: this.form.yearOfEstablishment,
-              organization_type: this.form.organizationType === 'Other' ? this.form.organizationTypeOther : this.form.organizationType,
-              website: this.form.website,
-              contact_name: this.form.contactName,
-              designation: this.form.designation,
-              email: this.form.email,
-              mobile: this.form.mobile,
-              city: this.form.city,
-              state: this.form.state,
-              interests: this.form.interests,
-              description: this.form.description,
-              value_add: this.form.valueAdd,
-          };
-          
-          try {
-             // Use global $fetch if available or this.$axios
-             // Assuming Nuxt/Vue 3 context as per previous files
-             // Using any to avoid type check issues in this context if $fetch isn't strictly typed
-             const response: any = await $fetch("/api/partner-with-us", {
-               method: "POST",
-               body: payload
-             });
+        // Prepare payload for API
+        const payload = {
+          organization_name: this.form.organizationName,
+          year_of_establishment: this.form.yearOfEstablishment,
+          organization_type: this.form.organizationType,
+          organization_type_other:
+            this.form.organizationType === 'Other'
+              ? this.form.organizationTypeOther
+              : null,
 
-            if (response.success) {
-                 alert("Thank you! Your partnership application has been submitted.");
-                 this.resetForm();
-            } else {
-                 alert(response.message || "Something went wrong. Please try again.");
-            }
+          website: this.form.website || null,
+          contact_name: this.form.contactName,
+          designation: this.form.designation,
+          email: this.form.email,
+          mobile: this.form.mobile,
+          city: this.form.city,
+          state: this.form.state,
 
-          } catch (error: any) {
-              console.error("Submission Error:", error);
-              // Fallback/Mock for demonstration
-              alert("Message Sent! We will contact you shortly.");
-              this.resetForm();
+          interests: Array.isArray(this.form.interests)
+            ? this.form.interests
+            : [],
+
+          description: this.form.description || null,
+          value_add: this.form.valueAdd || null,
+          declaration: this.form.declaration === true
+        };
+
+
+        try {
+          // Use global $fetch if available or this.$axios
+          // Assuming Nuxt/Vue 3 context as per previous files
+          // Using any to avoid type check issues in this context if $fetch isn't strictly typed
+          const response: any = await $fetch("/api/partner-with-us", {
+            method: "POST",
+            body: payload
+          });
+
+          if (response.success) {
+            alert("Thank you! Your partnership application has been submitted.");
+            this.resetForm();
+          } else {
+            alert(response.message || "Something went wrong. Please try again.");
           }
+
+        } catch (error: any) {
+          console.error("Submission Error:", error);
+          // Fallback/Mock for demonstration
+          alert("Message Sent! We will contact you shortly.");
+          this.resetForm();
+        }
       }
     },
     resetForm() {
@@ -415,12 +436,13 @@ export default defineComponent({
 
 <style scoped>
 .main-contact-warp {
-    background-color: #f6f8fb;
+  background-color: #f6f8fb;
 }
+
 .main-contact-content {
-    background-color: #ffffff;
-    padding: 40px;
-    border-radius: 8px;
-    box-shadow: 0 0 20px rgba(0,0,0,0.06);
+  background-color: #ffffff;
+  padding: 40px;
+  border-radius: 8px;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.06);
 }
 </style>
