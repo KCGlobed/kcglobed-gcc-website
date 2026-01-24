@@ -35,11 +35,11 @@
               </li>
             </ul>
             <div class="info-button">
-              <NuxtLink to="#" class="default-btn style2">
+              <NuxtLink to="/programs" class="default-btn style2">
                 Explore 12-Month Journey
                 <i class="ti ti-arrow-narrow-right"></i>
               </NuxtLink>
-              <NuxtLink to="#" class="default-btn secodary-btn">
+              <NuxtLink to="/admissions" class="default-btn secodary-btn">
                 Check Eligibility
                 <i class="ti ti-arrow-narrow-right"></i>
               </NuxtLink>

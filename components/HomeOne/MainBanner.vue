@@ -35,7 +35,7 @@
 
             <div class="content" style="margin-top: 20px;">
               <h1 class="title" style="font-size: 40px;line-height: 1.4;">
-                World’s 1st School<br /> Powered by Industry,<br />Defined by Performance
+                India’s 1<sup>st</sup> School<br /> Powered by Industry,<br />Defined by Performance
               </h1>
               <h4
                 style="font-size: 24px; line-height: 1.4; color: #fff; font-family: Inter,sans-serif; font-weight: 500;">
@@ -61,7 +61,7 @@
     </Swiper>
   </div>
 
-  <div class="modal fade" id="enquiryModal" tabindex="-1">
+  <div class="modal fade" id="enquiryModal" tabindex="-1" style="z-index: 99999;">
     <div class="modal-dialog modal-lg modal-dialog-centered">
       <div class="modal-content">
 

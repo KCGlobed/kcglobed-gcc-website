@@ -38,7 +38,7 @@
               </li>
               <li>
                 <i class="ti ti-phone-call"></i>
-                <a href="tel:9773576111">9773576111</a>
+                <a href="tel:9773576111">+919773576111</a>
               </li>
             </ul>
           </div>
@@ -210,5 +210,13 @@ export default {
 .dropdown-menu li a:hover {
   background-color: #862E84;
   color: #fff !important;
+}
+
+
+
+@media (max-width: 768px) {
+  .top-header-warp .row {
+    display: none;
+  }
 }
 </style>
