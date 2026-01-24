@@ -2,8 +2,8 @@
     <div>
         <LayoutTopHeader />
         <LayoutMainNavbar />
-        <!-- <FormsPartnerWithUsForm /> -->
-        <CommonCommingSoon />
+        <FormsPartnerWithUsForm />
+        <!-- <CommonCommingSoon /> -->
         <LayoutMainFooter />
         <LayoutCopyRight />
     </div>

@@ -166,8 +166,8 @@
                 </div>
                 <div class="col-lg-12 mt-3">
                   <div class="input-box">
-                    <label class="form-label">Brief Description of Your Organization (Technology Support / Curriculum &
-                      Course Development / Franchise or Satellite Centre – 50–100 words) <span>*</span></label>
+                    <label class="form-label">Brief Description of Your Organization (50–100 words)
+                      <span>*</span></label>
                     <textarea v-model="form.description" class="form-control" rows="4"
                       placeholder="Brief Description..."></textarea>
                     <small class="text-danger" v-if="errors.description">{{ errors.description }}</small>
@@ -189,8 +189,8 @@
                 <div class="form-check mt-3">
                   <input class="form-check-input" type="checkbox" v-model="form.declaration" id="declarationCheck">
                   <label class="form-check-label" for="declarationCheck">
-                    I confirm that the above information is provided on behalf of our organization, is accurate, and
-                    there is no conflict with the entity's operations and policies of the organization.
+                    We confirm that the above information is provided on behalf of our organization, is accurate, and
+                    does not conflict with the organization’s operations or policies.
                   </label>
                 </div>
                 <small class="text-danger" v-if="errors.declaration">{{ errors.declaration }}</small>
