@@ -3,7 +3,7 @@
     <div class="container">
       <div class="ticket-header-bar">
         <h2>PASS THE ENTRANCE EXAM AND GET YOUR TICKET</h2>
-        <p>TO EXPERIENCE THE CORPORATE WORLD AT CYBER CITY, GURUGAON</p>
+        <p>TO EXPERIENCE THE CORPORATE WORLD AT CYBER CITY, GURUGRAM</p>
       </div>
 
       <div class="ticket-wrapper">
@@ -100,7 +100,7 @@
 
           <div class="info-group mt-3">
             <label>STATUS</label>
-            <span class="dark-text"><a href="#" class="status-link">Click here to know</a></span>
+            <span class="dark-text"><a href="/personal-information" class="status-link">Click here to know</a></span>
           </div>
 
           <div class="barcode mt-4">
