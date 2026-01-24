@@ -4,7 +4,10 @@
       <div class="row">
         <div class="col-lg-6">
           <div class="value-title">
-            <h2>Values of the GCC School</h2>
+            <h2>Our Core Values: The GCC DNA </h2>
+            <p class="mt-1">
+              “We don’t teach students – We transform them into professionals.”
+            </p>
           </div>
         </div>
         <div class="col-lg-6">
@@ -12,28 +15,25 @@
             <ul class="value-list">
               <li>
                 <span>1.</span>
-                <strong>Dignity</strong>– Respect for every individual.
+                <strong>Excellence</strong>:Performance that sets benchmarks.
               </li>
               <li>
                 <span>2.</span>
-                <strong>Transparency</strong> – Clarity in actions and outcomes.
+                <strong>Integrity</strong> : Clarity in actions and outcomes.
               </li>
               <li>
                 <span>3.</span>
-                <strong>Empathy</strong> – People-first thinking.
+                <strong>Innovation</strong>: Adaptive learning for a fast-changing world.
               </li>
               <li>
                 <span>4.</span>
-                <strong>Inclusivity</strong> – Opportunity for all.
+                <strong>Collaboration</strong> : Power in partnerships across industries.
               </li>
               <li>
                 <span>5.</span>
-                <strong>Agility</strong> – Fast, flexible, future-ready.
+                <strong>Empowerment</strong>:Turning ambition into real-world outcomes.
               </li>
-              <li>
-                <span>6.</span>
-                <strong>Ethical Practice</strong> – Integrity in everything we do.
-              </li>
+
 
             </ul>
           </div>

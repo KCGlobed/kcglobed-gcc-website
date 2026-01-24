@@ -6,8 +6,7 @@
           <div class="information-content">
             <h2 class="reveal2">Build a Global Career in 12 Months</h2>
             <p>
-              GCC School is a new-age, globally aligned corporate ecosystem designed for deserving Young Aspiring
-              Professionals (YAPs) who aim to become early leaders through GCCs in their chosen domains.
+              In just 12 months, you’ll transform from graduate to global professional — ready to perform from day one.
             </p>
             <ul class="information-list">
               <li>

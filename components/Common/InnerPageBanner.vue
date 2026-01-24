@@ -1,12 +1,12 @@
 <template>
   <div class="inner-heros-warp">
     <div class="container-fluid">
-      <div class="inner-hero-content">
+      <div class="inner-hero-content d-flex align-items-center justify-content-center">
         <h1>{{ pageTitle }}</h1>
-        <ul class="inner-hero-list">
-          <li>
+        <ul class="inner-hero-list ">
+          <!-- <li>
             <NuxtLink to="/">HOME</NuxtLink>
-          </li>
+          </li> -->
           <!-- <li>
             <span>{{ mainTitle }}</span>
           </li> -->

@@ -53,6 +53,12 @@
           </tbody>
         </table>
       </div>
+      <!-- <div class="info-button d-flex justify-content-center mt-4">
+        <NuxtLink to="#" class="default-btn secodary-btn">
+          Discover the GCC Advantage →
+          <i class="ti ti-arrow-narrow-right"></i>
+        </NuxtLink>
+      </div> -->
     </div>
   </div>
 </template>
