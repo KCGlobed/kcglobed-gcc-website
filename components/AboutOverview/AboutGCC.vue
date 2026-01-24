@@ -3,7 +3,7 @@
         <div class="container">
             <div class="row">
                 <!-- What is GCC? -->
-           <!--     <div class="col-lg-12 mb-5">
+                <!--     <div class="col-lg-12 mb-5">
                     <div class="gcc-content">
                         <div class="section-title text-start">
                             <h2>What is Global Capability Center (GCC)?</h2>
@@ -34,17 +34,24 @@
                 <div class="col-lg-12">
                     <div class="why-gcc-box">
                         <h3>Why GCC School</h3>
-                        <p>Most graduates enter the workforce:</p>
+                        <p>Most graduates enter the job market with degrees, not direction.</p>
+                        <p>At GCC School, we turn ambition into achievement through: </p>
                         <ul class="why-list">
-                            <li><i class="ti ti-circle-x"></i> With strong academic knowledge but limited applied
-                                exposure</li>
-                            <li><i class="ti ti-circle-x"></i> With qualifications but little understanding of real
-                                workflows</li>
-                            <li><i class="ti ti-circle-x"></i> With ambition but without corporate readiness</li>
+                            <li><i class="ti ti-check"></i>Real GCC exposure and corporate internships </li>
+                            <li><i class="ti ti-check"></i>Masterclasses from global industry leaders </li>
+                            <li><i class="ti ti-check"></i>Job-ready skill development and placement-first pathways
+                            </li>
                         </ul>
                         <div class="conclusion-box mt-4">
-                            <h4>GCC School exists to bridge this gap.</h4>
+                            <h4>We don’t prepare you to apply for jobs — we prepare you to perform in them.</h4>
                         </div>
+                        <div class="info-button d-flex justify-content-center mt-4">
+                            <NuxtLink to="#" class="default-btn secodary-btn">
+                                Explore Why GCC School Works →
+                                <i class="ti ti-arrow-narrow-right"></i>
+                            </NuxtLink>
+                        </div>
+
                     </div>
                 </div>
             </div>

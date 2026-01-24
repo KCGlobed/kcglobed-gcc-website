@@ -2,7 +2,7 @@
   <div>
     <LayoutTopHeader />
     <LayoutMainNavbar />
-    <CommonInnerPageBanner pageTitle="About GCC School" mainTitle="OVERVIEW" />
+    <CommonInnerPageBanner pageTitle="Where Potential Becomes Performance " mainTitle="OVERVIEW" />
     <CommonAboutPagesList />
     <AboutOverviewAboutUniversity />
     <AboutOverviewSustainability />

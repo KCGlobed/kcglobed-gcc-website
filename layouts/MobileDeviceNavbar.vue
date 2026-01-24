@@ -5,7 +5,7 @@
   ]" tabindex="-1" id="navbarOffcanvas">
     <div class="offcanvas-header">
       <NuxtLink to="/" @click="handleClick" class="logo d-inline-block">
-        <img src="~/assets/img/logo.png" alt="logo" />
+        <img src="~/assets/Logo/Logo/GCC-School-Logo-White.jpeg" alt="logo" style="width: 200px;" />
       </NuxtLink>
       <button type="button" class="close-btn" @click="stateStoreInstance.onMobileNavbarShow" data-bs-dismiss="offcanvas"
         aria-label="Close">
@@ -14,7 +14,7 @@
     </div>
     <div class="offcanvas-body">
       <BAccordion free>
-        <BAccordionItem title="Home" visible>
+        <!-- <BAccordionItem title="Home" visible>
           <div class="accordion-item">
             <NuxtLink to="/" class="accordion-link" @click="handleClick">
               Home Demo - 1
@@ -345,14 +345,39 @@
               Athletics Recreation
             </NuxtLink>
           </div>
-        </BAccordionItem>
+        </BAccordionItem> -->
         <div class="accordion-item">
-          <NuxtLink to="/international-student" class="accordion-link" @click="handleClick">
-            International Student
+          <NuxtLink to="/" class="accordion-link" @click="handleClick">
+            Home
+          </NuxtLink>
+        </div>
+        <div class="accordion-item">
+          <NuxtLink to="/about-overview" class="accordion-link" @click="handleClick">
+            About Us
+          </NuxtLink>
+        </div>
+        <div class="accordion-item">
+          <NuxtLink to="/programs" class="accordion-link" @click="handleClick">
+            Programs
+          </NuxtLink>
+        </div>
+        <div class="accordion-item">
+          <NuxtLink to="/admissions" class="accordion-link" @click="handleClick">
+            Admissions
+          </NuxtLink>
+        </div>
+        <div class="accordion-item">
+          <NuxtLink to="/campus-life" class="accordion-link" @click="handleClick">
+            Campus Life
+          </NuxtLink>
+        </div>
+        <div class="accordion-item">
+          <NuxtLink to="/contact-us" class="accordion-link" @click="handleClick">
+            Contact Us
           </NuxtLink>
         </div>
 
-        <div class="others-option d-flex align-items-center">
+        <!-- <div class="others-option d-flex align-items-center">
           <div class="option-item">
             <div class="search-bar main-menu__search search-toggler" @click="stateStoreInstance.onChange"
               style="cursor: pointer">
@@ -367,7 +392,7 @@
               <img src="~/assets/img/svgs/menu.svg" alt="svg" />
             </button>
           </div>
-        </div>
+        </div> -->
       </BAccordion>
     </div>
   </div>
@@ -392,3 +417,9 @@ export default defineComponent({
   },
 });
 </script>
+
+<style scoped>
+.offcanvas.show:not(.hiding) {
+  z-index: 9999999;
+}
+</style>

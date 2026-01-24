@@ -18,16 +18,16 @@
         <div class="col-lg-6" data-aos="zoom-in-up" data-aos-delay="200">
           <div class="about-content">
             <p>
-              GCC School is a new-age, corporate learning ecosystem designed for pre-onboarded Young Aspiring
-              Professionals (YAP) who aim to build meaningful careers in global finance and GCC environments.
+              GCC School is a career lab for Young Aspiring Professionals (YAPs) ready to build global careers in
+              finance, commerce, and operations.
             </p>
             <p>
-              The campus prepares YAPs for real roles, not just certifications, by aligning learning with industry
-              expectations from the start.
+              Our programs are co-designed with consulting firms, financial institutions, and MNCs — ensuring every
+              assignment aligns with real industry expectations.
             </p>
           </div>
-            <div class="sustainability-content mt-2">
-            <h3>Industry Alignment</h3>
+          <div class="sustainability-content mt-2">
+            <!-- <h3>Industry Alignment</h3> -->
             <p>
               To meet the growing demand for GCC-ready professionals, GCC School works in alignment with Consulting
               Firms &

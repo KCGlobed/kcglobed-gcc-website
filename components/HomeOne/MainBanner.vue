@@ -35,8 +35,12 @@
 
             <div class="content" style="margin-top: 20px;">
               <h1 class="title" style="font-size: 40px;line-height: 1.4;">
-                World's 1st School <br> Backed by Industry, <br> Built on Execution
+                World’s 1st School<br /> Powered by Industry,<br />Defined by Performance
               </h1>
+              <h4
+                style="font-size: 24px; line-height: 1.4; color: #fff; font-family: Inter,sans-serif; font-weight: 500;">
+                Start Your Career. Not Just Your Classes
+              </h4>
               <p style="color: #fff;">
                 {{ banner.description }}
               </p>
@@ -246,8 +250,9 @@
 
             <div class="modal-footer">
               <button class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-              <button class="btn btn-primary" type="submit" :disabled="isSubmitting"> 
-                <span v-if="isSubmitting" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+              <button class="btn btn-primary" type="submit" :disabled="isSubmitting">
+                <span v-if="isSubmitting" class="spinner-border spinner-border-sm" role="status"
+                  aria-hidden="true"></span>
                 <span v-else>Submit</span>
               </button>
             </div>
@@ -397,7 +402,7 @@ export default defineComponent({
           const closeBtn = this.$refs.closeModalBtn as HTMLButtonElement;
           closeBtn.click();
           window.open("https://storage.googleapis.com/static_files_backend/media/landing/GCC%20SCHOOL%20DOSSIER%20V9.pdf", "_blank");
-    
+
           // Reset form
           this.form = {
             name: "",
@@ -493,7 +498,7 @@ export default defineComponent({
           subTitle: "Cohort 2026 Applications Open",
           image: image1,
           heading: "World's 1st School Backed  by Industry, Built on Execution",
-          description: "At GCC School, Young Aspiring Professionals (YAPs) don't wait for placements, they start with them. Learning and training are structured around real job roles, professional work, and corporate responsibilities, with capabilities being built through execution itself.",
+          description: "At GCC School, you don’t just prepare for the corporate world — you enter it.Every session, project, and mentor experience mirrors the way top global firms actually operate. ",
           btnText: "Apply Now",
           btnLink: "/personal-information",
           btnTextTwo: "Download Dossier",

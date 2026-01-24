@@ -28,7 +28,22 @@
                                 <span class="designation">Founder and Chief Executive Officer | US CPA | CA</span>
 
                                 <div class="leader-message">
+                                    <!-- <h6 class="">From Our Founder</h6> -->
                                     <p>
+                                        Vision That Started a Movement
+                                    </p>
+                                    <p class="mt-2">
+                                        I didn’t create GCC School to teach — I built it to launch careers that perform
+                                        from day one.
+
+                                        Too many talented graduates never get to see their skills in action. Here,
+                                        you’ll learn where global business actually happens. We don’t train job seekers
+                                        — we shape global performers.
+                                    </p>
+                                    <p class="mt-2">
+                                        If you’ve got drive, we’ll turn it into direction.
+                                    </p>
+                                    <!-- <p>
                                         The global finance industry does not suffer from a lack of degrees; it suffers
                                         from a lack of job-ready
                                         professionals. For over two decades, I have witnessed this gap closely across
@@ -65,12 +80,12 @@
                                         indispensable, ready to contribute, adapt, and grow within global finance
                                         ecosystems from day one.
                                         This is not a campus for certificates. This is a campus for careers.
-                                    </p>
-                                    <p class="mt-2">
+                                    </p> -->
+                                    <!-- <p class="mt-2">
                                     <div><strong>Dr. Kamal Chhabra</strong></div>
                                     <div>Founder and Chief Executive Officer</div>
                                     <div>US CPA | CA</div>
-                                    </p>
+                                    </p> -->
                                 </div>
                             </div>
                         </div>
@@ -120,7 +135,7 @@
                                 <span class="designation">Executive Director</span>
 
                                 <div class="leader-message">
-                                    <p>
+                                    <!-- <p>
                                         Every educational institution eventually arrives at a transformative moment when
                                         its mission perfectly aligns with the evolving demands of the world. At GCC
                                         School, that moment defines us through our unwavering commitment to transitional
@@ -140,6 +155,20 @@
                                     <p class="mt-2">
                                     <div><strong>Prof. (Dr.) Manpreet Singh Manna</strong></div>
                                     <div>Executive Director</div>
+                                    </p> -->
+
+                                    <p>
+                                        In global finance, early leadership defines long-term success. At GCC School,
+                                        you’ll live that reality from day one.
+                                    </p>
+                                    <p>
+                                        Every project, mentor, and challenge mirrors the corporate pace. We don’t
+                                        simulate the industry — we bring you into it.
+                                    </p>
+                                    <p class="mt-2">
+
+
+                                        Ready to make your first year your breakthrough? Let’s begin.
                                     </p>
                                 </div>
                             </div>
