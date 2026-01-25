@@ -21,7 +21,7 @@
         <div class="col-lg-8 offset-lg-2">
           <div class="main-contact-content">
             <form @submit.prevent="submitForm">
-              <h4 class="mb-4">Role of Partner With Us – Application Form</h4>
+              <h4 class="mb-4">Application Form</h4>
 
               <!-- Organization Details -->
               <h5 class="mb-3">Organization Details</h5>
@@ -190,7 +190,7 @@
                   <input class="form-check-input" type="checkbox" v-model="form.declaration" id="declarationCheck">
                   <label class="form-check-label" for="declarationCheck">
                     We confirm that the above information is provided on behalf of our organization, is accurate, and
-                    does not conflict with the organization’s operations or policies.
+                    does not conflict with the organisation’s operations or policies.
                   </label>
                 </div>
                 <small class="text-danger" v-if="errors.declaration">{{ errors.declaration }}</small>

@@ -266,10 +266,10 @@ p:last-child {
 }
 
 .section-title h2 {
-  font-family: Alfa Slab One;
+  font-family: Inter;
   font-size: 32px;
   letter-spacing: 1.28px;
-  font-weight: 400;
+  font-weight: 600;
   margin-bottom: 0;
 }
 
@@ -1774,9 +1774,9 @@ Mission Warp Style
 }
 
 .mission-content h3 {
-  font-family: Alfa Slab One;
+  font-family: Inter;
   font-size: 32px;
-  font-weight: 400;
+  font-weight: 600;
   margin-bottom: 45px;
 }
 
@@ -2124,8 +2124,8 @@ Information Warp Style
   font-size: 32px;
   letter-spacing: 1.28px;
   color: #0d0d25;
-  font-family: Alfa Slab One;
-  font-weight: 400;
+  font-family: Inter;
+  font-weight: 600;
   margin-bottom: 20px;
   line-height: 1.5;
 }
@@ -7940,7 +7940,7 @@ Contact Page Style
   height: 20px;
   border-radius: 0;
   border: 1px solid #9b9bad;
-  background-color: #f3f3f6;
+  /* background-color: #f3f3f6; */
 }
 
 .main-contact-content .form-check .form-check-input:focus {

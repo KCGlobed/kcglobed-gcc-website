@@ -16,10 +16,10 @@
                 </div>
               </div>
             </div>
-            <div class="round-shape" data-aos="zoom-in" data-aos-delay="200">
+            <!-- <div class="round-shape" data-aos="zoom-in" data-aos-delay="200">
               <img src="~/assets/img/svgs/main-log.svg" class="main-logo" alt="image" />
               <img src="~/assets/img/shapes/text-shape1.png" class="text-shape" alt="" />
-            </div>
+            </div> -->
           </div>
         </div>
         <div class="col-lg-5" data-aos="fade-up" data-aos-delay="200">
@@ -37,7 +37,7 @@
             </ul>
 
 
-            <NuxtLink to="/about-history" class="about-link">
+            <NuxtLink to="/about-overview" class="about-link">
               <span> More About Us</span>
               <i class="ti ti-arrow-narrow-right"></i>
             </NuxtLink>
