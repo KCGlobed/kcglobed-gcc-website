@@ -34,7 +34,7 @@
             </span>
 
             <div class="content" style="margin-top: 20px;">
-              <h1 class="title" style="font-size: 40px;line-height: 1.4;">
+              <h1 class="title" style="font-size: 48px;line-height: 1.3;">
                 India’s 1<sup>st</sup> School<br /> Powered by Industry,<br />Defined by Performance
               </h1>
               <h4
