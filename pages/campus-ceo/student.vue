@@ -3,8 +3,9 @@
         <LayoutTopHeader />
         <LayoutMainNavbar />
         <!-- <CommonInnerPageBanner pageTitle="Campus CEO" mainTitle="STUDENT" /> -->
+        <FormsCampusCeoStudentForm />
 
-        <CommonCommingSoon />
+        <!-- <CommonCommingSoon /> -->
 
         <LayoutMainFooter />
         <LayoutCopyRight />

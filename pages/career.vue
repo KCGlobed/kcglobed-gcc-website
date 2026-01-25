@@ -3,7 +3,7 @@
         <LayoutTopHeader />
         <LayoutMainNavbar />
         <!-- <CommonInnerPageBanner pageTitle="Campus CEO" mainTitle="FACULTY" /> -->
-        <FormsCampusCeoFacultyForm />
+        <FormsCareerForm />
         <!-- <CommonCommingSoon /> -->
 
         <LayoutMainFooter />

@@ -2,8 +2,8 @@
   <div>
     <LayoutTopHeader />
     <LayoutMainNavbar />
-    <CommonCommingSoon />
-    <!-- <HomeThreeMainBanner />
+    <!-- <CommonCommingSoon /> -->
+    <HomeThreeMainBanner />
     <HomeThreeAboutUniversity />
 
     <HomeThreeGraduatePrograms />
@@ -11,7 +11,7 @@
 
     <Events />
     <HomeTwoApplyUniversityInEasySteps />
-    <NationalExecusive /> -->
+    <NationalExecusive />
 
 
 
