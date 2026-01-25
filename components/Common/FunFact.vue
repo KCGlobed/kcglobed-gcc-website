@@ -120,7 +120,7 @@ export default defineComponent({
     height: 130px;
     background-color: #fff;
     padding: 30px;
-    box-shadow: 0px 10px 30px rgba(0, 0, 0, 0.05);
+    /* box-shadow: 0px 10px 30px rgba(0, 0, 0, 0.05); */
     border-radius: 30px;
     border: 1px solid #f3f4f6;
     display: flex;
