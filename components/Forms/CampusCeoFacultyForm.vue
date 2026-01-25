@@ -112,7 +112,7 @@
                                         <input v-model="form.department" type="text" class="form-control"
                                             placeholder="Department">
                                         <small class="text-danger" v-if="errors.department">{{ errors.department
-                                        }}</small>
+                                            }}</small>
                                     </div>
                                 </div>
                                 <div class="col-lg-6">
@@ -125,7 +125,7 @@
                                             </option>
                                         </select>
                                         <small class="text-danger" v-if="errors.designation">{{ errors.designation
-                                        }}</small>
+                                            }}</small>
                                     </div>
                                 </div>
                                 <div class="col-lg-6" v-if="form.designation === 'Other (Please specify)'">
@@ -221,7 +221,7 @@
                                         <textarea v-model="form.motivation" class="form-control" rows="4"
                                             placeholder="Explain your motivation..."></textarea>
                                         <small class="text-danger" v-if="errors.motivation">{{ errors.motivation
-                                        }}</small>
+                                            }}</small>
                                     </div>
                                 </div>
 
@@ -254,7 +254,7 @@
                                             </div>
                                         </div>
                                         <small class="text-danger" v-if="errors.studentReach">{{ errors.studentReach
-                                        }}</small>
+                                            }}</small>
                                     </div>
                                 </div>
                             </div>
@@ -266,7 +266,7 @@
                                     <input class="form-check-input" type="checkbox" v-model="form.consent"
                                         id="consentCheck">
                                     <label class="form-check-label" for="consentCheck">
-                                        I agree to represent the organization professionally, ethically, and
+                                        I agree to represent the organisation professionally, ethically, and
                                         responsibly.
                                     </label>
                                 </div>

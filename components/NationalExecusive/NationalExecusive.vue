@@ -17,7 +17,7 @@
                             aligned with international standards.
                         </p>
                         <ul>
-                            <li><strong>Levels:</strong> A1 to C1 (TBC)</li>
+                            <!-- <li><strong>Levels:</strong> A1 to C1 (TBC)</li> -->
                             <li><strong>Focus:</strong> Business & Corporate Communication</li>
                             <li><strong>Delivery:</strong> Integrated within GCC Programme (Quarter 1)</li>
                         </ul>

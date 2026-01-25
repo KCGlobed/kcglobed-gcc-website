@@ -101,7 +101,7 @@
                                         <input v-model="form.collegeName" type="text" class="form-control"
                                             placeholder="College / University Name">
                                         <small class="text-danger" v-if="errors.collegeName">{{ errors.collegeName
-                                        }}</small>
+                                            }}</small>
                                     </div>
                                 </div>
                                 <div class="col-lg-6">
@@ -122,7 +122,7 @@
                                             </optgroup>
                                         </select>
                                         <small class="text-danger" v-if="errors.programOfStudy">{{ errors.programOfStudy
-                                        }}</small>
+                                            }}</small>
                                     </div>
                                 </div>
                                 <div class="col-lg-6" v-if="form.programOfStudy.includes('Other')">
@@ -131,7 +131,7 @@
                                         <input v-model="form.programOther" type="text" class="form-control"
                                             placeholder="Specify Program">
                                         <small class="text-danger" v-if="errors.programOther">{{ errors.programOther
-                                        }}</small>
+                                            }}</small>
                                     </div>
                                 </div>
                                 <div class="col-lg-6">
@@ -168,7 +168,7 @@
                                             </div>
                                         </div>
                                         <small class="text-danger" v-if="errors.studentBody">{{ errors.studentBody
-                                        }}</small>
+                                            }}</small>
                                     </div>
                                 </div>
                                 <div class="col-lg-12 mt-3">
@@ -206,7 +206,7 @@
                                         <textarea v-model="form.inspiration" class="form-control" rows="4"
                                             placeholder="Explain your inspiration..."></textarea>
                                         <small class="text-danger" v-if="errors.inspiration">{{ errors.inspiration
-                                        }}</small>
+                                            }}</small>
                                     </div>
                                 </div>
                                 <div class="col-lg-12 mt-3">
@@ -237,7 +237,7 @@
                                             </div>
                                         </div>
                                         <small class="text-danger" v-if="errors.studentReach">{{ errors.studentReach
-                                        }}</small>
+                                            }}</small>
                                     </div>
                                 </div>
                             </div>
@@ -249,7 +249,7 @@
                                     <input class="form-check-input" type="checkbox" v-model="form.consent"
                                         id="consentCheck">
                                     <label class="form-check-label" for="consentCheck">
-                                        I agree to actively participate and responsibly represent the organization.
+                                        I agree to actively participate and responsibly represent the organisation.
                                     </label>
                                 </div>
                                 <small class="text-danger" v-if="errors.consent">{{ errors.consent }}</small>

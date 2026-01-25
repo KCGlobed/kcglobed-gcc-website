@@ -110,8 +110,8 @@ export default defineComponent({
             "Financial Reporting (FR)",
             "Financial Management (FM)",
             "AI for Finance, Audit & Accounting",
-            "Power BI, Excel, PPT, Word",
-            "Data Analytics Fundamentals",
+            "Data analytics, Power BI, Advance Excel",
+            "MS Office",
             "Communication & Presentation Skills – British Council",
             "Corporate Internal Training"
           ],
@@ -123,7 +123,7 @@ export default defineComponent({
           modules: [
             "Audit and Assurance (AA)",
             "Performance Management (PM)",
-            "GCC Internship (Interim Busy Season)",
+            "GCC Internship – 6 hr/day(Interim Busy Season)",
           ],
           delay: "200"
         },
@@ -133,7 +133,7 @@ export default defineComponent({
           modules: [
             "Strategic Business Reporting (SBR)",
             "Strategic Business Leader (SBL)",
-            "GCC Internship (Year-End Busy Season)",
+            "GCC Internship – 6 hr/day (Year-End Busy Season)",
           ],
           delay: "300"
         },

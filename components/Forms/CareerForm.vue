@@ -7,7 +7,7 @@
                         <div class="section-title">
                             <span class="sub-title">Careers</span>
                             <h2 class="heading reveal3">
-                                Career With Us
+                                Grow With Us
                             </h2>
                             <p class="reveal3">
                                 Join our team and help shape the future of education. Apply now!
@@ -18,7 +18,7 @@
                 <div class="col-lg-8 offset-lg-2">
                     <div class="main-contact-content">
                         <form @submit.prevent="submitForm">
-                            <h4 class="mb-4">Career With Us – Application Form</h4>
+                            <h4 class="mb-4"> Application Form</h4>
 
                             <!-- Personal Details -->
                             <h5 class="mb-3">Personal Details</h5>
