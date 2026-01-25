@@ -11,7 +11,7 @@
                 </a>
               </li>
               <li>
-                <a href="https://www.twitter.com/" target="_blank" class="icon">
+                <a href="https://www.linkedin.com/company/gcc-school/posts/?feedView=all" target="_blank" class="icon">
                   <img src="~/assets/img/svgs/twitter.svg" alt="icon" />
                 </a>
               </li>

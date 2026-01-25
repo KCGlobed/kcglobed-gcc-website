@@ -2119,7 +2119,7 @@ Information Warp Style
 
 .information-content h2 {
   font-size: 38px;
-  letter-spacing: 1.28px;
+  letter-spacing: -0.1;
   color: #0d0d25;
   font-family: Inter;
   font-weight: 700;
