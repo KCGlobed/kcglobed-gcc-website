@@ -80,7 +80,7 @@ export default defineComponent({
           link: "/programs",
           tag: "BUSINESS",
           shortDesc:
-            "ACCA exams within the program.",
+            "Prepares learners for international accounting and finance roles.",
         },
         {
           id: 2,
@@ -88,7 +88,7 @@ export default defineComponent({
           title: "Global Communication Certification",
           link: "/programs",
           tag: "ECONOMICS",
-          shortDesc: "British Council English certification (A1–C1)",
+          shortDesc: "Builds professional communication skills for global workplaces.",
         },
         {
           id: 3,
@@ -97,7 +97,7 @@ export default defineComponent({
           link: "/programs",
           tag: "BUSINESS",
           shortDesc:
-            "PGCM certification - AICTE-approved with exemptions based on ACCA, requiring completion of only the final examinations for certification. ",
+            "Introduces practical management and business fundamentals. ",
         },
         {
           id: 4,
@@ -105,7 +105,7 @@ export default defineComponent({
           title: "Work Experience",
           link: "/programs",
           tag: "PUBLIC",
-          shortDesc: "6 months of on-campus professional training followed by 6 months of in-office industry training with a monthly stipend, ensuring continuous learning with real-world GCC exposure. ",
+          shortDesc: " Includes internship exposure leading to guaranteed placement assistance. ",
         },
 
       ],

@@ -50,9 +50,9 @@ Default Colors Style
 Default Fonts Style
 ======================================================*/
 :root {
-  --headingFont: "Work Sans", sans-serif;
+  --headingFont: "Inter", sans-serif;
   --bodyFont: "Inter", sans-serif;
-  --anotherHeading: "Alfa Slab One", serif;
+  --anotherHeading: "Inter", serif;
 }
 
 /*
@@ -4168,7 +4168,7 @@ Hero Style3 Warp Style
 
 .hero-style3-content h1 {
   color: #0d0d25;
-  font-family: Alfa Slab One;
+  font-family: Inter;
   font-size: 60px;
   font-weight: 400;
   letter-spacing: 2.4px;
@@ -4209,7 +4209,7 @@ About Style3 Warp Style
 }
 
 .about-style2-content .content {
-  max-width: 230px;
+  /* max-width: 230px; */
 }
 
 .about-style2-content .content h2 {

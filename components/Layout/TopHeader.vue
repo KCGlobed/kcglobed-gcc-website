@@ -64,7 +64,7 @@
                 <NuxtLink to="/partner-with-us">For Partners</NuxtLink>
               </li>
               <li>
-                <NuxtLink to="/faq">FAQs</NuxtLink>
+                <NuxtLink to="/career">Careers</NuxtLink>
               </li>
             </ul>
             <ul class="header-account">

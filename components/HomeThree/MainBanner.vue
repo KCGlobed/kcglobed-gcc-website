@@ -1,24 +1,24 @@
 <template>
   <div class="hero-style3-warp">
     <b-tabs>
-      <b-tab title="Start Career" active>
+      <b-tab title="" active>
         <div class="inner-hero2-style bg-1">
           <div class="container-fluid">
             <div class="hero-style3-content" data-cue="slideInUp">
-              <h1>GCC School</h1>
-              <h3>Placement Before Capability Building</h3>
+              <h1>AEIAP</h1>
+              <h3>AI Enabled International Accounting Professionals Program</h3>
               <p>
-                Students receive a <b>₹10 LPA Conditional Offer Letter</b> from GCC partners before the program begins,
-                ensuring early career clarity.
+                The program enables individuals and professionals to enter global finance with structured, LMS-based
+                learning focused on international accounting, professional skills, and industry exposure.
               </p>
-              <a href="#" class="default-btn secodary-btn">Apply Now
+              <a href="/personal-information" class="default-btn secodary-btn">Apply Now
                 <i class="ti ti-arrow-narrow-right"></i>
               </a>
             </div>
           </div>
         </div>
       </b-tab>
-      <b-tab title="Student Life">
+      <!-- <b-tab title="Student Life">
         <div class="inner-hero2-style bg-2">
           <div class="container-fluid">
             <div class="hero-style3-content" data-cue="slideInUp">
@@ -49,7 +49,7 @@
             </div>
           </div>
         </div>
-      </b-tab>
+      </b-tab> -->
     </b-tabs>
   </div>
 </template>
@@ -59,3 +59,8 @@ export default {
   name: "MainBanner",
 };
 </script>
+<style>
+.hero-style3-warp .tabs .nav-tabs {
+  display: none !important;
+}
+</style>
