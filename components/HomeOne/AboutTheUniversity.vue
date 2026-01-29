@@ -29,9 +29,9 @@
                 <div class="mission-content" data-aos="fade-up" data-aos-delay="200">
                   <h3>{{ mission.heading }}</h3>
                   <div class="mission-box">
-                    <div class="icon">
+                    <!-- <div class="icon">
                       <img src="assets/img/svgs/mission1.svg" alt="image" />
-                    </div>
+                    </div> -->
                     <h5>{{ mission.title }}</h5>
                     <p>{{ mission.description }}</p>
                     <NuxtLink :to="mission.viewBtnLink" class="mission-link">

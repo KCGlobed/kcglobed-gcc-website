@@ -332,6 +332,9 @@ export default defineComponent({
 
       if (!this.form.name) this.errors.name = "Name is required"
       if (!this.form.mobile) this.errors.mobile = "Mobile number is required"
+      if (!this.form.email) this.errors.email = "Email is required"
+      if (!this.form.city) this.errors.city = "City is required"
+      if (!this.form.state) this.errors.state = "State is required"
       if (!this.form.graduationProgram) this.errors.graduationProgram = "Select graduation program"
       if (this.form.graduationProgram === "Other" && !this.form.graduationProgramOther) {
         this.errors.graduationProgramOther = "Please specify your graduation program"

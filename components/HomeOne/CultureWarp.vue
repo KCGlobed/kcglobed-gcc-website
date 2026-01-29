@@ -2,11 +2,12 @@
   <div class="culture-warp ptb-100">
     <div class="container">
       <div class="section-title">
-        <p class="subtitle">This is The Time, Right Time</p>
-        <h2>India: GCC Capital of the World</h2>
+        <p class="subtitle">The Right Time is Right Now</p>
+        <h2>India- GCC Capital of the World</h2>
         <p class="subtitle">India isn’t just supporting the world’s biggest companies — it’s leading them.
 
-          Global Capability Centres (GCCs) are turning Indian finance professionals into global decision-makers. </p>
+          <br /> Global Capability Centres (GCCs) are turning Indian finance professionals into global decision-makers.
+        </p>
       </div>
 
       <div class="row justify-content-center">
@@ -91,12 +92,12 @@
       <div class="source-text text-center mt-3">
         <p>At GCC School, you don’t wait for that future — you step right into it. </p>
       </div>
-      <div class="info-button d-flex justify-content-center mt-4">
+      <!-- <div class="info-button d-flex justify-content-center mt-4">
         <NuxtLink to="#" class="default-btn secodary-btn">
           Discover the GCC Advantage →
           <i class="ti ti-arrow-narrow-right"></i>
         </NuxtLink>
-      </div>
+      </div> -->
     </div>
   </div>
 </template>
