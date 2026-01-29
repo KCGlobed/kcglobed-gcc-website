@@ -9,7 +9,7 @@
             <div class="row">
                 <div class="col-lg-12">
                     <div class="floor-map-content">
-                        <img src="~/assets/img/campus/floor.jpg" alt="">
+                        <img src="~/assets/img/campus/floor1.jpg" alt="">
                     </div>
                 </div>
             </div>
