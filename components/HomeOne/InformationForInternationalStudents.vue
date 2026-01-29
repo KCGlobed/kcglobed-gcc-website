@@ -11,7 +11,7 @@
             <ul class="information-list">
               <li>
                 <i class="ti ti-check"></i>
-                ₹10 LPA+ offer letter
+                Conditional offer letter
               </li>
               <li>
                 <i class="ti ti-check"></i>
@@ -19,19 +19,19 @@
               </li>
               <li>
                 <i class="ti ti-check"></i>
-                ACCA classroom learning + full ACCA Qualification
+                ACCA classroom learning powered by KC GlobEd
               </li>
-              <li>
+              <!-- <li>
                 <i class="ti ti-check"></i>
                 MSc Professional Accountancy (University of London pathway)
+              </li> -->
+              <li>
+                <i class="ti ti-check"></i>
+                British Council - Global communication certificate
               </li>
               <li>
                 <i class="ti ti-check"></i>
-                British Council English Certification (A1–C1)
-              </li>
-              <li>
-                <i class="ti ti-check"></i>
-                PGCM from AIMA (AICTE-approved)
+                AICTE-approved Post-Graduate Certificate in Management
               </li>
             </ul>
             <div class="info-button">

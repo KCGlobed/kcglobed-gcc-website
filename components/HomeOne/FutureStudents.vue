@@ -2,7 +2,7 @@
   <div class="ticket-section">
     <div class="container">
       <div class="ticket-header-bar">
-        <h2>PASS THE ENTRANCE EXAM AND GET YOUR TICKET</h2>
+        <h2>CRACK NFET AND GET YOUR TICKET</h2>
         <p>TO EXPERIENCE THE CORPORATE WORLD AT CYBER CITY, GURUGRAM</p>
       </div>
 
@@ -20,7 +20,7 @@
               <div class="col-6">
                 <div class="info-group">
                   <label>FLIGHT</label>
-                  <span>GCC School -2026</span>
+                  <span>GCC School</span>
                 </div>
               </div>
             </div>
@@ -85,7 +85,7 @@
 
           <div class="info-group mt-4">
             <label>INCLUSIVE</label>
-            <span class="dark-text">ACCA / M.Sc. / PGCM / British Council</span>
+            <span class="dark-text">ACCA /PGCM / Global Communication Certificate</span>
           </div>
 
           <div class="info-group mt-3">
