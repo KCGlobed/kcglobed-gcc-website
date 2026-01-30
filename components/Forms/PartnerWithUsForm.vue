@@ -199,7 +199,7 @@
               <!-- Submit Button -->
               <div class="col-lg-12">
                 <button type="submit" class="default-btn submit-btn mt-4">
-                  Submit Button <i class="ti ti-arrow-narrow-right"></i>
+                  Apply Now <i class="ti ti-arrow-narrow-right"></i>
                 </button>
               </div>
             </form>

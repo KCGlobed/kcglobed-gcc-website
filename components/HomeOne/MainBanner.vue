@@ -132,7 +132,7 @@
 
             <!-- Graduation Program -->
             <div class="form-floating mb-2">
-              <select v-model="form.graduationProgram" class="form-select mb-3" @change="resetGraduationFields">
+              <select v-model="form.graduationProgram" class="form-select " @change="resetGraduationFields">
                 <option value="">Select your graduation program</option>
                 <option>B.Com</option>
                 <option>B.B.A</option>
@@ -140,8 +140,9 @@
                 <option>Other</option>
               </select>
               <label>Graduation Program</label>
+              <small class="text-danger" v-if="errors.graduationProgram">{{ errors.graduationProgram }}</small>
             </div>
-            <small class="text-danger" v-if="errors.graduationProgram">{{ errors.graduationProgram }}</small>
+
 
             <!-- Other Graduation Program (if selected) -->
             <div v-if="form.graduationProgram === 'Other'" class="form-floating mb-2">
@@ -153,14 +154,15 @@
 
             <!-- Graduation Status -->
             <div class="form-floating mb-2">
-              <select v-model="form.graduationStatus" class="form-select mb-3" @change="resetStatusFields">
+              <select v-model="form.graduationStatus" class="form-select" @change="resetStatusFields">
                 <option value="">Have you completed or are you pursuing your graduation?</option>
                 <option>Completed</option>
                 <option>Pursuing</option>
               </select>
               <label>Graduation Status</label>
+              <small class="text-danger" v-if="errors.graduationStatus">{{ errors.graduationStatus }}</small>
             </div>
-            <small class="text-danger" v-if="errors.graduationStatus">{{ errors.graduationStatus }}</small>
+
 
             <!-- If Pursuing - Current CGPA/Percentage -->
             <div v-if="form.graduationStatus === 'Pursuing'" class="form-floating mb-2">
@@ -172,14 +174,15 @@
             <!-- If Completed - First Division Check -->
             <div v-if="form.graduationStatus === 'Completed'">
               <div class="form-floating mb-2">
-                <select v-model="form.firstDivision" class="form-select mb-3" @change="resetHigherQualification">
+                <select v-model="form.firstDivision" class="form-select " @change="resetHigherQualification">
                   <option value="">Did you pass with First Division (≥60%)?</option>
                   <option>Yes</option>
                   <option>No</option>
                 </select>
                 <label>First Division (≥60%)</label>
+                <small class="text-danger" v-if="errors.firstDivision">{{ errors.firstDivision }}</small>
               </div>
-              <small class="text-danger" v-if="errors.firstDivision">{{ errors.firstDivision }}</small>
+
 
               <!-- If Yes - Higher Qualification (Optional) -->
               <div v-if="form.firstDivision === 'Yes'" class="form-floating mb-2">
@@ -211,15 +214,16 @@
                 </option>
               </select>
               <label>College / University</label>
+              <small class="text-danger" v-if="errors.college">{{ errors.college }}</small>
             </div>
-            <small class="text-danger" v-if="errors.college">{{ errors.college }}</small>
+
 
             <hr class="my-4">
 
             <h6 class="mb-3">How Did You Hear About GCC School?</h6>
 
             <div class="form-floating mb-2">
-              <select v-model="form.source" class="form-select mb-3">
+              <select v-model="form.source" class="form-select ">
                 <option value="">Select Source</option>
                 <option>College / University</option>
                 <option>Event / Seminar</option>
@@ -230,8 +234,9 @@
                 <option>Other</option>
               </select>
               <label>How Did You Hear About GCC School?</label>
+              <small class="text-danger" v-if="errors.source">{{ errors.source }}</small>
             </div>
-            <small class="text-danger" v-if="errors.source">{{ errors.source }}</small>
+
 
             <div class="form-floating mb-2">
               <textarea v-model="form.remarks" class="form-control mt-3" rows="3"
