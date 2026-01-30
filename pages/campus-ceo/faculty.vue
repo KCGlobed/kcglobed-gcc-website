@@ -11,12 +11,14 @@
     </div>
 </template>
 
-<script lang="ts">
-import { defineComponent } from "vue";
+<script setup lang="ts">
+// import { defineComponent } from "vue";
 
-export default defineComponent({
-    name: "CampusCeoFaculty"
-});
+// export default defineComponent({});
+useHead({
+    title: "GCC School | Campus CEO - Faculty",
+})
+
 </script>
 
 <style scoped></style>

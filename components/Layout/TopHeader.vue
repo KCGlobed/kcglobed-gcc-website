@@ -6,7 +6,7 @@
           <div class="top-header-details">
             <ul class="social-list">
               <li>
-                <a href="https://www.facebook.com/" target="_blank" class="icon">
+                <a href="https://www.facebook.com/share/187jgT5gev/" target="_blank" class="icon">
                   <img src="~/assets/img/svgs/facebook.svg" alt="icon" />
                 </a>
               </li>
@@ -26,7 +26,7 @@
                 </a>
               </li>
               <li>
-                <a href="https://www.youtube.com/" target="_blank" class="icon">
+                <a href="https://www.youtube.com/@GCCSchool" target="_blank" class="icon">
                   <img src="~/assets/img/svgs/youtube.svg" alt="icon" />
                 </a>
               </li>
