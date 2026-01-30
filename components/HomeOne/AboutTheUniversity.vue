@@ -35,7 +35,7 @@
                     <h5>{{ mission.title }}</h5>
                     <p>{{ mission.description }}</p>
                     <NuxtLink :to="mission.viewBtnLink" class="mission-link"
-                      v-if="mission.viewBtnLink && mission.title !== 'Mission' && mission.title !== 'Vision'">
+                      v-if="mission.viewBtnLink && mission.title !== 'Mission' && mission.title !== 'Vision' && mission.title !== 'Leadership'">
                       <span>{{ mission.viewBtnText }}</span>
                       <i class="ti ti-arrow-narrow-right"></i>
                     </NuxtLink>
@@ -101,9 +101,9 @@ export default defineComponent({
         image: image4,
         heading: "About The GCC School",
         description:
-          "GCC School is powered by KC GlobEd, where we embody the ethos of “One Globe, One Education.” We are dedicated to making high-quality professional learning accessible to every learner, regardless of geography or background. At KC GlobEd, we break educational boundaries and transform aspirations into universal possibilities.  ",
+          "The KCG team is committed to cultivating high standards of professionalism in every learner, regardless of academic background. By breaking traditional educational boundaries, we transform aspirations into globally relevant competencies. ",
         viewBtnText: "View Details",
-        viewBtnLink: "/programs",
+        viewBtnLink: "https://www.kcglobed.com/",
         btnText: "Campus Walkthrough",
         btnLink: "/campus-life",
       },
