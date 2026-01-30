@@ -15,23 +15,28 @@
             <ul class="value-list">
               <li>
                 <span>1.</span>
-                <strong>Excellence</strong>:Performance that sets benchmarks.
+                <strong>Ethical Practice</strong>:Upholding highest ethical standards.
               </li>
               <li>
                 <span>2.</span>
-                <strong>Integrity</strong> : Clarity in actions and outcomes.
+                <strong>Transparency</strong>:Working with cutting-edge technology
               </li>
               <li>
                 <span>3.</span>
-                <strong>Innovation</strong>: Adaptive learning for a fast-changing world.
+                <strong>Innovation</strong>:Inspiring professionals to think creatively and shape the future
               </li>
               <li>
                 <span>4.</span>
-                <strong>Collaboration</strong> : Power in partnerships across industries.
+                <strong>Empathy</strong> : Transforming lives through learning and providing opportunities
               </li>
               <li>
                 <span>5.</span>
-                <strong>Empowerment</strong>:Turning ambition into real-world outcomes.
+                <strong>Sustainability</strong>:Cultivate responsible leaders who create enduring value for business and
+                society.
+              </li>
+              <li>
+                <span>6.</span>
+                <strong>Social Impact</strong>:Empower professionals to drive meaningful change.
               </li>
 
 

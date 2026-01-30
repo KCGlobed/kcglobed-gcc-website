@@ -20,10 +20,9 @@
                             <img src="~/assets/img/logo_kcglobed.svg" alt="KC GlobEd" />
                         </div>
                         <p>
-                            GCC School is powered by KC GlobEd, where we embody the
-                            ethos of “One Globe, One Education.” We are dedicated
-                            to making high-quality professional learning accessible
-                            to every learner.
+                            The KCG team is committed to cultivating high standards of professionalism in every learner,
+                            regardless of academic background. By breaking traditional educational boundaries, we
+                            transform aspirations into globally relevant competencies.
                         </p>
                     </div>
                 </div>
