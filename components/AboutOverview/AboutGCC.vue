@@ -45,12 +45,12 @@
                         <div class="conclusion-box mt-4">
                             <h4>We don’t prepare you to apply for jobs — we prepare you to perform in them.</h4>
                         </div>
-                        <div class="info-button d-flex justify-content-center mt-4">
+                        <!-- <div class="info-button d-flex justify-content-center mt-4">
                             <NuxtLink to="#" class="default-btn secodary-btn">
                                 Explore Why GCC School Works →
                                 <i class="ti ti-arrow-narrow-right"></i>
                             </NuxtLink>
-                        </div>
+                        </div> -->
 
                     </div>
                 </div>

@@ -14,8 +14,10 @@
           <div class="about-campus-content">
             <h3>Vision</h3>
             <p>
-              To redefine finance and commerce education — shaping industry-ready, ethical leaders who drive global
-              impact.
+              To build a globally trusted, equitable, and sustainable talent ecosystem that identifies latent potential
+              early, aligns it with real-world opportunity, and develops future-ready leaders capable of delivering
+              measurable impact across global enterprises.
+
             </p>
             <h3>Mission</h3>
             <p>

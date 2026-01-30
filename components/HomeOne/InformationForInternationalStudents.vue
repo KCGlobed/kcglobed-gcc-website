@@ -21,17 +21,18 @@
                 <i class="ti ti-check"></i>
                 ACCA classroom learning powered by KC GlobEd
               </li>
-              <!-- <li>
-                <i class="ti ti-check"></i>
-                MSc Professional Accountancy (University of London pathway)
-              </li> -->
+
               <li>
                 <i class="ti ti-check"></i>
                 British Council - Global communication certificate
               </li>
               <li>
                 <i class="ti ti-check"></i>
-                AICTE-approved Post-Graduate Certificate in Management
+                AICTE-approved Post-Graduate Certificate in Management (Public Accounting)
+              </li>
+              <li>
+                <i class="ti ti-check"></i>
+                MSc Professional Accountancy (University of London)-Optional
               </li>
             </ul>
             <div class="info-button">

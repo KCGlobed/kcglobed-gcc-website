@@ -3,7 +3,7 @@
     <div class="container">
       <div class="copy-right-content">
         <p>
-          © <span class="">{{ new Date().getFullYear() }}</span> GCC School
+          Copyright © {{ new Date().getFullYear() }} GCC School
         </p>
       </div>
     </div>

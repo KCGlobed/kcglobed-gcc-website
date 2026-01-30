@@ -27,14 +27,15 @@
               </div>
               <div class="col-lg-6">
                 <div class="mission-content" data-aos="fade-up" data-aos-delay="200">
-                  <h3>{{ mission.heading }}</h3>
+                  <!-- <h3>{{ mission.heading }}</h3> -->
                   <div class="mission-box">
                     <!-- <div class="icon">
                       <img src="assets/img/svgs/mission1.svg" alt="image" />
                     </div> -->
                     <h5>{{ mission.title }}</h5>
                     <p>{{ mission.description }}</p>
-                    <NuxtLink :to="mission.viewBtnLink" class="mission-link">
+                    <NuxtLink :to="mission.viewBtnLink" class="mission-link"
+                      v-if="mission.viewBtnLink && mission.title !== 'Mission' && mission.title !== 'Vision'">
                       <span>{{ mission.viewBtnText }}</span>
                       <i class="ti ti-arrow-narrow-right"></i>
                     </NuxtLink>
@@ -78,32 +79,32 @@ export default defineComponent({
           "To build a globally trusted, equitable, and sustainable talent ecosystem that identifies latent potential early, aligns it with real-world opportunity, and develops future-ready leaders capable of delivering measurable impact across global enterprises. ",
         viewBtnText: "View Details",
         viewBtnLink: "/program-choice",
-        btnText: "Take A Campus Tour",
+        btnText: "Campus Walkthrough",
         btnLink: "/campus-life",
       },
       {
         id: 1,
-        title: " Mission",
+        title: "Mission",
         image: image6,
         heading: "About The GCC School",
         description:
-          "To democratize access to global careers by pioneering an inverse education-to-employment model where verified industry demand precedes learning, ensuring a zero-risk, outcome-assured pathway that transforms high-potential individuals into day-one deployable, ethically grounded, globally credentialed professionals through deep industry immersion, digital excellence, and applied experiential learning.",
+          "To architect global career pathways by introducing India’s first inverse education model. This is where corporate outcomes precede education, ensuring a zero-risk transformation of selected talent into market-ready leaders through immersive industry engagement.",
         viewBtnText: "View Details",
         viewBtnLink: "/event-details",
-        btnText: "Take A Campus Tour",
+        btnText: "Campus Walkthrough",
         btnLink: "/campus-life",
       },
 
       {
         id: 4,
-        title: "Background",
+        title: "Legacy",
         image: image4,
         heading: "About The GCC School",
         description:
           "GCC School is powered by KC GlobEd, where we embody the ethos of “One Globe, One Education.” We are dedicated to making high-quality professional learning accessible to every learner, regardless of geography or background. At KC GlobEd, we break educational boundaries and transform aspirations into universal possibilities.  ",
         viewBtnText: "View Details",
         viewBtnLink: "/programs",
-        btnText: "Take A Campus Tour",
+        btnText: "Campus Walkthrough",
         btnLink: "/campus-life",
       },
       {
@@ -114,8 +115,8 @@ export default defineComponent({
         description:
           "The leadership of GCC School brings together experienced professionals from industry and academia to build a globally aligned ecosystem. With a strong focus on execution, mentorship, and ethical responsibility, the leadership ensures that Young Aspiring Professionals are guided by real-world insights and academic excellence. ",
         viewBtnText: "View Details",
-        viewBtnLink: "/programs",
-        btnText: "Take A Campus Tour",
+        viewBtnLink: "/campus-life",
+        btnText: "Campus Walkthrough",
         btnLink: "/campus-life",
       },
     ];

@@ -14,6 +14,9 @@
                   <li>
                     <NuxtLink to="/about-overview">About Us</NuxtLink>
                   </li>
+                  <li>
+                    <NuxtLink to="https://www.kcglobed.com/" target="_blank">Kc Global</NuxtLink>
+                  </li>
                 </ul>
               </div>
               <div class="col-lg-4">
@@ -23,6 +26,9 @@
                   </li>
                   <li>
                     <NuxtLink to="/admissions">Admissions</NuxtLink>
+                  </li>
+                  <li>
+                    <NuxtLink to="https://www.britishcouncil.in/" target="_blank">British Council</NuxtLink>
                   </li>
                 </ul>
 
@@ -35,6 +41,9 @@
                   <li>
                     <NuxtLink to="/contact-us">Contact Us</NuxtLink>
                   </li>
+                  <li>
+                    <NuxtLink to="https://tech4ed.in/ " target="_blank">Tech4Ed</NuxtLink>
+                  </li>
                 </ul>
 
               </div>
@@ -46,7 +55,7 @@
             <h3>Subscribe Newsletter</h3>
             <div class="footer-form">
               <form>
-                <input type="text" class="form-control" placeholder="Enter Email Address" disabled="" />
+                <input type="text" class="form-control" placeholder="Enter Email Address" />
                 <button class="footer-btn" type="submit">
                   <span>Subscribe Now</span>
                   <i class="ti ti-arrow-narrow-right"></i>

@@ -1,5 +1,5 @@
 <template>
-    <div class="mentors-section">
+    <div class="mentors-section" id="our-mentor">
         <!-- Section Header -->
         <div class="section-header">
             <h2 class="section-title">Our Mentors</h2>
