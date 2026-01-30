@@ -24,7 +24,7 @@
 
               <li>
                 <i class="ti ti-check"></i>
-                British Council - Global communication certificate
+                British Council - English For Work
               </li>
               <li>
                 <i class="ti ti-check"></i>
