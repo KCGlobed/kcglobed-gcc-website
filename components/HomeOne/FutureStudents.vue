@@ -85,7 +85,7 @@
 
           <div class="info-group mt-4">
             <label>INCLUSIVE</label>
-            <span class="dark-text">ACCA /PGCM / Global Communication Certificate</span>
+            <span class="dark-text">ACCA /PGCM / British Council</span>
           </div>
 
           <div class="info-group mt-3">
