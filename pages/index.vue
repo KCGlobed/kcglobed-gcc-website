@@ -5,7 +5,7 @@
     <HomeOneMainBanner />
     <HomeOneInformationForInternationalStudents />
     <!-- <HomeOneFindYourProgram /> -->
-    <HomeOneAboutTheUniversity />
+    <!-- <HomeOneAboutTheUniversity /> -->
     <CommonFunFact />
     <HomeOneFutureStudents />
     <HomeOneCultureWarp />

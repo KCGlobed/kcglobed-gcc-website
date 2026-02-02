@@ -155,19 +155,44 @@ export default defineComponent({
         title: "Home",
         description: "Return to homepage",
         path: "/",
-        keywords: ["main", "homepage", "landing", "मुख्य पृष्ठ", "home", " India’s 1st AI-powered school", "1st AI-powered school"]
+        keywords: ["main", "homepage", "landing", "मुख्य पृष्ठ", "home", "India’s 1st AI-powered school", "1st AI-powered school", " At GCC School, you don’t just prepare for the corporate world — you enter it.Every session,project, and mentor experience mirrors the way top global firms actually operate.",
+          "Build a Global Career in 12 Months",
+          "In just 12 months, you’ll transform from graduate to global professional — ready to perform from day one.",
+          "Conditional offer letter",
+          "6-month paid internship along with program",
+          "ACCA classroom learning powered by KC GlobEd",
+          "British Council - English For Work",
+          "AICTE-approved Post-Graduate Certificate in Management (Public Accounting)",
+          "MSc Professional Accountancy (University of London)-Optional",
+          "Backed by Industry Titans",
+          "CRACK NFET AND GET YOUR TICKET",
+          "India - GCC Capital of the World",
+          "Traditional Pathway vs GCC Journey",
+          "ACCA", "acca", "Acca", "NFET", "Nfet", "nfet", "NFET", "Nfet", "nfet", "12 Months",
+          "Globally Recognised Academic Credentials", "Strong theoretical foundation", "Career Commitment & Confidence from Day 1",
+          "Get Hired First, Then Trained.", "Real time industry environmental learning",
+          "Global Exposure", "Purpose Driven Curriculum", "Industry mentors", "AI- Enabled Learning", "Outcome Based Assessment", "Employability Focused Training"
+        ]
       },
       {
         title: "About Us - Overview",
         description: "Learn about our school",
         path: "/about-overview",
-        keywords: ["about", "school", "information", "history", "mission", "vision", "values", "हमारे बारे में"]
+        keywords: ["about", "school", "information", "history", "mission", "vision", "values", "हमारे बारे में",
+          "Where Potential Becomes Performance", "About GCC School", "The First GCC-Trained Talent Cohort", "GCC School is a career lab for Young Aspiring Professionals (YAPs) ready to build global careers in finance, commerce, and operations.",
+          "What is Global Capability Center (GCC)?", "Vision and Mission", "Our Core Values:", "The GCC DNA", "Ethical Practice", "Transparency", "Innovation", "Empathy", "Sustainability", "Social Impact", "Visionary Leadership", "Dr. Kamal Chhabra", "Dr. Kamal Chhabra ", "Prof. (Dr.) Manpreet Singh Manna", "Executive Director", "Our Legacy",
+          "Our Mentors"
+        ]
       },
       {
         title: "Programs",
         description: "Explore our academic programs",
         path: "/programs",
-        keywords: ["courses", "curriculum", "academics", "classes", "subjects", "education", "कार्यक्रम", "पाठ्यक्रम"]
+        keywords: ["courses", "curriculum", "academics", "classes", "subjects", "education", "कार्यक्रम", "पाठ्यक्रम",
+          "AEIAP", " AI Enabled International Accounting Professional Program ",
+          "Integrated Program Dedicated for GCC", "Global Financial Qualification", "Global Communication Certification", "Executive Management Certification", "Work Experience"
+          , "Pathway to Success", "About ACCA", "Exclusive National & International Credentials", "British Council English Certification", "M.Sc. in Professional Accountancy – University of London (Optional)", "PGCM – Public Accounting (AICTE-approved)"
+        ]
       },
       {
         title: "Admissions",
@@ -179,13 +204,41 @@ export default defineComponent({
         title: "Campus Life",
         description: "Student life and activities",
         path: "/campus-life",
-        keywords: ["student", "activities", "events", "facilities", "sports", "clubs", "life", "कैंपस जीवन"]
+        keywords: ["student", "activities", "events", "facilities", "sports", "clubs", "life", "कैंपस जीवन", "Campus Floor Plan",
+          "Corporate Classroom", "Open Library", "Cafeteria / Recreation", "Corporate Board Room(Training room)", "Workstation Zone", "Exam Center", "Media Studio", "Industry Leaders' Talks", "GCC Shuttle Service",
+          "COMMITTED TO SUSTAINABLE DEVELOPMENT GOALS", "Driving Sustainability Through Education and Employment",
+          ""
+        ]
       },
       {
         title: "Contact Us",
         description: "Get in touch with us",
         path: "/contact-us",
-        keywords: ["contact", "phone", "email", "address", "location", "reach", "संपर्क करें"]
+        keywords: ["contact", "phone", "email", "address", "location", "reach", "संपर्क करें", "Request a callback from our team and a dedicated counsellor from our team will reach out to assess if the program is the correct fit for you."]
+      },
+      {
+        title: "Career",
+        description: "Grow With Us",
+        path: "/career",
+        keywords: ["Grow With Us", "Join our team and help shape the future of education. Apply now!", "Application Form", ""]
+      },
+      {
+        title: "CEO Student",
+        description: "CEO Student",
+        path: "/campus-ceo/student",
+        keywords: ["CEO Student", "CEO Student", "Application Form", "Become a Campus CEO"]
+      },
+      {
+        title: "CEO Faculty",
+        description: "CEO Faculty",
+        path: "/campus-ceo/faculty",
+        keywords: ["CEO Faculty", "CEO Faculty", "Application Form", "Become a Campus CEO"]
+      },
+      {
+        title: "Partner With Us",
+        description: "Partner With Us",
+        path: "/partner-with-us",
+        keywords: ["Partner With Us", "Partner With Us", "Application Form", "Become a Campus CEO"]
       },
       // Add more searchable content as needed
     ];
