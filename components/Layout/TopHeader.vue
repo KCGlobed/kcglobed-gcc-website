@@ -10,18 +10,18 @@
                   <img src="~/assets/img/svgs/facebook.svg" alt="icon" />
                 </a>
               </li>
-              <!-- <li>
-                <a href="" target="_blank" class="icon">
+              <li>
+                <a href="https://x.com/gccschool2026" target="_blank" class="icon">
                   <img src="~/assets/img/svgs/twitter.svg" alt="icon" />
                 </a>
-              </li> -->
+              </li>
               <li>
                 <a href="https://www.instagram.com/gccschool?igsh=MXQxc2JhazAwcG55cQ==" target="_blank" class="icon">
                   <img src="~/assets/img/svgs/instagram.svg" alt="icon" />
                 </a>
               </li>
               <li>
-                <a href="https://www.linkedin.com/company/gcc-school/posts/?feedView=all" target="_blank" class="icon">
+                <a href="https://www.linkedin.com/company/gccschool/" target="_blank" class="icon">
                   <img src="~/assets/img/svgs/linkedin.svg" alt="icon" />
                 </a>
               </li>

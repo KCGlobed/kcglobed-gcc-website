@@ -90,7 +90,7 @@
       </div>
 
       <div class="source-text text-center mt-3">
-        <p>At GCC School, you don’t wait for that future — you step right into it. </p>
+        <p>At GCC School, you don't wait for the future - You step into it. </p>
       </div>
       <!-- <div class="info-button d-flex justify-content-center mt-4">
         <NuxtLink to="#" class="default-btn secodary-btn">

@@ -7,7 +7,7 @@
             <h5>Contact Information</h5>
             <div class="contact-item">
               <span>Phone No:</span>
-              <a href="tel:9773576111">9773576111</a>
+              <a href="tel:9773576111">+919773576111</a>
             </div>
             <div class="contact-item">
               <span>Email:</span>
@@ -36,19 +36,18 @@
                     <img src="~/assets/img/svgs/facebook.svg" alt="icon" />
                   </a>
                 </li>
-                <!-- <li>
-                  <a href="https://www.twitter.com/" target="_blank" class="icon">
+                <li>
+                  <a href="https://x.com/gccschool2026" target="_blank" class="icon">
                     <img src="~/assets/img/svgs/twitter.svg" alt="icon" />
                   </a>
-                </li> -->
+                </li>
                 <li>
                   <a href="https://www.instagram.com/gccschool?igsh=MXQxc2JhazAwcG55cQ==" target="_blank" class="icon">
                     <img src="~/assets/img/svgs/instagram.svg" alt="icon" />
                   </a>
                 </li>
                 <li>
-                  <a href="https://www.linkedin.com/company/gcc-school/posts/?feedView=all" target="_blank"
-                    class="icon">
+                  <a href="https://www.linkedin.com/company/gccschool/" target="_blank" class="icon">
                     <img src="~/assets/img/svgs/linkedin.svg" alt="icon" />
                   </a>
                 </li>

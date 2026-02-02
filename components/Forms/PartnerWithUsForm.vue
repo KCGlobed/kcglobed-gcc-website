@@ -126,19 +126,6 @@
                 </div>
                 <div class="col-lg-6">
                   <div class="input-box">
-                    <label class="form-label">City <span>*</span></label>
-                    <div class="input-with-icon">
-                      <select v-model="form.city" class="form-control" :disabled="!form.state">
-                        <option value="">Select City</option>
-                        <option v-for="city in citiesList" :key="city" :value="city">{{ city }}</option>
-                      </select>
-                      <i class="ti ti-map-pin"></i>
-                    </div>
-                    <small class="text-danger" v-if="errors.city">{{ errors.city }}</small>
-                  </div>
-                </div>
-                <div class="col-lg-6">
-                  <div class="input-box">
                     <label class="form-label">State <span>*</span></label>
                     <div class="input-with-icon">
                       <select v-model="form.state" class="form-control" @change="onStateChange">
@@ -150,6 +137,20 @@
                     <small class="text-danger" v-if="errors.state">{{ errors.state }}</small>
                   </div>
                 </div>
+                <div class="col-lg-6">
+                  <div class="input-box">
+                    <label class="form-label">City <span>*</span></label>
+                    <div class="input-with-icon">
+                      <select v-model="form.city" class="form-control" :disabled="!form.state">
+                        <option value="">Select City</option>
+                        <option v-for="city in citiesList" :key="city" :value="city">{{ city }}</option>
+                      </select>
+                      <i class="ti ti-map-pin"></i>
+                    </div>
+                    <small class="text-danger" v-if="errors.city">{{ errors.city }}</small>
+                  </div>
+                </div>
+
               </div>
 
               <hr class="my-4">
