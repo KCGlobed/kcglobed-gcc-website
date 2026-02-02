@@ -54,11 +54,11 @@
           <div class="footer-widget">
             <h3>Subscribe Newsletter</h3>
             <div class="footer-form">
-              <form>
-                <input type="text" class="form-control" placeholder="Enter Email Address" />
-                <button class="footer-btn" type="submit">
-                  <span>Subscribe Now</span>
-                  <i class="ti ti-arrow-narrow-right"></i>
+              <form @submit.prevent="subscribe">
+                <input v-model="email" type="email" required class="form-control" placeholder="Enter Email Address" />
+                <button class="footer-btn" type="submit" :disabled="loading">
+                  <span>{{ loading ? "Subscribing..." : "Subscribe Now" }}</span>
+                  <i v-if="!loading" class="ti ti-arrow-narrow-right"></i>
                 </button>
               </form>
             </div>
@@ -72,5 +72,36 @@
 <script>
 export default {
   name: "MainFooter",
+  data() {
+    return {
+      email: "",
+      loading: false,
+    };
+  },
+  methods: {
+    async subscribe() {
+      if (!this.email) return;
+
+      this.loading = true;
+      try {
+        const { data, error } = await useFetch('/api/subscribe', {
+          method: 'POST',
+          body: { email: this.email }
+        });
+
+        if (error.value) {
+          alert(error.value.message || "Something went wrong. Please try again.");
+        } else {
+          alert(data.value.message || "You’re subscribed. Watch your inbox for news and insights");
+          this.email = "";
+        }
+      } catch (err) {
+        alert("An error occurred. Please try again.");
+        console.error(err);
+      } finally {
+        this.loading = false;
+      }
+    }
+  }
 };
 </script>
