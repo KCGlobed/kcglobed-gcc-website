@@ -3,7 +3,7 @@
     <div class="container">
       <div class="section-title">
         <p class="subtitle">The Right Time is Right Now</p>
-        <h2>India- GCC Capital of the World</h2>
+        <h2>India - GCC Capital of the World</h2>
         <p class="subtitle">India isn’t just supporting the world’s biggest companies — it’s leading them.
 
           <br /> Global Capability Centres (GCCs) are turning Indian finance professionals into global decision-makers.
@@ -31,7 +31,7 @@
               </svg>
             </div>
             <h3 class="stat-number">1,950+</h3>
-            <h4 class="stat-title">Global Capability Centers in India</h4>
+            <h4 class="stat-title">Global Capability Centres in India</h4>
             <p class="stat-desc">Making it the world's leading GCC hub</p>
           </div>
         </div>
@@ -128,7 +128,7 @@ export default {
 
 .section-title .subtitle {
   font-size: 16px;
-  color: #c9a1a1;
+  color: #fff;
   max-width: 800px;
   margin: 0 auto;
   font-weight: 400;
@@ -186,7 +186,7 @@ export default {
 }
 
 .source-text p {
-  font-size: 12px;
-  color: #999;
+  font-size: 14px;
+  color: #fff;
 }
 </style>

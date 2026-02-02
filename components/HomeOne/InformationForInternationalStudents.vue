@@ -40,12 +40,13 @@
                 Explore 12-Month Journey
                 <i class="ti ti-arrow-narrow-right"></i>
               </NuxtLink>
-              <NuxtLink to="/admissions" class="default-btn secodary-btn">
+              <div class="default-btn secodary-btn" style="cursor: pointer;" @click="toggleEligibilityModal">
                 Check Eligibility
                 <i class="ti ti-arrow-narrow-right"></i>
-              </NuxtLink>
+              </div>
             </div>
-            <!-- <div class="info-link-chat">
+          </div>
+          <!-- <div class="info-link-chat">
               <ul class="chat-list">
                 <li>
                   <div class="image">
@@ -71,7 +72,6 @@
                 </a>
               </div>
             </div> -->
-          </div>
         </div>
         <div class="col-lg-6" data-aos="zoom-in-up" data-aos-delay="200">
           <div class="information-image">
@@ -88,11 +88,27 @@
         </div>
       </div>
     </div>
+    <CheckEligibilityModal :isVisible="isEligibilityModalVisible" @close="toggleEligibilityModal" />
   </div>
 </template>
 
 <script>
+import CheckEligibilityModal from "./CheckEligibilityModal";
+
 export default {
   name: "InformationForInternationalStudents",
+  components: {
+    CheckEligibilityModal
+  },
+  data() {
+    return {
+      isEligibilityModalVisible: false,
+    };
+  },
+  methods: {
+    toggleEligibilityModal() {
+      this.isEligibilityModalVisible = !this.isEligibilityModalVisible;
+    },
+  }
 };
 </script>

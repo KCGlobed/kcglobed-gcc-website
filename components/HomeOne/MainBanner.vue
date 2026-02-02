@@ -35,14 +35,17 @@
 
             <div class="content" style="margin-top: 20px;">
               <h1 class="title" style="font-size: 48px;line-height: 1.3;">
-                India’s 1<sup>st</sup> School<br /> Powered by Industry,<br />Defined by Performance
+                India’<span class="small-s">s</span> 1<sup>st</sup> School<br /> Powered by Industry,<br />Defined by
+                Performance
               </h1>
               <h4
                 style="font-size: 24px; line-height: 1.4; color: #fff; font-family: Inter,sans-serif; font-weight: 500;">
                 Start Your Career. Not Just Your Classes
               </h4>
               <p style="color: #fff;">
-                {{ banner.description }}
+                At GCC School, you don’t just prepare for the corporate world — you enter it.<br /> Every session,
+                project,
+                and mentor experience mirrors the way top global firms actually operate.
               </p>
               <div class="hero-btn">
                 <NuxtLink :to="banner.btnLink" class="default-btn">
@@ -491,7 +494,7 @@ export default defineComponent({
           subTitle: "Cohort 2026 Applications Open",
           image: image1,
           heading: "World's 1st School Backed  by Industry, Built on Execution",
-          description: "At GCC School, you don’t just prepare for the corporate world — you enter it.Every session, project, and mentor experience mirrors the way top global firms actually operate. ",
+          description: "",
           btnText: "Apply Now",
           btnLink: "/personal-information",
           btnTextTwo: "Download Dossier",

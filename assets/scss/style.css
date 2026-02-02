@@ -10110,4 +10110,11 @@ All Key Style
   background: #F1F5F9;
 }
 
+.small-s {
+  font-size: 0.8em;
+  /* sirf 's' chhota */
+  vertical-align: baseline;
+  /* normal line pe rahe */
+}
+
 /*-----typology css---------------*/
