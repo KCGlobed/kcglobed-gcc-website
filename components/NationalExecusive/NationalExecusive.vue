@@ -32,7 +32,7 @@
                 </div>
                 <div class="col-lg-6 order-lg-1" data-aos="zoom-in-up" data-aos-delay="200">
                     <div class="about-content">
-                        <h3>M.Sc. in Professional Accountancy – University of London</h3>
+                        <h3>M.Sc. in Professional Accountancy – University of London (Optional)</h3>
                         <p>
                             A globally recognised master's programme strengthening analytical, strategic, and research
                             capabilities in finance and accounting.
@@ -60,7 +60,7 @@
                 </div>
                 <div class="col-lg-6" data-aos="zoom-in-up" data-aos-delay="200">
                     <div class="about-content">
-                        <h3>PGCM – Public Accounting (AIMA, AICTE-approved)</h3>
+                        <h3>PGCM – Public Accounting (AICTE-approved)</h3>
                         <p>
                             A Post Graduate Certificate in Management awarded alongside ACCA, strengthening business and
                             public accounting foundations.

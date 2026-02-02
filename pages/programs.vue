@@ -3,7 +3,7 @@
     <LayoutTopHeader />
     <LayoutMainNavbar />
     <!-- <CommonCommingSoon /> -->
-    <HomeThreeMainBanner />
+    <ProgramsProgramBanner />
     <HomeThreeAboutUniversity />
 
     <HomeThreeGraduatePrograms />

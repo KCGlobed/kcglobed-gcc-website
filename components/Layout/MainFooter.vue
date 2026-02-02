@@ -15,7 +15,7 @@
                     <NuxtLink to="/about-overview">About Us</NuxtLink>
                   </li>
                   <li>
-                    <NuxtLink to="https://www.kcglobed.com/" target="_blank">Kc Global</NuxtLink>
+                    <NuxtLink to="https://www.kcglobed.com/" target="_blank">KC Globed</NuxtLink>
                   </li>
                 </ul>
               </div>

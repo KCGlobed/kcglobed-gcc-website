@@ -35,7 +35,7 @@
                     <h5>{{ mission.title }}</h5>
                     <p>{{ mission.description }}</p>
                     <NuxtLink :to="mission.viewBtnLink" class="mission-link"
-                      v-if="mission.viewBtnLink && mission.title !== 'Mission' && mission.title !== 'Vision' && mission.title !== 'Leadership'">
+                      v-if="mission.viewBtnLink && mission.title !== 'Mission' && mission.title !== 'Vision'">
                       <span>{{ mission.viewBtnText }}</span>
                       <i class="ti ti-arrow-narrow-right"></i>
                     </NuxtLink>
@@ -115,7 +115,7 @@ export default defineComponent({
         description:
           "The leadership of GCC School brings together experienced professionals from industry and academia to build a globally aligned ecosystem. With a strong focus on execution, mentorship, and ethical responsibility, the leadership ensures that Young Aspiring Professionals are guided by real-world insights and academic excellence. ",
         viewBtnText: "View Details",
-        viewBtnLink: "/campus-life",
+        viewBtnLink: "/about-overview#leadership",
         btnText: "Campus Walkthrough",
         btnLink: "/campus-life",
       },

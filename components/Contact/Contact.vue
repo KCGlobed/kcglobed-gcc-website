@@ -14,45 +14,46 @@
               <a href="mailto:info@gccschool.com">info@gccschool.com</a>
             </div>
             <div class="contact-item">
-              <span>Campus Address Location:</span>
+              <span>Campus Address:</span>
               <p> 16th Floor, Tower-B,</p>
               <p> DLF Building No. 09,</p>
               <p> DLF Cyber City, Gurugram, Haryana, 122002 </p>
             </div>
             <div class="contact-item">
-              <span>Office Address Location:</span>
+              <span>Office Address:</span>
               <p> 4th Floor, Vipul Plaza, 419-20,</p>
               <p> Golf Course Road, Suncity, Sector 54, Gurugram, Haryana, 122002 </p>
             </div>
             <div class="contact-item">
-              <span>Open Hours:</span>
-              <p>Monday - Friday: 9:30 AM – 5:30 PM</p>
+              <span>Business Hours:</span>
+              <p>Monday - Friday: 9:30 AM – 6:30 PM</p>
             </div>
             <div class="contact-item">
-              <span>Social Media:</span>
+              <span>Follow Us:</span>
               <ul class="social-list">
                 <li>
-                  <a href="https://www.facebook.com/" target="_blank" class="icon">
+                  <a href="https://www.facebook.com/share/187jgT5gev/" target="_blank" class="icon">
                     <img src="~/assets/img/svgs/facebook.svg" alt="icon" />
                   </a>
                 </li>
-                <li>
+                <!-- <li>
                   <a href="https://www.twitter.com/" target="_blank" class="icon">
                     <img src="~/assets/img/svgs/twitter.svg" alt="icon" />
                   </a>
-                </li>
+                </li> -->
                 <li>
                   <a href="https://www.instagram.com/gccschool?igsh=MXQxc2JhazAwcG55cQ==" target="_blank" class="icon">
                     <img src="~/assets/img/svgs/instagram.svg" alt="icon" />
                   </a>
                 </li>
                 <li>
-                  <a href="https://www.linkedin.com/" target="_blank" class="icon">
+                  <a href="https://www.linkedin.com/company/gcc-school/posts/?feedView=all" target="_blank"
+                    class="icon">
                     <img src="~/assets/img/svgs/linkedin.svg" alt="icon" />
                   </a>
                 </li>
                 <li>
-                  <a href="https://www.youtube.com/" target="_blank" class="icon">
+                  <a href="https://www.youtube.com/@GCCSchool" target="_blank" class="icon">
                     <img src="~/assets/img/svgs/youtube.svg" alt="icon" />
                   </a>
                 </li>
