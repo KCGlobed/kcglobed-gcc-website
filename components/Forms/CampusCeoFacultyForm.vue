@@ -275,8 +275,9 @@
 
                             <!-- Submit Button -->
                             <div class="col-lg-12">
-                                <button type="submit" class="default-btn submit-btn mt-4">
-                                    Submit Application <i class="ti ti-arrow-narrow-right"></i>
+                                <button type="submit" class="default-btn submit-btn mt-4" :disabled="loading">
+                                    <span>{{ loading ? 'Submitting...' : 'Submit Application' }}</span>
+                                    <i v-if="!loading" class="ti ti-arrow-narrow-right"></i>
                                 </button>
                             </div>
                         </form>
@@ -366,6 +367,7 @@ export default defineComponent({
                 studentReach: "",
                 consent: "",
             },
+            loading: false,
         };
     },
     methods: {
@@ -456,6 +458,7 @@ export default defineComponent({
         },
         async submitForm() {
             if (this.validateForm()) {
+                this.loading = true;
                 const payload = {
                     full_name: this.form.fullName,
                     email: this.form.email,
@@ -490,6 +493,8 @@ export default defineComponent({
                 } catch (error: any) {
                     console.error("Submission Error:", error);
                     alert("Submission failed. Please check your connection and try again.");
+                } finally {
+                    this.loading = false;
                 }
             }
         },

@@ -101,7 +101,7 @@
                                         <input v-model="form.collegeName" type="text" class="form-control"
                                             placeholder="College / University Name">
                                         <small class="text-danger" v-if="errors.collegeName">{{ errors.collegeName
-                                            }}</small>
+                                        }}</small>
                                     </div>
                                 </div>
                                 <div class="col-lg-6">
@@ -122,7 +122,7 @@
                                             </optgroup>
                                         </select>
                                         <small class="text-danger" v-if="errors.programOfStudy">{{ errors.programOfStudy
-                                            }}</small>
+                                        }}</small>
                                     </div>
                                 </div>
                                 <div class="col-lg-6" v-if="form.programOfStudy.includes('Other')">
@@ -131,7 +131,7 @@
                                         <input v-model="form.programOther" type="text" class="form-control"
                                             placeholder="Specify Program">
                                         <small class="text-danger" v-if="errors.programOther">{{ errors.programOther
-                                            }}</small>
+                                        }}</small>
                                     </div>
                                 </div>
                                 <div class="col-lg-6">
@@ -168,7 +168,7 @@
                                             </div>
                                         </div>
                                         <small class="text-danger" v-if="errors.studentBody">{{ errors.studentBody
-                                            }}</small>
+                                        }}</small>
                                     </div>
                                 </div>
                                 <div class="col-lg-12 mt-3">
@@ -206,7 +206,7 @@
                                         <textarea v-model="form.inspiration" class="form-control" rows="4"
                                             placeholder="Explain your inspiration..."></textarea>
                                         <small class="text-danger" v-if="errors.inspiration">{{ errors.inspiration
-                                            }}</small>
+                                        }}</small>
                                     </div>
                                 </div>
                                 <div class="col-lg-12 mt-3">
@@ -237,7 +237,7 @@
                                             </div>
                                         </div>
                                         <small class="text-danger" v-if="errors.studentReach">{{ errors.studentReach
-                                            }}</small>
+                                        }}</small>
                                     </div>
                                 </div>
                             </div>
@@ -257,8 +257,9 @@
 
                             <!-- Submit Button -->
                             <div class="col-lg-12">
-                                <button type="submit" class="default-btn submit-btn mt-4">
-                                    Submit Application <i class="ti ti-arrow-narrow-right"></i>
+                                <button type="submit" class="default-btn submit-btn mt-4" :disabled="loading">
+                                    <span>{{ loading ? 'Submitting...' : 'Submit Application' }}</span>
+                                    <i v-if="!loading" class="ti ti-arrow-narrow-right"></i>
                                 </button>
                             </div>
                         </form>
@@ -356,6 +357,7 @@ export default defineComponent({
                 studentReach: "",
                 consent: "",
             },
+            loading: false,
         };
     },
     methods: {
@@ -438,6 +440,7 @@ export default defineComponent({
         },
         async submitForm() {
             if (this.validateForm()) {
+                this.loading = true;
                 const payload = {
                     full_name: this.form.fullName,
                     email: this.form.email,
@@ -473,6 +476,8 @@ export default defineComponent({
                     console.error("Submission Error:", error);
                     alert("Message Sent! We will contact you shortly.");
                     this.resetForm();
+                } finally {
+                    this.loading = false;
                 }
             }
         },

@@ -280,6 +280,7 @@
 
 <script lang="ts">
 import { defineComponent } from "vue";
+import universities from "../../assets/universities.json";
 
 export default defineComponent({
   name: "Contact",
@@ -402,23 +403,7 @@ export default defineComponent({
   },
   data() {
     return {
-      colleges: [
-        { "id": 1, "name": "Kaushalya the Skill University" },
-        { "id": 2, "name": "A.K.S. University" },
-        { "id": 3, "name": "A.P.G. (Alakh Prakash Goyal) Shimla University" },
-        { "id": 4, "name": "A.P.J. Abdul Kalam Technological University" },
-        { "id": 5, "name": "AAFT University of Media and Arts" },
-        { "id": 6, "name": "Abhilashi University" },
-        { "id": 7, "name": "Abhyuday University" },
-        { "id": 8, "name": "Academy of Maritime Education and Training" },
-        { "id": 9, "name": "Acharya N.G. Ranga Agricultural University" },
-        { "id": 10, "name": "Acharya Nagarjuna University" },
-        { "id": 11, "name": "Acharya Narendra Deva Krishi Evam Prodyogik Vishwavidyalaya" },
-        { "id": 12, "name": "Adamas University" },
-        { "id": 13, "name": "Adani University" },
-        { "id": 14, "name": "Adesh University" },
-        { "id": 15, "name": "Adichunchanagiri University" }
-      ],
+      colleges: universities,
       form: {
         name: "",
         mobile: "",
