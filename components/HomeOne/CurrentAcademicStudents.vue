@@ -78,7 +78,7 @@ export default {
         { feature: "Purpose Driven Curriculum", traditional: false, gcc: true },
         { feature: "Industry mentors", traditional: false, gcc: true },
         { feature: "AI- Enabled Learning", traditional: false, gcc: true },
-        { feature: "Outcome Based Assessment", traditional: false, gcc: true },
+        { feature: "Outcome Based Assessment", traditional: true, gcc: true },
         { feature: "Employability Focused Training ", traditional: false, gcc: true },
       ],
     };
