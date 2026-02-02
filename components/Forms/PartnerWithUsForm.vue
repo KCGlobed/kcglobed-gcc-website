@@ -126,24 +126,31 @@
                 </div>
                 <div class="col-lg-6">
                   <div class="input-box">
-                    <label class="form-label">City <span>*</span></label>
-                    <div class="input-with-icon">
-                      <input v-model="form.city" type="text" class="form-control" placeholder="City">
-                      <i class="ti ti-map-pin"></i>
-                    </div>
-                    <small class="text-danger" v-if="errors.city">{{ errors.city }}</small>
-                  </div>
-                </div>
-                <div class="col-lg-6">
-                  <div class="input-box">
                     <label class="form-label">State <span>*</span></label>
                     <div class="input-with-icon">
-                      <input v-model="form.state" type="text" class="form-control" placeholder="State">
+                      <select v-model="form.state" class="form-control" @change="onStateChange">
+                        <option value="">Select State</option>
+                        <option v-for="state in statesList" :key="state" :value="state">{{ state }}</option>
+                      </select>
                       <i class="ti ti-map"></i>
                     </div>
                     <small class="text-danger" v-if="errors.state">{{ errors.state }}</small>
                   </div>
                 </div>
+                <div class="col-lg-6">
+                  <div class="input-box">
+                    <label class="form-label">City <span>*</span></label>
+                    <div class="input-with-icon">
+                      <select v-model="form.city" class="form-control" :disabled="!form.state">
+                        <option value="">Select City</option>
+                        <option v-for="city in citiesList" :key="city" :value="city">{{ city }}</option>
+                      </select>
+                      <i class="ti ti-map-pin"></i>
+                    </div>
+                    <small class="text-danger" v-if="errors.city">{{ errors.city }}</small>
+                  </div>
+                </div>
+
               </div>
 
               <hr class="my-4">
@@ -213,6 +220,7 @@
 
 <script lang="ts">
 import { defineComponent } from "vue";
+import statesCities from "../../assets/states-cities.json";
 
 export default defineComponent({
   name: "PartnerWithUsForm",
@@ -259,7 +267,17 @@ export default defineComponent({
         declaration: "",
       },
       loading: false,
+      statesData: statesCities as Record<string, string[]>,
     };
+  },
+  computed: {
+    statesList(): string[] {
+      return Object.keys(this.statesData).sort();
+    },
+    citiesList(): string[] {
+      if (!this.form.state || !this.statesData[this.form.state]) return [];
+      return this.statesData[this.form.state].sort();
+    }
   },
   methods: {
     validateForm() {
@@ -434,6 +452,9 @@ export default defineComponent({
         valueAdd: "",
         declaration: "",
       };
+    },
+    onStateChange() {
+      this.form.city = "";
     }
   },
 });

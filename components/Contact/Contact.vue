@@ -7,7 +7,7 @@
             <h5>Contact Information</h5>
             <div class="contact-item">
               <span>Phone No:</span>
-              <a href="tel:9773576111">9773576111</a>
+              <a href="tel:9773576111">+919773576111</a>
             </div>
             <div class="contact-item">
               <span>Email:</span>
@@ -36,19 +36,18 @@
                     <img src="~/assets/img/svgs/facebook.svg" alt="icon" />
                   </a>
                 </li>
-                <!-- <li>
-                  <a href="https://www.twitter.com/" target="_blank" class="icon">
+                <li>
+                  <a href="https://x.com/gccschool2026" target="_blank" class="icon">
                     <img src="~/assets/img/svgs/twitter.svg" alt="icon" />
                   </a>
-                </li> -->
+                </li>
                 <li>
                   <a href="https://www.instagram.com/gccschool?igsh=MXQxc2JhazAwcG55cQ==" target="_blank" class="icon">
                     <img src="~/assets/img/svgs/instagram.svg" alt="icon" />
                   </a>
                 </li>
                 <li>
-                  <a href="https://www.linkedin.com/company/gcc-school/posts/?feedView=all" target="_blank"
-                    class="icon">
+                  <a href="https://www.linkedin.com/company/gccschool/" target="_blank" class="icon">
                     <img src="~/assets/img/svgs/linkedin.svg" alt="icon" />
                   </a>
                 </li>
@@ -96,22 +95,29 @@
                     <small class="text-danger" v-if="errors.email">{{ errors.email }}</small>
                   </div>
                 </div>
+                <div class="col-lg-6">
+                  <div class="input-box">
+                    <label class="form-label">State <span>*</span></label>
+                    <select v-model="form.state" class="form-control" @change="onStateChange">
+                      <option value="">Select State</option>
+                      <option v-for="state in statesList" :key="state" :value="state">{{ state }}</option>
+                    </select>
+                    <small class="text-danger" v-if="errors.state">{{ errors.state }}</small>
+                  </div>
+                </div>
 
                 <div class="col-lg-6">
                   <div class="input-box">
                     <label class="form-label">City <span>*</span></label>
-                    <input v-model="form.city" class="form-control" placeholder="City">
+                    <select v-model="form.city" class="form-control" :disabled="!form.state">
+                      <option value="">Select City</option>
+                      <option v-for="city in citiesList" :key="city" :value="city">{{ city }}</option>
+                    </select>
                     <small class="text-danger" v-if="errors.city">{{ errors.city }}</small>
                   </div>
                 </div>
 
-                <div class="col-lg-6">
-                  <div class="input-box">
-                    <label class="form-label">State <span>*</span></label>
-                    <input v-model="form.state" class="form-control" placeholder="State">
-                    <small class="text-danger" v-if="errors.state">{{ errors.state }}</small>
-                  </div>
-                </div>
+
 
                 <div class="col-lg-6">
                   <div class="input-box">
@@ -280,7 +286,9 @@
 
 <script lang="ts">
 import { defineComponent } from "vue";
+
 import universities from "../../assets/universities.json";
+import statesCities from "../../assets/states-cities.json";
 
 export default defineComponent({
   name: "Contact",
@@ -399,11 +407,15 @@ export default defineComponent({
         console.error("Submission Error:", error)
         alert(error.data?.message || "Server error. Try later.")
       }
+    },
+    onStateChange() {
+      this.form.city = "";
     }
   },
   data() {
     return {
       colleges: universities,
+      statesData: statesCities as Record<string, string[]>,
       form: {
         name: "",
         mobile: "",
@@ -444,6 +456,15 @@ export default defineComponent({
 
     };
   },
+  computed: {
+    statesList(): string[] {
+      return Object.keys(this.statesData).sort();
+    },
+    citiesList(): string[] {
+      if (!this.form.state || !this.statesData[this.form.state]) return [];
+      return this.statesData[this.form.state].sort();
+    }
+  }
 });
 
 </script>
