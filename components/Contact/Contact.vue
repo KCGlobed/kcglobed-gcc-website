@@ -96,22 +96,29 @@
                     <small class="text-danger" v-if="errors.email">{{ errors.email }}</small>
                   </div>
                 </div>
+                <div class="col-lg-6">
+                  <div class="input-box">
+                    <label class="form-label">State <span>*</span></label>
+                    <select v-model="form.state" class="form-control" @change="onStateChange">
+                      <option value="">Select State</option>
+                      <option v-for="state in statesList" :key="state" :value="state">{{ state }}</option>
+                    </select>
+                    <small class="text-danger" v-if="errors.state">{{ errors.state }}</small>
+                  </div>
+                </div>
 
                 <div class="col-lg-6">
                   <div class="input-box">
                     <label class="form-label">City <span>*</span></label>
-                    <input v-model="form.city" class="form-control" placeholder="City">
+                    <select v-model="form.city" class="form-control" :disabled="!form.state">
+                      <option value="">Select City</option>
+                      <option v-for="city in citiesList" :key="city" :value="city">{{ city }}</option>
+                    </select>
                     <small class="text-danger" v-if="errors.city">{{ errors.city }}</small>
                   </div>
                 </div>
 
-                <div class="col-lg-6">
-                  <div class="input-box">
-                    <label class="form-label">State <span>*</span></label>
-                    <input v-model="form.state" class="form-control" placeholder="State">
-                    <small class="text-danger" v-if="errors.state">{{ errors.state }}</small>
-                  </div>
-                </div>
+
 
                 <div class="col-lg-6">
                   <div class="input-box">
@@ -280,7 +287,9 @@
 
 <script lang="ts">
 import { defineComponent } from "vue";
+
 import universities from "../../assets/universities.json";
+import statesCities from "../../assets/states-cities.json";
 
 export default defineComponent({
   name: "Contact",
@@ -399,11 +408,15 @@ export default defineComponent({
         console.error("Submission Error:", error)
         alert(error.data?.message || "Server error. Try later.")
       }
+    },
+    onStateChange() {
+      this.form.city = "";
     }
   },
   data() {
     return {
       colleges: universities,
+      statesData: statesCities as Record<string, string[]>,
       form: {
         name: "",
         mobile: "",
@@ -444,6 +457,15 @@ export default defineComponent({
 
     };
   },
+  computed: {
+    statesList(): string[] {
+      return Object.keys(this.statesData).sort();
+    },
+    citiesList(): string[] {
+      if (!this.form.state || !this.statesData[this.form.state]) return [];
+      return this.statesData[this.form.state].sort();
+    }
+  }
 });
 
 </script>

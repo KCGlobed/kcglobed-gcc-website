@@ -62,8 +62,11 @@
                                     <div class="input-box">
                                         <label class="form-label">City <span>*</span></label>
                                         <div class="input-with-icon">
-                                            <input v-model="form.city" type="text" class="form-control"
-                                                placeholder="City">
+                                            <select v-model="form.city" class="form-control" :disabled="!form.state">
+                                                <option value="">Select City</option>
+                                                <option v-for="city in citiesList" :key="city" :value="city">{{ city }}
+                                                </option>
+                                            </select>
                                             <i class="ti ti-map-pin"></i>
                                         </div>
                                         <small class="text-danger" v-if="errors.city">{{ errors.city }}</small>
@@ -73,8 +76,11 @@
                                     <div class="input-box">
                                         <label class="form-label">State <span>*</span></label>
                                         <div class="input-with-icon">
-                                            <input v-model="form.state" type="text" class="form-control"
-                                                placeholder="State">
+                                            <select v-model="form.state" class="form-control" @change="onStateChange">
+                                                <option value="">Select State</option>
+                                                <option v-for="state in statesList" :key="state" :value="state">{{ state
+                                                }}</option>
+                                            </select>
                                             <i class="ti ti-map"></i>
                                         </div>
                                         <small class="text-danger" v-if="errors.state">{{ errors.state }}</small>
@@ -290,6 +296,7 @@
 
 <script lang="ts">
 import { defineComponent } from "vue";
+import statesCities from "../../assets/states-cities.json";
 
 export default defineComponent({
     name: "CampusCeoFacultyForm",
@@ -368,7 +375,17 @@ export default defineComponent({
                 consent: "",
             },
             loading: false,
+            statesData: statesCities as Record<string, string[]>,
         };
+    },
+    computed: {
+        statesList(): string[] {
+            return Object.keys(this.statesData).sort();
+        },
+        citiesList(): string[] {
+            if (!this.form.state || !this.statesData[this.form.state]) return [];
+            return this.statesData[this.form.state].sort();
+        }
     },
     methods: {
         validateForm() {
@@ -523,6 +540,9 @@ export default defineComponent({
             Object.keys(this.errors).forEach(key => {
                 (this.errors as any)[key] = "";
             });
+        },
+        onStateChange() {
+            this.form.city = "";
         }
     },
 });
