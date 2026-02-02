@@ -155,23 +155,52 @@ export default {
   methods: {
     validate() {
       this.errors = {};
-      let ok = true;
+      let isValid = true;
 
-      if (!this.formData.class10_year) ok = false;
-      if (!this.formData.class12_year) ok = false;
-      if (!this.formData.medium) ok = false;
+      if (!this.formData.class10_year) {
+        this.errors.class10_year = "Class 10 Year is required";
+        isValid = false;
+      }
+      if (!this.formData.class10_score) { // Added check for score
+         this.errors.class10_score = "Class 10 Score is required";
+         isValid = false;
+      }
+      if (!this.formData.class12_year) {
+        this.errors.class12_year = "Class 12 Year is required";
+        isValid = false;
+      }
+      if (!this.formData.class12_score) { // Added check for score
+         this.errors.class12_score = "Class 12 Score is required";
+         isValid = false;
+      }
+      if (!this.formData.medium) {
+        this.errors.medium = "Medium is required";
+        isValid = false;
+      }
 
       if (this.formData.ug_status === "Pursuing" && this.formData.ug_cgpa > 10) {
         alert("CGPA cannot exceed 10.00");
-        ok = false;
+        this.errors.ug_cgpa = "CGPA cannot exceed 10.00";
+        isValid = false;
       }
-
+      
       if (this.formData.semester > 8) {
         alert("Semester cannot exceed 8");
-        ok = false;
+        this.errors.semester = "Semester cannot exceed 8";
+        isValid = false;
       }
 
-      return ok;
+      // Add checks for other required fields if they are missing
+      if (!this.formData.ug_status) {
+         // ug_status is radio, difficult to show inline error on label group without a container error, but can try
+      }
+
+      if (this.formData.ug_institution && !this.formData.ug_institution.trim()) {
+           this.errors.ug_institution = "Institution is required";
+           isValid = false;
+      }
+
+      return isValid;
     }
   }
 };

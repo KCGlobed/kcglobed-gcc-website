@@ -5,7 +5,7 @@
     <!-- <LayoutNavbarStyleTwo class="inner-navbar" /> -->
     <CommonInnerPageBanner pageTitle="Application Form" />
 
-    <CommonApplicationPagesList :activeStep="currentStep" @step-selected="handleStepSelection" />
+    <CommonApplicationPagesList :activeStep="currentStep" :invalidSteps="invalidSteps" @step-selected="handleStepSelection" />
 
     <keep-alive>
       <component :is="activeComponent" ref="currentStepComponent" :formData="formData" :userId="userId" />
@@ -65,6 +65,7 @@ export default defineComponent({
       ]
     });
     const totalSteps = 5;
+    const invalidSteps = ref<number[]>([]);
     const userId = ref<number | null>(null);
     const formData = reactive({
       first_name: "",
@@ -138,19 +139,45 @@ export default defineComponent({
       }
     });
 
-    const handleStepSelection = (step: number) => {
-      // Only allow navigating backwards to already visited steps.
-      // Forward navigation must be done via Next button to ensure validation.
-      if (step < currentStep.value) {
-        currentStep.value = step;
-        // window.scrollTo(0, 0);
+    const handleStepSelection = async (step: number) => {
+      invalidSteps.value = [];
+
+      // validate all previous steps
+      for (let i = 1; i < step; i++) {
+        currentStep.value = i;
+        await nextTick();
+        
+        // precise delay to ensure component mount if needed (rare but safe)
+        if (!currentStepComponent.value) {
+            await new Promise(r => setTimeout(r, 10));
+        }
+
+        if (currentStepComponent.value?.validate) {
+          const ok = currentStepComponent.value.validate();
+          if (!ok) {
+            invalidSteps.value.push(i);
+          }
+        }
       }
+
+      // go to clicked step anyway
+      currentStep.value = step;
     };
 
     const nextStep = async () => {
+      // 1. Validate current step
       if (currentStepComponent.value?.validate) {
         const isValid = currentStepComponent.value.validate();
         if (!isValid) return;
+      }
+
+      // 2. Check for any previous invalid steps (from skipped navigation)
+      if (invalidSteps.value.length > 0) {
+        const firstInvalid = invalidSteps.value.find(s => s < currentStep.value);
+        if (firstInvalid) {
+          alert(`Please complete Step ${firstInvalid} (${getHeaderForStep(firstInvalid)}) before proceeding.`);
+          return;
+        }
       }
 
       // Submit data after Work Experience (Step 3)
@@ -162,6 +189,18 @@ export default defineComponent({
       if (currentStep.value < totalSteps) {
         currentStep.value++;
       }
+    };
+    
+    // Helper to get step name for alert
+    const getHeaderForStep = (index: number) => {
+       const headers = [
+        "Personal Info", 
+        "Academic Info", 
+        "Work Experience", 
+        "Documents", 
+        "Declaration"
+       ];
+       return headers[index - 1] || "Unknown Step";
     };
 
     const prevStep = () => {
@@ -195,10 +234,19 @@ export default defineComponent({
     };
 
     const handleFinalSubmit = async () => {
+      // 1. Validate current step (Declaration)
       if (currentStepComponent.value?.validate) {
         const isValid = currentStepComponent.value.validate();
         if (!isValid) return;
       }
+
+      // 2. Check for any previous invalid steps
+      if (invalidSteps.value.length > 0) {
+        const firstInvalid = invalidSteps.value[0]; // Any invalid step is a blocker for final submit
+        alert(`Please complete Step ${firstInvalid} (${getHeaderForStep(firstInvalid)}) before proceeding.`);
+        return;
+      }
+
       try {
         console.log(process.env.PAYMENT_AMOUNT, '-----amount----------')
         // 1. Call your backend to create Razorpay order
@@ -292,7 +340,8 @@ export default defineComponent({
       currentStepComponent,
       handleFinalSubmit,
       formData,
-      userId
+      userId,
+      invalidSteps
     };
   },
 });
