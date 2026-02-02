@@ -198,8 +198,9 @@
 
               <!-- Submit Button -->
               <div class="col-lg-12">
-                <button type="submit" class="default-btn submit-btn mt-4">
-                  Apply Now <i class="ti ti-arrow-narrow-right"></i>
+                <button type="submit" class="default-btn submit-btn mt-4" :disabled="loading">
+                  <span>{{ loading ? 'Submitting...' : 'Apply Now' }}</span>
+                  <i v-if="!loading" class="ti ti-arrow-narrow-right"></i>
                 </button>
               </div>
             </form>
@@ -257,6 +258,7 @@ export default defineComponent({
         valueAdd: "",
         declaration: "",
       },
+      loading: false,
     };
   },
   methods: {
@@ -343,6 +345,7 @@ export default defineComponent({
     },
     async submitForm() {
       if (this.validateForm()) {
+        this.loading = true;
         // Prepare payload for API
         const payload = {
           organization_name: this.form.organizationName,
@@ -392,6 +395,8 @@ export default defineComponent({
           // Fallback/Mock for demonstration
           alert("Message Sent! We will contact you shortly.");
           this.resetForm();
+        } finally {
+          this.loading = false;
         }
       }
     },

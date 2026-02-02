@@ -144,7 +144,7 @@
                                                 errors.areaOfInterestOther }}</small>
                                         </div>
                                         <small class="text-danger" v-if="errors.areaOfInterest">{{ errors.areaOfInterest
-                                            }}</small>
+                                        }}</small>
                                     </div>
                                 </div>
                             </div>
@@ -170,7 +170,7 @@
                                         <input type="file" ref="resumeFile" @change="handleFileUpload"
                                             class="form-control" accept=".pdf,.doc,.docx">
                                         <small class="text-danger" v-if="errors.resumePath">{{ errors.resumePath
-                                            }}</small>
+                                        }}</small>
                                     </div>
                                 </div>
 
@@ -199,7 +199,7 @@
                                         </div>
                                     </div>
                                     <small class="text-danger" v-if="errors.noticePeriod">{{ errors.noticePeriod
-                                        }}</small>
+                                    }}</small>
                                 </div>
                             </div>
 
@@ -220,9 +220,11 @@
 
                             <!-- Submit Button -->
                             <div class="col-lg-12">
-                                <button type="submit" class="default-btn submit-btn mt-4" :disabled="uploading">
+                                <button type="submit" class="default-btn submit-btn mt-4"
+                                    :disabled="uploading || loading">
                                     <span v-if="uploading">Uploading...</span>
-                                    <span v-else>Apply Now <i class="ti ti-arrow-narrow-right"></i></span>
+                                    <span v-else>{{ loading ? 'Submitting...' : 'Apply Now' }} <i v-if="!loading"
+                                            class="ti ti-arrow-narrow-right"></i></span>
                                 </button>
                             </div>
                         </form>
@@ -299,6 +301,7 @@ export default defineComponent({
                 noticePeriod: "",
                 consent: "",
             },
+            loading: false,
         };
     },
     methods: {
@@ -397,6 +400,7 @@ export default defineComponent({
         },
         async submitForm() {
             if (this.validateForm()) {
+                this.loading = true;
                 const payload = {
                     full_name: this.form.fullName,
                     email: this.form.email,
@@ -430,6 +434,8 @@ export default defineComponent({
                 } catch (error: any) {
                     console.error("Submission Error:", error);
                     alert("Submission failed. Please try again.");
+                } finally {
+                    this.loading = false;
                 }
             }
         },
