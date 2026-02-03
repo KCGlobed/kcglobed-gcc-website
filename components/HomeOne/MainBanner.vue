@@ -492,7 +492,7 @@ export default defineComponent({
           id: 1,
           bgClass: "bg1",
           subTitle: "Cohort 2026 Applications Open",
-          image: image1,
+          image: "https://storage.googleapis.com/static_files_backend/media/images/Home%20Page.webp",
           heading: "World's 1st School Backed  by Industry, Built on Execution",
           description: "",
           btnText: "Apply Now",
