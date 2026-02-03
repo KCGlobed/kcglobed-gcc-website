@@ -4,8 +4,14 @@
       <div class="inner-all-pages personal-info-tab">
         <ul class="about-pages-list style2">
           <li v-for="(step, index) in steps" :key="index">
-            <a style="cursor: pointer;" :class="{ 'active': activeStep === index + 1 }"
-              @click="$emit('step-selected', index + 1)">
+            <a
+              style="cursor: pointer;"
+              :class="{
+                active: activeStep === index + 1,
+                invalid: invalidSteps.includes(index + 1)
+              }"
+              @click="$emit('step-selected', index + 1)"
+            >
               {{ step }}
             </a>
           </li>
@@ -14,15 +20,20 @@
     </div>
   </div>
 </template>
-
+<style scoped>
+.personal-info-tab .about-pages-list li a.invalid {
+  color: #ff4d4f !important;
+  font-weight: 600;
+}
+</style>
 <script>
 export default {
   name: "ApplicationPagesList",
   props: {
-    activeStep: {
-      type: Number,
-      required: true,
-      default: 1
+    activeStep: Number,
+    invalidSteps: {
+      type: Array,
+      default: () => []
     }
   },
   data() {

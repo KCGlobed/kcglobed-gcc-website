@@ -40,8 +40,11 @@
                 <div class="col-lg-6">
                   <div class="input-box">
                     <label class="form-label">Mobile Number <span>*</span></label>
-                    <input type="tel" class="form-control" placeholder="Mobile Number" v-model="formData.mobile"
-                      :class="{ 'is-invalid': errors.mobile }" />
+                    <div class="input-with-icon">
+                      <input type="tel" class="form-control" placeholder="Mobile Number" v-model="formData.mobile"
+                        :class="{ 'is-invalid': errors.mobile }" />
+                      <i>+91</i>
+                    </div>
                     <div class="invalid-feedback" v-if="errors.mobile">{{ errors.mobile }}</div>
                   </div>
                 </div>
@@ -234,6 +237,12 @@
   </div>
 </template>
 
+<style scoped>
+.input-with-icon i {
+  font-style: normal;
+  font-size: 14px !important;
+}
+</style>
 <script>
 export default {
   name: "PersonalInformation",
