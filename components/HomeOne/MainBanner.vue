@@ -311,7 +311,7 @@
 <script lang="ts">
 import { defineComponent } from "vue";
 
-import image1 from "../../assets/img/heros/hero1.jpg";
+import image1 from "../../assets/img/heros/Hero-Page.png";
 import image2 from "../../assets/img/heros/hero2.jpg";
 import gccPdf from "../../assets/gcc.pdf";
 import universities from "../../assets/universities.json";
@@ -492,7 +492,7 @@ export default defineComponent({
           id: 1,
           bgClass: "bg1",
           subTitle: "Cohort 2026 Applications Open",
-          image: "https://storage.googleapis.com/static_files_backend/media/images/Home%20Page.webp",
+          image: image1,
           heading: "World's 1st School Backed  by Industry, Built on Execution",
           description: "",
           btnText: "Apply Now",
