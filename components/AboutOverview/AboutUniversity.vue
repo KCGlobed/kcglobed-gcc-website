@@ -18,30 +18,40 @@
         <div class="col-lg-6" data-aos="zoom-in-up" data-aos-delay="200">
           <div class="about-content">
             <p>
-              GCC School is a career lab for Young Aspiring Professionals (YAPs) ready to build global careers in
-              finance, commerce, and operations.
+              GCC School is a career-first learning ecosystem built to power the next generation of global finance
+              professionals. We exist to bridge the gap between education and employment by aligning potential with
+              real-world opportunity; early, ethically, and at scale.
             </p>
             <p>
-              Our programs are co-designed with consulting firms, financial institutions, and MNCs — ensuring every
-              assignment aligns with real industry expectations.
+              Guided by a vision of a globally trusted and equitable talent ecosystem, we reimagine how careers are
+              built. Our inverse education-to-employment model places industry demand at the forefront.<br /> It ensures
+              learners not only gain knowledge but also step into outcome-assured, future-ready roles with confidence.
             </p>
           </div>
           <div class="sustainability-content mt-2">
             <!-- <h3>Industry Alignment</h3> -->
             <p>
-              To meet the growing demand for GCC-ready professionals, GCC School works in alignment with Consulting
-              Firms &
-              MNCs The focus is on:
+              We shape high-potential individuals into professionals who are ready to create measurable impact across
+              global enterprises; today and for the future. It is attained by focusing on:
             </p>
             <ul>
               <li>
-                <i class="fa-solid fa-check"></i>Practical training
+                <i class="fa-solid fa-check"></i>International GAAP
               </li>
               <li>
-                <i class="fa-solid fa-check"></i>Real GCC exposure
+                <i class="fa-solid fa-check"></i>International GAAS
               </li>
               <li>
-                <i class="fa-solid fa-check"></i>Industry-driven capability building
+                <i class="fa-solid fa-check"></i>International Tax Laws
+              </li>
+              <li>
+                <i class="fa-solid fa-check"></i>AI Literacy for Finance & Audit
+              </li>
+              <li>
+                <i class="fa-solid fa-check"></i>Corporate Communication Skills
+              </li>
+              <li>
+                <i class="fa-solid fa-check"></i>Multi-cultural & Behavioral Understanding
               </li>
             </ul>
           </div>
@@ -57,3 +67,13 @@ export default {
   name: "AboutUniversity",
 };
 </script>
+
+<style scoped lang="scss">
+.about-content {
+  padding: 0;
+
+  p {
+    text-align: justify;
+  }
+}
+</style>
