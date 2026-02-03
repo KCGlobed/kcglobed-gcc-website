@@ -9,7 +9,7 @@
                     'background-image': `url(${banner.image})`,
                 }">
                     <div class="container-fluid">
-                        <span style="
+                        <!-- <span style="
     display: inline-flex;
     align-items: center;
     gap: 8px;
@@ -31,16 +31,16 @@
       display: inline-block;
     "></span>
                             {{ banner.subTitle }}
-                        </span>
+                        </span> -->
 
                         <div class="content" style="margin-top: 20px;">
                             <h1 class="title" style="font-size: 40px;line-height: 1.4;">
                                 <!-- {{ banner.heading }} -->
-                                Contact Us
+                                Where Potential Becomes Performance
                             </h1>
-                            <p style="color: #fff;">
+                            <!-- <p style="color: #fff;">
                                 {{ banner.description }}
-                            </p>
+                            </p> -->
                             <!-- <div class="hero-btn">
                                 <NuxtLink :to="banner.btnLink" class="default-btn">
                                     {{ banner.btnText }}
@@ -112,12 +112,12 @@
 <script lang="ts">
 import { defineComponent } from "vue";
 
-import image1 from "../../assets/img/heros/Contact-Us.png";
+import image1 from "../../assets/img/heros/About-US.png";
 import image2 from "../../assets/img/heros/hero2.jpg";
 import gccPdf from "../../assets/gcc.pdf";
 
 export default defineComponent({
-    name: "ContactusBanner",
+    name: "AboutUsBanner",
     methods: {
         validateForm() {
             this.errors = {

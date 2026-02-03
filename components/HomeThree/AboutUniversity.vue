@@ -7,12 +7,12 @@
             <div class="row">
               <div class="col-lg-6 col-md-6" data-aos="zoom-in-up" data-aos-delay="200">
                 <div class="image reveal2">
-                  <img src="~/assets/img/abouts/about1.jpg" alt="image" />
+                  <img src="~/assets/img/abouts/Program-Highlights.png" alt="image" />
                 </div>
               </div>
               <div class="col-lg-6 col-md-6" data-aos="zoom-in-up" data-aos-delay="300">
                 <div class="image style2 reveal3">
-                  <img src="~/assets/img/abouts/about2.jpg" alt="image" />
+                  <img src="~/assets/img/abouts/Program-Highlights-2.png" alt="image" />
                 </div>
               </div>
             </div>
