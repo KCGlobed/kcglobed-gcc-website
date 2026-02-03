@@ -9,11 +9,11 @@
         <div class="bg-white d-flex align-items-center flex-column goals-section">
             <div class="d-flex flex-column align-items-center mt-section px-3">
                 <p class="heading-primary text-center fw-bold text-secondary">
-                    COMMITTED TO SUSTAINABLE DEVELOPMENT GOALS
+                    Committed to Achieve UNOs SDGs
                 </p>
-                <p class="heading-secondary text-center fw-semibold mt-3 text-dark-gray">
+                <!-- <p class="heading-secondary text-center fw-semibold mt-3 text-dark-gray">
                     Driving Sustainability Through Education and Employment
-                </p>
+                </p> -->
             </div>
 
             <!-- Goals Grid -->

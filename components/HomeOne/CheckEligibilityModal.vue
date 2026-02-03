@@ -67,7 +67,7 @@ export default {
                 { text: "Completed or pursuing B.Com", checked: false },
                 { text: "Achieved First Division in B.Com", checked: false },
                 { text: "Citizen of India", checked: false },
-                { text: "Born on or before 1 January 1996", checked: false }
+                { text: "Age should be less than 30", checked: false }
             ],
             hasInteracted: false
         };

@@ -2,11 +2,13 @@
   <div>
     <LayoutTopHeader />
     <LayoutMainNavbar />
-    <CommonInnerPageBanner pageTitle="Where Potential Becomes Performance " mainTitle="OVERVIEW" />
+    <!-- <CommonInnerPageBanner pageTitle="Where Potential Becomes Performance " mainTitle="OVERVIEW" /> -->
+    <AboutCampusAboutUsBanner />
     <CommonAboutPagesList />
     <AboutOverviewAboutUniversity />
     <AboutOverviewSustainability />
-    <AboutOverviewAboutGCC />
+    <AboutOverviewGovtOnGcc />
+    <!-- <AboutOverviewAboutGCC /> -->
     <MissionAndValuesMissionAndValue />
     <MissionAndValuesOfTheUniversity />
 

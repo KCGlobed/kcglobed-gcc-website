@@ -75,9 +75,9 @@
         </div>
         <div class="col-lg-6" data-aos="zoom-in-up" data-aos-delay="200">
           <div class="information-image">
-            <img src="~/assets/img/informations/information2.jpg" alt="image" />
+            <img src="~/assets/img/informations/info6.png" alt="image" />
             <div class="small-image">
-              <img src="~/assets/img/informations/information1.jpg" class="information" alt="image" />
+              <img src="~/assets/img/informations/info7.png" class="information" alt="image" />
             </div>
             <div class="round-shape">
               <img src="~/assets/Logo/Logo/GCC-School-Logo-White.png" class="main-logo" alt="image"

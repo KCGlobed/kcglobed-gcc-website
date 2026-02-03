@@ -311,7 +311,7 @@
 <script lang="ts">
 import { defineComponent } from "vue";
 
-import image1 from "../../assets/img/heros/hero1.jpg";
+import image1 from "../../assets/img/heros/Hero-Page.png";
 import image2 from "../../assets/img/heros/hero2.jpg";
 import gccPdf from "../../assets/gcc.pdf";
 import universities from "../../assets/universities.json";

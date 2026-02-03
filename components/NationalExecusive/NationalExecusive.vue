@@ -11,7 +11,7 @@
                 </div>
                 <div class="col-lg-6" data-aos="zoom-in-up" data-aos-delay="200">
                     <div class="about-content">
-                        <h3>British Council English Certification</h3>
+                        <h3>British Council English For Work</h3>
                         <p>
                             Builds global communication confidence for multinational workplaces and GCC environments,
                             aligned with international standards.
@@ -48,6 +48,7 @@
                                 70% final
                                 submission</li>
                             <li><strong>Delivery:</strong> Online via University of London</li>
+                            <li><strong>M.Sc.* : </strong>Additional university fee will be applicable</li>
                         </ul>
                     </div>
                 </div>
@@ -62,12 +63,18 @@
                     <div class="about-content">
                         <h3>PGCM – Public Accounting (AICTE-approved)</h3>
                         <p>
-                            A Post Graduate Certificate in Management awarded alongside ACCA, strengthening business and
-                            public accounting foundations.
+                            Fully mapped to ACCA standards, the program allows you to secure PGCM through convenient
+                            online exams.
+                        </p>
+                        <p class="my-2">
+                            <strong> KC GlobEd</strong>
+                            Complete training for the 8 non-exempted papers is delivered over four trimesters by KC
+                            GlobEd. Alongside this core preparation, specialised AI courses in Finance, Audit, and
+                            Accounts are provided, with official certifications awarded upon successful completion.
+
                         </p>
                         <ul>
-                            <li><strong>Key Benefit:</strong> 100% module exemptions for ACCA candidates,
-                                enabling seamless certification with no additional academic load.</li>
+                            <li><strong>Delivery Mode : </strong>Online classes and exams</li>
                         </ul>
                     </div>
                 </div>

@@ -9,21 +9,38 @@
                     'background-image': `url(${banner.image})`,
                 }">
                     <div class="container-fluid">
-
+                        <!-- <span style="
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 6px 14px;
+    border-radius: 9999px;
+    background-color:#48526E; /* dark gray */
+    color: #facc15; /* yellow text */
+    font-size: 14px;
+    font-weight: 600;
+    line-height: 1;
+    border: 1px solid #facc15;
+    white-space: nowrap;
+  ">
+                            <span style="
+      width: 8px;
+      height: 8px;
+      background-color: #facc15;
+      border-radius: 50%;
+      display: inline-block;
+    "></span>
+                            {{ banner.subTitle }}
+                        </span> -->
 
                         <div class="content" style="margin-top: 20px;">
-                            <h1 class="title" style="font-size: 60px;line-height: 1.4;">
+                            <h1 class="title" style="font-size: 40px;line-height: 1.4;">
                                 <!-- {{ banner.heading }} -->
-                                AEIAP
+                                Where Potential Becomes Performance
                             </h1>
-                            <h3 style="color: #fff;margin-bottom: 10px;">
-                                AI Enabled International Accounting Professional Program
-                            </h3>
-                            <p style="color: #fff;">
-                                The program creates pathways into the global finance sector. It combines structured
-                                LMS-based learning with international accounting expertise, professional skill
-                                development, and industry exposure.
-                            </p>
+                            <!-- <p style="color: #fff;">
+                                {{ banner.description }}
+                            </p> -->
                             <!-- <div class="hero-btn">
                                 <NuxtLink :to="banner.btnLink" class="default-btn">
                                     {{ banner.btnText }}
@@ -95,12 +112,12 @@
 <script lang="ts">
 import { defineComponent } from "vue";
 
-import image1 from "../../assets/img/heros/Program.png";
+import image1 from "../../assets/img/heros/About-US.png";
 import image2 from "../../assets/img/heros/hero2.jpg";
 import gccPdf from "../../assets/gcc.pdf";
 
 export default defineComponent({
-    name: "ProgramBanner",
+    name: "AboutUsBanner",
     methods: {
         validateForm() {
             this.errors = {
