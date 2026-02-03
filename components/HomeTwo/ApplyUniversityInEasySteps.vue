@@ -52,12 +52,12 @@ export default defineComponent({
           icon: icon1,
           title: "Applied Knowledge Level",
           modules: [
-            "Business and Technology (BT)",
-            "Management Accounting (MA)",
-            "Financial Accounting (FA)",
+            "Business and Technology (BT)*",
+            "Management Accounting (MA)*",
+            "Financial Accounting (FA)*",
           ],
           shortDesc:
-            "Exemptions available for B.Com-qualified student",
+            "Already exempted for commerce graduates*",
           btnText: "Apply Now",
           btnLink: "/personal-information",
           dataDelay: "200",
@@ -67,7 +67,7 @@ export default defineComponent({
           icon: icon2,
           title: "Applied Skills Level",
           shortDesc:
-            "LW & TX exemptions available for B.Com-qualified students.*",
+            "Already exempted for commerce graduates*",
           modules: [
             " Corporate & Business Law (LW)*",
             " Performance Management (PM)",

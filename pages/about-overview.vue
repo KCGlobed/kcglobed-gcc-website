@@ -7,7 +7,8 @@
     <CommonAboutPagesList />
     <AboutOverviewAboutUniversity />
     <AboutOverviewSustainability />
-    <AboutOverviewAboutGCC />
+    <AboutOverviewGovtOnGcc />
+    <!-- <AboutOverviewAboutGCC /> -->
     <MissionAndValuesMissionAndValue />
     <MissionAndValuesOfTheUniversity />
 

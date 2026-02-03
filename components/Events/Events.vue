@@ -58,7 +58,7 @@
                 <h2 class="counter">147,000</h2>
                 <h2 class="plus">+</h2>
               </div>
-              <p>Members</p>
+              <p>Members Onboard</p>
             </div>
           </div>
           <div class="col-lg-3 col-sm-6 col-md-6" data-aos="zoom-in-up" data-aos-delay="400">
@@ -72,7 +72,7 @@
                 <h2 class="counter">90</h2>
                 <h2 class="plus">+</h2>
               </div>
-              <p>presence</p>
+              <p>Nations Reached</p>
             </div>
           </div>
           <div class="col-lg-3 col-sm-6 col-md-6" data-aos="zoom-in-up" data-aos-delay="500">
