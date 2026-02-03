@@ -23,9 +23,11 @@
             <div v-if="activeTab === 'board'" class="tab-content fade-in">
                 <div class="mentor-grid">
                     <div class="mentor-card" v-for="(mentor, index) in boardMentors" :key="index">
-                        <div class="mentor-image-wrapper">
-                            <img :src="mentor.image" :alt="mentor.name" class="mentor-image" />
-                        </div>
+                        <a :href="mentor.link" target="_blank">
+                            <div class="mentor-image-wrapper">
+                                <img :src="mentor.image" :alt="mentor.name" class="mentor-image" />
+                            </div>
+                        </a>
 
                     </div>
                 </div>
@@ -107,27 +109,33 @@ export default {
             boardMentors: [
                 {
 
-                    image: mentor1
+                    image: mentor1,
+                    link: "https://www.linkedin.com/in/prof-dr-nirmaljeet-singh-kalsi-ias-retd-0b84561/"
                 },
                 {
 
-                    image: mentor2
+                    image: mentor2,
+                    link: "https://www.linkedin.com/in/sarvesh-mathur-4951a03/"
                 },
                 {
 
-                    image: mentor3
+                    image: mentor3,
+                    link: "https://www.linkedin.com/in/harinderjit-singh-0ba49093/"
                 },
                 {
 
-                    image: mentor4
+                    image: mentor4,
+                    link: "https://www.linkedin.com/in/caparveen/"
                 },
                 {
 
-                    image: mentor5
+                    image: mentor5,
+                    link: "https://www.linkedin.com/in/drmanna/"
                 },
                 {
 
-                    image: mentor6
+                    image: mentor6,
+                    link: "https://www.linkedin.com/in/kamalchhabra/"
                 },
 
             ],
