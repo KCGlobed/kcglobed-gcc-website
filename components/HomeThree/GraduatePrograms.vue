@@ -62,7 +62,7 @@
 import { defineComponent } from "vue";
 
 import image1 from "~/assets/img/integratedprogram/1.png";
-import image2 from "~/assets/img/integratedprogram/2.png";
+import image2 from "~/assets/img/integratedprogram/6.png";
 import image3 from "~/assets/img/integratedprogram/3.png";
 import image4 from "~/assets/img/integratedprogram/4.png";
 import image5 from "~/assets/img/integratedprogram/5.jpeg";

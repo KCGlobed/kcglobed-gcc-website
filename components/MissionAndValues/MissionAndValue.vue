@@ -29,7 +29,7 @@
         </div>
       </div>
       <div class="inner-about-style3-image">
-        <img src="~/assets/img/abouts/inner-about8.jpg" alt="image" />
+        <img src="~/assets/img/abouts/inner-about15.png" alt="image" />
       </div>
     </div>
   </div>
