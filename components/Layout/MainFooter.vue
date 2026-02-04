@@ -12,6 +12,9 @@
                     <NuxtLink to="/personal-information">Apply Now</NuxtLink>
                   </li>
                   <li>
+                    <NuxtLink to="#">NFET Exams</NuxtLink>
+                  </li>
+                  <li>
                     <NuxtLink to="/about-overview">About Us</NuxtLink>
                   </li>
                   <li>

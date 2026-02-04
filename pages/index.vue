@@ -9,8 +9,11 @@
     <CommonPathwaySuccess />
     <CommonFunFact />
     <HomeOneFutureStudents />
+    <CommonGccCommerse />
+    <CommonGrowthTrend />
     <HomeOneCultureWarp />
     <HomeOneCurrentAcademicStudents />
+    <CommonPathway />
     <!-- <HomeOneProfessionalLearning />
     <HomeOneServicesContent />
     <HomeOneWeAreInTheWave />
