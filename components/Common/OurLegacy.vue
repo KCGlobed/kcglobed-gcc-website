@@ -1,5 +1,5 @@
 <template>
-    <div class="our-legacy-warp ptb-100" id="our-legacy">
+    <div class="our-legacy-warp ptb-100 bg-white" id="our-legacy">
         <div class="container">
             <!-- Title -->
             <div class="section-title text-center mb-5">

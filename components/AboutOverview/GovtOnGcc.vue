@@ -1,5 +1,5 @@
 <template>
-    <div class="gcc-government-area ptb-100 bg-F8F8F9">
+    <div class="gcc-government-area ptb-100 bg-white">
         <div class="container">
             <!-- Section 1 -->
             <div class="row align-items-center mb-50">

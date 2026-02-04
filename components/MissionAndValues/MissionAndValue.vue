@@ -1,5 +1,5 @@
 <template>
-  <div class="mission-vision-area ptb-100 bg-FAF6F6">
+  <div class="mission-vision-area ptb-100" style="background: #F7F9FC;">
     <div class="container">
       <div class="section-title text-center mb-50">
         <span class="sub-title">Our Philosophy</span>
