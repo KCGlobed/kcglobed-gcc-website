@@ -30,7 +30,7 @@
       border-radius: 50%;
       display: inline-block;
     "></span>
-              {{ banner.subTitle }}
+              <span class="blinking-text">{{ banner.subTitle }}</span>
             </span>
 
             <div class="content" style="margin-top: 20px;">
@@ -308,6 +308,25 @@
 }
 </style>
 
+<style scoped>
+/* Blinking animation for banner subtitle */
+@keyframes blink {
+
+  0%,
+  100% {
+    opacity: 1;
+  }
+
+  50% {
+    opacity: 0.3;
+  }
+}
+
+.blinking-text {
+  animation: blink 2s ease-in-out infinite;
+}
+</style>
+
 <script lang="ts">
 import { defineComponent } from "vue";
 
@@ -317,6 +336,7 @@ import gccPdf from "../../assets/gcc.pdf";
 import universities from "../../assets/universities.json";
 
 export default defineComponent({
+
   name: "MainBanner",
   methods: {
     validateForm() {
@@ -344,13 +364,17 @@ export default defineComponent({
       if (!this.form.city) this.errors.city = "City is required"
       if (!this.form.state) this.errors.state = "State is required"
       if (!this.form.graduationProgram) this.errors.graduationProgram = "Select graduation program"
+
       if (this.form.graduationProgram === "Other" && !this.form.graduationProgramOther) {
         this.errors.graduationProgramOther = "Please specify your graduation program"
       }
+
       if (!this.form.graduationStatus) this.errors.graduationStatus = "Select graduation status"
+
       if (this.form.graduationStatus === "Pursuing" && !this.form.currentCGPA) {
         this.errors.currentCGPA = "CGPA/Percentage is required"
       }
+
       if (this.form.graduationStatus === "Completed" && !this.form.firstDivision) {
         this.errors.firstDivision = "Please indicate if you passed with First Division"
       }
@@ -361,29 +385,36 @@ export default defineComponent({
       if (!this.form.pincode) this.errors.pincode = "Pincode is required"
 
       return Object.values(this.errors).every(error => error === "")
-    },
+    }
+
+    ,
 
     resetGraduationFields() {
       this.form.graduationProgramOther = ""
       this.form.graduationStatus = ""
       this.resetStatusFields()
-    },
+    }
+
+    ,
 
     resetStatusFields() {
       this.form.currentCGPA = ""
       this.form.firstDivision = ""
       this.resetHigherQualification()
-    },
+    }
+
+    ,
 
     resetHigherQualification() {
       this.form.higherQualification = ""
       this.form.higherQualificationOther = ""
-    },
+    }
+
+    ,
 
     async submitForm() {
-      if (!this.validateForm()) return
+      if (!this.validateForm()) return // Transform camelCase form to snake_case payload for API
 
-      // Transform camelCase form to snake_case payload for API
       const payload = {
         name: this.form.name,
         mobile: this.form.mobile,
@@ -399,10 +430,13 @@ export default defineComponent({
         source: this.form.source,
         remarks: this.form.remarks,
         pincode: this.form.pincode
-      };
+      }
+
+        ;
 
       try {
         this.isSubmitting = true;
+
         const response: any = await $fetch("/api/enquery", {
           method: "POST",
           body: payload
@@ -413,7 +447,8 @@ export default defineComponent({
           alert("Thank you! Our team will contact you soon.")
           const closeBtn = this.$refs.closeModalBtn as HTMLButtonElement;
           closeBtn.click();
-          window.open("https://storage.googleapis.com/static_files_backend/media/landing/GCC%20School%20Brochure%201.pdf", "_blank");
+          window.open("https://storage.googleapis.com/static_files_backend/media/landing/GCC%20School%20Brochure%201.pdf",
+            "_blank");
 
           // Reset form
           this.form = {
@@ -435,19 +470,28 @@ export default defineComponent({
             pincode: "",
             consent: false
           }
-        } else {
+        }
+
+        else {
           alert(response.message || "Something went wrong. Please try again.")
         }
-      } catch (error: any) {
+      }
+
+      catch (error: any) {
         console.error("Submission Error:", error)
         alert(error.data?.message || "Server error. Try later.")
-      } finally {
+      }
+
+      finally {
         this.isSubmitting = false;
       }
     }
-  },
+  }
+
+  ,
   data() {
     return {
+
       colleges: universities,
       form: {
         name: "",
@@ -468,7 +512,9 @@ export default defineComponent({
         remarks: "",
         pincode: "",
         consent: false,
-      },
+      }
+
+      ,
       isSubmitting: false,
       errors: {
         name: "",
@@ -486,44 +532,56 @@ export default defineComponent({
         source: "",
         consent: "",
         pincode: ""
-      },
-      banners: [
-        {
+      }
+
+      ,
+      banners: [{
+
+        id: 1,
+        bgClass: "bg1",
+        subTitle: "Cohort 2026 Applications Open",
+        image: image1,
+        heading: "World's 1st School Backed by Industry, Built on Execution",
+        description: "",
+        btnText: "Apply Now",
+        btnLink: "/personal-information",
+        btnTextTwo: "Download Dossier",
+        btnLinkTwo: gccPdf,
+        updateTitle: "View all latest news updates of Tuva",
+        updateLink: "/blog",
+        informations: [{
           id: 1,
-          bgClass: "bg1",
-          subTitle: "Cohort 2026 Applications Open",
-          image: image1,
-          heading: "World's 1st School Backed  by Industry, Built on Execution",
-          description: "",
-          btnText: "Apply Now",
-          btnLink: "/personal-information",
-          btnTextTwo: "Download Dossier",
-          btnLinkTwo: gccPdf,
-          updateTitle: "View all latest news updates of Tuva",
-          updateLink: "/blog",
-          informations: [
-            {
-              id: 1,
-              icon: "ti ti-world",
-              title: "Take A Tour",
-              link: "/schedule",
-            },
-            {
-              id: 2,
-              icon: "ti ti-info-hexagon",
-              title: "Campus Information",
-              link: "/about-campus",
-            },
-            {
-              id: 3,
-              icon: "ti ti-ballpen",
-              title: "Apply Now",
-              link: "/personal-information",
-            },
-          ],
+          icon: "ti ti-world",
+          title: "Take A Tour",
+          link: "/schedule",
         }
+
+          ,
+        {
+          id: 2,
+          icon: "ti ti-info-hexagon",
+          title: "Campus Information",
+          link: "/about-campus",
+        }
+
+          ,
+        {
+          id: 3,
+          icon: "ti ti-ballpen",
+          title: "Apply Now",
+          link: "/personal-information",
+        }
+
+          ,
+        ],
+      }
+
       ],
-    };
-  },
+    }
+
+      ;
+  }
+
+  ,
 });
 </script>

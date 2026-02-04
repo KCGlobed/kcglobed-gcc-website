@@ -6,6 +6,7 @@
     <HomeOneInformationForInternationalStudents />
     <!-- <HomeOneFindYourProgram /> -->
     <!-- <HomeOneAboutTheUniversity /> -->
+    <CommonPathwaySuccess />
     <CommonFunFact />
     <HomeOneFutureStudents />
     <HomeOneCultureWarp />

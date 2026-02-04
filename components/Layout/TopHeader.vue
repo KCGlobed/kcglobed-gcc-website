@@ -50,7 +50,7 @@
                 <NuxtLink to="https://kcglobed.com/" target="_blank">KC GlobEd</NuxtLink>
               </li>
               <li class="dropdown-wrapper" @mouseenter="openDropdown" @mouseleave="closeDropdown">
-                <span class="dropdown-trigger">Campus CEO <i class="ti ti-chevron-down"></i></span>
+                <span class="dropdown-trigger">Ambassador <i class="ti ti-chevron-down"></i></span>
                 <ul class="dropdown-menu" :class="{ show: showDropdown }">
                   <li style="width: 100%; padding: 0px;">
                     <NuxtLink to="/campus-ceo/student">Student</NuxtLink>
@@ -61,7 +61,7 @@
                 </ul>
               </li>
               <li>
-                <NuxtLink to="/partner-with-us">For Partners</NuxtLink>
+                <NuxtLink to="/partner-with-us">Corporate Partner</NuxtLink>
               </li>
               <li>
                 <NuxtLink to="/career">Careers</NuxtLink>
