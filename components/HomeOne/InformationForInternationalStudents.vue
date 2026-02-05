@@ -1,6 +1,42 @@
 <template>
   <div class="information-warp ptb-100">
     <div class="container">
+      <div class="row">
+        <div class="col-md-12">
+          <div class="panelBox">
+            <div class="box">
+              <img src="../../assets/img/heros/panleIcon1.png" class="icon"/>
+              <p>Hired First</p>
+              <span>Then Trained</span>
+            </div>
+            <div class="box">
+              <img src="../../assets/img/heros/panleIcon2.png" class="icon"/>
+              <p>6 Months</p>
+              <span>Paid Internship During the Program</span>
+            </div>
+            <div class="box">
+              <img src="../../assets/img/heros/panleIcon3.png" class="logo"/>
+              <p>Hired First</p>
+              <span>UK ACCA Integrated</span>
+            </div>
+            <div class="box">
+              <img src="../../assets/img/heros/panleIcon4.png" class="logo"/>
+              <p>Hired First</p>
+              <span>Master in Corporate Communication</span>
+            </div>
+            <div class="box">
+              <img src="../../assets/img/heros/panleIcon5.png" class="logo"/>
+              <p>Hired First</p>
+              <span>AICTE Approved PGCM Certificate from AIMA</span>
+            </div>
+            <div class="box">
+              <img src="../../assets/img/heros/panleIcon6.png" class="icon"/>
+              <p>AI First</p>
+              <span>Integrated Curriculum</span>
+            </div>
+          </div>
+        </div>
+      </div>
       <div class="row align-items-center g-4">
         <div class="col-lg-6" data-aos="fade-up" data-aos-delay="200">
           <div class="information-content">
@@ -89,6 +125,50 @@ export default {
 
 <style scoped>
 /* Video Section Styles */
+.information-warp{
+  position: relative;
+  padding-top: 200px;
+}
+.panelBox{
+  display: flex;
+  padding: 30px;
+  padding-left: 60px;
+  background-color: white;
+  box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+  border-radius: 10px;
+  height: 150px;
+  position: absolute;
+  top: -30px;
+  transform: translateX(-50%);
+  left: 50%;
+  z-index: 10000;
+  gap:30px;
+  line-height: 15px;
+}
+.panelBox .box{
+  flex: 1;
+  width: 150px;
+  display: flex;
+  flex-direction: column;
+
+}
+.panelBox .box .logo{
+  width: 100px;
+}
+.panelBox .box .icon{
+  width: 25px;
+  height: 25px;
+}
+.panelBox .box p{
+  font-size: 24px;
+  font-weight: bold;
+  color:#38003C;
+  margin-bottom:0;
+}
+.panelBox .box span{
+  font-size: 11px;
+
+}
 .video-section {
   position: relative;
   width: 100%;
