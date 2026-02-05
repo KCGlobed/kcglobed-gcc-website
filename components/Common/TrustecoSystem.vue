@@ -23,7 +23,7 @@
             </div>
             <div class="header-v2 mb-5 mt-5" data-aos="fade-up">
                 <div class="">
-                    <h2 class="title">TRUST <span class="highlight">ECO SYSTEM</span></h2>
+                    <h2 class="title">TRUSTED <span class="highlight">ECO SYSTEM</span></h2>
                     <div class="header-line"></div>
                 </div>
 
@@ -70,6 +70,13 @@ const ecosystemImages = [
     { image: "https://storage.googleapis.com/static_files_backend/media/images/Rectangle%20(5).png" },
     { image: "https://storage.googleapis.com/static_files_backend/media/images/Rectangle%20(6).png" },
     { image: "https://storage.googleapis.com/static_files_backend/media/images/7qrb04.tif.png" },
+    { image: "https://storage.googleapis.com/static_files_backend/media/images/sYzkaf.png" },
+    { image: "https://storage.googleapis.com/static_files_backend/media/images/Clip%20path%20group.png" },
+    { image: "https://storage.googleapis.com/static_files_backend/media/images/Rectangle%20(7).png" },
+    { image: "https://storage.googleapis.com/static_files_backend/media/images/Group%20(3).png" },
+    { image: "https://storage.googleapis.com/static_files_backend/media/images/Group%20(2).png" },
+    { image: "https://storage.googleapis.com/static_files_backend/media/images/Group%20(1).png" },
+    { image: "https://storage.googleapis.com/static_files_backend/media/images/image%2067.png" },
 
 ];
 

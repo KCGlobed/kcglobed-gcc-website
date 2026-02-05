@@ -23,7 +23,7 @@
                         </div>
 
                         <div class="signature mt-5">
-                            <h5 class="mb-0">Manna Sir</h5>
+                            <h5 class="mb-0">Prof. (Dr.) Manpreet Singh Manna</h5>
                             <span>Executive Director</span>
                         </div>
                     </div>
