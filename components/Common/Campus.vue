@@ -1,0 +1,86 @@
+<template>
+    <div class="campus">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="campus-content">
+                        <h2>Our Campus</h2>
+                        <p>
+                            Our campus is located in the heart of the city, in a modern building
+                            that provides a comfortable and relaxing environment for our students.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="col-lg-12">
+                    <div class="campus-image">
+                        <img src="https://storage.googleapis.com/static_files_backend/media/images/AdobeStock_946334569_Editorial_Use_Only.jpeg"
+                            alt="Our Campus" />
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</template>
+
+<script setup lang="ts">
+</script>
+
+<style scoped>
+.campus {
+    padding: 80px 0;
+    background: #f9fafb;
+}
+
+.campus-content {
+    text-align: center;
+    max-width: 800px;
+    margin: 0 auto 40px auto;
+}
+
+.campus-content h2 {
+    font-size: 36px;
+    font-weight: 700;
+    margin-bottom: 15px;
+    color: #111827;
+}
+
+.campus-content p {
+    font-size: 16px;
+    line-height: 1.7;
+    color: #6b7280;
+}
+
+.campus-image {
+    width: 100%;
+    overflow: hidden;
+    border-radius: 12px;
+}
+
+.campus-image img {
+    width: 100%;
+    height: 450px;
+    object-fit: cover;
+    border-radius: 12px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+}
+
+/* Mobile Responsive */
+@media (max-width: 768px) {
+    .campus {
+        padding: 50px 0;
+    }
+
+    .campus-content h2 {
+        font-size: 28px;
+    }
+
+    .campus-content p {
+        font-size: 14px;
+    }
+
+    .campus-image img {
+        height: 250px;
+    }
+}
+</style>
