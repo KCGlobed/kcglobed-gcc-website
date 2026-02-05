@@ -20,10 +20,13 @@
 
     <CommonFunFact />
     <CommonNewsCard />
+
     <!-- <HomeOneProfessionalLearning />
     <HomeOneServicesContent />
     <HomeOneWeAreInTheWave />
     <HomeOneLatestNews /> -->
+    <CommonTrustecoSystem />
+    <CommonDirectorSpeach />
     <CommonCampus />
     <LayoutMainFooter />
     <LayoutCopyRight />
