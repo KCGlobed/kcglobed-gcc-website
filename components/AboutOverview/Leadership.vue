@@ -1,5 +1,5 @@
 <template>
-    <div id="leadership" class="leadership-area ptb-100 bg-light-gradient">
+    <div id="leadership" class="leadership-area ptb-100" style="background: #F7F9FC;">
         <div class="container">
             <div class="section-title text-center mb-5">
                 <!-- <span class="sub-title"></span> -->

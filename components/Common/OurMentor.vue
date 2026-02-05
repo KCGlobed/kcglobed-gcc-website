@@ -284,7 +284,7 @@ export default {
 <style scoped>
 .mentors-section {
     padding: 80px 0;
-    background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+    background: #F7F9FC;
     min-height: 100vh;
 }
 

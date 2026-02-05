@@ -6,14 +6,25 @@
     <HomeOneInformationForInternationalStudents />
     <!-- <HomeOneFindYourProgram /> -->
     <!-- <HomeOneAboutTheUniversity /> -->
-    <CommonFunFact />
+    <CommonPathwaySuccess />
+
     <HomeOneFutureStudents />
+    <CommonGccCommerse />
+    <CommonGrowthTrend />
     <HomeOneCultureWarp />
     <HomeOneCurrentAcademicStudents />
+    <CommonPathway />
+    <CommonThinkTank />
+    <CommonSubjectMatterExpert />
+    <CommonIndustryMentor />
+
+    <CommonFunFact />
+    <CommonNewsCard />
     <!-- <HomeOneProfessionalLearning />
     <HomeOneServicesContent />
     <HomeOneWeAreInTheWave />
     <HomeOneLatestNews /> -->
+    <CommonCampus />
     <LayoutMainFooter />
     <LayoutCopyRight />
 

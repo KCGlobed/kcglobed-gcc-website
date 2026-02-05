@@ -23,17 +23,21 @@
             </NuxtLink>
           </li>
           <li class="nav-item">
-            <NuxtLink to="/about-overview" class="nav-link">
-              About Us
-            </NuxtLink>
-          </li>
-
-          <li class="nav-item">
             <NuxtLink to="/programs" class="nav-link">
               Programs
             </NuxtLink>
 
           </li>
+          <li class="nav-item">
+            <NuxtLink to="#" class="nav-link">
+              NFET Exams
+            </NuxtLink>
+
+          </li>
+
+
+
+
 
           <li class="nav-item">
             <NuxtLink to="/admissions" class="nav-link">
@@ -43,6 +47,11 @@
           <li class="nav-item">
             <NuxtLink to="/campus-life" class="nav-link">
               Campus Life
+            </NuxtLink>
+          </li>
+          <li class="nav-item">
+            <NuxtLink to="/about-overview" class="nav-link">
+              About Us
             </NuxtLink>
           </li>
 
