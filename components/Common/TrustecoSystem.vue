@@ -3,7 +3,7 @@
         <div class="container">
             <div class="header-v2 mb-5" data-aos="fade-up">
                 <div class="">
-                    <h2 class="title">THE BACKBONE</h2>
+                    <h2 class="title">THE POWERHOUSE BEHIND <span class="highlight">GCC SCHOOL</span></h2>
                     <div class="header-line"></div>
                 </div>
 
@@ -23,7 +23,7 @@
             </div>
             <div class="header-v2 mb-5 mt-5" data-aos="fade-up">
                 <div class="">
-                    <h2 class="title">TRUST ECO SYSTEM</h2>
+                    <h2 class="title">TRUST <span class="highlight">ECO SYSTEM</span></h2>
                     <div class="header-line"></div>
                 </div>
 
@@ -91,11 +91,16 @@ const ecosystemImages = [
 }
 
 .title {
-    font-size: 38px;
-    font-weight: 800;
-    color: #2e1a5a;
+    font-size: 32px;
+    font-weight: 700;
+    color: #0d0d25;
     margin-bottom: 5px;
-    letter-spacing: -0.5px;
+    letter-spacing: -0.1px;
+    text-transform: uppercase;
+}
+
+.highlight {
+    color: #F1A63E;
 }
 
 .header-line {

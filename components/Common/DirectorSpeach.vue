@@ -4,16 +4,15 @@
             <div class="row align-items-center">
                 <div class="col-lg-6 col-md-12">
                     <div class="ed-message-content pe-lg-5" data-aos="fade-right">
-                        <div class="section-tag mb-3">
+                        <!-- <div class="section-tag mb-3">
                             <span class="badge">Message from ED Desk</span>
-                        </div>
+                        </div> -->
                         <h2 class="title mb-4">A Commitment to <span class="highlight">Excellence</span></h2>
                         <div class="message-text">
                             <p>Our commitment at GCC School is to transform young aspiring professionals into global
                                 corporate leaders through immersive industry engagement. We identify latent potential
                                 early and align it with real-world opportunities to ensure market-ready outcomes.</p>
-                            <p>I invite you to take the first step towards this transformative journey by participating
-                                in the **NFET Entrance Exam**, your gateway to a world-class corporate education.</p>
+
                         </div>
 
                         <div class="cta-box mt-5">
@@ -78,14 +77,15 @@
 }
 
 .title {
-    font-size: 42px;
-    font-weight: 800;
+    font-size: 32px;
+    font-weight: 700;
     color: #0d0d25;
     line-height: 1.2;
+    text-transform: uppercase;
 }
 
 .highlight {
-    color: #fc6441;
+    color: #F1A63E;
 }
 
 .message-text p {

@@ -80,8 +80,8 @@ const images = [
 .image-box img {
     max-width: 100%;
     height: auto;
-    filter: grayscale(100%);
-    opacity: 0.7;
+    /* filter: grayscale(100%);
+    opacity: 0.7; */
     transition: all 0.3s ease;
 }
 

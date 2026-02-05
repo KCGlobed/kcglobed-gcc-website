@@ -39,10 +39,11 @@
 }
 
 .campus-content h2 {
-    font-size: 36px;
+    font-size: 32px;
     font-weight: 700;
     margin-bottom: 15px;
-    color: #111827;
+    color: #0d0d25;
+    text-transform: uppercase;
 }
 
 .campus-content p {

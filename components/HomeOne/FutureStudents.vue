@@ -162,12 +162,12 @@ export default {
 }
 
 .ticket-header-bar h2 {
-  font-size: 28px;
-  font-weight: 800;
+  font-size: 32px;
+  font-weight: 700;
   margin: 0;
   text-transform: uppercase;
   letter-spacing: 1px;
-  color: #000;
+  color: #0d0d25;
 }
 
 .ticket-header-bar p {

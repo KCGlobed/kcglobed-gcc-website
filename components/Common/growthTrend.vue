@@ -3,8 +3,7 @@
         <div class="container">
             <!-- Section Header -->
             <div class="section-header text-center mb-50" data-aos="fade-up">
-                <span class="badge">Market Insights</span>
-                <h2 class="title">Global Capabilities Centers (GCCs) <span class="highlight">Market Growth Trend</span>
+                <h2 class="title">GLOBAL CAPABILITIES CENTERS (GCCs) <span class="highlight">MARKET GROWTH TREND</span>
                 </h2>
             </div>
 
@@ -61,15 +60,16 @@
 }
 
 .title {
-    font-size: 42px;
-    font-weight: 800;
+    font-size: 32px;
+    font-weight: 700;
     color: #0d0d25;
     margin: 0;
     line-height: 1.2;
+    text-transform: uppercase;
 }
 
 .highlight {
-    background: linear-gradient(135deg, #fc6441 0%, #ff8566 100%);
+    background: linear-gradient(135deg, #F1A63E 0%, #F1A63E 100%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;

@@ -124,6 +124,7 @@ export default {
   font-weight: 700;
   color: #fff;
   margin-bottom: 15px;
+  text-transform: uppercase;
 }
 
 .section-title .subtitle {

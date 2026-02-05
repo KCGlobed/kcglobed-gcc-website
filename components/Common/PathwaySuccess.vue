@@ -1,40 +1,56 @@
 <template>
     <div class="pathway-section">
         <div class="container">
-            <!-- Compact Header -->
+            <!-- Header -->
             <div class="section-header" data-aos="fade-up">
-                <span class="badge">Your Journey</span>
-                <h2 class="title">Pathway to <span class="highlight">Success</span></h2>
+                <!-- <span class="badge">Your Journey</span> -->
+                <h2 class="title">PATHWAY TO <span class="highlight">SUCCESS</span></h2>
             </div>
 
-            <!-- Compact Steps Grid -->
-            <div class="steps-grid">
-                <div v-for="(step, index) in steps" :key="index" 
-                     class="step-item" 
-                     data-aos="fade-up"
-                     :data-aos-delay="index * 50">
-                    <div class="step-number">{{ index + 1 }}</div>
-                    <div class="step-icon" v-html="step.icon"></div>
-                    <h4 class="step-title">{{ step.title }}</h4>
-                    <p class="step-desc">{{ step.description }}</p>
-                </div>
-            </div>
-
-            <!-- Compact Eligibility -->
-            <div class="eligibility-box" data-aos="fade-up">
-                <div class="box-header">
-                    <i class="ti ti-check-circle"></i>
-                    <h3>NFET Eligibility</h3>
-                </div>
-                <div class="criteria-list">
-                    <div v-for="(criteria, index) in eligibilityCriteria" :key="index" class="criteria">
-                        <i class="ti ti-circle-check"></i>
-                        <span>{{ criteria }}</span>
+            <!-- Uniform Steps Grid -->
+            <div class="steps-container">
+                <div class="steps-grid">
+                    <div v-for="(step, index) in steps" :key="index" class="step-card" data-aos="fade-up"
+                        :data-aos-delay="index * 100">
+                        <div class="step-content">
+                            <!-- Number removed as requested -->
+                            <div class="icon-wrapper" v-html="step.icon"></div>
+                            <h4 class="step-title">{{ step.title }}</h4>
+                        </div>
+                        <div class="step-line" v-if="index !== steps.length - 1"></div>
                     </div>
                 </div>
-                <NuxtLink to="/admissions" class="apply-btn">
-                    Apply Now <i class="ti ti-arrow-right"></i>
-                </NuxtLink>
+            </div>
+
+            <!-- Clean Eligibility Section -->
+            <div class="eligibility-container" data-aos="fade-up">
+                <div class="eligibility-box">
+                    <div class="box-content">
+                        <div class="header-side">
+                            <div class="icon-circle">
+                                <i class="ti ti-check"></i>
+                            </div>
+                            <div>
+                                <h3>NFET Eligibility</h3>
+                                <p>Check your qualifications</p>
+                            </div>
+                        </div>
+                        <div class="criteria-side">
+                            <div class="criteria-grid">
+                                <div v-for="(criteria, index) in eligibilityCriteria" :key="index"
+                                    class="criteria-item">
+                                    <i class="ti ti-circle-check-filled"></i>
+                                    <span>{{ criteria }}</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="action-side">
+                            <NuxtLink to="/admissions" class="apply-btn">
+                                Apply Now
+                            </NuxtLink>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
@@ -43,28 +59,23 @@
 <script setup lang="ts">
 const steps = [
     {
-        title: 'Qualify NFET Exam',
-        description: 'Pass our entrance assessment',
+        title: 'Qualify NFET Entrance Exam',
         icon: '<i class="ti ti-clipboard-check"></i>'
     },
     {
-        title: 'Visit DLF Cyber City',
-        description: 'Get your exclusive campus invite',
+        title: 'Get The Ticket To DLF Cyber City, Gurugram',
         icon: '<i class="ti ti-ticket"></i>'
     },
     {
-        title: 'Hiring Drive',
-        description: 'Meet top industry employers',
+        title: 'Be Part of Hiring Drive',
         icon: '<i class="ti ti-users-group"></i>'
     },
     {
-        title: 'Offer Letter',
-        description: 'Receive your admission offer',
+        title: 'Get the Conditional Offer Letter',
         icon: '<i class="ti ti-file-certificate"></i>'
     },
     {
-        title: 'Start Learning',
-        description: 'Begin your transformation',
+        title: 'Then Start Your Experiential Learning',
         icon: '<i class="ti ti-rocket"></i>'
     }
 ]
@@ -73,288 +84,281 @@ const eligibilityCriteria = [
     'B.Com (First Division)',
     'B.Com + M.Com / MBA / PG (First Division)',
     'Indian Citizen',
-    'Born on or after January 1, 1996'
+    'Born on or after Jan 1, 1996'
 ]
 </script>
 
 <style scoped>
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap');
+
 .pathway-section {
-    background: white;
-    padding: 60px 0;
-    position: relative;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    background: #f8f9fc;
+    padding: 80px 0;
+    overflow: hidden;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
 }
 
 /* Header */
 .section-header {
     text-align: center;
-    margin-bottom: 50px;
+    margin-bottom: 60px;
 }
 
 .badge {
-    display: inline-block;
     background: rgba(252, 100, 65, 0.1);
     color: #fc6441;
     padding: 6px 16px;
-    border-radius: 20px;
+    border-radius: 30px;
     font-size: 13px;
-    font-weight: 600;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    display: inline-block;
     margin-bottom: 15px;
-    border: 1px solid rgba(252, 100, 65, 0.2);
 }
 
 .title {
-    font-size: 36px;
+    font-size: 32px;
     font-weight: 700;
     color: #0d0d25;
     margin: 0;
+    text-transform: uppercase;
 }
 
 .highlight {
-    background: linear-gradient(135deg, #fc6441 0%, #ff8566 100%);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
+    color: #F1A63E;
 }
 
 /* Steps Grid */
+.steps-container {
+    margin-bottom: 60px;
+}
+
 .steps-grid {
     display: grid;
     grid-template-columns: repeat(5, 1fr);
     gap: 20px;
-    margin-bottom: 50px;
 }
 
-.step-item {
+.step-card {
     background: white;
-    border: 2px solid #f0f0f0;
     border-radius: 16px;
-    padding: 25px 20px;
+    padding: 30px 20px;
     text-align: center;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.03);
+    border: 1px solid #edf2f7;
     transition: all 0.3s ease;
+    display: flex;
+    /* Ensures uniform height */
+    flex-direction: column;
+    justify-content: center;
+    height: 100%;
     position: relative;
+    min-height: 250px;
+    /* Adjusted min-height without number */
 }
 
-.step-item::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    height: 4px;
-    background: linear-gradient(90deg, #fc6441, #ff8566);
-    border-radius: 16px 16px 0 0;
-    opacity: 0;
-    transition: opacity 0.3s ease;
-}
-
-.step-item:hover {
-    border-color: #fc6441;
+.step-card:hover {
     transform: translateY(-5px);
-    box-shadow: 0 10px 30px rgba(252, 100, 65, 0.15);
+    box-shadow: 0 15px 30px rgba(252, 100, 65, 0.1);
+    border-color: #fc6441;
 }
 
-.step-item:hover::before {
-    opacity: 1;
+.step-content {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    /* Center vertically since number is gone */
 }
 
-.step-number {
-    position: absolute;
-    top: 15px;
-    right: 15px;
-    width: 28px;
-    height: 28px;
-    background: linear-gradient(135deg, #fc6441, #ff8566);
-    color: white;
+.icon-wrapper {
+    width: 70px;
+    /* Slightly larger */
+    height: 70px;
+    background: #fff5f2;
     border-radius: 50%;
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 14px;
-    font-weight: 700;
-}
-
-.step-icon {
-    width: 50px;
-    height: 50px;
-    background: linear-gradient(135deg, rgba(252, 100, 65, 0.1), rgba(255, 133, 102, 0.1));
-    border-radius: 12px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin: 0 auto 15px;
-    color: #fc6441;
-    font-size: 26px;
-}
-
-.step-title {
-    font-size: 16px;
-    font-weight: 700;
-    color: #0d0d25;
-    margin-bottom: 8px;
-    line-height: 1.3;
-}
-
-.step-desc {
-    font-size: 13px;
-    color: #525271;
-    line-height: 1.5;
-    margin: 0;
-}
-
-/* Eligibility Box */
-.eligibility-box {
-    max-width: 800px;
-    margin: 0 auto;
-    background: linear-gradient(135deg, #f8f9fa 0%, #ffffff 100%);
-    border: 2px solid #e9ecef;
-    border-radius: 20px;
-    padding: 35px;
-}
-
-.box-header {
-    display: flex;
-    align-items: center;
-    gap: 12px;
     margin-bottom: 25px;
-    padding-bottom: 20px;
-    border-bottom: 2px solid #e9ecef;
-}
-
-.box-header i {
+    /* More spacing */
     font-size: 32px;
-    color: #10b981;
-}
-
-.box-header h3 {
-    font-size: 22px;
-    font-weight: 700;
-    color: #0d0d25;
-    margin: 0;
-}
-
-.criteria-list {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 15px;
-    margin-bottom: 25px;
-}
-
-.criteria {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    padding: 12px 15px;
-    background: white;
-    border: 1px solid #e9ecef;
-    border-radius: 10px;
-    font-size: 14px;
-    font-weight: 500;
-    color: #0d0d25;
-    transition: all 0.3s ease;
-}
-
-.criteria:hover {
-    border-color: #10b981;
-    background: rgba(16, 185, 129, 0.05);
-}
-
-.criteria i {
-    font-size: 20px;
-    color: #10b981;
-}
-
-.apply-btn {
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-    padding: 14px 35px;
-    background: linear-gradient(135deg, #fc6441, #ff8566);
-    color: white;
-    font-size: 16px;
-    font-weight: 600;
-    border-radius: 50px;
-    text-decoration: none;
-    box-shadow: 0 8px 20px rgba(252, 100, 65, 0.3);
-    transition: all 0.3s ease;
-}
-
-.apply-btn:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 12px 30px rgba(252, 100, 65, 0.4);
-    color: white;
-}
-
-.apply-btn i {
-    font-size: 18px;
+    /* Larger icon */
+    color: #F1A63E;
     transition: transform 0.3s ease;
 }
 
-.apply-btn:hover i {
-    transform: translateX(3px);
+.step-card:hover .icon-wrapper {
+    transform: scale(1.1) rotate(5deg);
+    background: #fc6441;
+    color: white;
+}
+
+.step-title {
+    font-size: 18px;
+    /* Increased from 16px */
+    font-weight: 700;
+    color: #1a1a2e;
+    /* Darker for contrast */
+    line-height: 1.4;
+    margin: 0;
+    /* Ensure title area has uniform height to align cards perfectly */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 54px;
+}
+
+/* Eligibility Box */
+
+
+.eligibility-box {
+    background: white;
+    border-radius: 20px;
+    padding: 30px;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.05);
+    border: 1px solid #edf2f7;
+}
+
+.box-content {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 30px;
+}
+
+.header-side {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    min-width: 250px;
+}
+
+.icon-circle {
+    width: 48px;
+    height: 48px;
+    background: #862E84;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+    font-size: 24px;
+}
+
+.header-side h3 {
+    font-size: 18px;
+    font-weight: 700;
+    margin: 0 0 4px;
+    color: #2d3748;
+}
+
+.header-side p {
+    font-size: 13px;
+    color: #718096;
+    margin: 0;
+}
+
+.criteria-side {
+    flex-grow: 1;
+    border-left: 1px solid #edf2f7;
+    border-right: 1px solid #edf2f7;
+    padding: 0 30px;
+}
+
+.criteria-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+}
+
+.criteria-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 13px;
+    font-weight: 600;
+    color: #4a5568;
+}
+
+.criteria-item i {
+    color: #862E84;
+    font-size: 16px;
+}
+
+.action-side {
+    min-width: 140px;
+    text-align: right;
+}
+
+.apply-btn {
+    display: inline-block;
+    padding: 12px 24px;
+    background: #A13E99;
+    color: white;
+    font-weight: 600;
+    font-size: 14px;
+    border-radius: 8px;
+    text-decoration: none;
+    transition: background 0.3s ease;
+}
+
+.apply-btn:hover {
+    background: #e8502d;
 }
 
 /* Responsive */
-@media (max-width: 1200px) {
+@media (max-width: 1024px) {
     .steps-grid {
         grid-template-columns: repeat(3, 1fr);
     }
-}
 
-@media (max-width: 768px) {
-    .pathway-section {
-        padding: 40px 0;
+    .box-content {
+        flex-direction: column;
+        text-align: center;
     }
 
-    .title {
-        font-size: 28px;
+    .header-side {
+        flex-direction: column;
+        text-align: center;
     }
 
-    .steps-grid {
-        grid-template-columns: repeat(2, 1fr);
-        gap: 15px;
+    .criteria-side {
+        border: none;
+        padding: 20px 0;
+        width: 100%;
     }
 
-    .step-item {
-        padding: 20px 15px;
-    }
-
-    .step-title {
-        font-size: 14px;
-    }
-
-    .step-desc {
-        font-size: 12px;
-    }
-
-    .eligibility-box {
-        padding: 25px 20px;
-    }
-
-    .criteria-list {
-        grid-template-columns: 1fr;
+    .action-side {
+        width: 100%;
     }
 
     .apply-btn {
         width: 100%;
-        justify-content: center;
+        text-align: center;
     }
 }
 
-@media (max-width: 480px) {
+@media (max-width: 640px) {
     .steps-grid {
+        grid-template-columns: repeat(1, 1fr);
+    }
+
+    .criteria-grid {
         grid-template-columns: 1fr;
     }
 
-    .step-number {
-        width: 24px;
-        height: 24px;
-        font-size: 12px;
-    }
-
-    .step-icon {
-        width: 45px;
-        height: 45px;
-        font-size: 22px;
+    .step-card {
+        min-height: auto;
+        padding: 25px;
     }
 }
 </style>
