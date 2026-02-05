@@ -141,7 +141,7 @@ export default {
   top: -30px;
   transform: translateX(-50%);
   left: 50%;
-  z-index: 10000;
+  z-index: 100;
   gap:30px;
   line-height: 15px;
 }

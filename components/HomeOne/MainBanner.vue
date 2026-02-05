@@ -43,7 +43,7 @@
               </div>
 
               <!-- Right Card -->
-              <div class="col-lg-5 offset-lg-1">
+              <div class="col-lg-6">
                 <div class="journey-card">
                   <div class="row">
                     <!-- Left side - Content -->
@@ -418,7 +418,7 @@
 }
 
 .card-title {
-  font-size: 28px;
+  font-size: 24px;
   font-weight: bold;
   color: #1f2937;
 }
