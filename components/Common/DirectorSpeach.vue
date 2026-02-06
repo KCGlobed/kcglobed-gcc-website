@@ -9,18 +9,23 @@
                         </div> -->
                         <h2 class="title mb-4">A Commitment to <span class="highlight">Excellence</span></h2>
                         <div class="message-text">
-                            <p>Our commitment at GCC School is to transform young aspiring professionals into global
-                                corporate leaders through immersive industry engagement. We identify latent potential
-                                early and align it with real-world opportunities to ensure market-ready outcomes.</p>
+                            <p>
+                                The NFET Entrance Exam marks an important milestone for commerce students to discover
+                                their potential and prepare for future success.
+                                At GCC School, we are committed to building strong fundamentals, critical thinking, and
+                                global career readiness.
+                                We extend our best wishes to all aspirants as they take this confident step toward their
+                                academic and professional journey.
+                            </p>
 
                         </div>
 
-                        <div class="cta-box mt-5">
+                        <!-- <div class="cta-box mt-5">
                             <NuxtLink to="/nfet-exam" class="default-btn">
                                 Join NFET Entrance Exam
                                 <i class="ti ti-arrow-narrow-right"></i>
                             </NuxtLink>
-                        </div>
+                        </div> -->
 
                         <div class="signature mt-5">
                             <h5 class="mb-0">Prof. (Dr.) Manpreet Singh Manna</h5>

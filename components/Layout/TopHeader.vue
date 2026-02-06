@@ -6,6 +6,16 @@
           <div class="top-header-details">
             <ul class="social-list">
               <li>
+                <a href="https://www.linkedin.com/company/gccschool/" target="_blank" class="icon">
+                  <img src="~/assets/img/svgs/linkedin.svg" alt="icon" />
+                </a>
+              </li>
+              <li>
+                <a href="https://www.instagram.com/gccschool?igsh=MXQxc2JhazAwcG55cQ==" target="_blank" class="icon">
+                  <img src="~/assets/img/svgs/instagram.svg" alt="icon" />
+                </a>
+              </li>
+              <li>
                 <a href="https://www.facebook.com/share/187jgT5gev/" target="_blank" class="icon">
                   <img src="~/assets/img/svgs/facebook.svg" alt="icon" />
                 </a>
@@ -15,16 +25,8 @@
                   <img src="~/assets/img/svgs/twitter.svg" alt="icon" />
                 </a>
               </li>
-              <li>
-                <a href="https://www.instagram.com/gccschool?igsh=MXQxc2JhazAwcG55cQ==" target="_blank" class="icon">
-                  <img src="~/assets/img/svgs/instagram.svg" alt="icon" />
-                </a>
-              </li>
-              <li>
-                <a href="https://www.linkedin.com/company/gccschool/" target="_blank" class="icon">
-                  <img src="~/assets/img/svgs/linkedin.svg" alt="icon" />
-                </a>
-              </li>
+
+
               <li>
                 <a href="https://www.youtube.com/@GCCSchool" target="_blank" class="icon">
                   <img src="~/assets/img/svgs/youtube.svg" alt="icon" />
@@ -124,6 +126,8 @@ export default {
 .top-header-details .header-contact li a {
   color: #fff;
 }
+
+
 
 .ti-mail:before {
   color: #fff;

@@ -3,7 +3,8 @@
         <div class="container">
             <!-- Section Header -->
             <div class="section-header text-center mb-50" data-aos="fade-up">
-                <h2 class="title">GLOBAL CAPABILITIES CENTERS (GCCs) <span class="highlight">MARKET GROWTH TREND</span>
+                <h2 class="title">THE STRATEGIC RISE & GROWTH TRAJECTORY OF <span class="highlight"> GLOBAL CAPABILITY
+                        CENTERS (GCC) </span>
                 </h2>
             </div>
 

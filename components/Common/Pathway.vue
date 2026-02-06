@@ -13,8 +13,8 @@
                 <div class="col-lg-10 offset-lg-1" data-aos="zoom-in">
                     <div class="pathway-visual-container">
                         <div class="image-wrapper">
-                            <img src="https://storage.googleapis.com/static_files_backend/media/images/Group%2049794%20(2).png"
-                                alt="GCC Learning Pathway" class="pathway-graphic">
+                            <img src="@/assets/img/common/graph2.svg" alt="GCC Learning Pathway"
+                                class="pathway-graphic">
                         </div>
                         <!-- Decorative glow effects -->
                         <div class="glow-bg"></div>
@@ -84,6 +84,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    width: 100%;
 }
 
 .image-wrapper {

@@ -2,7 +2,7 @@
     <div class="think-tank-area ptb-100">
         <div class="container">
             <div class="section-title text-center mb-50">
-                <h2 class="title">Subject Matter <span class="highlight">Expert</span></h2>
+                <h2 class="title"> OUR EMINENT <span class="highlight">SUBJECT MATTER EXPERTS </span></h2>
                 <p class="max-600 mx-auto">Our Subject Matter Expert comprises industry leaders and academic pioneers
                     dedicated to
                     shaping the future of education and professional excellence.</p>

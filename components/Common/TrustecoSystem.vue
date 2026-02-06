@@ -1,7 +1,12 @@
 <template>
     <div class="trust-ecosystem-section">
         <div class="container">
+            <div class="header-logo d-flex justify-content-center align-items-center">
+                <img src="@/assets/img/common/logo_kcglobed.svg" alt="Logo" class="header-logo">
+            </div>
             <div class="header-v2 mb-3" data-aos="fade-up">
+
+
                 <div class="">
                     <h2 class="title">THE POWERHOUSE BEHIND <span class="highlight">GCC SCHOOL</span></h2>
 

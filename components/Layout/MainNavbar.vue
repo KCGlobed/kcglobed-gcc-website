@@ -34,14 +34,9 @@
             </NuxtLink>
 
           </li>
-
-
-
-
-
           <li class="nav-item">
             <NuxtLink to="/admissions" class="nav-link">
-              Admissions
+              Admission
             </NuxtLink>
           </li>
           <li class="nav-item">

@@ -39,9 +39,9 @@
                   <NuxtLink :to="banner.btnLink" class="btn btn-primary px-4 py-3">
                     {{ banner.btnText }}
                   </NuxtLink>
-                  <button class="btn btn-light px-4 py-3" data-bs-toggle="modal" data-bs-target="#enquiryModal">
+                  <!-- <button class="btn btn-light px-4 py-3" data-bs-toggle="modal" data-bs-target="#enquiryModal">
                     {{ banner.btnTextTwo }}
-                  </button>
+                  </button> -->
                 </div>
               </div>
 
@@ -51,11 +51,11 @@
                   <div class="row">
                     <!-- Left side - Content -->
                     <div class="col-md-7">
-                      <h2 class="card-title">
+                      <h2 class="card-title mb-4">
                         Start Your Journey With<br />
                         <span class="text-gradient">GCC School</span>
                       </h2>
-                      <p class="text-muted small mb-4">For A Unique 12 Months Professional Program</p>
+                      <!-- <p class="text-muted small mb-4">For A Unique 12 Months Professional Program</p> -->
 
                       <div class="mb-4">
                         <div class="d-flex gap-2 mb-3 align-items-start card-feature">

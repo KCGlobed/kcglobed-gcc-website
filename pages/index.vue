@@ -14,7 +14,7 @@
     <CommonDirectorSpeach />
     <CommonGccCommerse />
     <CommonGrowthTrend />
-    <HomeOneCultureWarp />
+    <!-- <HomeOneCultureWarp /> -->
     <CommonPathway />
 
     <HomeOneCurrentAcademicStudents />

@@ -100,7 +100,7 @@
 
           <div class="info-group mt-3">
             <label>STATUS</label>
-            <span class="dark-text"><a href="/personal-information" class="status-link">Click here to know</a></span>
+            <span class="dark-text"><a href="/nfet-exam" class="status-link">know More</a></span>
           </div>
 
           <div class="barcode mt-4">
