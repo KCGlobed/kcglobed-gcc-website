@@ -24,13 +24,13 @@
           </li>
           <li class="nav-item">
             <NuxtLink to="/programs" class="nav-link">
-              Programs
+              Program
             </NuxtLink>
 
           </li>
           <li class="nav-item">
             <NuxtLink to="#" class="nav-link">
-              NFET Exams
+              NFET Exam
             </NuxtLink>
 
           </li>

@@ -25,7 +25,7 @@
           <tbody>
             <tr v-for="(item, index) in comparisonData" :key="index" :class="index % 2 === 0 ? 'even-row' : 'odd-row'">
               <td class="feature-name" v-html="item.feature"></td>
-              <td class="text-center">
+              <td class="text-center traditional-cell">
                 <span v-if="item.traditional" class="icon-check-green">
                   <i class="ti ti-circle-check"></i>
                 </span>
@@ -137,6 +137,9 @@ export default {
   color: #fff;
   width: 30%;
   border-top-right-radius: 8px;
+  border: 1.784px solid var(--color-yellow-52, #D4AF37);
+  border-bottom: none;
+  /* Let cells handle the bottom border or collapse? If collapse, this isn't needed usually, but safe to match style */
 }
 
 .comparison-table td {
@@ -190,8 +193,9 @@ export default {
 .gcc-cell {
   background-color: rgba(200, 146, 22, 0.15);
   /* Slight gold tint overlay if wanted, or just rely on row colors */
-  border-left: 2px solid #c89216;
-  border-right: 2px solid #c89216;
+  /* border-left: 2px solid #c89216;
+  border-right: 2px solid #c89216; */
+  border: 4px solid var(--color-yellow-52, #D4AF37);
 }
 
 /* Make GCC column stand out more like a card effect? Design shows just colored header and rows */
@@ -245,26 +249,42 @@ export default {
 
 
 /* Let's refine the colors to match image better */
+/* Traditional Cells */
+.traditional-cell {
+  background-color: #f2f2f2;
+  border-right: 1px solid #d6d6d6;
+}
+
+.even-row .traditional-cell {
+  background-color: #e6e6e6;
+}
+
+/* GCC Cells */
+.gcc-cell {
+  background-color: rgba(200, 146, 22, 0.05) !important;
+  border: 2px solid #D4AF37 !important;
+}
+
 .even-row {
-  background-color: #e9e4f0;
-  /* Light Purple tint */
+  background-color: #EEECF4;
 }
 
 .odd-row {
-  background-color: #f4f4f4;
+  background-color: #ffffff;
 }
 
-.gcc-cell {
-  /* The right column background */
-  border-left: 1px solid #999;
-}
-
+/* Ensure alternating rows in GCC column also respect the tint but keep border */
 .even-row .gcc-cell {
-  background-color: #bbbbbb;
+  background-color: rgba(200, 146, 22, 0.08) !important;
 }
 
 .odd-row .gcc-cell {
-  background-color: #d3d3d3;
+  background-color: rgba(255, 255, 255, 1) !important;
+}
+
+/* Last cell border fix */
+tr:last-child .gcc-cell {
+  border-bottom: 2px solid #D4AF37 !important;
 }
 
 /* Remove border if using background differentiation */

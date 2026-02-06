@@ -23,7 +23,7 @@ const images = [
     "https://storage.googleapis.com/static_files_backend/media/images/1%20(1).png",
     "https://storage.googleapis.com/static_files_backend/media/images/2%20(1).png",
     "https://storage.googleapis.com/static_files_backend/media/images/4.png",
-    "https://storage.googleapis.com/static_files_backend/media/images/4.png",
+    "https://storage.googleapis.com/static_files_backend/media/images/6%20(2).png",
     "https://storage.googleapis.com/static_files_backend/media/images/5.png",
     "https://storage.googleapis.com/static_files_backend/media/images/Group%2049811.png"
 ]
