@@ -2,8 +2,7 @@
   <div class="comparison-warp ptb-100">
     <div class="container">
       <div class="section-title text-center">
-        <!-- <span class="sub-title">Comparison</span> -->
-        <h2>Traditional Pathway vs GCC Journey</h2>
+        <h2 class="title">Traditional Pathway vs <span class="highlight">GCC Journey</span></h2>
         <p>See why GCC Journey is most suited for professional world of new tomorrow.</p>
       </div>
 
@@ -110,7 +109,19 @@ export default {
   font-weight: 700;
   background-color: #f8f9fa;
   border-bottom: 2px solid #dee2e6;
-  color: #38003c;
+  color: #0d0d25;
+}
+
+.title {
+  font-size: 32px;
+  font-weight: 700;
+  color: #0d0d25;
+  margin-bottom: 20px;
+  text-transform: uppercase;
+}
+
+.highlight {
+  color: #F1A63E;
 }
 
 .comparison-table td {
@@ -150,15 +161,5 @@ export default {
 
 .highlight-cell {
   background-color: rgba(247, 226, 169, 0.1);
-}
-
-.sub-title {
-  display: block;
-  font-size: 14px;
-  font-weight: 600;
-  color: #f5a623;
-  text-transform: uppercase;
-  margin-bottom: 10px;
-  letter-spacing: 1px;
 }
 </style>

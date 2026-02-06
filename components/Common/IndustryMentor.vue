@@ -2,7 +2,7 @@
     <div class="think-tank-area ptb-100">
         <div class="container">
             <div class="section-title text-center mb-50">
-                <h2>Industry Mentor</h2>
+                <h2 class="title">Industry <span class="highlight">Mentor</span></h2>
                 <p class="max-600 mx-auto">Our Industry Mentors are seasoned professionals who provide invaluable
                     guidance and real-world insights to bridge the gap between academia and industry.</p>
             </div>
@@ -62,11 +62,16 @@ const images = [
     margin-bottom: 50px;
 }
 
-.section-title h2 {
+.title {
     font-size: 32px;
-    font-weight: 800;
+    font-weight: 700;
+    color: #0d0d25;
     margin-bottom: 20px;
-    color: #111827;
+    text-transform: uppercase;
+}
+
+.highlight {
+    color: #F1A63E;
 }
 
 .section-title p {

@@ -200,6 +200,10 @@
     z-index: 0;
 }
 
+.cta-box .default-btn {
+    background-color: #A13E99;
+}
+
 @media (max-width: 991px) {
     .title {
         font-size: 32px;

@@ -16,18 +16,16 @@
             </div>
             <div class="box">
               <img src="../../assets/img/heros/panleIcon3.png" class="logo" />
-              <p>Hired First</p>
-              <span>UK ACCA Integrated</span>
+              <span class="mt-1">UK ACCA <br> Integrated</span>
             </div>
             <div class="box">
               <img src="../../assets/img/heros/panleIcon4.png" class="logo" />
-              <p>Hired First</p>
-              <span>Master in Corporate Communication</span>
+              <span class="mt-2">Master in Corporate Communication</span>
             </div>
             <div class="box">
               <img src="../../assets/img/heros/panleIcon5.png" class="logo" />
-              <p>Hired First</p>
-              <span>AICTE Approved PGCM Certificate from AIMA</span>
+
+              <span class="mt-2">AICTE Approved PGCM Certificate from AIMA</span>
             </div>
             <div class="box">
               <img src="../../assets/img/heros/panleIcon6.png" class="icon" />
@@ -169,6 +167,7 @@ export default {
   font-weight: bold;
   color: #38003C;
   margin-bottom: 0;
+  line-height: 32px;
 }
 
 .information-content h2 {

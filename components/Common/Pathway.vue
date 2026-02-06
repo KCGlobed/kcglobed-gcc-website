@@ -4,9 +4,9 @@
             <div class="row">
                 <div class="col-12">
                     <div class="section-header text-center mb-60" data-aos="fade-up">
-                        <span class="badge">Pathway</span>
+
                         <h2 class="title">GCC <span class="highlight">Experiential Learning Pathway</span></h2>
-                        <div class="divider"></div>
+
                     </div>
                 </div>
 
@@ -63,7 +63,7 @@
 }
 
 .highlight {
-    background: linear-gradient(135deg, #fc6441 0%, #ff8566 100%);
+    background: linear-gradient(135deg, #F1A63E 0%, #F1A63E 100%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;

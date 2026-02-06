@@ -2,7 +2,7 @@
     <div class="think-tank-area ptb-100">
         <div class="container">
             <div class="section-title text-center mb-50">
-                <h2>Think Tank</h2>
+                <h2 class="title">Think <span class="highlight">Tank</span></h2>
                 <p class="max-600 mx-auto">Our Think Tank comprises industry leaders and academic pioneers dedicated to
                     shaping the future of education and professional excellence.</p>
             </div>
@@ -38,20 +38,16 @@ const images = [
     margin-bottom: 50px;
 }
 
-.section-title .sub-title {
-    color: #3b82f6;
-    text-transform: uppercase;
-    letter-spacing: 2px;
+.title {
+    font-size: 32px;
     font-weight: 700;
-    margin-bottom: 15px;
-    display: block;
+    color: #0d0d25;
+    margin-bottom: 20px;
+    text-transform: uppercase;
 }
 
-.section-title h2 {
-    font-size: 32px;
-    font-weight: 800;
-    margin-bottom: 20px;
-    color: #111827;
+.highlight {
+    color: #F1A63E;
 }
 
 .section-title p {

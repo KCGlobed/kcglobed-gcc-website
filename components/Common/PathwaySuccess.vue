@@ -112,7 +112,7 @@ const eligibilityCriteria = [
 
 .badge {
     background: rgba(252, 100, 65, 0.1);
-    color: #fc6441;
+    color: #F1A63E;
     padding: 6px 16px;
     border-radius: 30px;
     font-size: 13px;
@@ -167,7 +167,7 @@ const eligibilityCriteria = [
 .step-card:hover {
     transform: translateY(-5px);
     box-shadow: 0 15px 30px rgba(252, 100, 65, 0.1);
-    border-color: #fc6441;
+    border-color: #F1A63E;
 }
 
 .step-content {
@@ -198,7 +198,7 @@ const eligibilityCriteria = [
 
 .step-card:hover .icon-wrapper {
     transform: scale(1.1) rotate(5deg);
-    background: #fc6441;
+    background: #F1A63E;
     color: white;
 }
 
@@ -312,7 +312,7 @@ const eligibilityCriteria = [
 }
 
 .apply-btn:hover {
-    background: #e8502d;
+    background: #F1A63E;
 }
 
 /* Responsive */
