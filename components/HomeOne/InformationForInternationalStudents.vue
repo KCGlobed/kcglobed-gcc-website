@@ -287,4 +287,23 @@ export default {
     width: 50px;
   }
 }
+
+@media (max-width: 565px){
+  .information-warp{
+    padding-top: 20px;
+  }
+  .panelBox {
+    transform: none;
+    position: inherit;
+    display: grid;
+    padding: 20px;
+    gap: 15px;
+    grid-template-columns: 1fr 1fr;
+    height: auto !important;
+    margin-bottom: 20px;
+  }
+  .panelBox .box{
+    padding: 10px;
+  }
+}
 </style>

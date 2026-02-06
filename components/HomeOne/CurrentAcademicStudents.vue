@@ -162,4 +162,9 @@ export default {
 .highlight-cell {
   background-color: rgba(247, 226, 169, 0.1);
 }
+@media (max-width : 568px) {
+  .comparison-table th {
+    padding: 10px;
+  }
+}
 </style>
