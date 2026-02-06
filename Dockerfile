@@ -23,7 +23,7 @@ WORKDIR /app
 ENV NODE_ENV=production
 
 # Copy Nuxt Nitro output
-COPY --from=builder /app/.output ./.output
+COPY --from=builder /app/dist ./dist
 COPY --from=builder /app/package*.json ./
 
 # Install only production dependencies
