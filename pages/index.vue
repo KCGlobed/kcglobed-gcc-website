@@ -7,14 +7,16 @@
     <!-- <HomeOneFindYourProgram /> -->
     <!-- <HomeOneAboutTheUniversity /> -->
 
-    <CommonPathwaySuccess />
-
+    <CommonPathwayYourSuccess />
+    <CommonEligibilityCriteria />
     <HomeOneFutureStudents />
+    <CommonGccSchool />
     <CommonDirectorSpeach />
     <CommonGccCommerse />
     <CommonGrowthTrend />
     <HomeOneCultureWarp />
     <CommonPathway />
+
     <HomeOneCurrentAcademicStudents />
 
     <CommonThinkTank />

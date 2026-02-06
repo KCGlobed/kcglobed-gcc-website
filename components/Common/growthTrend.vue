@@ -11,8 +11,11 @@
             <div class="row" data-aos="zoom-in" data-aos-delay="200">
                 <div class="col-12">
                     <div class="image-box">
-                        <img src="https://storage.googleapis.com/static_files_backend/media/images/Group%2049807.png"
-                            alt="GCC Market Growth Trend Chart" class="trend-image">
+                        <div class="image-box-inner">
+                            <img src="~/assets/img/common/graph.svg" alt="" srcset="">
+                            <img src="~/assets/img/common/marketdata.svg" alt="" srcset="">
+
+                        </div>
 
                         <!-- Decorative Floating Shapes -->
                         <div class="floating-shape shape-1"></div>
@@ -138,6 +141,24 @@
     background-size: 30px 30px;
     opacity: 0.1;
     z-index: 1;
+}
+
+.image-box-inner {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+    flex-wrap: wrap;
+}
+
+.image-box-inner img {
+    max-width: 100%;
+    height: auto;
+    flex: 1;
+    min-width: 280px;
+    /* Ensures they stack on very small screens but stay side-by-side on larger ones */
+    object-fit: contain;
+    border-radius: 10px;
 }
 
 @keyframes float {

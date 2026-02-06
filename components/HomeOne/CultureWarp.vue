@@ -110,7 +110,10 @@ export default {
 
 <style scoped>
 .culture-warp {
-  background-color: #862E84;
+  /* background-color: #862E84; */
+  background: url("~/assets/img/heros/layer.svg");
+  background-size: cover;
+  background-position: center;
   /* Light background for contrast */
 }
 

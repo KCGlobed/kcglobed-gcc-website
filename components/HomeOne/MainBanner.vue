@@ -102,8 +102,8 @@
                       <div class="profile-badge">
                         <img src="../../assets/img/heros/heroSec4.png" />
                         <div>
-                          <div class="fw-bold small">Global Navigator</div>
-                          <small class="text-muted">Verified</small>
+                          <div class="fw-bold small">Global Recognition</div>
+                          <small class="text-muted">Certified AI-Accountant</small>
                         </div>
                       </div>
                     </div>
@@ -488,6 +488,7 @@
   justify-content: center;
   gap: 10px;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  margin-bottom: 50px;
 }
 
 .badge-check {
