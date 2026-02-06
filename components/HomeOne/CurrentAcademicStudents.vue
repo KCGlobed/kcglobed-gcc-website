@@ -2,62 +2,49 @@
   <div class="comparison-warp ptb-100">
     <div class="container">
       <div class="section-title text-center">
-        <h2 class="title">Traditional Pathway vs <span class="highlight">GCC Journey</span></h2>
+        <!-- Kept the section title as per previous premium design -->
+        <h2 class="title">TRADITIONAL PATHWAY VS <span class="highlight">GCC JOURNEY</span></h2>
         <p>See why GCC Journey is most suited for professional world of new tomorrow.</p>
       </div>
 
       <div class="table-responsive">
-        <table class="table table-bordered comparison-table">
+        <table class="table comparison-table">
           <thead>
             <tr>
-              <th scope="col" class="feature-col">Feature</th>
-              <th scope="col" class="text-center">Traditional Pathway</th>
-              <th scope="col" class="text-center highlight-header">GCC Journey</th>
+              <th scope="col" class="feature-col-header">KEY FEATURES</th>
+              <th scope="col" class="text-center traditional-header">TRADITIONAL PATHWAY</th>
+              <th scope="col" class="text-center gcc-header">
+                <!-- Setup placeholder for logo if needed, or just text/logo image provided in design -->
+                <div class="d-flex align-items-center justify-content-center gap-2">
+                  <!-- Assuming logo asset usage, using text for now if asset path not confirmed, or basic icon -->
+                  <img src="~/assets/img/common/gcc.svg" alt="" srcset="">
+                </div>
+              </th>
             </tr>
           </thead>
           <tbody>
-            <tr v-for="(item, index) in comparisonData" :key="index">
-              <td class="feature-name">{{ item.feature }}</td>
+            <tr v-for="(item, index) in comparisonData" :key="index" :class="index % 2 === 0 ? 'even-row' : 'odd-row'">
+              <td class="feature-name" v-html="item.feature"></td>
               <td class="text-center">
-                <span v-if="item.traditional" class="icon-check">
-                  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
-                    stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                    <polyline points="20 6 9 17 4 12"></polyline>
-                  </svg>
+                <span v-if="item.traditional" class="icon-check-green">
+                  <i class="ti ti-circle-check"></i>
                 </span>
-                <span v-else class="icon-cross">
-                  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
-                    stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                    <line x1="18" y1="6" x2="6" y2="18"></line>
-                    <line x1="6" y1="6" x2="18" y2="18"></line>
-                  </svg>
+                <span v-else class="icon-cross-red">
+                  <i class="ti ti-circle-x"></i>
                 </span>
               </td>
-              <td class="text-center highlight-cell">
-                <span v-if="item.gcc" class="icon-check">
-                  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
-                    stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                    <polyline points="20 6 9 17 4 12"></polyline>
-                  </svg>
+              <td class="text-center gcc-cell">
+                <span v-if="item.gcc" class="icon-check-gold">
+                  <i class="ti ti-circle-check"></i>
                 </span>
-                <span v-else class="icon-cross">
-                  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
-                    stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                    <line x1="18" y1="6" x2="6" y2="18"></line>
-                    <line x1="6" y1="6" x2="18" y2="18"></line>
-                  </svg>
+                <span v-else class="icon-cross-red">
+                  <i class="ti ti-circle-x"></i>
                 </span>
               </td>
             </tr>
           </tbody>
         </table>
       </div>
-      <!-- <div class="info-button d-flex justify-content-center mt-4">
-        <NuxtLink to="#" class="default-btn secodary-btn">
-          Discover the GCC Advantage →
-          <i class="ti ti-arrow-narrow-right"></i>
-        </NuxtLink>
-      </div> -->
     </div>
   </div>
 </template>
@@ -68,17 +55,16 @@ export default {
   data() {
     return {
       comparisonData: [
-        { feature: "Globally Recognised Academic Credentials", traditional: true, gcc: true },
-        { feature: "Strong theoretical foundation", traditional: true, gcc: true },
-        { feature: "Career Commitment & Confidence from Day 1", traditional: false, gcc: true },
-        { feature: "Get Hired First, Then Trained.", traditional: false, gcc: true },
-        { feature: "Real time industry environmental learning", traditional: false, gcc: true },
-        { feature: "Global Exposure", traditional: false, gcc: true },
-        { feature: "Purpose Driven Curriculum", traditional: false, gcc: true },
-        { feature: "Industry mentors", traditional: false, gcc: true },
-        { feature: "AI- Enabled Learning", traditional: false, gcc: true },
-        { feature: "Outcome Based Assessment", traditional: true, gcc: true },
-        { feature: "Employability Focused Training ", traditional: false, gcc: true },
+        { feature: "<strong>Globally Recognised</strong> Academic Credentials", traditional: true, gcc: true },
+        { feature: "<strong>Strong</strong> Theoretical Foundation", traditional: true, gcc: true },
+        { feature: "<strong>Career Commitment</strong> & Confidence from Day 1", traditional: false, gcc: true },
+        { feature: "<strong>Get Hired First</strong>, Then Trained", traditional: false, gcc: true },
+        { feature: "<strong>Real-time</strong> Industry Environmental Learning", traditional: false, gcc: true },
+        { feature: "<strong>Global</strong> Exposure", traditional: false, gcc: true },
+        { feature: "<strong>Purpose</strong> Driven Curriculum", traditional: false, gcc: true },
+        { feature: "<strong>Elite</strong> Industry Mentors", traditional: false, gcc: true },
+        { feature: "<strong>AI-Enabled</strong> Adaptive Learning", traditional: false, gcc: true },
+        { feature: "<strong>Employability</strong> Focused Training", traditional: false, gcc: true },
       ],
     };
   },
@@ -91,8 +77,8 @@ export default {
 }
 
 .table-responsive {
-  box-shadow: 0 0 20px rgba(0, 0, 0, 0.05);
-  border-radius: 10px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+  border-radius: 0;
   overflow: hidden;
 }
 
@@ -104,12 +90,12 @@ export default {
 }
 
 .comparison-table th {
-  padding: 20px;
+  padding: 25px 20px;
   font-size: 18px;
   font-weight: 700;
-  background-color: #f8f9fa;
-  border-bottom: 2px solid #dee2e6;
-  color: #0d0d25;
+  border: none;
+  vertical-align: middle;
+  text-transform: uppercase;
 }
 
 .title {
@@ -121,50 +107,207 @@ export default {
 }
 
 .highlight {
+  background: linear-gradient(135deg, #F1A63E 0%, #F1A63E 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
   color: #F1A63E;
 }
 
-.comparison-table td {
-  padding: 15px 20px;
-  vertical-align: middle;
-  border-bottom: 1px solid #dee2e6;
-  font-size: 16px;
-  color: #333;
+.feature-col-header {
+  background-color: #38003c;
+  /* Dark Purple */
+  color: #fff;
+  width: 40%;
+  text-align: left;
+  border-top-left-radius: 8px;
+  /* Optional, depending on if we want rounded corners on the container */
 }
 
-.feature-col {
-  text-align: left;
-  width: 40%;
+.traditional-header {
+  background-color: #474747;
+  /* Dark Grey */
+  color: #fff;
+  width: 30%;
+}
+
+.gcc-header {
+  background-color: #c89216;
+  /* Gold */
+  color: #fff;
+  width: 30%;
+  border-top-right-radius: 8px;
+}
+
+.comparison-table td {
+  padding: 18px 20px;
+  vertical-align: middle;
+  font-size: 16px;
+  color: #333;
+  border: 1px solid #e0e0e0;
+}
+
+.even-row {
+  background-color: #e6e4e9;
+  /* Light Greyish Purple */
+}
+
+.odd-row {
+  background-color: #f5f4f7;
+  /* Very Light Grey */
 }
 
 .feature-name {
-  font-weight: 500;
+  text-align: left;
+  color: #333;
 }
 
-.icon-check {
-  color: #28a745;
-  /* Green */
-  display: inline-flex;
-}
-
-.icon-cross {
-  color: #dc3545;
-  /* Red */
-  display: inline-flex;
-}
-
-.highlight-header {
-  background-color: #f7e2a9 !important;
-  /* Light Goldish background */
+.feature-name>>>strong {
+  font-weight: 700;
   color: #000;
 }
 
-.highlight-cell {
-  background-color: rgba(247, 226, 169, 0.1);
+
+/* Icons */
+.icon-check-green i {
+  color: #28a745;
+  font-size: 24px;
 }
-@media (max-width : 568px) {
+
+.icon-cross-red i {
+  color: #dc3545;
+  /* Or the burnt orange from design #d9534f */
+  color: #cf4f36;
+  font-size: 24px;
+}
+
+.icon-check-gold i {
+  color: #c89216;
+  font-size: 24px;
+}
+
+/* GCC Column Styling Override if needed */
+.gcc-cell {
+  background-color: rgba(200, 146, 22, 0.15);
+  /* Slight gold tint overlay if wanted, or just rely on row colors */
+  border-left: 2px solid #c89216;
+  border-right: 2px solid #c89216;
+}
+
+/* Make GCC column stand out more like a card effect? Design shows just colored header and rows */
+/* The design image shows the GCC column fully distinct? 
+   No, it looks like just header and row colors. But GCC column has a slight background tint in the image? 
+   Let's check image. Yes, the right column seems slightly darker/tinted.
+   We applied a class 'gcc-cell' above.
+*/
+.gcc-cell {
+  background-color: rgba(190, 190, 190, 0.3);
+  /* Matches the greyish tint in design */
+  border: 1px solid #aaa;
+}
+
+/* Wait, the design rows alternate colors across the whole row?
+   Looking closely: 
+   Row 1: Light Grey
+   Row 2: White/Very Light
+   GCC Column: Darker box? 
+   Actually, the GCC column seems to have a semi-transparent overlay making it look distinct.
+   Let's stick to simple alternating rows first, with the GCC header being the main highlight.
+*/
+
+/* Reset bordering for cleaner look */
+.comparison-table td {
+  border: 1px solid #ccc;
+}
+
+.gcc-cell {
+  background-color: #ccc;
+  /* Darker grey background for the whole column as per image? No, image has alternating but GCC column is greyish */
+  /* Let's try to match the image: Right column is Grey background, valid items are Gold. */
+  background-color: #c4c4c4;
+}
+
+.even-row .gcc-cell {
+  background-color: #b0b0b0;
+  /* Darker grey */
+}
+
+.odd-row .gcc-cell {
+  background-color: #cccccc;
+  /* Lighter grey */
+}
+
+/* Re-evaluating image colors:
+   Left Col: Light Purple/White alternating.
+   Middle Col: Same.
+   Right Col: Dark Greyish/Beige box? It separates clearly.
+*/
+
+
+/* Let's refine the colors to match image better */
+.even-row {
+  background-color: #e9e4f0;
+  /* Light Purple tint */
+}
+
+.odd-row {
+  background-color: #f4f4f4;
+}
+
+.gcc-cell {
+  /* The right column background */
+  border-left: 1px solid #999;
+}
+
+.even-row .gcc-cell {
+  background-color: #bbbbbb;
+}
+
+.odd-row .gcc-cell {
+  background-color: #d3d3d3;
+}
+
+/* Remove border if using background differentiation */
+.comparison-table td {
+  border: 1px solid #bbb;
+}
+
+@media (max-width : 768px) {
+  .table-responsive {
+    overflow-x: auto;
+  }
+
+  .comparison-table {
+    min-width: 600px;
+    /* Ensure table doesn't squash too much */
+  }
+
   .comparison-table th {
+    padding: 15px 10px;
+    font-size: 14px;
+    white-space: nowrap;
+    /* Keep headers from breaking awkwardly */
+  }
+
+  .comparison-table td {
     padding: 10px;
+    font-size: 14px;
+  }
+
+  .feature-col-header {
+    width: auto;
+    /* Allow auto width on mobile */
+    min-width: 40%;
+  }
+
+  .traditional-header,
+  .gcc-header {
+    width: auto;
+    min-width: 25%;
+  }
+
+  .title {
+    font-size: 26px;
   }
 }
 </style>
