@@ -7,14 +7,16 @@
     <!-- <HomeOneFindYourProgram /> -->
     <!-- <HomeOneAboutTheUniversity /> -->
 
-    <CommonPathwaySuccess />
-
+    <CommonPathwayYourSuccess />
+    <CommonEligibilityCriteria />
     <HomeOneFutureStudents />
+    <CommonGccSchool />
     <CommonDirectorSpeach />
     <CommonGccCommerse />
     <CommonGrowthTrend />
     <HomeOneCultureWarp />
     <CommonPathway />
+
     <HomeOneCurrentAcademicStudents />
 
     <CommonThinkTank />
@@ -35,7 +37,7 @@
     <LayoutCopyRight />
 
     <!-- Event Popup -->
-    <CommonEventPopup />
+    <!-- <CommonEventPopup /> -->
   </div>
 </template>
 

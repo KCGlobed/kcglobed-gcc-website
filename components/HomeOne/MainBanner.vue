@@ -19,18 +19,21 @@
 
                 <h1 class="hero-title mt-3">
                   India's 1st School<br />
-                  Powered by Industry,<br />
+                  for Commerce Graduates
+                  <br />
+                  Powered by Industry Titans,<br />
                   Define by Performance
                 </h1>
 
                 <p class="hero-subtitle">
                   At GCC School, you get hired first, then trained.
+
                 </p>
 
-                <p class="hero-description">
+                <!-- <p class="hero-description">
                   Don't just prepare for the corporate world — you enter it. Every session, project,
                   and mentor experience mirrors the way top global firms actually operate.
-                </p>
+                </p> -->
 
                 <div class="d-flex gap-3 flex-wrap">
                   <NuxtLink :to="banner.btnLink" class="btn btn-primary px-4 py-3">
@@ -71,7 +74,8 @@
                           </div>
                           <div>
                             <div class="fw-bold small">AEIAP </div>
-                            <small class="text-muted-small">AI-Enabled International Accounting Certification Program</small>
+                            <small class="text-muted-small">AI-Enabled International Accounting Certification
+                              Program</small>
                           </div>
                         </div>
 
@@ -98,8 +102,8 @@
                       <div class="profile-badge">
                         <img src="../../assets/img/heros/heroSec4.png" />
                         <div>
-                          <div class="fw-bold small">Global Navigator</div>
-                          <small class="text-muted">Verified</small>
+                          <div class="fw-bold small">Global Recognition</div>
+                          <small class="text-muted">Certified AI-Accountant</small>
                         </div>
                       </div>
                     </div>
@@ -322,7 +326,7 @@
 </template>
 
 <style scoped>
-.rightSideBox{
+.rightSideBox {
   background-image: url("../../assets/img/heros/student_hero.png");
   background-size: cover;
   background-position: center;
@@ -330,7 +334,8 @@
   display: grid;
   place-content: center;
 }
-.card-feature{
+
+.card-feature {
   background-color: #F8F4FB;
   border: 1px solid #DDA1FF;
   border-radius: 10px;
@@ -338,9 +343,11 @@
   line-height: 18px;
   align-items: center;
 }
-.text-muted-small{
+
+.text-muted-small {
   font-size: 12px !important;
 }
+
 .hero-slider-warp {
   min-height: 100vh;
   display: flex;
@@ -439,9 +446,9 @@
   align-self: center;
 }
 
-.feature-icon img{
+.feature-icon img {
   width: 24px;
-  height : 24px;
+  height: 24px;
 }
 
 .btn-gradient {
@@ -481,6 +488,7 @@
   justify-content: center;
   gap: 10px;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  margin-bottom: 50px;
 }
 
 .badge-check {
@@ -531,8 +539,6 @@
     display: none;
   }
 }
-
-
 </style>
 
 <script lang="ts">

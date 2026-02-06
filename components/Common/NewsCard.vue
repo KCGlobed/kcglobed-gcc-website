@@ -1,9 +1,8 @@
 <template>
     <div class="news-area ptb-100">
         <div class="container">
-            <div class="section-title text-center mb-50">
-                <span class="sub-title">Stay Updated</span>
-                <h2>Latest Finance & Market News</h2>
+            <div class="section-header text-center mb-50" data-aos="fade-up">
+                <h2 class="section-title">LATEST FINANCE & <span class="highlight">MARKET NEWS</span></h2>
                 <p class="max-600 mx-auto">Get the latest insights, market trends, and financial news from around the
                     globe to stay ahead in your career.</p>
             </div>
@@ -65,7 +64,7 @@ const newsList = [
     background-color: #f8fafc;
 }
 
-.section-title .sub-title {
+.section-header .sub-title {
     color: #3b82f6;
     font-weight: 700;
     text-transform: uppercase;
@@ -74,11 +73,17 @@ const newsList = [
     display: block;
 }
 
-.section-title h2 {
-    font-size: 36px;
-    font-weight: 800;
+.section-title {
+    font-size: 32px;
+    font-weight: 700;
+    color: #0d0d25;
     margin-bottom: 15px;
-    color: #0f172a;
+    line-height: 1.3;
+    text-transform: uppercase;
+}
+
+.highlight {
+    color: #F1A63E;
 }
 
 .section-title p {

@@ -113,12 +113,12 @@ export default {
 
 <style scoped>
 .top-header-warp {
-  background-color: #862E84;
+  background-color: #51157C;
   z-index: 99999;
 }
 
 .top-header-details .social-list::before {
-  background-color: #F1A63E
+  background-color: #B98617
 }
 
 .top-header-details .header-contact li a {

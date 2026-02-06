@@ -332,7 +332,8 @@ export default defineComponent({
 
 <style>
 .navbar {
-  background-color: #3D2C5E;
+  background-color: #020103;
+  max-height: 90px;
 }
 
 .navbar .navbar-nav .nav-item .nav-link {
@@ -340,7 +341,7 @@ export default defineComponent({
 }
 
 .navbar.sticky {
-  background-color: #3D2C5E;
+  background-color: #020103;
 }
 
 /* Search Dropdown Styles */

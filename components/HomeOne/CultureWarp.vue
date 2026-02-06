@@ -3,7 +3,7 @@
     <div class="container">
       <div class="section-title">
         <p class="subtitle">The Right Time is Right Now</p>
-        <h2>India - GCC Capital of the World</h2>
+        <h2>INDIA - GCC CAPITAL OF <span class="highlight">THE WORLD</span></h2>
         <p class="subtitle">India isn’t just supporting the world’s biggest companies — it’s leading them.
 
           <br /> Global Capability Centres (GCCs) are turning Indian finance professionals into global decision-makers.
@@ -110,7 +110,10 @@ export default {
 
 <style scoped>
 .culture-warp {
-  background-color: #862E84;
+  /* background-color: #862E84; */
+  background: url("~/assets/img/heros/layer.svg");
+  background-size: cover;
+  background-position: center;
   /* Light background for contrast */
 }
 
@@ -125,6 +128,11 @@ export default {
   color: #fff;
   margin-bottom: 15px;
   text-transform: uppercase;
+  line-height: 1.3;
+}
+
+.highlight {
+  color: #F1A63E;
 }
 
 .section-title .subtitle {

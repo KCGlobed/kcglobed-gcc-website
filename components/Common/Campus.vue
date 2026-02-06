@@ -4,7 +4,7 @@
             <div class="row">
                 <div class="col-lg-12">
                     <div class="campus-content">
-                        <h2>Our Campus</h2>
+                        <h2>OUR <span class="highlight">CAMPUS</span></h2>
                         <p>
                             Our campus is located in the heart of the city, in a modern building
                             that provides a comfortable and relaxing environment for our students.
@@ -44,6 +44,11 @@
     margin-bottom: 15px;
     color: #0d0d25;
     text-transform: uppercase;
+    line-height: 1.3;
+}
+
+.highlight {
+    color: #F1A63E;
 }
 
 .campus-content p {

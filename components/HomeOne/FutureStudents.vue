@@ -2,7 +2,7 @@
   <div class="ticket-section">
     <div class="container">
       <div class="ticket-header-bar">
-        <h2>CRACK NFET AND GET YOUR TICKET</h2>
+        <h2>PASS NFET AND GET YOUR TICKET</h2>
         <p>TO EXPERIENCE THE CORPORATE WORLD AT CYBER CITY, GURUGRAM</p>
       </div>
 
@@ -44,7 +44,7 @@
               <div class="col-6">
                 <div class="info-group">
                   <label>CLASS</label>
-                  <span class="highlight">Elite Class – Min. 10LPA</span>
+                  <span class="highlight">Elite Class – Confirmed</span>
                 </div>
               </div>
               <div class="col-6">
