@@ -1,10 +1,10 @@
 <template>
     <div class="trust-ecosystem-section">
         <div class="container">
-            <div class="header-v2 mb-5" data-aos="fade-up">
+            <div class="header-v2 mb-3" data-aos="fade-up">
                 <div class="">
                     <h2 class="title">THE POWERHOUSE BEHIND <span class="highlight">GCC SCHOOL</span></h2>
-                    <div class="header-line"></div>
+
                 </div>
 
             </div>
@@ -21,10 +21,10 @@
                     </div>
                 </div>
             </div>
-            <div class="header-v2 mb-5 mt-5" data-aos="fade-up">
+            <div class="header-v2 mb-3 mt-5" data-aos="fade-up">
                 <div class="">
                     <h2 class="title">TRUSTED <span class="highlight">ECO SYSTEM</span></h2>
-                    <div class="header-line"></div>
+
                 </div>
 
             </div>

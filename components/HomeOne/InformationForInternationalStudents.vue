@@ -38,7 +38,7 @@
       <div class="row align-items-center g-4">
         <div class="col-lg-6" data-aos="fade-up" data-aos-delay="200">
           <div class="information-content">
-            <h2 class="reveal2">BUILD A GLOBAL CAREER IN 12 MONTHS</h2>
+            <h2 class="reveal2">BUILD A GLOBAL CAREER IN <span class="highlight">12 MONTHS</span></h2>
             <p>
               In just 12 months, you'll transform from graduate to global professional — ready to perform from day one.
             </p>
@@ -175,7 +175,11 @@ export default {
   font-weight: 700;
   color: #0d0d25;
   margin-bottom: 20px;
-  text-transform: uppercase;
+  line-height: 1.3;
+}
+
+.information-content h2 .highlight {
+  color: #F1A63E;
 }
 
 .panelBox .box span {
@@ -288,10 +292,11 @@ export default {
   }
 }
 
-@media (max-width: 565px){
-  .information-warp{
+@media (max-width: 565px) {
+  .information-warp {
     padding-top: 20px;
   }
+
   .panelBox {
     transform: none;
     position: inherit;
@@ -302,7 +307,8 @@ export default {
     height: auto !important;
     margin-bottom: 20px;
   }
-  .panelBox .box{
+
+  .panelBox .box {
     padding: 10px;
   }
 }

@@ -5,7 +5,7 @@
                 <div class="col-12">
                     <div class="section-header text-center mb-60" data-aos="fade-up">
 
-                        <h2 class="title">GCC <span class="highlight">Experiential Learning Pathway</span></h2>
+                        <h2 class="title">GCC <span class="highlight">EXPERIENTIAL LEARNING PATHWAY</span></h2>
 
                     </div>
                 </div>

@@ -3,7 +3,7 @@
         <div class="container-fluid p-0">
             <div class="section-title text-center">
                 <h2 class="reveal2">
-                    <span class="highlight">200+</span> Global Hiring Partners!!
+                    <span class="highlight">200+</span> GLOBAL HIRING PARTNERS!
                 </h2>
                 <p class="max-600 mx-auto">Indulge in Career Accelerating Programs and Placement Drives offered by KC
                     GlobEd!</p>
@@ -110,10 +110,10 @@ export default defineComponent({
 }
 
 .section-title h2 {
-    font-size: 48px;
-    font-weight: 900;
+    font-size: 32px;
+    font-weight: 700;
     color: #0f172a;
-    margin-bottom: 24px;
+    margin-bottom: 16px;
     line-height: 1.1;
 }
 
@@ -124,7 +124,7 @@ export default defineComponent({
 
 .section-title p {
     color: #475569;
-    font-size: 20px;
+    font-size: 16px;
     margin-bottom: 12px;
     font-weight: 500;
 }
@@ -132,8 +132,8 @@ export default defineComponent({
 .section-title .sub-highlight {
     color: #7c3aed;
     /* More vibrant purple */
-    font-size: 24px;
-    font-weight: 700;
+    font-size: 16px;
+    font-weight: 500;
     margin-top: 10px;
 }
 

@@ -35,7 +35,7 @@
     <LayoutCopyRight />
 
     <!-- Event Popup -->
-    <CommonEventPopup />
+    <!-- <CommonEventPopup /> -->
   </div>
 </template>
 
