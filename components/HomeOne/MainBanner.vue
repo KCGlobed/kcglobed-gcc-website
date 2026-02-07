@@ -380,7 +380,7 @@
 }
 
 .hero-title {
-  font-size: 48px;
+  font-size: 44px;
   line-height: 1.2;
   font-weight: 700;
   color: white;
