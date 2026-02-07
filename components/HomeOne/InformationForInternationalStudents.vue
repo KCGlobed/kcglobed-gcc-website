@@ -344,6 +344,7 @@ export default {
     grid-template-columns: 1fr 1fr;
     height: auto !important;
     margin-bottom: 20px;
+    margin-top: 10px;
   }
 
   .panelBox .box {
