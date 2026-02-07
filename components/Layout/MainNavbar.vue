@@ -335,6 +335,14 @@ export default defineComponent({
   color: #fff;
 }
 
+@media (min-width: 992px) and (max-width: 1200px) {
+  .navbar .navbar-nav .nav-item .nav-link {
+    padding-left: 10px;
+    padding-right: 10px;
+    font-size: 14px;
+  }
+}
+
 .navbar.sticky {
   background-color: #020103;
 }

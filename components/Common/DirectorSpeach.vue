@@ -209,9 +209,15 @@
     background-color: #A13E99;
 }
 
+@media (max-width: 1200px) {
+    .title {
+        font-size: 28px;
+    }
+}
+
 @media (max-width: 991px) {
     .title {
-        font-size: 32px;
+        font-size: 24px;
     }
 
     .message-text p {

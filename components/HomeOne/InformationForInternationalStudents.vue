@@ -143,6 +143,43 @@ export default {
   z-index: 100;
   gap: 30px;
   line-height: 15px;
+  width: 95%;
+  max-width: 1140px;
+}
+
+@media (max-width: 1200px) {
+  .panelBox {
+    padding-left: 30px;
+    gap: 15px;
+    height: auto;
+    padding-bottom: 20px;
+  }
+
+  .panelBox .box p {
+    font-size: 18px;
+    line-height: 24px;
+  }
+}
+
+@media (max-width: 991px) {
+  .panelBox {
+    position: relative;
+    top: 0;
+    left: 0;
+    transform: none;
+    margin: -100px auto 40px;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    width: 100%;
+    height: auto;
+  }
+}
+
+@media (max-width: 767px) {
+  .panelBox {
+    grid-template-columns: repeat(2, 1fr);
+    margin-top: -50px;
+  }
 }
 
 .panelBox .box {
@@ -291,6 +328,7 @@ export default {
     width: 50px;
   }
 }
+
 
 @media (max-width: 565px) {
   .information-warp {

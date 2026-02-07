@@ -230,7 +230,7 @@ export default {
 
 @media (max-width: 991px) {
   .address-item {
-    margin-bottom: 20px;
+    margin-bottom: 30px;
   }
 }
 </style>

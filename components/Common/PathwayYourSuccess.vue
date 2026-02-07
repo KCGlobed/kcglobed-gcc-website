@@ -369,6 +369,12 @@
 
 
 /* Responsive Design */
+@media (max-width: 1200px) {
+    .section-header .title {
+        font-size: 28px;
+    }
+}
+
 @media (max-width: 991px) {
     .timeline-content {
         width: 42%;
@@ -389,7 +395,7 @@
     }
 
     .section-header .title {
-        font-size: 28px;
+        font-size: 24px;
     }
 }
 

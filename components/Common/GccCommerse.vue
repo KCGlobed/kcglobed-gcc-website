@@ -219,7 +219,17 @@ export default {
 }
 
 /* Responsive Design */
+@media (max-width: 1200px) {
+    .section-title {
+        font-size: 28px;
+    }
+}
+
 @media (max-width: 991px) {
+    .section-title {
+        font-size: 24px;
+    }
+
     .features-grid {
         grid-template-columns: repeat(2, 1fr);
         gap: 20px;

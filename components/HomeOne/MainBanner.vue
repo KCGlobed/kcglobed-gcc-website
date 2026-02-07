@@ -355,6 +355,7 @@
   background-size: cover;
   background-position: center;
   padding: 80px 0;
+  background-image: url("~/assets/img/heros/mobileBanner.svg") !important;
 }
 
 /* Left Content */
@@ -531,12 +532,57 @@
 
   .journey-card {
     margin-top: 40px;
+    padding: 30px;
+  }
+
+  .hero-slider-warp {
+    padding: 60px 0;
+  }
+}
+
+@media (max-width: 767px) {
+  .hero-title {
+    font-size: 28px;
+  }
+
+  .hero-subtitle {
+    font-size: 18px;
+    margin-top: 15px;
+  }
+
+  .hero-description {
+    font-size: 14px;
+    margin-bottom: 24px;
+  }
+
+  .hero-slider-warp {
+    padding: 40px 0;
+    min-height: auto;
+  }
+
+  .journey-card {
+    padding: 20px;
+    margin-top: 30px;
+  }
+
+  .card-title {
+    font-size: 20px;
+  }
+
+  .btn-primary {
+    padding: 10px 20px !important;
+    font-size: 14px;
   }
 }
 
 @media (max-width: 580px) {
   .rightSideBox {
     display: none;
+  }
+
+  /* Ensure form inputs in modal display correctly on small screens */
+  .modal-body {
+    padding: 1rem;
   }
 }
 </style>

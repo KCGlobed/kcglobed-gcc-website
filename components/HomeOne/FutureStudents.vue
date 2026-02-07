@@ -326,7 +326,21 @@ export default {
 }
 
 /* Responsiveness */
+@media (max-width: 1200px) {
+  .ticket-header-bar h2 {
+    font-size: 28px;
+  }
+}
+
 @media (max-width: 991px) {
+  .ticket-header-bar h2 {
+    font-size: 24px;
+  }
+
+  .ticket-header-bar {
+    padding: 10px 15px;
+  }
+
   .ticket-wrapper {
     flex-direction: column;
   }

@@ -218,7 +218,13 @@ export default {
 
 
 
-@media (max-width: 768px) {
+@media (max-width: 1200px) {
+  .header-link li {
+    padding-right: 20px !important;
+  }
+}
+
+@media (max-width: 991px) {
   .top-header-warp .row {
     display: none;
   }

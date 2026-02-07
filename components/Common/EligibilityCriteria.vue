@@ -120,7 +120,17 @@
 }
 
 /* Responsive Design */
+@media (max-width: 1200px) {
+    .title-box h2 {
+        font-size: 28px;
+    }
+}
+
 @media (max-width: 991px) {
+    .title-box h2 {
+        font-size: 26px;
+    }
+
     .content-wrapper {
         flex-direction: column;
         align-items: center;
@@ -153,7 +163,7 @@
     }
 
     .title-box h2 {
-        font-size: 26px;
+        font-size: 24px;
         margin-bottom: 20px;
     }
 

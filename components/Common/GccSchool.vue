@@ -90,6 +90,20 @@
     .section-header .subtitle {
         font-size: 15px;
     }
+
+    .gcc-school-images {
+        flex-direction: column;
+        gap: 24px;
+    }
+
+    .gcc-school-images img {
+        width: 100%;
+        max-width: 600px;
+        /* Limit width on tablet so they don't get massive, or remove for full width */
+        margin: 0 auto;
+        /* Center if max-width is applied */
+        height: auto;
+    }
 }
 
 @media (max-width: 767px) {
@@ -105,14 +119,8 @@
         font-size: 14px;
     }
 
-    .gcc-school-images {
-        flex-direction: column;
-        gap: 20px;
-    }
-
     .gcc-school-images img {
-        width: 100%;
-        max-width: 400px;
+        max-width: 100%;
     }
 
     .gcc-school-content {

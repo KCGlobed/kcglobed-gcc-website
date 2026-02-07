@@ -89,9 +89,15 @@ const images = [
     transition: all 0.3s ease;
 }
 
-@media (max-width: 991px) {
-    .section-title h2 {
+@media (max-width: 1200px) {
+    .title {
         font-size: 28px;
+    }
+}
+
+@media (max-width: 991px) {
+    .title {
+        font-size: 24px;
     }
 }
 </style>
