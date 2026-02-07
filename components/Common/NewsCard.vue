@@ -65,7 +65,7 @@ const newsList = [
 }
 
 .section-header .sub-title {
-    color: #3b82f6;
+    color: #A13E99;
     font-weight: 700;
     text-transform: uppercase;
     letter-spacing: 1px;
@@ -87,7 +87,7 @@ const newsList = [
 }
 
 .section-title p {
-    color: #64748b;
+    color: #A13E99;
     font-size: 18px;
 }
 
@@ -135,7 +135,7 @@ const newsList = [
     position: absolute;
     bottom: 15px;
     left: 15px;
-    background: #3b82f6;
+    background: #A13E99;
     color: #fff;
     padding: 4px 12px;
     border-radius: 50px;
@@ -197,7 +197,7 @@ const newsList = [
     display: inline-flex;
     align-items: center;
     gap: 5px;
-    color: #3b82f6;
+    color: #A13E99;
     font-weight: 700;
     font-size: 14px;
     text-decoration: none;

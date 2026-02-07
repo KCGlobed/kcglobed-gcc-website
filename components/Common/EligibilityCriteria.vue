@@ -179,7 +179,7 @@
     }
 
     .criteria-item {
-        justify-content: center;
+        /* justify-content: center; */
         /* Center content within item */
         text-align: left;
         /* Text itself stays left relative to icon */
