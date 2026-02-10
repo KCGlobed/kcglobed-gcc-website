@@ -1,7 +1,7 @@
 <template>
     <div class="trust-ecosystem-section">
         <div class="container">
-            <div class="header-logo d-flex justify-content-center align-items-center">
+            <div class="header-logo d-flex justify-content-center align-items-center mb-4">
                 <img src="@/assets/img/common/logo_kcglobed.svg" alt="Logo" class="header-logo">
             </div>
             <div class="header-v2 mb-3" data-aos="fade-up">
@@ -14,7 +14,7 @@
 
             </div>
 
-            <div class="trust-grid" data-aos="zoom-in">
+            <div class="trust-grid " data-aos="zoom-in">
                 <div v-for="(item, index) in ecosystemData" :key="index" :class="['trust-card', `color-${index + 1}`]">
                     <div class="card-content">
                         <h3 v-if="item.number" class="number text-white">{{ item.number }}</h3>
@@ -26,7 +26,7 @@
                     </div>
                 </div>
             </div>
-            <div class="header-v2 mb-3 mt-5" data-aos="fade-up">
+            <div class="header-v2  mt-5" data-aos="fade-up">
                 <div class="">
                     <h2 class="title">TRUSTED <span class="highlight">ECO SYSTEM</span></h2>
 
@@ -136,6 +136,7 @@ const ecosystemImages = [
     max-width: 900px;
     margin-left: auto;
     margin-right: auto;
+    margin-bottom: 90px;
 }
 
 .trust-card {

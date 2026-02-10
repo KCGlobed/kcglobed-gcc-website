@@ -19,13 +19,19 @@
 </template>
 
 <script setup lang="ts">
+import img1 from "@/assets/img/thinkTank/1.png";
+import img2 from "@/assets/img/thinkTank/2.png";
+import img3 from "@/assets/img/thinkTank/4.png";
+import img4 from "@/assets/img/thinkTank/6.png";
+import img5 from "@/assets/img/thinkTank/5.png";
+import img6 from "@/assets/img/thinkTank/3.png";
 const images = [
-    "https://storage.googleapis.com/static_files_backend/media/images/1%20(1).png",
-    "https://storage.googleapis.com/static_files_backend/media/images/2%20(1).png",
-    "https://storage.googleapis.com/static_files_backend/media/images/4.png",
-    "https://storage.googleapis.com/static_files_backend/media/images/6%20(2).png",
-    "https://storage.googleapis.com/static_files_backend/media/images/5.png",
-    "https://storage.googleapis.com/static_files_backend/media/images/Group%2049811.png"
+    img1,
+    img2,
+    img3,
+    img4,
+    img5,
+    img6
 ]
 </script>
 

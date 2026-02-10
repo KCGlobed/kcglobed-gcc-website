@@ -11,8 +11,9 @@
             </div>
             <div class="box">
               <img src="../../assets/img/heros/panleIcon2.png" class="icon" />
-              <p>6 Months</p>
-              <span>Paid Internship During the Program</span>
+              <p>Paid Internship</p>
+              <span>6 Months</span>
+
             </div>
             <div class="box">
               <img src="../../assets/img/heros/panleIcon3.png" class="logo" />
@@ -35,53 +36,8 @@
           </div>
         </div>
       </div>
-      <div class="row align-items-center g-4">
-        <div class="col-lg-6" data-aos="fade-up" data-aos-delay="200">
-          <div class="information-content">
-            <h2 class="reveal2">BUILD A GLOBAL CAREER IN <span class="highlight">12 MONTHS</span></h2>
-            <p>
-              In just 12 months, you'll transform from graduate to global professional — ready to perform from day one.
-            </p>
-            <ul class="information-list">
-              <li>
-                <i class="ti ti-check"></i>
-                Conditional offer letter
-              </li>
-              <li>
-                <i class="ti ti-check"></i>
-                6-month paid internship along with program
-              </li>
-              <li>
-                <i class="ti ti-check"></i>
-                ACCA classroom learning powered by KC GlobEd
-              </li>
-
-              <li>
-                <i class="ti ti-check"></i>
-                British Council - English For Work
-              </li>
-              <li>
-                <i class="ti ti-check"></i>
-                AICTE-approved Post-Graduate Certificate in Management (Public Accounting)
-              </li>
-              <li>
-                <i class="ti ti-check"></i>
-                MSc Professional Accountancy (University of London)-Optional
-              </li>
-            </ul>
-            <div class="info-button">
-              <NuxtLink to="/programs" class="default-btn style2">
-                Explore 12-Month Journey
-                <i class="ti ti-arrow-narrow-right"></i>
-              </NuxtLink>
-              <div class="default-btn secodary-btn" style="cursor: pointer;" @click="toggleEligibilityModal">
-                Check Eligibility
-                <i class="ti ti-arrow-narrow-right"></i>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="col-lg-6" data-aos="zoom-in-up" data-aos-delay="200">
+      <div class="row justify-content-center g-4">
+        <div class="col-lg-8" data-aos="zoom-in-up" data-aos-delay="200">
           <div class="video-section">
             <div class="video-container">
               <iframe width="100%" height="100%" src="https://www.youtube.com/embed/dQw4w9WgXcQ" title="GCC Video"
@@ -144,7 +100,7 @@ export default {
   gap: 30px;
   line-height: 15px;
   width: 95%;
-  max-width: 1140px;
+  max-width: 1240px;
 }
 
 @media (max-width: 1200px) {
@@ -200,24 +156,14 @@ export default {
 }
 
 .panelBox .box p {
-  font-size: 24px;
+  font-size: 22px;
   font-weight: bold;
   color: #38003C;
   margin-bottom: 0;
   line-height: 32px;
 }
 
-.information-content h2 {
-  font-size: 32px;
-  font-weight: 700;
-  color: #0d0d25;
-  margin-bottom: 20px;
-  line-height: 1.3;
-}
 
-.information-content h2 .highlight {
-  color: #F1A63E;
-}
 
 .panelBox .box span {
   font-size: 11px;

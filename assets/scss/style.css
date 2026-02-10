@@ -1179,6 +1179,7 @@ Top Header Warp  Style
   position: relative;
 }
 
+
 .top-header-details .social-list::before {
   content: "";
   position: absolute;

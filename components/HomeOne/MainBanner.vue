@@ -54,10 +54,15 @@
                       <h2 class="card-title mb-4">
                         Start Your Journey With<br />
                         <span class="text-gradient">GCC School</span>
+                        <span className="text-gray">
+                          for a Unique 12 Months AI- Enabled International Accounting Professional (AEIP) Program
+                          Customized for GCCs Talent requirements
+                        </span>
                       </h2>
+
                       <!-- <p class="text-muted small mb-4">For A Unique 12 Months Professional Program</p> -->
 
-                      <div class="mb-4">
+                      <!-- <div class="mb-4">
                         <div class="d-flex gap-2 mb-3 align-items-start card-feature">
                           <div class="feature-icon">
                             <img src="../../assets/img/heros/heroSec1.png" />
@@ -88,7 +93,7 @@
                             <small class="text-muted-small">Industry proven global requirements</small>
                           </div>
                         </div>
-                      </div>
+                      </div> -->
 
                       <button class="btn btn-gradient w-100 mb-2" data-bs-toggle="modal" data-bs-target="#enquiryModal">
                         Download Dossier <img src="../../assets/img/heros/heroSec5.png" />
@@ -326,6 +331,10 @@
 </template>
 
 <style scoped>
+.text-gray {
+  color: #111827;
+}
+
 .rightSideBox {
   background-image: url("../../assets/img/heros/student_hero.png");
   background-size: cover;
@@ -404,6 +413,7 @@
   background: #A13E99 !important;
   border: none;
   font-weight: 600;
+  width: 250px
 }
 
 .btn-primary:hover {
@@ -799,7 +809,7 @@ export default defineComponent({
 
         id: 1,
         bgClass: "bg1",
-        subTitle: "Cohort 2026 Applications Open",
+        subTitle: "Cohort 2026 Application Open",
         image: image1,
         heading: "World's 1st School Backed by Industry, Built on Execution",
         description: "",
