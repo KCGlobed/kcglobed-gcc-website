@@ -4,9 +4,6 @@
     <LayoutMainNavbar />
     <HomeOneMainBanner />
     <HomeOneInformationForInternationalStudents />
-    <!-- <HomeOneFindYourProgram /> -->
-    <!-- <HomeOneAboutTheUniversity /> -->
-
     <CommonPathwayYourSuccess />
     <CommonEligibilityCriteria />
     <HomeOneFutureStudents />
@@ -14,24 +11,14 @@
     <CommonDirectorSpeach />
     <CommonGccCommerse />
     <CommonGrowthTrend />
-    <!-- <HomeOneCultureWarp /> -->
     <CommonPathway />
-
     <HomeOneCurrentAcademicStudents />
-
     <CommonThinkTank />
     <CommonSubjectMatterExpert />
     <CommonIndustryMentor />
-
     <CommonFunFact />
     <CommonNewsCard />
-
-    <!-- <HomeOneProfessionalLearning />
-    <HomeOneServicesContent />
-    <HomeOneWeAreInTheWave />
-    <HomeOneLatestNews /> -->
     <CommonTrustecoSystem />
-
     <CommonCampus />
     <LayoutMainFooter />
     <LayoutCopyRight />
@@ -42,9 +29,6 @@
 </template>
 
 <script setup lang="ts">
-// import { defineComponent } from "vue";
-
-// export default defineComponent({});
 useHead({
   title: "GCC School: Get Hired First, Then Trained",
   meta: [
