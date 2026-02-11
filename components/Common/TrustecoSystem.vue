@@ -264,6 +264,10 @@ const ecosystemImages = [
 
 /* Responsive adjustments */
 @media (max-width: 991px) {
+    .title {
+        text-align: center;
+    }
+
     .trust-grid {
         grid-template-columns: repeat(2, 1fr);
     }
