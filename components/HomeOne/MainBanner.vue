@@ -315,7 +315,7 @@
             <small class="text-danger" v-if="errors.consent">{{ errors.consent }}</small>
 
             <div class="modal-footer">
-              <button class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+              <!-- <button class="btn btn-secondary" data-bs-dismiss="modal">Close</button> -->
               <button class="btn btn-primary" type="submit" :disabled="isSubmitting">
                 <span v-if="isSubmitting" class="spinner-border spinner-border-sm" role="status"
                   aria-hidden="true"></span>
@@ -332,10 +332,10 @@
 
 <style scoped>
 .text-gray {
-color: #4D4D4D;
-font-style: normal;
-font-weight: 600;
-line-height: 44px;
+  color: #4D4D4D;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 44px;
 }
 
 .rightSideBox {
@@ -376,7 +376,7 @@ line-height: 44px;
   align-items: center;
   gap: 8px;
   padding: 6px 14px;
-  border-radius: 50px;  
+  border-radius: 50px;
   background-color: #231C39;
   color: #facc15;
   font-size: 20px;
