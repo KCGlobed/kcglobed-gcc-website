@@ -332,7 +332,10 @@
 
 <style scoped>
 .text-gray {
-  color: #111827;
+color: #4D4D4D;
+font-style: normal;
+font-weight: 600;
+line-height: 44px;
 }
 
 .rightSideBox {
