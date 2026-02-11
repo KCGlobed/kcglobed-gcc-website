@@ -376,10 +376,10 @@ line-height: 44px;
   align-items: center;
   gap: 8px;
   padding: 6px 14px;
-  border-radius: 50px;
+  border-radius: 50px;  
   background-color: #231C39;
   color: #facc15;
-  font-size: 14px;
+  font-size: 20px;
   font-weight: 600;
   border: 1px solid #facc15;
 }
