@@ -227,5 +227,9 @@
     .video-preview-box {
         aspect-ratio: 16/9;
     }
+
+    .title {
+        text-align: center;
+    }
 }
 </style>
