@@ -4,7 +4,7 @@
             <div class="section-header text-center mb-60" data-aos="fade-up">
                 <h2 class="title">AT <span class="highlight">GCC SCHOOL</span></h2>
                 <p class="subtitle max-800 mx-auto">
-                    We prepare finance leaders to achieve the next elevation - for their organizations and for
+                    We prepare finance leaders to achieve the next elevation - for their organisations and for
                     themselves.
                 </p>
             </div>
