@@ -19,19 +19,23 @@
 </template>
 
 <script setup lang="ts">
-import img1 from "@/assets/img/thinkTank/1.png";
-import img2 from "@/assets/img/thinkTank/2.png";
-import img3 from "@/assets/img/thinkTank/4.png";
-import img4 from "@/assets/img/thinkTank/6.png";
-import img5 from "@/assets/img/thinkTank/5.png";
-import img6 from "@/assets/img/thinkTank/3.png";
+import img1 from "@/assets/img/mentor/1.svg";
+import img2 from "@/assets/img/mentor/2.svg";
+import img3 from "@/assets/img/mentor/4.svg";
+import img4 from "@/assets/img/mentor/6.svg";
+import img5 from "@/assets/img/mentor/5.svg";
+import img6 from "@/assets/img/mentor/3.svg";
 const images = [
-    img3,
+
     img1,
     img2,
-    img4,
+
+    img6,
+    img3,
     img5,
-    img6
+    img4,
+
+
 ]
 </script>
 

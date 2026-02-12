@@ -22,7 +22,7 @@
                   for Commerce Graduates
                   <br />
                   Powered by Industry Titans,<br />
-                  Define by Performance
+                  Defined by Performance
                 </h1>
 
                 <p class="hero-subtitle">
@@ -56,7 +56,7 @@
                         <span class="text-gradient">GCC School</span>
                         <span className="text-gray">
                           for a Unique 12 Months AI- Enabled International Accounting Professional (AEIP) Program
-                          Customized for GCCs Talent requirements
+                          Customised for GCCs Talent requirements
                         </span>
                       </h2>
 
