@@ -9,10 +9,12 @@
             </div>
 
             <div class="row g-4 justify-content-center align-items-center">
-                <div v-for="(img, index) in images" :key="index" class="col-lg-3 col-md-4 ">
-                    <div class="image-box">
-                        <img :src="img" alt="Subject Matter Expert" class="img-fluid">
-                    </div>
+                <div v-for="(item, index) in images" :key="index" class="col-lg-3 col-md-4 ">
+                    <a :href="item.link" target="_blank">
+                        <div class="image-box">
+                            <img :src="item.img" alt="Subject Matter Expert" class="img-fluid">
+                        </div>
+                    </a>
                 </div>
             </div>
         </div>
@@ -29,14 +31,38 @@ import expert6 from '@/assets/img/expert/expert6.png'
 import expert7 from '@/assets/img/expert/expert7.png'
 import expert8 from '@/assets/img/expert/expert8.png'
 const images = [
-    expert1,
-    expert2,
-    expert3,
-    expert4,
-    expert5,
-    expert6,
-    expert7,
-    expert8,
+    {
+        img: expert1,
+        link: "https://www.linkedin.com/in/cpa-nitish-khatri-045117b9/"
+    },
+    {
+        img: expert2,
+        link: "https://www.linkedin.com/in/bhawna-goswami-b878862b8/"
+    },
+    {
+        img: expert3,
+        link: "https://www.linkedin.com/in/kapileshwar-bhalla-39275b1a6/"
+    },
+    {
+        img: expert4,
+        link: "https://www.linkedin.com/in/ravi-yathiraj-irs-enrolled-agent-mba-resolving-the-irs-state-notices-and-audits-174b9432/"
+    },
+    {
+        img: expert5,
+        link: "https://www.linkedin.com/in/santhosh-chandrashekar-647263125/"
+    },
+    {
+        img: expert6,
+        link: "https://www.linkedin.com/in/vinay-aggarwal-2a7a8624/"
+    },
+    {
+        img: expert7,
+        link: "https://www.linkedin.com/in/anish-thomas-06106a14/"
+    },
+    {
+        img: expert8,
+        link: "https://www.linkedin.com/in/ca-ram-s-a5b560154/"
+    },
 ]
 </script>
 

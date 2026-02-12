@@ -5,7 +5,7 @@
         <div class="col-lg-6">
           <div class="top-header-details">
             <ul class="social-list">
-              <li>
+              <li class="ms-2">
                 <a href="https://www.linkedin.com/company/gccschool/" target="_blank" class="icon">
                   <img src="~/assets/img/svgs/linkedin.svg" alt="icon" />
                 </a>
