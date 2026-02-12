@@ -5,7 +5,8 @@
     <!-- <LayoutNavbarStyleTwo class="inner-navbar" /> -->
     <CommonInnerPageBanner pageTitle="Application Form" />
 
-    <CommonApplicationPagesList :activeStep="currentStep" :invalidSteps="invalidSteps" @step-selected="handleStepSelection" />
+    <CommonApplicationPagesList :activeStep="currentStep" :invalidSteps="invalidSteps"
+      @step-selected="handleStepSelection" />
 
     <keep-alive>
       <component :is="activeComponent" ref="currentStepComponent" :formData="formData" :userId="userId" />
@@ -146,10 +147,10 @@ export default defineComponent({
       for (let i = 1; i < step; i++) {
         currentStep.value = i;
         await nextTick();
-        
+
         // precise delay to ensure component mount if needed (rare but safe)
         if (!currentStepComponent.value) {
-            await new Promise(r => setTimeout(r, 10));
+          await new Promise(r => setTimeout(r, 10));
         }
 
         if (currentStepComponent.value?.validate) {
@@ -190,17 +191,17 @@ export default defineComponent({
         currentStep.value++;
       }
     };
-    
+
     // Helper to get step name for alert
     const getHeaderForStep = (index: number) => {
-       const headers = [
-        "Personal Info", 
-        "Academic Info", 
-        "Work Experience", 
-        "Documents", 
+      const headers = [
+        "Personal Info",
+        "Academic Info",
+        "Work Experience",
+        "Documents",
         "Declaration"
-       ];
-       return headers[index - 1] || "Unknown Step";
+      ];
+      return headers[index - 1] || "Unknown Step";
     };
 
     const prevStep = () => {
@@ -248,7 +249,6 @@ export default defineComponent({
       }
 
       try {
-        console.log(process.env.PAYMENT_AMOUNT, '-----amount----------')
         // 1. Call your backend to create Razorpay order
         const res: any = await $fetch("/api/start-payment", {
           method: "POST",

@@ -16,7 +16,7 @@ export default defineEventHandler(async (event) => {
 
     try {
         const order = await razorpay.orders.create({
-            amount: Number(process.env.RAZORPAY_PAYMENT_AMOUNT!) * 100, // Razorpay expects paise
+            amount: Number(process.env.RAZORPAY_PAYMENT_AMOUNT || 2950) * 100, // Razorpay expects paise
             currency: process.env.RAZORPAY_CURRENCY!,
             receipt: `receipt_${user_id}_${Date.now()}`,
             notes: {
