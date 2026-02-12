@@ -274,9 +274,7 @@ const ecosystemImages = [
 }
 
 @media (max-width: 575px) {
-    .trust-grid {
-        grid-template-columns: 1fr;
-    }
+
 
     .trust-card {
         aspect-ratio: auto;
@@ -332,9 +330,9 @@ const ecosystemImages = [
 }
 
 @media (max-width: 575px) {
-    .organistion-grid {
+    /* .organistion-grid {
         grid-template-columns: 1fr;
-    }
+    } */
 
     .org-card {
         height: 100px;

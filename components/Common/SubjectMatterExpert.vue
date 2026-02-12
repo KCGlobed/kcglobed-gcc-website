@@ -9,7 +9,7 @@
             </div>
 
             <div class="row g-4 justify-content-center align-items-center">
-                <div v-for="(img, index) in images" :key="index" class="col-lg-3 col-md-4 col-6">
+                <div v-for="(img, index) in images" :key="index" class="col-lg-3 col-md-4 ">
                     <div class="image-box">
                         <img :src="img" alt="Subject Matter Expert" class="img-fluid">
                     </div>
