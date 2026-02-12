@@ -26,9 +26,9 @@ import img4 from "@/assets/img/thinkTank/6.png";
 import img5 from "@/assets/img/thinkTank/5.png";
 import img6 from "@/assets/img/thinkTank/3.png";
 const images = [
+    img3,
     img1,
     img2,
-    img3,
     img4,
     img5,
     img6

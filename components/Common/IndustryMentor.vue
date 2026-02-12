@@ -8,10 +8,13 @@
             </div>
 
             <div class="row g-4 justify-content-center align-items-center">
+
                 <div v-for="(img, index) in images" :key="index" class="col-lg-4 col-md-6 col-sm-12">
-                    <div class="image-box">
-                        <img :src="img" alt="Industry Mentor" class="img-fluid">
-                    </div>
+                    <a :href="img.link" target="_blank">
+                        <div class="image-box">
+                            <img :src="img.img" alt="Industry Mentor" class="img-fluid">
+                        </div>
+                    </a>
                 </div>
             </div>
         </div>
@@ -35,27 +38,72 @@ import industryMentor14 from '@/assets/img/industryMentor/14.png'
 import industryMentor15 from '@/assets/img/industryMentor/15.png'
 import industryMentor16 from '@/assets/img/industryMentor/16.png'
 const images = [
-    industryMentor1,
-    industryMentor2,
-    industryMentor3,
-    industryMentor4,
-    industryMentor5,
-    industryMentor6,
-    industryMentor7,
-    industryMentor8,
-    industryMentor10,
-    industryMentor11,
-    industryMentor12,
-    industryMentor13,
-    industryMentor14,
-    industryMentor15,
-    industryMentor16,
+    {
+        img: industryMentor1,
+        link: "https://www.linkedin.com/in/senthil-kumar-5b8a1b8a/"
+    },
+    {
+        img: industryMentor2,
+        link: "https://www.linkedin.com/in/senthil-kumar-5b8a1b8a/"
+    },
+    {
+        img: industryMentor3,
+        link: "https://www.linkedin.com/in/senthil-kumar-5b8a1b8a/"
+    },
+    {
+        img: industryMentor4,
+        link: "https://www.linkedin.com/in/senthil-kumar-5b8a1b8a/"
+    },
+    {
+        img: industryMentor5,
+        link: "https://www.linkedin.com/in/senthil-kumar-5b8a1b8a/"
+    },
+    {
+        img: industryMentor6,
+        link: "https://www.linkedin.com/in/senthil-kumar-5b8a1b8a/"
+    },
+    {
+        img: industryMentor7,
+        link: "https://www.linkedin.com/in/senthil-kumar-5b8a1b8a/"
+    },
+    {
+        img: industryMentor8,
+        link: "https://www.linkedin.com/in/senthil-kumar-5b8a1b8a/"
+    },
+    {
+        img: industryMentor10,
+        link: "https://www.linkedin.com/in/senthil-kumar-5b8a1b8a/"
+    },
+    {
+        img: industryMentor11,
+        link: "https://www.linkedin.com/in/senthil-kumar-5b8a1b8a/"
+    },
+    {
+        img: industryMentor12,
+        link: "https://www.linkedin.com/in/senthil-kumar-5b8a1b8a/"
+    },
+    {
+        img: industryMentor13,
+        link: "https://www.linkedin.com/in/senthil-kumar-5b8a1b8a/"
+    },
+    {
+        img: industryMentor14,
+        link: "https://www.linkedin.com/in/senthil-kumar-5b8a1b8a/"
+    },
+    {
+        img: industryMentor15,
+        link: "https://www.linkedin.com/in/senthil-kumar-5b8a1b8a/"
+    },
+    {
+        img: industryMentor16,
+        link: "https://www.linkedin.com/in/senthil-kumar-5b8a1b8a/"
+    },
 ]
 </script>
 
 <style scoped>
 .think-tank-area {
-    background: #ffffff;
+    background: #f9fafb;
 }
 
 .section-title {

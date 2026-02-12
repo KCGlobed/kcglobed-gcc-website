@@ -105,7 +105,7 @@ export default defineComponent({
 
 <style scoped>
 .fun-fact-warp {
-    background-color: #f8fafc;
+    background-color: #fff;
     padding-bottom: 150px;
 }
 
