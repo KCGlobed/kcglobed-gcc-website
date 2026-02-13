@@ -50,11 +50,11 @@
             </NuxtLink>
           </li>
 
-          <li class="nav-item">
+          <!-- <li class="nav-item">
             <NuxtLink to="/contact-us" class="nav-link">
               Contact Us
             </NuxtLink>
-          </li>
+          </li> -->
         </ul>
         <div class="others-option d-flex align-items-center">
           <div class="option-item">

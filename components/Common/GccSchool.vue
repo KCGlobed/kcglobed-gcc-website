@@ -2,19 +2,21 @@
     <div class="gcc-school-section">
         <div class="container">
             <div class="section-header text-center mb-60" data-aos="fade-up">
-                <h2 class="title">AT <span class="highlight">GCC SCHOOL</span></h2>
-                <p class="subtitle max-800 mx-auto">
+                <h2 class="title">AT <span class="highlight">GCC SCHOOL</span>
                     We prepare finance leaders to achieve the next elevation - for their organisations and for
-                    themselves.
+                    themselves
+                </h2>
+                <p class="subtitle max-800 mx-auto">
+
                 </p>
             </div>
             <div class="gcc-school-content">
 
                 <div class="gcc-school-images">
 
-                    <img src="../../assets/img/heros/school1.svg" />
-                    <img src="../../assets/img/heros/school2.svg" />
-                    <img src="../../assets/img/heros/school3.svg" />
+                    <img src="../../assets/img/heros/school6.svg" />
+                    <img src="../../assets/img/heros/school4.svg" />
+                    <img src="../../assets/img/heros/school5.svg" />
                 </div>
             </div>
         </div>
@@ -26,7 +28,7 @@
 </script>
 <style scoped>
 .gcc-school-section {
-    padding: 80px 0;
+    padding: 60px 0;
     background-color: #ffffff;
 }
 
@@ -108,7 +110,7 @@
 
 @media (max-width: 767px) {
     .gcc-school-section {
-        padding: 50px 0;
+        padding: 30px 0;
     }
 
     .section-header .title {

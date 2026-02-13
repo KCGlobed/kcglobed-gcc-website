@@ -2,12 +2,12 @@
   <div class="ticket-section">
     <div class="container">
       <div class="ticket-header-bar">
-        <h2>PASS NFET AND GET YOUR TICKET</h2>
+        <h2>PASS NFET ENTRANCE EXAM AND GET YOUR TICKET</h2>
         <p>TO EXPERIENCE THE CORPORATE WORLD AT CYBER CITY, GURUGRAM</p>
       </div>
 
       <div class="ticket-wrapper">
-        <!-- Left Section (Purple) -->
+        <!-- Left Section (Purple)-->
         <div class="ticket-left">
           <div class="ticket-content">
             <div class="row align-items-start mb-4">
@@ -57,7 +57,10 @@
           </div>
 
           <div class="ticket-footer">
-            Your Professional Journey Begins Here.
+            <a href="/nfet-exam" class="status-link">
+              Your Professional Journey Begins Here.
+            </a>
+
           </div>
 
           <!-- World Map Background (CSS Pattern) -->
@@ -98,10 +101,6 @@
             <span class="dark-text">12 Months</span>
           </div>
 
-          <div class="info-group mt-3">
-            <label>STATUS</label>
-            <span class="dark-text"><a href="/nfet-exam" class="status-link">know More</a></span>
-          </div>
 
           <div class="barcode mt-4">
             <!-- Simple CSS Barcode -->
@@ -357,8 +356,43 @@ export default {
 }
 
 .status-link {
-  color: #38003c;
+  color: #fff;
   text-decoration: underline;
   font-weight: 700;
+}
+
+@media (max-width: 565px) {
+  .ticket-section {
+    padding: 30px 0;
+  }
+
+  .ticket-section span {
+    font-size: 12px !important;
+  }
+
+  .ticket-header-bar h2 {
+    font-size: 14px;
+  }
+
+  .ticket-header-bar p {
+    font-size: 12px;
+  }
+
+  .ticket-footer {
+    margin-top: 15px;
+  }
+
+  .ticket-footer {
+    font-size: 12px;
+  }
+
+  .ticket-right {
+    padding: 15px 30px;
+  }
+
+  .info-group {
+    margin-top: 10px !important;
+  }
+
 }
 </style>

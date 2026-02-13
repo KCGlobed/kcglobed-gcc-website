@@ -3,8 +3,6 @@
         <div class="container">
             <div class="section-title text-center mb-50">
                 <h2 class="title">GCC SCHOOL STRATEGIC <span class="highlight">THINK TANK</span></h2>
-                <p class="max-600 mx-auto">Our Think Tank comprises industry leaders and academic pioneers dedicated to
-                    shaping the future of education and professional excellence.</p>
             </div>
 
             <div class="row g-4 justify-content-center align-items-center">

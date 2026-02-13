@@ -3,14 +3,19 @@
         <div class="container">
             <!-- Section Header -->
             <div class="section-header" data-aos="fade-up">
-                <h2 class="section-title">WHY GCC SCHOOL FOR <span class="highlight">COMMERCE GRADUATE?</span></h2>
+                <h2 class="section-title">
+
+                    WORLD'S FIRST SCHOOL, BUILT BY GCC LEADERS TO SHAPE<br /> <span class="highlight">THE NATION'S
+                        FUTURE GCC
+                        TALENT</span>
+                </h2>
                 <h3 class="section-subtitle">
-                    World's first school, built by GCC leaders to shape the nation's future GCC talent
+
                 </h3>
             </div>
 
             <!-- Features Grid -->
-            <div class="d-flex justify-content-center mt-5">
+            <div class="d-flex justify-content-center mt-2 gcc-commerce-image">
                 <img src="~/assets/img/common/Commerce.svg" alt="" srcset="">
             </div>
 
@@ -216,6 +221,11 @@ export default {
 
 .feature-card:hover .feature-content h4 {
     color: #862E84;
+}
+
+.gcc-commerce-image img {
+    max-width: 800px;
+    width: 100%;
 }
 
 /* Responsive Design */

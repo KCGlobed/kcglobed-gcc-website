@@ -3,9 +3,9 @@
         <div class="container">
             <div class="section-title text-center mb-50">
                 <h2 class="title"> OUR EMINENT <span class="highlight">SUBJECT MATTER EXPERTS </span></h2>
-                <p class="max-600 mx-auto">Our SMEs comprise of industry leaders and academic pioneers
+                <!-- <p class="max-600 mx-auto">Our SMEs comprise of industry leaders and academic pioneers
                     dedicated to
-                    shaping the future of education and professional excellence.</p>
+                    shaping the future of education and professional excellence.</p> -->
             </div>
 
             <div class="row g-4 justify-content-center align-items-center">

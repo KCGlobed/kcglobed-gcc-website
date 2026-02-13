@@ -293,14 +293,9 @@ tr:last-child .gcc-cell {
 }
 
 @media (max-width : 768px) {
-  .table-responsive {
-    overflow-x: auto;
-  }
 
-  .comparison-table {
-    min-width: 600px;
-    /* Ensure table doesn't squash too much */
-  }
+
+
 
   .comparison-table th {
     padding: 15px 10px;
@@ -329,5 +324,17 @@ tr:last-child .gcc-cell {
   .title {
     font-size: 26px;
   }
+}
+
+@media (max-width : 575px) {
+  .comparison-table {
+    min-width: 400px;
+    /* Ensure table doesn't squash too much */
+  }
+
+  .comparison-table th {
+    font-size: 10px;
+  }
+
 }
 </style>

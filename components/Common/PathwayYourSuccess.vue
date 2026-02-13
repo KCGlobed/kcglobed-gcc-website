@@ -4,11 +4,11 @@
             <!-- Header -->
             <div class="section-header text-center mb-60" data-aos="fade-up">
                 <h2 class="title">PATHWAY TO <span class="highlight">YOUR SUCCESS</span></h2>
-                <p class="subtitle max-800 mx-auto">
+                <!-- <p class="subtitle max-800 mx-auto">
                     Your journey from preparation to professional excellence. Follow these steps to secure your future
                     at
                     the heart of the corporate world.
-                </p>
+                </p> -->
             </div>
 
             <div class="timeline-container">
@@ -131,7 +131,7 @@
 
 <style scoped>
 .pathway-success-section {
-    padding: 80px 0;
+    padding: 25px 0;
     background-color: #ffffff;
     overflow: hidden;
 }

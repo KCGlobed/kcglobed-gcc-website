@@ -9,7 +9,7 @@
             </div>
 
             <!-- Content Wrapper -->
-            <div class="row" data-aos="zoom-in" data-aos-delay="200">
+            <!-- <div class="row" data-aos="zoom-in" data-aos-delay="200">
                 <div class="col-12">
                     <div class="image-box">
                         <div class="image-box-inner">
@@ -18,9 +18,24 @@
 
                         </div>
 
-                        <!-- Decorative Floating Shapes -->
                         <div class="floating-shape shape-1"></div>
                         <div class="floating-shape shape-2"></div>
+                    </div>
+                </div>
+            </div> -->
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="image-box">
+                        <div class="image-box-inner">
+                            <img src="~/assets/img/common/graph.svg" alt="" srcset="">
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="image-box">
+                        <div class="image-box-inner">
+                            <img src="~/assets/img/common/marketdata.svg" alt="" srcset="">
+                        </div>
                     </div>
                 </div>
             </div>

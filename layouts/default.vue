@@ -1,6 +1,6 @@
 <template>
   <div>
-    <Preloader v-if="isLoading" />
+    <!-- <Preloader v-if="isLoading" /> -->
     <MobileDeviceNavbar />
     <NuxtPage />
     <SearchPopup />
@@ -19,21 +19,21 @@ import GoTop from "./GoTop.vue";
 
 export default defineComponent({
   components: {
-    Preloader,
+    // Preloader,
     MobileDeviceNavbar,
     SearchPopup,
     MainSidebar,
     GoTop,
   },
-  data() {
-    return {
-      isLoading: true,
-    };
-  },
-  mounted() {
-    setTimeout(() => {
-      this.isLoading = false;
-    }, 1000);
-  },
+  // data() {
+  //   return {
+  //     isLoading: true,
+  //   };
+  // },
+  // mounted() {
+  //   setTimeout(() => {
+  //     this.isLoading = false;
+  //   }, 60);
+  // },
 });
 </script>

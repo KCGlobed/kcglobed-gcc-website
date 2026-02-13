@@ -13,7 +13,7 @@
               <!-- Left Content -->
               <div class="col-lg-6">
                 <span class="hero-badge">
-                  <span class="badge-dot"></span>
+                  <!-- <span class="badge-dot"></span> -->
                   <span class="blinking-text">{{ banner.subTitle }}</span>
                 </span>
 
@@ -52,12 +52,8 @@
                     <!-- Left side - Content -->
                     <div class="col-md-7">
                       <h2 class="card-title mb-4">
-                        Start Your Journey With<br />
+                        Start Your Career Path With<br />
                         <span class="text-gradient">GCC School</span>
-                        <span className="text-gray">
-                          for a Unique 12 Months AI- Enabled International Accounting Professional (AEIP) Program
-                          Customised for GCCs Talent requirements
-                        </span>
                       </h2>
 
                       <!-- <p class="text-muted small mb-4">For A Unique 12 Months Professional Program</p> -->
@@ -99,7 +95,7 @@
                         Download Dossier <img src="../../assets/img/heros/heroSec5.png" />
                       </button>
 
-                      <p class="text-center text-muted small">Join to transform your career</p>
+                      <!-- <p class="text-center text-muted small">Join to transform your career</p> -->
                     </div>
 
                     <!-- Right side - Profile Image -->
@@ -367,8 +363,10 @@
   background-size: cover;
   background-position: center;
   padding: 80px 0;
-  background-image: url("~/assets/img/heros/mobileBanner.svg") !important;
+  /* background-image: url("~/assets/img/heros/mobileBanner.svg") !important; */
 }
+
+
 
 /* Left Content */
 .hero-badge {
@@ -401,8 +399,10 @@
 .hero-subtitle {
   font-size: 24px;
   font-weight: 600;
-  color: white;
+  color: #FFC065;;
   margin-top: 20px;
+  font-style: normal;
+  line-height: 33.321px;
 }
 
 .hero-description {
@@ -436,12 +436,16 @@
   box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
   position: relative;
   margin-top: 80px;
+  max-width: 642px;
 }
 
 .card-title {
-  font-size: 24px;
-  font-weight: bold;
-  color: #1f2937;
+color: #111827;
+font-family: Inter;
+font-size: 56px;
+font-style: normal;
+line-height: 73px; /* 110.606% */
+letter-spacing: -1.98px;
 }
 
 .text-gradient {
@@ -559,7 +563,7 @@
   }
 
   .hero-subtitle {
-    font-size: 18px;
+    font-size: 16px;
     margin-top: 15px;
   }
 
@@ -578,9 +582,10 @@
     margin-top: 30px;
   }
 
-  .card-title {
-    font-size: 20px;
-  }
+    .card-title {
+        font-size: 41px;
+        line-height: 55px;
+    }
 
   .btn-primary {
     padding: 10px 20px !important;
@@ -597,6 +602,18 @@
   .modal-body {
     padding: 1rem;
   }
+  .hero-slider-warp {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  background-size: cover;
+  background-position: center;
+  padding: 40px 0;
+  background-image: url("~/assets/img/heros/mobileBanner.svg") !important;
+}
+.btn-primary{
+        width: 100%;
+}
 }
 </style>
 

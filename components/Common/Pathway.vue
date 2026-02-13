@@ -13,7 +13,7 @@
                 <div class="col-lg-10 offset-lg-1" data-aos="zoom-in">
                     <div class="pathway-visual-container">
                         <div class="image-wrapper">
-                            <img src="@/assets/img/common/graph2.svg" alt="GCC Learning Pathway"
+                            <img src="@/assets/img/common/graph3.svg" alt="GCC Learning Pathway"
                                 class="pathway-graphic">
                         </div>
                         <!-- Decorative glow effects -->

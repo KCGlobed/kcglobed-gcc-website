@@ -1,37 +1,41 @@
 <template>
-  <div class="information-warp ptb-100">
+  <div class="information-warp pb-50">
     <div class="container">
       <div class="row">
         <div class="col-md-12">
+
           <div class="panelBox">
-            <div class="box">
-              <img src="../../assets/img/heros/panleIcon1.png" class="icon" />
-              <p>Hired First</p>
-              <span>Then Trained</span>
+            <div class="title-strip">
+              <h3>12 Months AI-Enabled International Accounting Professional (AEIAP) Program</h3>
             </div>
-            <div class="box">
-              <img src="../../assets/img/heros/panleIcon2.png" class="icon" />
-              <p>Paid Internship</p>
-              <span>6 Months</span>
-
-            </div>
-            <div class="box">
-              <img src="../../assets/img/heros/panleIcon3.png" class="logo" />
-              <span class="mt-1">UK ACCA <br> Integrated</span>
-            </div>
-            <div class="box">
-              <img src="../../assets/img/heros/panleIcon4.png" class="logo" />
-              <span class="mt-2">Master in Corporate Communication</span>
-            </div>
-            <div class="box">
-              <img src="../../assets/img/heros/panleIcon5.png" class="logo" />
-
-              <span class="mt-2">AICTE Approved PGCM Certificate from AIMA</span>
-            </div>
-            <div class="box">
-              <img src="../../assets/img/heros/panleIcon6.png" class="icon" />
-              <p>AI First</p>
-              <span>Integrated Curriculum</span>
+            <div class="boxes-container">
+              <div class="box">
+                <img src="../../assets/img/heros/panleIcon1.png" class="icon" />
+                <p>Hired First</p>
+                <span>Then Trained</span>
+              </div>
+              <div class="box">
+                <img src="../../assets/img/heros/panleIcon2.png" class="icon" />
+                <p>Paid Internship</p>
+                <span>6 Months</span>
+              </div>
+              <div class="box">
+                <img src="../../assets/img/heros/panleIcon3.png" class="logo" />
+                <span class="mt-1">UK ACCA <br> Integrated</span>
+              </div>
+              <div class="box">
+                <img src="../../assets/img/heros/panleIcon4.png" class="logo" />
+                <span class="mt-2">Master in Corporate Communication</span>
+              </div>
+              <div class="box">
+                <img src="../../assets/img/heros/panleIcon5.png" class="logo" />
+                <span class="mt-2">AICTE Approved PGCM Certificate from AIMA</span>
+              </div>
+              <div class="box">
+                <img src="../../assets/img/heros/panleIcon6.png" class="icon" />
+                <p>AI First</p>
+                <span>Integrated Curriculum</span>
+              </div>
             </div>
           </div>
         </div>
@@ -84,30 +88,58 @@ export default {
   padding-top: 200px;
 }
 
+.pb-50 {
+  padding-bottom: 50px;
+}
+
+
 .panelBox {
   display: flex;
-  padding: 30px;
-  padding-left: 60px;
+  flex-direction: column;
   background-color: white;
   box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
   border-radius: 10px;
-  height: 150px;
   position: absolute;
   top: -30px;
   transform: translateX(-50%);
   left: 50%;
   z-index: 100;
-  gap: 30px;
-  line-height: 15px;
   width: 95%;
   max-width: 1240px;
+  overflow: hidden;
+}
+
+.title-strip {
+  background: linear-gradient(135deg, #38003C 0%, #6B1B75 100%);
+  padding: 15px 30px;
+  text-align: center;
+}
+
+.title-strip h3 {
+  color: white;
+  font-size: 18px;
+  font-weight: 700;
+  margin: 0;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.boxes-container {
+  display: flex;
+  padding: 30px;
+  padding-left: 60px;
+  gap: 30px;
+  line-height: 15px;
 }
 
 @media (max-width: 1200px) {
-  .panelBox {
+  .title-strip h3 {
+    font-size: 16px;
+  }
+
+  .boxes-container {
     padding-left: 30px;
     gap: 15px;
-    height: auto;
     padding-bottom: 20px;
   }
 
@@ -124,17 +156,32 @@ export default {
     left: 0;
     transform: none;
     margin: -100px auto 40px;
+    width: 100%;
+  }
+
+  .title-strip {
+    padding: 12px 20px;
+  }
+
+  .title-strip h3 {
+    font-size: 14px;
+  }
+
+  .boxes-container {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    width: 100%;
-    height: auto;
+    padding: 20px;
   }
 }
 
 @media (max-width: 767px) {
-  .panelBox {
+  .title-strip h3 {
+    font-size: 12px;
+  }
+
+  .boxes-container {
     grid-template-columns: repeat(2, 1fr);
-    margin-top: -50px;
+    padding: 15px;
   }
 }
 
@@ -169,6 +216,7 @@ export default {
   font-size: 11px;
 
 }
+
 
 .video-section {
   position: relative;
@@ -281,16 +329,31 @@ export default {
     padding-top: 20px;
   }
 
+  .timeline-container {
+    margin: 30px auto 0;
+  }
+
   .panelBox {
     transform: none;
     position: inherit;
+    margin-bottom: 20px;
+    margin-top: 10px;
+  }
+
+  .title-strip {
+    padding: 10px 15px;
+  }
+
+  .title-strip h3 {
+    font-size: 11px;
+    letter-spacing: 0.3px;
+  }
+
+  .boxes-container {
     display: grid;
     padding: 20px;
     gap: 15px;
     grid-template-columns: 1fr 1fr;
-    height: auto !important;
-    margin-bottom: 20px;
-    margin-top: 10px;
   }
 
   .panelBox .box {

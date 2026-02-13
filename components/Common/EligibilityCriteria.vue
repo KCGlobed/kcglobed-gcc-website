@@ -49,7 +49,7 @@
 .eligibility-section {
     background-color: #26002e;
     /* Very dark purple from image */
-    padding: 70px 0;
+    padding: 40px 0;
     color: #ffffff;
 }
 
@@ -100,13 +100,17 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 24px;
-    height: 24px;
+    width: 28px;
+    height: 28px;
+    background-color: #22c55e;
+    /* Green background */
+    border-radius: 50%;
 }
 
 .icon-box i {
-    color: #d97706;
-    font-size: 20px;
+    color: white;
+    /* White check mark */
+    font-size: 24px;
     line-height: 1;
 }
 
