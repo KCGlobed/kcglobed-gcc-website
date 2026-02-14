@@ -6,7 +6,7 @@
 
           <div class="panelBox">
             <div class="title-strip">
-              <h3>12 Months AI-Enabled International Accounting Professional (AEIAP) Program</h3>
+              <h3>Customized for GCCs Talent Requirements</h3>
             </div>
             <div class="boxes-container">
               <div class="box">

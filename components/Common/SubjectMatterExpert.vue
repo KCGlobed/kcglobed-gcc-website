@@ -22,13 +22,13 @@
 </template>
 
 <script setup lang="ts">
-import expert1 from '@/assets/img/expert/expert1.png'
-import expert2 from '@/assets/img/expert/expert2.png'
-import expert3 from '@/assets/img/expert/expert3.png'
+import expert1 from '@/assets/img/expert/expert11.png'
+import expert2 from '@/assets/img/expert/expert12.png'
+import expert3 from '@/assets/img/expert/expert13.png'
 import expert4 from '@/assets/img/expert/expert4.png'
 import expert5 from '@/assets/img/expert/expert5.png'
 import expert6 from '@/assets/img/expert/expert6.png'
-import expert7 from '@/assets/img/expert/expert7.png'
+import expert7 from '@/assets/img/expert/expert17.png'
 import expert8 from '@/assets/img/expert/expert8.png'
 const images = [
     {

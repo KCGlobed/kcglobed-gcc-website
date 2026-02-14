@@ -67,27 +67,27 @@ const ecosystemData = [
     { number: "50+", label: "Institutional", subLabel: "Tie-Ups" },
     { number: "Best Seller", label: "In E-Marketplaces" },
     { number: "4.8★", label: "Google Reviews", subLabel: "By 800+ Learners" },
-    { number: "10+", label: "Accolades &", subLabel: "100+ Media Coverage" },
-    { number: "100k+", label: "Lives", subLabel: "Impacted" },
+    { number: "100+", label: "Media Coverage", subLabel: " 10+ Accolades" },
+    { number: "100k+", label: "Lives", subLabel: "Impacted" }, 
 ];
 
 const ecosystemImages = [
-    { image: "https://storage.googleapis.com/static_files_backend/media/images/Rectangle%20(1).png" },
-    { image: "https://storage.googleapis.com/static_files_backend/media/images/Group.png" },
-    { image: "https://storage.googleapis.com/static_files_backend/media/images/QvOfxQ.png" },
-    { image: "https://storage.googleapis.com/static_files_backend/media/images/image%2068.png" },
-    { image: "https://storage.googleapis.com/static_files_backend/media/images/6zMDPX.tif.png" },
-    { image: "https://storage.googleapis.com/static_files_backend/media/images/0E5o9h.png" },
-    { image: "https://storage.googleapis.com/static_files_backend/media/images/Rectangle%20(5).png" },
-    { image: "https://storage.googleapis.com/static_files_backend/media/images/Rectangle%20(6).png" },
-    { image: "https://storage.googleapis.com/static_files_backend/media/images/7qrb04.tif.png" },
-    { image: "https://storage.googleapis.com/static_files_backend/media/images/sYzkaf.png" },
-    { image: "https://storage.googleapis.com/static_files_backend/media/images/Clip%20path%20group.png" },
-    { image: "https://storage.googleapis.com/static_files_backend/media/images/Rectangle%20(7).png" },
-    { image: "https://storage.googleapis.com/static_files_backend/media/images/Group%20(3).png" },
-    { image: "https://storage.googleapis.com/static_files_backend/media/images/Group%20(2).png" },
-    { image: "https://storage.googleapis.com/static_files_backend/media/images/Group%20(1).png" },
-    { image: "https://storage.googleapis.com/static_files_backend/media/images/image%2067.png" },
+    { image: "https://storage.googleapis.com/static_files_backend/media/images/Group%2049956.png" },
+    { image: "https://storage.googleapis.com/static_files_backend/media/images/Group%2049950%201.png" },
+    { image: "https://storage.googleapis.com/static_files_backend/media/images/Group%2049941.png" },
+    { image: "https://storage.googleapis.com/static_files_backend/media/images/Group%2049942.png" },
+    { image: "https://storage.googleapis.com/static_files_backend/media/images/Group%2049947.png" },
+    { image: "https://storage.googleapis.com/static_files_backend/media/images/Group%2049949.png" },
+    { image: "https://storage.googleapis.com/static_files_backend/media/images/Group%2049952.png" },
+    { image: "https://storage.googleapis.com/static_files_backend/media/images/Group%2049939.png" },
+    { image: "https://storage.googleapis.com/static_files_backend/media/images/Group%2049943.png" },
+    { image: "https://storage.googleapis.com/static_files_backend/media/images/7qrb04.tif%201.png" },
+    { image: "https://storage.googleapis.com/static_files_backend/media/images/Group%2049944.png" },
+    { image: "https://storage.googleapis.com/static_files_backend/media/images/Group%2049951.png" },
+    { image: "https://storage.googleapis.com/static_files_backend/media/images/Group%2049953.png" },
+    { image: "https://storage.googleapis.com/static_files_backend/media/images/Group%2049955%20(1).png" },
+    { image: "https://storage.googleapis.com/static_files_backend/media/images/Group%2049945.png" },
+    { image: "https://storage.googleapis.com/static_files_backend/media/images/Group%2049954.png" },
 
 ];
 
@@ -304,22 +304,22 @@ const ecosystemImages = [
 }
 
 .org-card {
-    background: #ffffff;
+    /* background: #ffffff;
     border: 1px solid #f0f0f5;
-    border-radius: 8px;
-    padding: 20px;
+    border-radius: 8px; */
+    /* padding: 20px; */
     display: flex;
     align-items: center;
     justify-content: center;
     height: 120px;
-    transition: all 0.3s ease;
+    /* transition: all 0.3s ease; */
 }
 
-.org-card:hover {
+/* .org-card:hover {
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
     transform: translateY(-3px);
     border-color: #e5e7eb;
-}
+} */
 
 .org-logo {
     max-width: 100%;
@@ -348,9 +348,12 @@ const ecosystemImages = [
         grid-template-columns: 1fr;
     } */
 
-    .org-card {
-        height: 100px;
-        padding: 15px;
+       .org-card {
+        height: 73px;
+        padding: 5px;
+    }
+    .organistion-grid{
+        gap: 0px;
     }
 }
 </style>

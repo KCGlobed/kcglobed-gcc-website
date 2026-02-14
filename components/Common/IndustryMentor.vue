@@ -22,21 +22,19 @@
 </template>
 
 <script setup lang="ts">
-import industryMentor1 from '@/assets/img/industryMentor/1.png'
-import industryMentor2 from '@/assets/img/industryMentor/2.png'
-import industryMentor3 from '@/assets/img/industryMentor/3.png'
-import industryMentor4 from '@/assets/img/industryMentor/4.png'
-import industryMentor5 from '@/assets/img/industryMentor/5.png'
-import industryMentor6 from '@/assets/img/industryMentor/6.png'
-import industryMentor7 from '@/assets/img/industryMentor/7.png'
-import industryMentor8 from '@/assets/img/industryMentor/8.png'
-import industryMentor10 from '@/assets/img/industryMentor/10.png'
-import industryMentor11 from '@/assets/img/industryMentor/11.png'
-import industryMentor12 from '@/assets/img/industryMentor/12.png'
-import industryMentor13 from '@/assets/img/industryMentor/13.png'
-import industryMentor14 from '@/assets/img/industryMentor/14.png'
-import industryMentor15 from '@/assets/img/industryMentor/15.png'
-import industryMentor16 from '@/assets/img/industryMentor/16.png'
+import industryMentor1 from '@/assets/img/industoryMentorTwo/1.png'
+import industryMentor2 from '@/assets/img/industoryMentorTwo/2.png'
+import industryMentor3 from '@/assets/img/industoryMentorTwo/3.png'
+import industryMentor4 from '@/assets/img/industoryMentorTwo/4.png'
+import industryMentor5 from '@/assets/img/industoryMentorTwo/5.png'
+import industryMentor6 from '@/assets/img/industoryMentorTwo/6.png'
+import industryMentor7 from '@/assets/img/industoryMentorTwo/7.png'
+import industryMentor8 from '@/assets/img/industoryMentorTwo/8.png'
+import industryMentor9 from '@/assets/img/industoryMentorTwo/9.png'
+import industryMentor10 from '@/assets/img/industoryMentorTwo/10.png'
+import industryMentor11 from '@/assets/img/industoryMentorTwo/11.png'
+import industryMentor12 from '@/assets/img/industoryMentorTwo/12.png'
+
 const images = [
     {
         img: industryMentor1,
@@ -71,6 +69,10 @@ const images = [
         link: "https://www.linkedin.com/in/senthil-kumar-5b8a1b8a/"
     },
     {
+        img: industryMentor9,
+        link: "https://www.linkedin.com/in/senthil-kumar-5b8a1b8a/"
+    },
+    {
         img: industryMentor10,
         link: "https://www.linkedin.com/in/senthil-kumar-5b8a1b8a/"
     },
@@ -82,22 +84,8 @@ const images = [
         img: industryMentor12,
         link: "https://www.linkedin.com/in/senthil-kumar-5b8a1b8a/"
     },
-    {
-        img: industryMentor13,
-        link: "https://www.linkedin.com/in/senthil-kumar-5b8a1b8a/"
-    },
-    {
-        img: industryMentor14,
-        link: "https://www.linkedin.com/in/senthil-kumar-5b8a1b8a/"
-    },
-    {
-        img: industryMentor15,
-        link: "https://www.linkedin.com/in/senthil-kumar-5b8a1b8a/"
-    },
-    {
-        img: industryMentor16,
-        link: "https://www.linkedin.com/in/senthil-kumar-5b8a1b8a/"
-    },
+
+
 ]
 </script>
 

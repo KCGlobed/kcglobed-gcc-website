@@ -26,7 +26,7 @@
 <style scoped>
 .campus {
     padding: 50px 0;
-    background: #f9fafb;
+    background: #ffff;
 }
 
 .campus-content {
