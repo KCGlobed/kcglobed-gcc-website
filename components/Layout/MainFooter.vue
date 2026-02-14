@@ -6,8 +6,8 @@
           <div class="footer-widget">
             <h3>Quick Links</h3>
             <div class="row">
-              <div class="col-lg-4 col-md-4 col-sm-6">
-                <ul class="footer-list">
+              <div class="col-lg-12">
+                <ul class="footer-list footer-links-grid">
                   <li>
                     <NuxtLink to="/">Home</NuxtLink>
                   </li>
@@ -20,10 +20,6 @@
                   <li>
                     <NuxtLink to="/admissions">Admission</NuxtLink>
                   </li>
-                </ul>
-              </div>
-              <div class="col-lg-4 col-md-4 col-sm-6">
-                <ul class="footer-list">
                   <li>
                     <NuxtLink to="/campus-life">Campus Life</NuxtLink>
                   </li>
@@ -34,10 +30,6 @@
                     <NuxtLink to="/contact-us">Contact Us</NuxtLink>
                   </li>
                   <li><a href="https://www.kcglobed.com/" target="_blank">KC GlobEd</a></li>
-                </ul>
-              </div>
-              <div class="col-lg-4 col-md-4 col-sm-6">
-                <ul class="footer-list">
                   <li>
                     <NuxtLink to="/ambassador">Ambassador</NuxtLink>
                   </li>
@@ -168,6 +160,20 @@ export default {
 </script>
 
 <style scoped>
+.footer-links-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+  padding-left: 0;
+  list-style: none;
+}
+
+@media (max-width: 570px) {
+  .footer-links-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
 .footer-info {
   border-top: 1px solid rgba(255, 255, 255, 0.1);
   padding-top: 30px;
