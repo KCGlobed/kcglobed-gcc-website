@@ -34,7 +34,7 @@
                 <div class="col-md-6">
                     <div class="image-box">
                         <div class="image-box-inner">
-                            <img src="~/assets/img/common/marketdata.svg" alt="" srcset="">
+                            <img src="~/assets/img/common/marketdata2.svg" alt="" srcset="">
                         </div>
                     </div>
                 </div>
