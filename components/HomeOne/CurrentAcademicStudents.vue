@@ -337,4 +337,17 @@ tr:last-child .gcc-cell {
   }
 
 }
+
+
+@media (max-width : 425px) {
+  .comparison-table {
+    min-width: 350px;
+    /* Ensure table doesn't squash too much */
+  }
+
+  .comparison-table th {
+    font-size: 8px;
+  }
+
+}
 </style>
