@@ -127,23 +127,42 @@ export default defineComponent({
             try {
                 // Prepare payload for API
                 const payload = {
-                    name: form.name,
+                    full_name: form.name,
                     email: form.email,
-                    mobile: form.phone,
-                    is_commerce_graduate: form.isCommerceGraduate,
-                    source: 'Dossier Download Modal'
+                    phone: form.phone
                 };
 
-                const response: any = await $fetch("/api/enquery", {
+                const response: any = await $fetch("https://gccwebsite-admin-backend-738131651355.asia-south1.run.app/api/career/createdossierform", {
                     method: "POST",
                     body: payload
                 });
 
-                if (response.success) {
-                    alert("Thank you! Your dossier download will begin shortly.");
+                if (response.success && response.data?.url) {
+                    // Force download using Blob
+                    const fileUrl = response.data.url;
+                    const fileName = fileUrl.split('/').pop() || 'GCC_Dossier.pdf';
 
-                    // Trigger download
-                    window.open("https://storage.googleapis.com/static_files_backend/media/landing/GCC%20School%20Brochure%201.pdf", "_blank");
+                    try {
+                        const fileResponse = await fetch(fileUrl);
+                        const blob = await fileResponse.blob();
+                        const blobUrl = window.URL.createObjectURL(blob);
+
+                        const link = document.createElement('a');
+                        link.href = blobUrl;
+                        link.setAttribute('download', fileName);
+                        link.style.display = 'none';
+                        document.body.appendChild(link);
+                        link.click();
+
+                        document.body.removeChild(link);
+                        window.URL.revokeObjectURL(blobUrl);
+                        alert("Thank you! Your dossier is being downloaded.");
+                    } catch (downloadError) {
+                        console.error("Download Error (maybe CORS):", downloadError);
+                        // Fallback to direct open if blob fetch fails
+                        window.open(fileUrl, '_blank');
+                        alert("Thank you! Your dossier is opening.");
+                    }
 
                     // Close modal
                     if (closeModalBtn.value) {
