@@ -1,7 +1,7 @@
 <template>
     <div class="trust-ecosystem-section">
         <div class="container">
-            <div class="header-logo d-flex justify-content-center align-items-center mb-4">
+            <div class="header-logo d-flex justify-content-center align-items-center mb-3">
                 <img src="@/assets/img/common/logo_kcglobed.svg" alt="Logo" class="header-logo">
             </div>
             <div class="header-v2 mb-3" data-aos="fade-up">
@@ -26,23 +26,29 @@
                     </div>
                 </div>
             </div>
-            <div class="header-v2  mt-5" data-aos="fade-up">
-                <div class="">
-                    <h2 class="title">TRUSTED <span class="highlight">ECO SYSTEM</span></h2>
+        </div>
 
+    </div>
+    <div class="trus-eco-sy">
+        <div class="container">
+            <div class="row">
+                <div class="header-v2  " data-aos="fade-up">
+                    <div class="">
+                        <h2 class="title">TRUSTED <span class="highlight">ECO SYSTEM</span></h2>
+
+                    </div>
+
+                </div>
+                <div class="organistion-grid" data-aos="zoom-in">
+                    <div v-for="(item, index) in ecosystemImages" :key="index" class="org-card">
+                        <img :src="item.image" alt="Organization Logo" class="org-logo">
+                    </div>
                 </div>
 
             </div>
-            <div class="organistion-grid" data-aos="zoom-in">
-                <div v-for="(item, index) in ecosystemImages" :key="index" class="org-card">
-                    <img :src="item.image" alt="Organization Logo" class="org-logo">
-                </div>
-            </div>
-
-
-
         </div>
     </div>
+
 </template>
 
 <script setup lang="ts">
@@ -89,8 +95,13 @@ const ecosystemImages = [
 
 <style scoped>
 .trust-ecosystem-section {
-    padding: 80px 0;
+    padding: 50px 0;
     background-color: #ffffff;
+}
+
+.trus-eco-sy {
+    padding: 50px 0;
+    background-color: #f9fafb;
 }
 
 /* Header Styling */
@@ -99,7 +110,7 @@ const ecosystemImages = [
     justify-content: center;
     align-items: flex-end;
 
-    padding-bottom: 20px;
+
 }
 
 .title {
@@ -136,7 +147,6 @@ const ecosystemImages = [
     max-width: 900px;
     margin-left: auto;
     margin-right: auto;
-    margin-bottom: 90px;
 }
 
 .trust-card {
@@ -326,6 +336,10 @@ const ecosystemImages = [
 @media (max-width: 991px) {
     .organistion-grid {
         grid-template-columns: repeat(2, 1fr);
+    }
+
+    .trust-ecosystem-section {
+        padding: 30px 0;
     }
 }
 

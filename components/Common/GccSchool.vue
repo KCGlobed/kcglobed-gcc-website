@@ -28,8 +28,8 @@
 </script>
 <style scoped>
 .gcc-school-section {
-    padding: 60px 0;
-    background-color: #ffffff;
+    padding: 50px 0;
+    background-color: #f9fafb;
 }
 
 .section-header .title {
@@ -64,7 +64,7 @@
 .gcc-school-content {
     display: flex;
     justify-content: center;
-    margin-top: 50px;
+    margin-top: 35px;
 }
 
 .gcc-school-images {
@@ -82,7 +82,7 @@
 /* Responsive Design */
 @media (max-width: 991px) {
     .gcc-school-section {
-        padding: 60px 0;
+        padding: 50px 0;
     }
 
     .section-header .title {

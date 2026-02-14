@@ -31,7 +31,7 @@
 
 <style scoped>
 .pathway-section {
-    background: #ffffff;
+    background: #f9fafb;
     position: relative;
     overflow: hidden;
 }

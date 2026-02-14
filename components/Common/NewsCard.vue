@@ -1,10 +1,8 @@
 <template>
     <div class="news-area ptb-100">
         <div class="container">
-            <div class="section-header text-center mb-50" data-aos="fade-up">
+            <div class="section-header text-center mb-5" data-aos="fade-up">
                 <h2 class="section-title">LATEST FINANCE & <span class="highlight">MARKET NEWS</span></h2>
-                <p class="max-600 mx-auto">Get the latest insights, market trends, and financial news from around the
-                    globe to stay ahead in your career.</p>
             </div>
 
             <div class="row g-4">

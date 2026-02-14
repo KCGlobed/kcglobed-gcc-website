@@ -106,7 +106,7 @@ export default defineComponent({
 <style scoped>
 .fun-fact-warp {
     background-color: #fff;
-    padding-bottom: 150px;
+
 }
 
 .section-title h2 {
