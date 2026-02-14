@@ -91,7 +91,7 @@
                         </div>
                       </div> -->
 
-                      <button class="btn btn-gradient w-100 mb-2" data-bs-toggle="modal" data-bs-target="#enquiryModal">
+                      <button class="btn btn-gradient w-100 mb-2" data-bs-toggle="modal" data-bs-target="#dossierModal">
                         Download Dossier <img src="../../assets/img/heros/heroSec5.png" />
                       </button>
 
@@ -324,6 +324,8 @@
       </div>
     </div>
   </div>
+
+  <CommonDossierModal />
 </template>
 
 <style scoped>
@@ -399,7 +401,8 @@
 .hero-subtitle {
   font-size: 24px;
   font-weight: 600;
-  color: #FFC065;;
+  color: #FFC065;
+  ;
   margin-top: 20px;
   font-style: normal;
   line-height: 33.321px;
@@ -440,12 +443,13 @@
 }
 
 .card-title {
-color: #111827;
-font-family: Inter;
-font-size: 56px;
-font-style: normal;
-line-height: 73px; /* 110.606% */
-letter-spacing: -1.98px;
+  color: #111827;
+  font-family: Inter;
+  font-size: 56px;
+  font-style: normal;
+  line-height: 73px;
+  /* 110.606% */
+  letter-spacing: -1.98px;
 }
 
 .text-gradient {
@@ -582,10 +586,10 @@ letter-spacing: -1.98px;
     margin-top: 30px;
   }
 
-    .card-title {
-        font-size: 41px;
-        line-height: 55px;
-    }
+  .card-title {
+    font-size: 41px;
+    line-height: 55px;
+  }
 
   .btn-primary {
     padding: 10px 20px !important;
@@ -602,18 +606,20 @@ letter-spacing: -1.98px;
   .modal-body {
     padding: 1rem;
   }
+
   .hero-slider-warp {
-  min-height: 100vh;
-  display: flex;
-  align-items: center;
-  background-size: cover;
-  background-position: center;
-  padding: 40px 0;
-  background-image: url("~/assets/img/heros/mobileBanner.svg") !important;
-}
-.btn-primary{
-        width: 100%;
-}
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    background-size: cover;
+    background-position: center;
+    padding: 40px 0;
+    background-image: url("~/assets/img/heros/mobileBanner.svg") !important;
+  }
+
+  .btn-primary {
+    width: 100%;
+  }
 }
 </style>
 
