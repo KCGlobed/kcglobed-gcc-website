@@ -349,5 +349,13 @@ tr:last-child .gcc-cell {
     font-size: 8px;
   }
 
+  .comparison-table td {
+    font-size: 12px;
+  }
+
+  .gcc-header img {
+    width: 500px;
+  }
+
 }
 </style>

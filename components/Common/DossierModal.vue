@@ -156,7 +156,6 @@ export default defineComponent({
 
                         document.body.removeChild(link);
                         window.URL.revokeObjectURL(blobUrl);
-                        alert("Thank you! Your dossier is being downloaded.");
                     } catch (downloadError) {
                         console.error("Download Error (maybe CORS):", downloadError);
                         // Fallback to direct open if blob fetch fails
