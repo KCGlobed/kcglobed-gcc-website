@@ -137,19 +137,32 @@ export default defineComponent({
                     body: payload
                 });
 
-                if (response.success) {
-                    const fileUrl = "https://storage.googleapis.com/gcc_static_files_backend/static/files/GCC%20SCHOOL%20Dossier.pdf";
+                if (response.success && response.data?.url) {
+                    // Force download using Blob
+                    const fileUrl = response.data.url;
+                    const fileName = fileUrl.split('/').pop() || 'GCC_Dossier.pdf';
 
-                    // Direct download approach to avoid CORS errors
-                    const link = document.createElement('a');
-                    link.href = fileUrl;
-                    link.target = '_blank';
-                    link.setAttribute('download', 'GCC_SCHOOL_Dossier.pdf');
-                    document.body.appendChild(link);
-                    link.click();
-                    document.body.removeChild(link);
+                    try {
+                        const fileResponse = await fetch(fileUrl);
+                        const blob = await fileResponse.blob();
+                        const blobUrl = window.URL.createObjectURL(blob);
 
-                    alert("Thank you! Your dossier is downloading.");
+                        const link = document.createElement('a');
+                        link.href = blobUrl;
+                        link.setAttribute('download', fileName);
+                        link.style.display = 'none';
+                        document.body.appendChild(link);
+                        link.click();
+
+                        document.body.removeChild(link);
+                        window.URL.revokeObjectURL(blobUrl);
+                        alert("Thank you! Your dossier is being downloaded.");
+                    } catch (downloadError) {
+                        console.error("Download Error (maybe CORS):", downloadError);
+                        // Fallback to direct open if blob fetch fails
+                        window.open(fileUrl, '_blank');
+                        alert("Thank you! Your dossier is opening.");
+                    }
 
                     // Close modal
                     if (closeModalBtn.value) {
