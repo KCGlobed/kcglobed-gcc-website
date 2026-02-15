@@ -52,9 +52,9 @@
                     <!-- Left side - Content -->
                     <div class="col-md-7">
                       <h2 class="card-title mb-4">
-                     
+
                         <span class="text-gradient">
-                          Start Your Journey With GCC School 
+                          Start Your Journey With GCC School
                         </span>
                         <br />
                         For A Unique 12 Months AI-Enabled International Accounting Professionals (AEIAP) Program
@@ -381,7 +381,7 @@
   gap: 8px;
   padding: 6px 14px;
   border-radius: 50px;
-  background-color: #231C39;
+  background-color: #000;
   color: #facc15;
   font-size: 20px;
   font-weight: 600;
@@ -447,12 +447,13 @@
 }
 
 .card-title {
-color: #111827;
-font-size: 28px;
-font-style: normal;
-font-weight: 600;
-line-height: 40px; /* 146.875% */
-letter-spacing: -0.96px;
+  color: #111827;
+  font-size: 28px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 40px;
+  /* 146.875% */
+  letter-spacing: -0.96px;
 }
 
 .text-gradient {

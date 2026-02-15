@@ -29,8 +29,14 @@
 
                         <div class="signature mt-5">
                             <h5 class="mb-0">Prof. (Dr.) Manpreet Singh Manna</h5>
-                            <span>Executive Director</span>
+                            <span>Executive Director, <strong>GCC School</strong><br />Former Director,
+                                <strong>AICTE</strong></span>
+
                         </div>
+
+
+
+
                     </div>
                 </div>
 

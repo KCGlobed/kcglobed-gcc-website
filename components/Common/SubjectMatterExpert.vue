@@ -81,8 +81,6 @@ const images = [
     color: #0d0d25;
     margin-bottom: 20px;
     text-transform: uppercase;
-    text-decoration: underline;
-    text-underline-offset: 10px;
 }
 
 .highlight {

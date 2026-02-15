@@ -13,10 +13,12 @@
             <div class="gcc-school-content">
 
                 <div class="gcc-school-images">
+                    <img src="../../assets/img/heros/3.svg" />
 
-                    <img src="../../assets/img/heros/school6.svg" />
-                    <img src="../../assets/img/heros/school4.svg" />
-                    <img src="../../assets/img/heros/school5.svg" />
+                    <img src="../../assets/img/heros/1.svg" />
+                    <img src="../../assets/img/heros/2.svg" />
+
+
                 </div>
             </div>
         </div>

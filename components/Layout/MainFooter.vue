@@ -69,17 +69,19 @@
               <div class="row g-4">
                 <div class="col-lg-4 col-md-4">
                   <div class="address-item">
-                    <h6 class="text-white mb-2">Gurugram Office</h6>
-                    <p>16th Floor, Tower-B, DLF Building No. 09,<br />DLF Cyber City, Gurugram, Haryana, 122002</p>
+                    <h6 class="text-white mb-2">Visit us</h6>
+                    <p>Building 9B, 16th Floor,DLF Cyber City, Sector 24 ,<br />
+                      Gurugram , Haryana - 122002</p>
                   </div>
                 </div>
                 <div class="col-lg-4 col-md-4">
-                  <div class="address-item">
-                    <h6 class="text-white mb-2">Campus Address</h6>
-                    <p>4th Floor, Vipul Plaza, 419-20, Golf Course Road,<br /> Suncity, Sector 54, Gurugram, Haryana,
-                      122002</p>
-                  </div>
+                  <!-- <div class="address-item">
+                    <h6 class="text-white mb-2">Corporate Office</h6>
+                    <p>419-20, 4th Floor, Vipul Plaza,
+                      Sector 54, Golf Course Road,<br />Gurugram, Haryana - 122002</p>
+                  </div> -->
                 </div>
+
                 <div class="col-lg-4 col-md-4">
                   <div class="address-item">
                     <h6 class="text-white mb-2">Follow Us</h6>
