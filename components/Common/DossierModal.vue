@@ -41,6 +41,8 @@
                                     Are you a Commerce Graduate with first division.
                                 </label>
                             </div>
+                            <small class="text-danger d-block mt-1" v-if="errors.isCommerceGraduate">{{
+                                errors.isCommerceGraduate }}</small>
                         </div>
 
                         <button type="submit" class="btn btn-register w-100 py-3 fw-bold text-uppercase"
@@ -85,7 +87,8 @@ export default defineComponent({
         const errors = reactive({
             name: '',
             email: '',
-            phone: ''
+            phone: '',
+            isCommerceGraduate: ''
         });
 
         const validateEmail = (email: string) => {
@@ -113,6 +116,10 @@ export default defineComponent({
             }
             if (!form.phone.trim()) {
                 errors.phone = 'Phone number is required';
+                isValid = false;
+            }
+            if (!form.isCommerceGraduate) {
+                errors.isCommerceGraduate = 'You must be a commerce graduate to proceed';
                 isValid = false;
             }
 
