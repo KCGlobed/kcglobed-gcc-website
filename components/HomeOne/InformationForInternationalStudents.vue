@@ -124,6 +124,7 @@ export default {
   padding-top: 120px;
 }
 
+
 .pb-50 {
   padding-bottom: 50px;
 }
