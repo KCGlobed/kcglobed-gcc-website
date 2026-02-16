@@ -2,7 +2,7 @@
     <div class="news-area ptb-100">
         <div class="container">
             <div class="section-header text-center mb-5" data-aos="fade-up">
-                <h2 class="section-title">LATEST FINANCE & <span class="highlight">MARKET NEWS</span></h2>
+                <h2 class="section-title">AS FEATURED IN <span class="highlight">LEADING MEDIA</span></h2>
             </div>
 
             <div class="row g-4">
@@ -17,9 +17,10 @@
                                 <li><i class="ri-calendar-line"></i> {{ news.date }}</li>
                                 <li><i class="ri-user-line"></i> By Admin</li>
                             </ul>
-                            <h3><a href="#">{{ news.title }}</a></h3>
+                            <h3><a :href="news.url" target="_blank">{{ news.title }}</a></h3>
                             <p>{{ news.excerpt }}</p>
-                            <a href="#" class="read-more-btn">Read More <i class="ri-arrow-right-line"></i></a>
+                            <a :href="news.url" class="read-more-btn" target="_blank">Read More <i
+                                    class="ri-arrow-right-line"></i></a>
                         </div>
                     </div>
                 </div>
@@ -32,27 +33,30 @@
 const newsList = [
     {
         id: 1,
-        title: "Global Markets Rally Amidst Easing Inflation Concerns",
-        excerpt: "Investors show renewed confidence as recent economic data suggests a potential slowdown in inflation rates across major economies...",
-        date: "Feb 04, 2026",
-        category: "Markets",
-        image: "https://images.unsplash.com/photo-1590283603385-17ffb3a7f29f?q=80&w=600&auto=format&fit=crop"
+        title: "GCC School and KC GlobEd Host Round Table Meeting on Impact of AI on GCCs - Building the Future Workforce",
+        excerpt: "GCC School and KC GlobEd successfully organised a dynamic Round Table meeting on the theme “Impact of AI on GCCs - Building the Future Workforce” at Welcome hotel by ITC Hotels, Delhi-Gurugram Highway. The session witnessed participation from senior leaders of reputed organisations, who shared insightful perspectives on how the implementation of Artificial Intelligence is transforming workforce models and talent strategies within Global Capability Centres (GCCs)....",
+        date: "Jan 29, 2026",
+        category: "Business and Finance",
+        image: "https://storage.googleapis.com/gcc_prod_static_files_backend/static/images/download.png",
+        url: "https://www.ptinews.com/press-release/gcc-school-and-kc-globed-host-round-table-meeting-on-impact-of-ai-on-gccs-building-the-future-workforce/3323548"
     },
     {
         id: 2,
-        title: "The Rise of Fintech: How Digital Banking is Changing Everything",
-        excerpt: "Traditional banking models are being challenged by agile fintech startups offering personalized and frictionless financial services...",
-        date: "Feb 03, 2026",
-        category: "Fintech",
-        image: "https://images.unsplash.com/photo-1563986768609-322da13575f3?q=80&w=600&auto=format&fit=crop"
+        title: "UK ACCA Exams: How students should prepare and what careers to expect",
+        excerpt: "With UK ACCA examinations approaching, many Indian students are navigating last-minute preparation pressures, eligibility questions, and uncertainty around career outcomes. While ACCA is widely recognised as a global qualification in accounting and finance, success in the exams often depends as much on exam strategy, discipline, and mindset as on subject knowledge....",
+        date: "Jan 12, 2026",
+        category: "Education",
+        image: "https://storage.googleapis.com/gcc_prod_static_files_backend/static/images/College_students_1765017803976_1765017804175_1768220498686.avif",
+        url: "https://www.hindustantimes.com/education/competitive-exams/uk-acca-exams-how-students-should-prepare-and-what-careers-to-expect-101768219881933.html#google_vignette"
     },
     {
         id: 3,
-        title: "Sustainable Finance: Investing in a Greener Future",
-        excerpt: "ESG investing reaches new heights as both institutional and retail investors prioritize environmental and social impact alongside returns...",
-        date: "Feb 02, 2026",
-        category: "Sustainability",
-        image: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?q=80&w=600&auto=format&fit=crop"
+        title: "Tech4ed 2025 Sets New Benchmark In Global Learning With Strategic Collaborations And Knowledge Exchange",
+        excerpt: "The 2nd edition of Tech4Ed International Conference 2025, organised under the aegis of the Association of Indian Universities (AIU) and KC GlobEd, concluded on an inspiring note at The Park, New Delhi. The event brought together a distinguished gathering of academic leaders,...",
+        date: "Nov 14, 2025",
+        category: "Tech4ed",
+        image: "https://storage.googleapis.com/gcc_prod_static_files_backend/static/images/F_92102image_story.jpeg",
+        url: "https://menafn.com/1110349919/Tech4ed-2025-Sets-New-Benchmark-In-Global-Learning-With-Strategic-Collaborations-And-Knowledge-Exchange"
     }
 ]
 </script>
@@ -78,6 +82,16 @@ const newsList = [
     margin-bottom: 15px;
     line-height: 1.3;
     text-transform: uppercase;
+}
+
+.section-title::after {
+    content: "";
+    display: block;
+    width: 70px;
+    height: 4px;
+    background: #F1A63E;
+    margin: 15px auto 0;
+    border-radius: 10px;
 }
 
 .highlight {

@@ -21,9 +21,12 @@
                   India's 1st School<br />
                   for Commerce Graduates
                   <br />
+
+                </h1>
+                <p class="hero-subtitle-first">
                   Powered by Industry Titans,<br />
                   Defined by Performance
-                </h1>
+                </p>
 
                 <p class="hero-subtitle">
                   At GCC School, you get hired first, then trained.
@@ -386,6 +389,8 @@
   font-size: 20px;
   font-weight: 600;
   border: 1px solid #facc15;
+  margin-top: 60px;
+  margin-bottom: 20px;
 }
 
 .badge-dot {
@@ -402,6 +407,15 @@
   color: white;
 }
 
+.hero-subtitle-first {
+  font-size: 34px;
+  line-height: 1.3;
+  font-weight: 400;
+  color: white;
+  font-family: Inter;
+  margin-bottom: 15px;
+}
+
 .hero-subtitle {
   font-size: 24px;
   font-weight: 600;
@@ -410,6 +424,7 @@
   margin-top: 20px;
   font-style: normal;
   line-height: 33.321px;
+  margin-bottom: 30px;
 }
 
 .hero-description {
@@ -567,13 +582,23 @@
 }
 
 @media (max-width: 767px) {
+  .hero-badge {
+    margin: 0px;
+  }
+
+  .hero-subtitle-first {
+    font-size: 24px;
+    margin-bottom: 0px;
+  }
+
   .hero-title {
     font-size: 28px;
   }
 
   .hero-subtitle {
-    font-size: 16px;
-    margin-top: 15px;
+    font-size: 15px;
+    margin-top: 10px;
+    margin-bottom: 25px;
   }
 
   .hero-description {

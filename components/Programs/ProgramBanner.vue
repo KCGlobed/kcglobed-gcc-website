@@ -9,9 +9,9 @@
                     'background-image': `url(${banner.image})`,
                 }">
                     <div class="container-fluid">
-                        <div class="row">
-                            <div class="col-6">
-                                <div class="program-hero-card">
+                        <div class="row align-items-stretch">
+                            <div class="col-lg-6 col-md-12 mb-4 mb-lg-0">
+                                <div class="program-hero-card h-100">
                                     <div class="card-header">
                                         <h2>Download Brochure</h2>
                                         <p>Enter your details to receive the brochure instantly</p>
@@ -55,7 +55,7 @@
                                         </div>
 
                                         <button type="submit" class="btn btn-primary w-100 register-btn">
-                                            Register Now
+                                            Download Now
                                         </button>
 
                                         <p class="form-footer-text">
@@ -65,8 +65,8 @@
                                     </form>
                                 </div>
                             </div>
-                            <div class="col-6">
-                                <div class="program-info-section">
+                            <div class="col-lg-6 col-md-12">
+                                <div class="program-info-section h-100 d-flex flex-column">
                                     <div class="program-header-text">
                                         <h1 class="program-title">
                                             AI-Enabled International Accounting<br>
@@ -78,21 +78,29 @@
                                     </div>
 
                                     <div class="video-section">
-                                        <div class="video-wrapper">
-                                            <img src="https://via.placeholder.com/600x350/1a1a2e/ffffff?text=Rick+Astley"
-                                                alt="Program Video" class="video-thumbnail">
-                                            <div class="video-badge-4k">
-                                                4K
-                                            </div>
-                                            <div class="video-play-overlay">
-                                                <div class="play-icon">
-                                                    <i class="ti ti-player-play-filled"></i>
+                                        <div class="video-wrapper" @click="banner.showVideo = true">
+                                            <template v-if="!banner.showVideo">
+                                                <img src="https://storage.googleapis.com/gcc_prod_static_files_backend/static/images/download.png"
+                                                    alt="Program Video" class="video-thumbnail">
+                                                <div class="video-badge-4k">
+                                                    4k
                                                 </div>
-                                            </div>
-                                            <div class="video-caption">
-                                                <p class="speaker-name">RICK ASTLEY</p>
-                                                <p class="speaker-quote">NEVER GONNA GIVE YOU UP</p>
-                                            </div>
+                                                <div class="video-play-overlay">
+                                                    <div class="play-icon">
+                                                        <i class="ti ti-player-play-filled"></i>
+                                                    </div>
+                                                </div>
+                                                <div class="video-caption">
+                                                    <p class="speaker-name">GCC SCHOOL</p>
+                                                    <p class="speaker-quote">LMS TUTORIAL & OVERVIEW</p>
+                                                </div>
+                                            </template>
+                                            <video v-else controls autoplay class="video-element w-100 h-100">
+                                                <source
+                                                    src="https://storage.googleapis.com/gcc_static_files_backend/static/videos/lms_tutorial.mp4"
+                                                    type="video/mp4">
+                                                Your browser does not support the video tag.
+                                            </video>
                                         </div>
                                     </div>
                                 </div>
@@ -165,7 +173,7 @@
 .card-header h2 {
     font-size: 1.75rem;
     font-weight: 700;
-    color: #1a1a2e;
+    color: #511970;
     margin-bottom: 0.5rem;
 }
 
@@ -329,7 +337,7 @@
 }
 
 .program-header-text {
-    margin-bottom: 2.5rem;
+    margin-bottom: 2rem;
 }
 
 .program-title {
@@ -350,7 +358,10 @@
 
 /* Video Section */
 .video-section {
-    margin-top: 2rem;
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    min-height: 350px;
 }
 
 .video-wrapper {
@@ -359,6 +370,16 @@
     overflow: hidden;
     box-shadow: 0 15px 40px rgba(0, 0, 0, 0.5);
     transition: transform 0.3s ease;
+    flex-grow: 1;
+    height: 100%;
+}
+
+.video-thumbnail,
+.video-element {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
 }
 
 .video-wrapper:hover {
@@ -435,6 +456,10 @@
     background: linear-gradient(to top, rgba(0, 0, 0, 0.8) 0%, transparent 100%);
     padding: 2rem 1.5rem 1rem;
     z-index: 2;
+}
+
+.video-element {
+    background: #000;
 }
 
 .speaker-name {
@@ -582,6 +607,7 @@ export default defineComponent({
                     btnLinkTwo: gccPdf,
                     updateTitle: "View all latest news updates of Tuva",
                     updateLink: "/blog",
+                    showVideo: false,
                     informations: [
                         {
                             id: 1,

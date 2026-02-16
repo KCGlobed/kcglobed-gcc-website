@@ -13,8 +13,15 @@
                 <div class="col-lg-10 offset-lg-1" data-aos="zoom-in">
                     <div class="pathway-visual-container">
                         <div class="image-wrapper">
-                            <img src="@/assets/img/common/graph3.svg" alt="GCC Learning Pathway"
-                                class="pathway-graphic">
+                            <div class="WebImageGraphImag">
+                                <img src="@/assets/img/common/graph3.svg" alt="GCC Learning Pathway"
+                                    class="pathway-graphic">
+                            </div>
+                            <div class="mobileImageGraphImag">
+                                <img src="@/assets/img/common/graph4.svg" alt="GCC Learning Pathway"
+                                    class="pathway-graphic">
+                            </div>
+
                         </div>
                         <!-- Decorative glow effects -->
                         <div class="glow-bg"></div>
@@ -107,6 +114,10 @@
     display: block;
 }
 
+.mobileImageGraphImag {
+    display: none;
+}
+
 .pathway-visual-container:hover .image-wrapper {
     transform: translateY(-5px);
 }
@@ -135,6 +146,14 @@
 
     .pathway-visual-container {
         padding: 10px;
+    }
+
+    .WebImageGraphImag {
+        display: none;
+    }
+
+    .mobileImageGraphImag {
+        display: block;
     }
 }
 </style>
