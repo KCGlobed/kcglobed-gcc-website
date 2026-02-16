@@ -121,7 +121,7 @@ export default {
 /* Video Section Styles */
 .information-warp {
   position: relative;
-  padding-top: 120px;
+  padding-top: 180px;
 }
 
 
@@ -527,6 +527,22 @@ export default {
 
   .panelBox .box {
     padding: 10px;
+  }
+
+  .shape-1 {
+    display: none;
+  }
+
+  .shape-2 {
+    display: none;
+  }
+
+  .shape-3 {
+    display: none;
+  }
+
+  .pb-50 {
+    padding-bottom: 20px;
   }
 }
 </style>
