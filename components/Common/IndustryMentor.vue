@@ -106,6 +106,16 @@ const images = [
     text-transform: uppercase;
 }
 
+.title::after {
+    content: "";
+    display: block;
+    width: 70px;
+    height: 4px;
+    background: #F1A63E;
+    margin: 15px auto 0;
+    border-radius: 10px;
+}
+
 .highlight {
     color: #F1A63E;
 }

@@ -141,28 +141,28 @@ export default defineComponent({
                     // Force download using Blob
                     const fileUrl = response.data.url;
                     const fileName = fileUrl.split('/').pop() || 'GCC_Dossier.pdf';
+                    window.open(fileUrl, '_blank');
+                    // try {
+                    //     const fileResponse = await fetch(fileUrl);
+                    //     const blob = await fileResponse.blob();
+                    //     const blobUrl = window.URL.createObjectURL(blob);
 
-                    try {
-                        const fileResponse = await fetch(fileUrl);
-                        const blob = await fileResponse.blob();
-                        const blobUrl = window.URL.createObjectURL(blob);
+                    //     const link = document.createElement('a');
+                    //     link.href = blobUrl;
+                    //     link.setAttribute('download', fileName);
+                    //     link.style.display = 'none';
+                    //     document.body.appendChild(link);
+                    //     link.click();
 
-                        const link = document.createElement('a');
-                        link.href = blobUrl;
-                        link.setAttribute('download', fileName);
-                        link.style.display = 'none';
-                        document.body.appendChild(link);
-                        link.click();
-
-                        document.body.removeChild(link);
-                        window.URL.revokeObjectURL(blobUrl);
-                        alert("Thank you! Your dossier is being downloaded.");
-                    } catch (downloadError) {
-                        console.error("Download Error (maybe CORS):", downloadError);
-                        // Fallback to direct open if blob fetch fails
-                        window.open(fileUrl, '_blank');
-                        alert("Thank you! Your dossier is opening.");
-                    }
+                    //     document.body.removeChild(link);
+                    //     window.URL.revokeObjectURL(blobUrl);
+                    //     alert("Thank you! Your dossier is being downloaded.");
+                    // } catch (downloadError) {
+                    //     console.error("Download Error (maybe CORS):", downloadError);
+                    //     // Fallback to direct open if blob fetch fails
+                    //     window.open(fileUrl, '_blank');
+                    //     alert("Thank you! Your dossier is opening.");
+                    // }
 
                     // Close modal
                     if (closeModalBtn.value) {

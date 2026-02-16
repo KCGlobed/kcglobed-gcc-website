@@ -52,6 +52,17 @@ const images = [
     color: #0d0d25;
     margin-bottom: 20px;
     text-transform: uppercase;
+    position: relative;
+}
+
+.title::after {
+    content: "";
+    display: block;
+    width: 70px;
+    height: 4px;
+    background: #F1A63E;
+    margin: 15px auto 0;
+    border-radius: 10px;
 }
 
 .highlight {
