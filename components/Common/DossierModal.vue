@@ -136,47 +136,45 @@ export default defineComponent({
                     method: "POST",
                     body: payload
                 });
+                window.open("https://storage.googleapis.com/gcc_static_files_backend/static/files/GCC%20SCHOOL%20Dossier.pdf", '_blank');
+                // if (response.success && response.data?.url) {
 
-                if (response.success && response.data?.url) {
-                    // Force download using Blob
-                    const fileUrl = response.data.url;
-                    const fileName = fileUrl.split('/').pop() || 'GCC_Dossier.pdf';
-                    window.open(fileUrl, '_blank');
-                    // try {
-                    //     const fileResponse = await fetch(fileUrl);
-                    //     const blob = await fileResponse.blob();
-                    //     const blobUrl = window.URL.createObjectURL(blob);
 
-                    //     const link = document.createElement('a');
-                    //     link.href = blobUrl;
-                    //     link.setAttribute('download', fileName);
-                    //     link.style.display = 'none';
-                    //     document.body.appendChild(link);
-                    //     link.click();
+                //     // try {
+                //     //     const fileResponse = await fetch(fileUrl);
+                //     //     const blob = await fileResponse.blob();
+                //     //     const blobUrl = window.URL.createObjectURL(blob);
 
-                    //     document.body.removeChild(link);
-                    //     window.URL.revokeObjectURL(blobUrl);
-                    //     alert("Thank you! Your dossier is being downloaded.");
-                    // } catch (downloadError) {
-                    //     console.error("Download Error (maybe CORS):", downloadError);
-                    //     // Fallback to direct open if blob fetch fails
-                    //     window.open(fileUrl, '_blank');
-                    //     alert("Thank you! Your dossier is opening.");
-                    // }
+                //     //     const link = document.createElement('a');
+                //     //     link.href = blobUrl;
+                //     //     link.setAttribute('download', fileName);
+                //     //     link.style.display = 'none';
+                //     //     document.body.appendChild(link);
+                //     //     link.click();
 
-                    // Close modal
-                    if (closeModalBtn.value) {
-                        closeModalBtn.value.click();
-                    }
+                //     //     document.body.removeChild(link);
+                //     //     window.URL.revokeObjectURL(blobUrl);
+                //     //     alert("Thank you! Your dossier is being downloaded.");
+                //     // } catch (downloadError) {
+                //     //     console.error("Download Error (maybe CORS):", downloadError);
+                //     //     // Fallback to direct open if blob fetch fails
+                //     //     window.open(fileUrl, '_blank');
+                //     //     alert("Thank you! Your dossier is opening.");
+                //     // }
 
-                    // Reset form
-                    form.name = '';
-                    form.email = '';
-                    form.phone = '';
-                    form.isCommerceGraduate = false;
-                } else {
-                    alert(response.message || "Something went wrong. Please try again.");
-                }
+                //     // Close modal
+                //     if (closeModalBtn.value) {
+                //         closeModalBtn.value.click();
+                //     }
+
+                //     // Reset form
+                //     form.name = '';
+                //     form.email = '';
+                //     form.phone = '';
+                //     form.isCommerceGraduate = false;
+                // } else {
+                //     alert(response.message || "Something went wrong. Please try again.");
+                // }
             } catch (error: any) {
                 console.error("Submission Error:", error);
                 alert(error.data?.message || "Server error. Please try again later.");
