@@ -4,17 +4,17 @@
             <div class="row">
                 <div class="col-12">
                     <div class="section-header text-center mb-60" data-aos="fade-up">
-                        <span class="badge">Pathway</span>
-                        <h2 class="title">GCC <span class="highlight">Experiential Learning Pathway</span></h2>
-                        <div class="divider"></div>
+
+                        <h2 class="title">GCC <span class="highlight">EXPERIENTIAL LEARNING PATHWAY</span></h2>
+
                     </div>
                 </div>
 
                 <div class="col-lg-10 offset-lg-1" data-aos="zoom-in">
                     <div class="pathway-visual-container">
                         <div class="image-wrapper">
-                            <img src="https://storage.googleapis.com/static_files_backend/media/images/Group%2049794%20(2).png"
-                                alt="GCC Learning Pathway" class="pathway-graphic">
+                            <img src="@/assets/img/common/graph3.svg" alt="GCC Learning Pathway"
+                                class="pathway-graphic">
                         </div>
                         <!-- Decorative glow effects -->
                         <div class="glow-bg"></div>
@@ -31,7 +31,7 @@
 
 <style scoped>
 .pathway-section {
-    background: #ffffff;
+    background: #f9fafb;
     position: relative;
     overflow: hidden;
 }
@@ -63,7 +63,7 @@
 }
 
 .highlight {
-    background: linear-gradient(135deg, #fc6441 0%, #ff8566 100%);
+    background: linear-gradient(135deg, #F1A63E 0%, #F1A63E 100%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
@@ -84,6 +84,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    width: 100%;
 }
 
 .image-wrapper {

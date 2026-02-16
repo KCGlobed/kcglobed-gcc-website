@@ -2,9 +2,7 @@
     <div class="think-tank-area ptb-100">
         <div class="container">
             <div class="section-title text-center mb-50">
-                <h2>Think Tank</h2>
-                <p class="max-600 mx-auto">Our Think Tank comprises industry leaders and academic pioneers dedicated to
-                    shaping the future of education and professional excellence.</p>
+                <h2 class="title">GCC SCHOOL STRATEGIC <span class="highlight">THINK TANK</span></h2>
             </div>
 
             <div class="row g-4 justify-content-center align-items-center">
@@ -19,13 +17,23 @@
 </template>
 
 <script setup lang="ts">
+import img1 from "@/assets/img/mentor/1.svg";
+import img2 from "@/assets/img/mentor/2.svg";
+import img3 from "@/assets/img/mentor/4.svg";
+import img4 from "@/assets/img/mentor/6.svg";
+import img5 from "@/assets/img/mentor/5.svg";
+import img6 from "@/assets/img/mentor/3.svg";
 const images = [
-    "https://storage.googleapis.com/static_files_backend/media/images/1%20(1).png",
-    "https://storage.googleapis.com/static_files_backend/media/images/2%20(1).png",
-    "https://storage.googleapis.com/static_files_backend/media/images/4.png",
-    "https://storage.googleapis.com/static_files_backend/media/images/4.png",
-    "https://storage.googleapis.com/static_files_backend/media/images/5.png",
-    "https://storage.googleapis.com/static_files_backend/media/images/Group%2049811.png"
+
+    img1,
+    img2,
+
+    img6,
+    img3,
+    img5,
+    img4,
+
+
 ]
 </script>
 
@@ -38,20 +46,27 @@ const images = [
     margin-bottom: 50px;
 }
 
-.section-title .sub-title {
-    color: #3b82f6;
-    text-transform: uppercase;
-    letter-spacing: 2px;
+.title {
+    font-size: 32px;
     font-weight: 700;
-    margin-bottom: 15px;
-    display: block;
+    color: #0d0d25;
+    margin-bottom: 20px;
+    text-transform: uppercase;
+    position: relative;
 }
 
-.section-title h2 {
-    font-size: 32px;
-    font-weight: 800;
-    margin-bottom: 20px;
-    color: #111827;
+.title::after {
+    content: "";
+    display: block;
+    width: 70px;
+    height: 4px;
+    background: #F1A63E;
+    margin: 15px auto 0;
+    border-radius: 10px;
+}
+
+.highlight {
+    color: #F1A63E;
 }
 
 .section-title p {
@@ -80,8 +95,8 @@ const images = [
 .image-box img {
     max-width: 100%;
     height: auto;
-    filter: grayscale(100%);
-    opacity: 0.7;
+    /* filter: grayscale(100%);
+    opacity: 0.7; */
     transition: all 0.3s ease;
 }
 
@@ -94,9 +109,15 @@ const images = [
     opacity: 1;
 }
 
-@media (max-width: 991px) {
-    .section-title h2 {
+@media (max-width: 1200px) {
+    .title {
         font-size: 28px;
+    }
+}
+
+@media (max-width: 991px) {
+    .title {
+        font-size: 24px;
     }
 }
 </style>

@@ -1,5 +1,5 @@
 <template>
-  <div class="hero-warp">
+  <div class="hero-warp hero-section">
     <Swiper :loop="true" :effect="'fade'" :speed="2000" :pagination="{
       el: '.swiper-pagination2',
       clickable: true,
@@ -9,53 +9,111 @@
           'background-image': `url(${banner.image})`,
         }">
           <div class="container-fluid">
-            <span style="
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-    padding: 6px 14px;
-    border-radius: 9999px;
-    background-color:#231C39; /* dark gray */
-    color: #facc15; /* yellow text */
-    font-size: 14px;
-    font-weight: 600;
-    line-height: 1;
-    border: 1px solid #facc15;
-    white-space: nowrap;
-  ">
-              <span style="
-      width: 8px;
-      height: 8px;
-      background-color: #facc15;
-      border-radius: 50%;
-      display: inline-block;
-    "></span>
-              <span class="blinking-text">{{ banner.subTitle }}</span>
-            </span>
+            <div class="row align-items-center">
+              <!-- Left Content -->
+              <div class="col-lg-6">
+                <span class="hero-badge">
+                  <!-- <span class="badge-dot"></span> -->
+                  <span class="blinking-text">{{ banner.subTitle }}</span>
+                </span>
 
-            <div class="content" style="margin-top: 20px;">
-              <h1 class="title" style="font-size: 48px;line-height: 1.3;">
-                India’<span class="small-s">s</span> 1<sup>st</sup> School<br /> Powered by Industry,<br />Defined by
-                Performance
-              </h1>
-              <h4
-                style="font-size: 24px; line-height: 1.4; color: #fff; font-family: Inter,sans-serif; font-weight: 500;">
-                Start Your Career. Not Just Your Classes
-              </h4>
-              <p style="color: #fff;">
-                At GCC School, you don’t just prepare for the corporate world — you enter it.<br /> Every session,
-                project,
-                and mentor experience mirrors the way top global firms actually operate.
-              </p>
-              <div class="hero-btn">
-                <NuxtLink :to="banner.btnLink" class="default-btn">
-                  {{ banner.btnText }}
-                  <i class="ti ti-arrow-narrow-right"></i>
-                </NuxtLink>
-                <button class="default-btn style2" data-bs-toggle="modal" data-bs-target="#enquiryModal">
-                  {{ banner.btnTextTwo }}
-                  <i class="ti ti-arrow-narrow-right"></i>
-                </button>
+                <h1 class="hero-title mt-3">
+                  India's 1st School<br />
+                  for Commerce Graduates
+                  <br />
+                  Powered by Industry Titans,<br />
+                  Defined by Performance
+                </h1>
+
+                <p class="hero-subtitle">
+                  At GCC School, you get hired first, then trained.
+
+                </p>
+
+                <!-- <p class="hero-description">
+                  Don't just prepare for the corporate world — you enter it. Every session, project,
+                  and mentor experience mirrors the way top global firms actually operate.
+                </p> -->
+
+                <div class="d-flex gap-3 flex-wrap">
+                  <NuxtLink :to="banner.btnLink" class="btn btn-primary px-4 py-3">
+                    {{ banner.btnText }}
+                  </NuxtLink>
+                  <!-- <button class="btn btn-light px-4 py-3" data-bs-toggle="modal" data-bs-target="#enquiryModal">
+                    {{ banner.btnTextTwo }}
+                  </button> -->
+                </div>
+              </div>
+
+              <!-- Right Card -->
+              <div class="col-lg-6">
+                <div class="journey-card">
+                  <div class="row">
+                    <!-- Left side - Content -->
+                    <div class="col-md-7">
+                      <h2 class="card-title mb-4">
+
+                        <span class="text-gradient">
+                          Start Your Journey With GCC School
+                        </span>
+                        <br />
+                        For A Unique 12 Months AI-Enabled International Accounting Professionals (AEIAP) Program
+                      </h2>
+
+                      <!-- <p class="text-muted small mb-4">For A Unique 12 Months Professional Program</p> -->
+
+                      <!-- <div class="mb-4">
+                        <div class="d-flex gap-2 mb-3 align-items-start card-feature">
+                          <div class="feature-icon">
+                            <img src="../../assets/img/heros/heroSec1.png" />
+                          </div>
+                          <div>
+                            <div class="fw-bold small">12 Month Program</div>
+                            <small class="text-muted-small">Intensive professional fast track</small>
+                          </div>
+                        </div>
+
+                        <div class="d-flex gap-2 mb-3 align-items-start  card-feature">
+                          <div class="feature-icon">
+                            <img src="../../assets/img/heros/heroSec2.png" />
+                          </div>
+                          <div>
+                            <div class="fw-bold small">AEIAP </div>
+                            <small class="text-muted-small">AI-Enabled International Accounting Certification
+                              Program</small>
+                          </div>
+                        </div>
+
+                        <div class="d-flex gap-2 mb-3 align-items-start  card-feature">
+                          <div class="feature-icon">
+                            <img src="../../assets/img/heros/heroSec3.png" />
+                          </div>
+                          <div>
+                            <div class="fw-bold small">GCC Talent Ready</div>
+                            <small class="text-muted-small">Industry proven global requirements</small>
+                          </div>
+                        </div>
+                      </div> -->
+
+                      <button class="btn btn-gradient w-100 mb-2" data-bs-toggle="modal" data-bs-target="#dossierModal">
+                        Download Dossier <img src="../../assets/img/heros/heroSec5.png" />
+                      </button>
+
+                      <!-- <p class="text-center text-muted small">Join to transform your career</p> -->
+                    </div>
+
+                    <!-- Right side - Profile Image -->
+                    <div class="col-5 rightSideBox">
+                      <div class="profile-badge">
+                        <img src="../../assets/img/heros/heroSec4.png" />
+                        <div>
+                          <div class="fw-bold small">Global Recognition</div>
+                          <small class="text-muted">Certified AI-Accountant</small>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
@@ -257,7 +315,7 @@
             <small class="text-danger" v-if="errors.consent">{{ errors.consent }}</small>
 
             <div class="modal-footer">
-              <button class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+              <!-- <button class="btn btn-secondary" data-bs-dismiss="modal">Close</button> -->
               <button class="btn btn-primary" type="submit" :disabled="isSubmitting">
                 <span v-if="isSubmitting" class="spinner-border spinner-border-sm" role="status"
                   aria-hidden="true"></span>
@@ -270,46 +328,209 @@
       </div>
     </div>
   </div>
+
+  <CommonDossierModal />
 </template>
 
-<style>
-.form-floating>.form-select,
-.form-floating>textarea {
-  padding-top: 2rem !important;
-  padding-bottom: 1rem !important;
-  height: auto !important;
-}
-
-.form-floating>label {
-  padding-top: 0.9rem !important;
-}
-
-.form-floating {
-  margin-bottom: 1.2rem;
-}
-
-.prefix {
-  position: absolute;
-  top: 50%;
-  left: 15px;
-  transform: translateY(-50%);
-  font-weight: 600;
-  z-index: 5;
-  color: #333;
-  pointer-events: none;
-}
-
-.has-prefix .form-control {
-  padding-left: 50px !important;
-}
-
-.has-prefix label {
-  padding-left: 50px !important;
-}
-</style>
-
 <style scoped>
-/* Blinking animation for banner subtitle */
+.text-gray {
+  color: #4D4D4D;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 44px;
+}
+
+.rightSideBox {
+  background-image: url("../../assets/img/heros/student_hero.png");
+  background-size: cover;
+  background-position: center;
+  border-radius: 0px;
+  display: grid;
+  place-content: center;
+}
+
+.card-feature {
+  background-color: #F8F4FB;
+  border: 1px solid #DDA1FF;
+  border-radius: 10px;
+  padding: 10px;
+  line-height: 18px;
+  align-items: center;
+}
+
+.text-muted-small {
+  font-size: 12px !important;
+}
+
+.hero-slider-warp {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  background-size: cover;
+  background-position: center;
+  padding: 80px 0;
+  /* background-image: url("~/assets/img/heros/mobileBanner.svg") !important; */
+}
+
+
+
+/* Left Content */
+.hero-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 14px;
+  border-radius: 50px;
+  background-color: #000;
+  color: #facc15;
+  font-size: 20px;
+  font-weight: 600;
+  border: 1px solid #facc15;
+}
+
+.badge-dot {
+  width: 8px;
+  height: 8px;
+  background-color: #facc15;
+  border-radius: 50%;
+}
+
+.hero-title {
+  font-size: 44px;
+  line-height: 1.2;
+  font-weight: 700;
+  color: white;
+}
+
+.hero-subtitle {
+  font-size: 24px;
+  font-weight: 600;
+  color: #FFC065;
+  ;
+  margin-top: 20px;
+  font-style: normal;
+  line-height: 33.321px;
+}
+
+.hero-description {
+  font-size: 16px;
+  line-height: 1.6;
+  color: rgba(255, 255, 255, 0.9);
+  margin: 16px 0 32px;
+}
+
+.btn-primary {
+  background: #A13E99 !important;
+  border: none;
+  font-weight: 600;
+  width: 250px
+}
+
+.btn-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(139, 61, 255, 0.4);
+}
+
+.btn-light:hover {
+  transform: translateY(-2px);
+}
+
+/* Right Card */
+.journey-card {
+  background: linear-gradient(135deg, #f8f5ff, #fff);
+  border-radius: 24px;
+  padding: 40px;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
+  position: relative;
+  margin-top: 80px;
+  max-width: 642px;
+}
+
+.card-title {
+  color: #111827;
+  font-size: 28px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 40px;
+  /* 146.875% */
+  letter-spacing: -0.96px;
+}
+
+.text-gradient {
+  color: #862E84;
+  font-weight: 800;
+}
+
+.feature-icon {
+  width: 48px;
+  height: 48px;
+  background: #fce8b4;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  align-self: center;
+}
+
+.feature-icon img {
+  width: 24px;
+  height: 24px;
+}
+
+.btn-gradient {
+  background: #A13E99;
+  color: white;
+  border: none;
+  font-weight: 600;
+  padding: 16px;
+  border-radius: 12px;
+}
+
+.btn-gradient:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(168, 85, 247, 0.4);
+  color: white;
+}
+
+/* Profile Section - Fixed Size */
+.profile-img {
+  width: 100%;
+  max-width: 280px;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 16px;
+  display: block;
+  margin: 0 auto;
+}
+
+.profile-badge {
+  display: inline-flex;
+  background: white;
+  padding: 10px 14px;
+  border-radius: 12px;
+  opacity: 0.9;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  margin-bottom: 50px;
+}
+
+.badge-check {
+  width: 28px;
+  height: 28px;
+  background: #10b981;
+  color: white;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 14px;
+  flex-shrink: 0;
+}
+
 @keyframes blink {
 
   0%,
@@ -325,12 +546,92 @@
 .blinking-text {
   animation: blink 2s ease-in-out infinite;
 }
+
+@media (max-width: 991px) {
+  .hero-title {
+    font-size: 36px;
+  }
+
+  .hero-subtitle {
+    font-size: 20px;
+  }
+
+  .journey-card {
+    margin-top: 40px;
+    padding: 30px;
+  }
+
+  .hero-slider-warp {
+    padding: 60px 0;
+  }
+}
+
+@media (max-width: 767px) {
+  .hero-title {
+    font-size: 28px;
+  }
+
+  .hero-subtitle {
+    font-size: 16px;
+    margin-top: 15px;
+  }
+
+  .hero-description {
+    font-size: 14px;
+    margin-bottom: 24px;
+  }
+
+  .hero-slider-warp {
+    padding: 40px 0;
+    min-height: auto;
+  }
+
+  .journey-card {
+    padding: 20px;
+    margin-top: 30px;
+  }
+
+  .card-title {
+    font-size: 20px;
+    line-height: 30px;
+  }
+
+  .btn-primary {
+    padding: 10px 20px !important;
+    font-size: 14px;
+  }
+}
+
+@media (max-width: 580px) {
+  .rightSideBox {
+    display: none;
+  }
+
+  /* Ensure form inputs in modal display correctly on small screens */
+  .modal-body {
+    padding: 1rem;
+  }
+
+  .hero-slider-warp {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    background-size: cover;
+    background-position: center;
+    padding: 40px 0;
+    background-image: url("~/assets/img/heros/mobileBanner.svg") !important;
+  }
+
+  .btn-primary {
+    width: 100%;
+  }
+}
 </style>
 
 <script lang="ts">
 import { defineComponent } from "vue";
 
-import image1 from "../../assets/img/heros/Hero-Page.png";
+import image1 from "../../assets/img/heros/hero_bg.svg";
 import image2 from "../../assets/img/heros/hero2.jpg";
 import gccPdf from "../../assets/gcc.pdf";
 import universities from "../../assets/universities.json";
@@ -539,7 +840,7 @@ export default defineComponent({
 
         id: 1,
         bgClass: "bg1",
-        subTitle: "Cohort 2026 Applications Open",
+        subTitle: "Cohort 2026 Application Open",
         image: image1,
         heading: "World's 1st School Backed by Industry, Built on Execution",
         description: "",

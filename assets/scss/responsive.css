@@ -64,8 +64,8 @@
   }
 
   .ptb-100 {
-    padding-top: 60px;
-    padding-bottom: 60px;
+    padding-top: 50px;
+    padding-bottom: 50px;
   }
 
   .ptb-80 {
@@ -215,7 +215,7 @@
     width: 100%;
     opacity: 80%;
     z-index: -1;
-    background-color: #000000;
+    /* background-color: #000000; */
   }
 
   .update-link {

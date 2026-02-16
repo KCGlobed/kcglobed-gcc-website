@@ -24,24 +24,19 @@
           </li>
           <li class="nav-item">
             <NuxtLink to="/programs" class="nav-link">
-              Programs
+              Program
             </NuxtLink>
 
           </li>
           <li class="nav-item">
             <NuxtLink to="#" class="nav-link">
-              NFET Exams
+              NFET Exam
             </NuxtLink>
 
           </li>
-
-
-
-
-
           <li class="nav-item">
             <NuxtLink to="/admissions" class="nav-link">
-              Admissions
+              Admission
             </NuxtLink>
           </li>
           <li class="nav-item">
@@ -55,11 +50,11 @@
             </NuxtLink>
           </li>
 
-          <li class="nav-item">
+          <!-- <li class="nav-item">
             <NuxtLink to="/contact-us" class="nav-link">
               Contact Us
             </NuxtLink>
-          </li>
+          </li> -->
         </ul>
         <div class="others-option d-flex align-items-center">
           <div class="option-item">
@@ -332,15 +327,24 @@ export default defineComponent({
 
 <style>
 .navbar {
-  background-color: #3D2C5E;
+  background-color: #020103;
+  max-height: 90px;
 }
 
 .navbar .navbar-nav .nav-item .nav-link {
   color: #fff;
 }
 
+@media (min-width: 992px) and (max-width: 1200px) {
+  .navbar .navbar-nav .nav-item .nav-link {
+    padding-left: 10px;
+    padding-right: 10px;
+    font-size: 14px;
+  }
+}
+
 .navbar.sticky {
-  background-color: #3D2C5E;
+  background-color: #020103;
 }
 
 /* Search Dropdown Styles */

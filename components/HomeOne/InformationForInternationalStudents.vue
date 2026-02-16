@@ -1,53 +1,47 @@
 <template>
-  <div class="information-warp ptb-100">
+  <div class="information-warp pb-50">
     <div class="container">
-      <div class="row align-items-center g-4">
-        <div class="col-lg-6" data-aos="fade-up" data-aos-delay="200">
-          <div class="information-content">
-            <h2 class="reveal2">Build a Global Career in 12 Months</h2>
-            <p>
-              In just 12 months, you'll transform from graduate to global professional — ready to perform from day one.
-            </p>
-            <ul class="information-list">
-              <li>
-                <i class="ti ti-check"></i>
-                Conditional offer letter
-              </li>
-              <li>
-                <i class="ti ti-check"></i>
-                6-month paid internship along with program
-              </li>
-              <li>
-                <i class="ti ti-check"></i>
-                ACCA classroom learning powered by KC GlobEd
-              </li>
+      <div class="row">
+        <div class="col-md-12">
 
-              <li>
-                <i class="ti ti-check"></i>
-                British Council - English For Work
-              </li>
-              <li>
-                <i class="ti ti-check"></i>
-                AICTE-approved Post-Graduate Certificate in Management (Public Accounting)
-              </li>
-              <li>
-                <i class="ti ti-check"></i>
-                MSc Professional Accountancy (University of London)-Optional
-              </li>
-            </ul>
-            <div class="info-button">
-              <NuxtLink to="/programs" class="default-btn style2">
-                Explore 12-Month Journey
-                <i class="ti ti-arrow-narrow-right"></i>
-              </NuxtLink>
-              <div class="default-btn secodary-btn" style="cursor: pointer;" @click="toggleEligibilityModal">
-                Check Eligibility
-                <i class="ti ti-arrow-narrow-right"></i>
+          <div class="panelBox">
+            <div class="title-strip">
+              <h3>Customized for GCCs Talent Requirements</h3>
+            </div>
+            <div class="boxes-container">
+              <div class="box">
+                <img src="../../assets/img/heros/panleIcon1.png" class="icon" />
+                <p>Hired First</p>
+                <span>Then Trained</span>
+              </div>
+              <div class="box">
+                <img src="../../assets/img/heros/panleIcon2.png" class="icon" />
+                <p>Paid Internship</p>
+                <span>6 Months</span>
+              </div>
+              <div class="box">
+                <img src="../../assets/img/heros/panleIcon3.png" class="logo" />
+                <span class="mt-1">UK ACCA <br> Integrated</span>
+              </div>
+              <div class="box">
+                <img src="../../assets/img/heros/panleIcon4.png" class="logo" />
+                <span class="mt-2">Master in Corporate Communication</span>
+              </div>
+              <div class="box">
+                <img src="../../assets/img/heros/panleIcon5.png" class="logo" />
+                <span class="mt-2">AICTE Approved PGCM Certificate from AIMA</span>
+              </div>
+              <div class="box">
+                <img src="../../assets/img/heros/panleIcon6.png" class="icon" />
+                <p>AI First</p>
+                <span>Integrated Curriculum</span>
               </div>
             </div>
           </div>
         </div>
-        <div class="col-lg-6" data-aos="zoom-in-up" data-aos-delay="200">
+      </div>
+      <div class="row justify-content-center g-4">
+        <div class="col-lg-8" data-aos="zoom-in-up" data-aos-delay="200">
           <div class="video-section">
             <div class="video-container">
               <iframe width="100%" height="100%" src="https://www.youtube.com/embed/dQw4w9WgXcQ" title="GCC Video"
@@ -89,6 +83,141 @@ export default {
 
 <style scoped>
 /* Video Section Styles */
+.information-warp {
+  position: relative;
+  padding-top: 200px;
+}
+
+.pb-50 {
+  padding-bottom: 50px;
+}
+
+
+.panelBox {
+  display: flex;
+  flex-direction: column;
+  background-color: white;
+  box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+  border-radius: 10px;
+  position: absolute;
+  top: -30px;
+  transform: translateX(-50%);
+  left: 50%;
+  z-index: 100;
+  width: 95%;
+  max-width: 1240px;
+  overflow: hidden;
+}
+
+.title-strip {
+  background: linear-gradient(135deg, #38003C 0%, #6B1B75 100%);
+  padding: 15px 30px;
+  text-align: center;
+}
+
+.title-strip h3 {
+  color: white;
+  font-size: 18px;
+  font-weight: 700;
+  margin: 0;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.boxes-container {
+  display: flex;
+  padding: 30px;
+  padding-left: 60px;
+  gap: 30px;
+  line-height: 15px;
+}
+
+@media (max-width: 1200px) {
+  .title-strip h3 {
+    font-size: 16px;
+  }
+
+  .boxes-container {
+    padding-left: 30px;
+    gap: 15px;
+    padding-bottom: 20px;
+  }
+
+  .panelBox .box p {
+    font-size: 18px;
+    line-height: 24px;
+  }
+}
+
+@media (max-width: 991px) {
+  .panelBox {
+    position: relative;
+    top: 0;
+    left: 0;
+    transform: none;
+    margin: -100px auto 40px;
+    width: 100%;
+  }
+
+  .title-strip {
+    padding: 12px 20px;
+  }
+
+  .title-strip h3 {
+    font-size: 14px;
+  }
+
+  .boxes-container {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    padding: 20px;
+  }
+}
+
+@media (max-width: 767px) {
+  .title-strip h3 {
+    font-size: 12px;
+  }
+
+  .boxes-container {
+    grid-template-columns: repeat(2, 1fr);
+    padding: 15px;
+  }
+}
+
+.panelBox .box {
+  flex: 1;
+  width: 150px;
+  display: flex;
+  flex-direction: column;
+
+}
+
+.panelBox .box .logo {
+  width: 100px;
+}
+
+.panelBox .box .icon {
+  width: 25px;
+  height: 25px;
+}
+
+.panelBox .box p {
+  font-size: 22px;
+  font-weight: bold;
+  color: #38003C;
+  margin-bottom: 0;
+  line-height: 32px;
+}
+
+
+
+.panelBox .box span {
+  font-size: 11px;
+
+}
+
+
 .video-section {
   position: relative;
   width: 100%;
@@ -191,6 +320,44 @@ export default {
 
   .video-badge img {
     width: 50px;
+  }
+}
+
+
+@media (max-width: 565px) {
+  .information-warp {
+    padding-top: 20px;
+  }
+
+  .timeline-container {
+    margin: 30px auto 0;
+  }
+
+  .panelBox {
+    transform: none;
+    position: inherit;
+    margin-bottom: 20px;
+    margin-top: 10px;
+  }
+
+  .title-strip {
+    padding: 10px 15px;
+  }
+
+  .title-strip h3 {
+    font-size: 11px;
+    letter-spacing: 0.3px;
+  }
+
+  .boxes-container {
+    display: grid;
+    padding: 20px;
+    gap: 15px;
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .panelBox .box {
+    padding: 10px;
   }
 }
 </style>

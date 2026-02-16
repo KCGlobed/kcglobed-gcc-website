@@ -4,11 +4,8 @@
             <div class="row">
                 <div class="col-lg-12">
                     <div class="campus-content">
-                        <h2>Our Campus</h2>
-                        <p>
-                            Our campus is located in the heart of the city, in a modern building
-                            that provides a comfortable and relaxing environment for our students.
-                        </p>
+                        <h2>OUR <span class="highlight">CAMPUS</span></h2>
+
                     </div>
                 </div>
 
@@ -28,21 +25,27 @@
 
 <style scoped>
 .campus {
-    padding: 80px 0;
-    background: #f9fafb;
+    padding: 50px 0;
+    background: #ffff;
 }
 
 .campus-content {
     text-align: center;
     max-width: 800px;
-    margin: 0 auto 40px auto;
+    margin: 0 auto 20px auto;
 }
 
 .campus-content h2 {
-    font-size: 36px;
+    font-size: 32px;
     font-weight: 700;
     margin-bottom: 15px;
-    color: #111827;
+    color: #0d0d25;
+    text-transform: uppercase;
+    line-height: 1.3;
+}
+
+.highlight {
+    color: #F1A63E;
 }
 
 .campus-content p {
@@ -68,7 +71,7 @@
 /* Mobile Responsive */
 @media (max-width: 768px) {
     .campus {
-        padding: 50px 0;
+        padding: 30px 0;
     }
 
     .campus-content h2 {

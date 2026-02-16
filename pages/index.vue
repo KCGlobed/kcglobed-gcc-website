@@ -4,41 +4,36 @@
     <LayoutMainNavbar />
     <HomeOneMainBanner />
     <HomeOneInformationForInternationalStudents />
-    <!-- <HomeOneFindYourProgram /> -->
-    <!-- <HomeOneAboutTheUniversity /> -->
-    <CommonPathwaySuccess />
-
+    <CommonPathwayYourSuccess />
+    <CommonEligibilityCriteria />
     <HomeOneFutureStudents />
+    <CommonGccSchool />
+    <CommonDirectorSpeach />
     <CommonGccCommerse />
     <CommonGrowthTrend />
-    <HomeOneCultureWarp />
-    <HomeOneCurrentAcademicStudents />
     <CommonPathway />
+    <HomeOneCurrentAcademicStudents />
     <CommonThinkTank />
     <CommonSubjectMatterExpert />
     <CommonIndustryMentor />
-
     <CommonFunFact />
     <CommonNewsCard />
-    <!-- <HomeOneProfessionalLearning />
-    <HomeOneServicesContent />
-    <HomeOneWeAreInTheWave />
-    <HomeOneLatestNews /> -->
+    <CommonTrustecoSystem />
     <CommonCampus />
     <LayoutMainFooter />
     <LayoutCopyRight />
 
     <!-- Event Popup -->
-    <CommonEventPopup />
+    <!-- <CommonEventPopup /> -->
   </div>
 </template>
 
 <script setup lang="ts">
-// import { defineComponent } from "vue";
-
-// export default defineComponent({});
 useHead({
-  title: "GCC School | Home",
+  title: "GCC School: Get Hired First, Then Trained",
+  meta: [
+    { name: 'description', content: 'GCC school redefines career education with a hire-first model, industry immersion, and credentials designed to shape learners into accounting professionals.' }
+  ]
 })
 
 </script>

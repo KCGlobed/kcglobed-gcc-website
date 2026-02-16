@@ -9,56 +9,102 @@
                     'background-image': `url(${banner.image})`,
                 }">
                     <div class="container-fluid">
+                        <div class="row">
+                            <div class="col-6">
+                                <div class="program-hero-card">
+                                    <div class="card-header">
+                                        <h2>Download Brochure</h2>
+                                        <p>Enter your details to receive the brochure instantly</p>
+                                    </div>
 
+                                    <form @submit.prevent="submitForm" class="registration-form">
+                                        <label for="fullName">Full Name*</label>
+                                        <div class="form-floating mb-3">
 
-                        <div class="content" style="margin-top: 20px;">
-                            <h1 class="title" style="font-size: 60px;line-height: 1.4;">
-                                <!-- {{ banner.heading }} -->
-                                AEIAP
-                            </h1>
-                            <h3 style="color: #fff;margin-bottom: 10px;">
-                                AI Enabled International Accounting Professional Program
-                            </h3>
-                            <p style="color: #fff;">
-                                The program creates pathways into the global finance sector. It combines structured
-                                LMS-based learning with international accounting expertise, professional skill
-                                development, and industry exposure.
-                            </p>
-                            <!-- <div class="hero-btn">
-                                <NuxtLink :to="banner.btnLink" class="default-btn">
-                                    {{ banner.btnText }}
-                                    <i class="ti ti-arrow-narrow-right"></i>
-                                </NuxtLink>
-                                <button class="default-btn style2" data-bs-toggle="modal"
-                                    data-bs-target="#enquiryModal">
-                                    {{ banner.btnTextTwo }}
-                                    <i class="ti ti-arrow-narrow-right"></i>
-                                </button>
-                            </div> -->
+                                            <input type="text" class="form-control" id="fullName" v-model="form.name"
+                                                placeholder="Enter your full name"
+                                                :class="{ 'is-invalid': errors.name }">
+
+                                            <div class="invalid-feedback" v-if="errors.name">{{ errors.name }}</div>
+                                        </div>
+
+                                        <label for="emailAddress">Email Address*</label>
+                                        <div class="form-floating mb-3">
+                                            <input type="email" class="form-control" id="emailAddress"
+                                                v-model="form.email" placeholder="Enter your email address"
+                                                :class="{ 'is-invalid': errors.email }">
+                                            <div class="invalid-feedback" v-if="errors.email">{{ errors.email }}</div>
+                                        </div>
+
+                                        <label for="phoneNumber">Phone Number*</label>
+                                        <div class="form-floating mb-3">
+                                            <input type="tel" class="form-control" id="phoneNumber"
+                                                v-model="form.mobile" placeholder="Enter your phone number"
+                                                :class="{ 'is-invalid': errors.mobile }">
+                                            <div class="invalid-feedback" v-if="errors.mobile">{{ errors.mobile }}</div>
+                                        </div>
+
+                                        <div class="form-check mb-3">
+                                            <input class="form-check-input" type="checkbox" id="consent"
+                                                v-model="form.consent" :class="{ 'is-invalid': errors.consent }">
+                                            <label class="form-check-label" for="consent">
+                                                Are you a Commerce Graduate with GICS (Grade)?
+                                            </label>
+                                            <div class="invalid-feedback" v-if="errors.consent">{{ errors.consent }}
+                                            </div>
+                                        </div>
+
+                                        <button type="submit" class="btn btn-primary w-100 register-btn">
+                                            Register Now
+                                        </button>
+
+                                        <p class="form-footer-text">
+                                            By submitting, you agree to our <a href="#">Terms</a> and <a
+                                                href="#">Privacy Policy</a>
+                                        </p>
+                                    </form>
+                                </div>
+                            </div>
+                            <div class="col-6">
+                                <div class="program-info-section">
+                                    <div class="program-header-text">
+                                        <h1 class="program-title">
+                                            AI-Enabled International Accounting<br>
+                                            Professional Program (AEIAP)
+                                        </h1>
+                                        <p class="program-subtitle">
+                                            A High-Impact Finance Career Program For GCC Industry
+                                        </p>
+                                    </div>
+
+                                    <div class="video-section">
+                                        <div class="video-wrapper">
+                                            <img src="https://via.placeholder.com/600x350/1a1a2e/ffffff?text=Rick+Astley"
+                                                alt="Program Video" class="video-thumbnail">
+                                            <div class="video-badge-4k">
+                                                4K
+                                            </div>
+                                            <div class="video-play-overlay">
+                                                <div class="play-icon">
+                                                    <i class="ti ti-player-play-filled"></i>
+                                                </div>
+                                            </div>
+                                            <div class="video-caption">
+                                                <p class="speaker-name">RICK ASTLEY</p>
+                                                <p class="speaker-quote">NEVER GONNA GIVE YOU UP</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
-                        <!-- <ul class="information">
-              <li v-for="information in banner.informations" :key="information.id">
-                <i :class="information.icon"></i>
-                <NuxtLink :to="information.link">
-                  {{ information.title }}
-                </NuxtLink>
-              </li>
-            </ul> -->
-                        <!-- <NuxtLink :to="banner.updateLink" class="update-link">
-              <span>
-                {{ banner.updateTitle }}
-              </span>
-              <i class="ti ti-arrow-narrow-right"></i>
-            </NuxtLink> -->
+
                     </div>
                 </div>
             </SwiperSlide>
-            <!-- <div class="pagination-bullet-btn text-end">
-        <div class="swiper-pagination2"></div>
-      </div> -->
         </Swiper>
     </div>
-    <div class="modal fade" id="enquiryModal" tabindex="-1">
+    <!-- <div class="modal fade" id="enquiryModal" tabindex="-1">
         <div class="modal-dialog modal-lg modal-dialog-centered">
             <div class="modal-content">
 
@@ -72,31 +118,397 @@
                 </div>
             </div>
         </div>
-    </div>
+    </div> -->
 </template>
 
-<style>
-.form-floating>.form-select,
-.form-floating>textarea {
-    padding-top: 2rem !important;
-    padding-bottom: 1rem !important;
-    height: auto !important;
+<style scoped>
+/* Hero Section Styling */
+.hero-warp {
+    position: relative;
+    min-height: 100vh;
 }
 
-.form-floating>label {
-    padding-top: 0.9rem !important;
+.hero-slider-warp {
+    min-height: 100vh;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    display: flex;
+    align-items: center;
+    position: relative;
+    padding-bottom: 100px;
+    padding-top: 220px;
+}
+
+
+
+.hero-slider-warp .container-fluid {
+    position: relative;
+    z-index: 2;
+}
+
+/* Form Card Styling */
+.program-hero-card {
+    background: #ffffff;
+    border-radius: 20px;
+    padding: 2.5rem 2rem;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+    max-width: 550px;
+    margin: 0 auto;
+}
+
+.card-header {
+    text-align: center;
+    margin-bottom: 2rem;
+}
+
+.card-header h2 {
+    font-size: 1.75rem;
+    font-weight: 700;
+    color: #1a1a2e;
+    margin-bottom: 0.5rem;
+}
+
+.card-header p {
+    font-size: 0.95rem;
+    color: #666;
+    margin: 0;
+}
+
+/* Form Styling */
+.registration-form {
+    width: 100%;
+}
+
+.registration-form>label {
+    display: block;
+    font-size: 0.9rem;
+    font-weight: 500;
+    color: #333;
+    margin-bottom: 0.5rem;
+    margin-top: 0.3rem;
 }
 
 .form-floating {
     margin-bottom: 1.2rem;
+}
+
+.form-floating>.form-control,
+.form-floating>.form-select {
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    font-size: 0.95rem;
+    padding: 0.85rem 1rem;
+    background: #f8f9fa;
+    transition: all 0.3s ease;
+    height: auto;
+}
+
+.form-floating>.form-control::placeholder {
+    color: #999;
+    opacity: 1;
+}
+
+.form-floating>.form-select::placeholder {
+    color: #999;
+    opacity: 1;
+}
+
+.form-floating>.form-control:focus,
+.form-floating>.form-select:focus {
+    border-color: #6a1b9a;
+    box-shadow: 0 0 0 0.15rem rgba(106, 27, 154, 0.1);
+    background: #ffffff;
+    outline: none;
+}
+
+.form-floating>label {
+    display: none;
+}
+
+.form-floating>.form-select {
+    padding-top: 0.85rem !important;
+    padding-bottom: 0.85rem !important;
+}
+
+/* Checkbox Styling */
+.form-check {
+    padding-left: 1.8rem;
+    margin-bottom: 1.5rem;
+}
+
+.form-check-input {
+    width: 1.1rem;
+    height: 1.1rem;
+    margin-top: 0.2rem;
+    border: 2px solid #d0d0d0;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.form-check-input:checked {
+    background-color: #6a1b9a;
+    border-color: #6a1b9a;
+}
+
+.form-check-input:focus {
+    box-shadow: 0 0 0 0.15rem rgba(106, 27, 154, 0.1);
+}
+
+.form-check-label {
+    color: #555;
+    font-size: 0.85rem;
+    cursor: pointer;
+    line-height: 1.5;
+}
+
+/* Register Button */
+.register-btn {
+    background: linear-gradient(135deg, #6a1b9a 0%, #8e24aa 100%);
+    border: none;
+    border-radius: 8px;
+    padding: 0.9rem 1.5rem;
+    font-size: 1rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(106, 27, 154, 0.3);
+    color: #ffffff;
+}
+
+.register-btn:hover {
+    background: linear-gradient(135deg, #7b1fa2 0%, #9c27b0 100%);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(106, 27, 154, 0.4);
+}
+
+.register-btn:active {
+    transform: translateY(0);
+}
+
+/* Form Footer Text */
+.form-footer-text {
+    text-align: center;
+    font-size: 0.8rem;
+    color: #999;
+    margin-top: 1.2rem;
+    margin-bottom: 0;
+}
+
+.form-footer-text a {
+    color: #6a1b9a;
+    text-decoration: none;
+    font-weight: 500;
+}
+
+.form-footer-text a:hover {
+    text-decoration: underline;
+}
+
+/* Invalid Feedback */
+.invalid-feedback {
+    display: block;
+    color: #dc3545;
+    font-size: 0.8rem;
+    margin-top: 0.3rem;
+}
+
+.is-invalid {
+    border-color: #dc3545 !important;
+}
+
+.is-invalid:focus {
+    box-shadow: 0 0 0 0.15rem rgba(220, 53, 69, 0.15) !important;
+}
+
+/* Program Info Section (Right Side) */
+.program-info-section {
+    color: #ffffff;
+    padding: 2rem;
+}
+
+.program-header-text {
+    margin-bottom: 2.5rem;
+}
+
+.program-title {
+    font-size: 2rem;
+    font-weight: 700;
+    color: #ffffff;
+    margin-bottom: 1rem;
+    line-height: 1.3;
+    text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+}
+
+.program-subtitle {
+    font-size: 1.05rem;
+    color: rgba(255, 255, 255, 0.9);
+    margin: 0;
+    font-weight: 400;
+}
+
+/* Video Section */
+.video-section {
+    margin-top: 2rem;
+}
+
+.video-wrapper {
+    position: relative;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.5);
+    transition: transform 0.3s ease;
+}
+
+.video-wrapper:hover {
+    transform: scale(1.02);
+}
+
+.video-thumbnail {
+    width: 100%;
+    height: auto;
+    display: block;
+}
+
+.video-badge-4k {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    background: rgba(0, 0, 0, 0.75);
+    color: #ffffff;
+    padding: 0.4rem 0.7rem;
+    border-radius: 6px;
+    font-size: 0.85rem;
+    font-weight: 700;
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    z-index: 3;
+}
+
+.video-play-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(0, 0, 0, 0.2);
+    cursor: pointer;
+    transition: background 0.3s ease;
+}
+
+.video-play-overlay:hover {
+    background: rgba(0, 0, 0, 0.3);
+}
+
+.play-icon {
+    width: 65px;
+    height: 65px;
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+}
+
+.video-play-overlay:hover .play-icon {
+    background: #ffffff;
+    transform: scale(1.1);
+    box-shadow: 0 5px 20px rgba(255, 255, 255, 0.4);
+}
+
+.play-icon i {
+    font-size: 1.8rem;
+    color: #6a1b9a;
+    margin-left: 3px;
+}
+
+.video-caption {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: linear-gradient(to top, rgba(0, 0, 0, 0.8) 0%, transparent 100%);
+    padding: 2rem 1.5rem 1rem;
+    z-index: 2;
+}
+
+.speaker-name {
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: #ffffff;
+    margin: 0 0 0.3rem 0;
+    letter-spacing: 1px;
+}
+
+.speaker-quote {
+    font-size: 0.85rem;
+    color: rgba(255, 255, 255, 0.85);
+    margin: 0;
+    font-weight: 400;
+}
+
+/* Responsive Design */
+@media (max-width: 991px) {
+    .program-hero-card {
+        max-width: 100%;
+        margin-bottom: 2rem;
+    }
+
+    .program-info-section {
+        padding: 2rem 1rem;
+    }
+
+    .program-title {
+        font-size: 1.7rem;
+    }
+}
+
+@media (max-width: 767px) {
+    .program-hero-card {
+        padding: 2rem 1.5rem;
+        border-radius: 15px;
+    }
+
+    .card-header h2 {
+        font-size: 1.5rem;
+    }
+
+    .card-header p {
+        font-size: 0.9rem;
+    }
+
+    .program-info-section {
+        padding: 1.5rem 1rem;
+    }
+
+    .program-title {
+        font-size: 1.4rem;
+    }
+
+    .program-subtitle {
+        font-size: 0.95rem;
+    }
+
+    .play-icon {
+        width: 55px;
+        height: 55px;
+    }
+
+    .play-icon i {
+        font-size: 1.5rem;
+    }
 }
 </style>
 
 <script lang="ts">
 import { defineComponent } from "vue";
 
-import image1 from "../../assets/img/heros/Program.png";
-import image2 from "../../assets/img/heros/hero2.jpg";
+import image1 from "../../assets/img/heros/hero_bg.svg";
 import gccPdf from "../../assets/gcc.pdf";
 
 export default defineComponent({
@@ -107,105 +519,53 @@ export default defineComponent({
                 name: "",
                 mobile: "",
                 email: "",
-                city: "",
-                state: "",
-                qualification: "",
-                status: "",
-                college: "",
-                source: "",
                 consent: ""
             }
 
             if (!this.form.name) this.errors.name = "Name is required"
             if (!this.form.mobile) this.errors.mobile = "Mobile number is required"
-            if (!this.form.qualification) this.errors.qualification = "Select qualification"
-            if (!this.form.status) this.errors.status = "Select current status"
-            if (!this.form.college) this.errors.college = "Select college/university"
-            if (!this.form.source) this.errors.source = "Select how you heard about us"
-            if (!this.form.consent) this.errors.consent = "Consent is required"
+            if (!this.form.email) {
+                this.errors.email = "Email is required"
+            } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(this.form.email)) {
+                this.errors.email = "Please enter a valid email"
+            }
 
-            return Object.keys(this.errors).length === 0
+            return Object.values(this.errors).every(error => error === "")
         },
 
         async submitForm() {
             if (!this.validateForm()) return
 
             try {
-                const response = await fetch("https://your-api-url.com/enquiry", {
-                    method: "POST",
-                    headers: {
-                        "Content-Type": "application/json"
-                    },
-                    body: JSON.stringify(this.form)
-                })
+                // Handle form submission here
+                console.log("Form submitted:", this.form)
+                alert("Thank you! Your request has been received.")
 
-                if (response.ok) {
-                    alert("Thank you! Our team will contact you soon.")
-
-                    this.form = {
-                        name: "",
-                        mobile: "",
-                        email: "",
-                        city: "",
-                        state: "",
-                        qualification: "",
-                        status: "",
-                        college: "",
-                        source: "",
-                        remarks: "",
-                        consent: false
-                    }
-                } else {
-                    alert("Something went wrong. Please try again.")
+                // Reset form
+                this.form = {
+                    name: "",
+                    mobile: "",
+                    email: "",
+                    consent: false
                 }
             } catch (error) {
                 console.error(error)
-                alert("Server error. Try later.")
+                alert("Something went wrong. Please try again.")
             }
         }
     },
     data() {
         return {
-            colleges: [
-                { "id": 1, "name": "Kaushalya the Skill University" },
-                { "id": 2, "name": "A.K.S. University" },
-                { "id": 3, "name": "A.P.G. (Alakh Prakash Goyal) Shimla University" },
-                { "id": 4, "name": "A.P.J. Abdul Kalam Technological University" },
-                { "id": 5, "name": "AAFT University of Media and Arts" },
-                { "id": 6, "name": "Abhilashi University" },
-                { "id": 7, "name": "Abhyuday University" },
-                { "id": 8, "name": "Academy of Maritime Education and Training" },
-                { "id": 9, "name": "Acharya N.G. Ranga Agricultural University" },
-                { "id": 10, "name": "Acharya Nagarjuna University" },
-                { "id": 11, "name": "Acharya Narendra Deva Krishi Evam Prodyogik Vishwavidyalaya" },
-                { "id": 12, "name": "Adamas University" },
-                { "id": 13, "name": "Adani University" },
-                { "id": 14, "name": "Adesh University" },
-                { "id": 15, "name": "Adichunchanagiri University" }
-            ],
             form: {
                 name: "",
                 mobile: "",
                 email: "",
-                city: "",
-                state: "",
-                qualification: "",
-                status: "",
-                college: "",
-                source: "",
-                remarks: "",
                 consent: false,
             },
             errors: {
                 name: "",
                 mobile: "",
                 email: "",
-                city: "",
-                state: "",
-                qualification: "",
-                status: "",
-                college: "",
-                source: "",
                 consent: ""
             },
             banners: [

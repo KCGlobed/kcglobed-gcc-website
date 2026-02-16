@@ -2,22 +2,40 @@
     <div class="growth-trend-section ptb-100">
         <div class="container">
             <!-- Section Header -->
-            <div class="section-header text-center mb-50" data-aos="fade-up">
-                <span class="badge">Market Insights</span>
-                <h2 class="title">Global Capabilities Centers (GCCs) <span class="highlight">Market Growth Trend</span>
+            <div class="section-header text-center  mb-3" data-aos="fade-up">
+                <h2 class="title">THE STRATEGIC RISE & GROWTH TRAJECTORY OF <span class="highlight"> GLOBAL CAPABILITY
+                        CENTERS (GCC) </span>
                 </h2>
             </div>
 
             <!-- Content Wrapper -->
-            <div class="row" data-aos="zoom-in" data-aos-delay="200">
+            <!-- <div class="row" data-aos="zoom-in" data-aos-delay="200">
                 <div class="col-12">
                     <div class="image-box">
-                        <img src="https://storage.googleapis.com/static_files_backend/media/images/Group%2049807.png"
-                            alt="GCC Market Growth Trend Chart" class="trend-image">
+                        <div class="image-box-inner">
+                            <img src="~/assets/img/common/graph.svg" alt="" srcset="">
+                            <img src="~/assets/img/common/marketdata.svg" alt="" srcset="">
 
-                        <!-- Decorative Floating Shapes -->
+                        </div>
+
                         <div class="floating-shape shape-1"></div>
                         <div class="floating-shape shape-2"></div>
+                    </div>
+                </div>
+            </div> -->
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="image-box">
+                        <div class="image-box-inner">
+                            <img src="~/assets/img/common/graph.svg" alt="" srcset="">
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="image-box">
+                        <div class="image-box-inner">
+                            <img src="~/assets/img/common/marketdata2.svg" alt="" srcset="">
+                        </div>
                     </div>
                 </div>
             </div>
@@ -37,7 +55,7 @@
     background: #ffffff;
     position: relative;
     overflow: hidden;
-    padding: 100px 0;
+
 }
 
 /* Header Styling */
@@ -61,15 +79,16 @@
 }
 
 .title {
-    font-size: 42px;
-    font-weight: 800;
+    font-size: 32px;
+    font-weight: 700;
     color: #0d0d25;
     margin: 0;
     line-height: 1.2;
+    text-transform: uppercase;
 }
 
 .highlight {
-    background: linear-gradient(135deg, #fc6441 0%, #ff8566 100%);
+    background: linear-gradient(135deg, #F1A63E 0%, #F1A63E 100%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
@@ -140,6 +159,24 @@
     z-index: 1;
 }
 
+.image-box-inner {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+    flex-wrap: wrap;
+}
+
+.image-box-inner img {
+    max-width: 100%;
+    height: auto;
+    flex: 1;
+    min-width: 280px;
+    /* Ensures they stack on very small screens but stay side-by-side on larger ones */
+    object-fit: contain;
+    border-radius: 10px;
+}
+
 @keyframes float {
 
     0%,
@@ -153,9 +190,15 @@
 }
 
 /* Responsive Styles */
+@media (max-width: 1200px) {
+    .title {
+        font-size: 28px;
+    }
+}
+
 @media (max-width: 991px) {
     .title {
-        font-size: 32px;
+        font-size: 24px;
     }
 
     .image-box {

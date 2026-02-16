@@ -310,4 +310,94 @@ input[type="checkbox"] {
 .modal-fade-leave-to {
     opacity: 0;
 }
+
+@media (max-width: 768px) {
+    .modal-overlay {
+        padding: 10px;
+    }
+
+    .modal-container {
+        border-radius: 20px;
+    }
+
+    .modal-content {
+        padding: 40px 20px;
+    }
+
+    h3 {
+        font-size: 28px;
+        margin-bottom: 10px;
+    }
+
+    .description {
+        font-size: 16px;
+        margin-bottom: 30px;
+        padding: 0 10px;
+    }
+
+    .checklist {
+        grid-template-columns: 1fr;
+        gap: 12px;
+        margin-bottom: 30px;
+    }
+
+    .checkbox-item label {
+        padding: 15px;
+        gap: 12px;
+        font-size: 15px;
+    }
+
+    .custom-checkbox {
+        width: 24px;
+        height: 24px;
+    }
+
+    .icon-circle {
+        width: 60px;
+        height: 60px;
+        font-size: 28px;
+        margin-bottom: 15px;
+    }
+
+    .success-message h4,
+    .error-message h4 {
+        font-size: 20px;
+    }
+
+    .close-btn {
+        top: 15px;
+        right: 15px;
+        width: 36px;
+        height: 36px;
+    }
+
+    .close-btn svg {
+        width: 20px;
+        height: 20px;
+    }
+
+    .default-btn {
+        width: 100%;
+        justify-content: center;
+    }
+}
+
+@media (max-width: 480px) {
+    .modal-content {
+        padding: 35px 15px;
+    }
+
+    h3 {
+        font-size: 24px;
+    }
+
+    .description {
+        font-size: 14px;
+    }
+
+    .checkbox-item label {
+        padding: 12px;
+        font-size: 14px;
+    }
+}
 </style>

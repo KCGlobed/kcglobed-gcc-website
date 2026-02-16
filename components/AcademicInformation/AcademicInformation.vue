@@ -7,17 +7,21 @@
         <div class="row applicant-details">
 
           <!-- Class 10 -->
+
+          <!-- Class 10 -->
           <div class="col-lg-6">
             <div class="input-box">
               <label>Class 10 – Year of Passing *</label>
-              <input type="number" class="form-control" v-model="formData.class10_year" />
+              <input type="number" class="form-control" v-model="formData.class10_year" :class="{ 'is-invalid': errors.class10_year }" />
+              <div class="invalid-feedback" v-if="errors.class10_year">{{ errors.class10_year }}</div>
             </div>
           </div>
 
           <div class="col-lg-6">
             <div class="input-box">
               <label>Class 10 – Percentage / CGPA *</label>
-              <input type="number" step="0.01" max="100" class="form-control" v-model="formData.class10_score" />
+              <input type="number" step="0.01" max="100" class="form-control" v-model="formData.class10_score" :class="{ 'is-invalid': errors.class10_score }" />
+              <div class="invalid-feedback" v-if="errors.class10_score">{{ errors.class10_score }}</div>
             </div>
           </div>
 
@@ -25,14 +29,16 @@
           <div class="col-lg-6">
             <div class="input-box">
               <label>Class 12 – Year of Passing *</label>
-              <input type="number" class="form-control" v-model="formData.class12_year" />
+              <input type="number" class="form-control" v-model="formData.class12_year" :class="{ 'is-invalid': errors.class12_year }" />
+              <div class="invalid-feedback" v-if="errors.class12_year">{{ errors.class12_year }}</div>
             </div>
           </div>
 
           <div class="col-lg-6">
             <div class="input-box">
               <label>Class 12 – Percentage / CGPA *</label>
-              <input type="number" step="0.01" max="100" class="form-control" v-model="formData.class12_score" />
+              <input type="number" step="0.01" max="100" class="form-control" v-model="formData.class12_score" :class="{ 'is-invalid': errors.class12_score }" />
+               <div class="invalid-feedback" v-if="errors.class12_score">{{ errors.class12_score }}</div>
             </div>
           </div>
 
@@ -43,6 +49,7 @@
               <label><input type="radio" value="English" v-model="formData.medium" /> English</label>
               <label class="ms-3"><input type="radio" value="Hindi" v-model="formData.medium" /> Hindi</label>
               <label class="ms-3"><input type="radio" value="Other" v-model="formData.medium" /> Other</label>
+              <div class="text-danger small" v-if="errors.medium">{{ errors.medium }}</div>
             </div>
           </div>
 
@@ -55,10 +62,11 @@
 
           <!-- Undergraduate -->
           <div class="col-lg-12 mt-3">
-            <h5>Undergraduate Qualification (B.Com)</h5>
+            <h5>Undergraduate Qualification (B.Com) *</h5>
 
             <label><input type="radio" value="Completed" v-model="formData.ug_status" /> Completed</label>
             <label class="ms-3"><input type="radio" value="Pursuing" v-model="formData.ug_status" /> Pursuing</label>
+            <div class="text-danger small" v-if="errors.ug_status">{{ errors.ug_status }}</div>
           </div>
 
           <!-- If Completed -->
@@ -74,7 +82,8 @@
           <div class="col-lg-6" v-if="formData.ug_status === 'Pursuing'">
             <div class="input-box">
               <label>Current CGPA / Percentage *</label>
-              <input type="number" step="0.01" max="10" class="form-control" v-model="formData.ug_cgpa" />
+              <input type="number" step="0.01" max="10" class="form-control" v-model="formData.ug_cgpa" :class="{ 'is-invalid': errors.ug_cgpa }" />
+              <div class="invalid-feedback" v-if="errors.ug_cgpa">{{ errors.ug_cgpa }}</div>
               <small>Max 10.00</small>
             </div>
           </div>
@@ -83,15 +92,17 @@
           <div class="col-lg-12">
             <div class="input-box">
               <label>Institution Name (B.Com) *</label>
-              <input type="text" class="form-control" v-model="formData.ug_institution" />
+              <input type="text" class="form-control" v-model="formData.ug_institution" :class="{ 'is-invalid': errors.ug_institution }" />
+              <div class="invalid-feedback" v-if="errors.ug_institution">{{ errors.ug_institution }}</div>
             </div>
           </div>
 
           <!-- Higher Qualification -->
           <div class="col-lg-12 mt-3">
-            <label>Do you have a Higher Qualification?</label><br />
+            <label>Do you have a Higher Qualification? *</label><br />
             <label><input type="radio" value="Yes" v-model="formData.pg_exists" /> Yes</label>
             <label class="ms-3"><input type="radio" value="No" v-model="formData.pg_exists" /> No</label>
+            <div class="text-danger small" v-if="errors.pg_exists">{{ errors.pg_exists }}</div>
           </div>
 
           <div class="col-lg-6" v-if="formData.pg_exists === 'Yes'">
@@ -125,7 +136,8 @@
           <div class="col-lg-6">
             <div class="input-box">
               <label>Current / Last Completed Semester *</label>
-              <input type="number" max="8" class="form-control" v-model="formData.semester" />
+              <input type="number" max="8" class="form-control" v-model="formData.semester" :class="{ 'is-invalid': errors.semester }" />
+              <div class="invalid-feedback" v-if="errors.semester">{{ errors.semester }}</div>
               <small>Max 8</small>
             </div>
           </div>
@@ -134,7 +146,8 @@
           <div class="col-lg-6">
             <div class="input-box">
               <label>CGPA *</label>
-              <input type="number" step="0.01" max="10" class="form-control" v-model="formData.cgpa" />
+              <input type="number" step="0.01" max="10" class="form-control" v-model="formData.cgpa" :class="{ 'is-invalid': errors.cgpa }" />
+              <div class="invalid-feedback" v-if="errors.cgpa">{{ errors.cgpa }}</div>
               <small>Max 10.00</small>
             </div>
           </div>
@@ -178,13 +191,20 @@ export default {
         isValid = false;
       }
 
-      if (this.formData.ug_status === "Pursuing" && this.formData.ug_cgpa > 10) {
-        alert("CGPA cannot exceed 10.00");
-        this.errors.ug_cgpa = "CGPA cannot exceed 10.00";
-        isValid = false;
+      if (this.formData.ug_status === "Pursuing") {
+        if (!this.formData.ug_cgpa) {
+            this.errors.ug_cgpa = "Current CGPA / Percentage is required";
+            isValid = false;
+        } else if (this.formData.ug_cgpa > 10) {
+            this.errors.ug_cgpa = "CGPA cannot exceed 10.00";
+            isValid = false;
+        }
       }
       
-      if (this.formData.semester > 8) {
+      if (!this.formData.semester) {
+        this.errors.semester = "Semester is required";
+        isValid = false;
+      } else if (this.formData.semester > 8) {
         alert("Semester cannot exceed 8");
         this.errors.semester = "Semester cannot exceed 8";
         isValid = false;
@@ -192,12 +212,26 @@ export default {
 
       // Add checks for other required fields if they are missing
       if (!this.formData.ug_status) {
-         // ug_status is radio, difficult to show inline error on label group without a container error, but can try
+         this.errors.ug_status = "Please select Undergraduate status";
+         isValid = false;
+      }
+      
+      if (!this.formData.pg_exists) {
+         this.errors.pg_exists = "Please select if you have a Higher Qualification";
+         isValid = false;
       }
 
       if (this.formData.ug_institution && !this.formData.ug_institution.trim()) {
            this.errors.ug_institution = "Institution is required";
            isValid = false;
+      }
+      
+      if (!this.formData.cgpa) {
+        this.errors.cgpa = "CGPA is required";
+        isValid = false;
+      } else if (this.formData.cgpa > 10) {
+        this.errors.cgpa = "CGPA cannot exceed 10.00";
+        isValid = false;
       }
 
       return isValid;

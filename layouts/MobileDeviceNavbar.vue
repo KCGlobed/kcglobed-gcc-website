@@ -352,18 +352,25 @@
           </NuxtLink>
         </div>
         <div class="accordion-item">
-          <NuxtLink to="/about-overview" class="accordion-link" @click="handleClick">
-            About Us
-          </NuxtLink>
-        </div>
-        <div class="accordion-item">
           <NuxtLink to="/programs" class="accordion-link" @click="handleClick">
             Programs
           </NuxtLink>
         </div>
         <div class="accordion-item">
+          <NuxtLink to="#" class="accordion-link" @click="handleClick">
+            NFET Exam
+          </NuxtLink>
+        </div>
+
+
+        <div class="accordion-item">
           <NuxtLink to="/admissions" class="accordion-link" @click="handleClick">
             Admissions
+          </NuxtLink>
+        </div>
+        <div class="accordion-item">
+          <NuxtLink to="/about-overview" class="accordion-link" @click="handleClick">
+            About Us
           </NuxtLink>
         </div>
         <div class="accordion-item">

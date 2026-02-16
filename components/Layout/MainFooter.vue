@@ -6,8 +6,8 @@
           <div class="footer-widget">
             <h3>Quick Links</h3>
             <div class="row">
-              <div class="col-lg-4 col-md-4 col-sm-6">
-                <ul class="footer-list">
+              <div class="col-lg-12">
+                <ul class="footer-list footer-links-grid">
                   <li>
                     <NuxtLink to="/">Home</NuxtLink>
                   </li>
@@ -20,10 +20,6 @@
                   <li>
                     <NuxtLink to="/admissions">Admission</NuxtLink>
                   </li>
-                </ul>
-              </div>
-              <div class="col-lg-4 col-md-4 col-sm-6">
-                <ul class="footer-list">
                   <li>
                     <NuxtLink to="/campus-life">Campus Life</NuxtLink>
                   </li>
@@ -34,10 +30,6 @@
                     <NuxtLink to="/contact-us">Contact Us</NuxtLink>
                   </li>
                   <li><a href="https://www.kcglobed.com/" target="_blank">KC GlobEd</a></li>
-                </ul>
-              </div>
-              <div class="col-lg-4 col-md-4 col-sm-6">
-                <ul class="footer-list">
                   <li>
                     <NuxtLink to="/ambassador">Ambassador</NuxtLink>
                   </li>
@@ -77,17 +69,19 @@
               <div class="row g-4">
                 <div class="col-lg-4 col-md-4">
                   <div class="address-item">
-                    <h6 class="text-white mb-2">Gurugram Office</h6>
-                    <p>16th Floor, Tower-B, DLF Building No. 09,<br />DLF Cyber City, Gurugram, Haryana, 122002</p>
+                    <h6 class="text-white mb-2">Visit us</h6>
+                    <p>Building 9B, 16th Floor,DLF Cyber City, Sector 24 ,<br />
+                      Gurugram , Haryana - 122002</p>
                   </div>
                 </div>
                 <div class="col-lg-4 col-md-4">
-                  <div class="address-item">
-                    <h6 class="text-white mb-2">Campus Address</h6>
-                    <p>4th Floor, Vipul Plaza, 419-20, Golf Course Road,<br /> Suncity, Sector 54, Gurugram, Haryana,
-                      122002</p>
-                  </div>
+                  <!-- <div class="address-item">
+                    <h6 class="text-white mb-2">Corporate Office</h6>
+                    <p>419-20, 4th Floor, Vipul Plaza,
+                      Sector 54, Golf Course Road,<br />Gurugram, Haryana - 122002</p>
+                  </div> -->
                 </div>
+
                 <div class="col-lg-4 col-md-4">
                   <div class="address-item">
                     <h6 class="text-white mb-2">Follow Us</h6>
@@ -168,6 +162,20 @@ export default {
 </script>
 
 <style scoped>
+.footer-links-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+  padding-left: 0;
+  list-style: none;
+}
+
+@media (max-width: 570px) {
+  .footer-links-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
 .footer-info {
   border-top: 1px solid rgba(255, 255, 255, 0.1);
   padding-top: 30px;
@@ -230,7 +238,7 @@ export default {
 
 @media (max-width: 991px) {
   .address-item {
-    margin-bottom: 20px;
+    margin-bottom: 30px;
   }
 }
 </style>

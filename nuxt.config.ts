@@ -4,6 +4,21 @@ export default defineNuxtConfig({
   app: {
     // baseURL: "/tuva/",
     head: {
+      meta: [
+        { name: 'google-site-verification', content: 'O_n2cuv-YeR9IgQt1HCNWTCY7aIvfyJfpB59jnIEau0' }
+      ],
+      script: [
+        {
+          src: 'https://www.googletagmanager.com/gtag/js?id=G-B2ETHYM6MN',
+          async: true
+        },
+        {
+          innerHTML: `window.dataLayer = window.dataLayer || [];
+          function gtag(){dataLayer.push(arguments);}
+          gtag('js', new Date());
+          gtag('config', 'G-B2ETHYM6MN');`
+        }
+      ],
       link: [
         {
           rel: 'icon',
@@ -40,6 +55,7 @@ export default defineNuxtConfig({
   },
   nitro: {
     preset: 'node-server',
+    compressPublicAssets: true,
     output: {
       dir: "dist",
       serverDir: "dist/server",
