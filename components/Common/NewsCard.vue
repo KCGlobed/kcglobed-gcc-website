@@ -36,7 +36,7 @@ const newsList = [
         excerpt: "Investors show renewed confidence as recent economic data suggests a potential slowdown in inflation rates across major economies...",
         date: "Feb 04, 2026",
         category: "Markets",
-        image: "https://images.unsplash.com/photo-1590283603385-17ffb3a7f29f?q=80&w=600&auto=format&fit=crop"
+        image: "https://storage.googleapis.com/gcc_prod_static_files_backend/static/images/download.png"
     },
     {
         id: 2,
