@@ -42,16 +42,39 @@
       </div>
       <div class="row justify-content-center g-4">
         <div class="col-lg-8" data-aos="zoom-in-up" data-aos-delay="200">
-          <div class="video-section">
-            <div class="video-container">
-              <iframe width="100%" height="100%" src="https://www.youtube.com/embed/dQw4w9WgXcQ" title="GCC Video"
-                frameborder="0"
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                allowfullscreen></iframe>
+          <div class="video-box-wrapper">
+            <div class="video-section shadow-lg">
+              <div class="video-container">
+                <video ref="infoVideo" controls muted loop class="w-100 h-100" @play="isVideoPlaying = true"
+                  @pause="isVideoPlaying = false" style="object-fit: contain; background: #0b0b1a;">
+                  <source src="https://storage.googleapis.com/gcc_static_files_backend/static/videos/lms_tutorial.mp4"
+                    type="video/mp4">
+                  Your browser does not support the video tag.
+                </video>
+                <!-- Custom Play Overlay (visible before play) -->
+                <div v-if="!isVideoPlaying" class="play-overlay" @click="playVideo">
+                  <div class="play-btn-circle">
+                    <i class="ti ti-player-play-filled"></i>
+                  </div>
+                  <div class="play-text">Experience Our Platform</div>
+                </div>
+                <!-- Thumbnail Mask (visible before play) -->
+                <img v-if="!isVideoPlaying"
+                  src="https://storage.googleapis.com/gcc_prod_static_files_backend/static/images/kamal_chhabra_visinary.jpeg"
+                  class="video-poster-img" @click="playVideo" alt="Thumbnail">
+              </div>
+              <div class="video-badge-new">
+                <img src="~/assets/Logo/Logo/GCC-School-Logo-White.png" alt="GCC Logo" />
+                <div class="badge-content">
+                  <span class="badge-tag">AI-Enabled</span>
+                  <span class="badge-title">LMS Tutorial</span>
+                </div>
+              </div>
             </div>
-            <div class="video-badge">
-              <img src="~/assets/Logo/Logo/GCC-School-Logo-White.png" alt="GCC Logo" />
-            </div>
+            <!-- Decorative elements -->
+            <div class="decor-shape shape-1"></div>
+            <div class="decor-shape shape-2"></div>
+            <div class="decor-shape shape-3"></div>
           </div>
         </div>
       </div>
@@ -71,12 +94,25 @@ export default {
   data() {
     return {
       isEligibilityModalVisible: false,
+      isVideoPlaying: false,
     };
   },
   methods: {
     toggleEligibilityModal() {
       this.isEligibilityModalVisible = !this.isEligibilityModalVisible;
     },
+    playVideo() {
+      const video = this.$refs.infoVideo;
+      if (video) {
+        if (video.paused) {
+          video.play();
+          this.isVideoPlaying = true;
+        } else {
+          video.pause();
+          this.isVideoPlaying = false;
+        }
+      }
+    }
   }
 };
 </script>
@@ -85,7 +121,7 @@ export default {
 /* Video Section Styles */
 .information-warp {
   position: relative;
-  padding-top: 200px;
+  padding-top: 120px;
 }
 
 .pb-50 {
@@ -218,10 +254,25 @@ export default {
 }
 
 
+/* Video Section Styles */
+.video-box-wrapper {
+  position: relative;
+  padding: 30px;
+  z-index: 1;
+}
+
 .video-section {
   position: relative;
   width: 100%;
-  height: 100%;
+  border-radius: 30px;
+  overflow: hidden;
+  background: #000;
+  z-index: 2;
+  transition: transform 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+}
+
+.video-section:hover {
+  transform: translateY(-5px);
 }
 
 .video-container {
@@ -229,97 +280,214 @@ export default {
   width: 100%;
   padding-bottom: 56.25%;
   /* 16:9 Aspect Ratio */
-  border-radius: 20px;
-  overflow: hidden;
-  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  background: #0b0b1a;
+  /* Darker background for contained media */
+  box-shadow: inset 0 0 50px rgba(0, 0, 0, 0.5);
 }
 
-.video-container::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background: linear-gradient(135deg, rgba(102, 126, 234, 0.1) 0%, rgba(118, 75, 162, 0.1) 100%);
-  z-index: 1;
-  pointer-events: none;
-}
-
-.video-container iframe {
+.video-container video {
   position: absolute;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
-  border: none;
-  z-index: 2;
+  object-fit: contain;
+  /* Ensure full video is visible */
+  z-index: 1;
 }
 
-/* Video Badge */
-.video-badge {
+.video-poster-img {
   position: absolute;
-  bottom: 20px;
-  right: 20px;
-  background: rgba(255, 255, 255, 0.95);
-  padding: 15px;
-  border-radius: 15px;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
-  backdrop-filter: blur(10px);
-  z-index: 10;
-  animation: floatBadge 3s ease-in-out infinite;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  /* Ensure full thumbnail is visible */
+  background: transparent;
+  z-index: 3;
+  cursor: pointer;
+  transition: all 0.5s cubic-bezier(0.165, 0.84, 0.44, 1);
 }
 
-.video-badge img {
-  width: 80px;
-  height: auto;
-  display: block;
+.video-section:hover .video-poster-img {
+  transform: scale(1.05);
 }
 
-@keyframes floatBadge {
+.play-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background: rgba(13, 13, 37, 0.3);
+  z-index: 4;
+  cursor: pointer;
+}
 
-  0%,
+.play-btn-circle {
+  width: 90px;
+  height: 90px;
+  background: #A13E99;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-size: 32px;
+  box-shadow: 0 0 0 0 rgba(161, 62, 153, 0.4);
+  animation: pulse-play 2s infinite;
+  transition: all 0.3s ease;
+}
+
+.play-overlay:hover .play-btn-circle {
+  transform: scale(1.1);
+  background: #C436BE;
+}
+
+.play-text {
+  color: white;
+  margin-top: 20px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  font-size: 14px;
+  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+}
+
+@keyframes pulse-play {
+  0% {
+    transform: scale(0.95);
+    box-shadow: 0 0 0 0 rgba(161, 62, 153, 0.7);
+  }
+
+  70% {
+    transform: scale(1);
+    box-shadow: 0 0 0 20px rgba(161, 62, 153, 0);
+  }
+
   100% {
-    transform: translateY(0);
+    transform: scale(0.95);
+    box-shadow: 0 0 0 0 rgba(161, 62, 153, 0);
   }
+}
 
-  50% {
-    transform: translateY(-10px);
-  }
+/* Video Badge New */
+.video-badge-new {
+  position: absolute;
+  bottom: 30px;
+  left: 30px;
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(15px);
+  padding: 12px 25px;
+  border-radius: 20px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  z-index: 5;
+  transition: all 0.3s ease;
+}
+
+.video-badge-new:hover {
+  background: rgba(255, 255, 255, 0.2);
+  transform: scale(1.05);
+}
+
+.video-badge-new img {
+  width: 50px;
+  height: auto;
+}
+
+.badge-content {
+  display: flex;
+  flex-direction: column;
+}
+
+.badge-tag {
+  font-size: 10px;
+  color: #FFC065;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.badge-title {
+  font-size: 16px;
+  color: white;
+  font-weight: 600;
+}
+
+/* Decorative Shapes */
+.decor-shape {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(40px);
+  z-index: 0;
+}
+
+.shape-1 {
+  width: 200px;
+  height: 200px;
+  background: rgba(161, 62, 153, 0.1);
+  top: -50px;
+  right: -50px;
+}
+
+.shape-2 {
+  width: 300px;
+  height: 300px;
+  background: rgba(255, 192, 101, 0.05);
+  bottom: -100px;
+  left: -100px;
+}
+
+.shape-3 {
+  width: 150px;
+  height: 150px;
+  background: rgba(107, 27, 117, 0.1);
+  bottom: 20%;
+  right: -30px;
 }
 
 /* Responsive Design */
 @media (max-width: 991px) {
-  .video-container {
-    border-radius: 15px;
+  .video-section {
+    border-radius: 20px;
   }
 
-  .video-badge {
-    bottom: 15px;
-    right: 15px;
-    padding: 12px;
+  .play-btn-circle {
+    width: 70px;
+    height: 70px;
+    font-size: 24px;
   }
 
-  .video-badge img {
-    width: 60px;
+  .video-badge-new {
+    bottom: 20px;
+    left: 20px;
+    padding: 10px 15px;
+  }
+
+  .video-badge-new img {
+    width: 40px;
   }
 }
 
 @media (max-width: 767px) {
-  .video-container {
-    border-radius: 12px;
-    margin-bottom: 30px;
+  .video-box-wrapper {
+    padding: 15px;
   }
 
-  .video-badge {
-    bottom: 10px;
-    right: 10px;
-    padding: 10px;
+  .play-text {
+    font-size: 12px;
   }
 
-  .video-badge img {
-    width: 50px;
+  .badge-title {
+    font-size: 14px;
   }
 }
 

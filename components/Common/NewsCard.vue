@@ -2,7 +2,7 @@
     <div class="news-area ptb-100">
         <div class="container">
             <div class="section-header text-center mb-5" data-aos="fade-up">
-                <h2 class="section-title">LATEST FINANCE & <span class="highlight">MARKET NEWS</span></h2>
+                <h2 class="section-title">AS FEATURED IN <span class="highlight">LEADING MEDIA</span></h2>
             </div>
 
             <div class="row g-4">
@@ -82,6 +82,16 @@ const newsList = [
     margin-bottom: 15px;
     line-height: 1.3;
     text-transform: uppercase;
+}
+
+.section-title::after {
+    content: "";
+    display: block;
+    width: 70px;
+    height: 4px;
+    background: #F1A63E;
+    margin: 15px auto 0;
+    border-radius: 10px;
 }
 
 .highlight {

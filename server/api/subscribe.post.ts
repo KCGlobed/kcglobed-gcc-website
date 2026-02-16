@@ -2,6 +2,7 @@ import { subscribeToNewsletter } from "../services/newsletter.service";
 
 export default defineEventHandler(async (event) => {
     const body = await readBody(event);
+    // console.log(body.email)
 
     if (!body.email) {
         throw createError({
@@ -21,7 +22,6 @@ export default defineEventHandler(async (event) => {
 
     try {
         const isNew = await subscribeToNewsletter(body.email);
-
         return {
             success: true,
             message: isNew ? "You’re subscribed. Watch your inbox for news and insights" : "You are already subscribed",
