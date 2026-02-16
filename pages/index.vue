@@ -29,6 +29,7 @@
 </template>
 
 <script setup lang="ts">
+
 useHead({
   title: "GCC School: Get Hired First, Then Trained",
   meta: [
