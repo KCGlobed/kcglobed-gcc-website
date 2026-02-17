@@ -4,14 +4,21 @@
     <LayoutMainNavbar />
     <!-- <CommonCommingSoon /> -->
     <ProgramsProgramBanner />
-    <HomeThreeAboutUniversity />
+    <ProgramsAIProgram />
+    <ProgramsProgramTimeLine />
+    <ProgramsIAProgram />
+    <ProgramsAeiap />
+    <ProgramsAccaProgram />
+    <ProgramsAccQualification />
+
+    <!-- <HomeThreeAboutUniversity />
 
     <HomeThreeGraduatePrograms />
 
 
     <Events />
     <HomeTwoApplyUniversityInEasySteps />
-    <NationalExecusive />
+    <NationalExecusive /> -->
 
 
 

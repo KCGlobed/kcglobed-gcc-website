@@ -70,7 +70,7 @@
                 <div class="col-lg-4 col-md-4">
                   <div class="address-item">
                     <h6 class="text-white mb-2">Visit us</h6>
-                    <p>Building 9B, 16th Floor,DLF Cyber City, Sector 24 ,<br />
+                    <p>Building 9B , 16th Floor , DLF Cyber City , Sector 24 ,<br />
                       Gurugram , Haryana - 122002</p>
                   </div>
                 </div>

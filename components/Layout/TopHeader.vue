@@ -33,10 +33,10 @@
               <li>
                 <NuxtLink to="/career">Careers</NuxtLink>
               </li>
-              <li class="account-item">
+              <!-- <li class="account-item">
                 <i class="ti ti-user"></i>
                 <NuxtLink to="/login">Student Login</NuxtLink>
-              </li>
+              </li> -->
             </ul>
           </div>
         </div>
