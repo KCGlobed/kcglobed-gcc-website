@@ -19,10 +19,10 @@
                 <p>Paid Internship</p>
                 <span>6 Months</span>
               </div>
-              <div class="box">
+              <!-- <div class="box">
                 <img src="../../assets/img/heros/panleIcon3.png" class="logo" />
                 <span class="mt-1">UK ACCA <br> Integrated</span>
-              </div>
+              </div> -->
               <div class="box">
                 <img src="../../assets/img/heros/panleIcon4.png" class="logo" />
                 <span class="mt-2">Master in Corporate Communication</span>

@@ -573,6 +573,7 @@ export default defineComponent({
                     email: "",
                     consent: false
                 }
+
             } catch (error) {
                 console.error(error)
                 alert("Something went wrong. Please try again.")
