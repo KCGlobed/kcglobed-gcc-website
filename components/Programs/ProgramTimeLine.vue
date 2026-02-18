@@ -13,7 +13,7 @@
                     </div>
                     <div class="col-lg-7 order-1 order-lg-2">
                         <div class="step-image">
-                            <img src="https://images.unsplash.com/photo-1497215728101-856f4ea42174?ixlib=rb-4.0.3&auto=format&fit=crop&w=1470&q=80"
+                            <img src="https://storage.googleapis.com/static_files_backend/media/images/Corporate%20Classroom.png"
                                 alt="Step 1">
                         </div>
                     </div>
@@ -25,13 +25,13 @@
                 <div class="row g-0 align-items-stretch">
                     <div class="col-lg-7">
                         <div class="step-image">
-                            <img src="https://images.unsplash.com/photo-1516321318423-f06f85e504b3?ixlib=rb-4.0.3&auto=format&fit=crop&w=1470&q=80"
+                            <img src="https://storage.googleapis.com/static_files_backend/media/images/Corporate%20Classroom%20(1).png"
                                 alt="Step 2">
                         </div>
                     </div>
                     <div class="col-lg-5">
                         <div class="step-text-content">
-                            <span class="step-number shadow-text">02</span>
+                            <!-- <span class="step-number shadow-text">02</span> -->
                             <span class="step-number main-number">02</span>
                             <h3 class="step-title">Appear in NFET Exams</h3>
                             <p class="step-subtext date-text">(Feb 15 - April 15, 2026)</p>
@@ -52,7 +52,7 @@
                     </div>
                     <div class="col-lg-7 order-1 order-lg-2">
                         <div class="step-image">
-                            <img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?ixlib=rb-4.0.3&auto=format&fit=crop&w=1426&q=80"
+                            <img src="https://storage.googleapis.com/static_files_backend/media/images/Corporate%20Classroom%20(2).png"
                                 alt="Step 3">
                         </div>
                     </div>
@@ -63,16 +63,17 @@
                 <div class="row g-0 align-items-stretch">
                     <div class="col-lg-7">
                         <div class="step-image">
-                            <img src="https://images.unsplash.com/photo-1516321318423-f06f85e504b3?ixlib=rb-4.0.3&auto=format&fit=crop&w=1470&q=80"
+                            <img src="https://storage.googleapis.com/static_files_backend/media/images/Corporate%20Classroom%20(3).png"
                                 alt="Step 2">
                         </div>
                     </div>
                     <div class="col-lg-5">
                         <div class="step-text-content">
-                            <span class="step-number shadow-text">02</span>
-                            <span class="step-number main-number">02</span>
-                            <h3 class="step-title">Appear in NFET Exams</h3>
-                            <p class="step-subtext date-text">(Feb 15 - April 15, 2026)</p>
+                            <!-- <span class="step-number shadow-text">02</span> -->
+                            <span class="step-number main-number">04</span>
+                            <h3 class="step-title">Evaluation to get ticket to DLF Cyber City, Gurugrams</h3>
+                            <p class="step-subtext date-text">(May 4 to 10, 2026) with real-time results &
+                                ticket confirmation</p>
                         </div>
                     </div>
                 </div>
@@ -82,14 +83,14 @@
                 <div class="row g-0 align-items-stretch">
                     <div class="col-lg-5 order-2 order-lg-1">
                         <div class="step-text-content">
-                            <span class="step-number">03</span>
-                            <h3 class="step-title">NFET Exam Result Declaration</h3>
-                            <p class="step-subtext date-text">(May 4, 2026)</p>
+                            <span class="step-number">05</span>
+                            <h3 class="step-title">Interview of Shortlisted Candidates</h3>
+                            <p class="step-subtext date-text">( May 11 to June 11, 2026 )</p>
                         </div>
                     </div>
                     <div class="col-lg-7 order-1 order-lg-2">
                         <div class="step-image">
-                            <img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?ixlib=rb-4.0.3&auto=format&fit=crop&w=1426&q=80"
+                            <img src="https://storage.googleapis.com/static_files_backend/media/images/Hiring%20Drives.png"
                                 alt="Step 3">
                         </div>
                     </div>
@@ -100,16 +101,16 @@
                 <div class="row g-0 align-items-stretch">
                     <div class="col-lg-7">
                         <div class="step-image">
-                            <img src="https://images.unsplash.com/photo-1516321318423-f06f85e504b3?ixlib=rb-4.0.3&auto=format&fit=crop&w=1470&q=80"
+                            <img src="https://storage.googleapis.com/static_files_backend/media/images/Corporate%20Classroom%20(4).png"
                                 alt="Step 2">
                         </div>
                     </div>
                     <div class="col-lg-5">
                         <div class="step-text-content">
-                            <span class="step-number shadow-text">02</span>
-                            <span class="step-number main-number">02</span>
-                            <h3 class="step-title">Appear in NFET Exams</h3>
-                            <p class="step-subtext date-text">(Feb 15 - April 15, 2026)</p>
+                            <!-- <span class="step-number shadow-text">06</span> -->
+                            <span class="step-number main-number">06</span>
+                            <h3 class="step-title">Conditional Offer & Acceptance </h3>
+                            <p class="step-subtext date-text">( May 15 to June 15, 2026 )</p>
                         </div>
                     </div>
                 </div>
@@ -119,38 +120,21 @@
                 <div class="row g-0 align-items-stretch">
                     <div class="col-lg-5 order-2 order-lg-1">
                         <div class="step-text-content">
-                            <span class="step-number">03</span>
-                            <h3 class="step-title">NFET Exam Result Declaration</h3>
-                            <p class="step-subtext date-text">(May 4, 2026)</p>
+                            <span class="step-number">07</span>
+                            <h3 class="step-title">Cohort Start </h3>
+                            <p class="step-subtext date-text">
+                                ( July 1, 2026 )</p>
                         </div>
                     </div>
                     <div class="col-lg-7 order-1 order-lg-2">
                         <div class="step-image">
-                            <img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?ixlib=rb-4.0.3&auto=format&fit=crop&w=1426&q=80"
+                            <img src="https://storage.googleapis.com/static_files_backend/media/images/Corporate%20Classroom%20(5).png"
                                 alt="Step 3">
                         </div>
                     </div>
                 </div>
             </div>
-            <!-- Step 8: Purple Theme, Image Left, Text Right -->
-            <div class="timeline-row purple-theme mt-40">
-                <div class="row g-0 align-items-stretch">
-                    <div class="col-lg-7">
-                        <div class="step-image">
-                            <img src="https://images.unsplash.com/photo-1516321318423-f06f85e504b3?ixlib=rb-4.0.3&auto=format&fit=crop&w=1470&q=80"
-                                alt="Step 2">
-                        </div>
-                    </div>
-                    <div class="col-lg-5">
-                        <div class="step-text-content">
-                            <span class="step-number shadow-text">02</span>
-                            <span class="step-number main-number">02</span>
-                            <h3 class="step-title">Appear in NFET Exams</h3>
-                            <p class="step-subtext date-text">(Feb 15 - April 15, 2026)</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
+
         </div>
     </div>
 </template>

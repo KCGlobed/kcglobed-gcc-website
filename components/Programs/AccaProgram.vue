@@ -4,8 +4,7 @@
             <div class="row">
                 <div class="col-lg-12">
                     <div class="acca-program-image">
-                        <img src="https://storage.googleapis.com/gcc_prod_static_files_backend/static/images/Group%2051403.png"
-                            alt="" srcset="">
+                        <img src="~/assets/img/programs/acca.png" alt="" srcset="">
 
                     </div>
                     <p>

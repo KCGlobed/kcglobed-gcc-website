@@ -4,8 +4,9 @@
     <LayoutMainNavbar />
     <!-- <CommonCommingSoon /> -->
     <ProgramsProgramBanner />
+
     <ProgramsAIProgram />
-    <ProgramsProgramTimeLine />
+
     <ProgramsIAProgram />
     <ProgramsAeiap />
     <ProgramsAccaProgram />
@@ -21,7 +22,10 @@
     <NationalExecusive /> -->
 
 
-
+    <ProgramsProgramTimeLine />
+    <ProgramsGovtOnprogram />
+    <ProgramsLmsProgram />
+    <ProgramsTeeeProgram />
 
     <LayoutMainFooter />
     <LayoutCopyRight />

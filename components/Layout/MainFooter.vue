@@ -12,7 +12,7 @@
                     <NuxtLink to="/">Home</NuxtLink>
                   </li>
                   <li>
-                    <NuxtLink to="/programs">Programs</NuxtLink>
+                    <NuxtLink to="/programs">Program</NuxtLink>
                   </li>
                   <li>
                     <NuxtLink to="/nfet-exam">NFET Exam</NuxtLink>
