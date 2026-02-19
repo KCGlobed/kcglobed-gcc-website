@@ -3,8 +3,7 @@
         <LayoutTopHeader />
         <LayoutMainNavbar />
         <!-- <CommonCommingSoon /> -->
-
-
+        <NfetBanner />
         <LayoutMainFooter />
         <LayoutCopyRight />
     </div>
