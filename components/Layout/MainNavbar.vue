@@ -29,7 +29,7 @@
 
           </li>
           <li class="nav-item">
-            <NuxtLink to="#" class="nav-link">
+            <NuxtLink to="/nfet" class="nav-link">
               NFET Exam
             </NuxtLink>
 
