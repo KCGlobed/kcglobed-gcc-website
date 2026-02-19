@@ -1,9 +1,10 @@
 <template>
     <section class="aeiap-area ptb-100 bg-F8F8F9">
         <div class="container">
-            <div class="aeiap-header mb-50 text-center">
-                <h1 class="main-title mb-2">AI ENABLED INTERNATIONAL ACCOUNTING PROFESSIONAL PROGRAM (AEIAP)</h1>
-                <h2 class="sub-title text-orange font-bold uppercase">WITH PAID INTERNSHIP</h2>
+            <div class="section-title text-center mb-50">
+                <h2 class="title">AI ENABLED INTERNATIONAL ACCOUNTING <span class="highlight">PROFESSIONAL PROGRAM
+                        (AEIAP)</span></h2>
+                <p class="sub-title">WITH PAID INTERNSHIP</p>
             </div>
 
             <div class="row g-4 ae-cards-grid">
@@ -266,15 +267,40 @@
     border-radius: 10px;
 }
 
-.main-title {
-    font-size: 1.75rem;
-    color: #1a1a1a;
-    font-weight: 800;
+.section-title {
+    margin-bottom: 50px;
+}
+
+.title {
+    font-size: 32px;
+    font-weight: 700;
+    color: #0d0d25;
+    margin-bottom: 20px;
+    text-transform: uppercase;
+    position: relative;
+}
+
+.title::after {
+    content: "";
+    display: block;
+    width: 70px;
+    height: 4px;
+    background: #F1A63E;
+    margin: 15px auto 0;
+    border-radius: 10px;
+}
+
+.highlight {
+    color: #F1A63E;
 }
 
 .sub-title {
-    font-size: 1.25rem;
-    letter-spacing: 0.05em;
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: #F1A63E;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    margin-top: 10px;
 }
 
 .text-orange {

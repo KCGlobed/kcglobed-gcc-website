@@ -1,9 +1,9 @@
 <template>
     <div class="ai-program-main ptb-100">
         <div class="container">
-            <div class="section-title">
-                <h3 class="main-title">AI-ENABLED INTEGRATED PROGRAM</h3>
-                <h2 class="sub-title">100% ALIGNED FOR THE GCC NICHE DOMAINS FOR NEXT-GEN PREMIUM CAREERS</h2>
+            <div class="section-title text-center mb-50">
+                <h2 class="title">AI-ENABLED <span class="highlight">INTEGRATED PROGRAM</span></h2>
+                <h3 class="sub-title">100% ALIGNED FOR THE GCC NICHE DOMAINS FOR NEXT-GEN PREMIUM CAREERS</h3>
             </div>
 
             <div class="domains-grid">
@@ -49,24 +49,39 @@ export default {
 }
 
 .section-title {
-    margin-bottom: 60px;
+    margin-bottom: 50px;
 }
 
-.main-title {
-    font-size: 18px;
+.title {
+    font-size: 32px;
     font-weight: 700;
-    color: #2b2d6a;
-    margin-bottom: 10px;
-    letter-spacing: 0.5px;
+    color: #0d0d25;
+    margin-bottom: 20px;
+    text-transform: uppercase;
+    position: relative;
+}
+
+.title::after {
+    content: "";
+    display: block;
+    width: 70px;
+    height: 4px;
+    background: #F1A63E;
+    margin: 15px auto 0;
+    border-radius: 10px;
+}
+
+.highlight {
+    color: #F1A63E;
 }
 
 .sub-title {
-    font-size: 22px;
-    font-weight: 700;
-    color: #f1a63e;
+    font-size: 18px;
+    font-weight: 600;
+    color: #555;
     text-transform: uppercase;
     max-width: 800px;
-    margin: 0 auto;
+    margin: 10px auto 0;
 }
 
 .domains-grid {

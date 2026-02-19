@@ -1,7 +1,9 @@
 <template>
     <div class="acca-structure-wrapper py-5">
         <div class="container">
-            <h2 class="main-title mb-5">ACCA Qualification <br /> Structure</h2>
+            <div class="section-title text-center mb-50">
+                <h2 class="title">ACCA <span class="highlight">Qualification Structure</span></h2>
+            </div>
 
             <div class="qualification-container">
                 <!-- Level 1 -->
@@ -82,13 +84,33 @@
     padding-bottom: 50px;
 }
 
-.main-title {
-    color: #4B1D6F;
-    font-weight: 800;
-    font-size: 38px;
-    line-height: 1.1;
-    margin-bottom: 2rem !important;
+.section-title {
+    margin-bottom: 50px;
 }
+
+.title {
+    font-size: 32px;
+    font-weight: 700;
+    color: #0d0d25;
+    margin-bottom: 20px;
+    text-transform: uppercase;
+    position: relative;
+}
+
+.title::after {
+    content: "";
+    display: block;
+    width: 70px;
+    height: 4px;
+    background: #F1A63E;
+    margin: 15px auto 0;
+    border-radius: 10px;
+}
+
+.highlight {
+    color: #F1A63E;
+}
+
 
 .qualification-container {
     display: flex;
@@ -139,7 +161,7 @@
 }
 
 .level-subtitle {
-    font-size: 11px;
+    font-size: 15px;
     font-weight: 500;
     color: #333;
     margin-bottom: 0;
@@ -237,7 +259,7 @@
 }
 
 .subjects-list li {
-    font-size: 13.5px;
+    font-size: 15px;
     font-weight: 600;
     color: #1a1a1a;
     margin-bottom: 6px;
@@ -255,7 +277,7 @@
 
 /* ACCA Success Section */
 .acca-red-box {
-    background-color: #E61E2A;
+    background-color: #000;
     color: #fff;
     font-size: 44px;
     font-weight: 900;

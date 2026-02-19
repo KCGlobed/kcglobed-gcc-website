@@ -1,6 +1,11 @@
 <template>
     <div class="program-time-line-main ptb-100">
         <div class="container">
+            <div class="section-title text-center mb-50">
+                <h2 class="title">Admission <span class="highlight">Timelines</span> for 2026 Cohort</h2>
+            </div>
+        </div>
+        <div class="container">
             <!-- Step 1: Gold Theme, Text Left, Image Right -->
             <div class="timeline-row gold-theme">
                 <div class="row g-0 align-items-stretch">
@@ -144,6 +149,33 @@
 </script>
 
 <style scoped>
+.section-title {
+    margin-bottom: 50px;
+}
+
+.title {
+    font-size: 32px;
+    font-weight: 700;
+    color: #0d0d25;
+    margin-bottom: 20px;
+    text-transform: uppercase;
+    position: relative;
+}
+
+.title::after {
+    content: "";
+    display: block;
+    width: 70px;
+    height: 4px;
+    background: #F1A63E;
+    margin: 15px auto 0;
+    border-radius: 10px;
+}
+
+.highlight {
+    color: #F1A63E;
+}
+
 .program-time-line-main {
     background-color: #f3f4f6;
 }
@@ -255,9 +287,7 @@
 }
 
 @media screen and (max-width: 767px) {
-    .row.g-0 {
-        /* On mobile, we might want some spacing or maintain g-0 */
-    }
+
 
     .order-lg-1 {
         order: 1 !important;

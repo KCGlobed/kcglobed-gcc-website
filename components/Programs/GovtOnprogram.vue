@@ -2,9 +2,8 @@
     <div class="govt-program-area ptb-100">
         <div class="container">
             <!-- Section Header -->
-            <div class="section-header text-center mb-60">
-                <h2 class="section-title">Government on GCC</h2>
-                <div class="title-divider mx-auto"></div>
+            <div class="section-title text-center mb-50">
+                <h2 class="title">India – GCC <span class="highlight">Hub Of The World</span></h2>
             </div>
 
             <!-- Program Cards Grid -->
@@ -59,30 +58,34 @@ const programs = [
 
 <style scoped>
 .govt-program-area {
-    padding-top: 100px;
-    padding-bottom: 100px;
     background-color: #f8f9fa;
 }
 
-.section-header {
-    margin-bottom: 60px;
-}
-
 .section-title {
-    font-size: 38px;
-    font-weight: 800;
-    color: #1a1a1a;
-    margin-bottom: 0;
-    text-transform: uppercase;
-    letter-spacing: 1px;
+    margin-bottom: 50px;
 }
 
-.title-divider {
-    width: 60px;
+.title {
+    font-size: 32px;
+    font-weight: 700;
+    color: #0d0d25;
+    margin-bottom: 20px;
+    text-transform: uppercase;
+    position: relative;
+}
+
+.title::after {
+    content: "";
+    display: block;
+    width: 70px;
     height: 4px;
-    background: #ba1b94;
+    background: #F1A63E;
+    margin: 15px auto 0;
     border-radius: 10px;
-    margin-top: 15px;
+}
+
+.highlight {
+    color: #F1A63E;
 }
 
 /* Program Card Styling */
@@ -186,9 +189,15 @@ const programs = [
     line-height: 1.6;
 }
 
-@media (max-width: 991px) {
-    .section-title {
+@media (max-width: 1200px) {
+    .title {
         font-size: 28px;
+    }
+}
+
+@media (max-width: 991px) {
+    .title {
+        font-size: 24px;
     }
 
     .govt-program-area {

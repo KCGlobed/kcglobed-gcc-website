@@ -3,8 +3,9 @@
         <div class="container">
             <!-- Section Header -->
             <div class="section-title text-center mb-60">
-                <h2 class="main-title">EXPERIENCE EDUCATIONAL <span class="text-orange">EXCELLENCE WITH: T.E.E.E!</span>
+                <h2 class="title">EXPERIENCE EDUCATIONAL <span class="highlight">EXCELLENCE </span>
                 </h2>
+                <p class="text-center">With TEEE – Tailored Education for Enhanced Efficiency</p>
             </div>
 
             <!-- Hero Mockup Section -->
@@ -119,13 +120,26 @@ const steps = [
     padding-bottom: 50px;
 }
 
-.main-title {
+.title {
     font-size: 32px;
-    font-weight: 800;
-    color: #1d2050;
+    font-weight: 700;
+    color: #0d0d25;
+    margin-bottom: 20px;
     text-transform: uppercase;
+    position: relative;
 }
 
+.title::after {
+    content: "";
+    display: block;
+    width: 70px;
+    height: 4px;
+    background: #F1A63E;
+    margin: 15px auto 0;
+    border-radius: 10px;
+}
+
+.highlight,
 .text-orange {
     color: #f1a63e;
 }

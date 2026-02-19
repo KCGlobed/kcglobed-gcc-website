@@ -1,6 +1,11 @@
 <template>
     <div class="ia-program-area ptb-100">
         <div class="container">
+            <div class="section-title text-center mb-50">
+                <h2 class="title">I-Gen Pathway for <span class="highlight">New Tomorrow</span></h2>
+            </div>
+        </div>
+        <div class="container">
             <div class="max-1000-container mx-auto bg-white shadow-lg overflow-hidden rounded-12 border">
                 <header class="ia-header bg-brand-dark text-white d-flex flex-column flex-md-row">
                     <div
@@ -9,7 +14,7 @@
                     </div>
                     <div
                         class="program-name p-4 p-md-5 flex-grow-1 font-bold text-lg text-md-xl text-center text-md-start">
-                        International Accounting Professionals (IAP) Program
+                        AI-Enabled International Accounting Professional Program
                     </div>
                 </header>
 
@@ -75,8 +80,8 @@ const trimesters = [
         year: '2026',
         image: 'https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=800&h=600&fit=crop',
         modules: [
-            'Financial Reporting (FR)',
-            'Financial Management (FM)',
+            '<strong>Audit & Assurance(AA)</strong> ',
+            '<strong>Financial Management (FM) </strong> ',
             'AI for Finance, Audit & Accounting',
             'Data analytics, Power BI, Advance Excel',
             'MS Office',
@@ -91,7 +96,8 @@ const trimesters = [
         year: '2026',
         image: 'https://images.unsplash.com/photo-1506744038136-46273834b3fb?w=800&h=600&fit=crop',
         modules: [
-            '<strong>Audit & Assurance</strong> (AA)',
+            '<strong>Financial Reporting (FR) <strong>',
+
             '<strong>Performance Management</strong> (PM)',
             'Interim Busy Season'
         ]
@@ -134,6 +140,33 @@ const splitModules = (modules) => {
 <style scoped>
 .ia-program-area {
     background-color: #f3f4f6;
+}
+
+.section-title {
+    margin-bottom: 50px;
+}
+
+.title {
+    font-size: 32px;
+    font-weight: 700;
+    color: #0d0d25;
+    margin-bottom: 20px;
+    text-transform: uppercase;
+    position: relative;
+}
+
+.title::after {
+    content: "";
+    display: block;
+    width: 70px;
+    height: 4px;
+    background: #F1A63E;
+    margin: 15px auto 0;
+    border-radius: 10px;
+}
+
+.highlight {
+    color: #F1A63E;
 }
 
 /* .max-1000-container {

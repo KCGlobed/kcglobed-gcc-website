@@ -4,8 +4,7 @@
             <div class="section-container bg-F5F5F7 p-4 p-md-5 rounded-20">
                 <!-- Section Header -->
                 <div class="section-title text-center mb-60">
-                    <h2 class="main-title mb-0">LMS PROMINENT <span class="text-orange">FEATURES</span></h2>
-                    <div class="title-divider mx-auto mt-3"></div>
+                    <h2 class="title">LMS PROMINENT <span class="highlight">FEATURES</span></h2>
                 </div>
 
                 <!-- Features Grid -->
@@ -16,7 +15,7 @@
                                 <i :class="feature.icon"></i>
                             </div>
                             <div class="feature-content">
-                                <h4 class="title">{{ feature.title }}</h4>
+                                <h4 class="card-title">{{ feature.title }}</h4>
                                 <p class="desc">{{ feature.description }}</p>
                             </div>
                         </div>
@@ -105,14 +104,30 @@ const features = [
     border-radius: 24px;
 }
 
-.main-title {
-    font-size: 32px;
-    font-weight: 800;
-    color: #1d2050;
-    text-transform: uppercase;
-    letter-spacing: 1px;
+.section-title {
+    margin-bottom: 50px;
 }
 
+.title {
+    font-size: 32px;
+    font-weight: 700;
+    color: #0d0d25;
+    margin-bottom: 20px;
+    text-transform: uppercase;
+    position: relative;
+}
+
+.title::after {
+    content: "";
+    display: block;
+    width: 70px;
+    height: 4px;
+    background: #F1A63E;
+    margin: 15px auto 0;
+    border-radius: 10px;
+}
+
+.highlight,
 .text-orange {
     color: #f1a63e;
 }
@@ -148,12 +163,13 @@ const features = [
     font-size: 24px;
 }
 
-.feature-content .title {
+.feature-content .card-title {
     font-size: 17px;
     font-weight: 700;
     color: #1a1a1a;
     margin-bottom: 8px;
     line-height: 1.3;
+    text-transform: none;
 }
 
 .feature-content .desc {

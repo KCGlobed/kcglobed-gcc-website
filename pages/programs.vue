@@ -4,13 +4,14 @@
     <LayoutMainNavbar />
     <!-- <CommonCommingSoon /> -->
     <ProgramsProgramBanner />
+    <ProgramsGovtOnprogram />
 
     <ProgramsAIProgram />
-
-    <ProgramsIAProgram />
     <ProgramsAeiap />
+    <ProgramsIAProgram />
+
     <ProgramsAccaProgram />
-    <!-- <ProgramsAccQualification /> -->
+    <ProgramsAccQualification />
 
     <!-- <HomeThreeAboutUniversity />
 
@@ -23,9 +24,9 @@
 
 
     <ProgramsProgramTimeLine />
-    <ProgramsGovtOnprogram />
-    <ProgramsLmsProgram />
     <ProgramsTeeeProgram />
+    <ProgramsLmsProgram />
+
 
     <LayoutMainFooter />
     <LayoutCopyRight />

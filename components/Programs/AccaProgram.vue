@@ -1,6 +1,12 @@
 <template>
     <div class="acca-program-wrapper">
         <div class="container">
+            <div class="section-title">
+                <h2 class="title">UK ACCA - The Global Passport to <span class="highlight">Accounting & Finance
+                        Careers</span></h2>
+            </div>
+        </div>
+        <div class="container">
             <div class="row">
                 <div class="col-lg-12">
                     <div class="acca-program-image">
@@ -47,6 +53,33 @@
     color: #475569;
     line-height: 1.5;
     margin-top: 30px;
+}
+
+.section-title {
+    margin-bottom: 50px;
+}
+
+.title {
+    font-size: 32px;
+    font-weight: 700;
+    color: #0d0d25;
+    margin-bottom: 20px;
+    text-transform: uppercase;
+    position: relative;
+}
+
+.title::after {
+    content: "";
+    display: block;
+    width: 70px;
+    height: 4px;
+    background: #F1A63E;
+    margin: 15px auto 0;
+    border-radius: 10px;
+}
+
+.highlight {
+    color: #F1A63E;
 }
 
 .acca-post-card {
