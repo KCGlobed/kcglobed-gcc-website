@@ -83,20 +83,20 @@
                                     <div class="video-section">
                                         <div class="video-wrapper" @click="banner.showVideo = true">
                                             <template v-if="!banner.showVideo">
-                                                <img src="https://storage.googleapis.com/gcc_prod_static_files_backend/static/images/download.png"
-                                                    alt="Program Video" class="video-thumbnail">
-                                                <div class="video-badge-4k">
+                                                <img src="~/assets/img/programs/nitish.jpeg" alt="Program Video"
+                                                    class="video-thumbnail">
+                                                <!-- <div class="video-badge-4k">
                                                     4k
-                                                </div>
+                                                </div> -->
                                                 <div class="video-play-overlay">
                                                     <div class="play-icon">
                                                         <i class="ti ti-player-play-filled"></i>
                                                     </div>
                                                 </div>
-                                                <div class="video-caption">
+                                                <!-- <div class="video-caption">
                                                     <p class="speaker-name">GCC SCHOOL</p>
                                                     <p class="speaker-quote">LMS TUTORIAL & OVERVIEW</p>
-                                                </div>
+                                                </div> -->
                                             </template>
                                             <video v-else controls autoplay class="video-element w-100 h-100">
                                                 <source
@@ -369,9 +369,9 @@
 
 .video-wrapper {
     position: relative;
-    border-radius: 12px;
+    /* border-radius: 12px; */
     overflow: hidden;
-    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.5);
+    /* box-shadow: 0 15px 40px rgba(0, 0, 0, 0.5); */
     transition: transform 0.3s ease;
     flex-grow: 1;
     height: 100%;
@@ -419,13 +419,13 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    background: rgba(0, 0, 0, 0.2);
+    /* background: rgba(0, 0, 0, 0.2); */
     cursor: pointer;
     transition: background 0.3s ease;
 }
 
 .video-play-overlay:hover {
-    background: rgba(0, 0, 0, 0.3);
+    /* background: rgba(0, 0, 0, 0.3); */
 }
 
 .play-icon {
