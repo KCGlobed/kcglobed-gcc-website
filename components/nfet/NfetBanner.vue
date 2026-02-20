@@ -320,13 +320,13 @@ onMounted(() => {
 }
 
 @media (max-width: 576px) {
-    .nfet-title {
-        font-size: 30px;
-        min-height: 120px;
-    }
-
     .nfet-banner {
         padding: 60px 0 50px;
+    }
+
+    .nfet-title {
+        font-size: 30px;
+        min-height: 77px;
     }
 }
 </style>

@@ -9,10 +9,12 @@
         <NfetSyllbus />
         <NfetExamStructure />
         <NfetTestingWindow />
+        <NfetDiagonstic />
 
 
-        <NfetPartner />
+
         <NfetGuidline />
+        <NfetPartner />
         <NfetFinanceCareer />
 
         <LayoutMainFooter />

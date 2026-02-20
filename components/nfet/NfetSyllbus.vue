@@ -13,7 +13,7 @@
                         <div class="exam-card d-flex justify-content-between align-items-center">
                             <div>
                                 <h6 class="mb-1 fw-semibold">Accounting & Finance Fundamentals</h6>
-                                <p class="mb-0 small text-muted">Core financial concepts</p>
+                                <!-- <p class="mb-0 small text-muted">Core financial concepts</p> -->
                             </div>
                             <div class="percentage">30%</div>
                         </div>
@@ -24,7 +24,7 @@
                         <div class="exam-card d-flex justify-content-between align-items-center">
                             <div>
                                 <h6 class="mb-1 fw-semibold">English & Business Communication</h6>
-                                <p class="mb-0 small text-muted">Professional communication skills</p>
+                                <!-- <p class="mb-0 small text-muted">Professional communication skills</p> -->
                             </div>
                             <div class="percentage">30%</div>
                         </div>
@@ -35,7 +35,7 @@
                         <div class="exam-card d-flex justify-content-between align-items-center">
                             <div>
                                 <h6 class="mb-1 fw-semibold">Auditing & Analytical Reasoning</h6>
-                                <p class="mb-0 small text-muted">Critical thinking and analysis</p>
+                                <!-- <p class="mb-0 small text-muted">Critical thinking and analysis</p> -->
                             </div>
                             <div class="percentage">20%</div>
                         </div>
@@ -46,7 +46,7 @@
                         <div class="exam-card d-flex justify-content-between align-items-center">
                             <div>
                                 <h6 class="mb-1 fw-semibold">Quantitative Aptitude</h6>
-                                <p class="mb-0 small text-muted">Mathematical problem solving</p>
+                                <!-- <p class="mb-0 small text-muted">Mathematical problem solving</p> -->
                             </div>
                             <div class="percentage">10%</div>
                         </div>
@@ -57,7 +57,7 @@
                         <div class="exam-card d-flex justify-content-between align-items-center">
                             <div>
                                 <h6 class="mb-1 fw-semibold">Business & Economic Awareness</h6>
-                                <p class="mb-0 small text-muted">Current affairs and market knowledge</p>
+                                <!-- <p class="mb-0 small text-muted">Current affairs and market knowledge</p> -->
                             </div>
                             <div class="percentage">10%</div>
                         </div>
@@ -129,5 +129,23 @@
     font-weight: 700;
     color: #6f42c1;
     /* Purple */
+}
+
+
+@media (max-width: 991px) {
+    .nfet-syllabus {
+        padding: 40px 0px;
+    }
+
+
+}
+
+@media (max-width: 576px) {
+    .nfet-syllabus h2 {
+        font-size: 24px;
+        line-height: 32px;
+    }
+
+
 }
 </style>

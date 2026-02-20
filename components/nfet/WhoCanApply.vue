@@ -15,7 +15,7 @@
                                 <img :src="item.icon" alt="" srcset="">
                             </div>
                             <h3>{{ item.title }}</h3>
-                            <p>{{ item.desc }}</p>
+                            <!-- <p>{{ item.desc }}</p> -->
                         </div>
                     </div>
                 </section>
@@ -136,5 +136,28 @@ const cards = [
     font-weight: 400;
     line-height: 20px;
     text-align: start;
+}
+
+/* Responsive */
+@media (max-width: 991px) {
+    .who-can-apply {
+        padding: 40px 0 40px;
+    }
+}
+
+@media (max-width: 576px) {
+    .who-can-apply {
+        padding: 40px 0 40px;
+    }
+
+    .who-can-apply h2 {
+        line-height: 28px;
+    }
+
+    .eligibility-section {
+        padding: 30px 20px;
+
+    }
+
 }
 </style>

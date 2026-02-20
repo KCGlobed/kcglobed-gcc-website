@@ -12,7 +12,7 @@
             </p>
             <section class="nfet-card">
                 <div class="row">
-                    <div class="col-4">
+                    <div class="col-12 col-md-4 ">
                         <div class="nfet-img">
                             <img src="~/assets/img/nfet/1.jpg" alt="" srcset="">
 
@@ -27,9 +27,9 @@
                         </div>
 
                     </div>
-                    <div class="col-4">
+                    <div class="col-12 col-md-4 ">
                         <div class="nfet-img">
-                            <img src="~/assets/img/nfet/1.jpg" alt="" srcset="">
+                            <img src="~/assets/img/nfet/2.jpg" alt="" srcset="">
 
                         </div>
                         <div class="nfet-content">
@@ -42,9 +42,9 @@
                         </div>
 
                     </div>
-                    <div class="col-4">
+                    <div class="col-12 col-md-4">
                         <div class="nfet-img">
-                            <img src="~/assets/img/nfet/1.jpg" alt="" srcset="">
+                            <img src="~/assets/img/nfet/3.jpg" alt="" srcset="">
 
                         </div>
                         <div class="nfet-content">
@@ -129,5 +129,24 @@
     line-height: 24px;
     text-align: justify;
 
+}
+
+@media (max-width: 991px) {
+    .why-nfet {
+        padding: 40px 0px;
+    }
+
+
+}
+
+@media (max-width: 576px) {
+    .why-nfet h2 {
+        font-size: 24px;
+        line-height: 32px;
+    }
+
+    .nfet-card {
+        margin-top: 30px;
+    }
 }
 </style>

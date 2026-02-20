@@ -114,4 +114,40 @@
     margin-top: 30px;
     /* 155.556% */
 }
+
+@media (max-width: 768px) {
+    .testing-window {
+        padding: 40px 0px;
+    }
+
+    .testing-window h2 {
+        font-size: 24px;
+        line-height: 32px;
+    }
+
+    .exam-window {
+        padding: 24px;
+    }
+
+    .exam-window h2 {
+        font-size: 24px;
+        line-height: 32px;
+    }
+
+    .exam-window p {
+        font-size: 16px;
+        line-height: 24px;
+    }
+
+    .exam-window .discription {
+        font-size: 14px;
+        line-height: 24px;
+    }
+
+    .exam-window button {
+        font-size: 16px;
+        line-height: 24px;
+        padding: 12px 32px;
+    }
+}
 </style>

@@ -169,4 +169,10 @@
     color: #4c1d95;
     border: 1px solid #e9d5ff;
 }
+
+@media (max-width: 768px) {
+    .guidelines-section {
+        padding: 40px 0px;
+    }
+}
 </style>

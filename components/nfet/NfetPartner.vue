@@ -37,7 +37,7 @@ const partners = [
 .partners-section {
     background: #E2E8F0;
     padding: 80px 0px;
-    font-family: 'Segoe UI', sans-serif;
+
 }
 
 .container {
@@ -116,5 +116,26 @@ const partners = [
     line-height: 1.6;
     text-align: center;
     margin: 0;
+}
+
+@media (max-width: 768px) {
+    .partners-section {
+        padding: 40px 0px;
+    }
+
+    .title {
+        font-size: 24px;
+        line-height: 32px;
+    }
+
+    .subtitle {
+        margin-bottom: 30px;
+        font-size: 14px;
+    }
+
+    .header {
+        margin-bottom: 30px
+    }
+
 }
 </style>

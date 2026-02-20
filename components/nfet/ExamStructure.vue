@@ -95,7 +95,7 @@
                                 <strong>Free Interview Ticket</strong>
                             </div>
                             <p>B2 level achievers get 100% travel reimbursement to DLF Cyber City, Gurugram for
-                                interviews in dream organizations.</p>
+                                interviews in dream organisations.</p>
                         </div>
                     </div>
                 </div>
@@ -295,14 +295,22 @@
     color: #fff;
 }
 
+
 /* Responsive */
 @media (max-width: 768px) {
     .section-title {
-        font-size: 1.8rem;
+        font-size: 24px;
+        line-height: 32px;
     }
 
     .exam-card {
         padding: 1.5rem;
     }
+
+    .exam-section {
+        padding: 40px 0px;
+    }
 }
+
+@media (max-width: 576px) {}
 </style>

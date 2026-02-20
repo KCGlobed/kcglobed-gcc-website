@@ -54,4 +54,26 @@
     box-shadow: 0 4px 16px 0 rgba(0, 0, 0, 0.10);
     border: none
 }
+
+@media (max-width: 768px) {
+    .finance-career {
+        padding: 40px 0px;
+    }
+
+    .finance-career h2 {
+        font-size: 24px;
+        line-height: 32px;
+    }
+
+    .finance-career p {
+        font-size: 14px;
+        line-height: 24px;
+    }
+
+    .apply-now button {
+        font-size: 16px;
+        line-height: 24px;
+        padding: 12px 32px;
+    }
+}
 </style>
