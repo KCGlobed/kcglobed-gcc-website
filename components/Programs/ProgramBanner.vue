@@ -497,6 +497,11 @@
 }
 
 @media (max-width: 767px) {
+    .hero-slider-warp {
+        padding-top: 50px;
+        padding-bottom: 50px;
+    }
+
     .program-hero-card {
         padding: 2rem 1.5rem;
         border-radius: 15px;

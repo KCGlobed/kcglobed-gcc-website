@@ -4,10 +4,10 @@
 
             <!-- Heading -->
             <h2>
-                Why NEFT Exam for Commerce Graduates?
+                Why NFET Exam for Commerce Graduates?
             </h2>
             <p>
-                NEFT exam is a prestigious, merit-driven gateway designed to identify academically
+                NFET exam is a prestigious, merit-driven gateway designed to identify academically
                 strong commerce graduates with exceptional accounting, finance, and analytical capabilities.
             </p>
             <section class="nfet-card">

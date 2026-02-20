@@ -7,7 +7,14 @@
         <NfetWhoCanApply />
         <NfetForGraduate />
         <NfetSyllbus />
+        <NfetExamStructure />
+        <NfetTestingWindow />
+
+
+        <NfetPartner />
+        <NfetGuidline />
         <NfetFinanceCareer />
+
         <LayoutMainFooter />
         <LayoutCopyRight />
     </div>
