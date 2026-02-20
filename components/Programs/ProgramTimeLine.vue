@@ -287,14 +287,16 @@
 }
 
 @media screen and (max-width: 767px) {
-
+    .program-time-line-main {
+        padding: 40px 0px;
+    }
 
     .order-lg-1 {
-        order: 1 !important;
+        order: 2 !important;
     }
 
     .order-lg-2 {
-        order: 2 !important;
+        order: 1 !important;
     }
 
     .timeline-row {
@@ -309,5 +311,6 @@
     .purple-theme .step-number.shadow-text {
         display: none;
     }
+
 }
 </style>

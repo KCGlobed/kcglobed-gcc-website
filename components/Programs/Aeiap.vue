@@ -418,16 +418,24 @@
 
 @media (max-width: 767px) {
     .aeiap-area {
-        padding-top: 60px;
-        padding-bottom: 60px;
+        padding-top: 40px;
+        padding-bottom: 40px;
+    }
+
+    .title {
+        font-size: 24px;
+    }
+
+    .section-title {
+        margin-bottom: 30px;
     }
 
     .main-title {
-        font-size: 1.25rem;
+        font-size: 24px;
     }
 
     .sub-title {
-        font-size: 1rem;
+        font-size: 14px;
     }
 
     .ae-card {

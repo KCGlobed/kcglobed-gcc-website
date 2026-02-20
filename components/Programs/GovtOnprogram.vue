@@ -209,4 +209,15 @@ const programs = [
         height: 250px;
     }
 }
+
+@media (max-width: 768px) {
+
+    .govt-program-area {
+        padding: 40px 0px;
+    }
+
+    .section-title {
+        margin-bottom: 36px;
+    }
+}
 </style>

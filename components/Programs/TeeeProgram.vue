@@ -381,8 +381,21 @@ const steps = [
 
 @media (max-width: 575px) {
     .teee-area {
-        padding-top: 60px;
-        padding-bottom: 60px;
+        padding-top: 40px;
+        padding-bottom: 40px;
+    }
+
+    .section-title {
+        margin-bottom: 30px;
+    }
+
+    .hero-mockup-wrapper {
+        margin: 0px;
+    }
+
+    .title {
+        font-size: 24px;
+        line-height: 32px;
     }
 
     .step-card {

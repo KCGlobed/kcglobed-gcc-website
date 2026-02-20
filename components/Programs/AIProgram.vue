@@ -206,13 +206,29 @@ export default {
 }
 
 @media screen and (max-width: 767px) {
+    .ai-program-main {
+        padding: 40px 0px;
+    }
+
+    .section-title {
+        margin-bottom: 30px;
+    }
+
+    .title {
+        font-size: 24px;
+    }
+
+    .title::after {
+        margin: 8px auto 0;
+    }
+
     .sub-title {
-        font-size: 16px;
+        font-size: 14px;
     }
 
     .domains-grid {
         grid-template-columns: 1fr;
-        max-width: 320px;
+        max-width: 100%;
     }
 
     .certification-list {

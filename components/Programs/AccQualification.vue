@@ -347,6 +347,13 @@
 }
 
 @media (max-width: 768px) {
+    .title {
+        font-size: 24px;
+    }
+
+    .section-title {
+        margin-bottom: 30px;
+    }
 
     .level-box,
     .success-box {
@@ -367,6 +374,14 @@
         align-items: center;
         gap: 14px;
         justify-content: center;
+    }
+
+    .acca-red-box {
+        padding: 24px;
+    }
+
+    .card-four {
+        padding-bottom: 0px;
     }
 }
 </style>

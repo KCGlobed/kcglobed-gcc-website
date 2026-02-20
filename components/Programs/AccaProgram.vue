@@ -108,4 +108,28 @@
     font-weight: 500;
     line-height: 49.392px;
 }
+
+@media (max-width: 767px) {
+    .title {
+        font-size: 24px;
+        line-height: 32px;
+    }
+
+    .section-title {
+        margin-bottom: 30px;
+    }
+
+    .acca-program-wrapper {
+        padding: 40px 0px;
+    }
+
+    .acca-post-card h2 {
+        font-size: 18px;
+        line-height: 30px;
+    }
+
+    .acca-post-card h3 {
+        font-size: 18px;
+    }
+}
 </style>

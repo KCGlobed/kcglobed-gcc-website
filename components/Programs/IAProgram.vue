@@ -271,6 +271,7 @@ const splitModules = (modules) => {
 }
 
 @media (max-width: 991px) {
+
     .trimester-image-box {
         width: 200px;
         height: 250px;
@@ -282,6 +283,19 @@ const splitModules = (modules) => {
 }
 
 @media (max-width: 767px) {
+    .title {
+        font-size: 24px;
+        line-height: 32px;
+    }
+
+    .section-title {
+        margin-bottom: 30px;
+    }
+
+    .ia-program-area {
+        padding: 40px 0px;
+    }
+
     .trimester-image-box {
         width: 100%;
         height: 200px;

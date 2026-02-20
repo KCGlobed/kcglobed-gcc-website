@@ -193,6 +193,23 @@ const features = [
 }
 
 @media (max-width: 575px) {
+    .lms-features-area {
+        padding: 40px 0px;
+    }
+
+    .title {
+        font-size: 24px;
+        line-height: 32px;
+    }
+
+    .section-container {
+        padding: 0px !important;
+    }
+
+    .section-title {
+        margin-bottom: 30px;
+    }
+
     .feature-card {
         padding: 20px 15px;
     }
