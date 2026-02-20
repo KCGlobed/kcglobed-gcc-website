@@ -29,16 +29,16 @@
 
           </li>
           <li class="nav-item">
-            <NuxtLink to="#" class="nav-link">
+            <NuxtLink to="/nfet" class="nav-link">
               NFET Exam
             </NuxtLink>
 
           </li>
-          <li class="nav-item">
+          <!-- <li class="nav-item">
             <NuxtLink to="/admissions" class="nav-link">
               Admission
             </NuxtLink>
-          </li>
+          </li> -->
           <li class="nav-item">
             <NuxtLink to="/campus-life" class="nav-link">
               Campus Life
@@ -49,6 +49,12 @@
               About Us
             </NuxtLink>
           </li>
+          <li class="nav-item apply-btn">
+            <NuxtLink to="/about-overview" class="nav-link apply-now-btn">
+              Apply Now
+            </NuxtLink>
+          </li>
+
 
           <!-- <li class="nav-item">
             <NuxtLink to="/contact-us" class="nav-link">
@@ -57,13 +63,13 @@
           </li> -->
         </ul>
         <div class="others-option d-flex align-items-center">
-          <div class="option-item">
+          <!-- <div class="option-item">
             <div class="search-bar main-menu__search search-toggler" @click="toggleSearch" style="cursor: pointer">
               <div class="search-btn">
                 <img src="~/assets/img/svgs/search2.svg" alt="image" />
               </div>
             </div>
-          </div>
+          </div> -->
 
           <!-- <div class="option-item">
             <button class="btn side-bar-btn" type="button" @click="stateStoreInstance.onSidebarShow">
@@ -505,5 +511,45 @@ export default defineComponent({
 
 .suggestion-item:hover {
   background-color: #f5f5f5;
+}
+
+/* Fancy Apply Now Button */
+.apply-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.apply-now-btn {
+  background: #A13E99;
+  color: #fff !important;
+  padding: 10px 25px !important;
+  border-radius: 50px !important;
+  font-weight: 700 !important;
+  text-transform: uppercase;
+  font-size: 14px !important;
+  letter-spacing: 1px;
+  box-shadow: 0 4px 15px rgba(241, 166, 62, 0.3);
+  transition: all 0.3s ease-in-out !important;
+  display: inline-block;
+  line-height: normal !important;
+}
+
+.apply-now-btn:hover {
+  background: #872980;
+}
+
+@media (min-width: 992px) {}
+
+@media (max-width: 991px) {
+  .apply-now-btn {
+
+    text-align: center;
+    width: fit-content;
+  }
+
+  .nav-item.apply-btn {
+    text-align: center;
+  }
 }
 </style>

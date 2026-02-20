@@ -43,7 +43,7 @@
                 <div class="col-lg-6 col-md-12 mt-5 mt-lg-0">
                     <div class="video-box-wrapper" data-aos="fade-left">
                         <div class="video-preview-box shadow-lg">
-                            <img src="https://storage.googleapis.com/gcc_prod_static_files_backend/static/images/manna_sir_dreaming_global.jpeg"
+                            <img src="https://storage.googleapis.com/gcc_prod_static_files_backend/static/images/manna_into_dream_global.jpeg"
                                 alt="ED Message Video Preview" class="preview-img">
                             <div class="play-btn-wrap">
                                 <div class="play-btn">

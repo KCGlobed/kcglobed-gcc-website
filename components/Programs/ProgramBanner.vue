@@ -54,8 +54,11 @@
                                             </div>
                                         </div>
 
-                                        <button type="submit" class="btn btn-primary w-100 register-btn">
-                                            Download Now
+                                        <button type="submit" class="btn btn-primary w-100 register-btn"
+                                            :disabled="isSubmitting">
+                                            <span v-if="isSubmitting"
+                                                class="spinner-border spinner-border-sm me-2"></span>
+                                            {{ isSubmitting ? 'Processing...' : 'Download Now' }}
                                         </button>
 
                                         <p class="form-footer-text">
@@ -494,6 +497,11 @@
 }
 
 @media (max-width: 767px) {
+    .hero-slider-warp {
+        padding-top: 50px;
+        padding-bottom: 50px;
+    }
+
     .program-hero-card {
         padding: 2rem 1.5rem;
         border-radius: 15px;
@@ -547,12 +555,19 @@ export default defineComponent({
                 consent: ""
             }
 
-            if (!this.form.name) this.errors.name = "Name is required"
-            if (!this.form.mobile) this.errors.mobile = "Mobile number is required"
-            if (!this.form.email) {
-                this.errors.email = "Email is required"
+            if (!this.form.name.trim()) {
+                this.errors.name = "Full name is required"
+            }
+            if (!this.form.email.trim()) {
+                this.errors.email = "Email address is required"
             } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(this.form.email)) {
                 this.errors.email = "Please enter a valid email"
+            }
+            if (!this.form.mobile.trim()) {
+                this.errors.mobile = "Phone number is required"
+            }
+            if (!this.form.consent) {
+                this.errors.consent = "You must be a commerce graduate to proceed"
             }
 
             return Object.values(this.errors).every(error => error === "")
@@ -561,26 +576,48 @@ export default defineComponent({
         async submitForm() {
             if (!this.validateForm()) return
 
-            try {
-                // Handle form submission here
-                console.log("Form submitted:", this.form)
-                alert("Thank you! Your request has been received.")
+            this.isSubmitting = true;
 
-                // Reset form
-                this.form = {
-                    name: "",
-                    mobile: "",
-                    email: "",
-                    consent: false
+            try {
+                // Prepare payload for API
+                const payload = {
+                    full_name: this.form.name,
+                    email: this.form.email,
+                    phone: this.form.mobile
+                };
+
+                const windowOpen: any = window.open("", '_blank');
+
+                const response: any = await $fetch("https://gccwebsite-admin-backend-738131651355.asia-south1.run.app/api/career/createdossierform", {
+                    method: "POST",
+                    body: payload
+                });
+
+                if (response.success && response.data?.url) {
+                    windowOpen.location.href = response.data?.url;
+
+                    // Reset form
+                    this.form = {
+                        name: "",
+                        mobile: "",
+                        email: "",
+                        consent: false
+                    };
+                } else {
+                    if (windowOpen) windowOpen.close();
+                    alert(response.message || "Something went wrong. Please try again.");
                 }
-            } catch (error) {
-                console.error(error)
-                alert("Something went wrong. Please try again.")
+            } catch (error: any) {
+                console.error("Submission Error:", error);
+                alert(error.data?.message || "Server error. Please try again later.");
+            } finally {
+                this.isSubmitting = false;
             }
         }
     },
     data() {
         return {
+            isSubmitting: false,
             form: {
                 name: "",
                 mobile: "",

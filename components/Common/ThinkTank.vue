@@ -30,8 +30,8 @@ const images = [
 
     img6,
     img3,
-    img5,
-    img4,
+    // img5,
+    // img4,
 
 
 ]
