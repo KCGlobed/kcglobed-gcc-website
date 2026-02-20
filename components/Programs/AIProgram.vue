@@ -34,7 +34,7 @@ export default {
                 { title: 'Management<br>Accounting', icon: 'ti ti-user-cog', color: 'purple' },
                 { title: 'FP&A', icon: 'ti ti-chart-arrows', color: 'blue' },
                 { title: 'CFO<br>Advisory', icon: 'ti ti-user-search', color: 'blue' },
-                { title: 'Transaction<br>Advisory', icon: 'ti ti-hand-shake', color: 'magenta' },
+                { title: 'Transaction<br>Advisory', icon: 'ti ti-coins', color: 'magenta' },
                 { title: 'Corporate<br>Governance &<br>Compliance', icon: 'ti ti-gavel', color: 'purple' },
                 // { title: 'International<br>Tax Advisory', icon: 'ti ti-calculator', color: 'purple', centered: true },
             ]

@@ -14,7 +14,7 @@
                 <div class="card-body p-4 p-md-5">
 
                     <p class="small text-muted mb-4">
-                        <strong>(AI-Proctored Assessment Powered by Aon)</strong><br />
+                        <strong>(An Assessment Powered by Aon)</strong><br />
                         NFET is conducted on a secure AI-enabled platform with live human supervision
                         to ensure a fair and transparent assessment for B.Com First Division graduates.
                     </p>
