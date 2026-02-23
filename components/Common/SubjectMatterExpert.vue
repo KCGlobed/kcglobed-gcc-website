@@ -126,14 +126,49 @@ const images = [
 }
 
 @media (max-width: 1200px) {
+    .think-tank-area {
+        padding: 80px 0;
+    }
+
     .title {
         font-size: 28px;
     }
 }
 
 @media (max-width: 991px) {
+    .think-tank-area {
+        padding: 60px 0;
+    }
+
     .title {
         font-size: 24px;
+    }
+}
+
+@media (max-width: 768px) {
+    .section-title {
+        margin-bottom: 30px;
+    }
+
+    .title {
+        font-size: 20px;
+        letter-spacing: 1px;
+    }
+
+    .title::after {
+        width: 50px;
+        height: 3px;
+        margin-top: 10px;
+    }
+
+    .image-box {
+        padding: 10px;
+    }
+}
+
+@media (max-width: 480px) {
+    .title {
+        font-size: 18px;
     }
 }
 </style>

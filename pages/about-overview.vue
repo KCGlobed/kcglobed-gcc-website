@@ -2,35 +2,30 @@
   <div>
     <LayoutTopHeader />
     <LayoutMainNavbar />
-    <!-- <CommonInnerPageBanner pageTitle="Where Potential Becomes Performance " mainTitle="OVERVIEW" /> -->
-    <AboutCampusAboutUsBanner />
-    <CommonAboutPagesList />
-    <AboutOverviewAboutUniversity />
-    <AboutOverviewSustainability />
-    <AboutOverviewGovtOnGcc />
-    <!-- <AboutOverviewAboutGCC /> -->
-    <MissionAndValuesMissionAndValue />
-    <MissionAndValuesOfTheUniversity />
+    <AboutBanner />
 
-    <!-- <AboutOverviewVisionMission /> -->
-    <AboutOverviewLeadership />
-    <CommonOurLegacy />
-    <CommonOurMentor />
-    <!-- <CommonFunFact />
-    <AboutOverviewCultureWarp />
-    <AboutOverviewAdmissionAndAid />
-    <AboutOverviewProfessionalLearning />
-    <AboutOverviewServicesContent />
-    <AboutOverviewLatestNews /> -->
+    <AboutMeetCreater />
+
+    <AboutThinkTank />
+    <AboutCoreValue />
+    <AboutIndustryMentor />
+    <CommonSubjectMatterExpert />
+    <AboutTechPartner />
+    <CommonTrustecoSystem />
+
+
+
+
+
+
+    <CampusLifeCampusGoal />
     <LayoutMainFooter />
     <LayoutCopyRight />
   </div>
 </template>
 
 <script setup lang="ts">
-// import { defineComponent } from "vue";
 
-// export default defineComponent({});
 useHead({
   title: "GCC School | About US",
 })

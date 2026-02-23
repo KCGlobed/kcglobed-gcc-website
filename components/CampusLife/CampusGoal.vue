@@ -152,44 +152,24 @@ export default defineComponent({
 }
 
 /* Tablet breakpoint (md) */
-@media (min-width: 768px) {
+@media (max-width: 767px) {
     .goals-grid {
-        grid-template-columns: repeat(5, 1fr);
+        grid-template-columns: repeat(3, 1fr);
+        gap: 0.5rem;
     }
-}
 
-/* Desktop breakpoint (lg) */
-@media (min-width: 992px) {
     .heading-primary {
-        font-size: 1.875rem;
-    }
-
-    .heading-secondary {
-        font-size: 1.875rem;
+        font-size: 1.1rem;
     }
 
     .goals-section {
-        margin-bottom: 2.5rem;
-    }
-
-    .goals-grid {
-        grid-template-columns: repeat(6, 1fr);
-        gap: 1rem;
-        margin-top: 2.5rem;
-        margin-bottom: 5rem;
-    }
-
-    .goal-image {
-        height: 9rem;
-        width: 9rem;
-        margin-bottom: 0;
+        padding: 0 10px;
     }
 }
 
-/* Extra large breakpoint (xl) */
-@media (min-width: 1200px) {
+@media (max-width: 480px) {
     .goals-grid {
-        grid-template-columns: repeat(6, 1fr);
+        grid-template-columns: repeat(2, 1fr);
     }
 }
 </style>

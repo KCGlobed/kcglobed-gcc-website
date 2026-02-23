@@ -348,11 +348,12 @@ const ecosystemImages = [
         grid-template-columns: 1fr;
     } */
 
-       .org-card {
+    .org-card {
         height: 73px;
         padding: 5px;
     }
-    .organistion-grid{
+
+    .organistion-grid {
         gap: 0px;
     }
 }
