@@ -1,10 +1,12 @@
 import { Storage } from '@google-cloud/storage'
+import path from 'path'
+
 const storageConfig: any = {
     projectId: process.env.GCP_PROJECT_ID,
 }
 
 if (process.env.NODE_ENV !== 'production') {
-    storageConfig.keyFilename = 'service-account.json'
+    storageConfig.keyFilename = path.resolve(process.cwd(), 'service-account.json')
 }
 
 export const storage = new Storage(storageConfig)

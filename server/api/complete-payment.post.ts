@@ -65,7 +65,7 @@ export default defineEventHandler(async (event) => {
         // Save failed payment
         if (userId) {
             await savePayment({
-                user_id: userId,
+                student_id: userId,
                 razorpay_order_id,
                 razorpay_payment_id,
                 razorpay_signature,
@@ -85,7 +85,7 @@ export default defineEventHandler(async (event) => {
     try {
         // Save success payment
         const paymentId = await savePayment({
-            user_id: userId,
+            student_id: userId,
             razorpay_order_id,
             razorpay_payment_id,
             razorpay_signature,
@@ -107,7 +107,7 @@ export default defineEventHandler(async (event) => {
         if (userId) {
             try {
                 await savePayment({
-                    user_id: userId,
+                    student_id: userId,
                     razorpay_order_id,
                     razorpay_payment_id,
                     razorpay_signature,
