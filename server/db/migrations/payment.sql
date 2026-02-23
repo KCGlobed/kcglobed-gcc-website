@@ -1,6 +1,6 @@
 CREATE TABLE payments (
   id SERIAL PRIMARY KEY,
-  user_id INT NOT NULL REFERENCES users(id) ON DELETE CASCADE,
+  student_id INT NOT NULL REFERENCES students_data(id) ON DELETE CASCADE,
   razorpay_order_id VARCHAR(255),
   razorpay_payment_id VARCHAR(255),
   razorpay_signature VARCHAR(255),

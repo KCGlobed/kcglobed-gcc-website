@@ -39,7 +39,7 @@ export default defineEventHandler(async (event) => {
 
         // Save failed payment
         await savePayment({
-            user_id: userId,
+            student_id: userId,
             razorpay_order_id,
             razorpay_payment_id: razorpay_payment_id || 'N/A',
             razorpay_signature: 'N/A', // No signature for failed transactions reported by client

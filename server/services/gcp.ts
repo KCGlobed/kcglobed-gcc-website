@@ -1,8 +1,13 @@
 import { Storage } from '@google-cloud/storage'
-export const storage = new Storage({
+const storageConfig: any = {
     projectId: process.env.GCP_PROJECT_ID,
-    // keyFilename: 'service-account.json'
-})
+}
+
+if (process.env.NODE_ENV !== 'production') {
+    storageConfig.keyFilename = 'service-account.json'
+}
+
+export const storage = new Storage(storageConfig)
 
 export const bucket = storage.bucket(process.env.GCP_BUCKET_NAME || 'asd')
 

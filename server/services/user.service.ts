@@ -1,9 +1,25 @@
 import { pool } from '../utils/db';
 
 export async function saveUser(data: any) {
-  data.ug_cgpa = data.ug_cgpa || 0;
-  data.cgpa = data.cgpa || 0;
-  console.log("data", data)
+  // Helpers to sanitize data for PostgreSQL
+  const toBool = (val: any) => {
+    if (val === 'Yes' || val === true) return true;
+    if (val === 'No' || val === false) return false;
+    return null;
+  };
+
+  const toNum = (val: any) => {
+    const n = parseFloat(val);
+    return isNaN(n) ? 0 : n;
+  };
+
+  const toInt = (val: any) => {
+    const n = parseInt(val);
+    return isNaN(n) ? null : n;
+  };
+
+  console.log("Sanitizing data for saveUser", data);
+
   const query = `
     INSERT INTO students_data (
       first_name, last_name,
@@ -46,7 +62,7 @@ export async function saveUser(data: any) {
     data.mother_email,
     data.mother_occupation,
 
-    data.dob,
+    data.dob || null,
     data.gender,
     data.nationality || 'Indian',
 
@@ -56,25 +72,25 @@ export async function saveUser(data: any) {
     data.state,
     data.pin_code,
 
-    data.class10_year,
-    data.class10_score,
-    data.class12_year,
-    data.class12_score,
-    data.medium_of_instruction,
+    toInt(data.class10_year),
+    toNum(data.class10_score),
+    toInt(data.class12_year),
+    toNum(data.class12_score),
+    data.medium_of_instruction || data.medium,
     data.medium_other,
     data.ug_status,
-    data.first_division,
-    data.ug_cgpa || 0,
+    toBool(data.first_division),
+    toNum(data.ug_cgpa),
     data.ug_institution,
-    data.pg_exists,
+    toBool(data.pg_exists),
     data.pg_type,
     data.pg_other,
     data.pg_institution,
     data.highest_qualification,
     data.university,
-    data.semester,
-    data.cgpa || 0,
-    data.graduation_year,
+    toInt(data.semester),
+    toNum(data.cgpa),
+    toInt(data.graduation_year),
 
     JSON.stringify(data.work_experience || [])
   ]
