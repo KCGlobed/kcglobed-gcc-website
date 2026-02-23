@@ -138,38 +138,20 @@ export default defineComponent({
                     email: form.email,
                     phone: form.phone
                 };
-
-                const windowOpen: any = window.open("", '_blank');
-
                 const response: any = await $fetch("https://gccwebsite-admin-backend-738131651355.asia-south1.run.app/api/career/createdossierform", {
                     method: "POST",
                     body: payload
                 });
 
                 if (response.success && response.data?.url) {
-                    windowOpen.location.href = response.data?.url;
+                    const fileUrl = response.data.url;
+                    const fileName = fileUrl.split('/').pop() || 'Dossier.pdf';
 
-                    // try {
-                    //     const fileResponse = await fetch(fileUrl);
-                    //     const blob = await fileResponse.blob();
-                    //     const blobUrl = window.URL.createObjectURL(blob);
+                    // Trigger download via proxy to avoid CORS and navigation
+                    // Since it's an attachment, window.location.href won't navigate
+                    window.location.href = `/api/download?url=${encodeURIComponent(fileUrl)}&filename=${encodeURIComponent(fileName)}`;
 
-                    //     const link = document.createElement('a');
-                    //     link.href = blobUrl;
-                    //     link.setAttribute('download', fileName);
-                    //     link.style.display = 'none';
-                    //     document.body.appendChild(link);
-                    //     link.click();
-
-                    //     document.body.removeChild(link);
-                    //     window.URL.revokeObjectURL(blobUrl);
-                    //     alert("Thank you! Your dossier is being downloaded.");
-                    // } catch (downloadError) {
-                    //     console.error("Download Error (maybe CORS):", downloadError);
-                    //     // Fallback to direct open if blob fetch fails
-                    //     window.open(fileUrl, '_blank');
-                    //     alert("Thank you! Your dossier is opening.");
-                    // }
+                    alert("Thank you! Your dossier is being downloaded.");
 
                     // Close modal
                     if (closeModalBtn.value) {
