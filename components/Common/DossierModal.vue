@@ -2,7 +2,7 @@
     <div class="modal fade dossier-modal" id="dossierModal" tabindex="-1" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content border-0 overflow-hidden">
-                <div class="modal-body p-4 p-md-5 position-relative">
+                <div class="modal-body px-4 py-3 p-md-5 position-relative">
                     <button type="button" class="btn-close position-absolute top-0 end-0 m-3" data-bs-dismiss="modal"
                         ref="closeModalBtn"></button>
 
@@ -12,25 +12,48 @@
                     </div>
 
                     <form @submit.prevent="submitForm" class="dossier-form">
-                        <div class="mb-3">
+                        <div class="mb-2">
                             <label class="form-label fw-bold small">Full Name*</label>
                             <input v-model="form.name" type="text" class="form-control custom-input"
                                 placeholder="Enter your full name">
                             <small class="text-danger" v-if="errors.name">{{ errors.name }}</small>
                         </div>
 
-                        <div class="mb-3">
-                            <label class="form-label fw-bold small">Email Address*</label>
-                            <input v-model="form.email" type="email" class="form-control custom-input"
-                                placeholder="Enter your email address">
-                            <small class="text-danger" v-if="errors.email">{{ errors.email }}</small>
+                        <div class="row">
+                            <div class="col-md-6 mb-2">
+                                <label class="form-label fw-bold small">Email Address*</label>
+                                <input v-model="form.email" type="email" class="form-control custom-input"
+                                    placeholder="Enter your email address">
+                                <small class="text-danger" v-if="errors.email">{{ errors.email }}</small>
+                            </div>
+
+                            <div class="col-md-6 mb-2">
+                                <label class="form-label fw-bold small">Phone Number*</label>
+                                <input v-model="form.phone" type="tel" class="form-control custom-input"
+                                    placeholder="Enter your phone number">
+                                <small class="text-danger" v-if="errors.phone">{{ errors.phone }}</small>
+                            </div>
+
                         </div>
 
-                        <div class="mb-3">
-                            <label class="form-label fw-bold small">Phone Number*</label>
-                            <input v-model="form.phone" type="tel" class="form-control custom-input"
-                                placeholder="Enter your phone number">
-                            <small class="text-danger" v-if="errors.phone">{{ errors.phone }}</small>
+                        <div class="row">
+                            <div class="col-md-6 mb-2">
+                                <label class="form-label fw-bold small">State*</label>
+                                <select v-model="form.state" class="form-select custom-input" @change="onStateChange">
+                                    <option value="" disabled>Select State</option>
+                                    <option v-for="state in states" :key="state" :value="state">{{ state }}</option>
+                                </select>
+                                <small class="text-danger" v-if="errors.state">{{ errors.state }}</small>
+                            </div>
+
+                            <div class="col-md-6 mb-2">
+                                <label class="form-label fw-bold small">City*</label>
+                                <select v-model="form.city" class="form-select custom-input">
+                                    <option value="" disabled>Select City</option>
+                                    <option v-for="city in citiesList" :key="city" :value="city">{{ city }}</option>
+                                </select>
+                                <small class="text-danger" v-if="errors.city">{{ errors.city }}</small>
+                            </div>
                         </div>
 
                         <div class="mb-4">
@@ -70,6 +93,7 @@
 
 <script lang="ts">
 import { defineComponent, ref, reactive } from 'vue';
+import statesCitiesData from '~/assets/states-cities.json';
 
 export default defineComponent({
     name: 'DossierModal',
@@ -81,6 +105,8 @@ export default defineComponent({
             name: '',
             email: '',
             phone: '',
+            state: '',
+            city: '',
             isCommerceGraduate: false
         });
 
@@ -88,8 +114,18 @@ export default defineComponent({
             name: '',
             email: '',
             phone: '',
+            state: '',
+            city: '',
             isCommerceGraduate: ''
         });
+
+        const states = Object.keys(statesCitiesData);
+        const citiesList = ref<string[]>([]);
+
+        const onStateChange = () => {
+            citiesList.value = (statesCitiesData as any)[form.state] || [];
+            form.city = '';
+        };
 
         const validateEmail = (email: string) => {
             return String(email)
@@ -102,6 +138,8 @@ export default defineComponent({
             errors.name = '';
             errors.email = '';
             errors.phone = '';
+            errors.state = '';
+            errors.city = '';
 
             if (!form.name.trim()) {
                 errors.name = 'Full name is required';
@@ -116,6 +154,14 @@ export default defineComponent({
             }
             if (!form.phone.trim()) {
                 errors.phone = 'Phone number is required';
+                isValid = false;
+            }
+            if (!form.state) {
+                errors.state = 'State is required';
+                isValid = false;
+            }
+            if (!form.city) {
+                errors.city = 'City is required';
                 isValid = false;
             }
             if (!form.isCommerceGraduate) {
@@ -136,7 +182,9 @@ export default defineComponent({
                 const payload = {
                     full_name: form.name,
                     email: form.email,
-                    phone: form.phone
+                    phone: form.phone,
+                    state: form.state,
+                    city: form.city
                 };
                 const response: any = await $fetch("https://gccwebsite-admin-backend-738131651355.asia-south1.run.app/api/career/createdossierform", {
                     method: "POST",
@@ -162,7 +210,10 @@ export default defineComponent({
                     form.name = '';
                     form.email = '';
                     form.phone = '';
+                    form.state = '';
+                    form.city = '';
                     form.isCommerceGraduate = false;
+                    citiesList.value = [];
                 } else {
                     alert(response.message || "Something went wrong. Please try again.");
                 }
@@ -177,6 +228,9 @@ export default defineComponent({
         return {
             form,
             errors,
+            states,
+            citiesList,
+            onStateChange,
             isSubmitting,
             submitForm,
             closeModalBtn
@@ -195,7 +249,7 @@ export default defineComponent({
     color: #511970 !important;
     text-align: center;
     font-family: 'Inter', sans-serif;
-    font-size: 29.848px;
+    font-size: 24px;
     font-style: normal;
     font-weight: 700;
     line-height: 1.2;
@@ -212,14 +266,14 @@ export default defineComponent({
     background-color: #f8f9fa;
     border: 1px solid #e9ecef;
     border-radius: 12px;
-    padding: 12px 18px;
-    font-size: 15px;
+    padding: 10px 16px;
+    font-size: 14px;
     transition: all 0.3s ease;
 }
 
 @media (min-width: 768px) {
     .custom-input {
-        padding: 15px 20px;
+        padding: 12px 18px;
     }
 }
 

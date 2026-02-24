@@ -19,7 +19,7 @@
 
                                     <form @submit.prevent="submitForm" class="registration-form">
                                         <label for="fullName">Full Name*</label>
-                                        <div class="form-floating mb-3">
+                                        <div class="form-floating mb-2">
 
                                             <input type="text" class="form-control" id="fullName" v-model="form.name"
                                                 placeholder="Enter your full name"
@@ -27,21 +27,60 @@
 
                                             <div class="invalid-feedback" v-if="errors.name">{{ errors.name }}</div>
                                         </div>
-
-                                        <label for="emailAddress">Email Address*</label>
-                                        <div class="form-floating mb-3">
-                                            <input type="email" class="form-control" id="emailAddress"
-                                                v-model="form.email" placeholder="Enter your email address"
-                                                :class="{ 'is-invalid': errors.email }">
-                                            <div class="invalid-feedback" v-if="errors.email">{{ errors.email }}</div>
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <label for="emailAddress">Email Address*</label>
+                                                <div class="form-floating mb-2">
+                                                    <input type="email" class="form-control" id="emailAddress"
+                                                        v-model="form.email" placeholder="Enter your email address"
+                                                        :class="{ 'is-invalid': errors.email }">
+                                                    <div class="invalid-feedback" v-if="errors.email">{{ errors.email }}
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <label for="phoneNumber">Phone Number*</label>
+                                                <div class="form-floating mb-2">
+                                                    <input type="tel" class="form-control" id="phoneNumber"
+                                                        v-model="form.mobile" placeholder="Enter your phone number"
+                                                        :class="{ 'is-invalid': errors.mobile }">
+                                                    <div class="invalid-feedback" v-if="errors.mobile">{{ errors.mobile
+                                                    }}
+                                                    </div>
+                                                </div>
+                                            </div>
                                         </div>
 
-                                        <label for="phoneNumber">Phone Number*</label>
-                                        <div class="form-floating mb-3">
-                                            <input type="tel" class="form-control" id="phoneNumber"
-                                                v-model="form.mobile" placeholder="Enter your phone number"
-                                                :class="{ 'is-invalid': errors.mobile }">
-                                            <div class="invalid-feedback" v-if="errors.mobile">{{ errors.mobile }}</div>
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <label for="state">State*</label>
+                                                <div class="form-floating mb-2">
+                                                    <select class="form-select" id="state" v-model="form.state"
+                                                        @change="onStateChange" :class="{ 'is-invalid': errors.state }">
+                                                        <option value="" disabled>Select State</option>
+                                                        <option v-for="state in states" :key="state" :value="state">{{
+                                                            state }}
+                                                        </option>
+                                                    </select>
+                                                    <div class="invalid-feedback" v-if="errors.state">{{ errors.state }}
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="col-md-6">
+                                                <label for="city">City*</label>
+                                                <div class="form-floating mb-2">
+                                                    <select class="form-select" id="city" v-model="form.city"
+                                                        :class="{ 'is-invalid': errors.city }">
+                                                        <option value="" disabled>Select City</option>
+                                                        <option v-for="city in citiesList" :key="city" :value="city">{{
+                                                            city }}
+                                                        </option>
+                                                    </select>
+                                                    <div class="invalid-feedback" v-if="errors.city">{{ errors.city }}
+                                                    </div>
+                                                </div>
+                                            </div>
                                         </div>
 
                                         <div class="form-check mb-3">
@@ -174,7 +213,7 @@
 }
 
 .card-header h2 {
-    font-size: 1.75rem;
+    font-size: 1.5rem;
     font-weight: 700;
     color: #511970;
     margin-bottom: 0.5rem;
@@ -193,11 +232,11 @@
 
 .registration-form>label {
     display: block;
-    font-size: 0.9rem;
+    font-size: 0.85rem;
     font-weight: 500;
     color: #333;
-    margin-bottom: 0.5rem;
-    margin-top: 0.3rem;
+    margin-bottom: 0.3rem;
+    margin-top: 0.2rem;
 }
 
 .form-floating {
@@ -208,8 +247,8 @@
 .form-floating>.form-select {
     border: 1px solid #e0e0e0;
     border-radius: 8px;
-    font-size: 0.95rem;
-    padding: 0.85rem 1rem;
+    font-size: 0.85rem;
+    padding: 0.6rem 0.9rem;
     background: #f8f9fa;
     transition: all 0.3s ease;
     height: auto;
@@ -278,8 +317,8 @@
     background: linear-gradient(135deg, #6a1b9a 0%, #8e24aa 100%);
     border: none;
     border-radius: 8px;
-    padding: 0.9rem 1.5rem;
-    font-size: 1rem;
+    padding: 0.75rem 1.2rem;
+    font-size: 0.9rem;
     font-weight: 600;
     text-transform: uppercase;
     letter-spacing: 0.5px;
@@ -301,7 +340,7 @@
 /* Form Footer Text */
 .form-footer-text {
     text-align: center;
-    font-size: 0.8rem;
+    font-size: 0.75rem;
     color: #999;
     margin-top: 1.2rem;
     margin-bottom: 0;
@@ -424,9 +463,6 @@
     transition: background 0.3s ease;
 }
 
-.video-play-overlay:hover {
-    /* background: rgba(0, 0, 0, 0.3); */
-}
 
 .play-icon {
     width: 65px;
@@ -540,6 +576,7 @@
 
 <script lang="ts">
 import { defineComponent } from "vue";
+import statesCitiesData from "../../assets/states-cities.json";
 
 import image1 from "../../assets/img/heros/hero_bg.svg";
 import gccPdf from "../../assets/gcc.pdf";
@@ -552,6 +589,8 @@ export default defineComponent({
                 name: "",
                 mobile: "",
                 email: "",
+                state: "",
+                city: "",
                 consent: ""
             }
 
@@ -565,6 +604,12 @@ export default defineComponent({
             }
             if (!this.form.mobile.trim()) {
                 this.errors.mobile = "Phone number is required"
+            }
+            if (!this.form.state) {
+                this.errors.state = "State is required"
+            }
+            if (!this.form.city) {
+                this.errors.city = "City is required"
             }
             if (!this.form.consent) {
                 this.errors.consent = "You must be a commerce graduate to proceed"
@@ -583,7 +628,9 @@ export default defineComponent({
                 const payload = {
                     full_name: this.form.name,
                     email: this.form.email,
-                    phone: this.form.mobile
+                    phone: this.form.mobile,
+                    state: this.form.state,
+                    city: this.form.city
                 };
 
                 const windowOpen: any = window.open("", '_blank');
@@ -601,8 +648,11 @@ export default defineComponent({
                         name: "",
                         mobile: "",
                         email: "",
+                        state: "",
+                        city: "",
                         consent: false
                     };
+                    this.citiesList = [];
                 } else {
                     if (windowOpen) windowOpen.close();
                     alert(response.message || "Something went wrong. Please try again.");
@@ -613,6 +663,10 @@ export default defineComponent({
             } finally {
                 this.isSubmitting = false;
             }
+        },
+        onStateChange() {
+            this.citiesList = (statesCitiesData as any)[this.form.state] || [];
+            this.form.city = "";
         }
     },
     data() {
@@ -622,12 +676,18 @@ export default defineComponent({
                 name: "",
                 mobile: "",
                 email: "",
+                state: "",
+                city: "",
                 consent: false,
             },
+            states: Object.keys(statesCitiesData),
+            citiesList: [],
             errors: {
                 name: "",
                 mobile: "",
                 email: "",
+                state: "",
+                city: "",
                 consent: ""
             },
             banners: [
