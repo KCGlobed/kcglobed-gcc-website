@@ -15,33 +15,33 @@
                     <NuxtLink to="/programs">Program</NuxtLink>
                   </li>
                   <li>
-                    <NuxtLink to="/nfet-exam">NFET Exam</NuxtLink>
+                    <NuxtLink to="/nfet">NFET Exam</NuxtLink>
                   </li>
-                  <li>
-                    <NuxtLink to="/admissions">Admission</NuxtLink>
-                  </li>
+                  <!-- <li>
+                    <NuxtLink to="/admissions">Student Admission</NuxtLink>
+                  </li> -->
                   <li>
                     <NuxtLink to="/campus-life">Campus Life</NuxtLink>
                   </li>
                   <li>
                     <NuxtLink to="/about-overview">About Us</NuxtLink>
                   </li>
-                  <li>
+                  <!-- <li>
                     <NuxtLink to="/contact-us">Contact Us</NuxtLink>
-                  </li>
+                  </li> -->
                   <li><a href="https://www.kcglobed.com/" target="_blank">KC GlobEd</a></li>
                   <li>
-                    <NuxtLink to="/ambassador">Ambassador</NuxtLink>
+                    <NuxtLink to="/campus-ceo/student">Ambassador</NuxtLink>
                   </li>
                   <li>
                     <NuxtLink to="/corporate-partner">Corporate Partner</NuxtLink>
                   </li>
                   <li>
-                    <NuxtLink to="/career">Career</NuxtLink>
+                    <NuxtLink to="/career">Careers</NuxtLink>
                   </li>
-                  <li>
+                  <!-- <li>
                     <NuxtLink to="/login">Login</NuxtLink>
-                  </li>
+                  </li> -->
                 </ul>
               </div>
             </div>
