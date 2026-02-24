@@ -195,7 +195,7 @@
                   <div class="input-box">
                     <label class="form-label">Nationality</label>
                     <input type="text" style="color:gray;" readonly="true" class="form-control"
-                      v-model="formData.nationality" value="Indian" />
+                      v-model="formData.nationality" />
                   </div>
                 </div>
               </div>
