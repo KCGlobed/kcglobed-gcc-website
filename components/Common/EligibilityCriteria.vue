@@ -14,7 +14,7 @@
                             <div class="icon-box">
                                 <i class="ti ti-circle-check-filled"></i>
                             </div>
-                            <span>B.Com (First Division)</span>
+                            <span>B.Com (First Division From UGC Approved University)</span>
                         </div>
                         <div class="criteria-item">
                             <div class="icon-box">

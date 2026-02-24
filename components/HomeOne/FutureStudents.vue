@@ -3,7 +3,7 @@
     <div class="container">
       <div class="ticket-header-bar">
         <h2>PASS NFET ENTRANCE EXAM AND GET YOUR TICKET</h2>
-        <p>TO EXPERIENCE THE CORPORATE WORLD AT CYBER CITY, GURUGRAM</p>
+        <p>TO EXPERIENCE THE CORPORATE WORLD AT DLF CYBER CITY, GURUGRAM</p>
       </div>
 
       <div class="ticket-wrapper">
@@ -84,7 +84,7 @@
 
         <!-- Right Section (White) -->
         <div class="ticket-right">
-          <h3>TICKET TO CYBER CITY</h3>
+          <h3>TICKET TO DLF CYBERCITY , GURUGRAM</h3>
 
           <div class="info-group mt-4">
             <label>INCLUSIVE</label>
