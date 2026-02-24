@@ -13,21 +13,26 @@ export default defineEventHandler(async (event) => {
         });
     }
 
-    const keySecret = process.env.RAZORPAY_KEY_SECRET;
-    if (!keySecret) {
+    const config = useRuntimeConfig(event);
+    const keySecret = (config.razorpayKeySecret || "").replace(/['"]/g, '').trim();
+    const keyId = (config.razorpayKeyId || "").replace(/['"]/g, '').trim();
+
+    if (!keyId || !keySecret) {
         throw createError({
             statusCode: 500,
-            message: "Razorpay secret not configured"
+            message: "Razorpay configuration missing on server"
         });
     }
 
     // Initialize Razorpay
     const razorpay = new Razorpay({
-        key_id: process.env.RAZORPAY_KEY_ID!,
+        key_id: keyId,
         key_secret: keySecret
     });
 
     let userId = null;
+    let formType = null;
+    let formId = null;
     let amount = 0;
     let currency = 'INR';
 
@@ -37,16 +42,15 @@ export default defineEventHandler(async (event) => {
 
         // @ts-ignore
         userId = order.notes ? order.notes.user_id : null;
+        // @ts-ignore
+        formType = order.notes ? order.notes.form_type : null;
+        // @ts-ignore
+        formId = order.notes ? order.notes.form_id : null;
+
         amount = (order.amount as number) / 100;
         currency = order.currency;
 
-        if (!userId) {
-            throw createError({
-                statusCode: 400,
-                message: "User ID not found in order notes"
-            });
-        }
-
+        // form_id is optional — present in Dossier flow, absent in Student Application flow
     } catch (error: any) {
         console.error("Error fetching Razorpay order:", error);
         throw createError({
@@ -63,18 +67,18 @@ export default defineEventHandler(async (event) => {
 
     if (generated_signature !== razorpay_signature) {
         // Save failed payment
-        if (userId) {
-            await savePayment({
-                student_id: userId,
-                razorpay_order_id,
-                razorpay_payment_id,
-                razorpay_signature,
-                amount,
-                currency,
-                status: "failed",
-                response: JSON.stringify({ ...body, error: "Invalid payment signature" })
-            });
-        }
+        await savePayment({
+            student_id: userId,
+            form_type: formType,
+            form_id: formId,
+            razorpay_order_id,
+            razorpay_payment_id,
+            razorpay_signature,
+            amount,
+            currency,
+            status: "failed",
+            response: JSON.stringify({ ...body, error: "Invalid payment signature" })
+        });
 
         throw createError({
             statusCode: 400,
@@ -86,6 +90,8 @@ export default defineEventHandler(async (event) => {
         // Save success payment
         const paymentId = await savePayment({
             student_id: userId,
+            form_type: formType,
+            form_id: formId,
             razorpay_order_id,
             razorpay_payment_id,
             razorpay_signature,
@@ -104,21 +110,21 @@ export default defineEventHandler(async (event) => {
     } catch (error: any) {
         console.error("Payment Saving Error:", error);
 
-        if (userId) {
-            try {
-                await savePayment({
-                    student_id: userId,
-                    razorpay_order_id,
-                    razorpay_payment_id,
-                    razorpay_signature,
-                    amount,
-                    currency,
-                    status: "failed",
-                    response: JSON.stringify({ ...body, error: error.message || "Failed to save payment" })
-                });
-            } catch (innerError) {
-                console.error("Failed to save payment failure log:", innerError);
-            }
+        try {
+            await savePayment({
+                student_id: userId,
+                form_type: formType,
+                form_id: formId,
+                razorpay_order_id,
+                razorpay_payment_id,
+                razorpay_signature,
+                amount,
+                currency,
+                status: "failed",
+                response: JSON.stringify({ ...body, error: error.message || "Failed to save payment" })
+            });
+        } catch (innerError) {
+            console.error("Failed to save payment failure log:", innerError);
         }
 
         throw createError({

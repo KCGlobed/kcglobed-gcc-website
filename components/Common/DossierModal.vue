@@ -68,11 +68,25 @@
                                 errors.isCommerceGraduate }}</small>
                         </div>
 
-                        <button type="submit" class="btn btn-register w-100 py-3 fw-bold text-uppercase"
-                            :disabled="isSubmitting">
+                        <button v-if="!isDownloaded" type="submit"
+                            class="btn btn-register w-100 py-3 fw-bold text-uppercase" :disabled="isSubmitting">
                             <span v-if="isSubmitting" class="spinner-border spinner-border-sm me-2"></span>
                             {{ isSubmitting ? 'Processing...' : 'DOWNLOAD NOW' }}
                         </button>
+
+                        <button v-else type="button" @click="handlePayment"
+                            class="btn btn-register w-100 py-3 fw-bold text-uppercase" :disabled="isPaymentInProgress">
+                            <span v-if="isPaymentInProgress" class="spinner-border spinner-border-sm me-2"></span>
+                            {{ isPaymentInProgress ? 'Opening Payment...' : 'PAY NOW' }}
+                        </button>
+
+                        <div v-if="notification.message"
+                            :class="['alert mt-3 mb-0 py-2 px-3 rounded-3 small', notification.type === 'success' ? 'alert-success' : 'alert-danger']"
+                            role="alert">
+                            <span v-if="notification.type === 'success'">✅</span>
+                            <span v-else>❌</span>
+                            {{ notification.message }}
+                        </div>
 
                         <div class="text-center mt-4">
                             <p class="small text-muted mb-0">
@@ -89,17 +103,45 @@
             </div>
         </div>
     </div>
+
+    <!-- Payment Status Modal -->
+    <PaymentStatusModal :status="paymentStatus" :payment-id="paymentId" />
 </template>
 
 <script lang="ts">
-import { defineComponent, ref, reactive } from 'vue';
+import { defineComponent, ref, reactive, nextTick, defineAsyncComponent } from 'vue';
 import statesCitiesData from '~/assets/states-cities.json';
 
 export default defineComponent({
     name: 'DossierModal',
+    components: {
+        PaymentStatusModal: defineAsyncComponent(() => import('~/components/Common/PaymentStatusModal.vue'))
+    },
     setup() {
         const isSubmitting = ref(false);
+        const isPaymentInProgress = ref(false);
+        const isDownloaded = ref(false);
+        const formId = ref<number | null>(null);
         const closeModalBtn = ref<HTMLButtonElement | null>(null);
+        const notification = reactive({ type: '', message: '' });
+        const paymentStatus = ref<'success' | ''>('');
+        const paymentId = ref('');
+
+        const showNotification = (type: 'success' | 'error', message: string) => {
+            notification.type = type;
+            notification.message = message;
+        };
+
+        const openStatusModal = async (status: 'success', pid: string = '') => {
+            paymentStatus.value = status;
+            paymentId.value = pid;
+            await nextTick();
+            const el = document.getElementById('paymentStatusModal');
+            if (el) {
+                const { Modal } = await import('bootstrap');
+                new Modal(el).show();
+            }
+        };
 
         const form = reactive({
             name: '',
@@ -193,35 +235,137 @@ export default defineComponent({
 
                 if (response.success && response.data?.url) {
                     const fileUrl = response.data.url;
+                    formId.value = response.data.id;
                     const fileName = fileUrl.split('/').pop() || 'Dossier.pdf';
 
-                    // Trigger download via proxy to avoid CORS and navigation
-                    // Since it's an attachment, window.location.href won't navigate
+                    // Trigger download via proxy
                     window.location.href = `/api/download?url=${encodeURIComponent(fileUrl)}&filename=${encodeURIComponent(fileName)}`;
 
-                    alert("Thank you! Your dossier is being downloaded.");
-
-                    // Close modal
-                    if (closeModalBtn.value) {
-                        closeModalBtn.value.click();
-                    }
-
-                    // Reset form
+                    isDownloaded.value = true;
+                    showNotification('success', 'Dossier downloaded! You can now proceed to pay the application fee.');
                     form.name = '';
                     form.email = '';
                     form.phone = '';
                     form.state = '';
                     form.city = '';
                     form.isCommerceGraduate = false;
-                    citiesList.value = [];
+
                 } else {
-                    alert(response.message || "Something went wrong. Please try again.");
+                    showNotification('error', response.message || 'Something went wrong. Please try again.');
                 }
             } catch (error: any) {
                 console.error("Submission Error:", error);
-                alert(error.data?.message || "Server error. Please try again later.");
+                showNotification('error', error.data?.message || 'Server error. Please try again later.');
             } finally {
                 isSubmitting.value = false;
+            }
+        };
+
+        const loadRazorpayScript = () => {
+            return new Promise((resolve) => {
+                if ((window as any).Razorpay) {
+                    resolve(true);
+                    return;
+                }
+                const script = document.createElement("script");
+                script.src = "https://checkout.razorpay.com/v1/checkout.js";
+                script.onload = () => resolve(true);
+                script.onerror = () => resolve(false);
+                document.body.appendChild(script);
+            });
+        };
+
+        const handlePayment = async () => {
+            notification.message = '';
+            notification.type = '';
+            isPaymentInProgress.value = true;
+            try {
+                // 1. Call your backend to create Razorpay order
+                const res: any = await $fetch("/api/start-payment", {
+                    method: "POST",
+                    body: {
+                        user_id: null,
+                        name: form.name,
+                        email: form.email,
+                        mobile: form.phone,
+                        form_type: 2,
+                        form_id: formId.value
+                    }
+                });
+
+                if (!res.success) {
+                    showNotification('error', res.message || 'Payment initiation failed');
+                    return;
+                }
+
+                // Close dossier modal immediately when Razorpay opens
+                if (closeModalBtn.value) closeModalBtn.value.click();
+
+                // 2. Load Razorpay script
+                const loaded = await loadRazorpayScript();
+                if (!loaded || !(window as any).Razorpay) {
+                    alert("Razorpay SDK failed to load");
+                    return;
+                }
+
+                // 3. Open Razorpay Checkout
+                const options = {
+                    key: res.razorpay_key,
+                    amount: res.amount,
+                    currency: res.currency,
+                    name: "Application Fee",
+                    description: "NFET Application Payment",
+                    order_id: res.razorpay_order_id,
+
+                    handler: async function (response: any) {
+                        await $fetch("/api/complete-payment", {
+                            method: "POST",
+                            body: {
+                                razorpay_payment_id: response.razorpay_payment_id,
+                                razorpay_order_id: response.razorpay_order_id,
+                                razorpay_signature: response.razorpay_signature
+                            }
+                        });
+
+                        openStatusModal('success', response.razorpay_payment_id);
+                    },
+
+                    prefill: {
+                        name: form.name,
+                        email: form.email,
+                        contact: form.phone
+                    },
+
+                    theme: {
+                        color: "#FBB03B"
+                    }
+                };
+
+                const rzp = new (window as any).Razorpay(options);
+                rzp.on("payment.failed", async (response: any) => {
+                    console.error("Payment Failed:", response.error);
+
+                    try {
+                        await $fetch("/api/report-payment-failure", {
+                            method: "POST",
+                            body: {
+                                razorpay_order_id: res.razorpay_order_id,
+                                razorpay_payment_id: response.error.metadata?.payment_id,
+                                error_details: response.error
+                            }
+                        });
+                    } catch (reportError) {
+                        console.error("Failed to report payment failure:", reportError);
+                    }
+                });
+
+                rzp.open();
+
+            } catch (err) {
+                console.error(err);
+                showNotification('error', 'Payment initiation failed');
+            } finally {
+                isPaymentInProgress.value = false;
             }
         };
 
@@ -232,8 +376,14 @@ export default defineComponent({
             citiesList,
             onStateChange,
             isSubmitting,
+            isDownloaded,
+            isPaymentInProgress,
             submitForm,
-            closeModalBtn
+            handlePayment,
+            closeModalBtn,
+            notification,
+            paymentStatus,
+            paymentId
         };
     }
 });

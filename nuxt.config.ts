@@ -44,6 +44,10 @@ export default defineNuxtConfig({
   ],
   modules: ["@bootstrap-vue-next/nuxt", "nuxt-swiper", "nuxt-aos"],
   runtimeConfig: {
+    razorpayKeyId: process.env.RAZORPAY_KEY_ID,
+    razorpayKeySecret: process.env.RAZORPAY_KEY_SECRET,
+    razorpayCurrency: process.env.RAZORPAY_CURRENCY || 'INR',
+    razorpayAmount: process.env.RAZORPAY_PAYMENT_AMOUNT || '2950',
     public: {
       paymentAmount: process.env.PAYMENT_AMOUNT
     }
