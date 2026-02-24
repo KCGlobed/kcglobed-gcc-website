@@ -48,7 +48,7 @@
                                             <input class="form-check-input" type="checkbox" id="consent"
                                                 v-model="form.consent" :class="{ 'is-invalid': errors.consent }">
                                             <label class="form-check-label" for="consent">
-                                                Are you a Commerce Graduate with GICS (Grade)?
+                                                Are you a Commerce Graduate with first division?
                                             </label>
                                             <div class="invalid-feedback" v-if="errors.consent">{{ errors.consent }}
                                             </div>

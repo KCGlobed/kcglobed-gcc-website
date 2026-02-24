@@ -76,7 +76,7 @@
                         <div class="step-text-content">
                             <!-- <span class="step-number shadow-text">02</span> -->
                             <span class="step-number main-number">04</span>
-                            <h3 class="step-title">Evaluation to get ticket to DLF Cyber City, Gurugrams</h3>
+                            <h3 class="step-title">Evaluation to get ticket to DLF Cyber City, Gurugram</h3>
                             <p class="step-subtext date-text">(May 4 to 10, 2026) with real-time results &
                                 ticket confirmation</p>
                         </div>

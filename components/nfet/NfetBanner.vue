@@ -35,7 +35,7 @@
                     <div class="video-wrapper">
                         <div class="video-container" @click="playVideo">
                             <img v-if="!isPlaying"
-                                src="https://storage.googleapis.com/static_files_backend/media/images/Corporate%20Classroom.png"
+                                src="https://storage.googleapis.com/gcc_prod_static_files_backend/static/images/manna_into_dream_global.jpeg"
                                 alt="NFET Video Thumbnail" class="video-thumb" />
                             <iframe v-if="isPlaying" src="https://www.youtube.com/embed/dQw4w9WgXcQ?autoplay=1"
                                 frameborder="0" allow="autoplay; encrypted-media" allowfullscreen

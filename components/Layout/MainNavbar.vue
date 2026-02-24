@@ -50,7 +50,7 @@
             </NuxtLink>
           </li>
           <li class="nav-item apply-btn">
-            <NuxtLink to="/about-overview" class="nav-link apply-now-btn">
+            <NuxtLink to="/personal-information" class="nav-link apply-now-btn">
               Apply Now
             </NuxtLink>
           </li>

@@ -353,11 +353,11 @@
         </div>
         <div class="accordion-item">
           <NuxtLink to="/programs" class="accordion-link" @click="handleClick">
-            Programs
+            Program
           </NuxtLink>
         </div>
         <div class="accordion-item">
-          <NuxtLink to="#" class="accordion-link" @click="handleClick">
+          <NuxtLink to="/nfet" class="accordion-link" @click="handleClick">
             NFET Exam
           </NuxtLink>
         </div>

@@ -277,7 +277,7 @@
 
 /* ACCA Success Section */
 .acca-red-box {
-    background-color: #000;
+    background-color: red;
     color: #fff;
     font-size: 44px;
     font-weight: 900;

@@ -11,8 +11,6 @@
         <NfetTestingWindow />
         <NfetDiagonstic />
 
-
-
         <NfetGuidline />
         <NfetPartner />
         <NfetFinanceCareer />
