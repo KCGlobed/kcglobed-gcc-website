@@ -6,7 +6,7 @@
 
           <div class="panelBox">
             <div class="title-strip">
-              <h3>Customized for GCCs Talent Requirements</h3>
+              <h3>CUSTOMIZED FOR GCCs TALENT REQUIREMENTS</h3>
             </div>
             <div class="boxes-container">
               <div class="box">
@@ -56,20 +56,20 @@
                   <div class="play-btn-circle">
                     <i class="ti ti-player-play-filled"></i>
                   </div>
-                  <div class="play-text">Experience Our Platform</div>
+                  <!-- <div class="play-text">Experience Our Platform</div> -->
                 </div>
                 <!-- Thumbnail Mask (visible before play) -->
                 <img v-if="!isVideoPlaying"
-                  src="https://storage.googleapis.com/gcc_prod_static_files_backend/static/images/kamal_chhabra_visinary.jpeg"
+                  src="https://storage.googleapis.com/gcc_prod_static_files_backend/static/images/kamalchhabbraadd.jpeg"
                   class="video-poster-img" @click="playVideo" alt="Thumbnail">
               </div>
-              <div class="video-badge-new">
+              <!-- <div class="video-badge-new">
                 <img src="~/assets/Logo/Logo/GCC-School-Logo-White.png" alt="GCC Logo" />
                 <div class="badge-content">
                   <span class="badge-tag">AI-Enabled</span>
                   <span class="badge-title">LMS Tutorial</span>
                 </div>
-              </div>
+              </div> -->
             </div>
             <!-- Decorative elements -->
             <div class="decor-shape shape-1"></div>
@@ -157,7 +157,7 @@ export default {
   font-size: 18px;
   font-weight: 700;
   margin: 0;
-  text-transform: uppercase;
+  /* text-transform: uppercase; */
   letter-spacing: 0.5px;
 }
 

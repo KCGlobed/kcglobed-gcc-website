@@ -43,7 +43,7 @@
                             <div class="icon-wrapper">
                                 <i class="ti ti-ticket"></i>
                             </div>
-                            <h4>Get The Ticket To DLF Cyber City</h4>
+                            <h4>Get The Ticket To DLF Cyber City,Gurugram</h4>
                         </div>
                     </div>
                     <div class="timeline-marker">

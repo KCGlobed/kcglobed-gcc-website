@@ -31,7 +31,7 @@ import industryMentor6 from '@/assets/img/industoryMentorTwo/6.png'
 import industryMentor7 from '@/assets/img/industoryMentorTwo/7.png'
 import industryMentor8 from '@/assets/img/industoryMentorTwo/8.png'
 import industryMentor9 from '@/assets/img/industoryMentorTwo/9.png'
-import industryMentor10 from '@/assets/img/industoryMentorTwo/10.png'
+import industryMentor10 from '@/assets/img/industoryMentorTwo/17.png'
 import industryMentor11 from '@/assets/img/industoryMentorTwo/11.png'
 import industryMentor12 from '@/assets/img/industoryMentorTwo/12.png'
 
