@@ -81,7 +81,7 @@ const trimesters = [
         image: 'https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=800&h=600&fit=crop',
         modules: [
             '<strong>Audit & Assurance(AA)</strong> ',
-            '<strong>Financial Management (FM) </strong> ',
+            '<strong>Financial Reporting (FR) <strong>',
             'AI for Finance, Audit & Accounting',
             'Data analytics, Power BI, Advance Excel',
             'MS Office',
@@ -96,8 +96,8 @@ const trimesters = [
         year: '2026',
         image: 'https://images.unsplash.com/photo-1506744038136-46273834b3fb?w=800&h=600&fit=crop',
         modules: [
-            '<strong>Financial Reporting (FR) <strong>',
 
+            '<strong>Financial Management (FM) </strong> ',
             '<strong>Performance Management</strong> (PM)',
             'Interim Busy Season'
         ]

@@ -357,7 +357,7 @@
           </NuxtLink>
         </div>
         <div class="accordion-item">
-          <NuxtLink to="/personal-information" class="accordion-link" @click="handleClick">
+          <NuxtLink to="/nfet" class="accordion-link" @click="handleClick">
             NFET Exam
           </NuxtLink>
         </div>
