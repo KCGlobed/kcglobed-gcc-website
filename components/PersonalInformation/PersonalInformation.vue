@@ -136,34 +136,34 @@
                 </div>
                 <div class="col-lg-6">
                   <div class="input-box">
-                        <label class="form-label">Mother’s Occupation</label>
-                        <select class="form-select" v-model="formData.mother_occupation"
-                          :class="{ 'is-invalid': errors.mother_occupation }">
-                          <option value="">--Select--</option>
-                          <option>Homemaker</option>
-                          <option>Government Service</option>
-                          <option>Private Sector – Corporate</option>
-                          <option>Private Sector – Non-Corporate</option>
-                          <option>Self-Employed / Business</option>
-                          <option>Professional (Doctor / Lawyer / CA / Engineer / Architect)</option>
-                          <option>Entrepreneur / Startup</option>
-                          <option>Farmer / Agriculture</option>
-                          <option>Shop Owner / Trader</option>
-                          <option>Retired</option>
-                          <option>Pensioner</option>
-                          <option>Unemployed</option>
-                          <option>Other</option>
-                        </select>
-                        <div class="invalid-feedback" v-if="errors.mother_occupation">{{ errors.mother_occupation }}
-                        </div>
+                    <label class="form-label">Mother’s Occupation</label>
+                    <select class="form-select" v-model="formData.mother_occupation"
+                      :class="{ 'is-invalid': errors.mother_occupation }">
+                      <option value="">--Select--</option>
+                      <option>Homemaker</option>
+                      <option>Government Service</option>
+                      <option>Private Sector – Corporate</option>
+                      <option>Private Sector – Non-Corporate</option>
+                      <option>Self-Employed / Business</option>
+                      <option>Professional (Doctor / Lawyer / CA / Engineer / Architect)</option>
+                      <option>Entrepreneur / Startup</option>
+                      <option>Farmer / Agriculture</option>
+                      <option>Shop Owner / Trader</option>
+                      <option>Retired</option>
+                      <option>Pensioner</option>
+                      <option>Unemployed</option>
+                      <option>Other</option>
+                    </select>
+                    <div class="invalid-feedback" v-if="errors.mother_occupation">{{ errors.mother_occupation }}
+                    </div>
                   </div>
                 </div>
                 <div class="col-lg-12" v-if="formData.mother_occupation === 'Other'">
-                      <div class="input-box">
-                        <label class="form-label">Please Specify</label>
-                        <input type="text" class="form-control" v-model="formData.mother_occupation_other" />
-                      </div>
-                    </div>
+                  <div class="input-box">
+                    <label class="form-label">Please Specify</label>
+                    <input type="text" class="form-control" v-model="formData.mother_occupation_other" />
+                  </div>
+                </div>
               </div>
 
               <!-- Personal Details -->
@@ -193,14 +193,13 @@
                 </div>
                 <div class="col-lg-4">
                   <div class="input-box">
-                    <label class="form-label">Nationality <span>*</span></label>
-                    <select class="form-select" disabled v-model="formData.nationality">
-                      <option selected value="Indian">Indian</option>
-                    </select>
+                    <label class="form-label">Nationality</label>
+                    <input type="text" style="color:gray;" readonly="true" class="form-control"
+                      v-model="formData.nationality" value="Indian" />
                   </div>
                 </div>
               </div>
-              
+
               <!-- Address -->
               <div class="row">
                 <div class="col-lg-4">
