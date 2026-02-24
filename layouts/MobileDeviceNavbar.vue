@@ -369,15 +369,16 @@
           </NuxtLink>
         </div> -->
         <div class="accordion-item">
-          <NuxtLink to="/about-overview" class="accordion-link" @click="handleClick">
-            About Us
-          </NuxtLink>
-        </div>
-        <div class="accordion-item">
           <NuxtLink to="/campus-life" class="accordion-link" @click="handleClick">
             Campus Life
           </NuxtLink>
         </div>
+        <div class="accordion-item">
+          <NuxtLink to="/about-overview" class="accordion-link" @click="handleClick">
+            About Us
+          </NuxtLink>
+        </div>
+
         <!-- <div class="accordion-item">
           <NuxtLink to="/contact-us" class="accordion-link" @click="handleClick">
             Contact Us

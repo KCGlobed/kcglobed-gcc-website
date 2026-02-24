@@ -7,11 +7,18 @@
                 with world's leading consulting firms and MNCs.</p>
         </div>
         <div class="apply-now">
-            <button>Apply for NFET Now</button>
+            <button @click="navigateToNFET">Apply for NFET Now</button>
         </div>
     </section>
 </template>
 <script lang="js">
+export default {
+    methods: {
+        navigateToNFET() {
+            this.$router.push('/personal-information');
+        }
+    }
+}
 </script>
 <style scoped>
 .finance-career {
