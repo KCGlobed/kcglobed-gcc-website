@@ -9,7 +9,7 @@
       </NuxtLink>
       <button type="button" class="close-btn" @click="stateStoreInstance.onMobileNavbarShow" data-bs-dismiss="offcanvas"
         aria-label="Close">
-        <i class="ti ti-x"></i>
+        <i class="ti ti-x" style="color: #fff;"></i>
       </button>
     </div>
     <div class="offcanvas-body">
@@ -363,11 +363,11 @@
         </div>
 
 
-        <div class="accordion-item">
+        <!-- <div class="accordion-item">
           <NuxtLink to="/admissions" class="accordion-link" @click="handleClick">
             Admissions
           </NuxtLink>
-        </div>
+        </div> -->
         <div class="accordion-item">
           <NuxtLink to="/about-overview" class="accordion-link" @click="handleClick">
             About Us
@@ -378,11 +378,11 @@
             Campus Life
           </NuxtLink>
         </div>
-        <div class="accordion-item">
+        <!-- <div class="accordion-item">
           <NuxtLink to="/contact-us" class="accordion-link" @click="handleClick">
             Contact Us
           </NuxtLink>
-        </div>
+        </div> -->
 
         <!-- <div class="others-option d-flex align-items-center">
           <div class="option-item">
@@ -428,5 +428,9 @@ export default defineComponent({
 <style scoped>
 .offcanvas.show:not(.hiding) {
   z-index: 9999999;
+}
+
+.responsive-navbar .offcanvas-header {
+  background: #020103;
 }
 </style>
