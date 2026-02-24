@@ -8,13 +8,13 @@
                 </div>
                 <div class="exam-window">
                     <p>Examination Window</p>
-                    <h2>15 Feb – 15 April 2026</h2>
+                    <h2>21 Feb – 31 March 2026</h2>
                     <p class="daily-slot">Daily Slots Available</p>
 
                     <p class="discription">Select your preferred date and time and take the first decisive step toward
                         global career
                         opportunities.</p>
-                    <button>Apply Now</button>
+                    <button @click="applyNow">Apply Now</button>
 
                 </div>
             </div>
@@ -22,6 +22,11 @@
     </section>
 
 </template>
+<script setup lang="ts">
+const applyNow = () => {
+    navigateTo('/personal-information');
+}
+</script>
 <style scoped>
 .testing-window {
     background: #262626;
