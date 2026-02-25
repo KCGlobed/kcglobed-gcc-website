@@ -45,7 +45,7 @@
                                                         v-model="form.mobile" placeholder="Enter your phone number"
                                                         :class="{ 'is-invalid': errors.mobile }">
                                                     <div class="invalid-feedback" v-if="errors.mobile">{{ errors.mobile
-                                                        }}
+                                                    }}
                                                     </div>
                                                 </div>
                                             </div>
@@ -814,6 +814,19 @@ export default defineComponent({
                         });
 
                         openStatusModal('success', response.razorpay_payment_id);
+
+                        // Reset form after successful payment
+                        form.name = '';
+                        form.email = '';
+                        form.mobile = '';
+                        form.state = '';
+                        form.city = '';
+                        form.consent = false;
+                        citiesList.value = [];
+                        isDownloaded.value = false;
+                        formId.value = null;
+                        notification.message = '';
+                        notification.type = '';
                     },
 
                     prefill: {
