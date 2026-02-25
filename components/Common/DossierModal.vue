@@ -1,5 +1,5 @@
 <template>
-    <div class="modal fade dossier-modal" id="dossierModal" tabindex="-1" aria-hidden="true">
+    <div class="modal fade dossier-modal" :id="modalId" tabindex="-1" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content border-0 overflow-hidden">
                 <div class="modal-body px-4 py-3 p-md-5 position-relative">
@@ -7,8 +7,8 @@
                         ref="closeModalBtn"></button>
 
                     <div class="text-center mb-4">
-                        <h2 class="modal-title  mb-2">Download Dossier</h2>
-                        <p class="text-muted">Enter your details to receive the dossier instantly</p>
+                        <h2 class="modal-title  mb-2">{{ modalTitle }}</h2>
+                        <p class="text-muted">{{ subtitle }}</p>
                     </div>
 
                     <form @submit.prevent="submitForm" class="dossier-form">
@@ -61,24 +61,35 @@
                                 <input class="form-check-input" type="checkbox" v-model="form.isCommerceGraduate"
                                     id="commerceCheck">
                                 <label class="form-check-label small text-muted" for="commerceCheck">
-                                    Are you a Commerce Graduate with first division.
+                                    Are you a Commerce Graduate with first division.*
                                 </label>
                             </div>
                             <small class="text-danger d-block mt-1" v-if="errors.isCommerceGraduate">{{
                                 errors.isCommerceGraduate }}</small>
                         </div>
 
-                        <button v-if="!isDownloaded" type="submit"
+                        <!-- Apply mode: single PAY NOW submit button -->
+                        <button v-if="mode === 'apply'" type="submit"
                             class="btn btn-register w-100 py-3 fw-bold text-uppercase" :disabled="isSubmitting">
                             <span v-if="isSubmitting" class="spinner-border spinner-border-sm me-2"></span>
-                            {{ isSubmitting ? 'Processing...' : 'DOWNLOAD NOW' }}
+                            {{ isSubmitting ? 'Processing...' : 'PAY NOW' }}
                         </button>
 
-                        <button v-else type="button" @click="handlePayment"
-                            class="btn btn-register w-100 py-3 fw-bold text-uppercase" :disabled="isPaymentInProgress">
-                            <span v-if="isPaymentInProgress" class="spinner-border spinner-border-sm me-2"></span>
-                            {{ isPaymentInProgress ? 'Opening Payment...' : 'PAY NOW' }}
-                        </button>
+                        <!-- Dossier mode: DOWNLOAD NOW first, then PAY NOW -->
+                        <template v-else>
+                            <button v-if="!isDownloaded" type="submit"
+                                class="btn btn-register w-100 py-3 fw-bold text-uppercase" :disabled="isSubmitting">
+                                <span v-if="isSubmitting" class="spinner-border spinner-border-sm me-2"></span>
+                                {{ isSubmitting ? 'Processing...' : 'DOWNLOAD NOW' }}
+                            </button>
+
+                            <button v-else type="button" @click="handlePayment"
+                                class="btn btn-register w-100 py-3 fw-bold text-uppercase"
+                                :disabled="isPaymentInProgress">
+                                <span v-if="isPaymentInProgress" class="spinner-border spinner-border-sm me-2"></span>
+                                {{ isPaymentInProgress ? 'Opening Payment...' : 'PAY NOW' }}
+                            </button>
+                        </template>
 
                         <div v-if="notification.message"
                             :class="['alert mt-3 mb-0 py-2 px-3 rounded-3 small', notification.type === 'success' ? 'alert-success' : 'alert-danger']"
@@ -105,11 +116,11 @@
     </div>
 
     <!-- Payment Status Modal -->
-    <PaymentStatusModal :status="paymentStatus" :payment-id="paymentId" />
+    <PaymentStatusModal :modal-id="statusModalId" :status="paymentStatus" :payment-id="paymentId" />
 </template>
 
 <script lang="ts">
-import { defineComponent, ref, reactive, nextTick, defineAsyncComponent } from 'vue';
+import { defineComponent, ref, reactive, nextTick, defineAsyncComponent, onMounted } from 'vue';
 import statesCitiesData from '~/assets/states-cities.json';
 
 export default defineComponent({
@@ -117,7 +128,26 @@ export default defineComponent({
     components: {
         PaymentStatusModal: defineAsyncComponent(() => import('~/components/Common/PaymentStatusModal.vue'))
     },
-    setup() {
+    props: {
+        modalId: {
+            type: String,
+            default: 'dossierModal'
+        },
+        modalTitle: {
+            type: String,
+            default: 'Download Dossier'
+        },
+        subtitle: {
+            type: String,
+            default: 'Enter your details to receive the dossier instantly'
+        },
+        mode: {
+            type: String,
+            default: 'dossier' // 'dossier' | 'apply'
+        }
+    },
+    setup(props) {
+        const statusModalId = `paymentStatusModal_${props.modalId}`;
         const isSubmitting = ref(false);
         const isPaymentInProgress = ref(false);
         const isDownloaded = ref(false);
@@ -126,6 +156,25 @@ export default defineComponent({
         const notification = reactive({ type: '', message: '' });
         const paymentStatus = ref<'success' | ''>('');
         const paymentId = ref('');
+
+        const resetForm = () => {
+            form.name = '';
+            form.email = '';
+            form.phone = '';
+            form.state = '';
+            form.city = '';
+            form.isCommerceGraduate = false;
+            citiesList.value = [];
+            errors.name = '';
+            errors.email = '';
+            errors.phone = '';
+            errors.state = '';
+            errors.city = '';
+            errors.isCommerceGraduate = '';
+            isDownloaded.value = false;
+            notification.type = '';
+            notification.message = '';
+        };
 
         const showNotification = (type: 'success' | 'error', message: string) => {
             notification.type = type;
@@ -136,7 +185,7 @@ export default defineComponent({
             paymentStatus.value = status;
             paymentId.value = pid;
             await nextTick();
-            const el = document.getElementById('paymentStatusModal');
+            const el = document.getElementById(statusModalId);
             if (el) {
                 const { Modal } = await import('bootstrap');
                 new Modal(el).show();
@@ -238,17 +287,18 @@ export default defineComponent({
                     formId.value = response.data.id;
                     const fileName = fileUrl.split('/').pop() || 'Dossier.pdf';
 
-                    // Trigger download via proxy
-                    window.location.href = `/api/download?url=${encodeURIComponent(fileUrl)}&filename=${encodeURIComponent(fileName)}`;
-
-                    isDownloaded.value = true;
-                    showNotification('success', 'Dossier downloaded! You can now proceed to pay the application fee.');
-                    form.name = '';
-                    form.email = '';
-                    form.phone = '';
-                    form.state = '';
-                    form.city = '';
-                    form.isCommerceGraduate = false;
+                    if (props.mode === 'apply') {
+                        // In apply mode: skip download, go straight to payment
+                        showNotification('success', 'Details submitted! Opening payment...');
+                        isDownloaded.value = true;
+                        // Trigger payment automatically
+                        await handlePayment();
+                    } else {
+                        // In dossier mode: trigger download
+                        window.location.href = `/api/download?url=${encodeURIComponent(fileUrl)}&filename=${encodeURIComponent(fileName)}`;
+                        isDownloaded.value = true;
+                        showNotification('success', 'Dossier downloaded! You can now proceed to pay the application fee.');
+                    }
 
                 } else {
                     showNotification('error', response.message || 'Something went wrong. Please try again.');
@@ -369,6 +419,13 @@ export default defineComponent({
             }
         };
 
+        onMounted(() => {
+            const el = document.getElementById(props.modalId);
+            if (el) {
+                el.addEventListener('show.bs.modal', resetForm);
+            }
+        });
+
         return {
             form,
             errors,
@@ -383,7 +440,8 @@ export default defineComponent({
             closeModalBtn,
             notification,
             paymentStatus,
-            paymentId
+            paymentId,
+            statusModalId
         };
     }
 });

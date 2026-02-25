@@ -7,18 +7,16 @@
                 with world's leading consulting firms and MNCs.</p>
         </div>
         <div class="apply-now">
-            <button @click="navigateToNFET">Apply for NFET Now</button>
+            <button data-bs-toggle="modal" data-bs-target="#financeCareerApplyModal">Apply for NFET Now</button>
         </div>
     </section>
+
+    <!-- Apply Now Modal -->
+    <CommonDossierModal modal-id="financeCareerApplyModal" modal-title="Apply Now"
+        subtitle="Enter your details to complete your application" mode="apply" />
 </template>
 <script lang="js">
-export default {
-    methods: {
-        navigateToNFET() {
-            this.$router.push('/personal-information');
-        }
-    }
-}
+export default {}
 </script>
 <style scoped>
 .finance-career {

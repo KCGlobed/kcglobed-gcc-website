@@ -25,9 +25,9 @@
                     </p>
 
                     <!-- CTA Button -->
-                    <NuxtLink to="/personal-information" class="btn-nfet-apply">
+                    <button class="btn-nfet-apply" data-bs-toggle="modal" data-bs-target="#nfetApplyNowModal">
                         Apply for NFET
-                    </NuxtLink>
+                    </button>
                 </div>
 
                 <!-- Right Video Section -->
@@ -58,6 +58,10 @@
             </div>
         </div>
     </section>
+
+    <!-- Apply Now Modal -->
+    <CommonDossierModal modal-id="nfetApplyNowModal" modal-title="Apply Now"
+        subtitle="Enter your details to complete your application" mode="apply" />
 </template>
 
 <script setup lang="ts">
@@ -185,8 +189,9 @@ onMounted(() => {
 /* CTA Button */
 .btn-nfet-apply {
     display: inline-block;
-    border-radius: 9999px;
+    border: none;
     background: #D08623;
+    border-radius: 9999px;
     box-shadow: 0 4px 16px 0 rgba(0, 0, 0, 0.10);
     font-size: 16px;
     font-weight: 700;
@@ -195,6 +200,7 @@ onMounted(() => {
     transition: all 0.3s ease;
     letter-spacing: 0.3px;
     color: #fff;
+    cursor: pointer;
 }
 
 .btn-nfet-apply:hover {

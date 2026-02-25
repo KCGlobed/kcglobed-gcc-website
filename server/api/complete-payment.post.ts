@@ -1,6 +1,7 @@
 import Razorpay from "razorpay";
 import crypto from "crypto";
 import { savePayment } from "../services/payment.service";
+import { sendPaymentConfirmationEmail } from "../services/email.service";
 
 export default defineEventHandler(async (event) => {
     const body = await readBody(event);
@@ -35,6 +36,9 @@ export default defineEventHandler(async (event) => {
     let formId = null;
     let amount = 0;
     let currency = 'INR';
+    let userName = '';
+    let userEmail = '';
+    let userMobile = '';
 
     try {
         // Fetch order details first to get user_id and amount
@@ -46,6 +50,12 @@ export default defineEventHandler(async (event) => {
         formType = order.notes ? order.notes.form_type : null;
         // @ts-ignore
         formId = order.notes ? order.notes.form_id : null;
+        // @ts-ignore
+        userName = order.notes ? (order.notes.name || '') : '';
+        // @ts-ignore
+        userEmail = order.notes ? (order.notes.email || '') : '';
+        // @ts-ignore
+        userMobile = order.notes ? (order.notes.mobile || '') : '';
 
         amount = (order.amount as number) / 100;
         currency = order.currency;
@@ -101,6 +111,35 @@ export default defineEventHandler(async (event) => {
             response: JSON.stringify(body)
         });
 
+        // Send confirmation email (non-blocking – failure won't break the response)
+        if (userEmail) {
+            const now = new Date();
+            const formattedDate = now.toLocaleString('en-IN', {
+                timeZone: 'Asia/Kolkata',
+                day: '2-digit',
+                month: 'short',
+                year: 'numeric',
+                hour: '2-digit',
+                minute: '2-digit',
+                hour12: true
+            });
+
+            sendPaymentConfirmationEmail({
+                to: userEmail,
+                name: userName || userMobile || 'Applicant',
+                razorpay_payment_id,
+                razorpay_order_id,
+                amount,
+                currency,
+                date: formattedDate,
+                emailHost: (config.emailHost as string) || 'smtp.hostinger.com',
+                emailUser: (config.emailUser as string) || '',
+                emailPassword: (config.emailPassword as string) || ''
+            }).catch((err) => {
+                console.error("Payment confirmation email failed:", err);
+            });
+        }
+
         return {
             success: true,
             message: "Payment verified and saved successfully",
@@ -133,3 +172,4 @@ export default defineEventHandler(async (event) => {
         });
     }
 });
+

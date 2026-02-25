@@ -48,6 +48,9 @@ export default defineNuxtConfig({
     razorpayKeySecret: process.env.RAZORPAY_KEY_SECRET,
     razorpayCurrency: process.env.RAZORPAY_CURRENCY || 'INR',
     razorpayAmount: process.env.RAZORPAY_PAYMENT_AMOUNT || '2950',
+    emailHost: process.env.EMAIL_HOST,
+    emailUser: process.env.EMAIL_HOST_USER,
+    emailPassword: process.env.EMAIL_HOST_PASSWORD,
     public: {
       paymentAmount: process.env.PAYMENT_AMOUNT
     }

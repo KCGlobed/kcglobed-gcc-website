@@ -1,5 +1,5 @@
 <template>
-    <div class="modal fade payment-status-modal" id="paymentStatusModal" tabindex="-1" aria-hidden="true"
+    <div class="modal fade payment-status-modal" :id="modalId" tabindex="-1" aria-hidden="true"
         data-bs-backdrop="static">
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content border-0 overflow-hidden text-center px-4 py-5">
@@ -53,6 +53,10 @@ import { defineComponent } from 'vue';
 export default defineComponent({
     name: 'PaymentStatusModal',
     props: {
+        modalId: {
+            type: String,
+            default: 'paymentStatusModal'
+        },
         status: {
             type: String as () => 'success' | 'failed' | '',
             default: ''

@@ -50,9 +50,9 @@
             </NuxtLink>
           </li>
           <li class="nav-item apply-btn">
-            <NuxtLink to="/personal-information" class="nav-link apply-now-btn">
+            <button class="nav-link apply-now-btn" data-bs-toggle="modal" data-bs-target="#navApplyNowModal">
               Apply Now
-            </NuxtLink>
+            </button>
           </li>
 
 
@@ -134,6 +134,10 @@
       </div>
     </div>
   </nav>
+
+  <!-- Apply Now Modal -->
+  <CommonDossierModal modal-id="navApplyNowModal" modal-title="Apply Now"
+    subtitle="Enter your details to complete your application" mode="apply" />
 </template>
 
 <script lang="ts">
