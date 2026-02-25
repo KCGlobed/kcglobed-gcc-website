@@ -4,8 +4,8 @@
         <LayoutMainNavbar />
         <CampusLifeCampusBanner />
         <CommonFloorMap />
-        <CampusLifeCampusOutcome />
-        <CampusLifeCampusGoal />
+        <!-- <CampusLifeCampusOutcome /> -->
+        <!-- <CampusLifeCampusGoal /> -->
         <LayoutMainFooter />
         <LayoutCopyRight />
     </div>
