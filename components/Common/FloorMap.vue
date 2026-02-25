@@ -30,8 +30,8 @@
 import { ref } from 'vue';
 
 import img1 from '../../assets/img/campus/image5.png';
-import img2 from '../../assets/img/campus/image6.png';
-import img3 from '../../assets/img/campus/image7.png';
+import img2 from '../../assets/img/campus/image6.jpg';
+import img3 from '../../assets/img/campus/image7.jpg';
 
 const images = [
     { src: img1, scale: 1.1 },
@@ -117,12 +117,12 @@ function getClass(i: number) {
 
 .card.prev {
     transform: translate(calc(-50% - 15vw), -50%) scale(0.82);
-    opacity: 0.9;
+    opacity: 0.8;
 }
 
 .card.next {
     transform: translate(calc(-50% + 15vw), -50%) scale(0.82);
-    opacity: 0.9;
+    opacity: 0.8;
 }
 
 /* ── Hidden ──────────────────────────────────────────────── */
