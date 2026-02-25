@@ -3,8 +3,8 @@
     <div class="container">
       <div class="section-title text-center">
         <!-- Kept the section title as per previous premium design -->
-        <h2 class="title">TRADITIONAL PATHWAY VS <span class="highlight">GCC JOURNEY</span></h2>
-        <p>See why GCC Journey is most suited for professional world of new tomorrow.</p>
+        <h2 class="title">TRADITIONAL PATHWAY VS <span class="highlight">GCC School JOURNEY</span></h2>
+        <p>See why GCC School Journey is most suited for professional world of new tomorrow.</p>
       </div>
 
       <div class="table-responsive">

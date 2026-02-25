@@ -53,10 +53,10 @@
 
 <script setup lang="ts">
 const ecosystemData = [
-    { number: "6+", label: "Years Legacy" },
+    { number: "6+", label: "Years of Legacy" },
     { number: "20K+", label: "Global", subLabel: "Students" },
-    { number: "128", label: "Countries", subLabel: "Presence" },
-    { number: "40+", label: "Franchise", subLabel: "PAN India" },
+    { number: "120+", label: "Countries", subLabel: "Presence" },
+    { number: "40+", label: "Franchisees", subLabel: "PAN India" },
     { number: "AI-Powered", label: "Digital Learning Platform", subLabel: "(Proprietary Technology)" },
     { number: "11+", label: "Copyrighted", subLabel: "Professional Books" },
     { number: "Exam Prep", label: "Materials", tags: ["CPA", "ACCA", "CMA", "IFRS", "EA"] },
@@ -65,7 +65,7 @@ const ecosystemData = [
     { number: "40+", label: "Industry", subLabel: "Mentors" },
     { number: "60+", label: "Placement", subLabel: "Partners" },
     { number: "50+", label: "Institutional", subLabel: "Tie-Ups" },
-    { number: "Best Seller", label: "In E-Marketplaces" },
+    { number: "Best Seller", label: "on E-Marketplaces" },
     { number: "4.8★", label: "Google Reviews", subLabel: "By 800+ Learners" },
     { number: "100+", label: "Media Coverage", subLabel: " 10+ Accolades" },
     { number: "100k+", label: "Lives", subLabel: "Impacted" }, 
