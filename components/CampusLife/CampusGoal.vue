@@ -25,8 +25,7 @@
         </div>
         <!-- Video -->
         <VideoBox video-src="https://storage.googleapis.com/gcc_static_files_backend/static/videos/lms_tutorial.mp4"
-            thumbnail-src="https://storage.googleapis.com/gcc_prod_static_files_backend/static/images/kamalchhabbraadd.jpeg"
-            thumbnail-alt="LMS Tutorial Thumbnail" />
+            thumbnail-src="https://storage.googleapis.com/gcc_prod_static_files_backend/static/images/kamalchhabbraadd.jpeg" />
 
         <!-- Dots -->
         <div class="dots">
