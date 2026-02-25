@@ -45,7 +45,7 @@
                                                         v-model="form.mobile" placeholder="Enter your phone number"
                                                         :class="{ 'is-invalid': errors.mobile }">
                                                     <div class="invalid-feedback" v-if="errors.mobile">{{ errors.mobile
-                                                    }}
+                                                        }}
                                                     </div>
                                                 </div>
                                             </div>
@@ -93,12 +93,29 @@
                                             </div>
                                         </div>
 
-                                        <button type="submit" class="btn btn-primary w-100 register-btn"
-                                            :disabled="isSubmitting">
+                                        <!-- Step 1: Download Now button -->
+                                        <button v-if="!isDownloaded" type="submit"
+                                            class="btn btn-primary w-100 register-btn" :disabled="isSubmitting">
                                             <span v-if="isSubmitting"
                                                 class="spinner-border spinner-border-sm me-2"></span>
-                                            {{ isSubmitting ? 'Processing...' : 'Download Now' }}
+                                            {{ isSubmitting ? 'Processing...' : 'DOWNLOAD NOW' }}
                                         </button>
+
+                                        <!-- Step 2: Pay Now button (shown after download) -->
+                                        <button v-else type="button" @click="handlePayment"
+                                            class="btn btn-primary w-100 register-btn" :disabled="isPaymentInProgress">
+                                            <span v-if="isPaymentInProgress"
+                                                class="spinner-border spinner-border-sm me-2"></span>
+                                            {{ isPaymentInProgress ? 'Opening Payment...' : 'PAY NOW' }}
+                                        </button>
+
+                                        <div v-if="notification.message"
+                                            :class="['alert mt-3 mb-0 py-2 px-3 rounded-3 small', notification.type === 'success' ? 'alert-success' : 'alert-danger']"
+                                            role="alert">
+                                            <span v-if="notification.type === 'success'">✅</span>
+                                            <span v-else>❌</span>
+                                            {{ notification.message }}
+                                        </div>
 
                                         <p class="form-footer-text">
                                             By submitting, you agree to our <a href="#">Terms</a> and <a
@@ -154,21 +171,9 @@
             </SwiperSlide>
         </Swiper>
     </div>
-    <!-- <div class="modal fade" id="enquiryModal" tabindex="-1">
-        <div class="modal-dialog modal-lg modal-dialog-centered">
-            <div class="modal-content">
 
-                <div class="modal-header">
-                    <h5 class="modal-title">GCC School – Enquiry Form</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-                </div>
-
-                <div class="modal-body">
-
-                </div>
-            </div>
-        </div>
-    </div> -->
+    <!-- Payment Status Modal -->
+    <PaymentStatusModal :modal-id="statusModalId" :status="paymentStatus" :payment-id="paymentId" />
 </template>
 
 <style scoped>
@@ -575,7 +580,7 @@
 </style>
 
 <script lang="ts">
-import { defineComponent } from "vue";
+import { defineComponent, ref, reactive, nextTick, defineAsyncComponent } from "vue";
 import statesCitiesData from "../../assets/states-cities.json";
 
 import image1 from "../../assets/img/heros/hero_bg.svg";
@@ -583,57 +588,145 @@ import gccPdf from "../../assets/gcc.pdf";
 
 export default defineComponent({
     name: "ProgramBanner",
-    methods: {
-        validateForm() {
-            this.errors = {
-                name: "",
-                mobile: "",
-                email: "",
-                state: "",
-                city: "",
-                consent: ""
+    components: {
+        PaymentStatusModal: defineAsyncComponent(() => import('~/components/Common/PaymentStatusModal.vue'))
+    },
+    setup() {
+        const isSubmitting = ref(false);
+        const isDownloaded = ref(false);
+        const isPaymentInProgress = ref(false);
+        const formId = ref<number | null>(null);
+        const notification = reactive({ type: '', message: '' });
+        const paymentStatus = ref<'success' | ''>('');
+        const paymentId = ref('');
+        const statusModalId = 'paymentStatusModal_programBanner';
+
+        const form = reactive({
+            name: "",
+            mobile: "",
+            email: "",
+            state: "",
+            city: "",
+            consent: false,
+        });
+
+        const states = Object.keys(statesCitiesData);
+        const citiesList = ref<string[]>([]);
+
+        const errors = reactive({
+            name: "",
+            mobile: "",
+            email: "",
+            state: "",
+            city: "",
+            consent: ""
+        });
+
+        const banners = reactive([
+            {
+                id: 1,
+                bgClass: "bg1",
+                subTitle: "Cohort 2026 Applications Open",
+                image: image1,
+                heading: "World's 1st School Backed  by Industry, Built on Execution",
+                description: "At GCC School, students don't wait for placements. They start with them. Learning is structured around real roles, real work, and real responsibility because capability is built on execution.",
+                btnText: "Apply Now",
+                btnLink: "/about-overview",
+                btnTextTwo: "Download Brochure",
+                btnLinkTwo: gccPdf,
+                updateTitle: "View all latest news updates of Tuva",
+                updateLink: "/blog",
+                showVideo: false,
+                informations: [
+                    {
+                        id: 1,
+                        icon: "ti ti-world",
+                        title: "Take A Tour",
+                        link: "/schedule",
+                    },
+                    {
+                        id: 2,
+                        icon: "ti ti-info-hexagon",
+                        title: "Campus Information",
+                        link: "/about-campus",
+                    },
+                    {
+                        id: 3,
+                        icon: "ti ti-ballpen",
+                        title: "Apply Now",
+                        link: "/personal-information",
+                    },
+                ],
+            }
+        ]);
+
+        const showNotification = (type: 'success' | 'error', message: string) => {
+            notification.type = type;
+            notification.message = message;
+        };
+
+        const openStatusModal = async (status: 'success', pid: string = '') => {
+            paymentStatus.value = status;
+            paymentId.value = pid;
+            await nextTick();
+            const el = document.getElementById(statusModalId);
+            if (el) {
+                const { Modal } = await import('bootstrap');
+                new Modal(el).show();
+            }
+        };
+
+        const onStateChange = () => {
+            citiesList.value = (statesCitiesData as any)[form.state] || [];
+            form.city = "";
+        };
+
+        const validateForm = () => {
+            errors.name = "";
+            errors.mobile = "";
+            errors.email = "";
+            errors.state = "";
+            errors.city = "";
+            errors.consent = "";
+
+            if (!form.name.trim()) {
+                errors.name = "Full name is required";
+            }
+            if (!form.email.trim()) {
+                errors.email = "Email address is required";
+            } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(form.email)) {
+                errors.email = "Please enter a valid email";
+            }
+            if (!form.mobile.trim()) {
+                errors.mobile = "Phone number is required";
+            }
+            if (!form.state) {
+                errors.state = "State is required";
+            }
+            if (!form.city) {
+                errors.city = "City is required";
+            }
+            if (!form.consent) {
+                errors.consent = "You must be a commerce graduate to proceed";
             }
 
-            if (!this.form.name.trim()) {
-                this.errors.name = "Full name is required"
-            }
-            if (!this.form.email.trim()) {
-                this.errors.email = "Email address is required"
-            } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(this.form.email)) {
-                this.errors.email = "Please enter a valid email"
-            }
-            if (!this.form.mobile.trim()) {
-                this.errors.mobile = "Phone number is required"
-            }
-            if (!this.form.state) {
-                this.errors.state = "State is required"
-            }
-            if (!this.form.city) {
-                this.errors.city = "City is required"
-            }
-            if (!this.form.consent) {
-                this.errors.consent = "You must be a commerce graduate to proceed"
-            }
+            return Object.values(errors).every(error => error === "");
+        };
 
-            return Object.values(this.errors).every(error => error === "")
-        },
+        const submitForm = async () => {
+            if (!validateForm()) return;
 
-        async submitForm() {
-            if (!this.validateForm()) return
-
-            this.isSubmitting = true;
+            isSubmitting.value = true;
+            notification.message = '';
 
             try {
-                // Prepare payload for API
                 const payload = {
-                    full_name: this.form.name,
-                    email: this.form.email,
-                    phone: this.form.mobile,
-                    state: this.form.state,
-                    city: this.form.city
+                    full_name: form.name,
+                    email: form.email,
+                    phone: form.mobile,
+                    state: form.state,
+                    city: form.city
                 };
-
-                const windowOpen: any = window.open("", '_blank');
 
                 const response: any = await $fetch("https://gccwebsite-admin-backend-738131651355.asia-south1.run.app/api/career/createdossierform", {
                     method: "POST",
@@ -641,92 +734,144 @@ export default defineComponent({
                 });
 
                 if (response.success && response.data?.url) {
-                    windowOpen.location.href = response.data?.url;
+                    const fileUrl = response.data.url;
+                    formId.value = response.data.id;
+                    const fileName = fileUrl.split('/').pop() || 'Brochure.pdf';
 
-                    // Reset form
-                    this.form = {
-                        name: "",
-                        mobile: "",
-                        email: "",
-                        state: "",
-                        city: "",
-                        consent: false
-                    };
-                    this.citiesList = [];
+                    // Download on same page via proxy
+                    window.location.href = `/api/download?url=${encodeURIComponent(fileUrl)}&filename=${encodeURIComponent(fileName)}`;
+                    isDownloaded.value = true;
+                    showNotification('success', 'Brochure downloaded! You can now proceed to pay the application fee.');
                 } else {
-                    if (windowOpen) windowOpen.close();
-                    alert(response.message || "Something went wrong. Please try again.");
+                    showNotification('error', response.message || "Something went wrong. Please try again.");
                 }
             } catch (error: any) {
                 console.error("Submission Error:", error);
-                alert(error.data?.message || "Server error. Please try again later.");
+                showNotification('error', error.data?.message || "Server error. Please try again later.");
             } finally {
-                this.isSubmitting = false;
+                isSubmitting.value = false;
             }
-        },
-        onStateChange() {
-            this.citiesList = (statesCitiesData as any)[this.form.state] || [];
-            this.form.city = "";
-        }
-    },
-    data() {
-        return {
-            isSubmitting: false,
-            form: {
-                name: "",
-                mobile: "",
-                email: "",
-                state: "",
-                city: "",
-                consent: false,
-            },
-            states: Object.keys(statesCitiesData),
-            citiesList: [],
-            errors: {
-                name: "",
-                mobile: "",
-                email: "",
-                state: "",
-                city: "",
-                consent: ""
-            },
-            banners: [
-                {
-                    id: 1,
-                    bgClass: "bg1",
-                    subTitle: "Cohort 2026 Applications Open",
-                    image: image1,
-                    heading: "World’s 1st School Backed  by Industry, Built on Execution",
-                    description: "At GCC School, students don’t wait for placements. They start with them. Learning is structured around real roles, real work, and real responsibility because capability is built on execution.",
-                    btnText: "Apply Now",
-                    btnLink: "/about-overview",
-                    btnTextTwo: "Download Brochure",
-                    btnLinkTwo: gccPdf,
-                    updateTitle: "View all latest news updates of Tuva",
-                    updateLink: "/blog",
-                    showVideo: false,
-                    informations: [
-                        {
-                            id: 1,
-                            icon: "ti ti-world",
-                            title: "Take A Tour",
-                            link: "/schedule",
-                        },
-                        {
-                            id: 2,
-                            icon: "ti ti-info-hexagon",
-                            title: "Campus Information",
-                            link: "/about-campus",
-                        },
-                        {
-                            id: 3,
-                            icon: "ti ti-ballpen",
-                            title: "Apply Now",
-                            link: "/personal-information",
-                        },
-                    ],
+        };
+
+        const loadRazorpayScript = () => {
+            return new Promise((resolve) => {
+                if ((window as any).Razorpay) {
+                    resolve(true);
+                    return;
                 }
-            ],
+                const script = document.createElement("script");
+                script.src = "https://checkout.razorpay.com/v1/checkout.js";
+                script.onload = () => resolve(true);
+                script.onerror = () => resolve(false);
+                document.body.appendChild(script);
+            });
+        };
+
+        const handlePayment = async () => {
+            notification.message = '';
+            notification.type = '';
+            isPaymentInProgress.value = true;
+            try {
+                const res: any = await $fetch("/api/start-payment", {
+                    method: "POST",
+                    body: {
+                        user_id: null,
+                        name: form.name,
+                        email: form.email,
+                        mobile: form.mobile,
+                        form_type: 2,
+                        form_id: formId.value
+                    }
+                });
+
+                if (!res.success) {
+                    showNotification('error', res.message || 'Payment initiation failed');
+                    return;
+                }
+
+                const loaded = await loadRazorpayScript();
+                if (!loaded || !(window as any).Razorpay) {
+                    alert("Razorpay SDK failed to load");
+                    return;
+                }
+
+                const options = {
+                    key: res.razorpay_key,
+                    amount: res.amount,
+                    currency: res.currency,
+                    name: "Application Fee",
+                    description: "NFET Application Payment",
+                    order_id: res.razorpay_order_id,
+
+                    handler: async function (response: any) {
+                        await $fetch("/api/complete-payment", {
+                            method: "POST",
+                            body: {
+                                razorpay_payment_id: response.razorpay_payment_id,
+                                razorpay_order_id: response.razorpay_order_id,
+                                razorpay_signature: response.razorpay_signature
+                            }
+                        });
+
+                        openStatusModal('success', response.razorpay_payment_id);
+                    },
+
+                    prefill: {
+                        name: form.name,
+                        email: form.email,
+                        contact: form.mobile
+                    },
+
+                    theme: {
+                        color: "#FBB03B"
+                    }
+                };
+
+                const rzp = new (window as any).Razorpay(options);
+                rzp.on("payment.failed", async (response: any) => {
+                    console.error("Payment Failed:", response.error);
+
+                    try {
+                        await $fetch("/api/report-payment-failure", {
+                            method: "POST",
+                            body: {
+                                razorpay_order_id: res.razorpay_order_id,
+                                razorpay_payment_id: response.error.metadata?.payment_id,
+                                error_details: response.error
+                            }
+                        });
+                    } catch (reportError) {
+                        console.error("Failed to report payment failure:", reportError);
+                    }
+                });
+
+                rzp.open();
+
+            } catch (err) {
+                console.error(err);
+                showNotification('error', 'Payment initiation failed');
+            } finally {
+                isPaymentInProgress.value = false;
+            }
+        };
+
+        return {
+            form,
+            errors,
+            states,
+            citiesList,
+            banners,
+            isSubmitting,
+            isDownloaded,
+            isPaymentInProgress,
+            notification,
+            paymentStatus,
+            paymentId,
+            statusModalId,
+            onStateChange,
+            validateForm,
+            submitForm,
+            handlePayment,
         };
     },
 });
