@@ -5,7 +5,7 @@
         <CampusLifeCampusBanner />
         <CommonFloorMap />
         <CampusLifeCampusOutcome />
-        <!-- <CampusLifeCampusGoal /> -->
+        <CampusLifeCampusGoal />
         <LayoutMainFooter />
         <LayoutCopyRight />
     </div>
