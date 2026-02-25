@@ -15,10 +15,13 @@ export default defineEventHandler(async (event) => {
     }
 
     const config = useRuntimeConfig(event);
-    const keySecret = (config.razorpayKeySecret || "").replace(/['"]/g, '').trim();
-    const keyId = (config.razorpayKeyId || "").replace(/['"]/g, '').trim();
+    // Nuxt runtimeConfig only auto-maps vars prefixed with NUXT_ on Cloud Run.
+    // Fall back to process.env directly so plain env var names work too.
+    const keySecret = (config.razorpayKeySecret || process.env.RAZORPAY_KEY_SECRET || "").replace(/['"]/g, '').trim();
+    const keyId = (config.razorpayKeyId || process.env.RAZORPAY_KEY_ID || "").replace(/['"]/g, '').trim();
 
     if (!keyId || !keySecret) {
+        console.error(`[complete-payment] Keys missing — runtimeConfig len: ${(config.razorpayKeyId || '').length}, process.env len: ${(process.env.RAZORPAY_KEY_ID || '').length}`);
         throw createError({
             statusCode: 500,
             message: "Razorpay configuration missing on server"
@@ -132,9 +135,9 @@ export default defineEventHandler(async (event) => {
                 amount,
                 currency,
                 date: formattedDate,
-                emailHost: (config.emailHost as string) || 'smtp.hostinger.com',
-                emailUser: (config.emailUser as string) || '',
-                emailPassword: (config.emailPassword as string) || ''
+                emailHost: (config.emailHost as string) || process.env.EMAIL_HOST || 'smtp.hostinger.com',
+                emailUser: (config.emailUser as string) || process.env.EMAIL_HOST_USER || '',
+                emailPassword: (config.emailPassword as string) || process.env.EMAIL_HOST_PASSWORD || ''
             }).catch((err) => {
                 console.error("Payment confirmation email failed:", err);
             });

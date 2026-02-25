@@ -5,12 +5,13 @@ export default defineEventHandler(async (event) => {
     const { user_id, name, email, mobile, form_type, form_id } = body;
 
     const config = useRuntimeConfig(event);
-    const key_id = (config.razorpayKeyId || "").replace(/['"]/g, '').trim();
-    const key_secret = (config.razorpayKeySecret || "").replace(/['"]/g, '').trim();
+    // Nuxt runtimeConfig only auto-maps NUXT_-prefixed vars on Cloud Run.
+    // Fall back to process.env so plain-named vars (RAZORPAY_KEY_ID etc.) work too.
+    const key_id = (config.razorpayKeyId || process.env.RAZORPAY_KEY_ID || "").replace(/['"]/g, '').trim();
+    const key_secret = (config.razorpayKeySecret || process.env.RAZORPAY_KEY_SECRET || "").replace(/['"]/g, '').trim();
 
     console.log("Start Payment Request Body:", body);
-    // Masking keys for security but showing length and indicators
-    console.log(`Using Razorpay Key: ${key_id.substring(0, 6)}...${key_id.slice(-4)} (Length: ${key_id.length})`);
+    console.log(`Using Razorpay Key: runtimeConfig len=${(config.razorpayKeyId || '').length}, process.env len=${(process.env.RAZORPAY_KEY_ID || '').length}, resolved len=${key_id.length}`);
 
     if (!key_id || !key_secret) {
         console.error("Razorpay Keys missing in ENV/Config");
