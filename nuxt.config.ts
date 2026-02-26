@@ -44,6 +44,7 @@ export default defineNuxtConfig({
   ],
   modules: ["@bootstrap-vue-next/nuxt", "nuxt-swiper", "nuxt-aos"],
   runtimeConfig: {
+
     razorpayKeyId: process.env.RAZORPAY_KEY_ID,
     razorpayKeySecret: process.env.RAZORPAY_KEY_SECRET,
     razorpayCurrency: process.env.RAZORPAY_CURRENCY || 'INR',
@@ -52,7 +53,8 @@ export default defineNuxtConfig({
     emailUser: process.env.EMAIL_HOST_USER,
     emailPassword: process.env.EMAIL_HOST_PASSWORD,
     public: {
-      paymentAmount: process.env.PAYMENT_AMOUNT
+      paymentAmount: process.env.PAYMENT_AMOUNT,
+      apiBase: process.env.BASE_URL,
     }
   },
   plugins: ["~/plugins/scrollReveal.ts"],
