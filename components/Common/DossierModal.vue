@@ -326,6 +326,39 @@ export default defineComponent({
             });
         };
 
+        // Helper to aggressively restore body scroll
+        const restoreBodyScroll = () => {
+            document.body.style.overflow = '';
+            document.body.style.paddingRight = '';
+            document.body.classList.remove('modal-open');
+            // Remove all leftover modal backdrops
+            document.querySelectorAll('.modal-backdrop').forEach(el => el.remove());
+        };
+
+        // Helper to properly close Bootstrap modal and wait for it to fully hide
+        const closeDossierModal = (): Promise<void> => {
+            return new Promise(async (resolve) => {
+                const modalEl = document.getElementById(props.modalId);
+                if (!modalEl) {
+                    resolve();
+                    return;
+                }
+                const { Modal } = await import('bootstrap');
+                const modalInstance = Modal.getInstance(modalEl);
+                if (!modalInstance) {
+                    resolve();
+                    return;
+                }
+                // Listen for the modal to fully hide before resolving
+                const onHidden = () => {
+                    modalEl.removeEventListener('hidden.bs.modal', onHidden);
+                    resolve();
+                };
+                modalEl.addEventListener('hidden.bs.modal', onHidden);
+                modalInstance.hide();
+            });
+        };
+
         const handlePayment = async () => {
             notification.message = '';
             notification.type = '';
@@ -349,8 +382,10 @@ export default defineComponent({
                     return;
                 }
 
-                // Close dossier modal immediately when Razorpay opens
-                if (closeModalBtn.value) closeModalBtn.value.click();
+                // Close dossier modal and WAIT for it to fully hide before opening Razorpay
+                await closeDossierModal();
+                // Ensure body is clean before Razorpay opens
+                restoreBodyScroll();
 
                 // 2. Load Razorpay script
                 const loaded = await loadRazorpayScript();
@@ -387,6 +422,13 @@ export default defineComponent({
                         contact: form.phone
                     },
 
+                    modal: {
+                        // Called when user closes Razorpay popup without completing payment
+                        ondismiss: function () {
+                            restoreBodyScroll();
+                        }
+                    },
+
                     theme: {
                         color: "#FBB03B"
                     }
@@ -408,6 +450,8 @@ export default defineComponent({
                     } catch (reportError) {
                         console.error("Failed to report payment failure:", reportError);
                     }
+
+                    restoreBodyScroll();
                 });
 
                 rzp.open();
