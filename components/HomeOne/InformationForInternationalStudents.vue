@@ -60,7 +60,7 @@
                 </div>
                 <!-- Thumbnail Mask (visible before play) -->
                 <img v-if="!isVideoPlaying"
-                  src="https://storage.googleapis.com/gcc_prod_static_files_backend/static/images/kamalchhabbraadd.jpeg"
+                  src="https://storage.googleapis.com/static_files_backend/media/images/WhatsApp%20Image%202026-02-26%20at%205.08.44%20PM.jpeg"
                   class="video-poster-img" @click="playVideo" alt="Thumbnail">
               </div>
               <!-- <div class="video-badge-new">

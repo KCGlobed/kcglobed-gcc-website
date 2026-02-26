@@ -27,14 +27,14 @@
                 <div class="col-md-6">
                     <div class="image-box">
                         <div class="image-box-inner">
-                            <img src="~/assets/img/common/graph.svg" alt="" srcset="">
+                            <img src="~/assets/img/common/growth.svg" alt="" srcset="">
                         </div>
                     </div>
                 </div>
                 <div class="col-md-6">
                     <div class="image-box">
                         <div class="image-box-inner">
-                            <img src="~/assets/img/common/marketdata2.svg" alt="" srcset="">
+                            <img src="~/assets/img/common/marketdata4.svg" alt="" srcset="">
                         </div>
                     </div>
                 </div>

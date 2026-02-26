@@ -26,7 +26,7 @@
 
                             <!-- Main Image container -->
                             <div class="image-frame">
-                                <img src="~/assets/img/programs/lms.png" alt="LMS Dashboard Mockup"
+                                <img src="~/assets/img/programs/lms2.png" alt="LMS Dashboard Mockup"
                                     class="img-fluid rounded-15">
                             </div>
 

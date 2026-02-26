@@ -14,11 +14,11 @@
                     <div class="pathway-visual-container">
                         <div class="image-wrapper">
                             <div class="WebImageGraphImag">
-                                <img src="@/assets/img/common/graph3.svg" alt="GCC Learning Pathway"
+                                <img src="@/assets/img/common/webgraph.svg" alt="GCC Learning Pathway"
                                     class="pathway-graphic">
                             </div>
                             <div class="mobileImageGraphImag">
-                                <img src="@/assets/img/common/graph4.svg" alt="GCC Learning Pathway"
+                                <img src="@/assets/img/common/mobilegraph.svg" alt="GCC Learning Pathway"
                                     class="pathway-graphic">
                             </div>
 

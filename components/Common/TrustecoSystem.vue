@@ -57,15 +57,15 @@ const ecosystemData = [
     { number: "20K+", label: "Global", subLabel: "Students" },
     { number: "120+", label: "Countries", subLabel: "Presence" },
     { number: "40+", label: "Franchisees", subLabel: "PAN India" },
-    { number: "AI-Powered", label: "Digital Learning Platform", subLabel: "(Proprietary Technology)" },
+    { number: "No.1", label: "AI-Powered", subLabel: "Digital Learning Platform" },
     { number: "11+", label: "Copyrighted", subLabel: "Professional Books" },
-    { number: "Exam Prep", label: "Materials", tags: ["CPA", "ACCA", "CMA", "IFRS", "EA"] },
+    { number: "1200+", label: "Exam Prep Materials ", tags: ["CPA", "ACCA", "CMA", "IFRS", "EA"] },
     { number: "280+", label: "Empanelled", subLabel: "Instructors" },
     { number: "250+", label: "Team Size" },
     { number: "40+", label: "Industry", subLabel: "Mentors" },
     { number: "60+", label: "Placement", subLabel: "Partners" },
     { number: "50+", label: "Institutional", subLabel: "Tie-Ups" },
-    { number: "Best Seller", label: "on E-Marketplaces" },
+    { number: "10+", label: "E-Marketplace", subLabel: "Best Seller" },
     { number: "4.8★", label: "Google Reviews", subLabel: "By 800+ Learners" },
     { number: "100+", label: "Media Coverage", subLabel: " 10+ Accolades" },
     { number: "100k+", label: "Lives", subLabel: "Impacted" }, 
@@ -171,7 +171,7 @@ const ecosystemImages = [
 }
 
 .number {
-    font-size: 24px;
+    font-size: 20px;
     font-weight: 800;
     margin-bottom: 4px;
     color: #ffffff !important;
