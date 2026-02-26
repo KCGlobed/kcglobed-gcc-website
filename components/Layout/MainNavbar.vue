@@ -50,9 +50,9 @@
             </NuxtLink>
           </li>
           <li class="nav-item apply-btn">
-            <NuxtLink to="/personal-information" class="nav-link apply-now-btn">
+            <button class="nav-link apply-now-btn" data-bs-toggle="modal" data-bs-target="#navApplyNowModal">
               Apply Now
-            </NuxtLink>
+            </button>
           </li>
 
 
@@ -134,6 +134,10 @@
       </div>
     </div>
   </nav>
+
+  <!-- Apply Now Modal -->
+  <CommonDossierModal modal-id="navApplyNowModal" modal-title="Apply Now"
+    subtitle="Enter your details to complete your application" mode="apply" />
 </template>
 
 <script lang="ts">
@@ -177,7 +181,7 @@ export default defineComponent({
           "Backed by Industry Titans",
           "CRACK NFET AND GET YOUR TICKET",
           "India - GCC Capital of the World",
-          "Traditional Pathway vs GCC Journey",
+          "Traditional Pathway vs GCC School Journey",
           "ACCA", "acca", "Acca", "NFET", "Nfet", "nfet", "NFET", "Nfet", "nfet", "12 Months",
           "Globally Recognised Academic Credentials", "Strong theoretical foundation", "Career Commitment & Confidence from Day 1",
           "Get Hired First, Then Trained.", "Real time industry environmental learning",

@@ -233,6 +233,10 @@
 }
 
 @media (max-width: 991px) {
+    .core-values-section {
+        padding: 50px 0;
+    }
+
     .value-card {
         padding: 50px 30px;
         min-height: 250px;
@@ -242,6 +246,10 @@
     .accent-right::after,
     .accent-left-bottom::before {
         display: none;
+    }
+
+    .section-title {
+        margin-bottom: 30px;
     }
 }
 </style>

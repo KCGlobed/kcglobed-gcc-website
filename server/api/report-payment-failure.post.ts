@@ -3,7 +3,7 @@ import { savePayment } from "../services/payment.service";
 
 export default defineEventHandler(async (event) => {
     const body = await readBody(event);
-    const { razorpay_order_id, razorpay_payment_id, error_details } = body;
+    const { razorpay_order_id, razorpay_payment_id } = body;
 
     if (!razorpay_order_id) {
         throw createError({
@@ -12,37 +12,45 @@ export default defineEventHandler(async (event) => {
         });
     }
 
-    const keySecret = process.env.RAZORPAY_KEY_SECRET;
-    if (!keySecret) {
+    const config = useRuntimeConfig(event);
+    const keyId = (config.razorpayKeyId || "").replace(/['"]/g, '').trim();
+    const keySecret = (config.razorpayKeySecret || "").replace(/['"]/g, '').trim();
+
+    if (!keyId || !keySecret) {
         throw createError({
             statusCode: 500,
-            message: "Razorpay secret not configured"
+            message: "Razorpay configuration missing"
         });
     }
 
     const razorpay = new Razorpay({
-        key_id: process.env.RAZORPAY_KEY_ID!,
+        key_id: keyId,
         key_secret: keySecret
     });
 
     try {
-        // Fetch order to identify user
+        // Fetch order to identify user and form details
         const order = await razorpay.orders.fetch(razorpay_order_id);
 
         // @ts-ignore
         const userId = order.notes ? order.notes.user_id : null;
+        // @ts-ignore
+        const formType = order.notes ? order.notes.form_type : null;
+        // @ts-ignore
+        const formId = order.notes ? order.notes.form_id : null;
 
         if (!userId) {
-            console.warn(`Payment failed report: User ID not found for order ${razorpay_order_id}`);
-            return { success: false, message: "User ID not found" };
+            console.warn(`Payment failed report: No student_id for order ${razorpay_order_id} (guest payment, continuing...)`);
         }
 
-        // Save failed payment
+        // Always save the failed payment record regardless of userId
         await savePayment({
-            student_id: userId,
+            student_id: userId || null,
+            form_type: formType,
+            form_id: formId,
             razorpay_order_id,
             razorpay_payment_id: razorpay_payment_id || 'N/A',
-            razorpay_signature: 'N/A', // No signature for failed transactions reported by client
+            razorpay_signature: 'N/A',
             amount: (order.amount as number) / 100,
             currency: order.currency,
             status: "failed",

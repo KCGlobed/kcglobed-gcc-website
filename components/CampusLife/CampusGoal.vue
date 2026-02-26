@@ -1,175 +1,177 @@
 <template>
-    <div>
-        <!-- Yellow dots decoration - hidden on mobile -->
-        <div class="d-none d-lg-flex align-items-center justify-content-start">
-            <img :src="yellowSquareDots" alt="" class="position-absolute dots-yellow" />
-        </div>
+    <div class="leaders-section">
 
-        <!-- Main content -->
-        <div class="bg-white d-flex align-items-center flex-column goals-section">
-            <div class="d-flex flex-column align-items-center mt-section px-3">
-                <p class="heading-primary text-center fw-bold text-secondary">
-                    Committed to Achieve UNOs SDGs
-                </p>
-                <!-- <p class="heading-secondary text-center fw-semibold mt-3 text-dark-gray">
-                    Driving Sustainability Through Education and Employment
-                </p> -->
-            </div>
+        <!-- Heading -->
+        <h2 class="title">
+            INSIGHTFUL MINUTES WITH <span>INDUSTRY <br> LEADERS</span>
+        </h2>
 
-            <!-- Goals Grid -->
-            <div class="goals-grid px-2 px-lg-4 mt-4 mt-lg-5 mb-4 mb-lg-5 mx-3 mx-lg-5">
-                <div v-for="(image, index) in goals" :key="index" class="goal-item"
-                    @mouseenter="handleHover(index, true)" @mouseleave="handleHover(index, false)"
-                    :class="{ 'goal-hover': hoveredIndex === index }">
-                    <img class="goal-image" :src="`${bucketURL}${image}`" :alt="`Goal ${index + 1}`" />
-                </div>
-            </div>
+        <!-- Image Grid -->
+        <div class="leaders-grid">
+            <img class="gi gi-1" :src="images[0]" />
+            <img class="gi gi-2" :src="images[1]" />
+            <img class="gi gi-3" :src="images[2]" />
+            <img class="gi gi-4" :src="images[3]" />
+            <img class="gi gi-5" :src="images[4]" />
         </div>
+        <!-- Video -->
+        <!-- <VideoBox video-src="https://storage.googleapis.com/gcc_static_files_backend/static/videos/lms_tutorial.mp4"
+            thumbnail-src="https://storage.googleapis.com/gcc_prod_static_files_backend/static/images/kamalchhabbraadd.jpeg" /> -->
 
-        <!-- Purple dots decoration - hidden on mobile -->
-        <div class="d-none d-lg-flex align-items-center justify-content-end">
-            <img :src="purpleSquareDots" alt="" class="position-absolute dots-purple" />
-        </div>
+        <!-- Dots -->
+        <!-- <div class="dots">
+            <span v-for="i in 5" :key="i" :class="{ active: i === 1 }"></span>
+        </div> -->
+
     </div>
 </template>
 
-<script lang="ts">
-import { defineComponent, ref } from 'vue';
+<script setup lang="ts">
+import img1 from '../../assets/img/campus/leader1.jpg';
+import img2 from '../../assets/img/campus/leader2.jpg';
+import img3 from '../../assets/img/campus/leader3.jpg';
+import img4 from '../../assets/img/campus/leader4.jpg';
+import img5 from '../../assets/img/campus/leader5.jpg';
 
-export default defineComponent({
-    name: 'AUGoalsSection',
-    setup() {
-        const hoveredIndex = ref<number | null>(null);
-
-        // Replace these with your actual image imports or paths
-        const bucketURL = 'https://storage.googleapis.com/static_files_backend'; // Update with your actual bucket URL
-        const yellowSquareDots = '/assets/images/yellow_square_dots.svg';
-        const purpleSquareDots = '/assets/images/purple_square_dots.svg';
-
-        const goals = [
-            '/media/landing/goal1.svg',
-            '/media/landing/goal2.svg',
-            '/media/landing/goal3.svg',
-            '/media/landing/goal4.svg',
-            '/media/landing/goal5.svg',
-            '/media/landing/goal6.svg',
-            '/media/landing/goal7.svg',
-            '/media/landing/goal8.svg',
-            '/media/landing/goal9.jpg',
-            '/media/landing/goal10.svg',
-            '/media/landing/goal11.svg',
-            '/media/landing/goal14.svg',
-            '/media/landing/goal13.svg',
-            '/media/landing/goal-1.svg',
-            '/media/landing/goal15.svg',
-            '/media/landing/goal16.svg',
-            '/media/landing/goal17.svg',
-            '/media/landing/goal18.svg',
-        ];
-
-        const handleHover = (index: number, isHovering: boolean) => {
-            hoveredIndex.value = isHovering ? index : null;
-        };
-
-        return {
-            goals,
-            bucketURL,
-            yellowSquareDots,
-            purpleSquareDots,
-            hoveredIndex,
-            handleHover,
-        };
-    },
-});
+const images = [img1, img2, img3, img4, img5];
 </script>
 
 <style scoped>
-.goals-section {
+/* Section */
+.leaders-section {
+    background: #0f1115;
+    padding: 80px 0;
+    text-align: center;
+}
+
+/* Heading */
+.title {
+    color: #fff;
+    font-size: 36px;
+    font-weight: 700;
+    margin-bottom: 40px;
+}
+
+.title span {
+    color: #f59e0b;
+}
+
+.leaders-grid {
+    max-width: 1100px;
     margin: auto;
-    max-width: 1140px;
-    margin-bottom: 2.5rem;
-}
-
-.mt-section {
-    margin-top: 4vh;
-}
-
-.heading-primary {
-    font-size: 1.25rem;
-    color: #6c757d;
-}
-
-.heading-secondary {
-    font-size: 1.5rem;
-    color: #3a3b3b;
-}
-
-.text-dark-gray {
-    color: #3b3b3b;
-}
-
-/* Goals Grid */
-.goals-grid {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 0.5rem;
+    /* Desktop: row 1 = 2 cols, row 2 = 3 cols — emulated with 6-col grid */
+    grid-template-columns: repeat(6, 1fr);
+    grid-template-rows: auto auto;
+    gap: 6px;
 }
 
-.goal-item {
-    cursor: pointer;
-    transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-.goal-item:active {
-    transform: scale(0.9);
-}
-
-.goal-hover {
-    transform: scale(1.1);
-}
-
-.goal-image {
-    height: auto;
+.gi {
     width: 100%;
-    max-width: 100%;
-    margin-bottom: 0.5rem;
+    height: 200px;
+    object-fit: cover;
+    border-radius: 14px;
+    display: block;
 }
 
-/* Decorative dots */
-.dots-yellow {
-    height: 4rem;
-    margin-top: 8rem;
-    margin-left: 2rem;
+/* Desktop: Row 1 — 2 images, each spanning 3 cols */
+.gi-1 {
+    grid-column: 1 / 4;
 }
 
-.dots-purple {
-    height: 3rem;
-    margin-bottom: 10rem;
-    margin-right: 2rem;
+.gi-2 {
+    grid-column: 4 / 7;
 }
 
-/* Tablet breakpoint (md) */
-@media (max-width: 767px) {
-    .goals-grid {
-        grid-template-columns: repeat(3, 1fr);
-        gap: 0.5rem;
+/* Desktop: Row 2 — 3 images, each spanning 2 cols */
+.gi-3 {
+    grid-column: 1 / 3;
+    height: 180px;
+}
+
+.gi-4 {
+    grid-column: 3 / 5;
+    height: 180px;
+}
+
+.gi-5 {
+    grid-column: 5 / 7;
+    height: 180px;
+}
+
+/* VideoBox wrapper spacing */
+:deep(.video-box-wrapper) {
+    margin-top: 60px;
+    padding: 0 20px;
+}
+
+/* Dots */
+.dots {
+    margin-top: 20px;
+}
+
+.dots span {
+    display: inline-block;
+    width: 8px;
+    height: 8px;
+    margin: 0 4px;
+    background: #555;
+    border-radius: 50%;
+}
+
+.dots span.active {
+    background: #fff;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .leaders-section {
+        padding: 50px 16px;
     }
 
-    .heading-primary {
-        font-size: 1.1rem;
+    .title {
+        font-size: 16px;
     }
 
-    .goals-section {
-        padding: 0 10px;
+    .leaders-grid {
+        grid-template-columns: 1fr 1fr;
+        grid-template-rows: auto auto auto auto;
+        grid-template-areas:
+            "a a"
+            "b d"
+            "c d"
+            "e e";
+        gap: 8px;
     }
-}
 
-@media (max-width: 480px) {
-    .goals-grid {
-        grid-template-columns: repeat(2, 1fr);
+    .gi-1 {
+        grid-area: a;
+        grid-column: 1/-1;
+        height: 180px;
+    }
+
+    .gi-2 {
+        grid-area: b;
+        grid-column: auto;
+        height: 130px;
+    }
+
+    .gi-3 {
+        grid-area: c;
+        grid-column: auto;
+        height: 130px;
+    }
+
+    .gi-4 {
+        grid-area: d;
+        grid-column: auto;
+        height: 100%;
+    }
+
+    .gi-5 {
+        grid-area: e;
+        grid-column: 1/-1;
+        height: 180px;
     }
 }
 </style>

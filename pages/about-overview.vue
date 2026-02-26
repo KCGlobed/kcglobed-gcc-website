@@ -18,7 +18,7 @@
 
 
 
-    <CampusLifeCampusGoal />
+    <CommonSusentiableGoal />
     <LayoutMainFooter />
     <LayoutCopyRight />
   </div>

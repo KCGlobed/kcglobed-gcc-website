@@ -39,9 +39,9 @@
                 </p> -->
 
                 <div class="d-flex gap-3 flex-wrap">
-                  <NuxtLink :to="banner.btnLink" class="btn btn-primary px-4 py-3">
+                  <button class="btn btn-primary px-4 py-3" data-bs-toggle="modal" data-bs-target="#applyNowModal">
                     {{ banner.btnText }}
-                  </NuxtLink>
+                  </button>
                   <!-- <button class="btn btn-light px-4 py-3" data-bs-toggle="modal" data-bs-target="#enquiryModal">
                     {{ banner.btnTextTwo }}
                   </button> -->
@@ -333,6 +333,10 @@
   </div>
 
   <CommonDossierModal />
+
+  <!-- Apply Now Modal -->
+  <CommonDossierModal modal-id="applyNowModal" modal-title="Apply Now"
+    subtitle="Enter your details to complete your application" mode="apply" />
 </template>
 
 <style scoped>

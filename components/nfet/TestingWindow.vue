@@ -14,18 +14,18 @@
                     <p class="discription">Select your preferred date and time and take the first decisive step toward
                         global career
                         opportunities.</p>
-                    <button @click="applyNow">Apply Now</button>
+                    <button data-bs-toggle="modal" data-bs-target="#testingWindowApplyModal">Apply Now</button>
 
                 </div>
             </div>
         </div>
     </section>
 
+    <!-- Apply Now Modal -->
+    <CommonDossierModal modal-id="testingWindowApplyModal" modal-title="Apply Now"
+        subtitle="Enter your details to complete your application" mode="apply" />
 </template>
 <script setup lang="ts">
-const applyNow = () => {
-    navigateTo('/personal-information');
-}
 </script>
 <style scoped>
 .testing-window {

@@ -1,6 +1,7 @@
 import Razorpay from "razorpay";
 import crypto from "crypto";
 import { savePayment } from "../services/payment.service";
+import { sendPaymentConfirmationEmail } from "../services/email.service";
 
 export default defineEventHandler(async (event) => {
     const body = await readBody(event);
@@ -13,23 +14,34 @@ export default defineEventHandler(async (event) => {
         });
     }
 
-    const keySecret = process.env.RAZORPAY_KEY_SECRET;
-    if (!keySecret) {
+    const config = useRuntimeConfig(event);
+    // Nuxt runtimeConfig only auto-maps vars prefixed with NUXT_ on Cloud Run.
+    // Fall back to process.env directly so plain env var names work too.
+    const keySecret = (config.razorpayKeySecret || process.env.RAZORPAY_KEY_SECRET || "").replace(/['"]/g, '').trim();
+    const keyId = (config.razorpayKeyId || process.env.RAZORPAY_KEY_ID || "").replace(/['"]/g, '').trim();
+
+    if (!keyId || !keySecret) {
+        console.error(`[complete-payment] Keys missing — runtimeConfig len: ${(config.razorpayKeyId || '').length}, process.env len: ${(process.env.RAZORPAY_KEY_ID || '').length}`);
         throw createError({
             statusCode: 500,
-            message: "Razorpay secret not configured"
+            message: "Razorpay configuration missing on server"
         });
     }
 
     // Initialize Razorpay
     const razorpay = new Razorpay({
-        key_id: process.env.RAZORPAY_KEY_ID!,
+        key_id: keyId,
         key_secret: keySecret
     });
 
     let userId = null;
+    let formType = null;
+    let formId = null;
     let amount = 0;
     let currency = 'INR';
+    let userName = '';
+    let userEmail = '';
+    let userMobile = '';
 
     try {
         // Fetch order details first to get user_id and amount
@@ -37,16 +49,21 @@ export default defineEventHandler(async (event) => {
 
         // @ts-ignore
         userId = order.notes ? order.notes.user_id : null;
+        // @ts-ignore
+        formType = order.notes ? order.notes.form_type : null;
+        // @ts-ignore
+        formId = order.notes ? order.notes.form_id : null;
+        // @ts-ignore
+        userName = order.notes ? (order.notes.name || '') : '';
+        // @ts-ignore
+        userEmail = order.notes ? (order.notes.email || '') : '';
+        // @ts-ignore
+        userMobile = order.notes ? (order.notes.mobile || '') : '';
+
         amount = (order.amount as number) / 100;
         currency = order.currency;
 
-        if (!userId) {
-            throw createError({
-                statusCode: 400,
-                message: "User ID not found in order notes"
-            });
-        }
-
+        // form_id is optional — present in Dossier flow, absent in Student Application flow
     } catch (error: any) {
         console.error("Error fetching Razorpay order:", error);
         throw createError({
@@ -63,18 +80,18 @@ export default defineEventHandler(async (event) => {
 
     if (generated_signature !== razorpay_signature) {
         // Save failed payment
-        if (userId) {
-            await savePayment({
-                student_id: userId,
-                razorpay_order_id,
-                razorpay_payment_id,
-                razorpay_signature,
-                amount,
-                currency,
-                status: "failed",
-                response: JSON.stringify({ ...body, error: "Invalid payment signature" })
-            });
-        }
+        await savePayment({
+            student_id: userId,
+            form_type: formType,
+            form_id: formId,
+            razorpay_order_id,
+            razorpay_payment_id,
+            razorpay_signature,
+            amount,
+            currency,
+            status: "failed",
+            response: JSON.stringify({ ...body, error: "Invalid payment signature" })
+        });
 
         throw createError({
             statusCode: 400,
@@ -86,6 +103,8 @@ export default defineEventHandler(async (event) => {
         // Save success payment
         const paymentId = await savePayment({
             student_id: userId,
+            form_type: formType,
+            form_id: formId,
             razorpay_order_id,
             razorpay_payment_id,
             razorpay_signature,
@@ -94,6 +113,35 @@ export default defineEventHandler(async (event) => {
             status: "success",
             response: JSON.stringify(body)
         });
+
+        // Send confirmation email (non-blocking – failure won't break the response)
+        if (userEmail) {
+            const now = new Date();
+            const formattedDate = now.toLocaleString('en-IN', {
+                timeZone: 'Asia/Kolkata',
+                day: '2-digit',
+                month: 'short',
+                year: 'numeric',
+                hour: '2-digit',
+                minute: '2-digit',
+                hour12: true
+            });
+
+            sendPaymentConfirmationEmail({
+                to: userEmail,
+                name: userName || userMobile || 'Applicant',
+                razorpay_payment_id,
+                razorpay_order_id,
+                amount,
+                currency,
+                date: formattedDate,
+                emailHost: (config.emailHost as string) || process.env.EMAIL_HOST || 'smtp.hostinger.com',
+                emailUser: (config.emailUser as string) || process.env.EMAIL_HOST_USER || '',
+                emailPassword: (config.emailPassword as string) || process.env.EMAIL_HOST_PASSWORD || ''
+            }).catch((err) => {
+                console.error("Payment confirmation email failed:", err);
+            });
+        }
 
         return {
             success: true,
@@ -104,21 +152,21 @@ export default defineEventHandler(async (event) => {
     } catch (error: any) {
         console.error("Payment Saving Error:", error);
 
-        if (userId) {
-            try {
-                await savePayment({
-                    student_id: userId,
-                    razorpay_order_id,
-                    razorpay_payment_id,
-                    razorpay_signature,
-                    amount,
-                    currency,
-                    status: "failed",
-                    response: JSON.stringify({ ...body, error: error.message || "Failed to save payment" })
-                });
-            } catch (innerError) {
-                console.error("Failed to save payment failure log:", innerError);
-            }
+        try {
+            await savePayment({
+                student_id: userId,
+                form_type: formType,
+                form_id: formId,
+                razorpay_order_id,
+                razorpay_payment_id,
+                razorpay_signature,
+                amount,
+                currency,
+                status: "failed",
+                response: JSON.stringify({ ...body, error: error.message || "Failed to save payment" })
+            });
+        } catch (innerError) {
+            console.error("Failed to save payment failure log:", innerError);
         }
 
         throw createError({
@@ -127,3 +175,4 @@ export default defineEventHandler(async (event) => {
         });
     }
 });
+

@@ -34,7 +34,7 @@
                     <NuxtLink to="/campus-ceo/student">Ambassador</NuxtLink>
                   </li>
                   <li>
-                    <NuxtLink to="/corporate-partner">Corporate Partner</NuxtLink>
+                    <NuxtLink to="/partner-with-us">Corporate Partner</NuxtLink>
                   </li>
                   <li>
                     <NuxtLink to="/career">Careers</NuxtLink>
