@@ -342,7 +342,7 @@
 
 /* ─── Logo on front ───────────────────────────────────── */
 .flip-logo-img {
-    height: 130px;
+    height: 200px;
     max-width: 280px;
     object-fit: contain;
     margin-bottom: 0;
