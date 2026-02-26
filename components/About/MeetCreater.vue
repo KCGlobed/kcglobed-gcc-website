@@ -1,9 +1,9 @@
 <template>
-    <section class="meet-section py-5 overflow-hidden">
+    <section class="meet-section py-md-5 py-0 overflow-hidden">
         <div class="container py-5">
 
             <!-- Creator Card -->
-            <div class="row mb-5 ">
+            <div class="row mb-md-5 mb-2  ">
                 <div class="col-lg-10">
                     <div class="card creator-card border-0">
                         <div class="row align-items-center g-0">
@@ -39,7 +39,7 @@
 
 
             <!-- Director Card -->
-            <div class="row justify-content-end mt-5 pt-4">
+            <div class="row justify-content-end mt-md-5 mt-2 pt-4">
                 <div class="col-lg-10">
                     <div class="card director-card border-0">
                         <div class="row align-items-center g-0 flex-md-row-reverse">
