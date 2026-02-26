@@ -20,7 +20,7 @@
                         <span class="txn-id">{{ paymentId }}</span>
                     </div>
 
-                    <p class="small text-muted mb-4">A confirmation email has been sent to your registered email
+                    <p class="small text-muted mb-4">A confirmation email will be sent to your registered email
                         address.</p>
 
                     <button type="button" class="btn btn-success-done w-100 py-3 fw-bold"
