@@ -277,7 +277,8 @@ export default defineComponent({
                     state: form.state,
                     city: form.city
                 };
-                const response: any = await $fetch("https://gccwebsite-admin-backend-738131651355.asia-south1.run.app/api/career/createdossierform", {
+                const config = useRuntimeConfig();
+                const response: any = await $fetch(`${config.public.apiBase}/api/career/createdossierform`, {
                     method: "POST",
                     body: payload
                 });

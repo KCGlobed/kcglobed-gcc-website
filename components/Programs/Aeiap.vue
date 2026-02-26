@@ -11,10 +11,10 @@
                 <!-- Card 1: ACCA -->
                 <div class="col-lg-4 col-md-6">
                     <div class="ae-card h-100 bg-white p-4 p-xl-5 rounded-12 shadow-sm border-0">
-                        <div class="card-logo mb-4 p-4">
-                            <!-- <img src="https://storage.googleapis.com/gcc_prod_static_files_backend/static/images/Accounting%20Logo.svg"
-                                alt="ACCA" class="logo-img-sm"> -->
-                            <!-- <h4>ACCA</h4> -->
+
+                        <div class="card-logo mb-4">
+                            <img src="https://storage.googleapis.com/gcc_prod_static_files_backend/static/images/Accounting%20Logo.svg"
+                                alt="British Council" class="logo-img-sm">
                         </div>
                         <h3 class="card-title font-bold text-xl mb-3">ACCA Qualification</h3>
                         <p class="card-desc text-gray-600">The Association of Chartered Certified Accountants (ACCA) is
