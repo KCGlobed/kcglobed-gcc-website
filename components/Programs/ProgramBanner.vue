@@ -139,7 +139,7 @@
                                     <div class="video-section">
                                         <div class="video-wrapper" @click="banner.showVideo = true">
                                             <template v-if="!banner.showVideo">
-                                                <img src="~/assets/img/programs/nitish.jpeg" alt="Program Video"
+                                                <img src="https://storage.googleapis.com/static_files_backend/media/images/WhatsApp%20Image%202026-02-26%20at%205.22.06%20PM.jpeg" alt="Program Video"
                                                     class="video-thumbnail">
                                                 <!-- <div class="video-badge-4k">
                                                     4k
