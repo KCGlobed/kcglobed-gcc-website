@@ -52,9 +52,11 @@ export default defineNuxtConfig({
     emailHost: process.env.EMAIL_HOST,
     emailUser: process.env.EMAIL_HOST_USER,
     emailPassword: process.env.EMAIL_HOST_PASSWORD,
+
     public: {
       paymentAmount: process.env.PAYMENT_AMOUNT,
-      apiBase: process.env.BASE_URL,
+      apiBase: process.env.NUXT_PUBLIC_API_BASE,
+
     }
   },
   plugins: ["~/plugins/scrollReveal.ts"],
