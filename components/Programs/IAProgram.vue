@@ -14,7 +14,7 @@
                     </div>
                     <div
                         class="program-name p-4 p-md-5 flex-grow-1 font-bold text-lg text-md-xl text-center text-md-start">
-                        AI-Enabled International Accounting Professional Program
+                        International Accounting Professionals (IAP) Program
                     </div>
                 </header>
 
@@ -51,12 +51,12 @@
 
                         <!-- Content List -->
                         <div class="flex-grow-1 p-4 p-md-5 bg-white d-flex align-items-center">
-                            <div class="row g-4 w-100">
-                                <div v-for="(col, colIndex) in splitModules(trimester.modules)" :key="colIndex"
-                                    :class="trimester.modules.length > 3 ? 'col-md-6' : 'col-12'">
+                            <div class="row w-100">
+                                <div v-for="(col, colIndex) in trimester.modules" :key="colIndex"
+                                    :class="trimester.modules.length > 1 ? 'col-md-6' : 'col-12'">
                                     <ul class="list-unstyled mb-0 module-list">
                                         <li v-for="(module, mIndex) in col" :key="mIndex"
-                                            class="d-flex align-items-start mb-2">
+                                            class="d-flex align-items-start mb-3">
                                             <span class="bullet-point me-2 text-black">•</span>
                                             <span class="text-gray-900" v-html="module"></span>
                                         </li>
@@ -80,13 +80,17 @@ const trimesters = [
         year: '2026',
         image: 'https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=800&h=600&fit=crop',
         modules: [
-            '<strong>Audit & Assurance(AA)</strong> ',
-            '<strong>Financial Reporting (FR) <strong>',
-            'AI for Finance, Audit & Accounting',
-            'Data analytics, Power BI, Advance Excel',
-            'MS Office',
-            'Communication & Presentation Skills – <strong>British Council</strong>',
-            'Corporate Internal Training'
+            [
+                'Financial Reporting (FR)',
+                'Financial Management (FM)',
+                'AI for Finance, Audit & Accounting',
+                'Data analytics, Power BI, Advance Excel'
+            ],
+            [
+                'MS Office',
+                'Communication & Presentation Skills – British Council',
+                'Corporate Internal Training'
+            ]
         ]
     },
     {
@@ -96,10 +100,13 @@ const trimesters = [
         year: '2026',
         image: 'https://images.unsplash.com/photo-1506744038136-46273834b3fb?w=800&h=600&fit=crop',
         modules: [
-
-            '<strong>Financial Management (FM) </strong> ',
-            '<strong>Performance Management</strong> (PM)',
-            'Interim Busy Season'
+            [
+                '<strong>Audit & Assurance (AA)</strong>',
+                '<strong>Performance Management (PM)</strong>'
+            ],
+            [
+                'Interim Busy Season'
+            ]
         ]
     },
     {
@@ -109,9 +116,13 @@ const trimesters = [
         year: '2027',
         image: 'https://images.unsplash.com/photo-1477601263568-180e2c6d046e?w=800&h=600&fit=crop',
         modules: [
-            '<strong>Strategic Business Reporting (SBR)</strong>',
-            '<strong>Strategic Business Leader (SBL)</strong>',
-            '<div class="d-flex flex-column"><span class="text-brand-accent font-bold">GCC Internship - 6 hr/day</span><span class="text-gray-700 text-sm">(Year-End Busy Season)</span></div>'
+            [
+                '<strong>Strategic Business Reporting (SBR)</strong>',
+                '<strong>Strategic Business Leader (SBL)</strong>'
+            ],
+            [
+                '<div class="d-flex flex-column"><span class="content-color font-bold" style="color: #7A1C62;font-weight: 700;">GCC Internship - 6 hr/day</span><span class="text-gray-700 text-sm">[Year-End Busy Season]</span></div>'
+            ]
         ]
     },
     {
@@ -121,23 +132,23 @@ const trimesters = [
         year: '2027',
         image: 'https://images.unsplash.com/photo-1509233725247-49e657c54213?w=800&h=600&fit=crop',
         modules: [
-            '<strong>Advanced Audit & Assurance</strong> (AAA)',
-            '<strong>Advanced Financial Management</strong> (AFM)',
-            '<div class="d-flex flex-column"><span class="text-gray-900 font-bold">Corporate Internal Training</span><span class="text-gray-700 text-sm">(Earmarked GCC Candidates)</span></div>'
+            [
+                '<strong>Advanced Audit & Assurance (AAA)</strong>',
+                '<strong>Advanced Financial Management (AFM)</strong>'
+            ],
+            [
+                '<div class="d-flex flex-column"><span class="text-gray-900 font-bold">Corporate Internal Training</span><span class="text-gray-700 text-sm">[Earmarked GCC Candidates]</span></div>'
+            ]
         ]
     }
 ];
-
-const splitModules = (modules) => {
-    if (modules.length <= 4) {
-        return [modules];
-    }
-    const half = Math.ceil(modules.length / 2);
-    return [modules.slice(0, half), modules.slice(half)];
-};
 </script>
 
 <style scoped>
+.content-color {
+    color: #7A1C62;
+}
+
 .ia-program-area {
     background-color: #f3f4f6;
 }
@@ -164,6 +175,8 @@ const splitModules = (modules) => {
     margin: 15px auto 0;
     border-radius: 10px;
 }
+
+
 
 .highlight {
     color: #F1A63E;
