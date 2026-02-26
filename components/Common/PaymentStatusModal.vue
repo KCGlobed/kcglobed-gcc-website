@@ -27,6 +27,7 @@
                         data-bs-dismiss="modal">Done</button>
                 </div>
 
+
                 <!-- FAILURE STATE -->
                 <div v-else-if="status === 'failed'" class="status-content">
                     <div class="icon-circle failed-circle mx-auto mb-4">
