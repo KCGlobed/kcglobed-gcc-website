@@ -1,36 +1,36 @@
 import nodemailer from 'nodemailer';
 
 interface PaymentEmailOptions {
-    to: string;
-    name: string;
-    razorpay_payment_id: string;
-    razorpay_order_id: string;
-    amount: number;
-    currency: string;
-    date: string;
-    emailHost: string;
-    emailUser: string;
-    emailPassword: string;
+  to: string;
+  name: string;
+  razorpay_payment_id: string;
+  razorpay_order_id: string;
+  amount: number;
+  currency: string;
+  date: string;
+  emailHost: string;
+  emailUser: string;
+  emailPassword: string;
 }
 
 export async function sendPaymentConfirmationEmail(opts: PaymentEmailOptions) {
-    const transporter = nodemailer.createTransport({
-        host: opts.emailHost,
-        port: 465,
-        secure: true,
-        auth: {
-            user: opts.emailUser,
-            pass: opts.emailPassword
-        }
-    });
+  const transporter = nodemailer.createTransport({
+    host: opts.emailHost,
+    port: 465,
+    secure: true,
+    auth: {
+      user: opts.emailUser,
+      pass: opts.emailPassword
+    }
+  });
 
-    const formattedAmount = new Intl.NumberFormat('en-IN', {
-        style: 'currency',
-        currency: opts.currency || 'INR',
-        minimumFractionDigits: 0
-    }).format(opts.amount);
+  const formattedAmount = new Intl.NumberFormat('en-IN', {
+    style: 'currency',
+    currency: opts.currency || 'INR',
+    minimumFractionDigits: 0
+  }).format(opts.amount);
 
-    const html = `
+  const html = `
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -180,10 +180,10 @@ export async function sendPaymentConfirmationEmail(opts: PaymentEmailOptions) {
 </body>
 </html>`;
 
-    await transporter.sendMail({
-        from: `"GCC School" <${opts.emailUser}>`,
-        to: opts.to,
-        subject: `Payment Confirmed – GCC School Application Fee (${opts.razorpay_payment_id})`,
-        html
-    });
+  // await transporter.sendMail({
+  //     from: `"GCC School" <${opts.emailUser}>`,
+  //     to: opts.to,
+  //     subject: `Payment Confirmed – GCC School Application Fee (${opts.razorpay_payment_id})`,
+  //     html
+  // });
 }
