@@ -178,23 +178,54 @@ onUnmounted(() => { if (timer) clearInterval(timer); });
 /* ── Mobile ───────────────────────────────────────────────── */
 @media (max-width: 768px) {
     .campus-banner {
-        height: 70vw;
-        min-height: 300px;
+        height: 70vh;
+        min-height: 560px;
+    }
+
+    .slide {
+        align-items: flex-end;
+        justify-content: center;
+
+        padding: 0 18px 70px;
+
+        /* ✅ FIX: image framing */
+        background-position: 20% -57px;
+    }
+
+    /* ✅ Better cinematic overlay */
+    .overlay {
+        background: linear-gradient(189.93deg, rgba(0, 0, 0, 0) 8.48%, rgba(0, 0, 0, 0.97) 69.11%);
+
     }
 
     .content-wrap {
-        padding-left: 24px;
-        padding-right: 24px;
-        max-width: 100%;
+        align-items: center;
+        text-align: center;
+        max-width: 320px;
     }
 
+    /* ✅ FIX: heading size (main issue) */
     .slide-heading {
         font-size: 22px;
+        line-height: 30px;
+        margin-bottom: 12px;
     }
 
+    /* ✅ tighter + cleaner */
     .slide-desc {
-        font-size: 12px;
-        max-width: 100%;
+        font-size: 12.5px;
+        line-height: 1.6;
+        margin-bottom: 16px;
+    }
+
+    /* ✅ dots closer to content */
+    .dots {
+        bottom: 25px;
+    }
+
+    .dot {
+        width: 9px;
+        height: 9px;
     }
 }
 </style>

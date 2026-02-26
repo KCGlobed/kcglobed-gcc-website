@@ -6,31 +6,22 @@
             INSIGHTFUL MINUTES WITH <span>INDUSTRY <br> LEADERS</span>
         </h2>
 
-        <!-- Top Grid -->
+        <!-- Image Grid -->
         <div class="leaders-grid">
-
-            <!-- Row 1 -->
-            <div class="row row-1">
-                <img :src="images[0]" />
-                <img :src="images[1]" />
-            </div>
-
-            <!-- Row 2 -->
-            <div class="row row-2">
-                <img :src="images[2]" />
-                <img :src="images[3]" />
-                <img :src="images[4]" />
-            </div>
-
+            <img class="gi gi-1" :src="images[0]" />
+            <img class="gi gi-2" :src="images[1]" />
+            <img class="gi gi-3" :src="images[2]" />
+            <img class="gi gi-4" :src="images[3]" />
+            <img class="gi gi-5" :src="images[4]" />
         </div>
         <!-- Video -->
-        <VideoBox video-src="https://storage.googleapis.com/gcc_static_files_backend/static/videos/lms_tutorial.mp4"
-            thumbnail-src="https://storage.googleapis.com/gcc_prod_static_files_backend/static/images/kamalchhabbraadd.jpeg" />
+        <!-- <VideoBox video-src="https://storage.googleapis.com/gcc_static_files_backend/static/videos/lms_tutorial.mp4"
+            thumbnail-src="https://storage.googleapis.com/gcc_prod_static_files_backend/static/images/kamalchhabbraadd.jpeg" /> -->
 
         <!-- Dots -->
-        <div class="dots">
+        <!-- <div class="dots">
             <span v-for="i in 5" :key="i" :class="{ active: i === 1 }"></span>
-        </div>
+        </div> -->
 
     </div>
 </template>
@@ -68,39 +59,44 @@ const images = [img1, img2, img3, img4, img5];
 .leaders-grid {
     max-width: 1100px;
     margin: auto;
-    display: flex;
-    flex-direction: column;
-    gap: 16px;
-}
-
-/* Row base */
-.row {
     display: grid;
-    gap: 0px;
+    /* Desktop: row 1 = 2 cols, row 2 = 3 cols — emulated with 6-col grid */
+    grid-template-columns: repeat(6, 1fr);
+    grid-template-rows: auto auto;
+    gap: 6px;
 }
 
-/* First row → 2 columns */
-.row-1 {
-    grid-template-columns: repeat(2, 1fr);
-}
-
-/* Second row → 3 columns */
-.row-2 {
-    grid-template-columns: repeat(3, 1fr);
-}
-
-/* Images */
-.row img {
+.gi {
     width: 100%;
-    height: 180px;
+    height: 200px;
     object-fit: cover;
     border-radius: 14px;
     display: block;
 }
 
-/* Optional: make first row slightly bigger */
-.row-1 img {
-    height: 200px;
+/* Desktop: Row 1 — 2 images, each spanning 3 cols */
+.gi-1 {
+    grid-column: 1 / 4;
+}
+
+.gi-2 {
+    grid-column: 4 / 7;
+}
+
+/* Desktop: Row 2 — 3 images, each spanning 2 cols */
+.gi-3 {
+    grid-column: 1 / 3;
+    height: 180px;
+}
+
+.gi-4 {
+    grid-column: 3 / 5;
+    height: 180px;
+}
+
+.gi-5 {
+    grid-column: 5 / 7;
+    height: 180px;
 }
 
 /* VideoBox wrapper spacing */
@@ -129,12 +125,53 @@ const images = [img1, img2, img3, img4, img5];
 
 /* Responsive */
 @media (max-width: 768px) {
-    .leaders-grid img {
-        height: 120px;
+    .leaders-section {
+        padding: 50px 16px;
     }
 
-    .leaders-grid img:first-child {
-        height: 150px;
+    .title {
+        font-size: 16px;
+    }
+
+    .leaders-grid {
+        grid-template-columns: 1fr 1fr;
+        grid-template-rows: auto auto auto auto;
+        grid-template-areas:
+            "a a"
+            "b d"
+            "c d"
+            "e e";
+        gap: 8px;
+    }
+
+    .gi-1 {
+        grid-area: a;
+        grid-column: 1/-1;
+        height: 180px;
+    }
+
+    .gi-2 {
+        grid-area: b;
+        grid-column: auto;
+        height: 130px;
+    }
+
+    .gi-3 {
+        grid-area: c;
+        grid-column: auto;
+        height: 130px;
+    }
+
+    .gi-4 {
+        grid-area: d;
+        grid-column: auto;
+        height: 100%;
+    }
+
+    .gi-5 {
+        grid-area: e;
+        grid-column: 1/-1;
+        height: 180px;
     }
 }
 </style>

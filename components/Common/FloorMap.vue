@@ -184,28 +184,60 @@ function getClass(i: number) {
 
 /* ── Responsive ──────────────────────────────────────────── */
 @media (max-width: 768px) {
+    .floor-map {
+        padding: 60px 0 40px;
+    }
+
     .slider-wrapper {
-        height: 260px;
+        height: 420px;
+        flex-direction: column;
     }
 
     .card {
-        width: 80vw;
+        width: 72vw;
+        max-width: 320px;
     }
 
+    /* vertical stack: prev card peeks from top */
     .card.prev {
-        transform: translate(calc(-50% - 76vw), -50%) scale(0.78);
+        transform: translate(-50%, calc(-50% - 100px)) scale(0.82);
+        opacity: 0.65;
     }
 
+    /* active card stays centered */
+    .card.active {
+        transform: translate(-50%, -50%) scale(1);
+    }
+
+    /* next card peeks from bottom */
     .card.next {
-        transform: translate(calc(-50% + 76vw), -50%) scale(0.78);
+        transform: translate(-50%, calc(-50% + 100px)) scale(0.82);
+        opacity: 0.65;
+    }
+
+    /* arrows become vertical up/down at center */
+    .nav-btn {
+        left: 50%;
+        transform: translateX(-50%);
+        top: auto;
     }
 
     .nav-left {
-        left: calc(50% - 40vw - 40px);
+        left: 50%;
+        top: -10px;
+        transform: translateX(-50%) rotate(90deg);
     }
 
     .nav-right {
-        right: calc(50% - 40vw - 40px);
+        right: auto;
+        left: 50%;
+        bottom: -10px;
+        top: auto;
+        transform: translateX(-50%) rotate(90deg);
+    }
+
+    .cta {
+        margin-top: 40px;
     }
 }
 </style>

@@ -241,5 +241,11 @@ const clubs = [
     .clubs-grid {
         grid-template-columns: 1fr;
     }
+
+    @media (max-width: 768px) {
+        .section-title {
+            font-size: 20px;
+        }
+    }
 }
 </style>
