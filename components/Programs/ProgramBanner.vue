@@ -45,7 +45,7 @@
                                                         v-model="form.mobile" placeholder="Enter your phone number"
                                                         :class="{ 'is-invalid': errors.mobile }">
                                                     <div class="invalid-feedback" v-if="errors.mobile">{{ errors.mobile
-                                                    }}
+                                                        }}
                                                     </div>
                                                 </div>
                                             </div>
@@ -728,11 +728,11 @@ export default defineComponent({
                     city: form.city
                 };
 
-                const response: any = await $fetch("https://gccwebsite-admin-backend-738131651355.asia-south1.run.app/api/career/createdossierform", {
+                const config = useRuntimeConfig();
+                const response: any = await $fetch(`${config.public.apiBase}/api/career/createdossierform`, {
                     method: "POST",
                     body: payload
                 });
-
                 if (response.success && response.data?.url) {
                     const fileUrl = response.data.url;
                     formId.value = response.data.id;
