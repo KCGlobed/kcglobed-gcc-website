@@ -47,7 +47,7 @@
               <div class="video-container">
                 <video ref="infoVideo" controls muted loop class="w-100 h-100" @play="isVideoPlaying = true"
                   @pause="isVideoPlaying = false" style="object-fit: contain; background: #0b0b1a;">
-                  <source src="https://storage.googleapis.com/gcc_static_files_backend/static/videos/lms_tutorial.mp4"
+                  <source src="https://storage.googleapis.com/static_files_backend/media/images/Kamal%20Sir%20Video.mp4"
                     type="video/mp4">
                   Your browser does not support the video tag.
                 </video>
@@ -60,7 +60,7 @@
                 </div>
                 <!-- Thumbnail Mask (visible before play) -->
                 <img v-if="!isVideoPlaying"
-                  src="https://storage.googleapis.com/static_files_backend/media/images/WhatsApp%20Image%202026-02-26%20at%205.08.44%20PM.jpeg"
+                  src="https://storage.googleapis.com/static_files_backend/media/images/WhatsApp%20Image%202026-02-27%20at%2011.05.41%20AM.jpeg"
                   class="video-poster-img" @click="playVideo" alt="Thumbnail">
               </div>
               <!-- <div class="video-badge-new">

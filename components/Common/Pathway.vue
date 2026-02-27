@@ -14,12 +14,11 @@
                     <div class="pathway-visual-container">
                         <div class="image-wrapper">
                             <div class="WebImageGraphImag">
-                                <img src="@/assets/img/common/webgraph.svg" alt="GCC Learning Pathway"
-                                    class="pathway-graphic">
+                                <img src="https://storage.googleapis.com/static_files_backend/media/images/Group%2051402%20(1).png"
+                                    alt="GCC Learning Pathway" class="pathway-graphic">
                             </div>
                             <div class="mobileImageGraphImag">
-                                <img src="@/assets/img/common/mobilegraph.svg" alt="GCC Learning Pathway"
-                                    class="pathway-graphic">
+                                <img src="/img/mobilestair.png" alt="GCC Learning Pathway" class="pathway-graphic">
                             </div>
 
                         </div>

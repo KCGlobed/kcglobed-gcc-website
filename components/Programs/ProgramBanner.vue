@@ -45,7 +45,7 @@
                                                         v-model="form.mobile" placeholder="Enter your phone number"
                                                         :class="{ 'is-invalid': errors.mobile }">
                                                     <div class="invalid-feedback" v-if="errors.mobile">{{ errors.mobile
-                                                        }}
+                                                    }}
                                                     </div>
                                                 </div>
                                             </div>
@@ -139,8 +139,8 @@
                                     <div class="video-section">
                                         <div class="video-wrapper" @click="banner.showVideo = true">
                                             <template v-if="!banner.showVideo">
-                                                <img src="https://storage.googleapis.com/static_files_backend/media/images/WhatsApp%20Image%202026-02-26%20at%205.22.06%20PM.jpeg" alt="Program Video"
-                                                    class="video-thumbnail">
+                                                <img src="https://storage.googleapis.com/static_files_backend/media/images/nitish%20sir%20thmbnl_%20(1).jpg"
+                                                    alt="Program Video" class="video-thumbnail">
                                                 <!-- <div class="video-badge-4k">
                                                     4k
                                                 </div> -->

@@ -183,7 +183,7 @@
                     <div class="flip-card-wrapper">
                         <div class="flip-card">
                             <div class="flip-card-front flip-card-front--purple">
-                                <img src="https://storage.googleapis.com/static_files_backend/media/images/Background%2BBorder%20(2).svg"
+                                <img src="https://storage.googleapis.com/static_files_backend/media/images/Background%2BBorder.png"
                                     alt="Star Logo" class="flip-logo-img ">
                                 <!-- <p class="flip-hint flip-hint--white">Hover to explore</p> -->
                             </div>
