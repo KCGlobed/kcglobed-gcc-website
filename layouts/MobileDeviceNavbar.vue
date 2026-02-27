@@ -2,436 +2,216 @@
   <div :class="[
     'responsive-navbar offcanvas offcanvas-end',
     { show: stateStoreInstance.navbar },
+    { closing: isClosing },
   ]" tabindex="-1" id="navbarOffcanvas">
     <div class="offcanvas-header">
       <NuxtLink to="/" @click="handleClick" class="logo d-inline-block">
-        <img src="~/assets/Logo/Logo/GCC-School-Logo-White.jpeg" alt="logo" style="width: 200px;" />
+        <img src="~/assets/Logo/Logo/GCC-School-Logo-White.jpeg" alt="logo" class="header-logo" />
       </NuxtLink>
-      <button type="button" class="close-btn" @click="stateStoreInstance.onMobileNavbarShow" data-bs-dismiss="offcanvas"
-        aria-label="Close">
-        <i class="ti ti-x" style="color: #fff;"></i>
+      <button type="button" class="close-btn" @click="closeNavbar" aria-label="Close">
+        <i class="ti ti-x"></i>
       </button>
+
     </div>
     <div class="offcanvas-body">
-      <BAccordion free>
-        <!-- <BAccordionItem title="Home" visible>
-          <div class="accordion-item">
-            <NuxtLink to="/" class="accordion-link" @click="handleClick">
-              Home Demo - 1
-            </NuxtLink>
-          </div>
-          <div class="accordion-item">
-            <NuxtLink to="/home-two" class="accordion-link" @click="handleClick">
-              Home Demo - 2
-            </NuxtLink>
-          </div>
-          <div class="accordion-item">
-            <NuxtLink to="/home-three" class="accordion-link" @click="handleClick">
-              Home Demo - 3
-            </NuxtLink>
-          </div>
-        </BAccordionItem>
-        <BAccordionItem title="About">
-          <div class="accordion-item">
-            <NuxtLink to="/about-overview" class="accordion-link" @click="handleClick">
-              About Overview
-            </NuxtLink>
-          </div>
-          <div class="accordion-item">
-            <NuxtLink to="/about-campus" class="accordion-link" @click="handleClick">
-              About Campus
-            </NuxtLink>
-          </div>
-          <div class="accordion-item">
-            <NuxtLink to="/about-mission-values" class="accordion-link" @click="handleClick">
-              About Mission Values
-            </NuxtLink>
-          </div>
-          <div class="accordion-item">
-            <NuxtLink to="/about-history" class="accordion-link" @click="handleClick">
-              About History
-            </NuxtLink>
-          </div>
-          <div class="accordion-item">
-            <BAccordion free>
-              <BAccordionItem title="Facilities">
-                <div class="accordion-item">
-                  <NuxtLink to="/facilities" class="accordion-link" @click="handleClick">
-                    Facilities
-                  </NuxtLink>
-                </div>
-                <div class="accordion-item">
-                  <NuxtLink to="/facility-architecture" class="accordion-link" @click="handleClick">
-                    FacilitiesArchitecture
-                  </NuxtLink>
-                </div>
-                <div class="accordion-item">
-                  <NuxtLink to="/facility-architecture" class="accordion-link" @click="handleClick">
-                    FacilitiesArchitecture
-                  </NuxtLink>
-                </div>
-              </BAccordionItem>
-            </BAccordion>
-          </div>
-        </BAccordionItem>
-        <BAccordionItem title="Pages">
-          <div class="accordion-item">
-            <NuxtLink to="/how-to-apply" class="accordion-link" @click="handleClick">
-              How Apply Form
-            </NuxtLink>
-          </div>
-
-          <div class="accordion-item">
-            <BAccordion free>
-              <BAccordionItem title="Jobs">
-                <div class="accordion-item">
-                  <NuxtLink to="/jobs" class="accordion-link" @click="handleClick">
-                    Jobs
-                  </NuxtLink>
-                </div>
-                <div class="accordion-item">
-                  <NuxtLink to="/job-details" class="accordion-link" @click="handleClick">
-                    Job Details
-                  </NuxtLink>
-                </div>
-              </BAccordionItem>
-            </BAccordion>
-          </div>
-
-          <div class="accordion-item">
-            <BAccordion free>
-              <BAccordionItem title="Application Forms">
-                <div class="accordion-item">
-                  <NuxtLink to="/personal-information" class="accordion-link" @click="handleClick">
-                    Personal Information
-                  </NuxtLink>
-                </div>
-                <div class="accordion-item">
-                  <NuxtLink to="/academic-information" class="accordion-link" @click="handleClick">
-                    Academic Information
-                  </NuxtLink>
-                </div>
-                <div class="accordion-item">
-                  <NuxtLink to="/english-proficiency" class="accordion-link" @click="handleClick">
-                    English Proficiency
-                  </NuxtLink>
-                </div>
-                <div class="accordion-item">
-                  <NuxtLink to="/program-choice" class="accordion-link" @click="handleClick">
-                    Program Choice
-                  </NuxtLink>
-                </div>
-                <div class="accordion-item">
-                  <NuxtLink to="/document-upload" class="accordion-link" @click="handleClick">
-                    Document Upload
-                  </NuxtLink>
-                </div>
-                <div class="accordion-item">
-                  <NuxtLink to="/submission" class="accordion-link" @click="handleClick">
-                    Submission
-                  </NuxtLink>
-                </div>
-              </BAccordionItem>
-            </BAccordion>
-          </div>
-
-          <div class="accordion-item">
-            <BAccordion free>
-              <BAccordionItem title="Blogs">
-                <div class="accordion-item">
-                  <NuxtLink to="/blog" class="accordion-link" @click="handleClick">
-                    Our Blog
-                  </NuxtLink>
-                </div>
-                <div class="accordion-item">
-                  <NuxtLink to="/blog-details" class="accordion-link" @click="handleClick">
-                    Blog Details
-                  </NuxtLink>
-                </div>
-              </BAccordionItem>
-            </BAccordion>
-          </div>
-
-          <div class="accordion-item">
-            <BAccordion free>
-              <BAccordionItem title="Events">
-                <div class="accordion-item">
-                  <NuxtLink to="/events" class="accordion-link" @click="handleClick">
-                    Our Events
-                  </NuxtLink>
-                </div>
-                <div class="accordion-item">
-                  <NuxtLink to="/event-details" class="accordion-link" @click="handleClick">
-                    Event Details
-                  </NuxtLink>
-                </div>
-              </BAccordionItem>
-            </BAccordion>
-          </div>
-
-          <div class="accordion-item">
-            <NuxtLink to="/faq" class="accordion-link" @click="handleClick">FAQ's</NuxtLink>
-          </div>
-
-          <div class="accordion-item">
-            <NuxtLink to="/schedule" class="accordion-link" @click="handleClick">
-              Schedule A Tour
-            </NuxtLink>
-          </div>
-
-          <div class="accordion-item">
-            <BAccordion free>
-              <BAccordionItem title="My Account">
-                <div class="accordion-item">
-                  <NuxtLink to="/login" class="accordion-link" @click="handleClick">
-                    Login
-                  </NuxtLink>
-                </div>
-                <div class="accordion-item">
-                  <NuxtLink to="/register" class="accordion-link" @click="handleClick">
-                    Register
-                  </NuxtLink>
-                </div>
-              </BAccordionItem>
-            </BAccordion>
-          </div>
-
-          <div class="accordion-item">
-            <NuxtLink to="/alumni" class="accordion-link" @click="handleClick">
-              Alumni
-            </NuxtLink>
-          </div>
-          <div class="accordion-item">
-            <NuxtLink to="/academic-calendar" class="accordion-link" @click="handleClick">
-              Academic Calendar
-            </NuxtLink>
-          </div>
-          <div class="accordion-item">
-            <NuxtLink to="/contact" class="accordion-link" @click="handleClick">
-              Contact Us
-            </NuxtLink>
-          </div>
-          <div class="accordion-item">
-            <NuxtLink to="/terms-conditions" class="accordion-link" @click="handleClick">
-              Terms & Conditions
-            </NuxtLink>
-          </div>
-          <div class="accordion-item">
-            <NuxtLink to="/privacy-policy" class="accordion-link" @click="handleClick">
-              Privacy Policy
-            </NuxtLink>
-          </div>
-        </BAccordionItem>
-        <BAccordionItem title="Programs">
-          <div class="accordion-item">
-            <NuxtLink to="/programs" class="accordion-link" @click="handleClick">
-              All Programs
-            </NuxtLink>
-          </div>
-          <div class="accordion-item">
-            <NuxtLink to="/undergraduate-programs" class="accordion-link" @click="handleClick">
-              Undergraduate Programs
-            </NuxtLink>
-          </div>
-          <div class="accordion-item">
-            <NuxtLink to="/graduate-programs" class="accordion-link" @click="handleClick">
-              Graduate Programs
-            </NuxtLink>
-          </div>
-          <div class="accordion-item">
-            <NuxtLink to="/administration-overview" class="accordion-link" @click="handleClick">
-              Administration Overview
-            </NuxtLink>
-          </div>
-          <div class="accordion-item">
-            <NuxtLink to="/administration-courses" class="accordion-link" @click="handleClick">
-              Administration Courses
-            </NuxtLink>
-          </div>
-          <div class="accordion-item">
-            <NuxtLink to="/administration-admission-requirements" class="accordion-link" @click="handleClick">
-              Administration Admission Requirements
-            </NuxtLink>
-          </div>
-          <div class="accordion-item">
-            <NuxtLink to="/administration-finance" class="accordion-link" @click="handleClick">
-              Administration Finance
-            </NuxtLink>
-          </div>
-          <div class="accordion-item">
-            <NuxtLink to="/administration-availability" class="accordion-link" @click="handleClick">
-              Administration Availability
-            </NuxtLink>
-          </div>
-        </BAccordionItem>
-        <BAccordionItem title="Admissions">
-          <div class="accordion-item">
-            <NuxtLink to="/transfer-credit" class="accordion-link" @click="handleClick">
-              Transfer Credit
-            </NuxtLink>
-          </div>
-          <div class="accordion-item">
-            <NuxtLink to="/student-fees" class="accordion-link" @click="handleClick">
-              Student Fees
-            </NuxtLink>
-          </div>
-        </BAccordionItem>
-        <BAccordionItem title="Student Life">
-          <div class="accordion-item">
-            <BAccordion free>
-              <BAccordionItem title="Campus Services">
-                <div class="accordion-item">
-                  <NuxtLink to="/accessibility" class="accordion-link" @click="handleClick">
-                    Accessibility At Tuva
-                  </NuxtLink>
-                </div>
-                <div class="accordion-item">
-                  <NuxtLink to="/book-store" class="accordion-link" @click="handleClick">
-                    Book Store
-                  </NuxtLink>
-                </div>
-                <div class="accordion-item">
-                  <NuxtLink to="/information-technology" class="accordion-link" @click="handleClick">
-                    Information Technology
-                  </NuxtLink>
-                </div>
-                <div class="accordion-item">
-                  <NuxtLink to="/parking-locker" class="accordion-link" @click="handleClick">
-                    Parking Locker
-                  </NuxtLink>
-                </div>
-                <div class="accordion-item">
-                  <NuxtLink to="/residence" class="accordion-link" @click="handleClick">
-                    Residence
-                  </NuxtLink>
-                </div>
-              </BAccordionItem>
-            </BAccordion>
-          </div>
-
-          <div class="accordion-item">
-            <BAccordion free>
-              <BAccordionItem title="Student Services">
-                <div class="accordion-item">
-                  <NuxtLink to="/career-services" class="accordion-link" @click="handleClick">
-                    Career Services
-                  </NuxtLink>
-                </div>
-                <div class="accordion-item">
-                  <NuxtLink to="/health-services" class="accordion-link" @click="handleClick">
-                    Health Services
-                  </NuxtLink>
-                </div>
-                <div class="accordion-item">
-                  <NuxtLink to="/library-services" class="accordion-link" @click="handleClick">
-                    Library Services
-                  </NuxtLink>
-                </div>
-                <div class="accordion-item">
-                  <NuxtLink to="/tutoring-services" class="accordion-link" @click="handleClick">
-                    Tutoring Services
-                  </NuxtLink>
-                </div>
-              </BAccordionItem>
-            </BAccordion>
-          </div>
-          <div class="accordion-item">
-            <NuxtLink to="/experiential-learning" class="accordion-link" @click="handleClick">
-              Experiential Learning
-            </NuxtLink>
-          </div>
-          <div class="accordion-item">
-            <NuxtLink to="/athletics-recreation" class="accordion-link" @click="handleClick">
-              Athletics Recreation
-            </NuxtLink>
-          </div>
-        </BAccordionItem> -->
-        <div class="accordion-item">
-          <NuxtLink to="/" class="accordion-link" @click="handleClick">
-            Home
-          </NuxtLink>
-        </div>
-        <div class="accordion-item">
-          <NuxtLink to="/programs" class="accordion-link" @click="handleClick">
-            Program
-          </NuxtLink>
-        </div>
-        <div class="accordion-item">
-          <NuxtLink to="/nfet" class="accordion-link" @click="handleClick">
-            NFET Exam
-          </NuxtLink>
-        </div>
-
-
-        <!-- <div class="accordion-item">
-          <NuxtLink to="/admissions" class="accordion-link" @click="handleClick">
-            Admissions
-          </NuxtLink>
-        </div> -->
-        <div class="accordion-item">
-          <NuxtLink to="/campus-life" class="accordion-link" @click="handleClick">
-            Campus Life
-          </NuxtLink>
-        </div>
-        <div class="accordion-item">
-          <NuxtLink to="/about-overview" class="accordion-link" @click="handleClick">
-            About Us
-          </NuxtLink>
-        </div>
-
-        <!-- <div class="accordion-item">
-          <NuxtLink to="/contact-us" class="accordion-link" @click="handleClick">
-            Contact Us
-          </NuxtLink>
-        </div> -->
-
-        <!-- <div class="others-option d-flex align-items-center">
-          <div class="option-item">
-            <div class="search-bar main-menu__search search-toggler" @click="stateStoreInstance.onChange"
-              style="cursor: pointer">
-              <div class="search-btn">
-                <img src="~/assets/img/svgs/search.svg" alt="image" />
-              </div>
-            </div>
-          </div>
-
-          <div class="option-item">
-            <button class="btn side-bar-btn" type="button" @click="stateStoreInstance.onSidebarShow">
-              <img src="~/assets/img/svgs/menu.svg" alt="svg" />
-            </button>
-          </div>
-        </div> -->
-      </BAccordion>
+      <nav class="mobile-nav">
+        <NuxtLink to="/" class="nav-item" @click="handleClick">
+          <img src="~/assets/img/mobileHeader/Icon(1).png" alt="Home" class="nav-icon" />
+          <span>Home</span>
+        </NuxtLink>
+        <NuxtLink to="/programs" class="nav-item" @click="handleClick">
+          <img src="~/assets/img/mobileHeader/Icon(2).png" alt="Program" class="nav-icon" />
+          <span>Program</span>
+        </NuxtLink>
+        <NuxtLink to="/nfet" class="nav-item" @click="handleClick">
+          <img src="~/assets/img/mobileHeader/Icon(3).png" alt="NFET Exam" class="nav-icon" />
+          <span>NFET Exam</span>
+        </NuxtLink>
+        <NuxtLink to="/campus-life" class="nav-item" @click="handleClick">
+          <img src="~/assets/img/mobileHeader/Icon(4).png" alt="Campus Life" class="nav-icon" />
+          <span>Campus Life</span>
+        </NuxtLink>
+        <NuxtLink to="/about-overview" class="nav-item" @click="handleClick">
+          <img src="~/assets/img/mobileHeader/Icon(5).png" alt="About Us" class="nav-icon" />
+          <span>About Us</span>
+        </NuxtLink>
+      </nav>
     </div>
+    <!-- <div class="offcanvas-footer">
+      <a href="https://wa.me/919999999999" target="_blank" class="chat-btn" @click="handleClick">
+        <img src="~/assets/img/mobileHeader/chat.png" alt="Chat" class="chat-icon" />
+        CHAT WITH US
+      </a>
+    </div> -->
   </div>
 </template>
 
 <script lang="ts">
-import { defineComponent } from "vue";
+import { defineComponent, ref } from "vue";
 import stateStore from "../utils/store";
 
 export default defineComponent({
   name: "MobileDeviceNavbar",
   setup() {
     const stateStoreInstance = stateStore;
+    const isClosing = ref(false);
+
+    const closeNavbar = () => {
+      if (isClosing.value) return;
+      isClosing.value = true;
+      setTimeout(() => {
+        stateStoreInstance.navbar = false;
+        isClosing.value = false;
+      }, 300);
+    };
+
     const handleClick = () => {
-      stateStoreInstance.navbar = false;
+      closeNavbar();
     };
 
     return {
       stateStoreInstance,
       handleClick,
+      isClosing,
+      closeNavbar,
     };
   },
 });
 </script>
 
-<style scoped>
-.offcanvas.show:not(.hiding) {
-  z-index: 9999999;
+<!-- Unscoped: must override Bootstrap's offcanvas styles with high specificity -->
+<style>
+#navbarOffcanvas.offcanvas {
+  background-color: #321438 !important;
+  transition: transform 0.3s ease-in-out !important;
+  visibility: hidden;
 }
 
-.responsive-navbar .offcanvas-header {
-  background: #020103;
+#navbarOffcanvas.offcanvas.show {
+  z-index: 9999999;
+  transform: none !important;
+  visibility: visible !important;
+}
+
+#navbarOffcanvas.offcanvas.closing {
+  z-index: 9999999;
+  transform: translateX(100%) !important;
+  visibility: visible !important;
+}
+</style>
+
+<style scoped>
+/* Header */
+.offcanvas-header {
+  background: #321438;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-direction: row-reverse;
+  padding: 16px 16px;
+  border-bottom: none;
+  border-bottom: 1px solid #FFFFFF1A;
+}
+
+.close-btn {
+  background: none;
+  border: none;
+  padding: 8px;
+  cursor: pointer;
+  order: -1;
+}
+
+.close-btn i {
+  color: #ffffff;
+  font-size: 24px;
+}
+
+.header-logo {
+  width: 160px;
+  height: auto;
+}
+
+/* Navigation */
+.offcanvas-body {
+  background-color: #321438;
+  padding: 10px 20px;
+  flex: 1;
+  overflow-y: auto;
+}
+
+.mobile-nav {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+.nav-item {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 14px 20px;
+  color: #ffffff;
+  text-decoration: none;
+  font-size: 16px;
+  font-weight: 500;
+  border-radius: 10px;
+  transition: all 0.2s ease;
+}
+
+.nav-item:hover {
+  background: rgba(255, 255, 255, 0.08);
+  color: #ffffff;
+}
+
+.nav-item.active,
+.nav-item.router-link-exact-active {
+  background: #AB7E1A;
+  color: #ffffff;
+  font-weight: 600;
+}
+
+.nav-icon {
+  width: 22px;
+  height: 22px;
+  object-fit: contain;
+  filter: brightness(0) invert(1);
+}
+
+/* Footer - Chat Button */
+.offcanvas-footer {
+  background-color: #321438;
+  padding: 16px 20px 24px;
+  margin-top: auto;
+}
+
+.chat-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  width: 100%;
+  padding: 14px 20px;
+  background: #ffffff;
+  color: #321438;
+  border: none;
+  border-radius: 10px;
+  font-size: 15px;
+  font-weight: 700;
+  text-decoration: none;
+  letter-spacing: 0.5px;
+  transition: all 0.2s ease;
+}
+
+.chat-btn:hover {
+  background: #f0f0f0;
+  color: #321438;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+.chat-icon {
+  width: 20px;
+  height: 20px;
+  object-fit: contain;
 }
 </style>
