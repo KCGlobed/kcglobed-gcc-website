@@ -17,21 +17,15 @@
 </template>
 
 <script setup lang="ts">
-import img1 from "@/assets/img/mentor/1.svg";
-import img2 from "@/assets/img/mentor/2.svg";
-import img3 from "@/assets/img/mentor/4.svg";
-import img4 from "@/assets/img/mentor/6.svg";
-import img5 from "@/assets/img/mentor/5.svg";
-import img6 from "@/assets/img/mentor/3.svg";
+import img1 from "/mentor/1.svg";
+import img2 from "/mentor/2.svg";
+import img3 from "/mentor/4.svg";
+import img6 from "/mentor/3.svg";
 const images = [
-
     img1,
     img2,
-
     img6,
     img3,
-    // img5,
-    // img4,
 
 
 ]

@@ -9,7 +9,7 @@
                         :data-aos-delay="index * 50">
                         <!-- Left colored section -->
                         <div class="row-left" :style="{ background: item.color }">
-                            <span class="row-icon"><i :class="item.icon"></i></span>
+                            <span class="row-icon "><img :src="item.icon" alt=""></span>
                             <span class="row-label">{{ item.label }}</span>
                         </div>
                         <!-- Right date section -->
@@ -24,52 +24,60 @@
 </template>
 
 <script setup lang="ts">
+import icon1 from "~/assets/icon/timlineicon/9.svg"
+import icon2 from "~/assets/icon/timlineicon/2.svg"
+import icon3 from "~/assets/icon/timlineicon/3.svg"
+import icon4 from "~/assets/icon/timlineicon/4.svg"
+import icon5 from "~/assets/icon/timlineicon/5.svg"
+import icon6 from "~/assets/icon/timlineicon/6.svg"
+import icon7 from "~/assets/icon/timlineicon/7.svg"
+import icon8 from "~/assets/icon/timlineicon/8.svg"
 const timeline = [
     {
         label: 'NFET\nEnrollment',
-        icon: 'ri-file-list-3-line',
+        icon: icon1,
         date: 'Feb 25 Onwards',
         color: 'linear-gradient(135deg, #4c1d95 0%, #6d28d9 100%)',
     },
     {
         label: 'NFET Slot\nBooking',
-        icon: 'ri-calendar-check-line',
+        icon: icon2,
         date: 'March 01 - March 31, 2026',
         color: 'linear-gradient(135deg, #5b21b6 0%, #7c3aed 100%)',
     },
     {
         label: 'Result Communication',
-        icon: 'ri-discuss-line',
+        icon: icon3,
         date: 'First Week of April, 2026',
         color: 'linear-gradient(135deg, #7c3aed 0%, #9333ea 100%)',
     },
     {
         label: 'Pre-assessment to Qualify (Ticket to DLF Cyber City, Gurugram)',
-        icon: 'ri-map-pin-2-line',
+        icon: icon4,
         date: 'April - May 2026',
         color: 'linear-gradient(135deg, #a21caf 0%, #c026d3 100%)',
     },
     {
         label: 'Personal Interview Round',
-        icon: 'ri-user-voice-line',
+        icon: icon5,
         date: 'May 15 – June 15, 2026',
         color: 'linear-gradient(135deg, #7c3aed 0%, #9333ea 100%)',
     },
     {
         label: 'Conditional Offer Letter & Appointment',
-        icon: 'ri-file-text-line',
+        icon: icon6,
         date: 'June 01 - June 20, 2026',
         color: 'linear-gradient(135deg, #4c1d95 0%, #6d28d9 100%)',
     },
     {
         label: 'Admission Confirmation',
-        icon: 'ri-graduation-cap-line',
+        icon: icon7,
         date: 'June 25, 2026',
         color: 'linear-gradient(135deg, #6d28d9 0%, #9333ea 100%)',
     },
     {
         label: 'Cohort Start',
-        icon: 'ri-rocket-line',
+        icon: icon8,
         date: 'July 01, 2026',
         color: 'linear-gradient(135deg, #a21caf 0%, #c026d3 100%)',
     },
@@ -136,8 +144,9 @@ const timeline = [
     align-items: center;
     justify-content: center;
     flex-shrink: 0;
-    width: 30px;
-    height: 30px;
+    width: 32px;
+    height: 32px;
+    padding: 8px;
     background: rgba(255, 255, 255, 0.2);
     border-radius: 50%;
     font-size: 15px;

@@ -388,11 +388,11 @@
   gap: 8px;
   padding: 6px 14px;
   border-radius: 50px;
-  background-color: #000;
-  color: #facc15;
+  border: 2.286px solid #D98E23;
+  background: #FFAF3D;
+  color: #000;
   font-size: 20px;
   font-weight: 600;
-  border: 1px solid #facc15;
   margin-top: 60px;
   margin-bottom: 20px;
 }
@@ -562,9 +562,10 @@
   }
 }
 
+/* 
 .blinking-text {
   animation: blink 2s ease-in-out infinite;
-}
+} */
 
 @media (max-width: 991px) {
   .hero-title {
@@ -642,7 +643,7 @@
   }
 
   .hero-slider-warp {
-    min-height: 100vh;
+
     display: flex;
     align-items: center;
     background-size: cover;
