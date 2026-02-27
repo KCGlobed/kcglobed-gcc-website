@@ -43,16 +43,14 @@
                 <div class="col-lg-6 col-md-12 mt-5 mt-lg-0">
                     <div class="video-box-wrapper" data-aos="fade-left">
                         <div class="video-preview-box shadow-lg">
-                            <img src="https://storage.googleapis.com/static_files_backend/media/images/WhatsApp%20Image%202026-02-26%20at%205.08.44%20PM%20(1).jpeg"
+                            <img src="https://storage.googleapis.com/static_files_backend/media/images/manna%20sir%20thmbnl%20(1).jpg"
                                 alt="ED Message Video Preview" class="preview-img">
                             <div class="play-btn-wrap">
                                 <div class="play-btn">
                                     <i class="ti ti-player-play-filled"></i>
                                 </div>
                             </div>
-                            <div class="video-caption">
-                                <span>Watch Video Message</span>
-                            </div>
+
                         </div>
                         <!-- Decorative elements -->
                         <div class="shape-1"></div>

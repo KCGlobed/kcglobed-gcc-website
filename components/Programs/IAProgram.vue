@@ -14,7 +14,7 @@
                     </div>
                     <div
                         class="program-name p-4 p-md-5 flex-grow-1 font-bold text-lg text-md-xl text-center text-md-start">
-                        International Accounting Professionals (IAP) Program
+                        AI-Enabled International Accounting Professionals (AEIAP) Program
                     </div>
                 </header>
 
@@ -81,8 +81,8 @@ const trimesters = [
         image: 'https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=800&h=600&fit=crop',
         modules: [
             [
-                'Financial Reporting (FR)',
-                'Financial Management (FM)',
+                '<strong>Financial Reporting (FR)</strong>',
+                '<strong>Audit & Assurance (AA)</strong>',
                 'AI for Finance, Audit & Accounting',
                 'Data analytics, Power BI, Advance Excel'
             ],
@@ -101,11 +101,12 @@ const trimesters = [
         image: 'https://images.unsplash.com/photo-1506744038136-46273834b3fb?w=800&h=600&fit=crop',
         modules: [
             [
-                '<strong>Audit & Assurance (AA)</strong>',
+
+                '<strong>Financial Management (FM)<strong>',
                 '<strong>Performance Management (PM)</strong>'
             ],
             [
-                'Interim Busy Season'
+                '<div class="d-flex flex-column"><span class="text-gray-900 font-bold" style="color: #7A1C62; font-weight: 700 ">GCC Internship - 6 hr/day</span><span class="text-gray-700 text-sm">(Interim Busy Season)</span></div>'
             ]
         ]
     },
@@ -121,7 +122,7 @@ const trimesters = [
                 '<strong>Strategic Business Leader (SBL)</strong>'
             ],
             [
-                '<div class="d-flex flex-column"><span class="content-color font-bold" style="color: #7A1C62;font-weight: 700;">GCC Internship - 6 hr/day</span><span class="text-gray-700 text-sm">[Year-End Busy Season]</span></div>'
+                '<div class="d-flex flex-column"><span class="text-gray-900 font-bold" style="color: #7A1C62; font-weight: 700 ">GCC Internship - 6 hr/day</span><span class="text-gray-700 text-sm">(Year-End Busy Season)</span></div>'
             ]
         ]
     },
@@ -137,7 +138,7 @@ const trimesters = [
                 '<strong>Advanced Financial Management (AFM)</strong>'
             ],
             [
-                '<div class="d-flex flex-column"><span class="text-gray-900 font-bold">Corporate Internal Training</span><span class="text-gray-700 text-sm">[Earmarked GCC Candidates]</span></div>'
+                '<div class="d-flex flex-column"><span class="text-gray-900 font-bold" style="font-weight: 700 ">Corporate Internal Training</span><span class="text-gray-700 text-sm">(Earmarked GCC Candidates)</span></div>'
             ]
         ]
     }

@@ -558,14 +558,15 @@
   }
 
   50% {
-    opacity: 0.3;
+    /* opacity: 0.3; */
+    color: #FFAF3D;
   }
 }
 
-/* 
+
 .blinking-text {
   animation: blink 2s ease-in-out infinite;
-} */
+}
 
 @media (max-width: 991px) {
   .hero-title {

@@ -45,7 +45,7 @@
                                                         v-model="form.mobile" placeholder="Enter your phone number"
                                                         :class="{ 'is-invalid': errors.mobile }">
                                                     <div class="invalid-feedback" v-if="errors.mobile">{{ errors.mobile
-                                                    }}
+                                                        }}
                                                     </div>
                                                 </div>
                                             </div>
@@ -137,9 +137,9 @@
                                     </div>
 
                                     <div class="video-section">
-                                        <div class="video-wrapper" @click="banner.showVideo = true">
+                                        <div class="video-wrapper">
                                             <template v-if="!banner.showVideo">
-                                                <img src="https://storage.googleapis.com/static_files_backend/media/images/nitish%20sir%20thmbnl_%20(1).jpg"
+                                                <img src="https://storage.googleapis.com/static_files_backend/media/images/nitish%20sir%20thmbnl_.jpg"
                                                     alt="Program Video" class="video-thumbnail">
                                                 <!-- <div class="video-badge-4k">
                                                     4k
@@ -154,12 +154,12 @@
                                                     <p class="speaker-quote">LMS TUTORIAL & OVERVIEW</p>
                                                 </div> -->
                                             </template>
-                                            <video v-else controls autoplay class="video-element w-100 h-100">
+                                            <!-- <video v-else controls autoplay class="video-element w-100 h-100">
                                                 <source
                                                     src="https://storage.googleapis.com/gcc_static_files_backend/static/videos/lms_tutorial.mp4"
                                                     type="video/mp4">
                                                 Your browser does not support the video tag.
-                                            </video>
+                                            </video> -->
                                         </div>
                                     </div>
                                 </div>
