@@ -22,10 +22,14 @@ import img2 from "/mentor/2.svg";
 import img3 from "/mentor/4.svg";
 import img6 from "/mentor/3.svg";
 const images = [
+
     img1,
     img2,
+
     img6,
     img3,
+    // img5,
+    // img4,
 
 
 ]
