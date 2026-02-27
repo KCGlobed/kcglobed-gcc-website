@@ -9,7 +9,7 @@
 
                 <!-- Features Grid -->
                 <div class="row g-4">
-                    <div v-for="(feature, index) in features" :key="index" class="col-lg-3 col-md-4 col-sm-6">
+                    <div v-for="(feature, index) in features" :key="index" class="col-lg-3 col-md-4 col-sm-6 col-6">
                         <div class="feature-card h-100">
                             <div class="icon-box">
                                 <i :class="feature.icon"></i>
@@ -141,11 +141,11 @@ const features = [
     border: 1px solid transparent;
 }
 
-.feature-card:hover {
+/* .feature-card:hover {
     transform: translateY(-5px);
     box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
     border-color: #ba1b94;
-}
+} */
 
 .icon-box {
     width: 48px;
