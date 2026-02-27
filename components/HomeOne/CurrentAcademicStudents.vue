@@ -17,7 +17,8 @@
                 <!-- Setup placeholder for logo if needed, or just text/logo image provided in design -->
                 <div class="d-flex align-items-center justify-content-center gap-2">
                   <!-- Assuming logo asset usage, using text for now if asset path not confirmed, or basic icon -->
-                  <img src="~/assets/img/common/gcc.svg" alt="" srcset="">
+
+                  GCC SCHOOL JOURNEY
                 </div>
               </th>
             </tr>

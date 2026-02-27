@@ -19,10 +19,10 @@
                 <p>Paid Internship</p>
                 <span>6 Months</span>
               </div>
-              <!-- <div class="box">
-                <img src="../../assets/img/heros/panleIcon3.png" class="logo" />
+              <div class="box">
+                <img src="/img/acca.svg" class="logo" />
                 <span class="mt-1">UK ACCA <br> Integrated</span>
-              </div> -->
+              </div>
               <div class="box">
                 <img src="../../assets/img/heros/panleIcon4.png" class="logo" />
                 <span class="mt-2">Master in Corporate Communication</span>
@@ -47,7 +47,8 @@
               <div class="video-container">
                 <video ref="infoVideo" controls muted loop class="w-100 h-100" @play="isVideoPlaying = true"
                   @pause="isVideoPlaying = false" style="object-fit: contain; background: #0b0b1a;">
-                  <source src="https://storage.googleapis.com/static_files_backend/media/images/Kamal%20Sir%20Video.mp4"
+                  <source
+                    src="https://storage.googleapis.com/static_files_backend/media/images/Kamal%20Sir%20Video_1.mp4"
                     type="video/mp4">
                   Your browser does not support the video tag.
                 </video>
@@ -60,7 +61,7 @@
                 </div>
                 <!-- Thumbnail Mask (visible before play) -->
                 <img v-if="!isVideoPlaying"
-                  src="https://storage.googleapis.com/static_files_backend/media/images/WhatsApp%20Image%202026-02-27%20at%2011.05.41%20AM.jpeg"
+                  src="https://storage.googleapis.com/static_files_backend/media/images/kamal%20sir%20thnml%202.jpg"
                   class="video-poster-img" @click="playVideo" alt="Thumbnail">
               </div>
               <!-- <div class="video-badge-new">
