@@ -13,7 +13,7 @@
                         <div class="card-image-box">
                             <img :src="program.image" :alt="program.title" class="img-fluid">
                             <div class="image-overlay">
-                                <NuxtLink :to="program.link" class="btn-learn-more">
+                                <NuxtLink :to="program.link" target="_blank" class="btn-learn-more">
                                     Read More <i class="ti ti-arrow-right"></i>
                                 </NuxtLink>
                             </div>

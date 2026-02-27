@@ -5,8 +5,7 @@
                 <h2 class="reveal2">
                     <span class="highlight">200+</span> GLOBAL HIRING PARTNERS!
                 </h2>
-                <p class="max-600 mx-auto">Indulge in Career Accelerating Programs and Placement Drives offered by KC
-                    GlobEd!</p>
+                <p class="max-600 mx-auto">Indulge in Career Accelerating Programs and Placement Drives!</p>
                 <div class="sub-highlight">Get hired by leading companies across diverse industries.</div>
             </div>
             <div class="marquee-wrapper">

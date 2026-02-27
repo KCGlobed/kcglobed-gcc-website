@@ -53,7 +53,7 @@
 
 <script setup lang="ts">
 const ecosystemData = [
-    { number: "6+", label: "Years of Legacy" },
+    { number: "30+", label: "Years of Legacy" },
     { number: "20K+", label: "Global", subLabel: "Students" },
     { number: "120+", label: "Countries", subLabel: "Presence" },
     { number: "40+", label: "Franchisees", subLabel: "PAN India" },

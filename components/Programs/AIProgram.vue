@@ -14,6 +14,7 @@
                     </div>
                     <div class="card-footer-text">
                         <h4 class="domain-title" v-html="domain.title"></h4>
+                        <p class="domain-subtitle">{{ domain.subtitle }}</p>
                     </div>
                 </div>
             </div>
@@ -27,15 +28,15 @@ export default {
     data() {
         return {
             domains: [
-                { title: 'Audit &<br>Assurance', icon: 'ti ti-shield-check', color: 'blue' },
-                { title: 'Accounting<br>Advisory', icon: 'ti ti-building-bank', color: 'magenta' },
-                { title: 'Risk<br>Management', icon: 'ti ti-shield', color: 'purple' },
-                { title: 'Financial<br>Accounting &<br>Reporting', icon: 'ti ti-file-text', color: 'magenta' },
-                { title: 'Management<br>Accounting', icon: 'ti ti-user-cog', color: 'purple' },
-                { title: 'FP&A', icon: 'ti ti-chart-arrows', color: 'blue' },
-                { title: 'CFO<br>Advisory', icon: 'ti ti-user-search', color: 'blue' },
-                { title: 'Transaction<br>Advisory', icon: 'ti ti-coins', color: 'magenta' },
-                { title: 'Corporate<br>Governance &<br>Compliance', icon: 'ti ti-gavel', color: 'purple' },
+                { title: 'Audit &<br>Assurance', icon: 'ti ti-shield-check', subtitle: "110K+Jobs Available", color: 'blue' },
+                { title: 'Accounting<br>Advisory', icon: 'ti ti-building-bank', subtitle: "235K+ Jobs Available", color: 'magenta' },
+                { title: 'Risk<br>Management', icon: 'ti ti-shield', subtitle: "37K+Jobs Available", color: 'purple' },
+                { title: 'Financial<br>Accounting &<br>Reporting', icon: 'ti ti-file-text', subtitle: "269K+ Jobs Available", color: 'magenta' },
+                { title: 'Management<br>Accounting', icon: 'ti ti-user-cog', subtitle: "224K+ Jobs Available", color: 'purple' },
+                { title: 'FP&A', icon: 'ti ti-chart-arrows', subtitle: "77K+ Jobs Available", color: 'blue' },
+                { title: 'CFO<br>Advisory', icon: 'ti ti-user-search', subtitle: "20K + Jobs Available ", color: 'blue' },
+                { title: 'Transaction<br>Advisory', icon: 'ti ti-coins', subtitle: "11K+ Jobs Available", color: 'magenta' },
+                { title: 'Corporate<br>Governance &<br>Compliance', icon: 'ti ti-gavel', subtitle: "165K+ Jobs Available", color: 'purple' },
                 // { title: 'International<br>Tax Advisory', icon: 'ti ti-calculator', color: 'purple', centered: true },
             ]
         }
@@ -134,6 +135,15 @@ export default {
     margin: 0;
     line-height: 1.2;
     text-align: left;
+}
+
+.domain-subtitle {
+    font-size: 14px;
+    color: #fff;
+    margin: 0;
+    line-height: 1.3;
+    text-align: left;
+    margin-top: 5px;
 }
 
 .domain-icon {
