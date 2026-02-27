@@ -26,13 +26,13 @@
 <script setup lang="ts">
 const timeline = [
     {
-        label: 'NPET\nEnrollment',
+        label: 'NFET\nEnrollment',
         icon: 'ri-file-list-3-line',
         date: 'Feb 25 Onwards',
         color: 'linear-gradient(135deg, #4c1d95 0%, #6d28d9 100%)',
     },
     {
-        label: 'NPET Slot\nBooking',
+        label: 'NFET Slot\nBooking',
         icon: 'ri-calendar-check-line',
         date: 'March 01 - March 31, 2026',
         color: 'linear-gradient(135deg, #5b21b6 0%, #7c3aed 100%)',
