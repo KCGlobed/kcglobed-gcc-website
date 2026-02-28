@@ -330,7 +330,7 @@ const trimesters = [
     }
 
     .trimester-label {
-        width: 192px;
+        width: 297px;
     }
 }
 
