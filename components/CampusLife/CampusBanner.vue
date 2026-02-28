@@ -29,7 +29,7 @@ import campus2 from '../../assets/img/campus/image2.jpg';
 import campus3 from '../../assets/img/campus/image4.jpg';
 import campusHero from '../../assets/img/campus/image3.jpg';
 
-const heading = `Our campus is nestled within the vibrant <em class="accent">DLF Cyberpark, located in Tower 9B.</em>`;
+const heading = `Our campus is nestled within the vibrant <em class="accent">DLF Cyber City, located in Building 9B.</em>`;
 const description = `You'll find yourself in the hub of India's GCCs and leading Fortune 500 firms, creating unparalleled opportunities for networking and growth for you.`;
 
 const slides = [
