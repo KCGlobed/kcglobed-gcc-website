@@ -184,18 +184,33 @@
 
 .icon-box {
     margin-bottom: 5px;
+    width: 68px;
+    height: 68px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
 }
 
 .icon-box svg {
     stroke-width: 1.5;
 }
 
+.value-card.white .icon-box {
+    background: #4A2F72;
+}
+
 .value-card.white .icon-box svg {
-    color: #4A2F72;
+    color: #ffffff;
+}
+
+.value-card.purple .icon-box {
+    background: #F1A63E;
 }
 
 .value-card.purple .icon-box svg {
-    color: #F1A63E;
+    color: #ffffff;
 }
 
 /* Accents from design */

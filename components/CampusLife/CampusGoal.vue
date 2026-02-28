@@ -3,7 +3,7 @@
 
         <!-- Heading -->
         <h2 class="title">
-            INSIGHTFUL MINUTES WITH <span>INDUSTRY <br> LEADERS</span>
+            INSIGHTFUL MEETINGS WITH <span>INDUSTRY <br> LEADERS</span>
         </h2>
 
         <!-- Image Grid -->

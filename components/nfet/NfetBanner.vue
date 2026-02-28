@@ -35,7 +35,7 @@
                     <div class="video-wrapper">
                         <div class="video-container" @click="playVideo">
                             <img v-if="!isPlaying"
-                                src="https://storage.googleapis.com/gcc_prod_static_files_backend/static/images/manna_into_dream_global.jpeg"
+                                src="https://storage.googleapis.com/static_files_backend/media/images/manna%20sir%20thmbnl%20(1).jpg"
                                 alt="NFET Video Thumbnail" class="video-thumb" />
                             <iframe v-if="isPlaying" src="https://www.youtube.com/embed/dQw4w9WgXcQ?autoplay=1"
                                 frameborder="0" allow="autoplay; encrypted-media" allowfullscreen
@@ -226,13 +226,10 @@ onMounted(() => {
 
 .video-container {
     position: relative;
-    border-radius: 16px;
+    border-radius: 20px;
     overflow: hidden;
     cursor: pointer;
-    /* background: #000; */
-    /* aspect-ratio: 16 / 9; */
-    /* transform: rotate(-3deg); */
-    border-radius: 20px;
+    aspect-ratio: 16 / 9;
     box-shadow: -5px -13px 30px rgba(225, 218, 218, 0.35);
 }
 
@@ -240,7 +237,11 @@ onMounted(() => {
     width: 100%;
     height: 100%;
     object-fit: cover;
+    object-position: center;
     display: block;
+    position: absolute;
+    top: 0;
+    left: 0;
     transition: transform 0.3s ease;
     opacity: 0.85;
 }

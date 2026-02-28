@@ -216,6 +216,7 @@ export default {
 }
 
 @media screen and (max-width: 767px) {
+
     .ai-program-main {
         padding: 40px 0px;
     }
@@ -236,8 +237,13 @@ export default {
         font-size: 14px;
     }
 
-    .domains-grid {
+    /* .domains-grid {
         grid-template-columns: 1fr;
+       
+    } */
+
+    .domains-grid {
+        grid-template-columns: repeat(2, 1fr);
         max-width: 100%;
     }
 

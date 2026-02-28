@@ -146,6 +146,11 @@ const cards = [
 }
 
 @media (max-width: 576px) {
+    .card-wrapper {
+
+        grid-template-columns: repeat(2, 1fr);
+    }
+
     .who-can-apply {
         padding: 40px 0 40px;
     }
