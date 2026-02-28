@@ -31,9 +31,10 @@
           <img src="~/assets/img/mobileHeader/Icon(4).png" alt="Campus Life" class="nav-icon" />
           <span>Campus Life</span>
         </NuxtLink>
-        <button class="apply-now-btn" @click="openApplyModal">
-          <span>Apply Now</span>
-        </button>
+        <NuxtLink to="/about-overview" class="nav-item" @click="handleClick">
+          <img src="~/assets/img/mobileHeader/Icon(5).png" alt="About Us" class="nav-icon" />
+          <span>About Us</span>
+        </NuxtLink>
 
       </nav>
     </div>
@@ -43,6 +44,9 @@
         CHAT WITH US
       </a>
     </div> -->
+    <button class="apply-now-btn" @click="openApplyModal">
+      <span>Apply Now</span>
+    </button>
   </div>
 
   <!-- Apply Now Modal -->
@@ -184,7 +188,8 @@ export default defineComponent({
   font-size: 16px;
   text-align: center;
   justify-content: center;
-  padding: 18px 20px !important;
+  padding: 18px 0 !important;
+  margin: 20px;
 }
 
 .nav-item:hover {
