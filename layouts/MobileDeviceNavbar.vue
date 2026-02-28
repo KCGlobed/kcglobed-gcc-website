@@ -184,12 +184,13 @@ export default defineComponent({
   border: none;
   border-radius: 7px !important;
   cursor: pointer;
-  width: 100%;
+  width: calc(100% - 40px);
   font-size: 16px;
   text-align: center;
   justify-content: center;
   padding: 18px 0 !important;
-  margin: 20px;
+  margin: 20px auto;
+  display: flex;
 }
 
 .nav-item:hover {
