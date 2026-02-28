@@ -35,6 +35,7 @@
           <img src="~/assets/img/mobileHeader/Icon(5).png" alt="About Us" class="nav-icon" />
           <span>About Us</span>
         </NuxtLink>
+
       </nav>
     </div>
     <!-- <div class="offcanvas-footer">
@@ -43,15 +44,24 @@
         CHAT WITH US
       </a>
     </div> -->
+    <button class="apply-now-btn" @click="openApplyModal">
+      <span>Apply Now</span>
+    </button>
   </div>
+
+  <!-- Apply Now Modal -->
+  <DossierModal modal-id="mobileApplyModal" modal-title="Apply Now"
+    subtitle="Fill in your details to start your application" mode="apply" />
 </template>
 
 <script lang="ts">
 import { defineComponent, ref } from "vue";
 import stateStore from "../utils/store";
+import DossierModal from "~/components/Common/DossierModal.vue";
 
 export default defineComponent({
   name: "MobileDeviceNavbar",
+  components: { DossierModal },
   setup() {
     const stateStoreInstance = stateStore;
     const isClosing = ref(false);
@@ -69,11 +79,22 @@ export default defineComponent({
       closeNavbar();
     };
 
+    const openApplyModal = async () => {
+      closeNavbar();
+      // wait for navbar close animation, then open modal
+      setTimeout(async () => {
+        const { Modal } = await import('bootstrap');
+        const el = document.getElementById('mobileApplyModal');
+        if (el) new Modal(el).show();
+      }, 350);
+    };
+
     return {
       stateStoreInstance,
       handleClick,
       isClosing,
       closeNavbar,
+      openApplyModal,
     };
   },
 });
@@ -156,6 +177,20 @@ export default defineComponent({
   font-weight: 500;
   border-radius: 10px;
   transition: all 0.2s ease;
+}
+
+.apply-now-btn {
+  background: #A13E99;
+  border: none;
+  border-radius: 7px !important;
+  cursor: pointer;
+  width: calc(100% - 40px);
+  font-size: 16px;
+  text-align: center;
+  justify-content: center;
+  padding: 18px 0 !important;
+  margin: 20px auto;
+  display: flex;
 }
 
 .nav-item:hover {
