@@ -39,6 +39,9 @@
                   <li>
                     <NuxtLink to="/career">Careers</NuxtLink>
                   </li>
+                  <li class="apply-now-li">
+                    <button class="footer-apply-btn" @click="openApplyModal">Apply Now</button>
+                  </li>
                   <!-- <li>
                     <NuxtLink to="/login">Login</NuxtLink>
                   </li> -->
@@ -122,11 +125,19 @@
       </div>
     </div>
   </div>
+
+  <!-- Apply Now Modal (footer) -->
+  <DossierModal modal-id="footerApplyModal" modal-title="Apply Now"
+    subtitle="Fill in your details to start your application" mode="apply" />
 </template>
 
 <script>
+import { defineAsyncComponent } from 'vue';
 export default {
   name: "MainFooter",
+  components: {
+    DossierModal: defineAsyncComponent(() => import('~/components/Common/DossierModal.vue'))
+  },
   data() {
     return {
       email: "",
@@ -156,6 +167,11 @@ export default {
       } finally {
         this.loading = false;
       }
+    },
+    async openApplyModal() {
+      const { Modal } = await import('bootstrap');
+      const el = document.getElementById('footerApplyModal');
+      if (el) new Modal(el).show();
     }
   }
 };
@@ -170,9 +186,39 @@ export default {
   list-style: none;
 }
 
-@media (max-width: 570px) {
+.apply-now-li {
+  display: flex;
+  align-items: center;
+}
+
+.footer-apply-btn {
+  background: #A13E99;
+  border: none;
+  border-radius: 6px;
+  color: #ffffff;
+  font-size: 14px;
+  font-weight: 600;
+  padding: 5px 16px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  letter-spacing: 0.3px;
+  display: inline-block;
+  width: auto;
+}
+
+.footer-apply-btn:hover {
+  background: #8b2e87;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 18px rgba(161, 62, 153, 0.35);
+}
+
+@media (max-width: 991px) {
   .footer-links-grid {
     grid-template-columns: repeat(2, 1fr);
+  }
+
+  .apply-now-li {
+    grid-column: 2;
   }
 }
 
