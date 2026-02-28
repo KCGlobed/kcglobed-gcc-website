@@ -31,10 +31,10 @@
           <img src="~/assets/img/mobileHeader/Icon(4).png" alt="Campus Life" class="nav-icon" />
           <span>Campus Life</span>
         </NuxtLink>
-        <NuxtLink to="/about-overview" class="nav-item" @click="handleClick">
-          <img src="~/assets/img/mobileHeader/Icon(5).png" alt="About Us" class="nav-icon" />
-          <span>About Us</span>
-        </NuxtLink>
+        <button class="apply-now-btn" @click="openApplyModal">
+          <span>Apply Now</span>
+        </button>
+
       </nav>
     </div>
     <!-- <div class="offcanvas-footer">
@@ -44,14 +44,20 @@
       </a>
     </div> -->
   </div>
+
+  <!-- Apply Now Modal -->
+  <DossierModal modal-id="mobileApplyModal" modal-title="Apply Now"
+    subtitle="Fill in your details to start your application" mode="apply" />
 </template>
 
 <script lang="ts">
 import { defineComponent, ref } from "vue";
 import stateStore from "../utils/store";
+import DossierModal from "~/components/Common/DossierModal.vue";
 
 export default defineComponent({
   name: "MobileDeviceNavbar",
+  components: { DossierModal },
   setup() {
     const stateStoreInstance = stateStore;
     const isClosing = ref(false);
@@ -69,11 +75,22 @@ export default defineComponent({
       closeNavbar();
     };
 
+    const openApplyModal = async () => {
+      closeNavbar();
+      // wait for navbar close animation, then open modal
+      setTimeout(async () => {
+        const { Modal } = await import('bootstrap');
+        const el = document.getElementById('mobileApplyModal');
+        if (el) new Modal(el).show();
+      }, 350);
+    };
+
     return {
       stateStoreInstance,
       handleClick,
       isClosing,
       closeNavbar,
+      openApplyModal,
     };
   },
 });
@@ -156,6 +173,18 @@ export default defineComponent({
   font-weight: 500;
   border-radius: 10px;
   transition: all 0.2s ease;
+}
+
+.apply-now-btn {
+  background: #A13E99;
+  border: none;
+  border-radius: 7px !important;
+  cursor: pointer;
+  width: 100%;
+  font-size: 16px;
+  text-align: center;
+  justify-content: center;
+  padding: 18px 20px !important;
 }
 
 .nav-item:hover {

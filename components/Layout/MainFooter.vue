@@ -91,11 +91,11 @@
                           <img src="~/assets/img/svgs/facebook.svg" alt="facebook" />
                         </a>
                       </li>
-                      <li>
+                      <!-- <li>
                         <a href="https://x.com/gccschool2026" target="_blank" class="icon">
                           <img src="~/assets/img/svgs/twitter.svg" alt="twitter" />
                         </a>
-                      </li>
+                      </li> -->
                       <li>
                         <a href="https://www.instagram.com/gccschool?igsh=MXQxc2JhazAwcG55cQ==" target="_blank"
                           class="icon">
