@@ -76,17 +76,9 @@ const newsList = [
         date: 'Nov 14, 2025',
         category: 'Business & Finance',
         image: 'https://storage.googleapis.com/static_files_backend/media/images/image%20(1).jpg',
-        url: 'https://english.indianews.in/india-news/gcc-school-and-kc-globed-host-round-table-meeting-on-impact-of-ai-on-gccs-bu'
+        url: 'https://english.indianews.in/india-news/gcc-school-and-kc-globed-host-round-table-meeting-on-impact-of-ai-on-gccs-building-the-future-workforce-848368/'
     },
-    // {
-    //     id: 2,
-    //     title: 'UK ACCA Exams: How students should prepare and what careers to expect',
-    //     excerpt: 'With UK ACCA examinations approaching, many Indian students are navigating last-minute preparation pressures, eligibility questions, and uncertainty around career outcomes. While ACCA is widely recognised as a global qualification in accounting and finance...',
-    //     date: 'Jan 12, 2026',
-    //     category: 'Education',
-    //     image: 'https://storage.googleapis.com/gcc_prod_static_files_backend/static/images/College_students_1765017803976_1765017804175_1768220498686.avif',
-    //     url: 'https://www.hindustantimes.com/education/competitive-exams/uk-acca-exams-how-students-should-prepare-and-what-careers-to-expect-101768219881933.html'
-    // },
+
     {
         id: 3,
         title: 'Tech4ed 2025 Sets New Benchmark In Global Learning With Strategic Collaborations And Knowledge Exchange',
