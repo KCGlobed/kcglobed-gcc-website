@@ -128,15 +128,18 @@
     position: relative;
     border-radius: 20px;
     overflow: hidden;
-    aspect-ratio: 16 / 10;
     cursor: pointer;
     z-index: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .preview-img {
     width: 100%;
-    height: 100%;
-    object-fit: cover;
+    height: auto;
+    object-fit: contain;
+    display: block;
     transition: transform 0.5s ease;
 }
 
@@ -226,10 +229,6 @@
 
     .message-text p {
         font-size: 16px;
-    }
-
-    .video-preview-box {
-        aspect-ratio: 16/9;
     }
 
     .title {
