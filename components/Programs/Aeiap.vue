@@ -2,9 +2,10 @@
     <section class="aeiap-area ptb-100 bg-F8F8F9">
         <div class="container">
             <div class="section-title text-center mb-50">
-                <h2 class="title">AI ENABLED INTERNATIONAL ACCOUNTING <span class="highlight">PROFESSIONAL PROGRAM
-                        (AEIAP)</span></h2>
-                <p class="sub-title">WITH PAID INTERNSHIP</p>
+                <h2 class="title">AI ENABLED INTERNATIONAL ACCOUNTING PROFESSIONAL PROGRAM
+                    <span class="highlight"> (AEIAP) WITH PAID INTERNSHIP</span>
+                </h2>
+
             </div>
 
             <div class="row g-4 ae-cards-grid">
