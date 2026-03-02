@@ -1,175 +1,322 @@
 <template>
     <div class="hero-warp">
-        <Swiper :loop="true" :effect="'fade'" :speed="2000" :pagination="{
-            el: '.swiper-pagination2',
-            clickable: true,
-        }" :modules="[SwiperEffectFade, SwiperPagination]" class="hero-slider">
-            <SwiperSlide v-for="banner in banners" :key="banner.id">
-                <div class="hero-slider-warp" :style="{
-                    'background-image': `url(${banner.image})`,
-                }">
-                    <div class="container-fluid">
-                        <div class="row align-items-stretch">
-                            <div class="col-lg-6 col-md-12 mb-4 mb-lg-0">
-                                <div class="program-hero-card h-100">
-                                    <div class="card-header">
-                                        <h2>Download Brochure</h2>
-                                        <p>Enter your details to receive the brochure instantly</p>
+        <!-- Static First Slide (Above the Fold) -->
+        <div v-if="banners.length" class="hero-slider-warp position-relative">
+            <NuxtImg src="/img/banner/hero.webp" class="hero-bg-img" format="webp" quality="80" loading="eager"
+                fetchpriority="high" />
+            <div class="container-fluid position-relative" style="z-index: 2;">
+                <div class="row align-items-stretch">
+                    <div class="col-lg-6 col-md-12 mb-4 mb-lg-0">
+                        <div class="program-hero-card h-100">
+                            <div class="card-header">
+                                <h2>Download Brochure</h2>
+                                <p>Enter your details to receive the brochure instantly</p>
+                            </div>
+
+                            <form @submit.prevent="submitForm" class="registration-form">
+                                <label for="fullName">Full Name*</label>
+                                <div class="form-floating mb-2">
+
+                                    <input type="text" class="form-control" id="fullName" v-model="form.name"
+                                        placeholder="Enter your full name" :class="{ 'is-invalid': errors.name }">
+
+                                    <div class="invalid-feedback" v-if="errors.name">{{ errors.name }}</div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <label for="emailAddress">Email Address*</label>
+                                        <div class="form-floating mb-2">
+                                            <input type="email" class="form-control" id="emailAddress"
+                                                v-model="form.email" placeholder="Enter your email address"
+                                                :class="{ 'is-invalid': errors.email }">
+                                            <div class="invalid-feedback" v-if="errors.email">{{ errors.email }}
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label for="phoneNumber">Phone Number*</label>
+                                        <div class="form-floating mb-2">
+                                            <input type="tel" class="form-control" id="phoneNumber"
+                                                v-model="form.mobile" placeholder="Enter your phone number"
+                                                :class="{ 'is-invalid': errors.mobile }">
+                                            <div class="invalid-feedback" v-if="errors.mobile">{{ errors.mobile
+                                                }}
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <label for="state">State*</label>
+                                        <div class="form-floating mb-2">
+                                            <select class="form-select" id="state" v-model="form.state"
+                                                @change="onStateChange" :class="{ 'is-invalid': errors.state }">
+                                                <option value="" disabled>Select State</option>
+                                                <option v-for="state in states" :key="state" :value="state">{{
+                                                    state }}
+                                                </option>
+                                            </select>
+                                            <div class="invalid-feedback" v-if="errors.state">{{ errors.state }}
+                                            </div>
+                                        </div>
                                     </div>
 
-                                    <form @submit.prevent="submitForm" class="registration-form">
-                                        <label for="fullName">Full Name*</label>
+                                    <div class="col-md-6">
+                                        <label for="city">City*</label>
                                         <div class="form-floating mb-2">
-
-                                            <input type="text" class="form-control" id="fullName" v-model="form.name"
-                                                placeholder="Enter your full name"
-                                                :class="{ 'is-invalid': errors.name }">
-
-                                            <div class="invalid-feedback" v-if="errors.name">{{ errors.name }}</div>
-                                        </div>
-                                        <div class="row">
-                                            <div class="col-md-6">
-                                                <label for="emailAddress">Email Address*</label>
-                                                <div class="form-floating mb-2">
-                                                    <input type="email" class="form-control" id="emailAddress"
-                                                        v-model="form.email" placeholder="Enter your email address"
-                                                        :class="{ 'is-invalid': errors.email }">
-                                                    <div class="invalid-feedback" v-if="errors.email">{{ errors.email }}
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="col-md-6">
-                                                <label for="phoneNumber">Phone Number*</label>
-                                                <div class="form-floating mb-2">
-                                                    <input type="tel" class="form-control" id="phoneNumber"
-                                                        v-model="form.mobile" placeholder="Enter your phone number"
-                                                        :class="{ 'is-invalid': errors.mobile }">
-                                                    <div class="invalid-feedback" v-if="errors.mobile">{{ errors.mobile
-                                                        }}
-                                                    </div>
-                                                </div>
+                                            <select class="form-select" id="city" v-model="form.city"
+                                                :class="{ 'is-invalid': errors.city }">
+                                                <option value="" disabled>Select City</option>
+                                                <option v-for="city in citiesList" :key="city" :value="city">{{
+                                                    city }}
+                                                </option>
+                                            </select>
+                                            <div class="invalid-feedback" v-if="errors.city">{{ errors.city }}
                                             </div>
                                         </div>
+                                    </div>
+                                </div>
 
-                                        <div class="row">
-                                            <div class="col-md-6">
-                                                <label for="state">State*</label>
-                                                <div class="form-floating mb-2">
-                                                    <select class="form-select" id="state" v-model="form.state"
-                                                        @change="onStateChange" :class="{ 'is-invalid': errors.state }">
-                                                        <option value="" disabled>Select State</option>
-                                                        <option v-for="state in states" :key="state" :value="state">{{
-                                                            state }}
-                                                        </option>
-                                                    </select>
-                                                    <div class="invalid-feedback" v-if="errors.state">{{ errors.state }}
-                                                    </div>
-                                                </div>
-                                            </div>
+                                <div class="form-check mb-3">
+                                    <input class="form-check-input" type="checkbox" id="consent" v-model="form.consent"
+                                        :class="{ 'is-invalid': errors.consent }">
+                                    <label class="form-check-label" for="consent">
+                                        Are you a Commerce Graduate with first division?
+                                    </label>
+                                    <div class="invalid-feedback" v-if="errors.consent">{{ errors.consent }}
+                                    </div>
+                                </div>
 
-                                            <div class="col-md-6">
-                                                <label for="city">City*</label>
-                                                <div class="form-floating mb-2">
-                                                    <select class="form-select" id="city" v-model="form.city"
-                                                        :class="{ 'is-invalid': errors.city }">
-                                                        <option value="" disabled>Select City</option>
-                                                        <option v-for="city in citiesList" :key="city" :value="city">{{
-                                                            city }}
-                                                        </option>
-                                                    </select>
-                                                    <div class="invalid-feedback" v-if="errors.city">{{ errors.city }}
-                                                    </div>
-                                                </div>
+                                <!-- Step 1: Download Now button -->
+                                <button v-if="!isDownloaded" type="submit" class="btn btn-primary w-100 register-btn"
+                                    :disabled="isSubmitting">
+                                    <span v-if="isSubmitting" class="spinner-border spinner-border-sm me-2"></span>
+                                    {{ isSubmitting ? 'Processing...' : 'DOWNLOAD NOW' }}
+                                </button>
+
+                                <!-- Step 2: Pay Now button (shown after download) -->
+                                <button v-else type="button" @click="handlePayment"
+                                    class="btn btn-primary w-100 register-btn" :disabled="isPaymentInProgress">
+                                    <span v-if="isPaymentInProgress"
+                                        class="spinner-border spinner-border-sm me-2"></span>
+                                    {{ isPaymentInProgress ? 'Opening Payment...' : 'PAY NOW' }}
+                                </button>
+
+                                <div v-if="notification.message"
+                                    :class="['alert mt-3 mb-0 py-2 px-3 rounded-3 small', notification.type === 'success' ? 'alert-success' : 'alert-danger']"
+                                    role="alert">
+                                    <span v-if="notification.type === 'success'">✅</span>
+                                    <span v-else>❌</span>
+                                    {{ notification.message }}
+                                </div>
+
+                                <p class="form-footer-text">
+                                    By submitting, you agree to our <a href="#">Terms</a> and <a href="#">Privacy
+                                        Policy</a>
+                                </p>
+                            </form>
+                        </div>
+                    </div>
+                    <div class="col-lg-6 col-md-12">
+                        <div class="program-info-section h-100 d-flex flex-column">
+                            <div class="program-header-text">
+                                <h1 class="program-title">
+                                    AI-Enabled International Accounting<br>
+                                    Professional Program (AEIAP)
+                                </h1>
+                                <p class="program-subtitle">
+                                    A High-Impact Finance Career Program For GCC Industry
+                                </p>
+                            </div>
+
+                            <div class="video-section">
+                                <div class="video-wrapper">
+                                    <template v-if="!banners[0].showVideo">
+                                        <img src="https://storage.googleapis.com/static_files_backend/media/images/nitish%20sir%20thmbnl_.jpg"
+                                            alt="Program Video" class="video-thumbnail">
+                                        <div class="video-play-overlay">
+                                            <div class="play-icon">
+                                                <i class="ti ti-player-play-filled"></i>
                                             </div>
                                         </div>
-
-                                        <div class="form-check mb-3">
-                                            <input class="form-check-input" type="checkbox" id="consent"
-                                                v-model="form.consent" :class="{ 'is-invalid': errors.consent }">
-                                            <label class="form-check-label" for="consent">
-                                                Are you a Commerce Graduate with first division?
-                                            </label>
-                                            <div class="invalid-feedback" v-if="errors.consent">{{ errors.consent }}
-                                            </div>
-                                        </div>
-
-                                        <!-- Step 1: Download Now button -->
-                                        <button v-if="!isDownloaded" type="submit"
-                                            class="btn btn-primary w-100 register-btn" :disabled="isSubmitting">
-                                            <span v-if="isSubmitting"
-                                                class="spinner-border spinner-border-sm me-2"></span>
-                                            {{ isSubmitting ? 'Processing...' : 'DOWNLOAD NOW' }}
-                                        </button>
-
-                                        <!-- Step 2: Pay Now button (shown after download) -->
-                                        <button v-else type="button" @click="handlePayment"
-                                            class="btn btn-primary w-100 register-btn" :disabled="isPaymentInProgress">
-                                            <span v-if="isPaymentInProgress"
-                                                class="spinner-border spinner-border-sm me-2"></span>
-                                            {{ isPaymentInProgress ? 'Opening Payment...' : 'PAY NOW' }}
-                                        </button>
-
-                                        <div v-if="notification.message"
-                                            :class="['alert mt-3 mb-0 py-2 px-3 rounded-3 small', notification.type === 'success' ? 'alert-success' : 'alert-danger']"
-                                            role="alert">
-                                            <span v-if="notification.type === 'success'">✅</span>
-                                            <span v-else>❌</span>
-                                            {{ notification.message }}
-                                        </div>
-
-                                        <p class="form-footer-text">
-                                            By submitting, you agree to our <a href="#">Terms</a> and <a
-                                                href="#">Privacy Policy</a>
-                                        </p>
-                                    </form>
+                                    </template>
                                 </div>
                             </div>
-                            <div class="col-lg-6 col-md-12">
-                                <div class="program-info-section h-100 d-flex flex-column">
-                                    <div class="program-header-text">
-                                        <h1 class="program-title">
-                                            AI-Enabled International Accounting<br>
-                                            Professional Program (AEIAP)
-                                        </h1>
-                                        <p class="program-subtitle">
-                                            A High-Impact Finance Career Program For GCC Industry
-                                        </p>
-                                    </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
 
-                                    <div class="video-section">
-                                        <div class="video-wrapper">
-                                            <template v-if="!banner.showVideo">
-                                                <img src="https://storage.googleapis.com/static_files_backend/media/images/nitish%20sir%20thmbnl_.jpg"
-                                                    alt="Program Video" class="video-thumbnail">
-                                                <!-- <div class="video-badge-4k">
-                                                    4k
-                                                </div> -->
-                                                <div class="video-play-overlay">
-                                                    <div class="play-icon">
-                                                        <i class="ti ti-player-play-filled"></i>
+        <!-- Remaining Slides Lazy Loaded via Swiper -->
+        <ClientOnly>
+            <Swiper v-if="banners.length > 1" :loop="true" :effect="'fade'" :speed="500" :pagination="{
+                el: '.swiper-pagination2',
+                clickable: true,
+            }" :modules="[SwiperEffectFade, SwiperPagination]" class="hero-slider">
+                <SwiperSlide v-for="banner in banners.slice(1)" :key="banner.id">
+                    <div class="hero-slider-warp position-relative">
+                        <NuxtImg src="/img/banner/hero.webp" class="hero-bg-img" format="webp" quality="80"
+                            loading="lazy" />
+                        <div class="container-fluid position-relative" style="z-index: 2;">
+                            <div class="row align-items-stretch">
+                                <div class="col-lg-6 col-md-12 mb-4 mb-lg-0">
+                                    <div class="program-hero-card h-100">
+                                        <div class="card-header">
+                                            <h2>Download Brochure</h2>
+                                            <p>Enter your details to receive the brochure instantly</p>
+                                        </div>
+
+                                        <form @submit.prevent="submitForm" class="registration-form">
+                                            <label for="fullName">Full Name*</label>
+                                            <div class="form-floating mb-2">
+
+                                                <input type="text" class="form-control" id="fullName"
+                                                    v-model="form.name" placeholder="Enter your full name"
+                                                    :class="{ 'is-invalid': errors.name }">
+
+                                                <div class="invalid-feedback" v-if="errors.name">{{ errors.name }}</div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-md-6">
+                                                    <label for="emailAddress">Email Address*</label>
+                                                    <div class="form-floating mb-2">
+                                                        <input type="email" class="form-control" id="emailAddress"
+                                                            v-model="form.email" placeholder="Enter your email address"
+                                                            :class="{ 'is-invalid': errors.email }">
+                                                        <div class="invalid-feedback" v-if="errors.email">{{
+                                                            errors.email }}
+                                                        </div>
                                                     </div>
                                                 </div>
-                                                <!-- <div class="video-caption">
-                                                    <p class="speaker-name">GCC SCHOOL</p>
-                                                    <p class="speaker-quote">LMS TUTORIAL & OVERVIEW</p>
-                                                </div> -->
-                                            </template>
-                                            <!-- <video v-else controls autoplay class="video-element w-100 h-100">
-                                                <source
-                                                    src="https://storage.googleapis.com/gcc_static_files_backend/static/videos/lms_tutorial.mp4"
-                                                    type="video/mp4">
-                                                Your browser does not support the video tag.
-                                            </video> -->
+                                                <div class="col-md-6">
+                                                    <label for="phoneNumber">Phone Number*</label>
+                                                    <div class="form-floating mb-2">
+                                                        <input type="tel" class="form-control" id="phoneNumber"
+                                                            v-model="form.mobile" placeholder="Enter your phone number"
+                                                            :class="{ 'is-invalid': errors.mobile }">
+                                                        <div class="invalid-feedback" v-if="errors.mobile">{{
+                                                            errors.mobile
+                                                        }}
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="row">
+                                                <div class="col-md-6">
+                                                    <label for="state">State*</label>
+                                                    <div class="form-floating mb-2">
+                                                        <select class="form-select" id="state" v-model="form.state"
+                                                            @change="onStateChange"
+                                                            :class="{ 'is-invalid': errors.state }">
+                                                            <option value="" disabled>Select State</option>
+                                                            <option v-for="state in states" :key="state" :value="state">
+                                                                {{
+                                                                    state }}
+                                                            </option>
+                                                        </select>
+                                                        <div class="invalid-feedback" v-if="errors.state">{{
+                                                            errors.state }}
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <div class="col-md-6">
+                                                    <label for="city">City*</label>
+                                                    <div class="form-floating mb-2">
+                                                        <select class="form-select" id="city" v-model="form.city"
+                                                            :class="{ 'is-invalid': errors.city }">
+                                                            <option value="" disabled>Select City</option>
+                                                            <option v-for="city in citiesList" :key="city"
+                                                                :value="city">{{
+                                                                    city }}
+                                                            </option>
+                                                        </select>
+                                                        <div class="invalid-feedback" v-if="errors.city">{{ errors.city
+                                                        }}
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="form-check mb-3">
+                                                <input class="form-check-input" type="checkbox" id="consent"
+                                                    v-model="form.consent" :class="{ 'is-invalid': errors.consent }">
+                                                <label class="form-check-label" for="consent">
+                                                    Are you a Commerce Graduate with first division?
+                                                </label>
+                                                <div class="invalid-feedback" v-if="errors.consent">{{ errors.consent }}
+                                                </div>
+                                            </div>
+
+                                            <!-- Step 1: Download Now button -->
+                                            <button v-if="!isDownloaded" type="submit"
+                                                class="btn btn-primary w-100 register-btn" :disabled="isSubmitting">
+                                                <span v-if="isSubmitting"
+                                                    class="spinner-border spinner-border-sm me-2"></span>
+                                                {{ isSubmitting ? 'Processing...' : 'DOWNLOAD NOW' }}
+                                            </button>
+
+                                            <!-- Step 2: Pay Now button (shown after download) -->
+                                            <button v-else type="button" @click="handlePayment"
+                                                class="btn btn-primary w-100 register-btn"
+                                                :disabled="isPaymentInProgress">
+                                                <span v-if="isPaymentInProgress"
+                                                    class="spinner-border spinner-border-sm me-2"></span>
+                                                {{ isPaymentInProgress ? 'Opening Payment...' : 'PAY NOW' }}
+                                            </button>
+
+                                            <div v-if="notification.message"
+                                                :class="['alert mt-3 mb-0 py-2 px-3 rounded-3 small', notification.type === 'success' ? 'alert-success' : 'alert-danger']"
+                                                role="alert">
+                                                <span v-if="notification.type === 'success'">✅</span>
+                                                <span v-else>❌</span>
+                                                {{ notification.message }}
+                                            </div>
+
+                                            <p class="form-footer-text">
+                                                By submitting, you agree to our <a href="#">Terms</a> and <a
+                                                    href="#">Privacy
+                                                    Policy</a>
+                                            </p>
+                                        </form>
+                                    </div>
+                                </div>
+                                <div class="col-lg-6 col-md-12">
+                                    <div class="program-info-section h-100 d-flex flex-column">
+                                        <div class="program-header-text">
+                                            <h1 class="program-title">
+                                                AI-Enabled International Accounting<br>
+                                                Professional Program (AEIAP)
+                                            </h1>
+                                            <p class="program-subtitle">
+                                                A High-Impact Finance Career Program For GCC Industry
+                                            </p>
+                                        </div>
+
+                                        <div class="video-section">
+                                            <div class="video-wrapper">
+                                                <template v-if="!banner.showVideo">
+                                                    <img src="https://storage.googleapis.com/static_files_backend/media/images/nitish%20sir%20thmbnl_.jpg"
+                                                        alt="Program Video" class="video-thumbnail">
+                                                    <div class="video-play-overlay">
+                                                        <div class="play-icon">
+                                                            <i class="ti ti-player-play-filled"></i>
+                                                        </div>
+                                                    </div>
+                                                </template>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-
                     </div>
-                </div>
-            </SwiperSlide>
-        </Swiper>
+                </SwiperSlide>
+            </Swiper>
+        </ClientOnly>
     </div>
 
     <!-- Payment Status Modal -->
@@ -183,19 +330,25 @@
     min-height: 100vh;
 }
 
+.hero-bg-img {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    top: 0;
+    left: 0;
+    z-index: 1;
+}
+
 .hero-slider-warp {
     min-height: 100vh;
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
     display: flex;
     align-items: center;
     position: relative;
     padding-bottom: 100px;
     padding-top: 220px;
+    overflow: hidden;
 }
-
-
 
 .hero-slider-warp .container-fluid {
     position: relative;
@@ -575,6 +728,10 @@
 
     .play-icon i {
         font-size: 1.5rem;
+    }
+
+    .hero-bg-img {
+        display: none !important;
     }
 }
 </style>
