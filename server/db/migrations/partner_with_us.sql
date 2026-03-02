@@ -1,4 +1,4 @@
-CREATE TABLE partner_with_us (
+CREATE TABLE IF NOT EXISTS partner_with_us (
   id SERIAL PRIMARY KEY,
   organization_name VARCHAR(255) NOT NULL,
   year_of_establishment VARCHAR(10) NOT NULL,

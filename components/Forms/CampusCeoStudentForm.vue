@@ -64,7 +64,7 @@
                                             <select v-model="form.state" class="form-control" @change="onStateChange">
                                                 <option value="">Select State</option>
                                                 <option v-for="state in statesList" :key="state" :value="state">{{ state
-                                                    }}</option>
+                                                }}</option>
                                             </select>
                                             <i class="ti ti-map"></i>
                                         </div>
@@ -108,7 +108,7 @@
                                         <input v-model="form.collegeName" type="text" class="form-control"
                                             placeholder="College / University Name">
                                         <small class="text-danger" v-if="errors.collegeName">{{ errors.collegeName
-                                            }}</small>
+                                        }}</small>
                                     </div>
                                 </div>
                                 <div class="col-lg-6">
@@ -129,7 +129,7 @@
                                             </optgroup>
                                         </select>
                                         <small class="text-danger" v-if="errors.programOfStudy">{{ errors.programOfStudy
-                                            }}</small>
+                                        }}</small>
                                     </div>
                                 </div>
                                 <div class="col-lg-6" v-if="form.programOfStudy.includes('Other')">
@@ -138,7 +138,7 @@
                                         <input v-model="form.programOther" type="text" class="form-control"
                                             placeholder="Specify Program">
                                         <small class="text-danger" v-if="errors.programOther">{{ errors.programOther
-                                            }}</small>
+                                        }}</small>
                                     </div>
                                 </div>
                                 <div class="col-lg-6">
@@ -178,6 +178,15 @@
                                             }}</small>
                                     </div>
                                 </div>
+                                <div class="col-lg-12 mt-3" v-if="form.studentBody === 'Yes'">
+                                    <div class="input-box">
+                                        <label class="form-label">Please mention description <span>*</span></label>
+                                        <textarea v-model="form.studentBodyDescription" class="form-control" rows="3"
+                                            placeholder="Please describe your role or involvement..."></textarea>
+                                        <small class="text-danger" v-if="errors.studentBodyDescription">{{
+                                            errors.studentBodyDescription }}</small>
+                                    </div>
+                                </div>
                                 <div class="col-lg-12 mt-3">
                                     <div class="input-box">
                                         <label class="form-label">Have you previously worked as a Student / Campus
@@ -199,6 +208,16 @@
                                             errors.campusAmbassador }}</small>
                                     </div>
                                 </div>
+                                <div class="col-lg-12 mt-3" v-if="form.campusAmbassador === 'Yes'">
+                                    <div class="input-box">
+                                        <label class="form-label">Please mention description <span>*</span></label>
+                                        <textarea v-model="form.campusAmbassadorDescription" class="form-control"
+                                            rows="3"
+                                            placeholder="Please describe your role or involvement..."></textarea>
+                                        <small class="text-danger" v-if="errors.campusAmbassadorDescription">{{
+                                            errors.campusAmbassadorDescription }}</small>
+                                    </div>
+                                </div>
                             </div>
 
                             <hr class="my-4">
@@ -213,13 +232,13 @@
                                         <textarea v-model="form.inspiration" class="form-control" rows="4"
                                             placeholder="Explain your inspiration..."></textarea>
                                         <small class="text-danger" v-if="errors.inspiration">{{ errors.inspiration
-                                            }}</small>
+                                        }}</small>
                                     </div>
                                 </div>
                                 <div class="col-lg-12 mt-3">
                                     <div class="input-box">
-                                        <label class="form-label">How will you promote this new initiative for
-                                            placements on your campus? <span>*</span></label>
+                                        <label class="form-label">Would you like to be promoted this initiative in your
+                                            social circle? <span>*</span></label>
                                         <div class="d-flex flex-wrap gap-3 mt-2">
                                             <div class="form-check" v-for="channel in promotionChannelsList"
                                                 :key="channel">
@@ -230,21 +249,6 @@
                                         </div>
                                         <small class="text-danger" v-if="errors.promotionChannels">{{
                                             errors.promotionChannels }}</small>
-                                    </div>
-                                </div>
-                                <div class="col-lg-12 mt-3">
-                                    <div class="input-box">
-                                        <label class="form-label">Approximate number of students you can reach
-                                            <span>*</span></label>
-                                        <div class="d-flex flex-wrap gap-4 mt-2">
-                                            <div class="form-check" v-for="range in studentReachList" :key="range">
-                                                <input class="form-check-input" type="radio" v-model="form.studentReach"
-                                                    :value="range" :id="range">
-                                                <label class="form-check-label" :for="range">{{ range }}</label>
-                                            </div>
-                                        </div>
-                                        <small class="text-danger" v-if="errors.studentReach">{{ errors.studentReach
-                                            }}</small>
                                     </div>
                                 </div>
                             </div>
@@ -324,11 +328,6 @@ export default defineComponent({
                 "College Events / Seminars",
                 "Peer-to-Peer Outreach"
             ],
-            studentReachList: [
-                "50–100",
-                "100–300",
-                "300+"
-            ],
             form: {
                 fullName: "",
                 email: "",
@@ -341,10 +340,11 @@ export default defineComponent({
                 programOther: "",
                 semester: "",
                 studentBody: "",
+                studentBodyDescription: "",
                 campusAmbassador: "",
+                campusAmbassadorDescription: "",
                 inspiration: "",
                 promotionChannels: [] as string[],
-                studentReach: "",
                 consent: false,
             },
             errors: {
@@ -359,10 +359,11 @@ export default defineComponent({
                 programOther: "",
                 semester: "",
                 studentBody: "",
+                studentBodyDescription: "",
                 campusAmbassador: "",
+                campusAmbassadorDescription: "",
                 inspiration: "",
                 promotionChannels: "",
-                studentReach: "",
                 consent: "",
             },
             loading: false,
@@ -433,8 +434,16 @@ export default defineComponent({
                 this.errors.studentBody = "Please select Yes or No";
                 isValid = false;
             }
+            if (this.form.studentBody === "Yes" && !this.form.studentBodyDescription) {
+                this.errors.studentBodyDescription = "Description is required if Yes";
+                isValid = false;
+            }
             if (!this.form.campusAmbassador) {
                 this.errors.campusAmbassador = "Please select Yes or No";
+                isValid = false;
+            }
+            if (this.form.campusAmbassador === "Yes" && !this.form.campusAmbassadorDescription) {
+                this.errors.campusAmbassadorDescription = "Description is required if Yes";
                 isValid = false;
             }
             if (!this.form.inspiration) {
@@ -443,10 +452,6 @@ export default defineComponent({
             }
             if (this.form.promotionChannels.length === 0) {
                 this.errors.promotionChannels = "Please select at least one promotion channel";
-                isValid = false;
-            }
-            if (!this.form.studentReach) {
-                this.errors.studentReach = "Please select student reach";
                 isValid = false;
             }
             if (!this.form.consent) {
@@ -471,10 +476,12 @@ export default defineComponent({
                     program_other: this.form.programOfStudy.includes("Other") ? this.form.programOther : null,
                     semester: this.form.semester,
                     student_body_member: this.form.studentBody,
+                    student_body_description: this.form.studentBody === "Yes" ? this.form.studentBodyDescription : null,
                     campus_ambassador_history: this.form.campusAmbassador,
+                    campus_ambassador_description: this.form.campusAmbassador === "Yes" ? this.form.campusAmbassadorDescription : null,
                     inspiration: this.form.inspiration,
                     promotion_channels: this.form.promotionChannels,
-                    student_reach: this.form.studentReach,
+                    student_reach: "",
                     consent: this.form.consent
                 };
 
@@ -512,10 +519,11 @@ export default defineComponent({
                 programOther: "",
                 semester: "",
                 studentBody: "",
+                studentBodyDescription: "",
                 campusAmbassador: "",
+                campusAmbassadorDescription: "",
                 inspiration: "",
                 promotionChannels: [],
-                studentReach: "",
                 consent: false,
             };
             Object.keys(this.errors).forEach(key => {
