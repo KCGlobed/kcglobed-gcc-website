@@ -722,6 +722,11 @@ export default defineComponent({
 
   name: "MainBanner",
   methods: {
+    openNpfPopup() {
+      if (typeof window !== "undefined" && (window as any).npfW4d978cb4fdb8e2d9a8ebfb8428881ca7) {
+        (window as any).npfW4d978cb4fdb8e2d9a8ebfb8428881ca7.showPopup('4d978cb4fdb8e2d9a8ebfb8428881ca7', 'widgets.in4.nopaperforms.com');
+      }
+    },
     validateForm() {
       this.errors = {
         name: "",
