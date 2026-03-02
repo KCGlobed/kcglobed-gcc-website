@@ -11,10 +11,8 @@
                         India's National Benchmark for Global Finance Career Readiness
                     </div>
 
-                    <!-- Heading with typing animation -->
                     <h1 class="nfet-title mb-4">
-                        <span class="typed-text">{{ typedTitle }}</span><span class="type-cursor"
-                            :class="{ 'cursor-hidden': titleDone }">|</span>
+                        NFET – National Finance Entrance Test
                     </h1>
 
                     <!-- Description -->
@@ -66,49 +64,14 @@
 <script setup lang="ts">
 import { ref, onMounted } from 'vue';
 
-const typedTitle = ref('');
-const titleDone = ref(false);
 const isPlaying = ref(false);
-
-const fullTitle = 'NFET – National Finance Entrance Test';
 
 function playVideo() {
     isPlaying.value = true;
 }
 
 onMounted(() => {
-    const TYPE_SPEED = 110;
-    const ERASE_SPEED = 55;
-    const PAUSE_AFTER_TYPE = 2000;
-    const PAUSE_AFTER_ERASE = 500;
-
-    function startTyping() {
-        titleDone.value = false;
-        let i = 0;
-        const type = setInterval(() => {
-            if (i < fullTitle.length) {
-                typedTitle.value += fullTitle[i++];
-            } else {
-                clearInterval(type);
-                titleDone.value = true;
-                setTimeout(startErasing, PAUSE_AFTER_TYPE);
-            }
-        }, TYPE_SPEED);
-    }
-
-    function startErasing() {
-        titleDone.value = false;
-        const erase = setInterval(() => {
-            if (typedTitle.value.length > 0) {
-                typedTitle.value = typedTitle.value.slice(0, -1);
-            } else {
-                clearInterval(erase);
-                setTimeout(startTyping, PAUSE_AFTER_ERASE);
-            }
-        }, ERASE_SPEED);
-    }
-
-    startTyping();
+    // onMounted logic removed since it was only for typing animation
 });
 </script>
 
@@ -147,34 +110,6 @@ onMounted(() => {
     font-weight: 800;
     color: #ffffff;
     line-height: 1.15;
-    min-height: 124px;
-}
-
-.typed-text {
-    display: inline;
-}
-
-.type-cursor {
-    display: inline-block;
-    color: #f1a63e;
-    font-weight: 300;
-    animation: blink-cursor 0.7s step-end infinite;
-}
-
-.cursor-hidden {
-    display: none;
-}
-
-@keyframes blink-cursor {
-
-    0%,
-    100% {
-        opacity: 1;
-    }
-
-    50% {
-        opacity: 0;
-    }
 }
 
 /* Description */
@@ -312,7 +247,6 @@ onMounted(() => {
 
     .nfet-title {
         font-size: 38px;
-        min-height: 140px;
     }
 
     .nfet-desc {
@@ -332,7 +266,6 @@ onMounted(() => {
 
     .nfet-title {
         font-size: 30px;
-        min-height: 77px;
     }
 }
 </style>
