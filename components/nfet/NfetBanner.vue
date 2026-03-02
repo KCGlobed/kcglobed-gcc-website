@@ -31,7 +31,7 @@
                 <!-- Right Video Section -->
                 <div class="col-lg-6 right-col">
                     <div class="video-wrapper">
-                        <div class="video-container" @click="playVideo">
+                        <div class="video-container">
                             <img v-if="!isPlaying"
                                 src="https://storage.googleapis.com/static_files_backend/media/images/manna%20sir%20thmbnl%20(1).jpg"
                                 alt="NFET Video Thumbnail" class="video-thumb" />
