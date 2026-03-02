@@ -7,7 +7,8 @@
                 with world's leading consulting firms and MNCs.</p>
         </div>
         <div class="apply-now">
-            <button data-bs-toggle="modal" data-bs-target="#financeCareerApplyModal">Apply for NFET Now</button>
+            <button class="npfWidget-4d978cb4fdb8e2d9a8ebfb8428881ca7" @click.stop.prevent="openNpfPopup">Apply for NFET
+                Now</button>
         </div>
     </section>
 
@@ -15,8 +16,12 @@
     <CommonDossierModal modal-id="financeCareerApplyModal" modal-title="Apply Now"
         subtitle="Enter your details to complete your application" mode="apply" />
 </template>
-<script lang="js">
-export default {}
+<script setup lang="ts">
+const openNpfPopup = () => {
+    if (typeof window !== "undefined" && (window as any).npfW4d978cb4fdb8e2d9a8ebfb8428881ca7) {
+        (window as any).npfW4d978cb4fdb8e2d9a8ebfb8428881ca7.showPopup('4d978cb4fdb8e2d9a8ebfb8428881ca7', 'widgets.in4.nopaperforms.com');
+    }
+};
 </script>
 <style scoped>
 .finance-career {

@@ -14,7 +14,8 @@
                     <p class="discription">Select your preferred date and time and take the first decisive step toward
                         global career
                         opportunities.</p>
-                    <button data-bs-toggle="modal" data-bs-target="#testingWindowApplyModal">Apply Now</button>
+                    <button class="npfWidget-4d978cb4fdb8e2d9a8ebfb8428881ca7" @click.stop.prevent="openNpfPopup">Apply
+                        Now</button>
 
                 </div>
             </div>
@@ -26,6 +27,11 @@
         subtitle="Enter your details to complete your application" mode="apply" />
 </template>
 <script setup lang="ts">
+const openNpfPopup = () => {
+    if (typeof window !== "undefined" && (window as any).npfW4d978cb4fdb8e2d9a8ebfb8428881ca7) {
+        (window as any).npfW4d978cb4fdb8e2d9a8ebfb8428881ca7.showPopup('4d978cb4fdb8e2d9a8ebfb8428881ca7', 'widgets.in4.nopaperforms.com');
+    }
+};
 </script>
 <style scoped>
 .testing-window {

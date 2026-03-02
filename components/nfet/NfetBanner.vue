@@ -23,7 +23,8 @@
                     </p>
 
                     <!-- CTA Button -->
-                    <button class="btn-nfet-apply" data-bs-toggle="modal" data-bs-target="#nfetApplyNowModal">
+                    <button class="btn-nfet-apply npfWidget-4d978cb4fdb8e2d9a8ebfb8428881ca7"
+                        @click.stop.prevent="openNpfPopup">
                         Apply for NFET
                     </button>
                 </div>
@@ -70,9 +71,11 @@ function playVideo() {
     isPlaying.value = true;
 }
 
-onMounted(() => {
-    // onMounted logic removed since it was only for typing animation
-});
+const openNpfPopup = () => {
+    if (typeof window !== "undefined" && (window as any).npfW4d978cb4fdb8e2d9a8ebfb8428881ca7) {
+        (window as any).npfW4d978cb4fdb8e2d9a8ebfb8428881ca7.showPopup('4d978cb4fdb8e2d9a8ebfb8428881ca7', 'widgets.in4.nopaperforms.com');
+    }
+};
 </script>
 
 <style scoped>
