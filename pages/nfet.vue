@@ -9,7 +9,7 @@
         <NfetSyllbus />
         <NfetExamStructure />
         <NfetTestingWindow />
-        <NfetDiagonstic />
+        <!-- <NfetDiagonstic /> -->
 
         <NfetGuidline />
         <NfetPartner />
