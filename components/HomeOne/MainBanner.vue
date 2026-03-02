@@ -8,6 +8,7 @@
         <div class="hero-slider-warp" :style="{
           'background-image': `url(${banner.image})`,
         }">
+
           <div class="container-fluid">
             <div class="row align-items-center">
               <!-- Left Content -->
