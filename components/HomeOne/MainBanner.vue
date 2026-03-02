@@ -1,117 +1,146 @@
 <template>
   <div class="hero-warp hero-section">
-    <Swiper :loop="true" :effect="'fade'" :speed="2000" :pagination="{
-      el: '.swiper-pagination2',
-      clickable: true,
-    }" :modules="[SwiperEffectFade, SwiperPagination]" class="hero-slider">
-      <SwiperSlide v-for="banner in banners" :key="banner.id">
-        <div class="hero-slider-warp" :style="{
-          'background-image': `url(${banner.image})`,
-        }">
-          <div class="container-fluid">
-            <div class="row align-items-center">
-              <!-- Left Content -->
-              <div class="col-lg-6">
-                <span class="hero-badge">
-                  <!-- <span class="badge-dot"></span> -->
-                  <span class="blinking-text">{{ banner.subTitle }}</span>
-                </span>
+    <!-- Static First Slide (Above the Fold) -->
+    <div v-if="banners.length" class="hero-slider-warp position-relative">
+      <NuxtImg src="/img/banner/hero.webp" class="hero-bg-img" format="webp" quality="80" loading="eager"
+        fetchpriority="high" />
+      <div class="container-fluid position-relative" style="z-index: 2;">
+        <div class="row align-items-center">
+          <!-- Left Content -->
+          <div class="col-lg-6">
+            <span class="hero-badge">
+              <span class="blinking-text">{{ banners[0].subTitle }}</span>
+            </span>
 
-                <h1 class="hero-title mt-3">
-                  India's 1st School<br />
-                  for Commerce Graduates
-                  <br />
+            <h1 class="hero-title mt-3">
+              India's 1st School<br />
+              for Commerce Graduates
+              <br />
+            </h1>
+            <p class="hero-subtitle-first">
+              Powered by Industry Titans,<br />
+              Defined by Performance
+            </p>
 
-                </h1>
-                <p class="hero-subtitle-first">
-                  Powered by Industry Titans,<br />
-                  Defined by Performance
-                </p>
+            <p class="hero-subtitle">
+              At GCC School, you get hired first, then trained.
+            </p>
 
-                <p class="hero-subtitle">
-                  At GCC School, you get hired first, then trained.
+            <div class="d-flex gap-3 flex-wrap">
+              <button class="btn btn-primary px-4 py-3" data-bs-toggle="modal" data-bs-target="#applyNowModal">
+                {{ banners[0].btnText }}
+              </button>
+            </div>
+          </div>
 
-                </p>
-
-                <!-- <p class="hero-description">
-                  Don't just prepare for the corporate world — you enter it. Every session, project,
-                  and mentor experience mirrors the way top global firms actually operate.
-                </p> -->
-
-                <div class="d-flex gap-3 flex-wrap">
-                  <button class="btn btn-primary px-4 py-3" data-bs-toggle="modal" data-bs-target="#applyNowModal">
-                    {{ banner.btnText }}
+          <!-- Right Card -->
+          <div class="col-lg-6">
+            <div class="journey-card">
+              <div class="row">
+                <!-- Left side - Content -->
+                <div class="col-md-7">
+                  <h2 class="card-title mb-4">
+                    <span class="text-gradient">
+                      Start Your Journey With GCC School
+                    </span>
+                    <br />
+                    For A Unique 12 Months AI-Enabled International Accounting Professionals (AEIAP) Program
+                  </h2>
+                  <button class="btn btn-gradient w-100 mb-2" data-bs-toggle="modal" data-bs-target="#dossierModal">
+                    Download Dossier <img src="../../assets/img/heros/heroSec5.png" />
                   </button>
-                  <!-- <button class="btn btn-light px-4 py-3" data-bs-toggle="modal" data-bs-target="#enquiryModal">
-                    {{ banner.btnTextTwo }}
-                  </button> -->
+                </div>
+
+                <!-- Right side - Profile Image -->
+                <div class="col-5 rightSideBox p-0 m-0">
+                  <img src="../../assets/img/heros/student_hero.png" class="rightSideBox-img" loading="eager"
+                    fetchpriority="high" />
+                  <div class="profile-badge">
+                    <img src="../../assets/img/heros/heroSec4.png" />
+                    <div>
+                      <div class="fw-bold small">Global Recognition</div>
+                      <small class="text-muted">Certified AI-Accountant</small>
+                    </div>
+                  </div>
                 </div>
               </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
 
-              <!-- Right Card -->
-              <div class="col-lg-6">
-                <div class="journey-card">
-                  <div class="row">
-                    <!-- Left side - Content -->
-                    <div class="col-md-7">
-                      <h2 class="card-title mb-4">
+    <!-- Remaining Slides Lazy Loaded via Swiper -->
+    <ClientOnly>
+      <Swiper v-if="banners.length > 1" :loop="true" :effect="'fade'" :speed="500" :pagination="{
+        el: '.swiper-pagination2',
+        clickable: true,
+      }" :modules="[SwiperEffectFade, SwiperPagination]" class="hero-slider">
+        <SwiperSlide v-for="banner in banners.slice(1)" :key="banner.id">
+          <div class="hero-slider-warp position-relative">
+            <NuxtImg :src="banner.image" class="hero-bg-img" format="webp" quality="80" loading="lazy" />
+            <div class="container-fluid position-relative" style="z-index: 2;">
+              <div class="row align-items-center">
+                <!-- Left Content -->
+                <div class="col-lg-6">
+                  <span class="hero-badge">
+                    <span class="blinking-text">{{ banner.subTitle }}</span>
+                  </span>
 
-                        <span class="text-gradient">
-                          Start Your Journey With GCC School
-                        </span>
-                        <br />
-                        For A Unique 12 Months AI-Enabled International Accounting Professionals (AEIAP) Program
-                      </h2>
+                  <h1 class="hero-title mt-3">
+                    India's 1st School<br />
+                    for Commerce Graduates
+                    <br />
 
-                      <!-- <p class="text-muted small mb-4">For A Unique 12 Months Professional Program</p> -->
+                  </h1>
+                  <p class="hero-subtitle-first">
+                    Powered by Industry Titans,<br />
+                    Defined by Performance
+                  </p>
 
-                      <!-- <div class="mb-4">
-                        <div class="d-flex gap-2 mb-3 align-items-start card-feature">
-                          <div class="feature-icon">
-                            <img src="../../assets/img/heros/heroSec1.png" />
-                          </div>
+                  <p class="hero-subtitle">
+                    At GCC School, you get hired first, then trained.
+
+                  </p>
+
+                  <div class="d-flex gap-3 flex-wrap">
+                    <button class="btn btn-primary px-4 py-3" data-bs-toggle="modal" data-bs-target="#applyNowModal">
+                      {{ banner.btnText }}
+                    </button>
+                  </div>
+                </div>
+
+                <!-- Right Card -->
+                <div class="col-lg-6">
+                  <div class="journey-card">
+                    <div class="row">
+                      <!-- Left side - Content -->
+                      <div class="col-md-7">
+                        <h2 class="card-title mb-4">
+
+                          <span class="text-gradient">
+                            Start Your Journey With GCC School
+                          </span>
+                          <br />
+                          For A Unique 12 Months AI-Enabled International Accounting Professionals (AEIAP) Program
+                        </h2>
+                        <button class="btn btn-gradient w-100 mb-2" data-bs-toggle="modal"
+                          data-bs-target="#dossierModal">
+                          Download Dossier <img src="../../assets/img/heros/heroSec5.png" />
+                        </button>
+
+                      </div>
+
+                      <!-- Right side - Profile Image -->
+                      <div class="col-5 rightSideBox p-0 m-0">
+                        <img src="../../assets/img/heros/student_hero.png" class="rightSideBox-img fade-in-img"
+                          loading="lazy" />
+                        <div class="profile-badge">
+                          <img src="../../assets/img/heros/heroSec4.png" />
                           <div>
-                            <div class="fw-bold small">12 Month Program</div>
-                            <small class="text-muted-small">Intensive professional fast track</small>
+                            <div class="fw-bold small">Global Recognition</div>
+                            <small class="text-muted">Certified AI-Accountant</small>
                           </div>
-                        </div>
-
-                        <div class="d-flex gap-2 mb-3 align-items-start  card-feature">
-                          <div class="feature-icon">
-                            <img src="../../assets/img/heros/heroSec2.png" />
-                          </div>
-                          <div>
-                            <div class="fw-bold small">AEIAP </div>
-                            <small class="text-muted-small">AI-Enabled International Accounting Certification
-                              Program</small>
-                          </div>
-                        </div>
-
-                        <div class="d-flex gap-2 mb-3 align-items-start  card-feature">
-                          <div class="feature-icon">
-                            <img src="../../assets/img/heros/heroSec3.png" />
-                          </div>
-                          <div>
-                            <div class="fw-bold small">GCC Talent Ready</div>
-                            <small class="text-muted-small">Industry proven global requirements</small>
-                          </div>
-                        </div>
-                      </div> -->
-
-                      <button class="btn btn-gradient w-100 mb-2" data-bs-toggle="modal" data-bs-target="#dossierModal">
-                        Download Dossier <img src="../../assets/img/heros/heroSec5.png" />
-                      </button>
-
-                      <!-- <p class="text-center text-muted small">Join to transform your career</p> -->
-                    </div>
-
-                    <!-- Right side - Profile Image -->
-                    <div class="col-5 rightSideBox">
-                      <div class="profile-badge">
-                        <img src="../../assets/img/heros/heroSec4.png" />
-                        <div>
-                          <div class="fw-bold small">Global Recognition</div>
-                          <small class="text-muted">Certified AI-Accountant</small>
                         </div>
                       </div>
                     </div>
@@ -120,9 +149,9 @@
               </div>
             </div>
           </div>
-        </div>
-      </SwiperSlide>
-    </Swiper>
+        </SwiperSlide>
+      </Swiper>
+    </ClientOnly>
   </div>
 
   <div class="modal fade" id="enquiryModal" tabindex="-1" style="z-index: 99999;">
@@ -348,12 +377,22 @@
 }
 
 .rightSideBox {
-  background-image: url("../../assets/img/heros/student_hero.png");
-  background-size: cover;
-  background-position: center;
+  position: relative;
   border-radius: 0px;
   display: grid;
   place-content: center;
+  z-index: 2;
+}
+
+.rightSideBox-img {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  top: 0;
+  left: 0;
+  z-index: -1;
+  border-radius: 0px;
 }
 
 .card-feature {
@@ -369,12 +408,22 @@
   font-size: 12px !important;
 }
 
+.hero-bg-img {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  top: 0;
+  left: 0;
+  z-index: 1;
+}
+
 .hero-slider-warp {
   min-height: 100vh;
   display: flex;
   align-items: center;
-  background-size: cover;
-  background-position: center;
+  position: relative;
+  overflow: hidden;
   padding: 80px 0;
   /* background-image: url("~/assets/img/heros/mobileBanner.svg") !important; */
 }
@@ -638,6 +687,10 @@
     display: none;
   }
 
+  .hero-bg-img {
+    display: none !important;
+  }
+
   /* Ensure form inputs in modal display correctly on small screens */
   .modal-body {
     padding: 1rem;
@@ -647,8 +700,7 @@
 
     display: flex;
     align-items: center;
-    background-size: cover;
-    background-position: center;
+    position: relative;
     padding: 40px 0;
     background-image: url("~/assets/img/heros/mobileBanner.svg") !important;
   }
@@ -662,8 +714,7 @@
 <script lang="ts">
 import { defineComponent } from "vue";
 
-import image1 from "../../assets/img/heros/hero_bg.svg";
-import image2 from "../../assets/img/heros/hero2.jpg";
+import image1 from "../../public/img/banner/hero.webp";
 import gccPdf from "../../assets/gcc.pdf";
 import universities from "../../assets/universities.json";
 

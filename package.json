@@ -24,6 +24,7 @@
   },
   "devDependencies": {
     "@bootstrap-vue-next/nuxt": "^0.18.0",
+    "@nuxt/image": "^2.0.0",
     "@types/bootstrap": "^5.2.10",
     "@types/formidable": "^3.4.6",
     "@types/pg": "^8.16.0",

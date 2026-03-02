@@ -25,6 +25,11 @@ export default defineNuxtConfig({
           type: 'image/jpg',
           href: '/favicon.jpg', // ya /favicon.ico
         },
+        {
+          rel: 'preload',
+          as: 'image',
+          href: '/img/banner/hero.webp'
+        },
       ],
     },
     pageTransition: {
@@ -42,7 +47,7 @@ export default defineNuxtConfig({
     "/assets/scss/style.css",
     "/assets/scss/responsive.css",
   ],
-  modules: ["@bootstrap-vue-next/nuxt", "nuxt-swiper", "nuxt-aos"],
+  modules: ["@bootstrap-vue-next/nuxt", "nuxt-swiper", "nuxt-aos", "@nuxt/image"],
   runtimeConfig: {
 
     razorpayKeyId: process.env.RAZORPAY_KEY_ID,
@@ -73,5 +78,3 @@ export default defineNuxtConfig({
     },
   },
 });
-
-
