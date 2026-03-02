@@ -40,7 +40,8 @@
                 </p> -->
 
                 <div class="d-flex gap-3 flex-wrap">
-                  <button class="btn btn-primary px-4 py-3 npfWidget-4d978cb4fdb8e2d9a8ebfb8428881ca7">
+                  <button class="btn btn-primary px-4 py-3 npfWidget-4d978cb4fdb8e2d9a8ebfb8428881ca7"
+                    @click.stop.prevent="openNpfPopup">
                     {{ banner.btnText }}
                   </button>
                   <!-- <button class="btn btn-light px-4 py-3" data-bs-toggle="modal" data-bs-target="#enquiryModal">
@@ -661,7 +662,7 @@
 </style>
 
 <script lang="ts">
-import { defineComponent, onMounted } from "vue";
+import { defineComponent } from "vue";
 
 import image1 from "../../assets/img/heros/hero_bg.svg";
 import image2 from "../../assets/img/heros/hero2.jpg";
@@ -671,48 +672,12 @@ import universities from "../../assets/universities.json";
 export default defineComponent({
 
   name: "MainBanner",
-  setup() {
-    onMounted(() => {
-      // Load NPF Widget Popup Script
-      if (!document.getElementById("npfwpopup-script")) {
-        const script1 = document.createElement("script");
-        script1.id = "npfwpopup-script";
-        script1.src = "https://in4cdn.npfs.co/js/widget/npfwpopup.js";
-        script1.async = true;
-        document.body.appendChild(script1);
-
-        script1.onload = () => {
-          const script2 = document.createElement("script");
-          script2.innerHTML = `let npfW4d978cb4fdb8e2d9a8ebfb8428881ca7 = new NpfWidgetsInit({ "widgetId":"4d978cb4fdb8e2d9a8ebfb8428881ca7", "baseurl":"widgets.in4.nopaperforms.com", "formTitle":"Enquiry Form", "titleColor":"#17a43b", "backgroundColor":"#ddd", "iframeHeight":"480px", "buttonbgColor":"#4c79dc", "buttonTextColor":"#FFF", });`;
-          document.body.appendChild(script2);
-        };
-      } else {
-        if (typeof (window as any).NpfWidgetsInit === "function") {
-          setTimeout(() => {
-            new (window as any).NpfWidgetsInit({ "widgetId": "4d978cb4fdb8e2d9a8ebfb8428881ca7", "baseurl": "widgets.in4.nopaperforms.com", "formTitle": "Enquiry Form", "titleColor": "#17a43b", "backgroundColor": "#ddd", "iframeHeight": "480px", "buttonbgColor": "#4c79dc", "buttonTextColor": "#FFF", });
-          }, 500);
-        }
-      }
-
-      // Load NPF Tracking Script
-      if (!document.getElementById("npftrack-script")) {
-        const script3 = document.createElement("script");
-        script3.id = "npftrack-script";
-        script3.innerHTML = `
-          var npf_d='https://nfet.gccschool.com'; 
-          var npf_c='7015'; 
-          var npf_m='1'; 
-          var s=document.createElement("script"); 
-          s.type="text/javascript"; 
-          s.async=true; 
-          s.src="https://track.nopaperforms.com/js/track.js"; 
-          document.body.appendChild(s); 
-        `;
-        document.body.appendChild(script3);
-      }
-    });
-  },
   methods: {
+    openNpfPopup() {
+      if (typeof window !== "undefined" && (window as any).npfW4d978cb4fdb8e2d9a8ebfb8428881ca7) {
+        (window as any).npfW4d978cb4fdb8e2d9a8ebfb8428881ca7.showPopup('4d978cb4fdb8e2d9a8ebfb8428881ca7', 'widgets.in4.nopaperforms.com');
+      }
+    },
     validateForm() {
       this.errors = {
         name: "",

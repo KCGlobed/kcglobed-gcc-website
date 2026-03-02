@@ -40,7 +40,8 @@
                     <NuxtLink to="/career">Careers</NuxtLink>
                   </li>
                   <li class="apply-now-li">
-                    <button class="footer-apply-btn" @click="openApplyModal">Apply Now</button>
+                    <button class="footer-apply-btn npfWidget-4d978cb4fdb8e2d9a8ebfb8428881ca7"
+                      @click.stop.prevent="openNpfPopup">Apply Now</button>
                   </li>
                   <!-- <li>
                     <NuxtLink to="/login">Login</NuxtLink>
@@ -145,6 +146,11 @@ export default {
     };
   },
   methods: {
+    openNpfPopup() {
+      if (typeof window !== "undefined" && (window).npfW4d978cb4fdb8e2d9a8ebfb8428881ca7) {
+        (window).npfW4d978cb4fdb8e2d9a8ebfb8428881ca7.showPopup('4d978cb4fdb8e2d9a8ebfb8428881ca7', 'widgets.in4.nopaperforms.com');
+      }
+    },
     async subscribe() {
       if (!this.email) return;
 

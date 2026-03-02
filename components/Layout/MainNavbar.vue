@@ -50,7 +50,8 @@
             </NuxtLink>
           </li>
           <li class="nav-item apply-btn">
-            <button class="nav-link apply-now-btn" data-bs-toggle="modal" data-bs-target="#navApplyNowModal">
+            <button class="nav-link apply-now-btn npfWidget-4d978cb4fdb8e2d9a8ebfb8428881ca7"
+              @click.stop.prevent="openNpfPopup">
               Apply Now
             </button>
           </li>
@@ -271,6 +272,12 @@ export default defineComponent({
       });
     });
 
+    const openNpfPopup = () => {
+      if (typeof window !== "undefined" && (window as any).npfW4d978cb4fdb8e2d9a8ebfb8428881ca7) {
+        (window as any).npfW4d978cb4fdb8e2d9a8ebfb8428881ca7.showPopup('4d978cb4fdb8e2d9a8ebfb8428881ca7', 'widgets.in4.nopaperforms.com');
+      }
+    };
+
     const toggleSearch = () => {
       isSearchVisible.value = !isSearchVisible.value;
     };
@@ -322,6 +329,7 @@ export default defineComponent({
       closeSearch,
       onSearchInput,
       navigateToResult,
+      openNpfPopup,
     };
   },
   methods: {
