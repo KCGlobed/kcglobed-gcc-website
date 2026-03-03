@@ -87,12 +87,11 @@
                                             <input class="form-check-input" type="checkbox" id="consent"
                                                 v-model="form.consent" :class="{ 'is-invalid': errors.consent }">
                                             <label class="form-check-label" for="consent">
-                                                Are you a Commerce Graduate with first division?
+                                                Yes , I am commerce graduate with first division.*
                                             </label>
                                             <div class="invalid-feedback" v-if="errors.consent">{{ errors.consent }}
                                             </div>
                                         </div>
-
                                         <!-- Step 1: Download Now button -->
                                         <button v-if="!isDownloaded" type="submit"
                                             class="btn btn-primary w-100 register-btn" :disabled="isSubmitting">
