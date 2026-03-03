@@ -61,7 +61,7 @@
                                 <input class="form-check-input" type="checkbox" v-model="form.isCommerceGraduate"
                                     id="commerceCheck">
                                 <label class="form-check-label small text-muted" for="commerceCheck">
-                                    Are you a Commerce Graduate with first division.*
+                                    Yes , I am commerce graduate with first division.*
                                 </label>
                             </div>
                             <small class="text-danger d-block mt-1" v-if="errors.isCommerceGraduate">{{
@@ -102,10 +102,10 @@
                         <div class="text-center mt-4">
                             <p class="small text-muted mb-0">
                                 By submitting, you agree to our
-                                <NuxtLink to="/terms-conditions" class="text-purple text-decoration-none fw-bold">Terms
+                                <NuxtLink to="#" class="text-purple text-decoration-none fw-bold">Terms
                                 </NuxtLink>
                                 and
-                                <NuxtLink to="/privacy-policy" class="text-purple text-decoration-none fw-bold">Privacy
+                                <NuxtLink to="#" class="text-purple text-decoration-none fw-bold">Privacy
                                     Policy</NuxtLink>
                             </p>
                         </div>
