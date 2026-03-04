@@ -14,10 +14,10 @@
                     <button class="nav-link active" id="manual-tab" data-bs-toggle="tab" data-bs-target="#manual"
                         type="button" role="tab">Manual Upload</button>
                 </li>
-                <li class="nav-item" role="presentation">
+                <!-- <li class="nav-item" role="presentation">
                     <button class="nav-link" id="digilocker-tab" data-bs-toggle="tab" data-bs-target="#digilocker"
                         type="button" role="tab">DigiLocker (Preferred)</button>
-                </li>
+                </li> -->
             </ul>
 
             <div class="tab-content" id="uploadMethodTabContent">
