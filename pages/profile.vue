@@ -239,7 +239,12 @@ const section4bRef = ref<any>(null);
 const toggleSection = (index: number) => {
     openSection.value = openSection.value === index ? null : index;
 };
+const isSavingSection = ref(false);
+const isSectionSaved = ref(false);
+const profileUserId = ref<number | null>(userId.value);
+
 const submitUserData = async () => {
+    isSavingSection.value = true;
     try {
         const response: any = await $fetch("/api/register-user", {
             method: "POST",
@@ -251,9 +256,11 @@ const submitUserData = async () => {
             return false;
         }
 
-        // Parse user_id to Number since DocumentUpload expects a Number prop
-        userId.value = Number(response.user_id);
-        console.log("User ID:", userId.value);
+        // Store internally to pass down to DocumentUpload
+        profileUserId.value = Number(response.user_id);
+        console.log("User ID saved as profileUserId:", profileUserId.value);
+
+        isSectionSaved.value = true;
 
         return true;
     } catch (error) {
