@@ -752,25 +752,36 @@ export default defineComponent({
             }
         };
 
-        const loadRazorpayScript = () => {
+        // ── CASHFREE: Load JS SDK ─────────────────────────────────────────────────
+        const loadCashfreeScript = () => {
             return new Promise((resolve) => {
-                if ((window as any).Razorpay) {
-                    resolve(true);
-                    return;
-                }
+                if ((window as any).Cashfree) { resolve(true); return; }
                 const script = document.createElement("script");
-                script.src = "https://checkout.razorpay.com/v1/checkout.js";
+                script.src = "https://sdk.cashfree.com/js/v3/cashfree.js";
                 script.onload = () => resolve(true);
                 script.onerror = () => resolve(false);
                 document.body.appendChild(script);
             });
         };
 
+        // ── RAZORPAY: Load Script (disabled) ──────────────────────────────────
+        // const loadRazorpayScript = () => {
+        //     return new Promise((resolve) => {
+        //         if ((window as any).Razorpay) { resolve(true); return; }
+        //         const script = document.createElement("script");
+        //         script.src = "https://checkout.razorpay.com/v1/checkout.js";
+        //         script.onload = () => resolve(true);
+        //         script.onerror = () => resolve(false);
+        //         document.body.appendChild(script);
+        //     });
+        // };
+
         const handlePayment = async () => {
             notification.message = '';
             notification.type = '';
             isPaymentInProgress.value = true;
             try {
+                // 1. Call backend to create Cashfree order
                 const res: any = await $fetch("/api/start-payment", {
                     method: "POST",
                     body: {
@@ -788,31 +799,51 @@ export default defineComponent({
                     return;
                 }
 
-                const loaded = await loadRazorpayScript();
-                if (!loaded || !(window as any).Razorpay) {
-                    alert("Razorpay SDK failed to load");
+                // 2. Load Cashfree JS SDK
+                const loaded = await loadCashfreeScript();
+                if (!loaded || !(window as any).Cashfree) {
+                    alert("Cashfree SDK failed to load");
                     return;
                 }
 
-                const options = {
-                    key: res.razorpay_key,
-                    amount: res.amount,
-                    currency: res.currency,
-                    name: "Application Fee",
-                    description: "NFET Application Payment",
-                    order_id: res.razorpay_order_id,
+                // 3. Open Cashfree Checkout
+                const cfMode = res.environment === 'PRODUCTION' ? 'production' : 'sandbox';
+                const cashfree = (window as any).Cashfree({ mode: cfMode });
 
-                    handler: async function (response: any) {
-                        await $fetch("/api/complete-payment", {
-                            method: "POST",
-                            body: {
-                                razorpay_payment_id: response.razorpay_payment_id,
-                                razorpay_order_id: response.razorpay_order_id,
-                                razorpay_signature: response.razorpay_signature
-                            }
-                        });
+                cashfree.checkout({
+                    paymentSessionId: res.payment_session_id,
+                    redirectTarget: "_modal"
+                }).then(async (result: any) => {
+                    if (result.error) {
+                        console.error("[PAYMENT] Cashfree error:", result.error);
+                        try {
+                            await $fetch("/api/report-payment-failure", {
+                                method: "POST",
+                                body: {
+                                    cf_order_id: res.cf_order_id,
+                                    cf_payment_id: result.error?.payment_id || null,
+                                    error_code: result.error?.code,
+                                    error_description: result.error?.message,
+                                    error_source: result.error?.source
+                                }
+                            });
+                        } catch (e) { console.error("Failed to report failure:", e); }
 
-                        openStatusModal('success', response.razorpay_payment_id);
+                    } else if (result.paymentDetails) {
+                        // Payment successful – verify on server
+                        try {
+                            await $fetch("/api/complete-payment", {
+                                method: "POST",
+                                body: {
+                                    cf_order_id: res.cf_order_id
+                                    // cf_payment_id not needed: backend uses PGOrderFetchPayments
+                                }
+                            });
+                        } catch (e) {
+                            console.error("[PAYMENT] complete-payment error:", e);
+                        }
+
+                        openStatusModal('success', res.cf_order_id);
 
                         // Reset form after successful payment
                         form.name = '';
@@ -826,38 +857,20 @@ export default defineComponent({
                         formId.value = null;
                         notification.message = '';
                         notification.type = '';
-                    },
-
-                    prefill: {
-                        name: form.name,
-                        email: form.email,
-                        contact: form.mobile
-                    },
-
-                    theme: {
-                        color: "#FBB03B"
-                    }
-                };
-
-                const rzp = new (window as any).Razorpay(options);
-                rzp.on("payment.failed", async (response: any) => {
-                    console.error("Payment Failed:", response.error);
-
-                    try {
-                        await $fetch("/api/report-payment-failure", {
-                            method: "POST",
-                            body: {
-                                razorpay_order_id: res.razorpay_order_id,
-                                razorpay_payment_id: response.error.metadata?.payment_id,
-                                error_details: response.error
-                            }
-                        });
-                    } catch (reportError) {
-                        console.error("Failed to report payment failure:", reportError);
                     }
                 });
 
-                rzp.open();
+                // ── RAZORPAY CHECKOUT (disabled) ─────────────────────────────────────
+                // const options = {
+                //   key: res.razorpay_key, amount: res.amount, currency: res.currency,
+                //   name: "Application Fee", order_id: res.razorpay_order_id,
+                //   handler: async (response) => { await $fetch("/api/complete-payment", { ... }); ... },
+                //   prefill: { name, email, contact: mobile },
+                //   theme: { color: "#FBB03B" }
+                // };
+                // const rzp = new (window as any).Razorpay(options);
+                // rzp.on("payment.failed", async (response) => { ... });
+                // rzp.open();
 
             } catch (err) {
                 console.error(err);
