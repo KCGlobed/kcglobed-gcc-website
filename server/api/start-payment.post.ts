@@ -1,81 +1,114 @@
-import Razorpay from "razorpay";
+// ── CASHFREE: active (cashfree-pg v5) ────────────────────────────────────────
+import { createCashfreeInstance } from "../utils/cashfree";
+
+// ── RAZORPAY: disabled (kept for reference) ───────────────────────────────────
+// import Razorpay from "razorpay";
 
 export default defineEventHandler(async (event) => {
     const body = await readBody(event);
     const { user_id, name, email, mobile, form_type, form_id } = body;
 
     const config = useRuntimeConfig(event);
-    // Nuxt runtimeConfig only auto-maps NUXT_-prefixed vars on Cloud Run.
-    // Fall back to process.env so plain-named vars (RAZORPAY_KEY_ID etc.) work too.
-    const key_id = (config.razorpayKeyId || process.env.RAZORPAY_KEY_ID || "").replace(/['"]/g, '').trim();
-    const key_secret = (config.razorpayKeySecret || process.env.RAZORPAY_KEY_SECRET || "").replace(/['"]/g, '').trim();
 
-    console.log("Start Payment Request Body:", body);
-    console.log(`Using Razorpay Key: runtimeConfig len=${(config.razorpayKeyId || '').length}, process.env len=${(process.env.RAZORPAY_KEY_ID || '').length}, resolved len=${key_id.length}`);
-
-    if (!key_id || !key_secret) {
-        console.error("Razorpay Keys missing in ENV/Config");
-        return { success: false, message: "Razorpay configuration missing on server" };
+    // ── CASHFREE: Initialize SDK ──────────────────────────────────────────────
+    let cashfree: ReturnType<typeof createCashfreeInstance>["instance"];
+    let cfEnvironment: string;
+    try {
+        const cf = createCashfreeInstance(config, event);
+        cashfree = cf.instance;
+        cfEnvironment = cf.cfEnvironment;
+    } catch (e: any) {
+        console.error("[PAYMENT][start] FAILED — Cashfree keys missing in ENV/Config", {
+            event: "order_creation_failed",
+            reason: "missing_keys",
+            user_id, form_type, form_id
+        });
+        return { success: false, message: "Cashfree configuration missing on server" };
     }
 
-    const razorpay = new Razorpay({
-        key_id,
-        key_secret
+    // ── RAZORPAY CONFIG (disabled) ────────────────────────────────────────────
+    // const key_id = (config.razorpayKeyId || process.env.RAZORPAY_KEY_ID || "").replace(/['"]/g, '').trim();
+    // const key_secret = (config.razorpayKeySecret || process.env.RAZORPAY_KEY_SECRET || "").replace(/['"]/g, '').trim();
+
+    // --- LOG: Payment Initiated ---
+    console.log("[PAYMENT][start] Payment initiated", {
+        event: "payment_initiated",
+        gateway: "cashfree",
+        environment: cfEnvironment,
+        user_id, name, email, mobile, form_type, form_id,
+        timestamp: new Date().toISOString()
     });
 
     try {
-        const amount = Number(config.razorpayAmount || 2950) * 100;
-        const currency = config.razorpayCurrency || 'INR';
+        const amount = Number(config.cashfreePaymentAmount || process.env.CASHFREE_PAYMENT_AMOUNT || 2950); // INR
+        const currency = 'INR';
+        const cfOrderId = `cf_${user_id || form_id || 'guest'}_${Date.now()}`;
+        const customerId = `cust_${user_id || form_id || 'guest'}`;
 
-        const orderOptions = {
-            amount: amount,
-            currency: currency,
-            receipt: `receipt_${user_id || form_id}_${Date.now()}`,
-            notes: {
-                user_id,
-                name,
-                email,
-                mobile,
-                form_type,
-                form_id
-            }
+        const orderRequest = {
+            order_id: cfOrderId,
+            order_amount: amount,
+            order_currency: currency,
+            customer_details: {
+                customer_id: customerId,
+                customer_name: name || "Applicant",
+                customer_email: email || "noemail@kcglobed.com",
+                customer_phone: mobile || "9999999999"
+            },
+            order_note: JSON.stringify({ user_id, form_type, form_id, name, email, mobile })
         };
 
-        console.log("Creating Razorpay Order with options:", orderOptions);
+        console.log("[PAYMENT][start] Creating Cashfree order", {
+            event: "order_creating",
+            gateway: "cashfree",
+            environment: cfEnvironment,
+            cf_order_id: cfOrderId,
+            amount, currency, user_id, form_type, form_id
+        });
 
-        const order = await razorpay.orders.create(orderOptions);
+        // ── RAZORPAY: Create Order (disabled) ─────────────────────────────────
+        // const razorpay = new Razorpay({ key_id, key_secret });
+        // const orderOptions = { amount: amount * 100, currency, receipt: `receipt_...`, notes: {...} };
+        // const order = await razorpay.orders.create(orderOptions);
+
+        const response = await cashfree.PGCreateOrder(orderRequest);
+        const orderData = response.data;
+
+        console.log("[PAYMENT][start] SUCCESS — Cashfree order created", {
+            event: "order_created",
+            status: "success",
+            gateway: "cashfree",
+            environment: cfEnvironment,
+            cf_order_id: orderData.order_id,
+            payment_session_id: orderData.payment_session_id ? "[present]" : "[missing]",
+            amount, currency,
+            user_id, name, email, mobile, form_type, form_id,
+            timestamp: new Date().toISOString()
+        });
 
         return {
             success: true,
-            razorpay_key: key_id.replace(/['"]/g, ''),
-            razorpay_order_id: order.id,
-            amount: order.amount,
-            currency: order.currency
+            gateway: "cashfree",
+            cf_order_id: orderData.order_id,
+            payment_session_id: orderData.payment_session_id,
+            amount,
+            currency,
+            environment: cfEnvironment
         };
 
     } catch (error: any) {
-        console.error("Razorpay Order Creation Error Detail:", error);
+        const errorMessage = error?.response?.data?.message || error?.message || "Failed to create Cashfree order";
 
-        let errorMessage = "Failed to create Razorpay order";
-        if (error.error && error.error.description) {
-            errorMessage = error.error.description;
-        } else if (error.message) {
-            errorMessage = error.message;
-        } else if (typeof error === 'string') {
-            errorMessage = error;
-        }
+        console.error("[PAYMENT][start] FAILED — Cashfree order creation error", {
+            event: "order_creation_failed",
+            status: "failed",
+            gateway: "cashfree",
+            error_message: errorMessage,
+            error_detail: error?.response?.data || error?.message,
+            user_id, name, email, mobile, form_type, form_id,
+            timestamp: new Date().toISOString()
+        });
 
-        return {
-            success: false,
-            message: errorMessage,
-            debug: {
-                error_raw: error,
-                env_keys_present: !!key_id && !!key_secret,
-                key_id_length: key_id.length,
-                key_secret_length: key_secret.length,
-                key_id_preview: `${key_id.substring(0, 6)}...${key_id.slice(-4)}`,
-                key_secret_preview: `${key_secret.substring(0, 3)}...${key_secret.slice(-3)}`
-            }
-        };
+        return { success: false, message: errorMessage };
     }
 });
