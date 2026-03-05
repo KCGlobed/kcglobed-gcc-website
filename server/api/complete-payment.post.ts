@@ -183,6 +183,8 @@ export default defineEventHandler(async (event) => {
             timestamp: new Date().toISOString()
         });
 
+        // API will call to send mail with email and password
+
     } catch (error: any) {
         if (error.statusCode) throw error;
         console.error("[PAYMENT][complete] FAILED — Error verifying Cashfree payment", {

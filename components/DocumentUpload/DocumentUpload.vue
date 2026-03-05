@@ -130,10 +130,10 @@
                 </div>
             </div>
 
-            <hr class="my-5">
+            <!-- <hr class="my-5"> -->
 
             <!-- Fee Concession -->
-            <div class="mb-4">
+            <!-- <div class="mb-4">
                 <h5 class="mb-3">Fee Concession & NEFT Payment</h5>
                 <div class="mb-3">
                     <label class="form-label">Select Concession Category (if applicable)</label>
@@ -167,7 +167,7 @@
                         </div>
                     </div>
                 </div>
-            </div>
+            </div> -->
 
         </div>
     </div>

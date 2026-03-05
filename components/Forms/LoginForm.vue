@@ -140,7 +140,6 @@
 import { ref } from 'vue'
 
 const { login } = useAuth()
-const router = useRouter()
 
 // --- Types ---
 interface LoginForm {
@@ -231,9 +230,9 @@ async function handleSubmit() {
         // Save to localStorage + mark authenticated
         login({ access, refresh, user_role, user_id })
 
-        // Redirect to profile
+        // Hard redirect to profile (full page reload for clean mount)
         console.log('[Login] Auth successful. Navigating to /profile...')
-        await router.push('/profile')
+        window.location.href = '/profile'
 
     } catch (err: any) {
         console.error('[Login] API Error:', err)
@@ -250,8 +249,8 @@ async function handleSubmit() {
 
 // --- Meta ---
 useHead({
-    title: 'Sign In — YourBrand',
-    meta: [{ name: 'description', content: 'Sign in to your YourBrand account.' }],
+    title: 'Sign In',
+    meta: [{ name: 'description', content: 'Sign in to your account.' }],
 })
 </script>
 

@@ -2,7 +2,7 @@
     <div>
         <LayoutTopHeader />
         <LayoutMainNavbar />
-        <CommonInnerPageBanner pageTitle="Application Form" />
+        <CommonInnerPageBanner pageTitle="Profile" />
 
         <!-- Profile Header Card -->
         <div class="container pt-50 pb-30">
@@ -22,7 +22,7 @@
                 </div>
 
                 <!-- Info below -->
-                <div class="profile-info">
+                <!-- <div class="profile-info">
                     <h2 class="profile-name">
                         {{ (formData.first_name || 'Applicant') + ' ' + formData.last_name }}
                     </h2>
@@ -35,7 +35,7 @@
                     <p class="profile-detail" v-if="formData.city">
                         {{ formData.city }}<span v-if="formData.state">, {{ formData.state }}</span>
                     </p>
-                </div>
+                </div> -->
             </div>
         </div>
 
@@ -54,9 +54,7 @@
                             </div>
                         </div>
                         <div class="accordion-header-right">
-                            <button class="accordion-save-btn" v-if="openSection === 1" @click.stop="saveSection(1)">
-                                Save <i class="ti ti-check"></i>
-                            </button>
+
                             <i class="ti accordion-chevron"
                                 :class="openSection === 1 ? 'ti-chevron-up' : 'ti-chevron-down'"></i>
                         </div>
@@ -77,9 +75,7 @@
                             </div>
                         </div>
                         <div class="accordion-header-right">
-                            <button class="accordion-save-btn" v-if="openSection === 2" @click.stop="saveSection(2)">
-                                Save <i class="ti ti-check"></i>
-                            </button>
+
                             <i class="ti accordion-chevron"
                                 :class="openSection === 2 ? 'ti-chevron-up' : 'ti-chevron-down'"></i>
                         </div>
@@ -100,15 +96,21 @@
                             </div>
                         </div>
                         <div class="accordion-header-right">
-                            <button class="accordion-save-btn" v-if="openSection === 3" @click.stop="saveSection(3)">
-                                Save <i class="ti ti-check"></i>
-                            </button>
                             <i class="ti accordion-chevron"
                                 :class="openSection === 3 ? 'ti-chevron-up' : 'ti-chevron-down'"></i>
                         </div>
                     </div>
                     <div class="accordion-body" v-show="openSection === 3">
                         <WorkExperienceDetails ref="section3Ref" :formData="formData" />
+                        <div class="section-footer pt-3 pr-4 pb-4 pb-lg-5 text-end pe-4" v-if="openSection === 3">
+                            <button class="accordion-save-btn ms-auto" @click="submitUserData"
+                                :disabled="isSavingSection || isSectionSaved">
+                                <span v-if="isSavingSection" class="spinner-border spinner-border-sm me-1" role="status"
+                                    aria-hidden="true"></span>
+                                {{ isSectionSaved ? 'Saved' : 'Save' }} <i class="ti ti-check"
+                                    v-if="!isSavingSection"></i>
+                            </button>
+                        </div>
                     </div>
                 </div>
 
@@ -128,9 +130,9 @@
                         </div>
                     </div>
                     <div class="accordion-body" v-show="openSection === 4">
-                        <DocumentUpload ref="section4aRef" :userId="userId" :formData="formData" />
-                        <div class="section-divider"></div>
-                        <PrePaymentDeclaration ref="section4bRef" :formData="formData" />
+                        <DocumentUpload ref="section4aRef" :userId="profileUserId" :formData="formData" />
+                        <!-- <div class="section-divider"></div> -->
+                        <!-- <PrePaymentDeclaration ref="section4bRef" :formData="formData" /> -->
                     </div>
                 </div>
 
@@ -143,7 +145,7 @@
                 <div class="col-lg-12">
                     <div class="d-flex justify-content-end">
                         <button class="default-btn" @click="handleFinalSubmit">
-                            Proceed to Pay <i class="ti ti-check"></i>
+                            Submit <i class="ti ti-check"></i>
                         </button>
                     </div>
                 </div>
@@ -157,229 +159,236 @@
 
 <!-- ✅ PROTECTED ROUTE — redirects to /login if no valid token found -->
 <script setup lang="ts">
+import { ref, reactive } from 'vue'
+import PersonalInformation from "../components/PersonalInformation/PersonalInformation.vue";
+import AcademicInformation from "../components/AcademicInformation/AcademicInformation.vue";
+import WorkExperienceDetails from "../components/WorkExperienceDetails/WorkExperienceDetails.vue";
+import DocumentUpload from "../components/DocumentUpload/DocumentUpload.vue";
+// import PrePaymentDeclaration from "../components/PrePaymentDeclaration/PrePaymentDeclaration.vue";
+
 // Layer 1: Middleware for Nuxt navigation
 definePageMeta({
     middleware: ['auth']
 })
 
+useHead({
+    title: "My Application Profile",
+    meta: [
+        {
+            name: "description",
+            content: "View and update your GCC application profile — personal, academic, work experience and documents."
+        }
+    ]
+});
+
+// Read the authenticated user's ID from the auth composable (set at login)
+const { userId, init: initAuth } = useAuth()
+
 // Hydrate auth state (reads from localStorage) on mount
-const { init: initAuth } = useAuth()
 onMounted(() => {
     initAuth()
 })
-</script>
 
-<script lang="ts">
-import { defineComponent, ref, reactive } from "vue";
-import { useHead } from "#imports";
-import PersonalInformation from "../components/PersonalInformation/PersonalInformation.vue";
-import AcademicInformation from "../components/AcademicInformation/AcademicInformation.vue";
-import WorkExperienceDetails from "../components/WorkExperienceDetails/WorkExperienceDetails.vue";
-import DocumentUpload from "../components/DocumentUpload/DocumentUpload.vue";
-import PrePaymentDeclaration from "../components/PrePaymentDeclaration/PrePaymentDeclaration.vue";
+const openSection = ref<number | null>(1); // first section open by default
 
-export default defineComponent({
-    name: "ProfilePage",
-    components: {
-        PersonalInformation,
-        AcademicInformation,
-        WorkExperienceDetails,
-        DocumentUpload,
-        PrePaymentDeclaration,
-    },
-    setup() {
-        useHead({
-            title: "My Application Profile",
-            meta: [
-                {
-                    name: "description",
-                    content: "View and update your GCC application profile — personal, academic, work experience and documents."
-                }
-            ]
+const formData = reactive({
+    first_name: "",
+    last_name: "",
+    father_name: "",
+    father_mobile: "",
+    father_email: "",
+    father_occupation: "",
+    father_occupation_other: "",
+    mother_name: "",
+    mother_mobile: "",
+    mother_email: "",
+    mother_occupation: "",
+    mother_occupation_other: "",
+    dob: "",
+    gender: "",
+    nationality: "Indian",
+    email: "",
+    mobile: "",
+    city: "",
+    state: "",
+    pin_code: "",
+    class10_year: "",
+    class10_score: "",
+    class12_year: "",
+    class12_score: "",
+    medium: "",
+    medium_other: "",
+    ug_status: "",
+    first_division: "",
+    ug_cgpa: "",
+    ug_institution: "",
+    pg_exists: "",
+    pg_type: "",
+    pg_other: "",
+    pg_institution: "",
+    work_experience: [] as any[],
+    documents: {} as Record<string, any>
+});
+
+const section1Ref = ref<any>(null);
+const section2Ref = ref<any>(null);
+const section3Ref = ref<any>(null);
+const section4aRef = ref<any>(null);
+const section4bRef = ref<any>(null);
+
+const toggleSection = (index: number) => {
+    openSection.value = openSection.value === index ? null : index;
+};
+const submitUserData = async () => {
+    try {
+        const response: any = await $fetch("/api/register-user", {
+            method: "POST",
+            body: formData
         });
 
-        const openSection = ref<number | null>(1); // first section open by default
-
-        // Read the authenticated user's ID from the auth composable (set at login)
-        const { userId } = useAuth();
-
-        const formData = reactive({
-            first_name: "",
-            last_name: "",
-            father_name: "",
-            father_mobile: "",
-            father_email: "",
-            father_occupation: "",
-            father_occupation_other: "",
-            mother_name: "",
-            mother_mobile: "",
-            mother_email: "",
-            mother_occupation: "",
-            mother_occupation_other: "",
-            dob: "",
-            gender: "",
-            nationality: "Indian",
-            email: "",
-            mobile: "",
-            city: "",
-            state: "",
-            pin_code: "",
-            class10_year: "",
-            class10_score: "",
-            class12_year: "",
-            class12_score: "",
-            medium: "",
-            medium_other: "",
-            ug_status: "",
-            first_division: "",
-            ug_cgpa: "",
-            ug_institution: "",
-            pg_exists: "",
-            pg_type: "",
-            pg_other: "",
-            pg_institution: "",
-            work_experience: [],
-            documents: {}
-        });
-
-        const section1Ref = ref<any>(null);
-        const section2Ref = ref<any>(null);
-        const section3Ref = ref<any>(null);
-        const section4aRef = ref<any>(null);
-        const section4bRef = ref<any>(null);
-
-        const toggleSection = (index: number) => {
-            openSection.value = openSection.value === index ? null : index;
-        };
-
-        const saveSection = (index: number) => {
-            const refMap: Record<number, any> = {
-                1: section1Ref.value,
-                2: section2Ref.value,
-                3: section3Ref.value,
-            };
-            const comp = refMap[index];
-            if (comp?.validate) {
-                const isValid = comp.validate();
-                if (isValid) {
-                    alert("Section saved successfully!");
-                }
-            }
-        };
-
-        function loadRazorpayScript() {
-            return new Promise((resolve) => {
-                if ((window as any).Razorpay) {
-                    resolve(true);
-                    return;
-                }
-                const script = document.createElement("script");
-                script.src = "https://checkout.razorpay.com/v1/checkout.js";
-                script.onload = () => resolve(true);
-                script.onerror = () => resolve(false);
-                document.body.appendChild(script);
-            });
+        if (!response.success) {
+            alert(response.message || "Submission failed");
+            return false;
         }
 
-        const handleFinalSubmit = async () => {
-            // Validate declaration section
-            if (section4bRef.value?.validate) {
-                const isValid = section4bRef.value.validate();
-                if (!isValid) {
-                    openSection.value = 4;
-                    return;
-                }
-            }
+        // Parse user_id to Number since DocumentUpload expects a Number prop
+        userId.value = Number(response.user_id);
+        console.log("User ID:", userId.value);
 
-            try {
-                const res: any = await $fetch("/api/start-payment", {
-                    method: "POST",
-                    body: {
-                        user_id: userId.value,
-                        name: formData.first_name + " " + formData.last_name,
-                        email: formData.email,
-                        mobile: formData.mobile
-                    }
-                });
+        return true;
+    } catch (error) {
+        console.error("API Error:", error);
+        alert("Something went wrong. Please try again.");
+        return false;
+    } finally {
+        isSavingSection.value = false;
+    }
+};
 
-                const loaded = await loadRazorpayScript();
-                if (!loaded || !(window as any).Razorpay) {
-                    alert("Razorpay SDK failed to load");
-                    return;
-                }
+const saveSection = async (index: number) => {
+    // Legacy generic save map
+    const refMap: Record<number, any> = {
+        1: section1Ref.value,
+        2: section2Ref.value,
+        3: section3Ref.value,
+    };
+    const comp = refMap[index];
+    if (comp?.validate) {
+        const isValid = comp.validate();
+        if (isValid) {
+            alert("Section saved successfully!");
+        }
+    }
+    if (index === 3) {
+        const success = await submitUserData();
+        if (!success) return;
+        alert("Profile saved successfully!");
+        openSection.value = 4; // open document section
+        return;
+    }
+};
 
-                const options = {
-                    key: res.razorpay_key,
-                    amount: res.amount,
-                    currency: res.currency,
-                    name: "Application Fee",
-                    description: "NFET Application Payment",
-                    order_id: res.razorpay_order_id,
+function loadRazorpayScript() {
+    return new Promise((resolve) => {
+        if ((window as any).Razorpay) {
+            resolve(true);
+            return;
+        }
+        const script = document.createElement("script");
+        script.src = "https://checkout.razorpay.com/v1/checkout.js";
+        script.onload = () => resolve(true);
+        script.onerror = () => resolve(false);
+        document.body.appendChild(script);
+    });
+}
 
-                    handler: async function (response: any) {
-                        await $fetch("/api/complete-payment", {
-                            method: "POST",
-                            body: {
-                                razorpay_payment_id: response.razorpay_payment_id,
-                                razorpay_order_id: response.razorpay_order_id,
-                                razorpay_signature: response.razorpay_signature
-                            }
-                        });
-                        alert("Payment Successful!");
-                    },
+const handleFinalSubmit = async () => {
+    console.log("Final Submit");
+    console.log(formData);
+}
 
-                    prefill: {
-                        name: formData.first_name + " " + formData.last_name,
-                        email: formData.email,
-                        contact: formData.mobile
-                    },
+// const handleFinalSubmit = async () => {
+//     if (section4bRef.value?.validate) {
+//         const isValid = section4bRef.value.validate();
+//         if (!isValid) {
+//             openSection.value = 4;
+//             return;
+//         }
+//     }
 
-                    theme: {
-                        color: "#FBB03B"
-                    }
-                };
+//     try {
+//         const res: any = await $fetch("/api/start-payment", {
+//             method: "POST",
+//             body: {
+//                 user_id: userId.value,
+//                 name: formData.first_name + " " + formData.last_name,
+//                 email: formData.email,
+//                 mobile: formData.mobile
+//             }
+//         });
 
-                const rzp = new (window as any).Razorpay(options);
-                rzp.on("payment.failed", async (response: any) => {
-                    console.error("Payment Failed:", response.error);
-                    try {
-                        await $fetch("/api/report-payment-failure", {
-                            method: "POST",
-                            body: {
-                                razorpay_order_id: res.razorpay_order_id,
-                                razorpay_payment_id: response.error.metadata?.payment_id,
-                                error_details: response.error
-                            }
-                        });
-                    } catch (reportError) {
-                        console.error("Failed to report payment failure:", reportError);
-                    }
-                    alert(`Payment Failed: ${response.error.description || "Unknown error"}`);
-                });
+//         const loaded = await loadRazorpayScript();
+//         if (!loaded || !(window as any).Razorpay) {
+//             alert("Razorpay SDK failed to load");
+//             return;
+//         }
 
-                rzp.open();
+//         const options = {
+//             key: res.razorpay_key,
+//             amount: res.amount,
+//             currency: res.currency,
+//             name: "Application Fee",
+//             description: "NFET Application Payment",
+//             order_id: res.razorpay_order_id,
 
-            } catch (err) {
-                console.error(err);
-                alert("Payment initiation failed");
-            }
-        };
+//             handler: async function (response: any) {
+//                 await $fetch("/api/complete-payment", {
+//                     method: "POST",
+//                     body: {
+//                         razorpay_payment_id: response.razorpay_payment_id,
+//                         razorpay_order_id: response.razorpay_order_id,
+//                         razorpay_signature: response.razorpay_signature
+//                     }
+//                 });
+//                 alert("Payment Successful!");
+//             },
 
-        return {
-            openSection,
-            toggleSection,
-            saveSection,
-            formData,
-            userId,
-            section1Ref,
-            section2Ref,
-            section3Ref,
-            section4aRef,
-            section4bRef,
-            handleFinalSubmit,
-        };
-    },
-});
+//             prefill: {
+//                 name: formData.first_name + " " + formData.last_name,
+//                 email: formData.email,
+//                 contact: formData.mobile
+//             },
+
+//             theme: {
+//                 color: "#FBB03B"
+//             }
+//         };
+
+//         const rzp = new (window as any).Razorpay(options);
+//         rzp.on("payment.failed", async (response: any) => {
+//             console.error("Payment Failed:", response.error);
+//             try {
+//                 await $fetch("/api/report-payment-failure", {
+//                     method: "POST",
+//                     body: {
+//                         razorpay_order_id: res.razorpay_order_id,
+//                         razorpay_payment_id: response.error.metadata?.payment_id,
+//                         error_details: response.error
+//                     }
+//                 });
+//             } catch (reportError) {
+//                 console.error("Failed to report payment failure:", reportError);
+//             }
+//             alert(`Payment Failed: ${response.error.description || "Unknown error"}`);
+//         });
+
+//         rzp.open();
+
+//     } catch (err) {
+//         console.error(err);
+//         alert("Payment initiation failed");
+//     }
+// };
 </script>
 
 <style scoped>
