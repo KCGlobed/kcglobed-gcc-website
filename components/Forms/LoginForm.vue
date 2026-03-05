@@ -13,25 +13,14 @@
                 <!-- Brand logo inside card -->
                 <div class="card-logo">
                     <div class="logo-mark">
-                        <!-- <svg width="44" height="44" viewBox="0 0 44 44" fill="none">
-                            <rect width="44" height="44" rx="13" fill="url(#lg2)" />
-                            <path d="M12 32L22 12L32 32" stroke="white" stroke-width="2.8" stroke-linecap="round"
-                                stroke-linejoin="round" />
-                            <path d="M16 26h12" stroke="white" stroke-width="2.8" stroke-linecap="round" />
-                            <defs>
-                                <linearGradient id="lg2" x1="0" y1="0" x2="44" y2="44" gradientUnits="userSpaceOnUse">
-                                    <stop stop-color="#6366f1" />
-                                    <stop offset="1" stop-color="#8b5cf6" />
-                                </linearGradient>
-                            </defs>
-                        </svg> -->
+
                         <img src="/img/GCC-School-Logo-White.png" alt="" srcset="">
                     </div>
                     <!-- <span class="logo-name">YourBrand</span> -->
                 </div>
 
-                <div class="card-header">
-                    <p class="card-sub">Welcome to GCC School</p>
+                <div class="">
+                    <h5 style="text-align: center; margin-bottom:15px;" class="">Welcome to GCC School</h5>
                 </div>
 
                 <form class="login-form" novalidate @submit.prevent="handleSubmit">
@@ -358,6 +347,7 @@ $radius: 14px;
     display: flex;
     align-items: center;
     gap: 11px;
+    justify-content: center;
     margin-bottom: 20px;
 }
 
@@ -415,7 +405,7 @@ $radius: 14px;
 
 .card-sub {
     font-size: 14px;
-    color: $muted;
+
 }
 
 // -- Form --
