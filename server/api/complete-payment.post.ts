@@ -1,178 +1,276 @@
-import Razorpay from "razorpay";
-import crypto from "crypto";
+// ── CASHFREE: active (cashfree-pg v5) ────────────────────────────────────────
+import { createCashfreeInstance } from "../utils/cashfree";
 import { savePayment } from "../services/payment.service";
 import { sendPaymentConfirmationEmail } from "../services/email.service";
 
+// ── RAZORPAY: disabled (kept for reference) ───────────────────────────────────
+// import Razorpay from "razorpay";
+// import crypto from "crypto";
+
+// Helper: try to extract form_id from the order_id string (e.g. "cf_322_1772694830212" → "322")
+function extractFormIdFromOrderId(orderId: string): string | null {
+    const parts = orderId.split('_');
+    // order_id format: cf_{form_id}_{timestamp}  or  cf_{user_id}_{timestamp}
+    if (parts.length >= 3) {
+        const extracted = parts[1];
+        if (extracted && extracted !== 'guest' && extracted !== 'null') return extracted;
+    }
+    return null;
+}
+
 export default defineEventHandler(async (event) => {
     const body = await readBody(event);
-    const { razorpay_order_id, razorpay_payment_id, razorpay_signature } = body;
 
-    if (!razorpay_order_id || !razorpay_payment_id || !razorpay_signature) {
-        throw createError({
-            statusCode: 400,
-            message: "Missing required payment details"
+    // ── CASHFREE fields ───────────────────────────────────────────────────────
+    // NOTE: The Cashfree JS SDK does NOT return a numeric cf_payment_id in the callback.
+    // We only need cf_order_id — we fetch all payments server-side via PGOrderFetchPayments.
+    const { cf_order_id } = body;
+
+    // ── RAZORPAY fields (disabled) ────────────────────────────────────────────
+    // const { razorpay_order_id, razorpay_payment_id, razorpay_signature } = body;
+
+    if (!cf_order_id) {
+        console.error("[PAYMENT][complete] FAILED — Missing cf_order_id", {
+            event: "complete_payment_failed",
+            reason: "missing_cf_order_id",
+            timestamp: new Date().toISOString()
         });
+        throw createError({ statusCode: 400, message: "Missing required order ID" });
     }
 
     const config = useRuntimeConfig(event);
-    // Nuxt runtimeConfig only auto-maps vars prefixed with NUXT_ on Cloud Run.
-    // Fall back to process.env directly so plain env var names work too.
-    const keySecret = (config.razorpayKeySecret || process.env.RAZORPAY_KEY_SECRET || "").replace(/['"]/g, '').trim();
-    const keyId = (config.razorpayKeyId || process.env.RAZORPAY_KEY_ID || "").replace(/['"]/g, '').trim();
 
-    if (!keyId || !keySecret) {
-        console.error(`[complete-payment] Keys missing — runtimeConfig len: ${(config.razorpayKeyId || '').length}, process.env len: ${(process.env.RAZORPAY_KEY_ID || '').length}`);
-        throw createError({
-            statusCode: 500,
-            message: "Razorpay configuration missing on server"
-        });
+    // ── CASHFREE: Initialize SDK ──────────────────────────────────────────────
+    let cashfree: ReturnType<typeof createCashfreeInstance>["instance"];
+    let cfEnvironment: string;
+    try {
+        const cf = createCashfreeInstance(config, event);
+        cashfree = cf.instance;
+        cfEnvironment = cf.cfEnvironment;
+    } catch (e: any) {
+        console.error("[PAYMENT][complete] FAILED — Cashfree config error", { reason: e.message, cf_order_id });
+        throw createError({ statusCode: 500, message: "Cashfree configuration missing on server" });
     }
 
-    // Initialize Razorpay
-    const razorpay = new Razorpay({
-        key_id: keyId,
-        key_secret: keySecret
-    });
-
-    let userId = null;
-    let formType = null;
-    let formId = null;
-    let amount = 0;
-    let currency = 'INR';
+    // Extract user metadata from order
+    let userId: string | null = null;
+    let formType: string | null = null;
+    let formId: string | null = null;
     let userName = '';
     let userEmail = '';
     let userMobile = '';
+    let amount = 0;
+    let currency = 'INR';
 
+    // ── CASHFREE: Fetch Order to get user context ─────────────────────────────
     try {
-        // Fetch order details first to get user_id and amount
-        const order = await razorpay.orders.fetch(razorpay_order_id);
+        const orderRes = await cashfree.PGFetchOrder(cf_order_id);
+        const orderData = orderRes.data;
 
-        // @ts-ignore
-        userId = order.notes ? order.notes.user_id : null;
-        // @ts-ignore
-        formType = order.notes ? order.notes.form_type : null;
-        // @ts-ignore
-        formId = order.notes ? order.notes.form_id : null;
-        // @ts-ignore
-        userName = order.notes ? (order.notes.name || '') : '';
-        // @ts-ignore
-        userEmail = order.notes ? (order.notes.email || '') : '';
-        // @ts-ignore
-        userMobile = order.notes ? (order.notes.mobile || '') : '';
+        amount = orderData.order_amount || 0;
+        currency = orderData.order_currency || 'INR';
 
-        amount = (order.amount as number) / 100;
-        currency = order.currency;
+        // Try to parse order_note JSON (stored at order creation in start-payment)
+        if (orderData.order_note) {
+            try {
+                const note = JSON.parse(orderData.order_note);
+                userId = note.user_id || null;
+                formType = note.form_type ? String(note.form_type) : null;
+                formId = note.form_id ? String(note.form_id) : null;
+                userName = note.name || '';
+                userEmail = note.email || '';
+                userMobile = note.mobile || '';
+            } catch (_) {
+                console.warn("[PAYMENT][complete] Could not parse order_note JSON — using fallback", { cf_order_id });
+            }
+        }
 
-        // form_id is optional — present in Dossier flow, absent in Student Application flow
+        // Fallback: extract form_id from order_id string (e.g. "cf_322_..." → "322")
+        if (!formId) {
+            formId = extractFormIdFromOrderId(cf_order_id);
+            if (formId) {
+                console.log("[PAYMENT][complete] Extracted form_id from order_id", { cf_order_id, form_id: formId });
+            }
+        }
+
+        // Fallback: use customer_details from Cashfree order
+        if (!userEmail && orderData.customer_details?.customer_email) userEmail = orderData.customer_details.customer_email;
+        if (!userName && orderData.customer_details?.customer_name) userName = orderData.customer_details.customer_name;
+        if (!userMobile && orderData.customer_details?.customer_phone) userMobile = orderData.customer_details.customer_phone;
+
+        console.log("[PAYMENT][complete] Cashfree order fetched", {
+            event: "order_fetched",
+            gateway: "cashfree",
+            environment: cfEnvironment,
+            cf_order_id, amount, currency,
+            user_id: userId, name: userName, email: userEmail,
+            form_type: formType, form_id: formId,
+            timestamp: new Date().toISOString()
+        });
+
     } catch (error: any) {
-        console.error("Error fetching Razorpay order:", error);
+        console.error("[PAYMENT][complete] FAILED — Error fetching Cashfree order", {
+            event: "order_fetch_failed",
+            gateway: "cashfree",
+            cf_order_id,
+            error_message: error?.response?.data?.message || error?.message,
+            timestamp: new Date().toISOString()
+        });
         throw createError({
             statusCode: error.statusCode || 500,
-            message: error.message || "Failed to fetch order details"
+            message: error?.response?.data?.message || error?.message || "Failed to fetch order details"
         });
     }
 
-    // Verify Signature
-    const generated_signature = crypto
-        .createHmac("sha256", keySecret)
-        .update(razorpay_order_id + "|" + razorpay_payment_id)
-        .digest("hex");
+    // ── CASHFREE: Verify Payment via PGOrderFetchPayments ────────────────────
+    // The Cashfree JS SDK does NOT return a numeric cf_payment_id — we fetch all
+    // payments for this order and find the successful one server-side.
+    //
+    // ── RAZORPAY: Signature Verification (disabled) ───────────────────────────
+    // const generated_signature = crypto.createHmac("sha256", keySecret)
+    //     .update(razorpay_order_id + "|" + razorpay_payment_id).digest("hex");
+    // if (generated_signature !== razorpay_signature) { ... }
 
-    if (generated_signature !== razorpay_signature) {
-        // Save failed payment
-        await savePayment({
-            student_id: userId,
-            form_type: formType,
-            form_id: formId,
-            razorpay_order_id,
-            razorpay_payment_id,
-            razorpay_signature,
-            amount,
-            currency,
-            status: "failed",
-            response: JSON.stringify({ ...body, error: "Invalid payment signature" })
-        });
-
-        throw createError({
-            statusCode: 400,
-            message: "Invalid payment signature"
-        });
-    }
+    let actualPaymentId = 'N/A';
 
     try {
-        // Save success payment
+        // PGOrderFetchPayments (plural) — fetches all payment attempts for this order
+        const paymentsRes = await cashfree.PGOrderFetchPayments(cf_order_id);
+        const payments: any[] = Array.isArray(paymentsRes.data) ? paymentsRes.data : [paymentsRes.data];
+
+        const successPayment = payments.find((p: any) => p.payment_status === 'SUCCESS');
+
+        if (!successPayment) {
+            const latestStatus = payments[0]?.payment_status || 'UNKNOWN';
+
+            console.error("[PAYMENT][complete] FAILED — No successful payment found", {
+                event: "payment_not_successful",
+                status: "failed",
+                gateway: "cashfree",
+                cf_order_id,
+                latest_status: latestStatus,
+                payment_count: payments.length,
+                user_id: userId, name: userName, email: userEmail, amount, currency,
+                form_type: formType, form_id: formId,
+                timestamp: new Date().toISOString()
+            });
+
+            await savePayment({
+                student_id: userId,
+                form_type: formType,
+                form_id: formId,
+                razorpay_order_id: cf_order_id,
+                razorpay_payment_id: payments[0]?.cf_payment_id || 'N/A',
+                razorpay_signature: `cf_status:${latestStatus}`,
+                amount, currency,
+                status: "failed",
+                response: JSON.stringify({ cf_order_id, payment_status: latestStatus, gateway: "cashfree", payments })
+            });
+
+            throw createError({ statusCode: 400, message: `Payment not successful. Status: ${latestStatus}` });
+        }
+
+        actualPaymentId = String(successPayment.cf_payment_id);
+
+        console.log("[PAYMENT][complete] Cashfree payment verified — status SUCCESS", {
+            event: "payment_verified",
+            gateway: "cashfree",
+            cf_order_id,
+            cf_payment_id: actualPaymentId,
+            payment_status: successPayment.payment_status,
+            user_id: userId, name: userName, email: userEmail,
+            form_type: formType, form_id: formId,
+            timestamp: new Date().toISOString()
+        });
+
+    } catch (error: any) {
+        if (error.statusCode) throw error;
+        console.error("[PAYMENT][complete] FAILED — Error verifying Cashfree payment", {
+            event: "payment_verify_failed",
+            cf_order_id,
+            error_message: error?.response?.data?.message || error?.message,
+            timestamp: new Date().toISOString()
+        });
+        throw createError({ statusCode: 500, message: "Failed to verify payment" });
+    }
+
+    // ── Save success to DB ────────────────────────────────────────────────────
+    try {
         const paymentId = await savePayment({
             student_id: userId,
             form_type: formType,
             form_id: formId,
-            razorpay_order_id,
-            razorpay_payment_id,
-            razorpay_signature,
-            amount: amount,
-            currency: currency,
+            razorpay_order_id: cf_order_id,
+            razorpay_payment_id: actualPaymentId,
+            razorpay_signature: `cf_verified`,
+            amount, currency,
             status: "success",
-            response: JSON.stringify(body)
+            response: JSON.stringify({ cf_order_id, cf_payment_id: actualPaymentId, gateway: "cashfree" })
         });
 
-        // Send confirmation email (non-blocking – failure won't break the response)
-        if (userEmail) {
-            const now = new Date();
-            const formattedDate = now.toLocaleString('en-IN', {
-                timeZone: 'Asia/Kolkata',
-                day: '2-digit',
-                month: 'short',
-                year: 'numeric',
-                hour: '2-digit',
-                minute: '2-digit',
-                hour12: true
-            });
+        console.log("[PAYMENT][complete] SUCCESS — Payment saved to DB", {
+            event: "payment_completed",
+            status: "success",
+            gateway: "cashfree",
+            payment_db_id: paymentId,
+            cf_order_id, cf_payment_id: actualPaymentId, amount, currency,
+            user_id: userId, name: userName, email: userEmail, mobile: userMobile,
+            form_type: formType, form_id: formId,
+            timestamp: new Date().toISOString()
+        });
 
+        // Send confirmation email (non-blocking)
+        if (userEmail) {
+            const formattedDate = new Date().toLocaleString('en-IN', {
+                timeZone: 'Asia/Kolkata', day: '2-digit', month: 'short', year: 'numeric',
+                hour: '2-digit', minute: '2-digit', hour12: true
+            });
             sendPaymentConfirmationEmail({
                 to: userEmail,
                 name: userName || userMobile || 'Applicant',
-                razorpay_payment_id,
-                razorpay_order_id,
-                amount,
-                currency,
+                razorpay_payment_id: actualPaymentId,
+                razorpay_order_id: cf_order_id,
+                amount, currency,
                 date: formattedDate,
                 emailHost: (config.emailHost as string) || process.env.EMAIL_HOST || 'smtp.hostinger.com',
                 emailUser: (config.emailUser as string) || process.env.EMAIL_HOST_USER || '',
                 emailPassword: (config.emailPassword as string) || process.env.EMAIL_HOST_PASSWORD || ''
             }).catch((err) => {
-                console.error("Payment confirmation email failed:", err);
+                console.error("[PAYMENT][complete] Confirmation email failed", {
+                    event: "email_failed",
+                    cf_order_id, cf_payment_id: actualPaymentId, user_email: userEmail,
+                    error_message: err?.message || err,
+                    timestamp: new Date().toISOString()
+                });
             });
         }
 
-        return {
-            success: true,
-            message: "Payment verified and saved successfully",
-            payment_id: paymentId
-        };
+        return { success: true, message: "Payment verified and saved successfully", payment_id: paymentId };
 
     } catch (error: any) {
-        console.error("Payment Saving Error:", error);
+        console.error("[PAYMENT][complete] FAILED — Error saving payment to DB", {
+            event: "save_failed",
+            gateway: "cashfree",
+            cf_order_id, cf_payment_id: actualPaymentId,
+            user_id: userId, error_message: error.message || error,
+            timestamp: new Date().toISOString()
+        });
 
         try {
             await savePayment({
-                student_id: userId,
-                form_type: formType,
-                form_id: formId,
-                razorpay_order_id,
-                razorpay_payment_id,
-                razorpay_signature,
-                amount,
-                currency,
-                status: "failed",
-                response: JSON.stringify({ ...body, error: error.message || "Failed to save payment" })
+                student_id: userId, form_type: formType, form_id: formId,
+                razorpay_order_id: cf_order_id, razorpay_payment_id: actualPaymentId,
+                razorpay_signature: `cf_save_failed`,
+                amount, currency, status: "failed",
+                response: JSON.stringify({ cf_order_id, error: error.message, gateway: "cashfree" })
             });
-        } catch (innerError) {
-            console.error("Failed to save payment failure log:", innerError);
+        } catch (innerError: any) {
+            console.error("[PAYMENT][complete] CRITICAL — Failed to save failure fallback to DB", {
+                cf_order_id, error_message: innerError?.message,
+                timestamp: new Date().toISOString()
+            });
         }
 
-        throw createError({
-            statusCode: 500,
-            message: error.message || "Failed to save payment"
-        });
+        throw createError({ statusCode: 500, message: error.message || "Failed to save payment" });
     }
 });
-

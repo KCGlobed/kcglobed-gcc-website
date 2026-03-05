@@ -45,10 +45,22 @@ export default defineNuxtConfig({
   modules: ["@bootstrap-vue-next/nuxt", "nuxt-swiper", "nuxt-aos"],
   runtimeConfig: {
 
+    // ── Razorpay (disabled – kept for reference) ──────────────────────────────
     razorpayKeyId: process.env.RAZORPAY_KEY_ID,
     razorpayKeySecret: process.env.RAZORPAY_KEY_SECRET,
     razorpayCurrency: process.env.RAZORPAY_CURRENCY || 'INR',
     razorpayAmount: process.env.RAZORPAY_PAYMENT_AMOUNT || '2950',
+
+    // ── Cashfree ──────────────────────────────────────────────────────────────
+    cashfreeAppId: process.env.CASH_FREE_APP_ID_PROD,
+    cashfreeSecretKey: process.env.CASH_FREE_SECRET_KEY_PROD,
+    cashfreeAppIdDev: process.env.CASH_FREE_APP_ID_DEV,
+    cashfreeSecretKeyDev: process.env.CASH_FREE_SECRET_KEY_DEV,
+    // Set to 'SANDBOX' for test, 'PRODUCTION' for live
+    cashfreeEnvironment: process.env.CASHFREE_ENVIRONMENT || 'PRODUCTION',
+    cashfreePaymentAmount: process.env.CASHFREE_PAYMENT_AMOUNT || '2950',
+
+    // ── Email ─────────────────────────────────────────────────────────────────
     emailHost: process.env.EMAIL_HOST,
     emailUser: process.env.EMAIL_HOST_USER,
     emailPassword: process.env.EMAIL_HOST_PASSWORD,
@@ -56,7 +68,6 @@ export default defineNuxtConfig({
     public: {
       paymentAmount: process.env.PAYMENT_AMOUNT,
       apiBase: process.env.NUXT_PUBLIC_API_BASE,
-
     }
   },
   plugins: ["~/plugins/scrollReveal.ts"],
