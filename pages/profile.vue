@@ -155,6 +155,20 @@
     </div>
 </template>
 
+<!-- ✅ PROTECTED ROUTE — redirects to /login if no valid token found -->
+<script setup lang="ts">
+// Layer 1: Middleware for Nuxt navigation
+definePageMeta({
+    middleware: ['auth']
+})
+
+// Hydrate auth state (reads from localStorage) on mount
+const { init: initAuth } = useAuth()
+onMounted(() => {
+    initAuth()
+})
+</script>
+
 <script lang="ts">
 import { defineComponent, ref, reactive } from "vue";
 import { useHead } from "#imports";
@@ -185,7 +199,9 @@ export default defineComponent({
         });
 
         const openSection = ref<number | null>(1); // first section open by default
-        const userId = ref<number | null>(null);
+
+        // Read the authenticated user's ID from the auth composable (set at login)
+        const { userId } = useAuth();
 
         const formData = reactive({
             first_name: "",
