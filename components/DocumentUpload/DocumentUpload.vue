@@ -177,7 +177,7 @@
 export default {
     name: "DocumentUpload",
     props: {
-        userId: Number,
+        userId: Number | undefined,
     },
     data() {
         return {
