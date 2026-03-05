@@ -1,6 +1,6 @@
 CREATE TABLE IF NOT EXISTS payments (
   id SERIAL PRIMARY KEY,
-  student_id INT REFERENCES students_data(id) ON DELETE CASCADE, -- nullable: guest payments won't have a student_id
+  student_id INT REFERENCES students_data(id) ON DELETE CASCADE,
   form_type INT,
   form_id INT,
   razorpay_order_id VARCHAR(255),
