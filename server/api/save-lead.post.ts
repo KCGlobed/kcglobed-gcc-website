@@ -5,7 +5,6 @@ export default defineEventHandler(async (event) => {
     const { name, email, mobile, state, city, form_type, form_id, action } = body;
 
     const intentId = `intent_${form_id || Date.now()}`;
-
     console.log("[LEAD][click] CTA clicked — saving lead", {
         action, name, email, mobile, state, city, form_type, form_id,
         intent_id: intentId, timestamp: new Date().toISOString()
