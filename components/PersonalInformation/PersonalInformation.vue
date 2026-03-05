@@ -5,7 +5,7 @@
         <div class="row">
           <div class="col-lg-12">
             <div class="applicant-details">
-              <h3>Personal Information</h3>
+              <!-- <h3>Personal Information</h3> -->
 
               <!-- Applicant Name -->
               <div class="row">

@@ -2,16 +2,16 @@
     <div>
         <LayoutTopHeader />
         <LayoutMainNavbar />
-        <CommonInnerPageBanner pageTitle="Profile" />
+        <!-- <CommonInnerPageBanner pageTitle="Profile" /> -->
 
         <!-- Profile Header Card -->
         <div class="container pt-50 pb-30">
             <div class="profile-header-card">
                 <!-- Cover Banner -->
                 <div class="profile-cover">
-                    <button class="profile-edit-btn" title="Edit Cover">
-                        <i class="ti ti-pencil"></i> Edit
-                    </button>
+                    <!-- <button class="profile-edit-btn" title="Edit Cover"> -->
+                    <!-- <i class="ti ti-pencil"></i> Edit -->
+                    <!-- </button> -->
                 </div>
 
                 <!-- Avatar (overlapping cover) -->
@@ -47,10 +47,10 @@
                 <div class="accordion-section" :class="{ active: openSection === 1 }">
                     <div class="accordion-header" @click="toggleSection(1)">
                         <div class="accordion-header-left">
-                            <span class="accordion-icon"><i class="ti ti-user"></i></span>
-                            <div>
-                                <h5>Personal Information</h5>
-                                <p>Name, contact, address &amp; family details</p>
+                            <div style="display: flex; align-items: center; gap: 10px;">
+                                <span class="accordion-icon"><i class="ti ti-user"></i></span>
+                                <h4>Personal Information</h4>
+                                <!-- <p>Name, contact, address &amp; family details</p> -->
                             </div>
                         </div>
                         <div class="accordion-header-right">
@@ -68,10 +68,9 @@
                 <div class="accordion-section" :class="{ active: openSection === 2 }">
                     <div class="accordion-header" @click="toggleSection(2)">
                         <div class="accordion-header-left">
-                            <span class="accordion-icon"><i class="ti ti-school"></i></span>
-                            <div>
-                                <h5>Academic Information</h5>
-                                <p>Class 10, 12, UG &amp; PG details</p>
+                            <div style="display: flex; align-items: center; gap: 10px;">
+                                <span class="accordion-icon"><i class="ti ti-school"></i></span>
+                                <h4>Academic Information</h4>
                             </div>
                         </div>
                         <div class="accordion-header-right">
@@ -89,10 +88,9 @@
                 <div class="accordion-section" :class="{ active: openSection === 3 }">
                     <div class="accordion-header" @click="toggleSection(3)">
                         <div class="accordion-header-left">
-                            <span class="accordion-icon"><i class="ti ti-briefcase"></i></span>
-                            <div>
-                                <h5>Work Experience</h5>
-                                <p>Employment status &amp; job history</p>
+                            <div style="display: flex; align-items: center; gap: 10px;">
+                                <span class="accordion-icon"><i class="ti ti-briefcase"></i></span>
+                                <h4>Work Experience</h4>
                             </div>
                         </div>
                         <div class="accordion-header-right">
@@ -118,10 +116,9 @@
                 <div class="accordion-section" :class="{ active: openSection === 4 }">
                     <div class="accordion-header" @click="toggleSection(4)">
                         <div class="accordion-header-left">
-                            <span class="accordion-icon"><i class="ti ti-files"></i></span>
-                            <div>
-                                <h5>Documents &amp; Declaration</h5>
-                                <p>Upload documents &amp; sign declaration</p>
+                            <div style="display: flex; align-items: center; gap: 10px;">
+                                <span class="accordion-icon"><i class="ti ti-files"></i></span>
+                                <h4>Documents</h4>
                             </div>
                         </div>
                         <div class="accordion-header-right">
@@ -144,7 +141,7 @@
             <div class="row">
                 <div class="col-lg-12">
                     <div class="d-flex justify-content-end">
-                        <button class="default-btn" @click="handleFinalSubmit">
+                        <button style="background-color: #872980;" class="default-btn" @click="handleFinalSubmit">
                             Submit <i class="ti ti-check"></i>
                         </button>
                     </div>
@@ -412,6 +409,7 @@ const handleFinalSubmit = async () => {
 .profile-cover {
     width: 100%;
     height: 160px;
+    z-index: 0;
     background: linear-gradient(135deg, #6d28d9 0%, #a78bfa 50%, #c4b5fd 100%);
     position: relative;
 }
@@ -443,6 +441,8 @@ const handleFinalSubmit = async () => {
 .profile-avatar-wrap {
     padding: 0 32px;
     margin-top: -48px;
+    position: relative;
+    z-index: 999;
 }
 
 .profile-avatar {
@@ -514,10 +514,11 @@ const handleFinalSubmit = async () => {
     background: #faf7ff;
 }
 
-.accordion-header-left {
-    display: flex;
+.accordion-header-left h4 {
+    /* display: flex;
     align-items: center;
-    gap: 16px;
+    gap: 16px; */
+    font-size: 20px;
 }
 
 .accordion-icon {

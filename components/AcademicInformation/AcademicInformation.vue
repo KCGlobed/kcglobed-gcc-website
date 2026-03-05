@@ -1,7 +1,7 @@
 <template>
   <div class="academic-information-warp pb-50">
     <div class="container">
-      <h3>Academic Information</h3>
+      <!-- <h3>Academic Information</h3> -->
 
       <form>
         <div class="row applicant-details">
@@ -76,12 +76,19 @@
           <!-- If Completed -->
           <div class="col-lg-6" v-if="formData.ug_status === 'Completed'">
             <div class="input-box">
-              <label>First Division (≥60%)?</label><br />
+
+              <label>First Division ?</label><br />
               <label><input type="radio" value="Yes" v-model="formData.first_division" /> Yes</label>
               <label class="ms-3"><input type="radio" value="No" v-model="formData.first_division" /> No</label>
             </div>
           </div>
-
+          <!-- <div class="input-box">
+                <label>Current CGPA / Percentage *</label>
+                <input type="number" step="0.01" min="0" max="10" class="form-control" v-model="formData.ug_cgpa"
+                  @input="handleInput('ug_cgpa')" :class="{ 'is-invalid': errors.ug_cgpa }" />
+                <div class="invalid-feedback" v-if="errors.ug_cgpa">{{ errors.ug_cgpa }}</div>
+                <small>Max 10.00</small>
+              </div> -->
           <!-- If Pursuing -->
           <div class="row" v-if="formData.ug_status === 'Pursuing'">
             <div class="col-lg-6">
@@ -120,7 +127,7 @@
                 <option value="">--Select--</option>
                 <option>M.Com</option>
                 <option>M.B.A</option>
-                <option>M.Tech</option>
+                <!-- <option>M.Tech</option> -->
                 <option>Other</option>
               </select>
             </div>
@@ -135,13 +142,13 @@
 
           <div class="col-lg-12" v-if="formData.pg_exists === 'Yes'">
             <div class="input-box">
-              <label>Institution Name (Postgraduate)</label>
+              <label>Institution Name </label>
               <input type="text" class="form-control" v-model="formData.pg_institution" />
             </div>
           </div>
 
           <!-- Semester -->
-          <div class="col-lg-6">
+          <!-- <div class="col-lg-6">
             <div class="input-box">
               <label>Current / Last Completed Semester *</label>
               <input type="number" min="0" max="8" class="form-control" v-model="formData.semester"
@@ -149,10 +156,10 @@
               <div class="invalid-feedback" v-if="errors.semester">{{ errors.semester }}</div>
               <small>Max 8</small>
             </div>
-          </div>
+          </div> -->
 
           <!-- CGPA -->
-          <div class="col-lg-6">
+          <!-- <div class="col-lg-6">
             <div class="input-box">
               <label>CGPA *</label>
               <input type="number" step="0.01" min="0" max="10" class="form-control" v-model="formData.cgpa"
@@ -160,7 +167,7 @@
               <div class="invalid-feedback" v-if="errors.cgpa">{{ errors.cgpa }}</div>
               <small>Max 10.00</small>
             </div>
-          </div>
+          </div> -->
 
         </div>
       </form>

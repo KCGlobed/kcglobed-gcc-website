@@ -2,7 +2,7 @@
   <div class="work-experience-details-area pb-50">
     <div class="container">
       <div class="section-title">
-        <h2>Work Experience Details</h2>
+        <!-- <h2>Work Experience Details</h2> -->
         <p>Please provide details of your work experience.</p>
       </div>
       <div class="work-experience-form applicant-details">
@@ -34,7 +34,8 @@
               <div class="d-flex justify-content-between align-items-center mb-3">
                 <h5 class="mb-0">Experience {{ index + 1 }}</h5>
                 <button v-if="formData.work_experience.length > 1" class="btn btn-sm btn-outline-danger"
-                  @click="removeJob(index)">Remove</button>
+                  @click="removeJob(index)">Remove/Edit</button>
+                <!-- use icon instead of text... -->
               </div>
               <div class="row">
                 <div class="col-md-6 mb-3">
@@ -86,7 +87,7 @@
             </div>
 
             <!-- Declarations for Working Professionals -->
-            <div class="alert alert-warning">
+            <!-- <div class="alert alert-warning">
               <h5 class="alert-heading h6 fw-bold">Declarations for Working Professionals</h5>
               <div class="form-check mb-2">
                 <input class="form-check-input" type="checkbox" id="decl1" v-model="declarations.decl1"
@@ -122,7 +123,7 @@
                 <div class="invalid-feedback d-block" v-if="errors.declarations">All declarations must
                   be checked.</div>
               </div>
-            </div>
+            </div> -->
           </div>
 
         </form>
