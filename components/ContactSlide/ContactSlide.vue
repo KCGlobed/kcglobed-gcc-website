@@ -140,7 +140,7 @@ const submitForm = async () => {
 
     const config = useRuntimeConfig()
 
-    await $fetch(`https://gccwebsite-admin-backend-738131651355.asia-south1.run.app/api/students/contact-us/`, {
+    await $fetch(`${config.public.apiBase}/api/students/contact-us/`, {
       method: "POST",
       body: form.value
     })
