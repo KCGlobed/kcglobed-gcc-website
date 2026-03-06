@@ -6,6 +6,7 @@
     <SearchPopup />
     <MainSidebar />
     <GoTop />
+    <ContactSlide />
   </div>
 </template>
 
@@ -15,6 +16,7 @@ import Preloader from "./Preloader.vue";
 import MobileDeviceNavbar from "./MobileDeviceNavbar.vue";
 import SearchPopup from "./SearchPopup.vue";
 import MainSidebar from "./MainSidebar.vue";
+import ContactSlide from "../components/ContactSlide/ContactSlide.vue";
 import GoTop from "./GoTop.vue";
 
 export default defineComponent({

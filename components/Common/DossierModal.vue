@@ -72,7 +72,7 @@
                         <button v-if="mode === 'apply'" type="submit"
                             class="btn btn-register w-100 py-3 fw-bold text-uppercase" :disabled="isSubmitting">
                             <span v-if="isSubmitting" class="spinner-border spinner-border-sm me-2"></span>
-                            {{ isSubmitting ? 'Processing...' : 'PAY NOW' }}
+                            {{ isSubmitting ? 'Processing...' : 'Apply Now' }}
                         </button>
 
                         <!-- Dossier mode: DOWNLOAD NOW first, then PAY NOW -->

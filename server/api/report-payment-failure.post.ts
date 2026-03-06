@@ -123,7 +123,7 @@ export default defineEventHandler(async (event) => {
     try {
         await savePayment({
             student_id: userId || null,
-            form_type: formType,
+            form_type: formType || 1,
             form_id: formId,
             razorpay_order_id: cf_order_id,
             razorpay_payment_id: cf_payment_id || 'N/A',
