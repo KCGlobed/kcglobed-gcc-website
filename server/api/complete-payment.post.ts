@@ -157,7 +157,7 @@ export default defineEventHandler(async (event) => {
 
             await savePayment({
                 student_id: userId,
-                form_type: formType,
+                form_type: formType || 1,
                 form_id: formId,
                 razorpay_order_id: cf_order_id,
                 razorpay_payment_id: payments[0]?.cf_payment_id || 'N/A',
@@ -258,7 +258,7 @@ export default defineEventHandler(async (event) => {
 
         try {
             await savePayment({
-                student_id: userId, form_type: formType, form_id: formId,
+                student_id: userId, form_type: formType || 1, form_id: formId,
                 razorpay_order_id: cf_order_id, razorpay_payment_id: actualPaymentId,
                 razorpay_signature: `cf_save_failed`,
                 amount, currency, status: "failed",
