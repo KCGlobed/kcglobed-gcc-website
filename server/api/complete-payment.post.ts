@@ -61,6 +61,8 @@ export default defineEventHandler(async (event) => {
     let userMobile = '';
     let amount = 0;
     let currency = 'INR';
+    let state = "";
+    let city = "";
 
     // ── CASHFREE: Fetch Order to get user context ─────────────────────────────
     try {
@@ -73,6 +75,7 @@ export default defineEventHandler(async (event) => {
         // Try to parse order_note JSON (stored at order creation in start-payment)
         if (orderData.order_note) {
             try {
+                console.log("Himanshu order_note", orderData.order_note);
                 const note = JSON.parse(orderData.order_note);
                 userId = note.user_id || null;
                 formType = note.form_type ? String(note.form_type) : null;
@@ -80,6 +83,8 @@ export default defineEventHandler(async (event) => {
                 userName = note.name || '';
                 userEmail = note.email || '';
                 userMobile = note.mobile || '';
+                state = note.state || '';
+                city = note.city || '';
             } catch (_) {
                 console.warn("[PAYMENT][complete] Could not parse order_note JSON — using fallback", { cf_order_id });
             }
@@ -183,6 +188,8 @@ export default defineEventHandler(async (event) => {
             timestamp: new Date().toISOString()
         });
 
+        // API will call to send mail with email and password
+
     } catch (error: any) {
         if (error.statusCode) throw error;
         console.error("[PAYMENT][complete] FAILED — Error verifying Cashfree payment", {
@@ -244,6 +251,7 @@ export default defineEventHandler(async (event) => {
                 });
             });
         }
+
 
         return { success: true, message: "Payment verified and saved successfully", payment_id: paymentId };
 

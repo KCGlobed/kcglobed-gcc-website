@@ -42,9 +42,9 @@
                   <li class="apply-now-li">
                     <button class="footer-apply-btn" @click="openApplyModal">Apply Now</button>
                   </li>
-                  <!-- <li>
+                  <li>
                     <NuxtLink to="/login">Login</NuxtLink>
-                  </li> -->
+                  </li>
                 </ul>
               </div>
             </div>

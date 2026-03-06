@@ -4,14 +4,10 @@
       <div class="inner-all-pages personal-info-tab">
         <ul class="about-pages-list style2">
           <li v-for="(step, index) in steps" :key="index">
-            <a
-              style="cursor: pointer;"
-              :class="{
-                active: activeStep === index + 1,
-                invalid: invalidSteps.includes(index + 1)
-              }"
-              @click="$emit('step-selected', index + 1)"
-            >
+            <a style="cursor: pointer;" :class="{
+              active: activeStep === index + 1,
+              invalid: invalidSteps.includes(index + 1)
+            }" @click="$emit('step-selected', index + 1)">
               {{ step }}
             </a>
           </li>

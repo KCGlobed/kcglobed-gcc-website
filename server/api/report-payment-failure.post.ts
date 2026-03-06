@@ -1,6 +1,7 @@
 // ── CASHFREE: active (cashfree-pg v5) ────────────────────────────────────────
 import { createCashfreeInstance } from "../utils/cashfree";
 import { savePayment } from "../services/payment.service";
+import { sendPaymentFailureEmail } from "../services/email.service";
 
 // Helper: extract form_id from order_id string (e.g. "cf_322_1772694830212" → "322")
 function extractFormIdFromOrderId(orderId: string): string | null {
@@ -150,6 +151,28 @@ export default defineEventHandler(async (event) => {
             error_reason: error_reason || null,
             timestamp: new Date().toISOString()
         });
+
+        // ── Step 3: Send Failure Email ───────────────────────────────────────────
+        if (userEmail) {
+            try {
+                // Determine payment link, could be the profile page or a direct checkout link
+                const siteUrl = config.public?.siteUrl || "https://www.gccschool.com";
+                const paymentLink = `${siteUrl}/profile`;
+
+                await sendPaymentFailureEmail({
+                    to: userEmail,
+                    name: userName || 'Candidate',
+                    paymentLink: paymentLink,
+                    emailHost: config.emailHost || process.env.EMAIL_HOST || '',
+                    emailUser: config.emailUser || process.env.EMAIL_HOST_USER || '',
+                    emailPassword: config.emailPassword || process.env.EMAIL_HOST_PASSWORD || ''
+                });
+                console.log("[PAYMENT][failure] Sent failure email to", userEmail);
+            } catch (emailErr: any) {
+                console.error("[PAYMENT][failure] Failed to send failure email", emailErr.message);
+                // Do not throw, return success for recording the failure
+            }
+        }
 
         return { success: true, message: "Failure recorded" };
 

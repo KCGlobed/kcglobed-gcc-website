@@ -454,6 +454,25 @@ export default defineComponent({
                                     // cf_payment_id not needed: backend uses PGOrderFetchPayments
                                 }
                             });
+
+                            await $fetch(
+                                'https://gccwebsite-admin-backend-738131651355.asia-south1.run.app/api/users/create_student/',
+                                {
+                                    method: 'POST',
+                                    headers: { 'Content-Type': 'application/json' },
+                                    body:
+                                    {
+                                        "full_name": form.name,
+                                        "email": form.email,
+                                        "city": form.city,
+                                        "state": form.state,
+                                        "country": "India"
+                                    },
+                                }
+                            )
+                            resetForm()
+
+
                         } catch (e) {
                             console.error("[PAYMENT] complete-payment error:", e);
                         }

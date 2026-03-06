@@ -187,3 +187,54 @@ export async function sendPaymentConfirmationEmail(opts: PaymentEmailOptions) {
   //     html
   // });
 }
+
+export async function sendPaymentFailureEmail(opts: {
+  to: string;
+  name: string;
+  paymentLink: string;
+  emailHost: string;
+  emailUser: string;
+  emailPassword: string;
+}) {
+  const transporter = nodemailer.createTransport({
+    host: opts.emailHost,
+    port: 465,
+    secure: true,
+    auth: {
+      user: opts.emailUser,
+      pass: opts.emailPassword
+    }
+  });
+
+  const html = `
+<div style="font-family: Arial, sans-serif; color: #333; line-height: 1.6;">
+  <p>Dear ${opts.name || 'Candidate'},</p>
+  
+  <p>Greetings from GCC School!</p>
+  
+  <p>It is found that you could not make the NFET enrolment fee successfully. You may enroll by paying the fee at this link:</p>
+  
+  <p><a href="${opts.paymentLink}" style="color: #A13E99; text-decoration: underline;">${opts.paymentLink}</a></p>
+  
+  <p>Once your payment is successful, you will receive your student kit (free of cost) on your dashboard.</p>
+  
+  <p>If you need any assistance, you may reach out to our team through email &ndash; <a href="mailto:info@gccschool.com">info@gccschool.com</a> and mobile &ndash; +91 9773576111.</p>
+  
+  <p>Thank You!</p>
+  
+  <p>
+    Warm regards,<br>
+    <strong>Team GCC School</strong><br>
+    +919773576111<br>
+    <a href="https://www.gccschool.com/">https://www.gccschool.com/</a>
+  </p>
+</div>
+  `;
+
+  await transporter.sendMail({
+    from: `"GCC School" <${opts.emailUser}>`,
+    to: opts.to,
+    subject: `Complete Your NFET Registration – Payment Pending`,
+    html
+  });
+}

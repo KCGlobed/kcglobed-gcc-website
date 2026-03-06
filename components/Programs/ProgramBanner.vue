@@ -44,8 +44,9 @@
                                                     <input type="tel" class="form-control" id="phoneNumber"
                                                         v-model="form.mobile" placeholder="Enter your phone number"
                                                         :class="{ 'is-invalid': errors.mobile }">
-                                                    <div class="invalid-feedback" v-if="errors.mobile">{{ errors.mobile
-                                                        }}
+                                                    <div class="invalid-feedback" v-if="errors.mobile">{{
+                                                        errors.mobile }}
+
                                                     </div>
                                                 </div>
                                             </div>
