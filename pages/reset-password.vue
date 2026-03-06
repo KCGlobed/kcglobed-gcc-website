@@ -13,7 +13,7 @@
                 <!-- Brand logo inside card -->
                 <div class="card-logo">
                     <div class="logo-mark">
-                        <img src="/img/GCC-School-Logo-White.png" alt="" srcset="">
+                        <img src="/img/GCC-School-Logo-White.png" alt="" />
                     </div>
                 </div>
 
@@ -21,7 +21,7 @@
                 <template v-if="!submitted">
                     <div class="card-header">
                         <p class="card-title">Enter new password</p>
-                        <p class="card-sub">Your new password must be at least 8 characters.</p>
+
                     </div>
 
                     <form class="login-form" novalidate @submit.prevent="handleSubmit">
@@ -145,7 +145,7 @@
                             </svg>
                         </div>
                         <p class="success-title">Password reset!</p>
-                        <p class="success-sub">Your password has been updated successfully.<br />You can now sign in
+                        <p class="success-sub">Your password has been updated successfully.<br>You can now sign in
                             with your new password.</p>
                         <NuxtLink to="/login" class="submit-btn" style="text-decoration: none; margin-top: 6px;">
                             Go to sign in
@@ -182,8 +182,9 @@ interface FormErrors {
     confirmPassword: string
 }
 
-// --- Route (token from URL query e.g. /reset-password?token=xxx) ---
+// --- Route (e.g. Reset Password URL with uid and token) ---
 const route = useRoute()
+const uid = route.query.uid as string | undefined
 const token = route.query.token as string | undefined
 
 // --- State ---
@@ -237,19 +238,44 @@ async function handleSubmit() {
     globalError.value = ''
     if (!validateAll()) return
 
+    if (!uid || !token) {
+        globalError.value = 'Invalid or expired reset link. Please request a new one.'
+        return
+    }
+
     isLoading.value = true
     try {
         const payload = {
-            token: token ?? null,
+            uid: uid,
+            token: token,
             password: form.value.password,
-            confirmPassword: form.value.confirmPassword,
+            confirm_password: form.value.confirmPassword,
         }
-        console.log('[ResetPassword] Form submitted:', payload)
-        // TODO: Replace with API call, e.g:
-        // await $fetch('/api/auth/reset-password', { method: 'POST', body: payload })
+        console.log('[ResetPassword] Attempting reset with payload:', payload)
+
+        await $fetch(
+            'https://gccwebsite-admin-backend-738131651355.asia-south1.run.app/api/users/reset-password/',
+            {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: payload,
+            }
+        )
+
         submitted.value = true
     } catch (err: any) {
-        globalError.value = err?.message ?? 'Something went wrong. Please try again.'
+        console.error('[ResetPassword] API Error:', err)
+
+        const errorData = err?.data
+        if (errorData?.non_field_errors && Array.isArray(errorData.non_field_errors)) {
+            globalError.value = errorData.non_field_errors[0]
+        } else {
+            globalError.value =
+                errorData?.detail ??
+                errorData?.message ??
+                err?.message ??
+                'Something went wrong. Please try again.'
+        }
     } finally {
         isLoading.value = false
     }
@@ -265,7 +291,7 @@ useHead({
 <style scoped lang="scss">
 @import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600&family=Sora:wght@600;700&display=swap');
 
-// -- Tokens --
+// -- css variables --
 $indigo: #6366f1;
 $violet: #8b5cf6;
 $surface: #ffffff;
@@ -365,6 +391,7 @@ $radius: 14px;
 .card-logo {
     display: flex;
     align-items: center;
+    justify-content: center;
     gap: 11px;
     margin-bottom: 20px;
 }
@@ -386,10 +413,10 @@ $radius: 14px;
     border-radius: 20px;
     padding: 36px 36px 32px;
     box-shadow:
-        0 1px 3px rgba(0, 0, 0, .06),
-        0 8px 24px rgba(99, 102, 241, .10),
-        0 24px 64px rgba(0, 0, 0, .08);
-    border: 1px solid rgba(255, 255, 255, .8);
+        0 1px 3px rgba(0, 0, 0, 0.06),
+        0 8px 24px rgba(99, 102, 241, 0.10),
+        0 24px 64px rgba(0, 0, 0, 0.08);
+    border: 1px solid rgba(255, 255, 255, 0.8);
     animation: slideUp .45s cubic-bezier(.22, .8, .38, 1) both;
 }
 

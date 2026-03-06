@@ -21,7 +21,7 @@
                 <template v-if="!submitted">
                     <div class="card-header">
                         <p class="card-title">Set new password</p>
-                        <p class="card-sub">Your new password must be at least 8 characters.</p>
+                        <!-- <p class="card-sub">Your new password must be at least 8 characters.</p> -->
                     </div>
 
                     <form class="login-form" novalidate @submit.prevent="handleSubmit">
@@ -367,6 +367,7 @@ $radius: 14px;
     align-items: center;
     gap: 11px;
     margin-bottom: 20px;
+    justify-content: center;
 }
 
 .logo-mark {

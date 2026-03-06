@@ -21,7 +21,6 @@
                 <template v-if="!submitted">
                     <div class="card-header">
                         <p class="card-title">Forgot your password?</p>
-                        <p class="card-sub">Enter your email and we'll send you a reset link.</p>
                     </div>
 
                     <form class="login-form" novalidate @submit.prevent="handleSubmit">
@@ -174,12 +173,31 @@ async function handleSubmit() {
     try {
         const payload = { email: form.value.email }
         console.log('[ForgotPassword] Request submitted:', payload)
-        // TODO: Replace with API call, e.g:
-        // await $fetch('/api/auth/forgot-password', { method: 'POST', body: payload })
+
+        await $fetch(
+            'https://gccwebsite-admin-backend-738131651355.asia-south1.run.app/api/users/forgot-password/',
+            {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: payload,
+            }
+        )
+
         submitted.value = true
         startCooldown()
     } catch (err: any) {
-        globalError.value = err?.message ?? 'Something went wrong. Please try again.'
+        console.error('[ForgotPassword] API Error:', err)
+
+        const errorData = err?.data
+        if (errorData?.non_field_errors && Array.isArray(errorData.non_field_errors)) {
+            globalError.value = errorData.non_field_errors[0]
+        } else {
+            globalError.value =
+                errorData?.detail ??
+                errorData?.message ??
+                err?.message ??
+                'Something went wrong. Please try again.'
+        }
     } finally {
         isLoading.value = false
     }
@@ -188,13 +206,34 @@ async function handleSubmit() {
 // --- Resend ---
 async function handleResend() {
     if (resendCooldown.value > 0) return
+    globalError.value = ''
     try {
         const payload = { email: form.value.email }
         console.log('[ForgotPassword] Resend requested:', payload)
-        // TODO: await $fetch('/api/auth/forgot-password', { method: 'POST', body: payload })
+
+        await $fetch(
+            'https://gccwebsite-admin-backend-738131651355.asia-south1.run.app/api/users/forgot-password/',
+            {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: payload,
+            }
+        )
+
         startCooldown()
     } catch (err: any) {
-        globalError.value = err?.message ?? 'Something went wrong. Please try again.'
+        console.error('[ForgotPassword] Resend API Error:', err)
+
+        const errorData = err?.data
+        if (errorData?.non_field_errors && Array.isArray(errorData.non_field_errors)) {
+            globalError.value = errorData.non_field_errors[0]
+        } else {
+            globalError.value =
+                errorData?.detail ??
+                errorData?.message ??
+                err?.message ??
+                'Something went wrong. Please try again.'
+        }
     }
 }
 
@@ -310,6 +349,7 @@ $radius: 14px;
     align-items: center;
     gap: 11px;
     margin-bottom: 20px;
+    justify-content: center;
 }
 
 .logo-mark {

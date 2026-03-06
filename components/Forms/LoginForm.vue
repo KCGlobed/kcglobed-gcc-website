@@ -191,13 +191,13 @@ async function handleSubmit() {
         const payload = {
             email: form.value.email,
             password: form.value.password,
-            role: 'admin',
+            role: 'student',
         }
 
         console.log('[Login] Sending request with payload:', payload)
 
         const response: any = await $fetch(
-            'https://gccwebsite-admin-backend-738131651355.asia-south1.run.app/api/users/login/',
+            'https://gccwebsite-admin-backend-738131651355.asia-south1.run.app/api/users/website_login/',
             {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
@@ -226,11 +226,17 @@ async function handleSubmit() {
     } catch (err: any) {
         console.error('[Login] API Error:', err)
         console.error('[Login] Error data:', err?.data)
-        globalError.value =
-            err?.data?.detail ??
-            err?.data?.message ??
-            err?.message ??
-            'Invalid credentials. Please try again.'
+
+        const errorData = err?.data
+        if (errorData?.non_field_errors && Array.isArray(errorData.non_field_errors)) {
+            globalError.value = errorData.non_field_errors[0]
+        } else {
+            globalError.value =
+                errorData?.detail ??
+                errorData?.message ??
+                err?.message ??
+                'Invalid credentials. Please try again.'
+        }
     } finally {
         isLoading.value = false
     }

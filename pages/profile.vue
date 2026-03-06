@@ -59,7 +59,7 @@
                                 :class="openSection === 1 ? 'ti-chevron-up' : 'ti-chevron-down'"></i>
                         </div>
                     </div>
-                    <div class="accordion-body" v-show="openSection === 1">
+                    <div class="accordion-body p-4 p-lg-5" v-show="openSection === 1">
                         <PersonalInformation ref="section1Ref" :formData="formData" />
                     </div>
                 </div>
@@ -79,7 +79,7 @@
                                 :class="openSection === 2 ? 'ti-chevron-up' : 'ti-chevron-down'"></i>
                         </div>
                     </div>
-                    <div class="accordion-body" v-show="openSection === 2">
+                    <div class="accordion-body p-4 p-lg-5" v-show="openSection === 2">
                         <AcademicInformation ref="section2Ref" :formData="formData" />
                     </div>
                 </div>
@@ -98,17 +98,8 @@
                                 :class="openSection === 3 ? 'ti-chevron-up' : 'ti-chevron-down'"></i>
                         </div>
                     </div>
-                    <div class="accordion-body" v-show="openSection === 3">
+                    <div class="accordion-body p-4 p-lg-5" v-show="openSection === 3">
                         <WorkExperienceDetails ref="section3Ref" :formData="formData" />
-                        <div class="section-footer pt-3 pr-4 pb-4 pb-lg-5 text-end pe-4" v-if="openSection === 3">
-                            <button class="accordion-save-btn ms-auto" @click="submitUserData"
-                                :disabled="isSavingSection || isSectionSaved">
-                                <span v-if="isSavingSection" class="spinner-border spinner-border-sm me-1" role="status"
-                                    aria-hidden="true"></span>
-                                {{ isSectionSaved ? 'Saved' : 'Save' }} <i class="ti ti-check"
-                                    v-if="!isSavingSection"></i>
-                            </button>
-                        </div>
                     </div>
                 </div>
 
@@ -126,10 +117,21 @@
                                 :class="openSection === 4 ? 'ti-chevron-up' : 'ti-chevron-down'"></i>
                         </div>
                     </div>
-                    <div class="accordion-body" v-show="openSection === 4">
-                        <DocumentUpload ref="section4aRef" :userId="profileUserId" :formData="formData" />
+                    <div class="accordion-body p-4 p-lg-5" v-show="openSection === 4">
+                        <DocumentUpload ref="section4aRef" :formData="formData" />
                         <!-- <div class="section-divider"></div> -->
                         <!-- <PrePaymentDeclaration ref="section4bRef" :formData="formData" /> -->
+                    </div>
+                </div>
+                <div class="p-3 bg-light rounded-3 mb-4">
+                    <div class="form-check custom-declaration">
+                        <input class="form-check-input" type="checkbox" id="declaration"
+                            v-model="formData.declaration" />
+                        <label class="form-check-label ms-2 fw-medium text-dark" for="declaration">
+                            I declare that all the information and documents submitted by me are true to the best of my
+                            knowledge. I agree that in case any information or document found fake/forged/false
+                            submitted by me, then my candidature may cancel at any stage of course. 
+                        </label>
                     </div>
                 </div>
 
@@ -140,8 +142,10 @@
         <div class="container pb-100">
             <div class="row">
                 <div class="col-lg-12">
-                    <div class="d-flex justify-content-end">
-                        <button style="background-color: #872980;" class="default-btn" @click="handleFinalSubmit">
+                    <div class="d-flex justify-content-center">
+                        <button style="background-color: #872980;" class="submit-btn default-btn"
+                            @click="handleFinalSubmit" :disabled="!formData.declaration"
+                            :class="{ 'opacity-50 cursor-not-allowed': !formData.declaration }">
                             Submit <i class="ti ti-check"></i>
                         </button>
                     </div>
@@ -193,14 +197,6 @@ const formData = reactive({
     last_name: "",
     father_name: "",
     father_mobile: "",
-    father_email: "",
-    father_occupation: "",
-    father_occupation_other: "",
-    mother_name: "",
-    mother_mobile: "",
-    mother_email: "",
-    mother_occupation: "",
-    mother_occupation_other: "",
     dob: "",
     gender: "",
     nationality: "Indian",
@@ -209,14 +205,14 @@ const formData = reactive({
     city: "",
     state: "",
     pin_code: "",
+    complete_address: "",
     class10_year: "",
     class10_score: "",
     class12_year: "",
     class12_score: "",
     medium: "",
     medium_other: "",
-    ug_status: "",
-    first_division: "",
+    ug_status: "Completed",
     ug_cgpa: "",
     ug_institution: "",
     pg_exists: "",
@@ -224,7 +220,8 @@ const formData = reactive({
     pg_other: "",
     pg_institution: "",
     work_experience: [] as any[],
-    documents: {} as Record<string, any>
+    documents: {} as Record<string, any>,
+    declaration: false
 });
 
 const section1Ref = ref<any>(null);
@@ -236,38 +233,7 @@ const section4bRef = ref<any>(null);
 const toggleSection = (index: number) => {
     openSection.value = openSection.value === index ? null : index;
 };
-const isSavingSection = ref(false);
-const isSectionSaved = ref(false);
-const profileUserId = ref<number | null>(userId.value);
 
-const submitUserData = async () => {
-    isSavingSection.value = true;
-    try {
-        const response: any = await $fetch("/api/register-user", {
-            method: "POST",
-            body: formData
-        });
-
-        if (!response.success) {
-            alert(response.message || "Submission failed");
-            return false;
-        }
-
-        // Store internally to pass down to DocumentUpload
-        profileUserId.value = Number(response.user_id);
-        console.log("User ID saved as profileUserId:", profileUserId.value);
-
-        isSectionSaved.value = true;
-
-        return true;
-    } catch (error) {
-        console.error("API Error:", error);
-        alert("Something went wrong. Please try again.");
-        return false;
-    } finally {
-        isSavingSection.value = false;
-    }
-};
 
 const saveSection = async (index: number) => {
     // Legacy generic save map
@@ -282,13 +248,6 @@ const saveSection = async (index: number) => {
         if (isValid) {
             alert("Section saved successfully!");
         }
-    }
-    if (index === 3) {
-        const success = await submitUserData();
-        if (!success) return;
-        alert("Profile saved successfully!");
-        openSection.value = 4; // open document section
-        return;
     }
 };
 
@@ -307,8 +266,50 @@ function loadRazorpayScript() {
 }
 
 const handleFinalSubmit = async () => {
-    console.log("Final Submit");
-    console.log(formData);
+    // Validate all sections before submission
+    if (section1Ref.value?.validate && !section1Ref.value.validate()) { openSection.value = 1; return; }
+    if (section2Ref.value?.validate && !section2Ref.value.validate()) { openSection.value = 2; return; }
+    if (section3Ref.value?.validate && !section3Ref.value.validate()) { openSection.value = 3; return; }
+    if (section4aRef.value?.validate && !section4aRef.value.validate()) { openSection.value = 4; return; }
+
+    if (!formData.declaration) {
+        alert("Please check the declaration before submitting.");
+        return;
+    }
+
+    console.log("Constructing FormData for Binary Submission...");
+    const data = new FormData();
+
+    // Loop through all fields in formData except 'documents' and 'work_experience'
+    Object.keys(formData).forEach(key => {
+        if (key !== 'documents' && key !== 'work_experience') {
+            data.append(key, (formData as any)[key]);
+        }
+    });
+
+    // Handle nested work_experience (serialized as JSON string for typical backend handling)
+    data.append('work_experience', JSON.stringify(formData.work_experience));
+
+    // Handle documents (binary files)
+    Object.keys(formData.documents).forEach(key => {
+        const file = formData.documents[key];
+        if (file instanceof File) {
+            data.append(key, file);
+        }
+    });
+
+    // Logging all entries to console
+    console.log("--- FormData Entries ---");
+    for (const [key, value] of (data as any).entries()) {
+        if (value instanceof File) {
+            console.log(`${key}: [File] ${value.name} (${value.size} bytes)`);
+        } else {
+            console.log(`${key}: ${value}`);
+        }
+    }
+    console.log("------------------------");
+
+    alert("Check Console for Form Data Output! Binary files included.");
 }
 
 // const handleFinalSubmit = async () => {
@@ -556,31 +557,6 @@ const handleFinalSubmit = async () => {
     gap: 12px;
 }
 
-.accordion-save-btn {
-    display: flex;
-    align-items: center;
-    gap: 6px;
-    background: #7c3aed;
-    color: #fff;
-    border: none;
-    border-radius: 8px;
-    padding: 7px 16px;
-    font-size: 13px;
-    font-weight: 600;
-    cursor: pointer;
-    transition: background 0.2s;
-}
-
-.accordion-save-btn:hover {
-    background: #6d28d9;
-}
-
-.accordion-chevron {
-    font-size: 20px;
-    color: #7c3aed;
-    transition: transform 0.25s;
-}
-
 .accordion-body {
     border-top: 1px solid #f0ebff;
 }
@@ -589,5 +565,29 @@ const handleFinalSubmit = async () => {
     height: 1px;
     background: #f0ebff;
     margin: 0 24px;
+}
+
+.submit-btn {
+    width: 500px;
+}
+
+.custom-declaration .form-check-input:checked {
+    background-color: #872980;
+    border-color: #872980;
+}
+
+.custom-declaration .form-check-input {
+    cursor: pointer;
+    width: 1.25em;
+    height: 1.25em;
+}
+
+.custom-declaration .form-check-label {
+    cursor: pointer;
+    user-select: none;
+}
+
+.cursor-not-allowed {
+    cursor: not-allowed !important;
 }
 </style>

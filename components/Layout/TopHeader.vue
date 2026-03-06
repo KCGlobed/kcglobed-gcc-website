@@ -33,9 +33,16 @@
               <li>
                 <NuxtLink to="/career">Careers</NuxtLink>
               </li>
-              <li class="account-item">
+              <li v-if="isAuthenticated">
+                <NuxtLink to="/profile">Profile</NuxtLink>
+              </li>
+              <li class="account-item" v-if="!isAuthenticated">
                 <i class="ti ti-user"></i>
                 <NuxtLink to="/login">Login</NuxtLink>
+              </li>
+              <li class="account-item" v-else>
+                <i class="ti ti-logout"></i>
+                <a @click="handleLogout">Logout</a>
               </li>
             </ul>
           </div>
@@ -44,6 +51,22 @@
     </div>
   </div>
 </template>
+
+<script setup>
+import { useAuth } from '~/composables/useAuth'
+import { onMounted } from 'vue'
+
+const { isAuthenticated, logout, init } = useAuth()
+
+onMounted(() => {
+  init()
+})
+
+const handleLogout = () => {
+  logout()
+  window.location.href = '/login'
+}
+</script>
 
 <script>
 export default {
