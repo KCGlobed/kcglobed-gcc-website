@@ -42,15 +42,25 @@
         </div>
 
         <div class="row">
-          <div class="input-group">
-            <label>State*</label>
-            <input v-model="form.state" type="text" placeholder="State" required />
-          </div>
+            <div class="input-group">
+                <label>State*</label>
+                <select v-model="form.state" required>
+                <option value="">Select State</option>
+                <option v-for="state in states" :key="state.iso2" :value="state.iso2">
+                    {{ state.name }}
+                </option>
+                </select>
+            </div>
 
-          <div class="input-group">
-            <label>City*</label>
-            <input v-model="form.city" type="text" placeholder="City" required />
-          </div>
+            <div class="input-group">
+                <label>City*</label>
+                <select v-model="form.city" required>
+                <option value="">Select City</option>
+                <option v-for="city in cities" :key="city.id" :value="city.name">
+                    {{ city.name }}
+                </option>
+                </select>
+            </div>
         </div>
 
         <button type="submit" class="submit-btn" :disabled="loading">
@@ -68,11 +78,21 @@
 </template>
 
 <script setup>
-import { ref } from "vue"
+import { ref, onMounted, watch } from "vue"
 
 const isOpen = ref(false)
 const loading = ref(false)
 const message = ref("")
+
+const states = ref([])
+const cities = ref([])
+
+const requestOptions = {
+  method: "GET",
+  headers: {
+    "X-CSCAPI-KEY": "Q3k5SXFtVjNubXRBZjdKRFJ1QVJLQkZqQ3lYT2JNVUhVZmhOYm5ESw=="
+  }
+}
 
 const form = ref({
   first_name: "",
@@ -86,6 +106,30 @@ const form = ref({
 const toggleForm = () => {
   isOpen.value = !isOpen.value
 }
+
+onMounted(async () => {
+
+  const res = await fetch(
+    "https://api.countrystatecity.in/v1/countries/IN/states",
+    requestOptions
+  )
+
+  states.value = await res.json()
+
+})
+
+watch(() => form.value.state, async (state) => {
+
+  if (!state) return
+
+  const res = await fetch(
+    `https://api.countrystatecity.in/v1/countries/IN/states/${state}/cities`,
+    requestOptions
+  )
+
+  cities.value = await res.json()
+
+})
 
 const submitForm = async () => {
 
@@ -101,7 +145,6 @@ const submitForm = async () => {
       body: form.value
     })
 
-    // reset form
     form.value = {
       first_name: "",
       last_name: "",
@@ -111,7 +154,6 @@ const submitForm = async () => {
       city: ""
     }
 
-    // close form after success
     isOpen.value = false
 
   } catch (err) {
@@ -207,6 +249,20 @@ const submitForm = async () => {
 .input-group input:focus {
   outline: none;
   border-color: #A13E99 !important;
+}
+
+.input-group select {
+  width: 100%;
+  border: 1px solid #ddd;
+  padding: 9px 10px;
+  border-radius: 6px;
+  font-size: 14px;
+  background: white;
+}
+
+.input-group select:focus {
+  outline: none;
+  border-color: #f5a623;
 }
 
 .submit-btn {
