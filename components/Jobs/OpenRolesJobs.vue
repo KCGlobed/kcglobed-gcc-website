@@ -5,13 +5,7 @@
         <h2>Open roles at Tuva</h2>
       </div>
       <div class="row g-4">
-        <div
-          class="col-lg-6"
-          v-for="job in jobs"
-          :key="job.id"
-          data-aos="fade-up"
-          :data-aos-delay="job.dataDelay"
-        >
+        <div class="col-lg-6" v-for="job in jobs" :key="job.id" data-aos="fade-up" :data-aos-delay="job.dataDelay">
           <div class="event-widget bg-1 open-role-card">
             <span>{{ job.tag }}</span>
             <h3>
@@ -74,7 +68,7 @@ export default defineComponent({
           date: "30 Nov 2024",
           location: "32/6, Western Hill, Canada",
           btnText: "Apply Now",
-          btnLink: "/personal-information",
+          btnLink: "/admission-form",
           dataDelay: "200",
         },
         {
@@ -85,7 +79,7 @@ export default defineComponent({
           date: "28 Nov 2024",
           location: "32/6, Western Hill, Canada",
           btnText: "Apply Now",
-          btnLink: "/personal-information",
+          btnLink: "/admission-form",
           dataDelay: "300",
         },
         {
@@ -95,7 +89,7 @@ export default defineComponent({
           date: "22 Nov 2024",
           location: "32/6, Western Hill, Canada",
           btnText: "Apply Now",
-          btnLink: "/personal-information",
+          btnLink: "/admission-form",
           dataDelay: "200",
         },
         {
@@ -106,7 +100,7 @@ export default defineComponent({
           date: "14 Nov 2024",
           location: "32/6, Western Hill, Canada",
           btnText: "Apply Now",
-          btnLink: "/personal-information",
+          btnLink: "/admission-form",
           dataDelay: "300",
         },
         {
@@ -117,7 +111,7 @@ export default defineComponent({
           date: "20 Nov 2024",
           location: "32/6, Western Hill, Canada",
           btnText: "Apply Now",
-          btnLink: "/personal-information",
+          btnLink: "/admission-form",
           dataDelay: "200",
         },
         {
@@ -127,7 +121,7 @@ export default defineComponent({
           date: "28 Nov 2024",
           location: "32/6, Western Hill, Canada",
           btnText: "Apply Now",
-          btnLink: "/personal-information",
+          btnLink: "/admission-form",
           dataDelay: "300",
         },
       ],

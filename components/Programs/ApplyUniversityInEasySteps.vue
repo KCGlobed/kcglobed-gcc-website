@@ -5,13 +5,8 @@
         <h2 class="reveal3">Apply Tuva University In 3 Easy Steps</h2>
       </div>
       <div class="row justify-content-center align-items-center g-4 gx-5">
-        <div
-          class="col-lg-4 col-md-6"
-          v-for="apply in applyItems"
-          :key="apply.id"
-          data-aos="fade-up"
-          :data-aos-delay="apply.dataDelay"
-        >
+        <div class="col-lg-4 col-md-6" v-for="apply in applyItems" :key="apply.id" data-aos="fade-up"
+          :data-aos-delay="apply.dataDelay">
           <div class="apply-card">
             <div class="icon">
               <img :src="apply.icon" alt="icon" />
@@ -29,11 +24,7 @@
       </div>
     </div>
     <div class="all-shapes">
-      <img
-        src="~/assets/img/shapes/apply-shape1.png"
-        class="apply-shape1"
-        alt="image"
-      />
+      <img src="~/assets/img/shapes/apply-shape1.png" class="apply-shape1" alt="image" />
     </div>
   </div>
 </template>
@@ -57,7 +48,7 @@ export default defineComponent({
           shortDesc:
             "Tell us a little about yourself and we’ll help with the rest. Our convenient online application tool only takes 10 minutes to complete.",
           btnText: "Apply Now",
-          btnLink: "/personal-information",
+          btnLink: "/admission-form",
           dataDelay: "200",
         },
         {
@@ -67,7 +58,7 @@ export default defineComponent({
           shortDesc:
             "After you submit your application, an admissions representative will contact you and will help you to participate in the online exam.",
           btnText: "Apply Now",
-          btnLink: "/personal-information",
+          btnLink: "/admission-form",
           dataDelay: "300",
         },
         {
@@ -77,7 +68,7 @@ export default defineComponent({
           shortDesc:
             "Once you’ve completed your application and connected with an admissions representative, you’re ready to create your schedule.",
           btnText: "Apply Now",
-          btnLink: "/personal-information",
+          btnLink: "/admission-form",
           dataDelay: "400",
         },
       ],

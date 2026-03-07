@@ -16,8 +16,7 @@
         </div>
         <div class="col-lg-5">
           <div class="graduate-program-button text-end">
-            <NuxtLink to="/personal-information" class="default-btn"
-              >See How To Apply
+            <NuxtLink to="/admission-form" class="default-btn">See How To Apply
               <i class="ti ti-arrow-narrow-right"></i>
             </NuxtLink>
           </div>

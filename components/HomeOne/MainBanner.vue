@@ -876,7 +876,7 @@ export default defineComponent({
         heading: "World's 1st School Backed by Industry, Built on Execution",
         description: "",
         btnText: "Apply Now",
-        btnLink: "/personal-information",
+        btnLink: "/admission-form",
         btnTextTwo: "Download Dossier",
         btnLinkTwo: gccPdf,
         updateTitle: "View all latest news updates of Tuva",
@@ -901,7 +901,7 @@ export default defineComponent({
           id: 3,
           icon: "ti ti-ballpen",
           title: "Apply Now",
-          link: "/personal-information",
+          link: "/admission-form",
         }
 
           ,

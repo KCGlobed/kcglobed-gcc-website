@@ -5,13 +5,8 @@
         <h2>Search And Transfer Your Credits</h2>
       </div>
       <div class="row g-4 justify-content-center">
-        <div
-          class="col-lg-4 col-md-6"
-          v-for="credit in credits"
-          :key="credit.id"
-          data-aos="fade-up"
-          :data-aos-delay="credit.dataDelay"
-        >
+        <div class="col-lg-4 col-md-6" v-for="credit in credits" :key="credit.id" data-aos="fade-up"
+          :data-aos-delay="credit.dataDelay">
           <div class="transfer-credit-card">
             <div class="image">
               <img :src="credit.image" alt="image" />
@@ -56,7 +51,7 @@ export default defineComponent({
           shortDesc:
             "After you submit your application, an admissions representative will contact you and will help you to participate in the online exam.",
           btnText: "Apply Now",
-          btnLink: "/personal-information",
+          btnLink: "/admission-form",
           dataDelay: "200",
         },
         {
@@ -67,7 +62,7 @@ export default defineComponent({
           shortDesc:
             "After you submit your application, an admissions representative will contact you and will help you to participate in the online exam.",
           btnText: "Apply Now",
-          btnLink: "/personal-information",
+          btnLink: "/admission-form",
           dataDelay: "300",
         },
         {
@@ -77,7 +72,7 @@ export default defineComponent({
           shortDesc:
             "After you submit your application, an admissions representative will contact you and will help you to participate in the online exam.",
           btnText: "Apply Now",
-          btnLink: "/personal-information",
+          btnLink: "/admission-form",
           dataDelay: "400",
         },
       ],
