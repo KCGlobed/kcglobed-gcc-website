@@ -18,6 +18,12 @@
                         </span>
                     </div>
                     <div class="invalid-feedback d-block" v-if="errors.aadhaar">{{ errors.aadhaar }}</div>
+                    <div class="mt-2" v-if="formData.existingDocuments && formData.existingDocuments.aadhaar">
+                        <a :href="formData.existingDocuments.aadhaar" target="_blank"
+                            class="btn btn-sm btn-outline-primary">
+                            <i class="ti ti-eye"></i> View Current Document
+                        </a>
+                    </div>
                 </div>
             </div>
 
@@ -33,6 +39,12 @@
                         </span>
                     </div>
                     <div class="invalid-feedback d-block" v-if="errors.dob_proof">{{ errors.dob_proof }}</div>
+                    <div class="mt-2" v-if="formData.existingDocuments && formData.existingDocuments.dob_proof">
+                        <a :href="formData.existingDocuments.dob_proof" target="_blank"
+                            class="btn btn-sm btn-outline-primary">
+                            <i class="ti ti-eye"></i> View Current Document
+                        </a>
+                    </div>
                 </div>
             </div>
 
@@ -48,6 +60,12 @@
                         </span>
                     </div>
                     <div class="invalid-feedback d-block" v-if="errors.photo">{{ errors.photo }}</div>
+                    <div class="mt-2" v-if="formData.existingDocuments && formData.existingDocuments.photo">
+                        <a :href="formData.existingDocuments.photo" target="_blank"
+                            class="btn btn-sm btn-outline-primary">
+                            <i class="ti ti-eye"></i> View Current Photograph
+                        </a>
+                    </div>
                 </div>
             </div>
         </div>
@@ -109,7 +127,10 @@ export default {
             };
 
             Object.keys(requiredFields).forEach(field => {
-                if (!this.formData.documents[field]) {
+                const hasNewDocument = !!this.formData.documents[field];
+                const hasExistingDocument = !!(this.formData.existingDocuments && this.formData.existingDocuments[field]);
+
+                if (!hasNewDocument && !hasExistingDocument) {
                     this.errors[field] = requiredFields[field];
                     isValid = false;
                 }

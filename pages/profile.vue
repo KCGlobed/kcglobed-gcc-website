@@ -16,9 +16,25 @@
 
                 <!-- Avatar (overlapping cover) -->
                 <div class="profile-avatar-wrap">
-                    <div class="profile-avatar">
+                    <div class="profile-avatar" @click="triggerImageUpload"
+                        style="cursor: pointer; position: relative;">
+                        <!-- Loading Overlay -->
+                        <div v-if="isImageUploading" class="upload-overlay">
+                            <span class="spinner-border spinner-border-sm text-white" role="status"
+                                aria-hidden="true"></span>
+                        </div>
+
                         <img v-if="profileImage" :src="profileImage" alt="Profile" class="avatar-img" />
                         <i v-else class="ti ti-user"></i>
+
+                        <!-- Hover Edit Icon -->
+                        <div class="edit-icon-overlay">
+                            <i class="ti ti-camera"></i>
+                        </div>
+
+                        <!-- Hidden File Input -->
+                        <input type="file" ref="profileImageInput" class="d-none" accept="image/*"
+                            @change="handleProfileImageUpload" />
                     </div>
                 </div>
 
@@ -145,10 +161,14 @@
             <div class="row">
                 <div class="col-lg-12">
                     <div class="d-flex justify-content-center">
-                        <button style="background-color: #872980;" class="submit-btn default-btn"
-                            @click="handleFinalSubmit" :disabled="!formData.declaration"
-                            :class="{ 'opacity-50 cursor-not-allowed': !formData.declaration }">
-                            Submit <i class="ti ti-check"></i>
+                        <button style="background-color: #872980;"
+                            class="submit-btn default-btn d-flex align-items-center justify-content-center gap-2"
+                            @click="handleFinalSubmit" :disabled="!formData.declaration || isSubmitting"
+                            :class="{ 'opacity-50 cursor-not-allowed': !formData.declaration || isSubmitting }">
+                            <span v-if="isSubmitting" class="spinner-border spinner-border-sm" role="status"
+                                aria-hidden="true"></span>
+                            {{ isSubmitting ? 'Submitting...' : 'Submit' }} <i v-if="!isSubmitting"
+                                class="ti ti-check"></i>
                         </button>
                     </div>
                 </div>
@@ -196,17 +216,16 @@ const fetchStudentDetail = async () => {
     try {
         const { getAccessToken } = useAuth();
         const token = getAccessToken();
-        const response: any = await $fetch(`https://gccwebsite-admin-backend-738131651355.asia-south1.run.app/api/users/view-student-detail/${userId.value}`, {
+        const response: any = await $fetch("https://gccwebsite-admin-backend-738131651355.asia-south1.run.app/api/students/get-student-profile/", {
             headers: token ? { 'Authorization': `Bearer ${token}` } : {}
         });
 
-        if (response.success && response.data) {
+        if (response.data) {
             const d = response.data;
+
             // Name splitting logic
-            const fullName = d.first_name || "";
-            const nameParts = fullName.trim().split(/\s+/);
-            formData.first_name = nameParts[0] || "";
-            formData.last_name = nameParts.length > 1 ? nameParts.slice(1).join(" ") : (d.last_name || "");
+            formData.first_name = d.first_name || "";
+            formData.last_name = d.last_name || "";
 
             formData.email = d.email || "";
             formData.mobile = d.phone || d.phone1 || "";
@@ -217,7 +236,7 @@ const fetchStudentDetail = async () => {
             formData.nationality = d.nationality || "Indian";
             formData.complete_address = d.address || "";
 
-            // Reverse Mapping for Choices
+            // Mappings for Choices
             const genderReverseMap: Record<number, string> = { 1: "Male", 2: "Female", 3: "Other" };
             formData.gender = genderReverseMap[d.gender] || "";
 
@@ -244,10 +263,12 @@ const fetchStudentDetail = async () => {
             formData.employment_status = employementReverseMap[d.employement_status] || "Fresher";
 
             // Work Experience
-            if (d.user_experience && Array.isArray(d.user_experience)) {
-                formData.work_experience = d.user_experience.map((job: any) => ({
+            if (d.student_experience && Array.isArray(d.student_experience) && d.student_experience.length > 0) {
+                formData.employment_status = "Experienced";
+                formData.work_experience = d.student_experience.map((job: any) => ({
                     org_name: job.company_name,
                     designation: job.position,
+                    functional_area: job.area || "",
                     from: job.start_date,
                     to: job.end_date
                 }));
@@ -256,8 +277,28 @@ const fetchStudentDetail = async () => {
             formData.father_name = d.contact_name || "";
             formData.father_mobile = d.contact_phone || "";
 
-            profileImage.value = d.image || d.photo || null;
+            formData.existingDocuments = {
+                aadhaar: d.aadhaar || null,
+                dob_proof: d.dob_certificate || null,
+                photo: null // Fallback initialized
+            };
         }
+
+        // Fetch image specifically from the detail API as requested
+        try {
+            const detailRes: any = await $fetch(`https://gccwebsite-admin-backend-738131651355.asia-south1.run.app/api/users/view-student-detail/${userId.value}`, {
+                headers: token ? { 'Authorization': `Bearer ${token}` } : {}
+            });
+            if (detailRes.success && detailRes.data) {
+                profileImage.value = detailRes.data.image || detailRes.data.photo || profileImage.value;
+                if (formData.existingDocuments) {
+                    formData.existingDocuments.photo = detailRes.data.image || detailRes.data.photo || null;
+                }
+            }
+        } catch (detailErr) {
+            console.error("Error fetching detail for photo:", detailErr);
+        }
+
     } catch (err) {
         console.error("Error fetching student details:", err);
     }
@@ -302,8 +343,54 @@ const formData = reactive({
     employment_status: "Fresher",
     work_experience: [] as any[],
     documents: {} as Record<string, any>,
+    existingDocuments: {} as Record<string, string | null>,
     declaration: false
 });
+
+const isSubmitting = ref(false);
+const isImageUploading = ref(false);
+
+const profileImageInput = ref<HTMLInputElement | null>(null);
+
+const triggerImageUpload = () => {
+    if (profileImageInput.value) {
+        profileImageInput.value.click();
+    }
+};
+
+const handleProfileImageUpload = async (event: Event) => {
+    const target = event.target as HTMLInputElement;
+    const file = target.files?.[0];
+    if (!file || !userId.value) return;
+
+    isImageUploading.value = true;
+    try {
+        const { getAccessToken } = useAuth();
+        const token = getAccessToken();
+
+        const imgData = new FormData();
+        imgData.append('image', file);
+
+        const res: any = await $fetch(`https://gccwebsite-admin-backend-738131651355.asia-south1.run.app/api/users/student-profile-upload/${userId.value}`, {
+            method: "POST",
+            body: imgData,
+            headers: token ? { 'Authorization': `Bearer ${token}` } : {}
+        });
+
+        if (res) {
+            // Update the UI immediately
+            profileImage.value = URL.createObjectURL(file);
+            alert("Profile image updated successfully!");
+        }
+    } catch (err) {
+        console.error("Failed to upload profile image:", err);
+        alert("Failed to upload profile image.");
+    } finally {
+        isImageUploading.value = false;
+        // Reset input to allow uploading the same file again if needed
+        if (target) target.value = '';
+    }
+};
 
 const section1Ref = ref<any>(null);
 const section2Ref = ref<any>(null);
@@ -326,6 +413,8 @@ const handleFinalSubmit = async () => {
         alert("Please check the declaration before submitting.");
         return;
     }
+
+    isSubmitting.value = true;
 
     try {
         const data = new FormData();
@@ -379,11 +468,13 @@ const handleFinalSubmit = async () => {
                 .map(job => ({
                     company_name: job.org_name,
                     position: job.designation,
+                    area: job.functional_area || "",
                     start_date: job.from,
                     end_date: job.to || null
                 }));
         }
         data.append('user_experience', JSON.stringify(experienceData));
+        data.append('student_experience', JSON.stringify(experienceData)); // Adding both to be safe against API changes
 
         // 4. Documents (BINARY FILES)
         if (formData.documents.aadhaar instanceof File) {
@@ -392,12 +483,25 @@ const handleFinalSubmit = async () => {
         if (formData.documents.dob_proof instanceof File) {
             data.append('dob_certificate', formData.documents.dob_proof);
         }
-        if (formData.documents.photo instanceof File) {
-            data.append('photo', formData.documents.photo);
-        }
 
         const { getAccessToken } = useAuth();
         const token = getAccessToken();
+
+        // Separate Image Upload to dedicated endpoint if a new photo was chosen
+        if (formData.documents.photo instanceof File) {
+            try {
+                const imgData = new FormData();
+                imgData.append('image', formData.documents.photo);
+                await $fetch(`https://gccwebsite-admin-backend-738131651355.asia-south1.run.app/api/users/student-profile-upload/${userId.value}`, {
+                    method: "POST",
+                    body: imgData,
+                    headers: token ? { 'Authorization': `Bearer ${token}` } : {}
+                });
+            } catch (imgErr) {
+                console.error("Failed to upload profile image separately:", imgErr);
+                // Non-blocking error: we still proceed to save the rest of the profile
+            }
+        }
 
         console.log("--- FINAL PAYLOAD SENT TO BACKEND (BINARY FormData) ---");
         for (const [key, value] of (data as any).entries()) {
@@ -416,6 +520,8 @@ const handleFinalSubmit = async () => {
 
         if (response.success || response.status === "200" || response.status === 200) {
             alert("Profile updated successfully!");
+            // Refresh details to reflect any new image
+            await fetchStudentDetail();
         } else {
             console.error("Backend Error Response:", response);
             alert("Failed to update profile: " + (response.message || "Unknown error"));
@@ -436,6 +542,8 @@ const handleFinalSubmit = async () => {
             }
         }
         alert("Submission Failed: " + errMsg);
+    } finally {
+        isSubmitting.value = false;
     }
 }
 
@@ -583,6 +691,8 @@ const handleFinalSubmit = async () => {
     display: flex;
     align-items: center;
     justify-content: center;
+    position: relative;
+    overflow: hidden;
 }
 
 .profile-avatar i {
@@ -595,6 +705,43 @@ const handleFinalSubmit = async () => {
     height: 100%;
     object-fit: cover;
     border-radius: 50%;
+}
+
+.edit-icon-overlay {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 30px;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    padding-top: 4px;
+    opacity: 0;
+    transition: opacity 0.2s;
+}
+
+.edit-icon-overlay i {
+    font-size: 16px;
+    color: white;
+}
+
+.profile-avatar:hover .edit-icon-overlay {
+    opacity: 1;
+}
+
+.upload-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.4);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 10;
 }
 
 /* Info block */

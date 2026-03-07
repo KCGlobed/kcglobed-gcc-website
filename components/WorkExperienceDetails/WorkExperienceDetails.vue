@@ -24,8 +24,7 @@
               </div>
             </div>
             <div class="col-md-6">
-              <div class="status-card" :class="{ active: status === 'Currently Working' }"
-                @click="status = 'Currently Working'">
+              <div class="status-card" :class="{ active: status === 'Experienced' }" @click="status = 'Experienced'">
                 <div class="status-icon">
                   <i class="ti ti-briefcase"></i>
                 </div>
