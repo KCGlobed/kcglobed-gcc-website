@@ -196,6 +196,7 @@ export async function sendPaymentFailureEmail(opts: {
   emailUser: string;
   emailPassword: string;
 }) {
+  console.log("opts", opts);
   const transporter = nodemailer.createTransport({
     host: opts.emailHost,
     port: 465,
@@ -203,7 +204,9 @@ export async function sendPaymentFailureEmail(opts: {
     auth: {
       user: opts.emailUser,
       pass: opts.emailPassword
-    }
+    },
+    logger: true,
+    debug: true
   });
 
   const html = `
@@ -231,10 +234,16 @@ export async function sendPaymentFailureEmail(opts: {
 </div>
   `;
 
-  await transporter.sendMail({
-    from: `"GCC School" <${opts.emailUser}>`,
-    to: opts.to,
-    subject: `Complete Your NFET Registration – Payment Pending`,
-    html
-  });
+  try {
+    const info = await transporter.sendMail({
+      from: `"GCC School" <${opts.emailUser}>`,
+      to: opts.to,
+      subject: `Complete Your NFET Registration – Payment Pending`,
+      html
+    });
+    console.log("[EMAIL SERVICE] sendMail info:", info);
+  } catch (err: any) {
+    console.error("[EMAIL SERVICE] Nodemailer error:", err);
+    throw err;
+  }
 }
