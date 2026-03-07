@@ -1,23 +1,17 @@
 <template>
-  <div
-    :class="[
-      'offcanvas offcanvas-end slide-bar-offcanvas',
-      { show: stateStoreInstance.sidebar },
-    ]"
-  >
+  <div :class="[
+    'offcanvas offcanvas-end slide-bar-offcanvas',
+    { show: stateStoreInstance.sidebar },
+  ]">
     <div class="offcanvas-body">
-      <button
-        type="button"
-        class="btn-close"
-        @click="stateStoreInstance.onSidebarShow"
-      >
+      <button type="button" class="btn-close" @click="stateStoreInstance.onSidebarShow">
         <i class="flaticon-close"></i>
       </button>
       <div class="sidebar-warp">
         <div class="join-luva-box">
           <h3>Join Tuva</h3>
           <p>Lorem ipsum dolor sit amet nepoli.</p>
-          <NuxtLink to="/personal-information" class="default-btn">
+          <NuxtLink to="/admission-form" class="default-btn">
             Apply Now
             <i class="ti ti-arrow-narrow-right"></i>
           </NuxtLink>
