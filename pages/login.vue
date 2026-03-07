@@ -5,7 +5,7 @@
     <!-- <FormsPartnerWithUsForm /> -->
     <!-- <CommonCommingSoon /> -->
     <FormsLoginForm />
-    <!-- <LayoutMainFooter /> -->
+    <LayoutMainFooter />
     <!-- <LayoutCopyRight /> -->
   </div>
 </template>

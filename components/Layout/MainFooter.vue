@@ -42,8 +42,14 @@
                   <li class="apply-now-li">
                     <button class="footer-apply-btn" @click="openApplyModal">Apply Now</button>
                   </li>
-                  <li>
+                  <li v-if="isAuthenticated">
+                    <NuxtLink to="/profile">Profile</NuxtLink>
+                  </li>
+                  <li v-if="!isAuthenticated">
                     <NuxtLink to="/login">Login</NuxtLink>
+                  </li>
+                  <li v-else>
+                    <a @click="handleLogout" style="cursor: pointer;">Logout</a>
                   </li>
                 </ul>
               </div>
@@ -130,6 +136,22 @@
   <DossierModal modal-id="footerApplyModal" modal-title="Apply Now"
     subtitle="Fill in your details to start your application" mode="apply" />
 </template>
+
+<script setup>
+import { useAuth } from '~/composables/useAuth'
+import { onMounted } from 'vue'
+
+const { isAuthenticated, logout, init } = useAuth()
+
+onMounted(() => {
+  init()
+})
+
+const handleLogout = () => {
+  logout()
+  window.location.href = '/login'
+}
+</script>
 
 <script>
 import { defineAsyncComponent } from 'vue';
