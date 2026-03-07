@@ -20,15 +20,15 @@
                 <span>6 Months</span>
               </div>
               <div class="box">
-                <img src="/img/acca.svg" class="logo" />
+                <img src="/img/acca.svg" alt="acca" class="logo" />
                 <span class="mt-1">UK ACCA <br> Integrated</span>
               </div>
               <div class="box">
-                <img src="../../assets/img/heros/panleIcon4.png" class="logo" />
+                <img src="../../assets/img/heros/panleIcon4.png" alt="british council" class="logo" />
                 <span class="mt-2">Master in Corporate Communication</span>
               </div>
               <div class="box">
-                <img src="../../assets/img/heros/panleIcon5.png" class="logo" />
+                <img src="../../assets/img/heros/panleIcon5.png" alt="AIMA" class="logo" />
                 <span class="mt-2">AICTE Approved PGCM Certificate from AIMA</span>
               </div>
               <div class="box">

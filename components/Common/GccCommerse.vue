@@ -16,7 +16,7 @@
 
             <!-- Features Grid -->
             <div class="d-flex justify-content-center mt-2 gcc-commerce-image">
-                <img src="~/assets/img/common/commerse.svg" alt="" srcset="">
+                <img src="~/assets/img/common/commerse.svg" alt="Why choose gcc school" srcset="">
             </div>
 
         </div>
