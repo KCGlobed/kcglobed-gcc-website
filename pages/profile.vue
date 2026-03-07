@@ -220,7 +220,7 @@ const fetchStudentDetail = async () => {
             headers: token ? { 'Authorization': `Bearer ${token}` } : {}
         });
 
-        if (response.data) {
+        if (response?.data) {
             const d = response.data;
 
             // Name splitting logic
@@ -249,8 +249,8 @@ const fetchStudentDetail = async () => {
             formData.medium = mediumReverseMap[d.medium_instruction] || "";
             formData.medium_other = d.other_instruction || "";
 
-            const pgStatusReverseMap: Record<number, string> = { 1: "Completed", 2: "Pursuring" };
-            formData.ug_status = pgStatusReverseMap[d.pg_status] || "Completed";
+            const pgStatusReverseMap: Record<number, string> = { 1: "1", 2: "2" };
+            formData.ug_status = pgStatusReverseMap[d.pg_status] || "1";
             formData.ug_cgpa = d.pg_percentage || "";
             formData.ug_institution = d.institution || "";
 
@@ -263,9 +263,10 @@ const fetchStudentDetail = async () => {
             formData.employment_status = employementReverseMap[d.employement_status] || "Fresher";
 
             // Work Experience
-            if (d.student_experience && Array.isArray(d.student_experience) && d.student_experience.length > 0) {
+            const expData = d.user_experience || d.student_experience;
+            if (expData && Array.isArray(expData) && expData.length > 0) {
                 formData.employment_status = "Experienced";
-                formData.work_experience = d.student_experience.map((job: any) => ({
+                formData.work_experience = expData.map((job: any) => ({
                     org_name: job.company_name,
                     designation: job.position,
                     functional_area: job.area || "",
@@ -284,7 +285,7 @@ const fetchStudentDetail = async () => {
             };
         }
 
-        // Fetch image specifically from the detail API as requested
+        // Fetch image specifically from the detail API as requested and fill fallback profile data
         try {
             const detailRes: any = await $fetch(`https://gccwebsite-admin-backend-738131651355.asia-south1.run.app/api/users/view-student-detail/${userId.value}`, {
                 headers: token ? { 'Authorization': `Bearer ${token}` } : {}
@@ -294,9 +295,30 @@ const fetchStudentDetail = async () => {
                 if (formData.existingDocuments) {
                     formData.existingDocuments.photo = detailRes.data.image || detailRes.data.photo || null;
                 }
+
+                // Fallback for empty core fields
+                if (!formData.first_name) {
+                    const fullName = detailRes.data.first_name || "";
+                    if (fullName.includes(" ")) {
+                        const nameParts = fullName.trim().split(/\s+/);
+                        formData.first_name = nameParts[0];
+                        if (!formData.last_name) {
+                            formData.last_name = nameParts.slice(1).join(" ");
+                        }
+                    } else {
+                        formData.first_name = fullName;
+                    }
+                }
+                if (!formData.last_name && !formData.first_name.includes(" ")) {
+                    formData.last_name = detailRes.data.last_name || "";
+                }
+                if (!formData.email) formData.email = detailRes.data.email || "";
+                if (!formData.mobile) formData.mobile = detailRes.data.phone1 || detailRes.data.phone2 || detailRes.data.phone || "";
+                if (!formData.city) formData.city = detailRes.data.city || "";
+                if (!formData.state) formData.state = detailRes.data.state || "";
             }
         } catch (detailErr) {
-            console.error("Error fetching detail for photo:", detailErr);
+            console.error("Error fetching detail API data:", detailErr);
         }
 
     } catch (err) {
@@ -333,7 +355,7 @@ const formData = reactive({
     class12_score: "",
     medium: "",
     medium_other: "",
-    ug_status: "Completed",
+    ug_status: "1",
     ug_cgpa: "",
     ug_institution: "",
     pg_exists: "",
@@ -447,7 +469,7 @@ const handleFinalSubmit = async () => {
         data.append('medium_instruction', mediumMap[formData.medium] || 1);
         data.append('other_instruction', formData.medium_other || "");
 
-        const pgStatusMap: any = { "Completed": 1, "Pursuring": 2 };
+        const pgStatusMap: any = { "1": 1, "2": 2 };
         data.append('pg_status', pgStatusMap[formData.ug_status] || 1);
         data.append('pg_percentage', formData.ug_cgpa || "");
         data.append('institution', formData.ug_institution || "");
@@ -474,7 +496,6 @@ const handleFinalSubmit = async () => {
                 }));
         }
         data.append('user_experience', JSON.stringify(experienceData));
-        data.append('student_experience', JSON.stringify(experienceData)); // Adding both to be safe against API changes
 
         // 4. Documents (BINARY FILES)
         if (formData.documents.aadhaar instanceof File) {
@@ -518,7 +539,7 @@ const handleFinalSubmit = async () => {
             headers: token ? { 'Authorization': `Bearer ${token}` } : {}
         });
 
-        if (response.success || response.status === "200" || response.status === 200) {
+        if (response.success || response.status === "200" || response.status === 200 || response.message === "Message sent Successfully" || response.message?.toLowerCase().includes("success")) {
             alert("Profile updated successfully!");
             // Refresh details to reflect any new image
             await fetchStudentDetail();
