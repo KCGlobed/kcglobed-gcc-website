@@ -74,13 +74,11 @@
             <h5 class="fw-bold mb-3">Undergraduate Qualification (B.Com) <span>*</span></h5>
             <div class="d-flex gap-4">
               <div class="form-check">
-                <input class="form-check-input" type="radio" value="Completed" id="ugCompleted"
-                  v-model="formData.ug_status" />
+                <input class="form-check-input" type="radio" value="1" id="ugCompleted" v-model="formData.ug_status" />
                 <label class="form-check-label" for="ugCompleted">Completed</label>
               </div>
               <div class="form-check">
-                <input class="form-check-input" type="radio" value="Pursuing" id="ugPursuing"
-                  v-model="formData.ug_status" />
+                <input class="form-check-input" type="radio" value="2" id="ugPursuing" v-model="formData.ug_status" />
                 <label class="form-check-label" for="ugPursuing">Pursuing</label>
               </div>
             </div>
@@ -89,10 +87,10 @@
         </div>
 
         <!-- UG Score & Institution -->
-        <template v-if="formData.ug_status === 'Completed' || formData.ug_status === 'Pursuing'">
+        <template v-if="formData.ug_status == '1' || formData.ug_status == '2'">
           <div class="col-lg-6">
             <div class="input-box mb-0">
-              <label class="form-label fw-bold">{{ formData.ug_status === 'Pursuing' ? 'Current CGPA / Percentage' :
+              <label class="form-label fw-bold">{{ formData.ug_status == '2' ? 'Current CGPA / Percentage' :
                 'Final CGPA / Percentage' }} <span>*</span></label>
               <input type="number" step="0.01" min="0" max="10" class="form-control" v-model="formData.ug_cgpa"
                 @input="handleInput('ug_cgpa')" :class="{ 'is-invalid': errors.ug_cgpa }" />
@@ -218,7 +216,7 @@ export default {
         isValid = false;
       }
 
-      if (this.formData.ug_status === "Pursuing" || this.formData.ug_status === "Completed") {
+      if (this.formData.ug_status == "2" || this.formData.ug_status == "1") {
         if (!this.formData.ug_cgpa) {
           this.errors.ug_cgpa = "CGPA/Percentage is required";
           isValid = false;
