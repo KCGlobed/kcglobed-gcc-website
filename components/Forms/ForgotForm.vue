@@ -173,9 +173,9 @@ async function handleSubmit() {
     try {
         const payload = { email: form.value.email }
         console.log('[ForgotPassword] Request submitted:', payload)
-
+        const config = useRuntimeConfig();
         await $fetch(
-            'https://gccwebsite-admin-backend-738131651355.asia-south1.run.app/api/users/forgot-password/',
+            `${config.public.apiBase}/api/users/forgot-password/`,
             {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
