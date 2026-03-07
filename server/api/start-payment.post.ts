@@ -6,7 +6,8 @@ import { createCashfreeInstance } from "../utils/cashfree";
 
 export default defineEventHandler(async (event) => {
     const body = await readBody(event);
-    const { user_id, name, email, mobile, form_type, form_id } = body;
+
+    const { user_id, name, email, mobile, form_type, form_id, city, state } = body;
 
     const config = useRuntimeConfig(event);
 
@@ -55,7 +56,7 @@ export default defineEventHandler(async (event) => {
                 customer_email: email || "noemail@kcglobed.com",
                 customer_phone: mobile || "9999999999"
             },
-            order_note: JSON.stringify({ user_id, form_type, form_id, name, email, mobile })
+            order_note: JSON.stringify({ user_id, form_type, form_id, name, email, mobile, city, state })
         };
 
         console.log("[PAYMENT][start] Creating Cashfree order", {

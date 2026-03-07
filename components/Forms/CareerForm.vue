@@ -58,6 +58,20 @@
                                 </div>
                                 <div class="col-lg-6">
                                     <div class="input-box">
+                                        <label class="form-label">State <span>*</span></label>
+                                        <div class="input-with-icon">
+                                            <select v-model="form.state" class="form-control" @change="onStateChange">
+                                                <option value="">Select State</option>
+                                                <option v-for="state in statesList" :key="state" :value="state">{{ state
+                                                }}</option>
+                                            </select>
+                                            <i class="ti ti-map"></i>
+                                        </div>
+                                        <small class="text-danger" v-if="errors.state">{{ errors.state }}</small>
+                                    </div>
+                                </div>
+                                <div class="col-lg-6">
+                                    <div class="input-box">
                                         <label class="form-label">Current City <span>*</span></label>
                                         <div class="input-with-icon">
                                             <select v-model="form.city" class="form-control" :disabled="!form.state">
@@ -70,20 +84,7 @@
                                         <small class="text-danger" v-if="errors.city">{{ errors.city }}</small>
                                     </div>
                                 </div>
-                                <div class="col-lg-6">
-                                    <div class="input-box">
-                                        <label class="form-label">State <span>*</span></label>
-                                        <div class="input-with-icon">
-                                            <select v-model="form.state" class="form-control" @change="onStateChange">
-                                                <option value="">Select State</option>
-                                                <option v-for="state in statesList" :key="state" :value="state">{{ state
-                                                    }}</option>
-                                            </select>
-                                            <i class="ti ti-map"></i>
-                                        </div>
-                                        <small class="text-danger" v-if="errors.state">{{ errors.state }}</small>
-                                    </div>
-                                </div>
+
                             </div>
 
                             <hr class="my-4">
@@ -150,7 +151,7 @@
                                                 errors.areaOfInterestOther }}</small>
                                         </div>
                                         <small class="text-danger" v-if="errors.areaOfInterest">{{ errors.areaOfInterest
-                                            }}</small>
+                                        }}</small>
                                     </div>
                                 </div>
                             </div>
@@ -176,7 +177,7 @@
                                         <input type="file" ref="resumeFile" @change="handleFileUpload"
                                             class="form-control" accept=".pdf,.doc,.docx">
                                         <small class="text-danger" v-if="errors.resumePath">{{ errors.resumePath
-                                            }}</small>
+                                        }}</small>
                                     </div>
                                 </div>
 
@@ -205,7 +206,7 @@
                                         </div>
                                     </div>
                                     <small class="text-danger" v-if="errors.noticePeriod">{{ errors.noticePeriod
-                                        }}</small>
+                                    }}</small>
                                 </div>
                             </div>
 

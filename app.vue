@@ -5,7 +5,6 @@
 <script setup lang="ts">
 const route = useRoute();
 const canonicalUrl = computed(() => `https://www.gccschool.com${route.path}`);
-
 useHead({
   title: "GCC School",
   meta: [
@@ -28,7 +27,7 @@ useHead({
           "telephone": "+919773576111",
           "contactType": "customer service",
           "areaServed": "IN",
-          "availableLanguage": ["en","Hindi"]
+          "availableLanguage": ["en", "Hindi"]
         },
         "sameAs": [
           "https://www.facebook.com/share/187jgT5gev/",

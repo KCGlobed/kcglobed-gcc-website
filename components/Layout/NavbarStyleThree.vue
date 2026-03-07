@@ -1,23 +1,14 @@
 <template>
-  <nav
-    :class="[
-      'navbar navbar-expand-lg top-navbar transparent-bg',
-      { sticky: isSticky },
-    ]"
-  >
+  <nav :class="[
+    'navbar navbar-expand-lg top-navbar transparent-bg',
+    { sticky: isSticky },
+  ]">
     <div class="container-fluid">
       <NuxtLink class="navbar-brand" to="/">
-        <img
-          src="~/assets/img/logo-style3.png"
-          class="navbar-logo style3-logo"
-          alt="logo"
-        />
+        <img src="~/assets/img/logo-style3.png" class="navbar-logo style3-logo" alt="logo" />
         <img src="~/assets/img/logo.png" class="sticky-logo" alt="logo" />
       </NuxtLink>
-      <a
-        class="navbar-toggler home1-one-toggler"
-        @click="stateStoreInstance.onMobileNavbarShow"
-      >
+      <a class="navbar-toggler home1-one-toggler" @click="stateStoreInstance.onMobileNavbarShow">
         <span class="burger-menu">
           <span class="top-bar"></span>
           <span class="middle-bar"></span>
@@ -154,7 +145,7 @@
                 </a>
                 <ul class="dropdown-menu">
                   <li class="nav-item">
-                    <NuxtLink to="/personal-information" class="nav-link">
+                    <NuxtLink to="/admission-form" class="nav-link">
                       Personal Information
                     </NuxtLink>
                   </li>
@@ -294,10 +285,7 @@
                 </NuxtLink>
               </li>
               <li class="nav-item">
-                <NuxtLink
-                  to="/administration-admission-requirements"
-                  class="nav-link"
-                >
+                <NuxtLink to="/administration-admission-requirements" class="nav-link">
                   Administration Requirements
                 </NuxtLink>
               </li>
@@ -414,11 +402,8 @@
         </ul>
         <div class="others-option d-flex align-items-center">
           <div class="option-item">
-            <div
-              class="search-bar main-menu__search search-toggler"
-              @click="stateStoreInstance.onChange"
-              style="cursor: pointer"
-            >
+            <div class="search-bar main-menu__search search-toggler" @click="stateStoreInstance.onChange"
+              style="cursor: pointer">
               <div class="search-btn">
                 <img src="~/assets/img/svgs/search.svg" alt="image" />
               </div>
@@ -426,11 +411,7 @@
           </div>
 
           <div class="option-item">
-            <button
-              class="btn side-bar-btn"
-              type="button"
-              @click="stateStoreInstance.onSidebarShow"
-            >
+            <button class="btn side-bar-btn" type="button" @click="stateStoreInstance.onSidebarShow">
               <img src="~/assets/img/svgs/menu.svg" alt="svg" />
             </button>
           </div>

@@ -16,7 +16,7 @@
                         <div class="fun-fact-card">
                             <div class="icon">
                                 <div class="icon style">
-                                    <img :src="funfact.icon" alt="" />
+                                    <img :src="funfact.icon" :alt="funfact.alt" />
                                 </div>
                             </div>
                         </div>
@@ -26,7 +26,7 @@
                         <div class="fun-fact-card">
                             <div class="icon">
                                 <div class="icon style">
-                                    <img :src="funfact.icon" alt="" />
+                                    <img :src="funfact.icon" :alt="funfact.alt" />
                                 </div>
                             </div>
                         </div>
@@ -40,7 +40,7 @@
                         <div class="fun-fact-card">
                             <div class="icon">
                                 <div class="icon style">
-                                    <img :src="funfact.icon" alt="" />
+                                    <img :src="funfact.icon" :alt="funfact.alt" />
                                 </div>
                             </div>
                         </div>
@@ -50,7 +50,7 @@
                         <div class="fun-fact-card">
                             <div class="icon">
                                 <div class="icon style">
-                                    <img :src="funfact.icon" alt="" />
+                                    <img :src="funfact.icon" :alt="funfact.alt" />
                                 </div>
                             </div>
                         </div>
@@ -72,14 +72,45 @@ export default defineComponent({
             eager: true,
         });
 
-        const images = Object.values(imagesGlob).map((mod: any) => mod.default);
-
+        const altMap: Record<string, string> = {
+            '2z2634.tif.png': 'standard chartered',
+            '4OQbNb.png': 'BCG',
+            'Group (1).png': 'American Express',
+            'Group (10).png': 'SS Kothari Mehta & Company',
+            'Group (2).png': 'Google',
+            'Group (3).png': 'UBS',
+            'Group (8).png': 'bnp paribas',
+            'Group.png': 'barclays',
+            'Layer 0 (1).png': 'cognizant',
+            'Layer 0.png': 'ASA bakertilly',
+            'Mazars Logo 2C RGB v12.png': 'mazars',
+            'OoWkZd.tif.png': 'bain & company',
+            'Rectangle (6).png': 'BDO',
+            'Rectangle (7).png': 'uniqus',
+            'Vector (2).png': 'goldman sachs',
+            'g3.png': 'coca cola',
+            'layer1 (1).png': 'mckinsey & company',
+            'layer1 (2).png': 'ford',
+            'path3678.png': 'capegimini'
+        };
 
         // Generate the funfacts array based on the images
-        const funfacts = images.map((img, index) => {
+        const funfacts = Object.entries(imagesGlob).map(([path, mod]: [string, any], index) => {
+            const filename = path.split('/').pop() || '';
+            let altText = altMap[filename] || '';
+
+            // Fallbacks for cases where the exact filename might differ slightly
+            if (!altText) {
+                if (filename.includes('Mazars')) altText = 'mazars';
+                else if (filename.includes('2z2634')) altText = 'standard chartered';
+                else if (filename.includes('4OQbNb')) altText = 'BCG';
+                else if (filename.includes('OoWkZd')) altText = 'bain & company';
+            }
+
             return {
                 id: index + 1,
-                icon: img,
+                icon: mod.default,
+                alt: altText || 'Partner Logo',
             };
         });
 

@@ -1,36 +1,26 @@
-<!-- <template>
-  <div>
-    <LayoutTopHeader class="style2-top-header" />
-    <LayoutNavbarStyleTwo class="inner-navbar" />
-    <CommonInnerPageBanner pageTitle="Login" mainTitle="LOGIN" />
-    <Login />
-    <LayoutMainFooter />
-    <LayoutCopyRight />
-  </div>
-</template>
-
-<script lang="ts">
-import { defineComponent } from "vue";
-
-export default defineComponent({});
-</script> -->
-
 <template>
   <div>
     <LayoutTopHeader />
     <LayoutMainNavbar />
     <!-- <FormsPartnerWithUsForm /> -->
-    <CommonCommingSoon />
+    <!-- <CommonCommingSoon /> -->
+    <FormsLoginForm />
     <LayoutMainFooter />
-    <LayoutCopyRight />
+    <!-- <LayoutCopyRight /> -->
   </div>
 </template>
 
 <script setup lang="ts">
-// import { defineComponent } from "vue";
 
-// export default defineComponent({});
 useHead({
   title: "GCC School | Login",
+})
+
+// If already authenticated, redirect straight to profile
+onMounted(() => {
+  const token = localStorage.getItem('gcc_access_token')
+  if (token) {
+    window.location.href = '/profile'
+  }
 })
 </script>
