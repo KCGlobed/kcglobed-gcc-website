@@ -27,14 +27,14 @@
                 <div class="col-md-6">
                     <div class="image-box">
                         <div class="image-box-inner">
-                            <img src="~/assets/img/common/growth.svg" alt="" srcset="">
+                            <img src="~/assets/img/common/growth.svg" alt="GCC growth projection" srcset="">
                         </div>
                     </div>
                 </div>
                 <div class="col-md-6">
                     <div class="image-box">
                         <div class="image-box-inner">
-                            <img src="/img/graph.svg" alt="" srcset="">
+                            <img src="/img/graph.svg" alt="finance proffesionals gap " srcset="">
                         </div>
                     </div>
                 </div>
