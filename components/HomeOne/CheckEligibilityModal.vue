@@ -33,7 +33,7 @@
                             </div>
                             <h4>Congratulations!</h4>
                             <p>You are eligible for the program.</p>
-                            <NuxtLink to="/personal-information" class="default-btn">
+                            <NuxtLink to="/admission-form" class="default-btn">
                                 Apply Now
                                 <i class="ti ti-arrow-narrow-right"></i>
                             </NuxtLink>

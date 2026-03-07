@@ -226,33 +226,6 @@ export default defineEventHandler(async (event) => {
             timestamp: new Date().toISOString()
         });
 
-        // Send confirmation email (non-blocking)
-        if (userEmail) {
-            const formattedDate = new Date().toLocaleString('en-IN', {
-                timeZone: 'Asia/Kolkata', day: '2-digit', month: 'short', year: 'numeric',
-                hour: '2-digit', minute: '2-digit', hour12: true
-            });
-            sendPaymentConfirmationEmail({
-                to: userEmail,
-                name: userName || userMobile || 'Applicant',
-                razorpay_payment_id: actualPaymentId,
-                razorpay_order_id: cf_order_id,
-                amount, currency,
-                date: formattedDate,
-                emailHost: (config.emailHost as string) || process.env.EMAIL_HOST || 'smtp.hostinger.com',
-                emailUser: (config.emailUser as string) || process.env.EMAIL_HOST_USER || '',
-                emailPassword: (config.emailPassword as string) || process.env.EMAIL_HOST_PASSWORD || ''
-            }).catch((err) => {
-                console.error("[PAYMENT][complete] Confirmation email failed", {
-                    event: "email_failed",
-                    cf_order_id, cf_payment_id: actualPaymentId, user_email: userEmail,
-                    error_message: err?.message || err,
-                    timestamp: new Date().toISOString()
-                });
-            });
-        }
-
-
         return { success: true, message: "Payment verified and saved successfully", payment_id: paymentId };
 
     } catch (error: any) {

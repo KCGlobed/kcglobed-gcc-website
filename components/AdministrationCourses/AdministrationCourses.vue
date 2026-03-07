@@ -274,10 +274,7 @@
               <p>English, French</p>
             </div>
           </div>
-          <NuxtLink
-            to="/personal-information"
-            class="default-btn administration-small"
-          >
+          <NuxtLink to="/admission-form" class="default-btn administration-small">
             Apply Today
             <i class="ti ti-arrow-narrow-right"></i>
           </NuxtLink>

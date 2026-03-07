@@ -654,7 +654,7 @@ export default defineComponent({
                         id: 3,
                         icon: "ti ti-ballpen",
                         title: "Apply Now",
-                        link: "/personal-information",
+                        link: "/admission-form",
                     },
                 ],
             }
@@ -840,6 +840,33 @@ export default defineComponent({
                                     // cf_payment_id not needed: backend uses PGOrderFetchPayments
                                 }
                             });
+
+                            try {
+                                const config = useRuntimeConfig();
+                                await $fetch(
+                                    `${config.public.apiBase}/api/users/create_student/`,
+                                    {
+                                        method: 'POST',
+                                        headers: { 'Content-Type': 'application/json' },
+                                        body:
+                                        {
+                                            "full_name": form.name,
+                                            "email": form.email,
+                                            // 'form.mobile' is used inside ProgramBanner's form state instead of 'form.phone'
+                                            "city": form.city,
+                                            "state": form.state,
+                                            "country": "India"
+                                        },
+                                    }
+                                );
+                            } catch (studentErr: any) {
+                                const errors = studentErr?.data?.non_field_errors || [];
+                                if (errors.includes("Email address is already registered with Us")) {
+                                    console.log("Student already registered, proceeding.");
+                                } else {
+                                    console.error("[PAYMENT] create_student error:", studentErr);
+                                }
+                            }
                         } catch (e) {
                             console.error("[PAYMENT] complete-payment error:", e);
                         }
