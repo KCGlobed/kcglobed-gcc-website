@@ -363,25 +363,37 @@ export default defineComponent({
 
         // Helper to properly close Bootstrap modal and wait for it to fully hide
         const closeDossierModal = (): Promise<void> => {
-            return new Promise(async (resolve) => {
+            return new Promise((resolve) => {
                 const modalEl = document.getElementById(props.modalId);
-                if (!modalEl) {
+                if (!modalEl || !modalEl.classList.contains('show')) {
                     resolve();
                     return;
                 }
-                const { Modal } = await import('bootstrap');
-                const modalInstance = Modal.getInstance(modalEl);
-                if (!modalInstance) {
-                    resolve();
-                    return;
-                }
-                // Listen for the modal to fully hide before resolving
-                const onHidden = () => {
-                    modalEl.removeEventListener('hidden.bs.modal', onHidden);
+
+                let resolved = false;
+                const finish = () => {
+                    if (resolved) return;
+                    resolved = true;
                     resolve();
                 };
+
+                const onHidden = () => {
+                    modalEl.removeEventListener('hidden.bs.modal', onHidden);
+                    finish();
+                };
                 modalEl.addEventListener('hidden.bs.modal', onHidden);
-                modalInstance.hide();
+
+                // Fallback timeout in case the hide event doesn't fire
+                setTimeout(finish, 400);
+
+                if (closeModalBtn.value) {
+                    closeModalBtn.value.click();
+                } else {
+                    import('bootstrap').then(({ Modal }) => {
+                        const modalInstance = Modal.getInstance(modalEl) || new Modal(modalEl);
+                        modalInstance.hide();
+                    }).catch(finish);
+                }
             });
         };
 
@@ -454,28 +466,40 @@ export default defineComponent({
                                     // cf_payment_id not needed: backend uses PGOrderFetchPayments
                                 }
                             });
-
-                            await $fetch(
-                                'https://gccwebsite-admin-backend-738131651355.asia-south1.run.app/api/users/create_student/',
-                                {
-                                    method: 'POST',
-                                    headers: { 'Content-Type': 'application/json' },
-                                    body:
+                            try {
+                                const config = useRuntimeConfig();
+                                await $fetch(
+                                    `${config.public.apiBase}/api/users/create_student/`,
                                     {
-                                        "full_name": form.name,
-                                        "email": form.email,
-                                        "city": form.city,
-                                        "state": form.state,
-                                        "country": "India"
-                                    },
+                                        method: 'POST',
+                                        headers: { 'Content-Type': 'application/json' },
+                                        body:
+                                        {
+                                            "full_name": form.name,
+                                            "email": form.email,
+                                            "city": form.city,
+                                            "state": form.state,
+                                            "country": "India"
+                                        },
+                                    }
+                                )
+                            } catch (studentErr: any) {
+                                const errors = studentErr?.data?.non_field_errors || [];
+                                if (errors.includes("Email address is already registered with Us")) {
+                                    console.log("Student already registered, proceeding.");
+                                } else {
+                                    console.error("[PAYMENT] create_student error:", studentErr);
                                 }
-                            )
+                            }
                             resetForm()
-
 
                         } catch (e) {
                             console.error("[PAYMENT] complete-payment error:", e);
                         }
+
+                        // Close modal and reset fields after successful payment
+                        await closeDossierModal();
+                        resetForm();
 
                         openStatusModal('success', res.cf_order_id);
                     }
