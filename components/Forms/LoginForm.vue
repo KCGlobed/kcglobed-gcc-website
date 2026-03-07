@@ -126,6 +126,7 @@
 </template>
 
 <script setup lang="ts">
+import { config } from 'process'
 import { ref } from 'vue'
 
 const { login } = useAuth()
@@ -195,9 +196,9 @@ async function handleSubmit() {
         }
 
         console.log('[Login] Sending request with payload:', payload)
-
+        const config = useRuntimeConfig()
         const response: any = await $fetch(
-            'https://gccwebsite-admin-backend-738131651355.asia-south1.run.app/api/users/website_login/',
+            `${config.public.apiBase}/api/users/website_login/`,
             {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
