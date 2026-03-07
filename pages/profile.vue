@@ -17,25 +17,27 @@
                 <!-- Avatar (overlapping cover) -->
                 <div class="profile-avatar-wrap">
                     <div class="profile-avatar">
-                        <i class="ti ti-user"></i>
+                        <img v-if="profileImage" :src="profileImage" alt="Profile" class="avatar-img" />
+                        <i v-else class="ti ti-user"></i>
                     </div>
                 </div>
 
                 <!-- Info below -->
-                <!-- <div class="profile-info">
+                <div class="profile-info">
                     <h2 class="profile-name">
-                        {{ (formData.first_name || 'Applicant') + ' ' + formData.last_name }}
+                        {{ (formData.first_name || 'Applicant') + ' ' + (formData.last_name || '') }}
                     </h2>
                     <p class="profile-detail" v-if="formData.email">
-                        {{ formData.email }}
+                        <i class="ti ti-mail me-1"></i> {{ formData.email }}
                     </p>
                     <p class="profile-detail" v-if="formData.mobile">
-                        {{ formData.mobile }}
+                        <i class="ti ti-phone me-1"></i> {{ formData.mobile }}
                     </p>
                     <p class="profile-detail" v-if="formData.city">
-                        {{ formData.city }}<span v-if="formData.state">, {{ formData.state }}</span>
+                        <i class="ti ti-map-pin me-1"></i> {{ formData.city }}<span v-if="formData.state">, {{
+                            formData.state }}</span>
                     </p>
-                </div> -->
+                </div>
             </div>
         </div>
 
@@ -186,8 +188,86 @@ useHead({
 const { userId, init: initAuth } = useAuth()
 
 // Hydrate auth state (reads from localStorage) on mount
-onMounted(() => {
+const profileImage = ref<string | null>(null);
+
+const fetchStudentDetail = async () => {
+    if (!userId.value) return;
+
+    try {
+        const { getAccessToken } = useAuth();
+        const token = getAccessToken();
+        const response: any = await $fetch(`https://gccwebsite-admin-backend-738131651355.asia-south1.run.app/api/users/view-student-detail/${userId.value}`, {
+            headers: token ? { 'Authorization': `Bearer ${token}` } : {}
+        });
+
+        if (response.success && response.data) {
+            const d = response.data;
+            // Name splitting logic
+            const fullName = d.first_name || "";
+            const nameParts = fullName.trim().split(/\s+/);
+            formData.first_name = nameParts[0] || "";
+            formData.last_name = nameParts.length > 1 ? nameParts.slice(1).join(" ") : (d.last_name || "");
+
+            formData.email = d.email || "";
+            formData.mobile = d.phone || d.phone1 || "";
+            formData.city = d.city || "";
+            formData.state = d.state || "";
+            formData.pin_code = d.pincode || "";
+            formData.dob = d.date_of_birth || d.dob || "";
+            formData.nationality = d.nationality || "Indian";
+            formData.complete_address = d.address || "";
+
+            // Reverse Mapping for Choices
+            const genderReverseMap: Record<number, string> = { 1: "Male", 2: "Female", 3: "Other" };
+            formData.gender = genderReverseMap[d.gender] || "";
+
+            formData.class10_year = d.tenth_passing_year || "";
+            formData.class10_score = d.tenth_passing_percentage || "";
+            formData.class12_year = d.twelveth_passing_year || "";
+            formData.class12_score = d.twelveth_passing_percentage || "";
+
+            const mediumReverseMap: Record<number, string> = { 1: "English", 2: "Hindi", 3: "Other" };
+            formData.medium = mediumReverseMap[d.medium_instruction] || "";
+            formData.medium_other = d.other_instruction || "";
+
+            const pgStatusReverseMap: Record<number, string> = { 1: "Completed", 2: "Pursuring" };
+            formData.ug_status = pgStatusReverseMap[d.pg_status] || "Completed";
+            formData.ug_cgpa = d.pg_percentage || "";
+            formData.ug_institution = d.institution || "";
+
+            const higherEdReverseMap: Record<number, string> = { 1: "Yes", 2: "No" };
+            formData.pg_exists = higherEdReverseMap[d.higher_education_status] || "No";
+            formData.pg_type = d.higher_qualification || "";
+            formData.pg_institution = d.higher_qualification_institution || "";
+
+            const employementReverseMap: Record<number, string> = { 1: "Fresher", 2: "Experienced" };
+            formData.employment_status = employementReverseMap[d.employement_status] || "Fresher";
+
+            // Work Experience
+            if (d.user_experience && Array.isArray(d.user_experience)) {
+                formData.work_experience = d.user_experience.map((job: any) => ({
+                    org_name: job.company_name,
+                    designation: job.position,
+                    from: job.start_date,
+                    to: job.end_date
+                }));
+            }
+
+            formData.father_name = d.contact_name || "";
+            formData.father_mobile = d.contact_phone || "";
+
+            profileImage.value = d.image || d.photo || null;
+        }
+    } catch (err) {
+        console.error("Error fetching student details:", err);
+    }
+};
+
+onMounted(async () => {
     initAuth()
+    if (userId.value) {
+        await fetchStudentDetail()
+    }
 })
 
 const openSection = ref<number | null>(1); // first section open by default
@@ -219,6 +299,7 @@ const formData = reactive({
     pg_type: "",
     pg_other: "",
     pg_institution: "",
+    employment_status: "Fresher",
     work_experience: [] as any[],
     documents: {} as Record<string, any>,
     declaration: false
@@ -234,37 +315,6 @@ const toggleSection = (index: number) => {
     openSection.value = openSection.value === index ? null : index;
 };
 
-
-const saveSection = async (index: number) => {
-    // Legacy generic save map
-    const refMap: Record<number, any> = {
-        1: section1Ref.value,
-        2: section2Ref.value,
-        3: section3Ref.value,
-    };
-    const comp = refMap[index];
-    if (comp?.validate) {
-        const isValid = comp.validate();
-        if (isValid) {
-            alert("Section saved successfully!");
-        }
-    }
-};
-
-function loadRazorpayScript() {
-    return new Promise((resolve) => {
-        if ((window as any).Razorpay) {
-            resolve(true);
-            return;
-        }
-        const script = document.createElement("script");
-        script.src = "https://checkout.razorpay.com/v1/checkout.js";
-        script.onload = () => resolve(true);
-        script.onerror = () => resolve(false);
-        document.body.appendChild(script);
-    });
-}
-
 const handleFinalSubmit = async () => {
     // Validate all sections before submission
     if (section1Ref.value?.validate && !section1Ref.value.validate()) { openSection.value = 1; return; }
@@ -277,39 +327,116 @@ const handleFinalSubmit = async () => {
         return;
     }
 
-    console.log("Constructing FormData for Binary Submission...");
-    const data = new FormData();
+    try {
+        const data = new FormData();
 
-    // Loop through all fields in formData except 'documents' and 'work_experience'
-    Object.keys(formData).forEach(key => {
-        if (key !== 'documents' && key !== 'work_experience') {
-            data.append(key, (formData as any)[key]);
+        // 1. Core Profile Info
+        data.append('user', String(userId.value || ""));
+        data.append('first_name', formData.first_name);
+        data.append('last_name', formData.last_name);
+        data.append('email', formData.email);
+        data.append('phone', formData.mobile);
+        data.append('state', formData.state);
+        data.append('city', formData.city);
+        data.append('contact_name', formData.father_name);
+        data.append('contact_phone', formData.father_mobile);
+        data.append('date_of_birth', formData.dob);
+        data.append('nationality', formData.nationality);
+        data.append('pincode', formData.pin_code);
+        data.append('address', formData.complete_address);
+
+        // 2. Exact Integer Mappings
+        const genderMap: any = { "Male": 1, "Female": 2, "Other": 3 };
+        data.append('gender', genderMap[formData.gender] || 1);
+
+        data.append('tenth_passing_year', formData.class10_year || "");
+        data.append('tenth_passing_percentage', formData.class10_score || "");
+        data.append('twelveth_passing_year', formData.class12_year || "");
+        data.append('twelveth_passing_percentage', formData.class12_score || "");
+
+        const mediumMap: any = { "English": 1, "Hindi": 2, "Other": 3 };
+        data.append('medium_instruction', mediumMap[formData.medium] || 1);
+        data.append('other_instruction', formData.medium_other || "");
+
+        const pgStatusMap: any = { "Completed": 1, "Pursuring": 2 };
+        data.append('pg_status', pgStatusMap[formData.ug_status] || 1);
+        data.append('pg_percentage', formData.ug_cgpa || "");
+        data.append('institution', formData.ug_institution || "");
+
+        const higherEdMap: any = { "Yes": 1, "No": 2 };
+        data.append('higher_education_status', higherEdMap[formData.pg_exists] || 2);
+        data.append('higher_qualification', formData.pg_type === 'Other' ? formData.pg_other : formData.pg_type);
+        data.append('higher_qualification_institution', formData.pg_institution || "");
+
+        const employementMap: any = { "Fresher": 1, "Experienced": 2 };
+        data.append('employement_status', employementMap[formData.employment_status] || 1);
+
+        // 3. Work Experience (JSON stringified within FormData)
+        let experienceData: any[] = [];
+        if (formData.employment_status !== "Fresher") {
+            experienceData = formData.work_experience
+                .filter(job => job.org_name && job.org_name.trim())
+                .map(job => ({
+                    company_name: job.org_name,
+                    position: job.designation,
+                    start_date: job.from,
+                    end_date: job.to || null
+                }));
         }
-    });
+        data.append('user_experience', JSON.stringify(experienceData));
 
-    // Handle nested work_experience (serialized as JSON string for typical backend handling)
-    data.append('work_experience', JSON.stringify(formData.work_experience));
-
-    // Handle documents (binary files)
-    Object.keys(formData.documents).forEach(key => {
-        const file = formData.documents[key];
-        if (file instanceof File) {
-            data.append(key, file);
+        // 4. Documents (BINARY FILES)
+        if (formData.documents.aadhaar instanceof File) {
+            data.append('aadhaar', formData.documents.aadhaar);
         }
-    });
+        if (formData.documents.dob_proof instanceof File) {
+            data.append('dob_certificate', formData.documents.dob_proof);
+        }
+        if (formData.documents.photo instanceof File) {
+            data.append('photo', formData.documents.photo);
+        }
 
-    // Logging all entries to console
-    console.log("--- FormData Entries ---");
-    for (const [key, value] of (data as any).entries()) {
-        if (value instanceof File) {
-            console.log(`${key}: [File] ${value.name} (${value.size} bytes)`);
+        const { getAccessToken } = useAuth();
+        const token = getAccessToken();
+
+        console.log("--- FINAL PAYLOAD SENT TO BACKEND (BINARY FormData) ---");
+        for (const [key, value] of (data as any).entries()) {
+            if (value instanceof File) {
+                console.log(`${key}: [File] ${value.name} (${value.size} bytes)`);
+            } else {
+                console.log(`${key}: ${value}`);
+            }
+        }
+
+        const response: any = await $fetch("https://gccwebsite-admin-backend-738131651355.asia-south1.run.app/api/students/create-update-student-profile/", {
+            method: "POST",
+            body: data,
+            headers: token ? { 'Authorization': `Bearer ${token}` } : {}
+        });
+
+        if (response.success || response.status === "200" || response.status === 200) {
+            alert("Profile updated successfully!");
         } else {
-            console.log(`${key}: ${value}`);
+            console.error("Backend Error Response:", response);
+            alert("Failed to update profile: " + (response.message || "Unknown error"));
         }
+    } catch (err: any) {
+        console.error("Submission error details:", err);
+        let errMsg = "An error occurred during submission.";
+        if (err.data) {
+            if (typeof err.data === 'object') {
+                const firstKey = Object.keys(err.data)[0];
+                if (Array.isArray(err.data[firstKey])) {
+                    errMsg = `${firstKey}: ${err.data[firstKey][0]}`;
+                } else {
+                    errMsg = err.data.message || JSON.stringify(err.data);
+                }
+            } else {
+                errMsg = err.data;
+            }
+        }
+        alert("Submission Failed: " + errMsg);
     }
-    console.log("------------------------");
-
-    alert("Check Console for Form Data Output! Binary files included.");
 }
 
 // const handleFinalSubmit = async () => {
@@ -461,6 +588,13 @@ const handleFinalSubmit = async () => {
 .profile-avatar i {
     font-size: 48px;
     color: #fff;
+}
+
+.avatar-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 50%;
 }
 
 /* Info block */

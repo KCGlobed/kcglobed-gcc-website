@@ -36,6 +36,20 @@
           <span>About Us</span>
         </NuxtLink>
 
+        <!-- Auth Links -->
+        <NuxtLink v-if="isAuthenticated" to="/profile" class="nav-item" @click="handleClick">
+          <i class="ti ti-user nav-icon-ti"></i>
+          <span>Profile</span>
+        </NuxtLink>
+        <NuxtLink v-if="!isAuthenticated" to="/login" class="nav-item" @click="handleClick">
+          <i class="ti ti-user nav-icon-ti"></i>
+          <span>Login</span>
+        </NuxtLink>
+        <a v-else class="nav-item" @click="handleLogout" style="cursor: pointer;">
+          <i class="ti ti-logout nav-icon-ti"></i>
+          <span>Logout</span>
+        </a>
+
       </nav>
     </div>
     <!-- <div class="offcanvas-footer">
@@ -55,9 +69,10 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, ref } from "vue";
+import { defineComponent, ref, onMounted } from "vue";
 import stateStore from "../utils/store";
 import DossierModal from "~/components/Common/DossierModal.vue";
+import { useAuth } from '~/composables/useAuth'
 
 export default defineComponent({
   name: "MobileDeviceNavbar",
@@ -65,6 +80,11 @@ export default defineComponent({
   setup() {
     const stateStoreInstance = stateStore;
     const isClosing = ref(false);
+    const { isAuthenticated, logout, init } = useAuth()
+
+    onMounted(() => {
+      init()
+    })
 
     const closeNavbar = () => {
       if (isClosing.value) return;
@@ -78,6 +98,12 @@ export default defineComponent({
     const handleClick = () => {
       closeNavbar();
     };
+
+    const handleLogout = () => {
+      logout()
+      closeNavbar()
+      window.location.href = '/login'
+    }
 
     const openApplyModal = async () => {
       closeNavbar();
@@ -95,6 +121,8 @@ export default defineComponent({
       isClosing,
       closeNavbar,
       openApplyModal,
+      isAuthenticated,
+      handleLogout
     };
   },
 });
@@ -210,6 +238,16 @@ export default defineComponent({
   height: 22px;
   object-fit: contain;
   filter: brightness(0) invert(1);
+}
+
+.nav-icon-ti {
+  width: 22px;
+  height: 22px;
+  display: flex !important;
+  align-items: center;
+  justify-content: center;
+  font-size: 20px;
+  color: #ffffff;
 }
 
 /* Footer - Chat Button */
