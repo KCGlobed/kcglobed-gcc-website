@@ -852,7 +852,7 @@ export default defineComponent({
                                         {
                                             "full_name": form.name,
                                             "email": form.email,
-                                            // 'form.mobile' is used inside ProgramBanner's form state instead of 'form.phone'
+                                            "phone1": form.mobile,
                                             "city": form.city,
                                             "state": form.state,
                                             "country": "India"

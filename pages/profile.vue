@@ -206,6 +206,7 @@ useHead({
 
 // Read the authenticated user's ID from the auth composable (set at login)
 const { userId, init: initAuth } = useAuth()
+const config = useRuntimeConfig();
 
 // Hydrate auth state (reads from localStorage) on mount
 const profileImage = ref<string | null>(null);
@@ -216,7 +217,7 @@ const fetchStudentDetail = async () => {
     try {
         const { getAccessToken } = useAuth();
         const token = getAccessToken();
-        const response: any = await $fetch("https://gccwebsite-admin-backend-738131651355.asia-south1.run.app/api/students/get-student-profile/", {
+        const response: any = await $fetch(`${config.public.apiBase}/api/students/get-student-profile/`, {
             headers: token ? { 'Authorization': `Bearer ${token}` } : {}
         });
 
@@ -287,7 +288,7 @@ const fetchStudentDetail = async () => {
 
         // Fetch image specifically from the detail API as requested and fill fallback profile data
         try {
-            const detailRes: any = await $fetch(`https://gccwebsite-admin-backend-738131651355.asia-south1.run.app/api/users/view-student-detail/${userId.value}`, {
+            const detailRes: any = await $fetch(`${config.public.apiBase}/api/users/view-student-detail/${userId.value}`, {
                 headers: token ? { 'Authorization': `Bearer ${token}` } : {}
             });
             if (detailRes.success && detailRes.data) {
@@ -393,7 +394,7 @@ const handleProfileImageUpload = async (event: Event) => {
         const imgData = new FormData();
         imgData.append('image', file);
 
-        const res: any = await $fetch(`https://gccwebsite-admin-backend-738131651355.asia-south1.run.app/api/users/student-profile-upload/${userId.value}`, {
+        const res: any = await $fetch(`${config.public.apiBase}/api/users/student-profile-upload/${userId.value}`, {
             method: "POST",
             body: imgData,
             headers: token ? { 'Authorization': `Bearer ${token}` } : {}
@@ -513,7 +514,7 @@ const handleFinalSubmit = async () => {
             try {
                 const imgData = new FormData();
                 imgData.append('image', formData.documents.photo);
-                await $fetch(`https://gccwebsite-admin-backend-738131651355.asia-south1.run.app/api/users/student-profile-upload/${userId.value}`, {
+                await $fetch(`${config.public.apiBase}/api/users/student-profile-upload/${userId.value}`, {
                     method: "POST",
                     body: imgData,
                     headers: token ? { 'Authorization': `Bearer ${token}` } : {}
@@ -533,7 +534,7 @@ const handleFinalSubmit = async () => {
             }
         }
 
-        const response: any = await $fetch("https://gccwebsite-admin-backend-738131651355.asia-south1.run.app/api/students/create-update-student-profile/", {
+        const response: any = await $fetch(`${config.public.apiBase}/api/students/create-update-student-profile/`, {
             method: "POST",
             body: data,
             headers: token ? { 'Authorization': `Bearer ${token}` } : {}

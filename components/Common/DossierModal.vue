@@ -479,7 +479,8 @@ export default defineComponent({
                                             "email": form.email,
                                             "city": form.city,
                                             "state": form.state,
-                                            "country": "India"
+                                            "country": "India",
+                                            "phone1": form.phone
                                         },
                                     }
                                 )
