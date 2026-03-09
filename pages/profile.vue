@@ -214,7 +214,7 @@
                                         style="width: 28px; height: 28px;" @click="prevMonth"><i
                                             class="ti ti-chevron-left"></i></button>
                                     <span class="fw-bold text-dark" style="font-size: 14px;">{{ monthNames[currentMonth]
-                                        }}
+                                    }}
                                         {{ currentYear }}</span>
                                     <button
                                         class="btn btn-sm btn-white border shadow-sm p-1 d-flex align-items-center justify-content-center"
@@ -351,6 +351,8 @@ const fetchStudentDetail = async () => {
         if (!response?.data || (Array.isArray(response.data) && response.data.length === 0)) {
             isProfileEmpty.value = true;
             console.warn("Profile is detected as EMPTY. Disabling sections.");
+        } else {
+            isProfileEmpty.value = false;
         }
 
         if (response?.data && !Array.isArray(response.data)) {
