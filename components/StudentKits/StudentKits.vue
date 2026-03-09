@@ -1,27 +1,37 @@
 <template>
     <div>
         <div class="student-kits-sidebar bg-white p-3 rounded-3 shadow-sm border mb-4">
-            <h5 class="mb-4 text-dark fw-bold pb-2" style="border-bottom: 2px solid #7c3aed; display: inline-block;">
-                <i class="ti ti-video me-2" style="color: #7c3aed;"></i>Student Kits
-            </h5>
+            <div class="d-flex justify-content-between align-items-center mb-3" @click="isOpen = !isOpen"
+                style="cursor: pointer;">
+                <h5 class="m-0 text-dark fw-bold pb-1" style="border-bottom: 2px solid #7c3aed; display: inline-block;">
+                    Student Starter Kit
+                </h5>
+                <i class="ti" :class="isOpen ? 'ti-chevron-up' : 'ti-chevron-down'"
+                    style="color: #475569; font-size: 18px;"></i>
+            </div>
 
-            <div class="kits-list d-flex flex-column gap-3">
-                <div v-for="(kit, index) in studentKits" :key="index" class="kit-item">
-                    <div class="kit-card p-3 rounded bg-light border"
-                        style="cursor: pointer; transition: all 0.3s ease;" @click="openMedia(kit)">
-                        <div class="d-flex align-items-center gap-3">
-                            <div class="icon-wrap text-white rounded-circle d-flex align-items-center justify-content-center"
-                                style="width: 40px; height: 40px; background-color: #872980; flex-shrink: 0;">
-                                <i v-if="kit.type === 'pdf'" class="ti ti-file-text"></i>
-                                <i v-else class="ti ti-player-play-filled"></i>
-                            </div>
-                            <div>
-                                <h6 class="mb-1 text-dark" style="font-size: 14px; font-weight: 600;">{{ kit.title }}
-                                </h6>
-                                <small class="text-muted d-block" style="font-size: 12px;">
-                                    <span v-if="kit.type === 'pdf'">View PDF</span>
-                                    <span v-else>Watch Video</span>
-                                </small>
+            <div v-show="isOpen" style="position: relative;">
+                <div v-if="isDisabled" class="disabled-overlay"
+                    title="This section will be enabled after you complete your profile."></div>
+                <div class="kits-list d-flex flex-column gap-3" :class="{ 'opacity-50': isDisabled }">
+                    <div v-for="(kit, index) in studentKits" :key="index" class="kit-item">
+                        <div class="kit-card p-3 rounded bg-light border"
+                            style="cursor: pointer; transition: all 0.3s ease;" @click="openMedia(kit)">
+                            <div class="d-flex align-items-center gap-3">
+                                <div class="icon-wrap text-white rounded-circle d-flex align-items-center justify-content-center"
+                                    style="width: 40px; height: 40px; background-color: #872980; flex-shrink: 0;">
+                                    <i v-if="kit.type === 'pdf'" class="ti ti-file-text"></i>
+                                    <i v-else class="ti ti-player-play-filled"></i>
+                                </div>
+                                <div>
+                                    <h6 class="mb-1 text-dark" style="font-size: 14px; font-weight: 600;">{{ kit.title
+                                    }}
+                                    </h6>
+                                    <small class="text-muted d-block" style="font-size: 12px;">
+                                        <span v-if="kit.type === 'pdf'">View PDF</span>
+                                        <span v-else>Watch Video</span>
+                                    </small>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -29,18 +39,27 @@
             </div>
         </div>
 
-        <!-- Video Modal -->
-        <div v-if="showVideoModal" class="video-modal-overlay" @click="closeVideo">
-            <div class="video-modal-content" @click.stop>
+        <!-- Media Modal (PDF & Video) -->
+        <div v-if="showMediaModal" class="media-modal-overlay" @click="closeMedia">
+            <div class="video-modal-content" @click.stop @contextmenu.prevent>
+                <!-- Protective Overlay to block right-click/drag on the media directly -->
+                <div class="media-protection-overlay"></div>
+
                 <div class="modal-header d-flex justify-content-between align-items-center mb-3">
-                    <h5 class="mb-0 text-white">Student Kit Video</h5>
+                    <h5 class="mb-0 text-white">{{ currentKitTitle }}</h5>
                     <button type="button" class="btn-close btn-close-white" aria-label="Close"
-                        @click="closeVideo"></button>
+                        @click="closeMedia"></button>
                 </div>
-                <div class="ratio ratio-16x9 video-container">
-                    <iframe :src="currentVideoUrl" title="Video player" frameborder="0"
-                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                        allowfullscreen></iframe>
+
+                <div class="media-container ratio ratio-16x9">
+                    <!-- Video Player -->
+                    <video v-if="currentMediaType === 'video'" :src="currentMediaUrl" controls controlsList="nodownload"
+                        disablePictureInPicture class="w-100 h-100" oncontextmenu="return false;"></video>
+
+                    <!-- PDF Viewer -->
+                    <iframe v-else-if="currentMediaType === 'pdf'"
+                        :src="`${currentMediaUrl}#toolbar=0&navpanes=0&scrollbar=0`"
+                        class="w-100 h-100 border-0 shadow-sm rounded" style="background: #fff;"></iframe>
                 </div>
             </div>
         </div>
@@ -50,31 +69,59 @@
 <script setup lang="ts">
 import { ref } from 'vue';
 
-const showVideoModal = ref(false);
-const currentVideoUrl = ref("");
+const props = defineProps({
+    isDisabled: {
+        type: Boolean,
+        default: false
+    }
+});
+
+const isOpen = ref(true);
+const showMediaModal = ref(false);
+const currentMediaUrl = ref("");
+const currentMediaType = ref("");
+const currentKitTitle = ref("");
 
 // Student Kits configuration (First one is PDF)
 const studentKits = [
-    { title: "Kit 1: Syllabus & Guide", mediaUrl: "/sample.pdf", type: "pdf" },
-    { title: "Kit 2: Basics", mediaUrl: "https://www.youtube.com/embed/tgbNymZ7vqY", type: "video" },
-    { title: "Kit 3: Advanced", mediaUrl: "https://www.youtube.com/embed/tgbNymZ7vqY", type: "video" },
-    { title: "Kit 4: Expert", mediaUrl: "https://www.youtube.com/embed/tgbNymZ7vqY", type: "video" },
-    { title: "Kit 5: Masterclass", mediaUrl: "https://www.youtube.com/embed/tgbNymZ7vqY", type: "video" },
-    { title: "Kit 6: Conclusion", mediaUrl: "https://www.youtube.com/embed/tgbNymZ7vqY", type: "video" }
+    { title: "Best Interview Questions", mediaUrl: "https://storage.googleapis.com/gcc_static_files_backend/static/videos/Best%20Interview%20Questions.pdf", type: "pdf" },
+    { title: "GCC School Journey Overview", mediaUrl: "https://storage.googleapis.com/gcc_static_files_backend/static/videos/GCC%20School%20Journey%20Overview.mp4", type: "video" },
+    { title: "AEIAP Program Overview", mediaUrl: "https://storage.googleapis.com/gcc_static_files_backend/static/videos/AEIAP%20Program%20Overview.mp4", type: "video" },
+    { title: "AON - Test Platform Walkthrough", mediaUrl: "https://storage.googleapis.com/gcc_static_files_backend/static/videos/AON%20%E2%80%93%20Test%20Platform%20Walkthrough.mp4", type: "video" },
+    { title: "British Council - English for Work Course Overview", mediaUrl: "https://storage.googleapis.com/gcc_static_files_backend/static/videos/British%20Council%20%E2%80%93%20English%20for%20Work%20Course%20Overview.mp4", type: "video" },
+    { title: "NFET Exam Walkthrough Video", mediaUrl: "https://storage.googleapis.com/gcc_static_files_backend/static/videos/NFET%20Exam%20Walkthrough%20Video.mp4", type: "video" }
 ];
 
 const openMedia = (kit: any) => {
-    if (kit.type === 'pdf') {
-        window.open(kit.mediaUrl, '_blank');
-    } else {
-        currentVideoUrl.value = kit.mediaUrl;
-        showVideoModal.value = true;
-    }
+    if (props.isDisabled) return;
+
+    currentMediaUrl.value = kit.mediaUrl;
+    currentMediaType.value = kit.type;
+    currentKitTitle.value = kit.title;
+    showMediaModal.value = true;
+
+    // Add event listeners to block download shortcuts
+    window.addEventListener('keydown', handleGlobalKeydown);
 };
 
-const closeVideo = () => {
-    showVideoModal.value = false;
-    currentVideoUrl.value = "";
+const closeMedia = () => {
+    showMediaModal.value = false;
+    currentMediaUrl.value = "";
+    currentMediaType.value = "";
+    currentKitTitle.value = "";
+    window.removeEventListener('keydown', handleGlobalKeydown);
+};
+
+const handleGlobalKeydown = (e: KeyboardEvent) => {
+    // Block: Ctrl+S (Save), Ctrl+P (Print), Ctrl+U (Source), F12 (DevTools), Ctrl+Shift+I/C/J
+    if (
+        (e.ctrlKey && (e.key === 's' || e.key === 'p' || e.key === 'u')) ||
+        e.key === 'F12' ||
+        (e.ctrlKey && e.shiftKey && (e.key === 'I' || e.key === 'C' || e.key === 'J'))
+    ) {
+        e.preventDefault();
+        return false;
+    }
 };
 </script>
 
@@ -86,7 +133,19 @@ const closeVideo = () => {
 }
 
 /* ─── Video Modal ─────────────────────────────────────────── */
-.video-modal-overlay {
+.disabled-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 100;
+    cursor: not-allowed;
+    background: rgba(255, 255, 255, 0);
+    /* Ensure it's a solid block for clicks */
+}
+
+.media-modal-overlay {
     position: fixed;
     top: 0;
     left: 0;
@@ -111,9 +170,23 @@ const closeVideo = () => {
     border: 1px solid rgba(255, 255, 255, 0.1);
 }
 
-.video-container {
+.media-container {
     background: #000;
     border-radius: 8px;
     overflow: hidden;
+    position: relative;
+    z-index: 1;
+}
+
+.media-protection-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 10;
+    pointer-events: none;
+    /* Allows clicks to pass through but helps block some interactions depending on implementation */
+    /* Note: We use @contextmenu.prevent on the container instead for better compatibility */
 }
 </style>

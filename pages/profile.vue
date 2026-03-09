@@ -187,68 +187,94 @@
 
                 <!-- Right Column (20%) -->
                 <div class="col-lg-3 col-md-4">
-                    <StudentKits />
+                    <div :title="isProfileEmpty ? 'This section will be enabled after you complete your profile.' : ''">
+                        <StudentKits :isDisabled="isProfileEmpty" />
+                    </div>
 
                     <!-- NFET Slot Booking Sidebar -->
                     <div class="nfet-slot-sidebar bg-white p-3 rounded-3 shadow-sm border mb-4">
-                        <h5 class="mb-3 text-dark fw-bold pb-2"
-                            style="border-bottom: 2px solid #7c3aed; display: inline-block; font-size: 16px;">
-                            <i class="ti ti-calendar-event me-2" style="color: #7c3aed;"></i>NFET Slot Booking
-                        </h5>
+                        <div class="d-flex justify-content-between align-items-center mb-3"
+                            @click="isOpenNfet = !isOpenNfet" style="cursor: pointer; user-select: none;">
+                            <h5 class="m-0 text-dark fw-bold pb-1"
+                                style="border-bottom: 2px solid #7c3aed; display: inline-block; font-size: 16px;">
+                                <i class="ti ti-calendar-event me-2" style="color: #7c3aed;"></i>NFET Slot Booking
+                            </h5>
+                            <i class="ti" :class="isOpenNfet ? 'ti-chevron-up' : 'ti-chevron-down'"
+                                style="color: #475569; font-size: 18px;"></i>
+                        </div>
 
-                        <!-- Simple Calendar -->
-                        <div class="calendar-container mb-4">
-                            <div class="d-flex justify-content-between align-items-center mb-3 bg-light p-2 rounded">
-                                <button
-                                    class="btn btn-sm btn-white border shadow-sm p-1 d-flex align-items-center justify-content-center"
-                                    style="width: 28px; height: 28px;" @click="prevMonth"><i
-                                        class="ti ti-chevron-left"></i></button>
-                                <span class="fw-bold text-dark" style="font-size: 14px;">{{ monthNames[currentMonth] }}
-                                    {{ currentYear }}</span>
-                                <button
-                                    class="btn btn-sm btn-white border shadow-sm p-1 d-flex align-items-center justify-content-center"
-                                    style="width: 28px; height: 28px;" @click="nextMonth"><i
-                                        class="ti ti-chevron-right"></i></button>
-                            </div>
-                            <div class="calendar-grid">
-                                <div class="calendar-day-header text-muted fw-semibold"
-                                    v-for="day in ['Su', 'Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa']" :key="day">{{ day }}</div>
-                                <div class="calendar-day" v-for="(day, idx) in calendarDays" :key="'empty-' + idx"
-                                    :class="{
-                                        'empty': !day,
-                                        'allowed': day && day.isAllowed,
-                                        'disabled': day && !day.isAllowed,
-                                        'selected': day && day.dateString === selectedDate
-                                    }" @click="selectDate(day)">
-                                    {{ day ? day.day : '' }}
+                        <div v-show="isOpenNfet" class="nfet-slide-content" style="position: relative;">
+                            <div v-if="isProfileEmpty" class="disabled-overlay"
+                                title="This section will be enabled after you complete your profile."></div>
+                            <div :class="{ 'opacity-50': isProfileEmpty }">
+                                <div
+                                    class="d-flex justify-content-between align-items-center mb-3 bg-light p-2 rounded">
+                                    <button
+                                        class="btn btn-sm btn-white border shadow-sm p-1 d-flex align-items-center justify-content-center"
+                                        style="width: 28px; height: 28px;" @click="prevMonth"><i
+                                            class="ti ti-chevron-left"></i></button>
+                                    <span class="fw-bold text-dark" style="font-size: 14px;">{{ monthNames[currentMonth]
+                                        }}
+                                        {{ currentYear }}</span>
+                                    <button
+                                        class="btn btn-sm btn-white border shadow-sm p-1 d-flex align-items-center justify-content-center"
+                                        style="width: 28px; height: 28px;" @click="nextMonth"><i
+                                            class="ti ti-chevron-right"></i></button>
                                 </div>
+                                <div class="calendar-grid">
+                                    <div class="calendar-day-header text-muted fw-semibold"
+                                        v-for="day in ['Su', 'Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa']" :key="day">{{ day }}
+                                    </div>
+                                    <div class="calendar-day" v-for="(day, idx) in calendarDays" :key="'empty-' + idx"
+                                        :class="{
+                                            'empty': !day,
+                                            'allowed': day && day.isAllowed,
+                                            'disabled': day && !day.isAllowed,
+                                            'selected': day && day.dateString === selectedDate
+                                        }" @click="selectDate(day)">
+                                        {{ day ? day.day : '' }}
+                                    </div>
+                                </div>
+
+                                <!-- Slots -->
+                                <div class="slots-container" v-if="selectedDate">
+                                    <h6 class="mb-2 fw-semibold text-dark" style="font-size: 14px;">Slots for {{
+                                        formatDate(selectedDate) }}:</h6>
+                                    <div class="d-flex flex-wrap gap-2 mb-3">
+                                        <button v-for="slot in availableSlots" :key="slot.id"
+                                            class="btn btn-sm flex-grow-1"
+                                            :class="selectedSlot === slot.id ? 'btn-primary text-white custom-primary-bg' : 'btn-outline-secondary'"
+                                            @click="selectSlot(slot)" style="font-size: 12px; min-width: 45%;">
+                                            {{ slot.time }}
+                                        </button>
+                                    </div>
+                                    <div v-if="availableSlots.length === 0" class="text-muted small mb-3">No slots
+                                        available.
+                                    </div>
+
+                                    <button
+                                        class="btn btn-primary w-100 custom-primary-bg d-flex justify-content-center align-items-center gap-2 mb-2"
+                                        :disabled="isBookingSlot" @click="bookSlot">
+                                        <span v-if="isBookingSlot" class="spinner-border spinner-border-sm"
+                                            role="status" aria-hidden="true"></span>
+                                        {{ bookingDetails.isBooked ? 'Update Slot' : 'Book Slot' }} <i
+                                            v-if="!isBookingSlot" class="ti ti-arrow-right"></i>
+                                    </button>
+
+                                    <!-- Admit Card Button (Only show after successful API call in this session) -->
+                                    <button v-if="showAdmitCardButton"
+                                        class="btn btn-outline-success w-100 d-flex justify-content-center align-items-center gap-2"
+                                        @click="downloadAdmitCard">
+                                        Generate Admit Card <i class="ti ti-download"></i>
+                                    </button>
+                                </div>
+                                <p v-else
+                                    class="text-muted small text-center py-2 px-3 bg-light rounded border border-dashed mt-3">
+                                    Please select a highlighted date.
+                                </p>
                             </div>
                         </div>
-
-                        <!-- Slots -->
-                        <div class="slots-container" v-if="selectedDate">
-                            <h6 class="mb-2 fw-semibold text-dark" style="font-size: 14px;">Slots for {{
-                                formatDate(selectedDate) }}:</h6>
-                            <div class="d-flex flex-wrap gap-2 mb-3">
-                                <button v-for="slot in availableSlots" :key="slot.id" class="btn btn-sm flex-grow-1"
-                                    :class="selectedSlot === slot.id ? 'btn-primary text-white custom-primary-bg' : 'btn-outline-secondary'"
-                                    @click="selectSlot(slot)" style="font-size: 12px; min-width: 45%;">
-                                    {{ slot.time }}
-                                </button>
-                            </div>
-                            <div v-if="availableSlots.length === 0" class="text-muted small mb-3">No slots available.
-                            </div>
-
-                            <button
-                                class="btn btn-primary w-100 custom-primary-bg d-flex justify-content-center align-items-center gap-2"
-                                :disabled="!selectedSlot">
-                                Book Slot <i class="ti ti-arrow-right"></i>
-                            </button>
-                        </div>
-                        <p v-else class="text-muted small text-center py-1 px-3 bg-light rounded border border-dashed">
-                            Please select a highlighted date.
-                        </p>
-                    </div>
+                    </div> <!-- End nfet-slot-sidebar -->
                 </div> <!-- End Right Column -->
             </div> <!-- End Main Row -->
         </div> <!-- End Main Layout Split -->
@@ -289,8 +315,25 @@ useHead({
 const { userId, init: initAuth } = useAuth()
 const config = useRuntimeConfig();
 
+// Start Global Scope 
+const staticSlots = [
+    "11:30 AM - 01:00 PM",
+    "01:30 PM - 03:00 PM"
+];
+
 // Hydrate auth state (reads from localStorage) on mount
 const profileImage = ref<string | null>(null);
+
+const isProfileEmpty = ref(false);
+
+const bookingDetails = reactive({
+    isBooked: false,
+    date: "",
+    time: "",
+    admitCardUrl: "" as string | null
+});
+
+const showAdmitCardButton = ref(false);
 
 const fetchStudentDetail = async () => {
     if (!userId.value) return;
@@ -302,7 +345,15 @@ const fetchStudentDetail = async () => {
             headers: token ? { 'Authorization': `Bearer ${token}` } : {}
         });
 
-        if (response?.data) {
+        console.log("Profile Data Check:", response);
+
+        // If returned payload is explicitly an empty array or missing data
+        if (!response?.data || (Array.isArray(response.data) && response.data.length === 0)) {
+            isProfileEmpty.value = true;
+            console.warn("Profile is detected as EMPTY. Disabling sections.");
+        }
+
+        if (response?.data && !Array.isArray(response.data)) {
             const d = response.data;
 
             // Name splitting logic
@@ -365,6 +416,27 @@ const fetchStudentDetail = async () => {
                 dob_proof: d.dob_certificate || null,
                 photo: d.photo || null // Fetch proper document photo
             };
+
+            // Booking Details check
+            if (d.slot_date && d.slot_time) {
+                bookingDetails.isBooked = true;
+                bookingDetails.date = d.slot_date;
+                bookingDetails.time = d.slot_time;
+                // Pre-select the calendar to show their booked slot
+                selectedDate.value = d.slot_date;
+
+                // Prefill available slots so the UI can highlight the match
+                availableSlots.value = staticSlots.map((timeStr: string, index: number) => ({
+                    id: index + 1,
+                    time: timeStr
+                }));
+
+                // Force an update to show the times if the calendar matches
+                const matchingSlot = staticSlots.find(s => s === d.slot_time);
+                if (matchingSlot) {
+                    selectedSlot.value = staticSlots.indexOf(matchingSlot) + 1;
+                }
+            }
         }
 
         // Fetch image specifically from the detail API as requested and fill fallback profile data
@@ -435,6 +507,7 @@ onMounted(async () => {
 })
 
 const openSection = ref<number | null>(1); // first section open by default
+const isOpenNfet = ref(true);
 
 // --- Calendar & Slots Logic ---
 const currentDateObj = ref(new Date());
@@ -491,12 +564,6 @@ const selectDate = (day: any) => {
     selectedDate.value = day.dateString;
     selectedSlot.value = ''; // reset slot on date change
 
-    // Hardcode available slots
-    const staticSlots = [
-        "11:30 AM - 01:00 PM",
-        "01:30 PM - 03:00 PM"
-    ];
-
     availableSlots.value = staticSlots.map((timeStr: string, index: number) => ({
         id: index + 1,
         time: timeStr
@@ -505,6 +572,76 @@ const selectDate = (day: any) => {
 
 const selectSlot = (slot: any) => {
     selectedSlot.value = slot.id;
+};
+
+const isBookingSlot = ref(false);
+
+const bookSlot = async () => {
+    if (!selectedDate.value || !selectedSlot.value) return;
+
+    const slotObj = availableSlots.value.find((s: any) => s.id === selectedSlot.value);
+    if (!slotObj) return;
+
+    isBookingSlot.value = true;
+    try {
+        const { getAccessToken } = useAuth();
+        const token = getAccessToken();
+
+        const payload = {
+            slot_date: selectedDate.value,
+            slot_time: String(slotObj.time)
+        };
+
+        // Note: Using a standard fetch for easier blob handling
+        const response = await fetch(`${config.public.apiBase}/api/students/student-slot-upload/`, {
+            method: "PATCH",
+            body: JSON.stringify(payload),
+            headers: {
+                'Content-Type': 'application/json',
+                ...(token ? { 'Authorization': `Bearer ${token}` } : {})
+            }
+        });
+        console.log(response, '-------------response-------')
+        if (response.ok) {
+            const result = await response.json();
+            const reportUrl = result.data?.report_url;
+
+            bookingDetails.isBooked = true;
+            bookingDetails.date = payload.slot_date;
+            bookingDetails.time = payload.slot_time;
+            bookingDetails.admitCardUrl = reportUrl;
+            showAdmitCardButton.value = true;
+
+            alert("Slot booked successfully! You can now download your admit card.");
+        } else {
+            const errorData = await response.json().catch(() => ({}));
+            throw new Error(errorData.message || "Failed to book slot");
+        }
+    } catch (err: any) {
+        console.error("Failed to book slot:", err);
+        alert(err.message || "Failed to book slot. Please try again.");
+    } finally {
+        isBookingSlot.value = false;
+    }
+};
+
+const downloadAdmitCard = () => {
+    if (bookingDetails.admitCardUrl) {
+        // If it's a blob URL, download it, else open the external URL
+        if (bookingDetails.admitCardUrl.startsWith('blob:') || bookingDetails.admitCardUrl.includes('fslfdlfj')) {
+            const link = document.createElement('a');
+            link.href = bookingDetails.admitCardUrl;
+            link.setAttribute('download', `NFET_Admit_Card_${bookingDetails.date}.pdf`);
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+        } else {
+            // It's a standard URL, open in new tab
+            window.open(bookingDetails.admitCardUrl, '_blank');
+        }
+    } else {
+        alert("No admit card available. Please book a slot first.");
+    }
 };
 
 const formatDate = (dateStr: string) => {
@@ -1131,5 +1268,17 @@ const handleFinalSubmit = async () => {
 
 .border-dashed {
     border-style: dashed !important;
+}
+
+.disabled-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 100;
+    cursor: not-allowed;
+    background: rgba(255, 255, 255, 0);
+    /* Ensure it's a solid block for clicks */
 }
 </style>
