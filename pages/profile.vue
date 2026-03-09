@@ -543,9 +543,16 @@ const calendarDays = computed(() => {
     for (let i = 0; i < firstDayOfMonth.value; i++) {
         days.push(null); // empty slots padding for the first week
     }
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
+    const todayStr = `${today.getFullYear()}-${String(today.getMonth() + 1).padStart(2, '0')}-${String(today.getDate()).padStart(2, '0')}`;
+
     for (let i = 1; i <= daysInMonth.value; i++) {
         const dateString = `${currentYear.value}-${String(currentMonth.value + 1).padStart(2, '0')}-${String(i).padStart(2, '0')}`;
-        const isAllowed = allowedDates.value.includes(dateString);
+
+        // Allowed only if it's in the allowedDates list AND is today or in the future
+        const isAllowed = allowedDates.value.includes(dateString) && dateString >= todayStr;
+
         days.push({
             day: i,
             dateString,
