@@ -4,176 +4,257 @@
         <LayoutMainNavbar />
         <!-- <CommonInnerPageBanner pageTitle="Profile" /> -->
 
-        <!-- Profile Header Card -->
-        <div class="container pt-50 pb-30">
-            <div class="profile-header-card">
-                <!-- Cover Banner -->
-                <div class="profile-cover">
-                    <!-- <button class="profile-edit-btn" title="Edit Cover"> -->
-                    <!-- <i class="ti ti-pencil"></i> Edit -->
-                    <!-- </button> -->
-                </div>
-
-                <!-- Avatar (overlapping cover) -->
-                <div class="profile-avatar-wrap">
-                    <div class="profile-avatar" @click="triggerImageUpload"
-                        style="cursor: pointer; position: relative;">
-                        <!-- Loading Overlay -->
-                        <div v-if="isImageUploading" class="upload-overlay">
-                            <span class="spinner-border spinner-border-sm text-white" role="status"
-                                aria-hidden="true"></span>
-                        </div>
-
-                        <img v-if="profileImage" :src="profileImage" alt="Profile" class="avatar-img" />
-                        <i v-else class="ti ti-user"></i>
-
-                        <!-- Hover Edit Icon -->
-                        <div class="edit-icon-overlay">
-                            <i class="ti ti-camera"></i>
-                        </div>
-
-                        <!-- Hidden File Input -->
-                        <input type="file" ref="profileImageInput" class="d-none" accept="image/*"
-                            @change="handleProfileImageUpload" />
-                    </div>
-                </div>
-
-                <!-- Info below -->
-                <div class="profile-info">
-                    <h2 class="profile-name">
-                        {{ (formData.first_name || 'Applicant') + ' ' + (formData.last_name || '') }}
-                    </h2>
-                    <p class="profile-detail" v-if="formData.email">
-                        <i class="ti ti-mail me-1"></i> {{ formData.email }}
-                    </p>
-                    <p class="profile-detail" v-if="formData.mobile">
-                        <i class="ti ti-phone me-1"></i> {{ formData.mobile }}
-                    </p>
-                    <p class="profile-detail" v-if="formData.city">
-                        <i class="ti ti-map-pin me-1"></i> {{ formData.city }}<span v-if="formData.state">, {{
-                            formData.state }}</span>
-                    </p>
-                </div>
-            </div>
-        </div>
-
-        <!-- 4 Accordion Sections -->
-        <div class="container pb-30">
-            <div class="profile-accordion">
-
-                <!-- Section 1: Personal Information -->
-                <div class="accordion-section" :class="{ active: openSection === 1 }">
-                    <div class="accordion-header" @click="toggleSection(1)">
-                        <div class="accordion-header-left">
-                            <div style="display: flex; align-items: center; gap: 10px;">
-                                <span class="accordion-icon"><i class="ti ti-user"></i></span>
-                                <h4>Personal Information</h4>
-                                <!-- <p>Name, contact, address &amp; family details</p> -->
-                            </div>
-                        </div>
-                        <div class="accordion-header-right">
-
-                            <i class="ti accordion-chevron"
-                                :class="openSection === 1 ? 'ti-chevron-up' : 'ti-chevron-down'"></i>
-                        </div>
-                    </div>
-                    <div class="accordion-body p-4 p-lg-5" v-show="openSection === 1">
-                        <PersonalInformation ref="section1Ref" :formData="formData" />
-                    </div>
-                </div>
-
-                <!-- Section 2: Academic Information -->
-                <div class="accordion-section" :class="{ active: openSection === 2 }">
-                    <div class="accordion-header" @click="toggleSection(2)">
-                        <div class="accordion-header-left">
-                            <div style="display: flex; align-items: center; gap: 10px;">
-                                <span class="accordion-icon"><i class="ti ti-school"></i></span>
-                                <h4>Academic Information</h4>
-                            </div>
-                        </div>
-                        <div class="accordion-header-right">
-
-                            <i class="ti accordion-chevron"
-                                :class="openSection === 2 ? 'ti-chevron-up' : 'ti-chevron-down'"></i>
-                        </div>
-                    </div>
-                    <div class="accordion-body p-4 p-lg-5" v-show="openSection === 2">
-                        <AcademicInformation ref="section2Ref" :formData="formData" />
-                    </div>
-                </div>
-
-                <!-- Section 3: Work Experience -->
-                <div class="accordion-section" :class="{ active: openSection === 3 }">
-                    <div class="accordion-header" @click="toggleSection(3)">
-                        <div class="accordion-header-left">
-                            <div style="display: flex; align-items: center; gap: 10px;">
-                                <span class="accordion-icon"><i class="ti ti-briefcase"></i></span>
-                                <h4>Work Experience</h4>
-                            </div>
-                        </div>
-                        <div class="accordion-header-right">
-                            <i class="ti accordion-chevron"
-                                :class="openSection === 3 ? 'ti-chevron-up' : 'ti-chevron-down'"></i>
-                        </div>
-                    </div>
-                    <div class="accordion-body p-4 p-lg-5" v-show="openSection === 3">
-                        <WorkExperienceDetails ref="section3Ref" :formData="formData" />
-                    </div>
-                </div>
-
-                <!-- Section 4: Documents & Declaration -->
-                <div class="accordion-section" :class="{ active: openSection === 4 }">
-                    <div class="accordion-header" @click="toggleSection(4)">
-                        <div class="accordion-header-left">
-                            <div style="display: flex; align-items: center; gap: 10px;">
-                                <span class="accordion-icon"><i class="ti ti-files"></i></span>
-                                <h4>Documents</h4>
-                            </div>
-                        </div>
-                        <div class="accordion-header-right">
-                            <i class="ti accordion-chevron"
-                                :class="openSection === 4 ? 'ti-chevron-up' : 'ti-chevron-down'"></i>
-                        </div>
-                    </div>
-                    <div class="accordion-body p-4 p-lg-5" v-show="openSection === 4">
-                        <DocumentUpload ref="section4aRef" :formData="formData" />
-                        <!-- <div class="section-divider"></div> -->
-                        <!-- <PrePaymentDeclaration ref="section4bRef" :formData="formData" /> -->
-                    </div>
-                </div>
-                <div class="p-3 bg-light rounded-3 mb-4">
-                    <div class="form-check custom-declaration">
-                        <input class="form-check-input" type="checkbox" id="declaration"
-                            v-model="formData.declaration" />
-                        <label class="form-check-label ms-2 fw-medium text-dark" for="declaration">
-                            I declare that all the information and documents submitted by me are true to the best of my
-                            knowledge. I agree that in case any information or document found fake/forged/false
-                            submitted by me, then my candidature may cancel at any stage of course. 
-                        </label>
-                    </div>
-                </div>
-
-            </div>
-        </div>
-
-        <!-- Proceed to Pay Button -->
-        <div class="container pb-100">
+        <!-- Main Layout Split -->
+        <div class="container pt-50 pb-100">
             <div class="row">
-                <div class="col-lg-12">
-                    <div class="d-flex justify-content-center">
-                        <button style="background-color: #872980;"
-                            class="submit-btn default-btn d-flex align-items-center justify-content-center gap-2"
-                            @click="handleFinalSubmit" :disabled="!formData.declaration || isSubmitting"
-                            :class="{ 'opacity-50 cursor-not-allowed': !formData.declaration || isSubmitting }">
-                            <span v-if="isSubmitting" class="spinner-border spinner-border-sm" role="status"
-                                aria-hidden="true"></span>
-                            {{ isSubmitting ? 'Submitting...' : 'Submit' }} <i v-if="!isSubmitting"
-                                class="ti ti-check"></i>
-                        </button>
+                <!-- Left Column (80%) -->
+                <div class="col-lg-9 col-md-8">
+
+                    <!-- Profile Header Card -->
+                    <div class="pb-30">
+                        <div class="profile-header-card">
+                            <!-- Cover Banner -->
+                            <div class="profile-cover">
+                                <!-- <button class="profile-edit-btn" title="Edit Cover"> -->
+                                <!-- <i class="ti ti-pencil"></i> Edit -->
+                                <!-- </button> -->
+                            </div>
+
+                            <!-- Avatar (overlapping cover) -->
+                            <div class="profile-avatar-wrap">
+                                <div class="profile-avatar" @click="triggerImageUpload"
+                                    style="cursor: pointer; position: relative;">
+                                    <!-- Loading Overlay -->
+                                    <div v-if="isImageUploading" class="upload-overlay">
+                                        <span class="spinner-border spinner-border-sm text-white" role="status"
+                                            aria-hidden="true"></span>
+                                    </div>
+
+                                    <img v-if="profileImage" :src="profileImage" alt="Profile" class="avatar-img" />
+                                    <i v-else class="ti ti-user"></i>
+
+                                    <!-- Hover Edit Icon -->
+                                    <div class="edit-icon-overlay">
+                                        <i class="ti ti-camera"></i>
+                                    </div>
+
+                                    <!-- Hidden File Input -->
+                                    <input type="file" ref="profileImageInput" class="d-none" accept="image/*"
+                                        @change="handleProfileImageUpload" />
+                                </div>
+                            </div>
+
+                            <!-- Info below -->
+                            <div class="profile-info">
+                                <h2 class="profile-name">
+                                    {{ (formData.first_name || 'Applicant') + ' ' + (formData.last_name || '') }}
+                                </h2>
+                                <p class="profile-detail" v-if="formData.email">
+                                    <i class="ti ti-mail me-1"></i> {{ formData.email }}
+                                </p>
+                                <p class="profile-detail" v-if="formData.mobile">
+                                    <i class="ti ti-phone me-1"></i> {{ formData.mobile }}
+                                </p>
+                                <p class="profile-detail" v-if="formData.city">
+                                    <i class="ti ti-map-pin me-1"></i> {{ formData.city }}<span v-if="formData.state">,
+                                        {{
+                                            formData.state }}</span>
+                                </p>
+                            </div>
+                        </div>
                     </div>
-                </div>
-            </div>
-        </div>
+
+                    <!-- 4 Accordion Sections -->
+                    <div class="pb-30">
+                        <div class="profile-accordion">
+
+                            <!-- Section 1: Personal Information -->
+                            <div class="accordion-section" :class="{ active: openSection === 1 }">
+                                <div class="accordion-header" @click="toggleSection(1)">
+                                    <div class="accordion-header-left">
+                                        <div style="display: flex; align-items: center; gap: 10px;">
+                                            <span class="accordion-icon"><i class="ti ti-user"></i></span>
+                                            <h4>Personal Information</h4>
+                                            <!-- <p>Name, contact, address &amp; family details</p> -->
+                                        </div>
+                                    </div>
+                                    <div class="accordion-header-right">
+
+                                        <i class="ti accordion-chevron"
+                                            :class="openSection === 1 ? 'ti-chevron-up' : 'ti-chevron-down'"></i>
+                                    </div>
+                                </div>
+                                <div class="accordion-body p-4 p-lg-5" v-show="openSection === 1">
+                                    <PersonalInformation ref="section1Ref" :formData="formData" />
+                                </div>
+                            </div>
+
+                            <!-- Section 2: Academic Information -->
+                            <div class="accordion-section" :class="{ active: openSection === 2 }">
+                                <div class="accordion-header" @click="toggleSection(2)">
+                                    <div class="accordion-header-left">
+                                        <div style="display: flex; align-items: center; gap: 10px;">
+                                            <span class="accordion-icon"><i class="ti ti-school"></i></span>
+                                            <h4>Academic Information</h4>
+                                        </div>
+                                    </div>
+                                    <div class="accordion-header-right">
+
+                                        <i class="ti accordion-chevron"
+                                            :class="openSection === 2 ? 'ti-chevron-up' : 'ti-chevron-down'"></i>
+                                    </div>
+                                </div>
+                                <div class="accordion-body p-4 p-lg-5" v-show="openSection === 2">
+                                    <AcademicInformation ref="section2Ref" :formData="formData" />
+                                </div>
+                            </div>
+
+                            <!-- Section 3: Work Experience -->
+                            <div class="accordion-section" :class="{ active: openSection === 3 }">
+                                <div class="accordion-header" @click="toggleSection(3)">
+                                    <div class="accordion-header-left">
+                                        <div style="display: flex; align-items: center; gap: 10px;">
+                                            <span class="accordion-icon"><i class="ti ti-briefcase"></i></span>
+                                            <h4>Work Experience</h4>
+                                        </div>
+                                    </div>
+                                    <div class="accordion-header-right">
+                                        <i class="ti accordion-chevron"
+                                            :class="openSection === 3 ? 'ti-chevron-up' : 'ti-chevron-down'"></i>
+                                    </div>
+                                </div>
+                                <div class="accordion-body p-4 p-lg-5" v-show="openSection === 3">
+                                    <WorkExperienceDetails ref="section3Ref" :formData="formData" />
+                                </div>
+                            </div>
+
+                            <!-- Section 4: Documents & Declaration -->
+                            <div class="accordion-section" :class="{ active: openSection === 4 }">
+                                <div class="accordion-header" @click="toggleSection(4)">
+                                    <div class="accordion-header-left">
+                                        <div style="display: flex; align-items: center; gap: 10px;">
+                                            <span class="accordion-icon"><i class="ti ti-files"></i></span>
+                                            <h4>Documents</h4>
+                                        </div>
+                                    </div>
+                                    <div class="accordion-header-right">
+                                        <i class="ti accordion-chevron"
+                                            :class="openSection === 4 ? 'ti-chevron-up' : 'ti-chevron-down'"></i>
+                                    </div>
+                                </div>
+                                <div class="accordion-body p-4 p-lg-5" v-show="openSection === 4">
+                                    <DocumentUpload ref="section4aRef" :formData="formData" />
+                                    <!-- <div class="section-divider"></div> -->
+                                    <!-- <PrePaymentDeclaration ref="section4bRef" :formData="formData" /> -->
+                                </div>
+                            </div>
+                            <div class="p-3 bg-light rounded-3 mb-4">
+                                <div class="form-check custom-declaration">
+                                    <input class="form-check-input" type="checkbox" id="declaration"
+                                        v-model="formData.declaration" />
+                                    <label class="form-check-label ms-2 fw-medium text-dark" for="declaration">
+                                        I declare that all the information and documents submitted by me are true to the
+                                        best of my
+                                        knowledge. I agree that in case any information or document found
+                                        fake/forged/false
+                                        submitted by me, then my candidature may cancel at any stage of course. 
+                                    </label>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <!-- Proceed to Pay Button -->
+                    <div class="pb-100">
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <div class="d-flex justify-content-center">
+                                    <button style="background-color: #872980;"
+                                        class="submit-btn default-btn d-flex align-items-center justify-content-center gap-2"
+                                        @click="handleFinalSubmit" :disabled="!formData.declaration || isSubmitting"
+                                        :class="{ 'opacity-50 cursor-not-allowed': !formData.declaration || isSubmitting }">
+                                        <span v-if="isSubmitting" class="spinner-border spinner-border-sm" role="status"
+                                            aria-hidden="true"></span>
+                                        {{ isSubmitting ? 'Submitting...' : 'Submit' }} <i v-if="!isSubmitting"
+                                            class="ti ti-check"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div> <!-- End Proceed Button wrapper -->
+                </div> <!-- End Left Column -->
+
+                <!-- Right Column (20%) -->
+                <div class="col-lg-3 col-md-4">
+                    <StudentKits />
+
+                    <!-- NFET Slot Booking Sidebar -->
+                    <div class="nfet-slot-sidebar bg-white p-3 rounded-3 shadow-sm border mb-4">
+                        <h5 class="mb-3 text-dark fw-bold pb-2"
+                            style="border-bottom: 2px solid #7c3aed; display: inline-block; font-size: 16px;">
+                            <i class="ti ti-calendar-event me-2" style="color: #7c3aed;"></i>NFET Slot Booking
+                        </h5>
+
+                        <!-- Simple Calendar -->
+                        <div class="calendar-container mb-4">
+                            <div class="d-flex justify-content-between align-items-center mb-3 bg-light p-2 rounded">
+                                <button
+                                    class="btn btn-sm btn-white border shadow-sm p-1 d-flex align-items-center justify-content-center"
+                                    style="width: 28px; height: 28px;" @click="prevMonth"><i
+                                        class="ti ti-chevron-left"></i></button>
+                                <span class="fw-bold text-dark" style="font-size: 14px;">{{ monthNames[currentMonth] }}
+                                    {{ currentYear }}</span>
+                                <button
+                                    class="btn btn-sm btn-white border shadow-sm p-1 d-flex align-items-center justify-content-center"
+                                    style="width: 28px; height: 28px;" @click="nextMonth"><i
+                                        class="ti ti-chevron-right"></i></button>
+                            </div>
+                            <div class="calendar-grid">
+                                <div class="calendar-day-header text-muted fw-semibold"
+                                    v-for="day in ['Su', 'Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa']" :key="day">{{ day }}</div>
+                                <div class="calendar-day" v-for="(day, idx) in calendarDays" :key="'empty-' + idx"
+                                    :class="{
+                                        'empty': !day,
+                                        'allowed': day && day.isAllowed,
+                                        'disabled': day && !day.isAllowed,
+                                        'selected': day && day.dateString === selectedDate
+                                    }" @click="selectDate(day)">
+                                    {{ day ? day.day : '' }}
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Slots -->
+                        <div class="slots-container" v-if="selectedDate">
+                            <h6 class="mb-2 fw-semibold text-dark" style="font-size: 14px;">Slots for {{
+                                formatDate(selectedDate) }}:</h6>
+                            <div class="d-flex flex-wrap gap-2 mb-3">
+                                <button v-for="slot in availableSlots" :key="slot.id" class="btn btn-sm flex-grow-1"
+                                    :class="selectedSlot === slot.id ? 'btn-primary text-white custom-primary-bg' : 'btn-outline-secondary'"
+                                    @click="selectSlot(slot)" style="font-size: 12px; min-width: 45%;">
+                                    {{ slot.time }}
+                                </button>
+                            </div>
+                            <div v-if="availableSlots.length === 0" class="text-muted small mb-3">No slots available.
+                            </div>
+
+                            <button
+                                class="btn btn-primary w-100 custom-primary-bg d-flex justify-content-center align-items-center gap-2"
+                                :disabled="!selectedSlot">
+                                Book Slot <i class="ti ti-arrow-right"></i>
+                            </button>
+                        </div>
+                        <div v-else class="text-muted small text-center py-3 bg-light rounded border border-dashed">
+                            <i class="ti ti-calendar-star d-block mb-1 fs-5"></i>
+                            Please select a highlighted date.
+                        </div>
+                    </div>
+                </div> <!-- End Right Column -->
+            </div> <!-- End Main Row -->
+        </div> <!-- End Main Layout Split -->
+
+
 
         <LayoutMainFooter />
         <LayoutCopyRight />
@@ -182,11 +263,12 @@
 
 <!-- ✅ PROTECTED ROUTE — redirects to /login if no valid token found -->
 <script setup lang="ts">
-import { ref, reactive } from 'vue'
+import { ref, reactive, computed } from 'vue'
 import PersonalInformation from "../components/PersonalInformation/PersonalInformation.vue";
 import AcademicInformation from "../components/AcademicInformation/AcademicInformation.vue";
 import WorkExperienceDetails from "../components/WorkExperienceDetails/WorkExperienceDetails.vue";
 import DocumentUpload from "../components/DocumentUpload/DocumentUpload.vue";
+import StudentKits from "../components/StudentKits/StudentKits.vue";
 // import PrePaymentDeclaration from "../components/PrePaymentDeclaration/PrePaymentDeclaration.vue";
 
 // Layer 1: Middleware for Nuxt navigation
@@ -332,6 +414,81 @@ onMounted(async () => {
 })
 
 const openSection = ref<number | null>(1); // first section open by default
+
+// --- Calendar & Slots Logic ---
+const currentDateObj = ref(new Date());
+const currentMonth = computed(() => currentDateObj.value.getMonth());
+const currentYear = computed(() => currentDateObj.value.getFullYear());
+
+const monthNames = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+
+const prevMonth = () => {
+    currentDateObj.value = new Date(currentYear.value, currentMonth.value - 1, 1);
+};
+const nextMonth = () => {
+    currentDateObj.value = new Date(currentYear.value, currentMonth.value + 1, 1);
+};
+
+// Initialize allowed dates from runtime config
+const allowedDates = ref<string[]>([]);
+if (config.public.nfetDates) {
+    allowedDates.value = config.public.nfetDates.split(',').map((d: string) => d.trim());
+}
+
+const daysInMonth = computed(() => {
+    return new Date(currentYear.value, currentMonth.value + 1, 0).getDate();
+});
+const firstDayOfMonth = computed(() => {
+    return new Date(currentYear.value, currentMonth.value, 1).getDay();
+});
+
+const calendarDays = computed(() => {
+    const days = [];
+    for (let i = 0; i < firstDayOfMonth.value; i++) {
+        days.push(null); // empty slots padding for the first week
+    }
+    for (let i = 1; i <= daysInMonth.value; i++) {
+        const dateString = `${currentYear.value}-${String(currentMonth.value + 1).padStart(2, '0')}-${String(i).padStart(2, '0')}`;
+        const isAllowed = allowedDates.value.includes(dateString);
+        days.push({
+            day: i,
+            dateString,
+            isAllowed
+        });
+    }
+    return days;
+});
+
+const selectedDate = ref('');
+const selectedSlot = ref<number | string>('');
+const availableSlots = ref<any[]>([]);
+
+const selectDate = (day: any) => {
+    if (!day || !day.isAllowed) return;
+    selectedDate.value = day.dateString;
+    selectedSlot.value = ''; // reset slot on date change
+
+    // Initialize available slots based on runtime config
+    if (config.public.nfetSlots) {
+        const slotsArray = config.public.nfetSlots.split(',').map((s: string) => s.trim());
+        availableSlots.value = slotsArray.map((timeStr: string, index: number) => ({
+            id: index + 1,
+            time: timeStr
+        }));
+    } else {
+        availableSlots.value = [];
+    }
+};
+
+const selectSlot = (slot: any) => {
+    selectedSlot.value = slot.id;
+};
+
+const formatDate = (dateStr: string) => {
+    if (!dateStr) return '';
+    const date = new Date(dateStr);
+    return date.toLocaleDateString('en-US', { weekday: 'short', month: 'short', day: 'numeric' });
+};
 
 const formData = reactive({
     first_name: "",
@@ -876,5 +1033,80 @@ const handleFinalSubmit = async () => {
 
 .cursor-not-allowed {
     cursor: not-allowed !important;
+}
+
+
+
+.kit-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(124, 58, 237, 0.15) !important;
+    border-color: #7c3aed !important;
+}
+
+/* ─── Calendar Styling ────────────────────────────────────── */
+.calendar-grid {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 4px;
+    text-align: center;
+}
+
+.calendar-day-header {
+    font-size: 11px;
+    text-transform: uppercase;
+    padding-bottom: 4px;
+}
+
+.calendar-day {
+    aspect-ratio: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 13px;
+    border-radius: 6px;
+    cursor: default;
+    color: #94a3b8;
+    background: transparent;
+}
+
+.calendar-day.empty {
+    background: transparent;
+}
+
+.calendar-day.disabled {
+    opacity: 0.5;
+    background: #f8fafc;
+}
+
+.calendar-day.allowed {
+    background: #ede9fe;
+    color: #7c3aed;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.calendar-day.allowed:hover {
+    background: #ddd6fe;
+}
+
+.calendar-day.selected {
+    background: #872980;
+    color: #fff;
+    box-shadow: 0 2px 8px rgba(135, 41, 128, 0.3);
+}
+
+.custom-primary-bg {
+    background-color: #872980 !important;
+    border-color: #872980 !important;
+}
+
+.custom-primary-bg:hover {
+    background-color: #6d1e67 !important;
+    border-color: #6d1e67 !important;
+}
+
+.border-dashed {
+    border-style: dashed !important;
 }
 </style>
