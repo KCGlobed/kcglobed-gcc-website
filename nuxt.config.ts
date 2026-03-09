@@ -68,6 +68,8 @@ export default defineNuxtConfig({
     public: {
       paymentAmount: process.env.PAYMENT_AMOUNT,
       apiBase: process.env.NUXT_PUBLIC_API_BASE,
+      nfetDates: process.env.NUXT_PUBLIC_NFET_DATES || '',
+      nfetSlots: process.env.NUXT_PUBLIC_NFET_SLOTS || '',
     }
   },
   plugins: ["~/plugins/scrollReveal.ts"],
