@@ -205,7 +205,7 @@ export default defineEventHandler(async (event) => {
     try {
         const paymentId = await savePayment({
             student_id: userId,
-            form_type: formType,
+            form_type: formType || 1,
             form_id: formId,
             razorpay_order_id: cf_order_id,
             razorpay_payment_id: actualPaymentId,
