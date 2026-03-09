@@ -312,7 +312,7 @@ $radius: 14px;
 
 .login-root {
     font-family: 'DM Sans', sans-serif;
-    min-height: 85vh;
+    min-height: 90vh;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -551,7 +551,7 @@ $radius: 14px;
 .submit-btn {
     height: 48px;
     width: 100%;
-    background: linear-gradient(135deg, $indigo 0%, $violet 100%);
+    background: #A13E99;
     color: white;
     font-family: 'DM Sans', sans-serif;
     font-size: 15px;
