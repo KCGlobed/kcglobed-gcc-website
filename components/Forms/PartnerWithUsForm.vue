@@ -72,7 +72,7 @@
                   <div class="input-box">
                     <label class="form-label">Website (if any)</label>
                     <div class="input-with-icon">
-                      <input v-model="form.website" type="url" class="form-control" placeholder="https://example.com">
+                      <input v-model="form.website" type="text" class="form-control" placeholder="https://example.com">
                       <i class="ti ti-world"></i>
                     </div>
                   </div>
@@ -130,7 +130,8 @@
                     <div class="input-with-icon">
                       <select v-model="form.state" class="form-control" @change="onStateChange">
                         <option value="">Select State</option>
-                        <option v-for="state in statesList" :key="state" :value="state">{{ state }}</option>
+                        <option v-for="state in statesList" :key="state.iso2" :value="state.iso2">{{ state.name }}
+                        </option>
                       </select>
                       <i class="ti ti-map"></i>
                     </div>
@@ -143,7 +144,7 @@
                     <div class="input-with-icon">
                       <select v-model="form.city" class="form-control" :disabled="!form.state">
                         <option value="">Select City</option>
-                        <option v-for="city in citiesList" :key="city" :value="city">{{ city }}</option>
+                        <option v-for="city in citiesList" :key="city.id" :value="city.name">{{ city.name }}</option>
                       </select>
                       <i class="ti ti-map-pin"></i>
                     </div>
@@ -220,7 +221,13 @@
 
 <script lang="ts">
 import { defineComponent } from "vue";
-import statesCities from "../../assets/states-cities.json";
+
+const requestOptions = {
+  method: "GET",
+  headers: {
+    "X-CSCAPI-KEY": "Q3k5SXFtVjNubXRBZjdKRFJ1QVJLQkZqQ3lYT2JNVUhVZmhOYm5ESw=="
+  }
+}
 
 export default defineComponent({
   name: "PartnerWithUsForm",
@@ -267,16 +274,28 @@ export default defineComponent({
         declaration: "",
       },
       loading: false,
-      statesData: statesCities as Record<string, string[]>,
+      statesList: [] as any[],
+      citiesList: [] as any[],
     };
   },
-  computed: {
-    statesList(): string[] {
-      return Object.keys(this.statesData).sort();
-    },
-    citiesList(): string[] {
-      if (!this.form.state || !this.statesData[this.form.state]) return [];
-      return this.statesData[this.form.state].sort();
+  async mounted() {
+    const res = await fetch(
+      "https://api.countrystatecity.in/v1/countries/IN/states",
+      requestOptions
+    )
+    this.statesList = await res.json()
+  },
+  watch: {
+    "form.state": async function (state: string) {
+      if (!state) {
+        this.citiesList = [];
+        return;
+      }
+      const res = await fetch(
+        `https://api.countrystatecity.in/v1/countries/IN/states/${state}/cities`,
+        requestOptions
+      )
+      this.citiesList = await res.json()
     }
   },
   methods: {

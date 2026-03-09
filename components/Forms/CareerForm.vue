@@ -62,8 +62,9 @@
                                         <div class="input-with-icon">
                                             <select v-model="form.state" class="form-control" @change="onStateChange">
                                                 <option value="">Select State</option>
-                                                <option v-for="state in statesList" :key="state" :value="state">{{ state
-                                                }}</option>
+                                                <option v-for="state in statesList" :key="state.iso2"
+                                                    :value="state.iso2">{{ state.name
+                                                    }}</option>
                                             </select>
                                             <i class="ti ti-map"></i>
                                         </div>
@@ -76,7 +77,8 @@
                                         <div class="input-with-icon">
                                             <select v-model="form.city" class="form-control" :disabled="!form.state">
                                                 <option value="">Select City</option>
-                                                <option v-for="city in citiesList" :key="city" :value="city">{{ city }}
+                                                <option v-for="city in citiesList" :key="city.id" :value="city.name">{{
+                                                    city.name }}
                                                 </option>
                                             </select>
                                             <i class="ti ti-map-pin"></i>
@@ -151,7 +153,7 @@
                                                 errors.areaOfInterestOther }}</small>
                                         </div>
                                         <small class="text-danger" v-if="errors.areaOfInterest">{{ errors.areaOfInterest
-                                        }}</small>
+                                            }}</small>
                                     </div>
                                 </div>
                             </div>
@@ -167,7 +169,8 @@
                                             School with your expertise/passion. <span>*</span></label>
                                         <textarea v-model="form.contributionSummary" class="form-control" rows="4"
                                             placeholder="Your summary..."></textarea>
-                                        <!-- Note: Optional in code but usually good to have -->
+                                        <small class="text-danger" v-if="errors.contributionSummary">{{
+                                            errors.contributionSummary }}</small>
                                     </div>
                                 </div>
 
@@ -177,7 +180,7 @@
                                         <input type="file" ref="resumeFile" @change="handleFileUpload"
                                             class="form-control" accept=".pdf,.doc,.docx">
                                         <small class="text-danger" v-if="errors.resumePath">{{ errors.resumePath
-                                        }}</small>
+                                            }}</small>
                                     </div>
                                 </div>
 
@@ -206,7 +209,7 @@
                                         </div>
                                     </div>
                                     <small class="text-danger" v-if="errors.noticePeriod">{{ errors.noticePeriod
-                                    }}</small>
+                                        }}</small>
                                 </div>
                             </div>
 
@@ -247,7 +250,13 @@
 
 <script lang="ts">
 import { defineComponent } from "vue";
-import statesCities from "../../assets/states-cities.json";
+
+const requestOptions = {
+    method: "GET",
+    headers: {
+        "X-CSCAPI-KEY": "Q3k5SXFtVjNubXRBZjdKRFJ1QVJLQkZqQ3lYT2JNVUhVZmhOYm5ESw=="
+    }
+}
 
 export default defineComponent({
     name: "CareerForm",
@@ -308,21 +317,34 @@ export default defineComponent({
                 experienceYears: "",
                 areaOfInterest: "",
                 areaOfInterestOther: "",
+                contributionSummary: "",
                 resumePath: "",
                 noticePeriod: "",
                 consent: "",
             },
             loading: false,
-            statesData: statesCities as Record<string, string[]>,
+            statesList: [] as any[],
+            citiesList: [] as any[],
         };
     },
-    computed: {
-        statesList(): string[] {
-            return Object.keys(this.statesData).sort();
-        },
-        citiesList(): string[] {
-            if (!this.form.state || !this.statesData[this.form.state]) return [];
-            return this.statesData[this.form.state].sort();
+    async mounted() {
+        const res = await fetch(
+            "https://api.countrystatecity.in/v1/countries/IN/states",
+            requestOptions
+        )
+        this.statesList = await res.json()
+    },
+    watch: {
+        "form.state": async function (state: string) {
+            if (!state) {
+                this.citiesList = [];
+                return;
+            }
+            const res = await fetch(
+                `https://api.countrystatecity.in/v1/countries/IN/states/${state}/cities`,
+                requestOptions
+            )
+            this.citiesList = await res.json()
         }
     },
     methods: {
@@ -402,6 +424,10 @@ export default defineComponent({
             }
             if (this.form.areaOfInterest === 'Other (Please specify)' && !this.form.areaOfInterestOther) {
                 this.errors.areaOfInterestOther = "Please specify area";
+                isValid = false;
+            }
+            if (!this.form.contributionSummary) {
+                this.errors.contributionSummary = "Summary is required";
                 isValid = false;
             }
             if (!this.uploadedResumePath) {
