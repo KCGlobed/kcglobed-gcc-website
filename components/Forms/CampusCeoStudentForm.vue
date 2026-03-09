@@ -63,8 +63,8 @@
                                         <div class="input-with-icon">
                                             <select v-model="form.state" class="form-control" @change="onStateChange">
                                                 <option value="">Select State</option>
-                                                <option v-for="state in statesList" :key="state" :value="state">{{ state
-                                                }}</option>
+                                                <option v-for="state in statesList" :key="state.iso2"
+                                                    :value="state.iso2">{{ state.name }}</option>
                                             </select>
                                             <i class="ti ti-map"></i>
                                         </div>
@@ -77,8 +77,8 @@
                                         <div class="input-with-icon">
                                             <select v-model="form.city" class="form-control" :disabled="!form.state">
                                                 <option value="">Select City</option>
-                                                <option v-for="city in citiesList" :key="city" :value="city">{{ city }}
-                                                </option>
+                                                <option v-for="city in citiesList" :key="city.id" :value="city.name">{{
+                                                    city.name }}</option>
                                             </select>
                                             <i class="ti ti-map-pin"></i>
                                         </div>
@@ -108,7 +108,7 @@
                                         <input v-model="form.collegeName" type="text" class="form-control"
                                             placeholder="College / University Name">
                                         <small class="text-danger" v-if="errors.collegeName">{{ errors.collegeName
-                                        }}</small>
+                                            }}</small>
                                     </div>
                                 </div>
                                 <div class="col-lg-6">
@@ -129,7 +129,7 @@
                                             </optgroup>
                                         </select>
                                         <small class="text-danger" v-if="errors.programOfStudy">{{ errors.programOfStudy
-                                        }}</small>
+                                            }}</small>
                                     </div>
                                 </div>
                                 <div class="col-lg-6" v-if="form.programOfStudy.includes('Other')">
@@ -138,7 +138,7 @@
                                         <input v-model="form.programOther" type="text" class="form-control"
                                             placeholder="Specify Program">
                                         <small class="text-danger" v-if="errors.programOther">{{ errors.programOther
-                                        }}</small>
+                                            }}</small>
                                     </div>
                                 </div>
                                 <div class="col-lg-6">
@@ -175,7 +175,7 @@
                                             </div>
                                         </div>
                                         <small class="text-danger" v-if="errors.studentBody">{{ errors.studentBody
-                                            }}</small>
+                                        }}</small>
                                     </div>
                                 </div>
                                 <div class="col-lg-12 mt-3" v-if="form.studentBody === 'Yes'">
@@ -232,7 +232,7 @@
                                         <textarea v-model="form.inspiration" class="form-control" rows="4"
                                             placeholder="Explain your inspiration..."></textarea>
                                         <small class="text-danger" v-if="errors.inspiration">{{ errors.inspiration
-                                        }}</small>
+                                            }}</small>
                                     </div>
                                 </div>
                                 <div class="col-lg-12 mt-3">
@@ -283,7 +283,15 @@
 
 <script lang="ts">
 import { defineComponent } from "vue";
-import statesCities from "../../assets/states-cities.json";
+
+const headers = new Headers();
+headers.append("X-CSCAPI-KEY", "Q3k5SXFtVjNubXRBZjdKRFJ1QVJLQkZqQ3lYT2JNVUhVZmhOYm5ESw==");
+
+const requestOptions: RequestInit = {
+    method: 'GET',
+    headers: headers,
+    redirect: 'follow'
+};
 
 export default defineComponent({
     name: "CampusCeoStudentForm",
@@ -367,16 +375,28 @@ export default defineComponent({
                 consent: "",
             },
             loading: false,
-            statesData: statesCities as Record<string, string[]>,
+            statesList: [] as any[],
+            citiesList: [] as any[],
         };
     },
-    computed: {
-        statesList(): string[] {
-            return Object.keys(this.statesData).sort();
-        },
-        citiesList(): string[] {
-            if (!this.form.state || !this.statesData[this.form.state]) return [];
-            return this.statesData[this.form.state].sort();
+    async mounted() {
+        const res = await fetch(
+            "https://api.countrystatecity.in/v1/countries/IN/states",
+            requestOptions
+        )
+        this.statesList = await res.json()
+    },
+    watch: {
+        "form.state": async function (state: string) {
+            if (!state) {
+                this.citiesList = [];
+                return;
+            }
+            const res = await fetch(
+                `https://api.countrystatecity.in/v1/countries/IN/states/${state}/cities`,
+                requestOptions
+            )
+            this.citiesList = await res.json()
         }
     },
     methods: {

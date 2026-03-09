@@ -59,9 +59,8 @@
                                                     <select class="form-select" id="state" v-model="form.state"
                                                         @change="onStateChange" :class="{ 'is-invalid': errors.state }">
                                                         <option value="" disabled>Select State</option>
-                                                        <option v-for="state in states" :key="state" :value="state">{{
-                                                            state }}
-                                                        </option>
+                                                        <option v-for="state in states" :key="state.iso2"
+                                                            :value="state.iso2">{{ state.name }}</option>
                                                     </select>
                                                     <div class="invalid-feedback" v-if="errors.state">{{ errors.state }}
                                                     </div>
@@ -74,9 +73,8 @@
                                                     <select class="form-select" id="city" v-model="form.city"
                                                         :class="{ 'is-invalid': errors.city }">
                                                         <option value="" disabled>Select City</option>
-                                                        <option v-for="city in citiesList" :key="city" :value="city">{{
-                                                            city }}
-                                                        </option>
+                                                        <option v-for="city in citiesList" :key="city.id"
+                                                            :value="city.name">{{ city.name }}</option>
                                                     </select>
                                                     <div class="invalid-feedback" v-if="errors.city">{{ errors.city }}
                                                     </div>
@@ -580,8 +578,16 @@
 </style>
 
 <script lang="ts">
-import { defineComponent, ref, reactive, nextTick, defineAsyncComponent } from "vue";
-import statesCitiesData from "../../assets/states-cities.json";
+import { defineComponent, ref, reactive, nextTick, defineAsyncComponent, onMounted, watch } from "vue";
+
+const headers = new Headers();
+headers.append("X-CSCAPI-KEY", "Q3k5SXFtVjNubXRBZjdKRFJ1QVJLQkZqQ3lYT2JNVUhVZmhOYm5ESw==");
+
+const requestOptions: RequestInit = {
+    method: 'GET',
+    headers: headers,
+    redirect: 'follow'
+};
 
 import image1 from "../../assets/img/heros/hero_bg.svg";
 import gccPdf from "../../assets/gcc.pdf";
@@ -610,8 +616,8 @@ export default defineComponent({
             consent: false,
         });
 
-        const states = Object.keys(statesCitiesData);
-        const citiesList = ref<string[]>([]);
+        const states = ref<any[]>([]);
+        const citiesList = ref<any[]>([]);
 
         const errors = reactive({
             name: "",
@@ -677,9 +683,36 @@ export default defineComponent({
         };
 
         const onStateChange = () => {
-            citiesList.value = (statesCitiesData as any)[form.state] || [];
             form.city = "";
         };
+
+        watch(() => form.state, async (newState) => {
+            if (!newState) {
+                citiesList.value = [];
+                return;
+            }
+            try {
+                const res = await fetch(
+                    `https://api.countrystatecity.in/v1/countries/IN/states/${newState}/cities`,
+                    requestOptions
+                );
+                citiesList.value = await res.json();
+            } catch (error) {
+                console.error("Failed to load cities", error);
+            }
+        });
+
+        onMounted(async () => {
+            try {
+                const res = await fetch(
+                    "https://api.countrystatecity.in/v1/countries/IN/states",
+                    requestOptions
+                );
+                states.value = await res.json();
+            } catch (error) {
+                console.error("Failed to load states", error);
+            }
+        });
 
         const validateForm = () => {
             errors.name = "";

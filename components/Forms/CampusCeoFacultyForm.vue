@@ -64,8 +64,8 @@
                                         <div class="input-with-icon">
                                             <select v-model="form.state" class="form-control" @change="onStateChange">
                                                 <option value="">Select State</option>
-                                                <option v-for="state in statesList" :key="state" :value="state">{{ state
-                                                    }}</option>
+                                                <option v-for="state in statesList" :key="state.iso2"
+                                                    :value="state.iso2">{{ state.name }}</option>
                                             </select>
                                             <i class="ti ti-map"></i>
                                         </div>
@@ -78,8 +78,8 @@
                                         <div class="input-with-icon">
                                             <select v-model="form.city" class="form-control" :disabled="!form.state">
                                                 <option value="">Select City</option>
-                                                <option v-for="city in citiesList" :key="city" :value="city">{{ city }}
-                                                </option>
+                                                <option v-for="city in citiesList" :key="city.id" :value="city.name">{{
+                                                    city.name }}</option>
                                             </select>
                                             <i class="ti ti-map-pin"></i>
                                         </div>
@@ -119,7 +119,7 @@
                                         <input v-model="form.department" type="text" class="form-control"
                                             placeholder="Department">
                                         <small class="text-danger" v-if="errors.department">{{ errors.department
-                                        }}</small>
+                                            }}</small>
                                     </div>
                                 </div>
                                 <div class="col-lg-6">
@@ -132,7 +132,7 @@
                                             </option>
                                         </select>
                                         <small class="text-danger" v-if="errors.designation">{{ errors.designation
-                                        }}</small>
+                                            }}</small>
                                     </div>
                                 </div>
                                 <div class="col-lg-6" v-if="form.designation === 'Other (Please specify)'">
@@ -228,7 +228,7 @@
                                         <textarea v-model="form.motivation" class="form-control" rows="4"
                                             placeholder="Explain your motivation..."></textarea>
                                         <small class="text-danger" v-if="errors.motivation">{{ errors.motivation
-                                        }}</small>
+                                            }}</small>
                                     </div>
                                 </div>
 
@@ -261,7 +261,7 @@
                                             </div>
                                         </div>
                                         <small class="text-danger" v-if="errors.studentReach">{{ errors.studentReach
-                                        }}</small>
+                                            }}</small>
                                     </div>
                                 </div>
                             </div>
@@ -297,7 +297,15 @@
 
 <script lang="ts">
 import { defineComponent } from "vue";
-import statesCities from "../../assets/states-cities.json";
+
+const headers = new Headers();
+headers.append("X-CSCAPI-KEY", "Q3k5SXFtVjNubXRBZjdKRFJ1QVJLQkZqQ3lYT2JNVUhVZmhOYm5ESw==");
+
+const requestOptions: RequestInit = {
+    method: 'GET',
+    headers: headers,
+    redirect: 'follow'
+};
 
 export default defineComponent({
     name: "CampusCeoFacultyForm",
@@ -376,16 +384,28 @@ export default defineComponent({
                 consent: "",
             },
             loading: false,
-            statesData: statesCities as Record<string, string[]>,
+            statesList: [] as any[],
+            citiesList: [] as any[],
         };
     },
-    computed: {
-        statesList(): string[] {
-            return Object.keys(this.statesData).sort();
-        },
-        citiesList(): string[] {
-            if (!this.form.state || !this.statesData[this.form.state]) return [];
-            return this.statesData[this.form.state].sort();
+    async mounted() {
+        const res = await fetch(
+            "https://api.countrystatecity.in/v1/countries/IN/states",
+            requestOptions
+        )
+        this.statesList = await res.json()
+    },
+    watch: {
+        "form.state": async function (state: string) {
+            if (!state) {
+                this.citiesList = [];
+                return;
+            }
+            const res = await fetch(
+                `https://api.countrystatecity.in/v1/countries/IN/states/${state}/cities`,
+                requestOptions
+            )
+            this.citiesList = await res.json()
         }
     },
     methods: {

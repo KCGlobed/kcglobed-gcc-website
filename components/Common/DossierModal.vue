@@ -41,7 +41,8 @@
                                 <label class="form-label fw-bold small">State*</label>
                                 <select v-model="form.state" class="form-select custom-input" @change="onStateChange">
                                     <option value="" disabled>Select State</option>
-                                    <option v-for="state in states" :key="state" :value="state">{{ state }}</option>
+                                    <option v-for="state in states" :key="state.iso2" :value="state.iso2">{{ state.name
+                                        }}</option>
                                 </select>
                                 <small class="text-danger" v-if="errors.state">{{ errors.state }}</small>
                             </div>
@@ -50,7 +51,8 @@
                                 <label class="form-label fw-bold small">City*</label>
                                 <select v-model="form.city" class="form-select custom-input">
                                     <option value="" disabled>Select City</option>
-                                    <option v-for="city in citiesList" :key="city" :value="city">{{ city }}</option>
+                                    <option v-for="city in citiesList" :key="city.id" :value="city.name">{{ city.name }}
+                                    </option>
                                 </select>
                                 <small class="text-danger" v-if="errors.city">{{ errors.city }}</small>
                             </div>
@@ -120,8 +122,16 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, ref, reactive, nextTick, defineAsyncComponent, onMounted } from 'vue';
-import statesCitiesData from '~/assets/states-cities.json';
+import { defineComponent, ref, reactive, nextTick, defineAsyncComponent, onMounted, watch } from 'vue';
+
+const headers = new Headers();
+headers.append("X-CSCAPI-KEY", "Q3k5SXFtVjNubXRBZjdKRFJ1QVJLQkZqQ3lYT2JNVUhVZmhOYm5ESw==");
+
+const requestOptions: RequestInit = {
+    method: 'GET',
+    headers: headers,
+    redirect: 'follow'
+};
 
 export default defineComponent({
     name: 'DossierModal',
@@ -210,13 +220,28 @@ export default defineComponent({
             isCommerceGraduate: ''
         });
 
-        const states = Object.keys(statesCitiesData);
-        const citiesList = ref<string[]>([]);
+        const states = ref<any[]>([]);
+        const citiesList = ref<any[]>([]);
 
         const onStateChange = () => {
-            citiesList.value = (statesCitiesData as any)[form.state] || [];
             form.city = '';
         };
+
+        watch(() => form.state, async (newState) => {
+            if (!newState) {
+                citiesList.value = [];
+                return;
+            }
+            try {
+                const res = await fetch(
+                    `https://api.countrystatecity.in/v1/countries/IN/states/${newState}/cities`,
+                    requestOptions
+                );
+                citiesList.value = await res.json();
+            } catch (error) {
+                console.error("Failed to load cities", error);
+            }
+        });
 
         const validateEmail = (email: string) => {
             return String(email)
@@ -525,10 +550,19 @@ export default defineComponent({
             }
         };
 
-        onMounted(() => {
+        onMounted(async () => {
             const el = document.getElementById(props.modalId);
             if (el) {
                 el.addEventListener('show.bs.modal', resetForm);
+            }
+            try {
+                const res = await fetch(
+                    "https://api.countrystatecity.in/v1/countries/IN/states",
+                    requestOptions
+                );
+                states.value = await res.json();
+            } catch (error) {
+                console.error("Failed to load states", error);
             }
         });
 

@@ -245,10 +245,9 @@
                                 Book Slot <i class="ti ti-arrow-right"></i>
                             </button>
                         </div>
-                        <div v-else class="text-muted small text-center py-3 bg-light rounded border border-dashed">
-                            <i class="ti ti-calendar-star d-block mb-1 fs-5"></i>
+                        <p v-else class="text-muted small text-center py-1 px-3 bg-light rounded border border-dashed">
                             Please select a highlighted date.
-                        </div>
+                        </p>
                     </div>
                 </div> <!-- End Right Column -->
             </div> <!-- End Main Row -->
@@ -406,8 +405,30 @@ const fetchStudentDetail = async () => {
     }
 };
 
+const stateNameMap = ref<Record<string, string>>({});
+
 onMounted(async () => {
     initAuth()
+
+    // Fetch states to map iso2 code to full name for display
+    try {
+        const headers = new Headers();
+        headers.append("X-CSCAPI-KEY", "Q3k5SXFtVjNubXRBZjdKRFJ1QVJLQkZqQ3lYT2JNVUhVZmhOYm5ESw==");
+        const res = await fetch("https://api.countrystatecity.in/v1/countries/IN/states", {
+            method: 'GET',
+            headers: headers,
+            redirect: 'follow'
+        });
+        const statesData = await res.json();
+        const map: Record<string, string> = {};
+        statesData.forEach((s: any) => {
+            map[s.iso2] = s.name;
+        });
+        stateNameMap.value = map;
+    } catch (e) {
+        console.error("Failed to load states for mapping", e);
+    }
+
     if (userId.value) {
         await fetchStudentDetail()
     }
@@ -429,11 +450,13 @@ const nextMonth = () => {
     currentDateObj.value = new Date(currentYear.value, currentMonth.value + 1, 1);
 };
 
-// Initialize allowed dates from runtime config
-const allowedDates = ref<string[]>([]);
-if (config.public.nfetDates) {
-    allowedDates.value = config.public.nfetDates.split(',').map((d: string) => d.trim());
-}
+// Hardcode allowed dates
+const allowedDates = ref<string[]>([
+    "2026-03-14",
+    "2026-03-15",
+    "2026-03-21",
+    "2026-03-22"
+]);
 
 const daysInMonth = computed(() => {
     return new Date(currentYear.value, currentMonth.value + 1, 0).getDate();
@@ -468,16 +491,16 @@ const selectDate = (day: any) => {
     selectedDate.value = day.dateString;
     selectedSlot.value = ''; // reset slot on date change
 
-    // Initialize available slots based on runtime config
-    if (config.public.nfetSlots) {
-        const slotsArray = config.public.nfetSlots.split(',').map((s: string) => s.trim());
-        availableSlots.value = slotsArray.map((timeStr: string, index: number) => ({
-            id: index + 1,
-            time: timeStr
-        }));
-    } else {
-        availableSlots.value = [];
-    }
+    // Hardcode available slots
+    const staticSlots = [
+        "11:30 AM - 01:00 PM",
+        "01:30 PM - 03:00 PM"
+    ];
+
+    availableSlots.value = staticSlots.map((timeStr: string, index: number) => ({
+        id: index + 1,
+        time: timeStr
+    }));
 };
 
 const selectSlot = (slot: any) => {
