@@ -89,20 +89,26 @@
         <!-- Address Info -->
         <div class="col-lg-4">
           <div class="input-box mb-0">
-            <label class="form-label fw-bold">City <span>*</span></label>
-            <input type="text" class="form-control" placeholder="City" v-model="formData.city"
-              :class="{ 'is-invalid': errors.city }" />
-            <div class="invalid-feedback" v-if="errors.city">{{ errors.city }}</div>
+            <label class="form-label fw-bold">State <span>*</span></label>
+            <select class="form-select" v-model="formData.state" @change="onStateChange"
+              :class="{ 'is-invalid': errors.state }">
+              <option value="" disabled>Select State</option>
+              <option v-for="state in statesList" :key="state.iso2" :value="state.iso2">{{ state.name }}</option>
+            </select>
+            <div class="invalid-feedback" v-if="errors.state">{{ errors.state }}</div>
           </div>
         </div>
         <div class="col-lg-4">
           <div class="input-box mb-0">
-            <label class="form-label fw-bold">State <span>*</span></label>
-            <input type="text" class="form-control" placeholder="State" v-model="formData.state"
-              :class="{ 'is-invalid': errors.state }" />
-            <div class="invalid-feedback" v-if="errors.state">{{ errors.state }}</div>
+            <label class="form-label fw-bold">City <span>*</span></label>
+            <select class="form-select" v-model="formData.city" :class="{ 'is-invalid': errors.city }">
+              <option value="" disabled>Select City</option>
+              <option v-for="city in citiesList" :key="city.id" :value="city.name">{{ city.name }}</option>
+            </select>
+            <div class="invalid-feedback" v-if="errors.city">{{ errors.city }}</div>
           </div>
         </div>
+
         <div class="col-lg-4">
           <div class="input-box mb-0">
             <label class="form-label fw-bold">PIN Code <span>*</span></label>
@@ -126,6 +132,15 @@
 </template>
 
 <script>
+const headers = new Headers();
+headers.append("X-CSCAPI-KEY", "Q3k5SXFtVjNubXRBZjdKRFJ1QVJLQkZqQ3lYT2JNVUhVZmhOYm5ESw==");
+
+const requestOptions = {
+  method: 'GET',
+  headers: headers,
+  redirect: 'follow'
+};
+
 export default {
   name: "PersonalInformation",
   props: {
@@ -136,10 +151,52 @@ export default {
   },
   data() {
     return {
-      errors: {}
+      errors: {},
+      statesList: [],
+      citiesList: []
     };
   },
+  async mounted() {
+    try {
+      const res = await fetch(
+        "https://api.countrystatecity.in/v1/countries/IN/states",
+        requestOptions
+      );
+      this.statesList = await res.json();
+
+      // If editing a profile and state is already set, fetch its cities
+      if (this.formData.state) {
+        const cityRes = await fetch(
+          `https://api.countrystatecity.in/v1/countries/IN/states/${this.formData.state}/cities`,
+          requestOptions
+        );
+        this.citiesList = await cityRes.json();
+      }
+    } catch (error) {
+      console.error("Failed to load states", error);
+    }
+  },
+  watch: {
+    "formData.state": async function (newState) {
+      if (!newState) {
+        this.citiesList = [];
+        return;
+      }
+      try {
+        const res = await fetch(
+          `https://api.countrystatecity.in/v1/countries/IN/states/${newState}/cities`,
+          requestOptions
+        );
+        this.citiesList = await res.json();
+      } catch (error) {
+        console.error("Failed to load cities", error);
+      }
+    }
+  },
   methods: {
+    onStateChange() {
+      this.formData.city = "";
+    },
     validate() {
       this.errors = {};
       let isValid = true;
