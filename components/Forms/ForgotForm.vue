@@ -37,7 +37,7 @@
                                     </svg>
                                 </span>
                                 <input id="email" v-model="form.email" type="email" class="field-input"
-                                    placeholder="you@example.com" autocomplete="email" @blur="validateField('email')"
+                                    placeholder="Enter your email" autocomplete="email" @blur="validateField('email')"
                                     @input="clearError('email')" />
                                 <span v-if="touched.email && !errors.email" class="check-icon">
                                     <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor"
@@ -390,6 +390,8 @@ $radius: 14px;
 
 .card-header {
     margin-bottom: 24px;
+    background: none;
+    border: none;
 }
 
 .card-title {
@@ -399,6 +401,7 @@ $radius: 14px;
     color: $text;
     letter-spacing: -0.3px;
     margin-bottom: 6px;
+    text-align: center;
 }
 
 .card-sub {
@@ -493,7 +496,7 @@ $radius: 14px;
 .submit-btn {
     height: 48px;
     width: 100%;
-    background: linear-gradient(135deg, $indigo 0%, $violet 100%);
+    background: #A13E99;
     color: white;
     font-family: 'DM Sans', sans-serif;
     font-size: 15px;
