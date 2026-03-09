@@ -252,9 +252,10 @@ async function handleSubmit() {
             confirm_password: form.value.confirmPassword,
         }
         console.log('[ResetPassword] Attempting reset with payload:', payload)
+        const config = useRuntimeConfig()
 
         await $fetch(
-            'https://gccwebsite-admin-backend-738131651355.asia-south1.run.app/api/users/reset-password/',
+            `${config.public.baseURL}/api/users/reset-password/`,
             {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
@@ -434,6 +435,8 @@ $radius: 14px;
 
 .card-header {
     margin-bottom: 24px;
+    background: none;
+    border: none;
 }
 
 .card-title {
@@ -443,6 +446,7 @@ $radius: 14px;
     color: $text;
     letter-spacing: -0.3px;
     margin-bottom: 6px;
+    text-align: center;
 }
 
 .card-sub {

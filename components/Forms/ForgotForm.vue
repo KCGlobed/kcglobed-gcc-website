@@ -390,6 +390,8 @@ $radius: 14px;
 
 .card-header {
     margin-bottom: 24px;
+    background: none;
+    border: none;
 }
 
 .card-title {
@@ -399,6 +401,7 @@ $radius: 14px;
     color: $text;
     letter-spacing: -0.3px;
     margin-bottom: 6px;
+    text-align: center;
 }
 
 .card-sub {
