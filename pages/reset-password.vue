@@ -255,7 +255,7 @@ async function handleSubmit() {
         const config = useRuntimeConfig()
 
         await $fetch(
-            `${config.public.baseURL}/api/users/reset-password/`,
+            `${config.public.apiBase}/api/users/reset-password/`,
             {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
