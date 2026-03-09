@@ -424,20 +424,46 @@ const fetchStudentDetail = async () => {
                 bookingDetails.isBooked = true;
                 bookingDetails.date = d.slot_date;
                 bookingDetails.time = d.slot_time;
-                // Pre-select the calendar to show their booked slot
                 selectedDate.value = d.slot_date;
 
-                // Prefill available slots so the UI can highlight the match
                 availableSlots.value = staticSlots.map((timeStr: string, index: number) => ({
                     id: index + 1,
                     time: timeStr
                 }));
 
-                // Force an update to show the times if the calendar matches
                 const matchingSlot = staticSlots.find(s => s === d.slot_time);
                 if (matchingSlot) {
                     selectedSlot.value = staticSlots.indexOf(matchingSlot) + 1;
                 }
+
+                // On mount: call slot upload API to get report_url for admit card download
+                try {
+                    const { getAccessToken } = useAuth();
+                    const token = getAccessToken();
+                    const slotResponse = await fetch(`${config.public.apiBase}/api/students/student-slot-upload/`, {
+                        method: "PATCH",
+                        body: JSON.stringify({
+                            slot_date: d.slot_date,
+                            slot_time: d.slot_time
+                        }),
+                        headers: {
+                            'Content-Type': 'application/json',
+                            ...(token ? { 'Authorization': `Bearer ${token}` } : {})
+                        }
+                    });
+                    if (slotResponse.ok) {
+                        const slotResult = await slotResponse.json();
+                        const reportUrl = slotResult.data?.report_url;
+                        if (reportUrl) {
+                            bookingDetails.admitCardUrl = reportUrl;
+                        }
+                    }
+                } catch (slotErr) {
+                    console.error("Failed to fetch admit card URL on mount:", slotErr);
+                }
+
+                // Always show admit card button if slot is already booked
+                showAdmitCardButton.value = true;
             }
         }
 
