@@ -4,176 +4,282 @@
         <LayoutMainNavbar />
         <!-- <CommonInnerPageBanner pageTitle="Profile" /> -->
 
-        <!-- Profile Header Card -->
-        <div class="container pt-50 pb-30">
-            <div class="profile-header-card">
-                <!-- Cover Banner -->
-                <div class="profile-cover">
-                    <!-- <button class="profile-edit-btn" title="Edit Cover"> -->
-                    <!-- <i class="ti ti-pencil"></i> Edit -->
-                    <!-- </button> -->
-                </div>
-
-                <!-- Avatar (overlapping cover) -->
-                <div class="profile-avatar-wrap">
-                    <div class="profile-avatar" @click="triggerImageUpload"
-                        style="cursor: pointer; position: relative;">
-                        <!-- Loading Overlay -->
-                        <div v-if="isImageUploading" class="upload-overlay">
-                            <span class="spinner-border spinner-border-sm text-white" role="status"
-                                aria-hidden="true"></span>
-                        </div>
-
-                        <img v-if="profileImage" :src="profileImage" alt="Profile" class="avatar-img" />
-                        <i v-else class="ti ti-user"></i>
-
-                        <!-- Hover Edit Icon -->
-                        <div class="edit-icon-overlay">
-                            <i class="ti ti-camera"></i>
-                        </div>
-
-                        <!-- Hidden File Input -->
-                        <input type="file" ref="profileImageInput" class="d-none" accept="image/*"
-                            @change="handleProfileImageUpload" />
-                    </div>
-                </div>
-
-                <!-- Info below -->
-                <div class="profile-info">
-                    <h2 class="profile-name">
-                        {{ (formData.first_name || 'Applicant') + ' ' + (formData.last_name || '') }}
-                    </h2>
-                    <p class="profile-detail" v-if="formData.email">
-                        <i class="ti ti-mail me-1"></i> {{ formData.email }}
-                    </p>
-                    <p class="profile-detail" v-if="formData.mobile">
-                        <i class="ti ti-phone me-1"></i> {{ formData.mobile }}
-                    </p>
-                    <p class="profile-detail" v-if="formData.city">
-                        <i class="ti ti-map-pin me-1"></i> {{ formData.city }}<span v-if="formData.state">, {{
-                            stateNameMap[formData.state] || formData.state }}</span>
-                    </p>
-                </div>
-            </div>
-        </div>
-
-        <!-- 4 Accordion Sections -->
-        <div class="container pb-30">
-            <div class="profile-accordion">
-
-                <!-- Section 1: Personal Information -->
-                <div class="accordion-section" :class="{ active: openSection === 1 }">
-                    <div class="accordion-header" @click="toggleSection(1)">
-                        <div class="accordion-header-left">
-                            <div style="display: flex; align-items: center; gap: 10px;">
-                                <span class="accordion-icon"><i class="ti ti-user"></i></span>
-                                <h4>Personal Information</h4>
-                                <!-- <p>Name, contact, address &amp; family details</p> -->
-                            </div>
-                        </div>
-                        <div class="accordion-header-right">
-
-                            <i class="ti accordion-chevron"
-                                :class="openSection === 1 ? 'ti-chevron-up' : 'ti-chevron-down'"></i>
-                        </div>
-                    </div>
-                    <div class="accordion-body p-4 p-lg-5" v-show="openSection === 1">
-                        <PersonalInformation ref="section1Ref" :formData="formData" />
-                    </div>
-                </div>
-
-                <!-- Section 2: Academic Information -->
-                <div class="accordion-section" :class="{ active: openSection === 2 }">
-                    <div class="accordion-header" @click="toggleSection(2)">
-                        <div class="accordion-header-left">
-                            <div style="display: flex; align-items: center; gap: 10px;">
-                                <span class="accordion-icon"><i class="ti ti-school"></i></span>
-                                <h4>Academic Information</h4>
-                            </div>
-                        </div>
-                        <div class="accordion-header-right">
-
-                            <i class="ti accordion-chevron"
-                                :class="openSection === 2 ? 'ti-chevron-up' : 'ti-chevron-down'"></i>
-                        </div>
-                    </div>
-                    <div class="accordion-body p-4 p-lg-5" v-show="openSection === 2">
-                        <AcademicInformation ref="section2Ref" :formData="formData" />
-                    </div>
-                </div>
-
-                <!-- Section 3: Work Experience -->
-                <div class="accordion-section" :class="{ active: openSection === 3 }">
-                    <div class="accordion-header" @click="toggleSection(3)">
-                        <div class="accordion-header-left">
-                            <div style="display: flex; align-items: center; gap: 10px;">
-                                <span class="accordion-icon"><i class="ti ti-briefcase"></i></span>
-                                <h4>Work Experience</h4>
-                            </div>
-                        </div>
-                        <div class="accordion-header-right">
-                            <i class="ti accordion-chevron"
-                                :class="openSection === 3 ? 'ti-chevron-up' : 'ti-chevron-down'"></i>
-                        </div>
-                    </div>
-                    <div class="accordion-body p-4 p-lg-5" v-show="openSection === 3">
-                        <WorkExperienceDetails ref="section3Ref" :formData="formData" />
-                    </div>
-                </div>
-
-                <!-- Section 4: Documents & Declaration -->
-                <div class="accordion-section" :class="{ active: openSection === 4 }">
-                    <div class="accordion-header" @click="toggleSection(4)">
-                        <div class="accordion-header-left">
-                            <div style="display: flex; align-items: center; gap: 10px;">
-                                <span class="accordion-icon"><i class="ti ti-files"></i></span>
-                                <h4>Documents</h4>
-                            </div>
-                        </div>
-                        <div class="accordion-header-right">
-                            <i class="ti accordion-chevron"
-                                :class="openSection === 4 ? 'ti-chevron-up' : 'ti-chevron-down'"></i>
-                        </div>
-                    </div>
-                    <div class="accordion-body p-4 p-lg-5" v-show="openSection === 4">
-                        <DocumentUpload ref="section4aRef" :formData="formData" />
-                        <!-- <div class="section-divider"></div> -->
-                        <!-- <PrePaymentDeclaration ref="section4bRef" :formData="formData" /> -->
-                    </div>
-                </div>
-                <div class="p-3 bg-light rounded-3 mb-4">
-                    <div class="form-check custom-declaration">
-                        <input class="form-check-input" type="checkbox" id="declaration"
-                            v-model="formData.declaration" />
-                        <label class="form-check-label ms-2 fw-medium text-dark" for="declaration">
-                            I declare that all the information and documents submitted by me are true to the best of my
-                            knowledge. I agree that in case any information or document found fake/forged/false
-                            submitted by me, then my candidature may cancel at any stage of course. 
-                        </label>
-                    </div>
-                </div>
-
-            </div>
-        </div>
-
-        <!-- Proceed to Pay Button -->
-        <div class="container pb-100">
+        <!-- Main Layout Split -->
+        <div class="container pt-50 pb-100">
             <div class="row">
-                <div class="col-lg-12">
-                    <div class="d-flex justify-content-center">
-                        <button style="background-color: #872980;"
-                            class="submit-btn default-btn d-flex align-items-center justify-content-center gap-2"
-                            @click="handleFinalSubmit" :disabled="!formData.declaration || isSubmitting"
-                            :class="{ 'opacity-50 cursor-not-allowed': !formData.declaration || isSubmitting }">
-                            <span v-if="isSubmitting" class="spinner-border spinner-border-sm" role="status"
-                                aria-hidden="true"></span>
-                            {{ isSubmitting ? 'Submitting...' : 'Submit' }} <i v-if="!isSubmitting"
-                                class="ti ti-check"></i>
-                        </button>
+                <!-- Left Column (80%) -->
+                <div class="col-lg-9 col-md-8">
+
+                    <!-- Profile Header Card -->
+                    <div class="pb-30">
+                        <div class="profile-header-card">
+                            <!-- Cover Banner -->
+                            <div class="profile-cover">
+                                <!-- <button class="profile-edit-btn" title="Edit Cover"> -->
+                                <!-- <i class="ti ti-pencil"></i> Edit -->
+                                <!-- </button> -->
+                            </div>
+
+                            <!-- Avatar (overlapping cover) -->
+                            <div class="profile-avatar-wrap">
+                                <div class="profile-avatar" @click="triggerImageUpload"
+                                    style="cursor: pointer; position: relative;">
+                                    <!-- Loading Overlay -->
+                                    <div v-if="isImageUploading" class="upload-overlay">
+                                        <span class="spinner-border spinner-border-sm text-white" role="status"
+                                            aria-hidden="true"></span>
+                                    </div>
+
+                                    <img v-if="profileImage" :src="profileImage" alt="Profile" class="avatar-img" />
+                                    <i v-else class="ti ti-user"></i>
+
+                                    <!-- Hover Edit Icon -->
+                                    <div class="edit-icon-overlay">
+                                        <i class="ti ti-camera"></i>
+                                    </div>
+
+                                    <!-- Hidden File Input -->
+                                    <input type="file" ref="profileImageInput" class="d-none" accept="image/*"
+                                        @change="handleProfileImageUpload" />
+                                </div>
+                            </div>
+
+                            <!-- Info below -->
+                            <div class="profile-info">
+                                <h2 class="profile-name">
+                                    {{ (formData.first_name || 'Applicant') + ' ' + (formData.last_name || '') }}
+                                </h2>
+                                <p class="profile-detail" v-if="formData.email">
+                                    <i class="ti ti-mail me-1"></i> {{ formData.email }}
+                                </p>
+                                <p class="profile-detail" v-if="formData.mobile">
+                                    <i class="ti ti-phone me-1"></i> {{ formData.mobile }}
+                                </p>
+                                <p class="profile-detail" v-if="formData.city">
+                                    <i class="ti ti-map-pin me-1"></i> {{ formData.city }}<span v-if="formData.state">,
+                                        {{
+                                            formData.state }}</span>
+                                </p>
+                            </div>
+                        </div>
                     </div>
-                </div>
-            </div>
-        </div>
+
+                    <!-- 4 Accordion Sections -->
+                    <div class="pb-30">
+                        <div class="profile-accordion">
+
+                            <!-- Section 1: Personal Information -->
+                            <div class="accordion-section" :class="{ active: openSection === 1 }">
+                                <div class="accordion-header" @click="toggleSection(1)">
+                                    <div class="accordion-header-left">
+                                        <div style="display: flex; align-items: center; gap: 10px;">
+                                            <span class="accordion-icon"><i class="ti ti-user"></i></span>
+                                            <h4>Personal Information</h4>
+                                            <!-- <p>Name, contact, address &amp; family details</p> -->
+                                        </div>
+                                    </div>
+                                    <div class="accordion-header-right">
+
+                                        <i class="ti accordion-chevron"
+                                            :class="openSection === 1 ? 'ti-chevron-up' : 'ti-chevron-down'"></i>
+                                    </div>
+                                </div>
+                                <div class="accordion-body p-4 p-lg-5" v-show="openSection === 1">
+                                    <PersonalInformation ref="section1Ref" :formData="formData" />
+                                </div>
+                            </div>
+
+                            <!-- Section 2: Academic Information -->
+                            <div class="accordion-section" :class="{ active: openSection === 2 }">
+                                <div class="accordion-header" @click="toggleSection(2)">
+                                    <div class="accordion-header-left">
+                                        <div style="display: flex; align-items: center; gap: 10px;">
+                                            <span class="accordion-icon"><i class="ti ti-school"></i></span>
+                                            <h4>Academic Information</h4>
+                                        </div>
+                                    </div>
+                                    <div class="accordion-header-right">
+
+                                        <i class="ti accordion-chevron"
+                                            :class="openSection === 2 ? 'ti-chevron-up' : 'ti-chevron-down'"></i>
+                                    </div>
+                                </div>
+                                <div class="accordion-body p-4 p-lg-5" v-show="openSection === 2">
+                                    <AcademicInformation ref="section2Ref" :formData="formData" />
+                                </div>
+                            </div>
+
+                            <!-- Section 3: Work Experience -->
+                            <div class="accordion-section" :class="{ active: openSection === 3 }">
+                                <div class="accordion-header" @click="toggleSection(3)">
+                                    <div class="accordion-header-left">
+                                        <div style="display: flex; align-items: center; gap: 10px;">
+                                            <span class="accordion-icon"><i class="ti ti-briefcase"></i></span>
+                                            <h4>Work Experience</h4>
+                                        </div>
+                                    </div>
+                                    <div class="accordion-header-right">
+                                        <i class="ti accordion-chevron"
+                                            :class="openSection === 3 ? 'ti-chevron-up' : 'ti-chevron-down'"></i>
+                                    </div>
+                                </div>
+                                <div class="accordion-body p-4 p-lg-5" v-show="openSection === 3">
+                                    <WorkExperienceDetails ref="section3Ref" :formData="formData" />
+                                </div>
+                            </div>
+
+                            <!-- Section 4: Documents & Declaration -->
+                            <div class="accordion-section" :class="{ active: openSection === 4 }">
+                                <div class="accordion-header" @click="toggleSection(4)">
+                                    <div class="accordion-header-left">
+                                        <div style="display: flex; align-items: center; gap: 10px;">
+                                            <span class="accordion-icon"><i class="ti ti-files"></i></span>
+                                            <h4>Documents</h4>
+                                        </div>
+                                    </div>
+                                    <div class="accordion-header-right">
+                                        <i class="ti accordion-chevron"
+                                            :class="openSection === 4 ? 'ti-chevron-up' : 'ti-chevron-down'"></i>
+                                    </div>
+                                </div>
+                                <div class="accordion-body p-4 p-lg-5" v-show="openSection === 4">
+                                    <DocumentUpload ref="section4aRef" :formData="formData" />
+                                    <!-- <div class="section-divider"></div> -->
+                                    <!-- <PrePaymentDeclaration ref="section4bRef" :formData="formData" /> -->
+                                </div>
+                            </div>
+                            <div class="p-3 bg-light rounded-3 mb-4">
+                                <div class="form-check custom-declaration">
+                                    <input class="form-check-input" type="checkbox" id="declaration"
+                                        v-model="formData.declaration" />
+                                    <label class="form-check-label ms-2 fw-medium text-dark" for="declaration">
+                                        I declare that all the information and documents submitted by me are true to the
+                                        best of my
+                                        knowledge. I agree that in case any information or document found
+                                        fake/forged/false
+                                        submitted by me, then my candidature may cancel at any stage of course. 
+                                    </label>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <!-- Proceed to Pay Button -->
+                    <div class="pb-100">
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <div class="d-flex justify-content-center">
+                                    <button style="background-color: #872980;"
+                                        class="submit-btn default-btn d-flex align-items-center justify-content-center gap-2"
+                                        @click="handleFinalSubmit" :disabled="!formData.declaration || isSubmitting"
+                                        :class="{ 'opacity-50 cursor-not-allowed': !formData.declaration || isSubmitting }">
+                                        <span v-if="isSubmitting" class="spinner-border spinner-border-sm" role="status"
+                                            aria-hidden="true"></span>
+                                        {{ isSubmitting ? 'Submitting...' : 'Submit' }} <i v-if="!isSubmitting"
+                                            class="ti ti-check"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div> <!-- End Proceed Button wrapper -->
+                </div> <!-- End Left Column -->
+
+                <!-- Right Column (20%) -->
+                <div class="col-lg-3 col-md-4">
+                    <div :title="isProfileEmpty ? 'This section will be enabled after you complete your profile.' : ''">
+                        <StudentKits :isDisabled="isProfileEmpty" />
+                    </div>
+
+                    <!-- NFET Slot Booking Sidebar -->
+                    <div class="nfet-slot-sidebar bg-white p-3 rounded-3 shadow-sm border mb-4">
+                        <div class="d-flex justify-content-between align-items-center mb-3"
+                            @click="isOpenNfet = !isOpenNfet" style="cursor: pointer; user-select: none;">
+                            <h5 class="m-0 text-dark fw-bold pb-1"
+                                style="border-bottom: 2px solid #7c3aed; display: inline-block; font-size: 16px;">
+                                <i class="ti ti-calendar-event me-2" style="color: #7c3aed;"></i>NFET Slot Booking
+                            </h5>
+                            <i class="ti" :class="isOpenNfet ? 'ti-chevron-up' : 'ti-chevron-down'"
+                                style="color: #475569; font-size: 18px;"></i>
+                        </div>
+
+                        <div v-show="isOpenNfet" class="nfet-slide-content" style="position: relative;">
+                            <div v-if="isProfileEmpty" class="disabled-overlay"
+                                title="This section will be enabled after you complete your profile."></div>
+                            <div :class="{ 'opacity-50': isProfileEmpty }">
+                                <div
+                                    class="d-flex justify-content-between align-items-center mb-3 bg-light p-2 rounded">
+                                    <button
+                                        class="btn btn-sm btn-white border shadow-sm p-1 d-flex align-items-center justify-content-center"
+                                        style="width: 28px; height: 28px;" @click="prevMonth"><i
+                                            class="ti ti-chevron-left"></i></button>
+                                    <span class="fw-bold text-dark" style="font-size: 14px;">{{ monthNames[currentMonth]
+                                        }}
+                                        {{ currentYear }}</span>
+                                    <button
+                                        class="btn btn-sm btn-white border shadow-sm p-1 d-flex align-items-center justify-content-center"
+                                        style="width: 28px; height: 28px;" @click="nextMonth"><i
+                                            class="ti ti-chevron-right"></i></button>
+                                </div>
+                                <div class="calendar-grid">
+                                    <div class="calendar-day-header text-muted fw-semibold"
+                                        v-for="day in ['Su', 'Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa']" :key="day">{{ day }}
+                                    </div>
+                                    <div class="calendar-day" v-for="(day, idx) in calendarDays" :key="'empty-' + idx"
+                                        :class="{
+                                            'empty': !day,
+                                            'allowed': day && day.isAllowed,
+                                            'disabled': day && !day.isAllowed,
+                                            'selected': day && day.dateString === selectedDate
+                                        }" @click="selectDate(day)">
+                                        {{ day ? day.day : '' }}
+                                    </div>
+                                </div>
+
+                                <!-- Slots -->
+                                <div class="slots-container" v-if="selectedDate">
+                                    <h6 class="mb-2 fw-semibold text-dark" style="font-size: 14px;">Slots for {{
+                                        formatDate(selectedDate) }}:</h6>
+                                    <div class="d-flex flex-wrap gap-2 mb-3">
+                                        <button v-for="slot in availableSlots" :key="slot.id"
+                                            class="btn btn-sm flex-grow-1"
+                                            :class="selectedSlot === slot.id ? 'btn-primary text-white custom-primary-bg' : 'btn-outline-secondary'"
+                                            @click="selectSlot(slot)" style="font-size: 12px; min-width: 45%;">
+                                            {{ slot.time }}
+                                        </button>
+                                    </div>
+                                    <div v-if="availableSlots.length === 0" class="text-muted small mb-3">No slots
+                                        available.
+                                    </div>
+
+                                    <button
+                                        class="btn btn-primary w-100 custom-primary-bg d-flex justify-content-center align-items-center gap-2 mb-2"
+                                        :disabled="isBookingSlot" @click="bookSlot">
+                                        <span v-if="isBookingSlot" class="spinner-border spinner-border-sm"
+                                            role="status" aria-hidden="true"></span>
+                                        {{ bookingDetails.isBooked ? 'Update Slot' : 'Book Slot' }} <i
+                                            v-if="!isBookingSlot" class="ti ti-arrow-right"></i>
+                                    </button>
+
+                                    <!-- Admit Card Button (Only show after successful API call in this session) -->
+                                    <button v-if="showAdmitCardButton"
+                                        class="btn btn-outline-success w-100 d-flex justify-content-center align-items-center gap-2"
+                                        @click="downloadAdmitCard">
+                                        Generate Admit Card <i class="ti ti-download"></i>
+                                    </button>
+                                </div>
+                                <p v-else
+                                    class="text-muted small text-center py-2 px-3 bg-light rounded border border-dashed mt-3">
+                                    Please select a highlighted date.
+                                </p>
+                            </div>
+                        </div>
+                    </div> <!-- End nfet-slot-sidebar -->
+                </div> <!-- End Right Column -->
+            </div> <!-- End Main Row -->
+        </div> <!-- End Main Layout Split -->
+
+
 
         <LayoutMainFooter />
         <LayoutCopyRight />
@@ -182,11 +288,12 @@
 
 <!-- ✅ PROTECTED ROUTE — redirects to /login if no valid token found -->
 <script setup lang="ts">
-import { ref, reactive } from 'vue'
+import { ref, reactive, computed } from 'vue'
 import PersonalInformation from "../components/PersonalInformation/PersonalInformation.vue";
 import AcademicInformation from "../components/AcademicInformation/AcademicInformation.vue";
 import WorkExperienceDetails from "../components/WorkExperienceDetails/WorkExperienceDetails.vue";
 import DocumentUpload from "../components/DocumentUpload/DocumentUpload.vue";
+import StudentKits from "../components/StudentKits/StudentKits.vue";
 // import PrePaymentDeclaration from "../components/PrePaymentDeclaration/PrePaymentDeclaration.vue";
 
 // Layer 1: Middleware for Nuxt navigation
@@ -208,8 +315,25 @@ useHead({
 const { userId, init: initAuth } = useAuth()
 const config = useRuntimeConfig();
 
+// Start Global Scope 
+const staticSlots = [
+    "11:30 AM - 01:00 PM",
+    "01:30 PM - 03:00 PM"
+];
+
 // Hydrate auth state (reads from localStorage) on mount
 const profileImage = ref<string | null>(null);
+
+const isProfileEmpty = ref(false);
+
+const bookingDetails = reactive({
+    isBooked: false,
+    date: "",
+    time: "",
+    admitCardUrl: "" as string | null
+});
+
+const showAdmitCardButton = ref(false);
 
 const fetchStudentDetail = async () => {
     if (!userId.value) return;
@@ -221,7 +345,15 @@ const fetchStudentDetail = async () => {
             headers: token ? { 'Authorization': `Bearer ${token}` } : {}
         });
 
-        if (response?.data) {
+        console.log("Profile Data Check:", response);
+
+        // If returned payload is explicitly an empty array or missing data
+        if (!response?.data || (Array.isArray(response.data) && response.data.length === 0)) {
+            isProfileEmpty.value = true;
+            console.warn("Profile is detected as EMPTY. Disabling sections.");
+        }
+
+        if (response?.data && !Array.isArray(response.data)) {
             const d = response.data;
 
             // Name splitting logic
@@ -284,6 +416,27 @@ const fetchStudentDetail = async () => {
                 dob_proof: d.dob_certificate || null,
                 photo: d.photo || null // Fetch proper document photo
             };
+
+            // Booking Details check
+            if (d.slot_date && d.slot_time) {
+                bookingDetails.isBooked = true;
+                bookingDetails.date = d.slot_date;
+                bookingDetails.time = d.slot_time;
+                // Pre-select the calendar to show their booked slot
+                selectedDate.value = d.slot_date;
+
+                // Prefill available slots so the UI can highlight the match
+                availableSlots.value = staticSlots.map((timeStr: string, index: number) => ({
+                    id: index + 1,
+                    time: timeStr
+                }));
+
+                // Force an update to show the times if the calendar matches
+                const matchingSlot = staticSlots.find(s => s === d.slot_time);
+                if (matchingSlot) {
+                    selectedSlot.value = staticSlots.indexOf(matchingSlot) + 1;
+                }
+            }
         }
 
         // Fetch image specifically from the detail API as requested and fill fallback profile data
@@ -354,6 +507,148 @@ onMounted(async () => {
 })
 
 const openSection = ref<number | null>(1); // first section open by default
+const isOpenNfet = ref(true);
+
+// --- Calendar & Slots Logic ---
+const currentDateObj = ref(new Date());
+const currentMonth = computed(() => currentDateObj.value.getMonth());
+const currentYear = computed(() => currentDateObj.value.getFullYear());
+
+const monthNames = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+
+const prevMonth = () => {
+    currentDateObj.value = new Date(currentYear.value, currentMonth.value - 1, 1);
+};
+const nextMonth = () => {
+    currentDateObj.value = new Date(currentYear.value, currentMonth.value + 1, 1);
+};
+
+// Hardcode allowed dates
+const allowedDates = ref<string[]>([
+    "2026-03-14",
+    "2026-03-15",
+    "2026-03-21",
+    "2026-03-22"
+]);
+
+const daysInMonth = computed(() => {
+    return new Date(currentYear.value, currentMonth.value + 1, 0).getDate();
+});
+const firstDayOfMonth = computed(() => {
+    return new Date(currentYear.value, currentMonth.value, 1).getDay();
+});
+
+const calendarDays = computed(() => {
+    const days = [];
+    for (let i = 0; i < firstDayOfMonth.value; i++) {
+        days.push(null); // empty slots padding for the first week
+    }
+    for (let i = 1; i <= daysInMonth.value; i++) {
+        const dateString = `${currentYear.value}-${String(currentMonth.value + 1).padStart(2, '0')}-${String(i).padStart(2, '0')}`;
+        const isAllowed = allowedDates.value.includes(dateString);
+        days.push({
+            day: i,
+            dateString,
+            isAllowed
+        });
+    }
+    return days;
+});
+
+const selectedDate = ref('');
+const selectedSlot = ref<number | string>('');
+const availableSlots = ref<any[]>([]);
+
+const selectDate = (day: any) => {
+    if (!day || !day.isAllowed) return;
+    selectedDate.value = day.dateString;
+    selectedSlot.value = ''; // reset slot on date change
+
+    availableSlots.value = staticSlots.map((timeStr: string, index: number) => ({
+        id: index + 1,
+        time: timeStr
+    }));
+};
+
+const selectSlot = (slot: any) => {
+    selectedSlot.value = slot.id;
+};
+
+const isBookingSlot = ref(false);
+
+const bookSlot = async () => {
+    if (!selectedDate.value || !selectedSlot.value) return;
+
+    const slotObj = availableSlots.value.find((s: any) => s.id === selectedSlot.value);
+    if (!slotObj) return;
+
+    isBookingSlot.value = true;
+    try {
+        const { getAccessToken } = useAuth();
+        const token = getAccessToken();
+
+        const payload = {
+            slot_date: selectedDate.value,
+            slot_time: String(slotObj.time)
+        };
+
+        // Note: Using a standard fetch for easier blob handling
+        const response = await fetch(`${config.public.apiBase}/api/students/student-slot-upload/`, {
+            method: "PATCH",
+            body: JSON.stringify(payload),
+            headers: {
+                'Content-Type': 'application/json',
+                ...(token ? { 'Authorization': `Bearer ${token}` } : {})
+            }
+        });
+        console.log(response, '-------------response-------')
+        if (response.ok) {
+            const result = await response.json();
+            const reportUrl = result.data?.report_url;
+
+            bookingDetails.isBooked = true;
+            bookingDetails.date = payload.slot_date;
+            bookingDetails.time = payload.slot_time;
+            bookingDetails.admitCardUrl = reportUrl;
+            showAdmitCardButton.value = true;
+
+            alert("Slot booked successfully! You can now download your admit card.");
+        } else {
+            const errorData = await response.json().catch(() => ({}));
+            throw new Error(errorData.message || "Failed to book slot");
+        }
+    } catch (err: any) {
+        console.error("Failed to book slot:", err);
+        alert(err.message || "Failed to book slot. Please try again.");
+    } finally {
+        isBookingSlot.value = false;
+    }
+};
+
+const downloadAdmitCard = () => {
+    if (bookingDetails.admitCardUrl) {
+        // If it's a blob URL, download it, else open the external URL
+        if (bookingDetails.admitCardUrl.startsWith('blob:') || bookingDetails.admitCardUrl.includes('fslfdlfj')) {
+            const link = document.createElement('a');
+            link.href = bookingDetails.admitCardUrl;
+            link.setAttribute('download', `NFET_Admit_Card_${bookingDetails.date}.pdf`);
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+        } else {
+            // It's a standard URL, open in new tab
+            window.open(bookingDetails.admitCardUrl, '_blank');
+        }
+    } else {
+        alert("No admit card available. Please book a slot first.");
+    }
+};
+
+const formatDate = (dateStr: string) => {
+    if (!dateStr) return '';
+    const date = new Date(dateStr);
+    return date.toLocaleDateString('en-US', { weekday: 'short', month: 'short', day: 'numeric' });
+};
 
 const formData = reactive({
     first_name: "",
@@ -898,5 +1193,92 @@ const handleFinalSubmit = async () => {
 
 .cursor-not-allowed {
     cursor: not-allowed !important;
+}
+
+
+
+.kit-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(124, 58, 237, 0.15) !important;
+    border-color: #7c3aed !important;
+}
+
+/* ─── Calendar Styling ────────────────────────────────────── */
+.calendar-grid {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 4px;
+    text-align: center;
+}
+
+.calendar-day-header {
+    font-size: 11px;
+    text-transform: uppercase;
+    padding-bottom: 4px;
+}
+
+.calendar-day {
+    aspect-ratio: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 13px;
+    border-radius: 6px;
+    cursor: default;
+    color: #94a3b8;
+    background: transparent;
+}
+
+.calendar-day.empty {
+    background: transparent;
+}
+
+.calendar-day.disabled {
+    opacity: 0.5;
+    background: #f8fafc;
+}
+
+.calendar-day.allowed {
+    background: #ede9fe;
+    color: #7c3aed;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.calendar-day.allowed:hover {
+    background: #ddd6fe;
+}
+
+.calendar-day.selected {
+    background: #872980;
+    color: #fff;
+    box-shadow: 0 2px 8px rgba(135, 41, 128, 0.3);
+}
+
+.custom-primary-bg {
+    background-color: #872980 !important;
+    border-color: #872980 !important;
+}
+
+.custom-primary-bg:hover {
+    background-color: #6d1e67 !important;
+    border-color: #6d1e67 !important;
+}
+
+.border-dashed {
+    border-style: dashed !important;
+}
+
+.disabled-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 100;
+    cursor: not-allowed;
+    background: rgba(255, 255, 255, 0);
+    /* Ensure it's a solid block for clicks */
 }
 </style>
