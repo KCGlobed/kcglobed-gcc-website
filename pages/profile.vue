@@ -282,7 +282,7 @@ const fetchStudentDetail = async () => {
             formData.existingDocuments = {
                 aadhaar: d.aadhaar || null,
                 dob_proof: d.dob_certificate || null,
-                photo: null // Fallback initialized
+                photo: d.photo || null // Fetch proper document photo
             };
         }
 
@@ -293,9 +293,6 @@ const fetchStudentDetail = async () => {
             });
             if (detailRes.success && detailRes.data) {
                 profileImage.value = detailRes.data.image || detailRes.data.photo || profileImage.value;
-                if (formData.existingDocuments) {
-                    formData.existingDocuments.photo = detailRes.data.image || detailRes.data.photo || null;
-                }
 
                 // Fallback for empty core fields
                 if (!formData.first_name) {
@@ -505,25 +502,12 @@ const handleFinalSubmit = async () => {
         if (formData.documents.dob_proof instanceof File) {
             data.append('dob_certificate', formData.documents.dob_proof);
         }
+        if (formData.documents.photo instanceof File) {
+            data.append('photo', formData.documents.photo);
+        }
 
         const { getAccessToken } = useAuth();
         const token = getAccessToken();
-
-        // Separate Image Upload to dedicated endpoint if a new photo was chosen
-        if (formData.documents.photo instanceof File) {
-            try {
-                const imgData = new FormData();
-                imgData.append('image', formData.documents.photo);
-                await $fetch(`${config.public.apiBase}/api/users/student-profile-upload/${userId.value}`, {
-                    method: "POST",
-                    body: imgData,
-                    headers: token ? { 'Authorization': `Bearer ${token}` } : {}
-                });
-            } catch (imgErr) {
-                console.error("Failed to upload profile image separately:", imgErr);
-                // Non-blocking error: we still proceed to save the rest of the profile
-            }
-        }
 
         console.log("--- FINAL PAYLOAD SENT TO BACKEND (BINARY FormData) ---");
         for (const [key, value] of (data as any).entries()) {
