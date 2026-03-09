@@ -36,7 +36,7 @@
                                 </svg>
                             </span>
                             <input id="email" v-model="form.email" type="email" class="field-input"
-                                placeholder="you@example.com" autocomplete="email" @blur="validateField('email')"
+                                placeholder="Enter your email" autocomplete="email" @blur="validateField('email')"
                                 @input="clearError('email')" />
                             <span v-if="touched.email && !errors.email" class="check-icon">
                                 <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor"
