@@ -12,7 +12,8 @@
                     <label class="form-label fw-bold">Aadhaar Card <span>*</span></label>
                     <div class="input-group">
                         <input type="file" class="form-control" accept=".pdf,.jpg,.jpeg,.png"
-                            @change="handleFileChange('aadhaar', $event)" :class="{ 'is-invalid': errors.aadhaar }">
+                            @change="handleFileChange('aadhaar', $event)" :class="{ 'is-invalid': errors.aadhaar }"
+                            :disabled="isDisabled">
                         <span class="input-group-text bg-white" v-if="formData.documents.aadhaar">
                             <i class="ti ti-circle-check-filled text-success fs-5"></i>
                         </span>
@@ -33,7 +34,8 @@
                     <label class="form-label fw-bold">Proof of DOB (X Marksheet / Birth Cert) <span>*</span></label>
                     <div class="input-group">
                         <input type="file" class="form-control" accept=".pdf,.jpg,.jpeg,.png"
-                            @change="handleFileChange('dob_proof', $event)" :class="{ 'is-invalid': errors.dob_proof }">
+                            @change="handleFileChange('dob_proof', $event)" :class="{ 'is-invalid': errors.dob_proof }"
+                            :disabled="isDisabled">
                         <span class="input-group-text bg-white" v-if="formData.documents.dob_proof">
                             <i class="ti ti-circle-check-filled text-success fs-5"></i>
                         </span>
@@ -54,7 +56,8 @@
                     <label class="form-label fw-bold">Photograph <span>*</span></label>
                     <div class="input-group">
                         <input type="file" class="form-control" accept=".jpg,.jpeg,.png"
-                            @change="handleFileChange('photo', $event)" :class="{ 'is-invalid': errors.photo }">
+                            @change="handleFileChange('photo', $event)" :class="{ 'is-invalid': errors.photo }"
+                            :disabled="isDisabled">
                         <span class="input-group-text bg-white" v-if="formData.documents.photo">
                             <i class="ti ti-circle-check-filled text-success fs-5"></i>
                         </span>
@@ -79,6 +82,10 @@ export default {
         formData: {
             type: Object,
             required: true
+        },
+        isDisabled: {
+            type: Boolean,
+            default: false
         }
     },
     data() {

@@ -10,7 +10,8 @@
           <label class="form-label d-block text-dark fw-bold mb-3">Employment Status <span>*</span></label>
           <div class="row g-3">
             <div class="col-md-6">
-              <div class="status-card" :class="{ active: status === 'Fresher' }" @click="status = 'Fresher'">
+              <div class="status-card" :class="{ active: status === 'Fresher', 'disabled-card': isDisabled }"
+                @click="!isDisabled && (status = 'Fresher')">
                 <div class="status-icon">
                   <i class="ti ti-school"></i>
                 </div>
@@ -24,7 +25,8 @@
               </div>
             </div>
             <div class="col-md-6">
-              <div class="status-card" :class="{ active: status === 'Experienced' }" @click="status = 'Experienced'">
+              <div class="status-card" :class="{ active: status === 'Experienced', 'disabled-card': isDisabled }"
+                @click="!isDisabled && (status = 'Experienced')">
                 <div class="status-icon">
                   <i class="ti ti-briefcase"></i>
                 </div>
@@ -49,7 +51,7 @@
                 <i class="ti ti-building me-2"></i>
                 {{ index === 0 ? 'Current Organization' : 'Past Organization ' + (index) }}
               </h6>
-              <button v-if="formData.work_experience.length > 1"
+              <button v-if="formData.work_experience.length > 1 && !isDisabled"
                 class="btn btn-sm btn-link text-danger text-decoration-none" @click="removeJob(index)">
                 <i class="ti ti-trash"></i> Remove
               </button>
@@ -104,7 +106,7 @@
               </div>
             </div>
           </div>
-          <div class="mb-4">
+          <div class="mb-4" v-if="!isDisabled">
             <button class="btn btn-outline-primary btn-sm px-4" @click="addJob">
               <i class="ti ti-plus me-1"></i> Add Another Experience
             </button>
@@ -122,6 +124,10 @@ export default {
     formData: {
       type: Object,
       required: true
+    },
+    isDisabled: {
+      type: Boolean,
+      default: false
     }
   },
 
@@ -215,6 +221,11 @@ export default {
 
 .bg-light-purple {
   background-color: #f8f6ff;
+}
+
+.disabled-card {
+  pointer-events: none;
+  opacity: 0.8;
 }
 
 /* Status Card Styling */
