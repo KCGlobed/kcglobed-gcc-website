@@ -108,7 +108,7 @@
                                     <div class="input-box">
                                         <label class="form-label">Current Employment Status <span>*</span></label>
                                         <div class="d-flex flex-wrap gap-4 mt-2">
-                                            <div class="form-check" v-for="status in employmentStatusList"
+                                            <div class="form-check purple-radio" v-for="status in employmentStatusList"
                                                 :key="status">
                                                 <input class="form-check-input" type="radio"
                                                     v-model="form.employmentStatus" :value="status" :id="status">
@@ -124,7 +124,7 @@
                                     <div class="input-box">
                                         <label class="form-label">Total Years of Experience <span>*</span></label>
                                         <div class="d-flex flex-wrap gap-4 mt-2">
-                                            <div class="form-check" v-for="exp in experienceList" :key="exp">
+                                            <div class="form-check purple-radio" v-for="exp in experienceList" :key="exp">
                                                 <input class="form-check-input" type="radio"
                                                     v-model="form.experienceYears" :value="exp" :id="exp">
                                                 <label class="form-check-label" :for="exp">{{ exp }}</label>
@@ -140,7 +140,7 @@
                                         <label class="form-label">Area of Interest / Role Applying For
                                             <span>*</span></label>
                                         <div class="d-flex flex-wrap gap-3 mt-2">
-                                            <div class="form-check" v-for="area in areaOfInterestList" :key="area">
+                                            <div class="form-check purple-radio" v-for="area in areaOfInterestList" :key="area">
                                                 <input class="form-check-input" type="radio"
                                                     v-model="form.areaOfInterest" :value="area" :id="area">
                                                 <label class="form-check-label" :for="area">{{ area }}</label>
@@ -202,7 +202,7 @@
                                 <div class="input-box">
                                     <label class="form-label">Notice Period <span>*</span></label>
                                     <div class="d-flex flex-wrap gap-4 mt-2">
-                                        <div class="form-check" v-for="period in noticePeriodList" :key="period">
+                                        <div class="form-check purple-radio" v-for="period in noticePeriodList" :key="period">
                                             <input class="form-check-input" type="radio" v-model="form.noticePeriod"
                                                 :value="period" :id="period">
                                             <label class="form-check-label" :for="period">{{ period }}</label>
@@ -364,10 +364,10 @@ export default defineComponent({
 
                     if (response.success) {
                         this.uploadedResumePath = response.path;
-                        this.errors.resumePath = ""; // Clear error
+                        this.errors.resumePath = "";
                     } else {
                         alert(response.message || "Upload failed");
-                        fileInput.value = ""; // Reset input
+                        fileInput.value = "";
                     }
                 } catch (error) {
                     console.error("Upload Error:", error);
@@ -383,65 +383,21 @@ export default defineComponent({
                 (this.errors as any)[key] = "";
             });
 
-            if (!this.form.fullName) {
-                this.errors.fullName = "Full Name is required";
-                isValid = false;
-            }
-            if (!this.form.email) {
-                this.errors.email = "Email ID is required";
-                isValid = false;
-            } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(this.form.email)) {
-                this.errors.email = "Invalid Email ID";
-                isValid = false;
-            }
-            if (!this.form.mobile) {
-                this.errors.mobile = "Mobile Number is required";
-                isValid = false;
-            }
-            if (!this.form.city) {
-                this.errors.city = "City is required";
-                isValid = false;
-            }
-            if (!this.form.state) {
-                this.errors.state = "State is required";
-                isValid = false;
-            }
-            if (!this.form.highestQualification) {
-                this.errors.highestQualification = "Qualification is required";
-                isValid = false;
-            }
-            if (!this.form.employmentStatus) {
-                this.errors.employmentStatus = "Employment Status is required";
-                isValid = false;
-            }
-            if (!this.form.experienceYears) {
-                this.errors.experienceYears = "Experience is required";
-                isValid = false;
-            }
-            if (!this.form.areaOfInterest) {
-                this.errors.areaOfInterest = "Area of Interest is required";
-                isValid = false;
-            }
-            if (this.form.areaOfInterest === 'Other (Please specify)' && !this.form.areaOfInterestOther) {
-                this.errors.areaOfInterestOther = "Please specify area";
-                isValid = false;
-            }
-            if (!this.form.contributionSummary) {
-                this.errors.contributionSummary = "Summary is required";
-                isValid = false;
-            }
-            if (!this.uploadedResumePath) {
-                this.errors.resumePath = "Resume upload is required";
-                isValid = false;
-            }
-            if (!this.form.noticePeriod) {
-                this.errors.noticePeriod = "Notice Period is required";
-                isValid = false;
-            }
-            if (!this.form.consent) {
-                this.errors.consent = "You must agree to the declaration";
-                isValid = false;
-            }
+            if (!this.form.fullName) { this.errors.fullName = "Full Name is required"; isValid = false; }
+            if (!this.form.email) { this.errors.email = "Email ID is required"; isValid = false; }
+            else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(this.form.email)) { this.errors.email = "Invalid Email ID"; isValid = false; }
+            if (!this.form.mobile) { this.errors.mobile = "Mobile Number is required"; isValid = false; }
+            if (!this.form.city) { this.errors.city = "City is required"; isValid = false; }
+            if (!this.form.state) { this.errors.state = "State is required"; isValid = false; }
+            if (!this.form.highestQualification) { this.errors.highestQualification = "Qualification is required"; isValid = false; }
+            if (!this.form.employmentStatus) { this.errors.employmentStatus = "Employment Status is required"; isValid = false; }
+            if (!this.form.experienceYears) { this.errors.experienceYears = "Experience is required"; isValid = false; }
+            if (!this.form.areaOfInterest) { this.errors.areaOfInterest = "Area of Interest is required"; isValid = false; }
+            if (this.form.areaOfInterest === 'Other (Please specify)' && !this.form.areaOfInterestOther) { this.errors.areaOfInterestOther = "Please specify area"; isValid = false; }
+            if (!this.form.contributionSummary) { this.errors.contributionSummary = "Summary is required"; isValid = false; }
+            if (!this.uploadedResumePath) { this.errors.resumePath = "Resume upload is required"; isValid = false; }
+            if (!this.form.noticePeriod) { this.errors.noticePeriod = "Notice Period is required"; isValid = false; }
+            if (!this.form.consent) { this.errors.consent = "You must agree to the declaration"; isValid = false; }
 
             return isValid;
         },
@@ -534,5 +490,46 @@ export default defineComponent({
     animation: rotateme 1s infinite linear;
     vertical-align: middle;
     margin-left: 5px;
+}
+
+/* Purple circular radio buttons */
+.purple-radio .form-check-input[type="radio"] {
+    appearance: none !important;
+    -webkit-appearance: none !important;
+    width: 20px !important;
+    height: 20px !important;
+    border: 2px solid #7c3aed !important;
+    border-radius: 50% !important;
+    background-color: #ffffff !important;
+    cursor: pointer;
+    position: relative;
+    flex-shrink: 0;
+    margin-top: 2px;
+    transition: box-shadow 0.2s, border-color 0.2s;
+    display: inline-block;
+    box-sizing: border-box !important;
+    padding: 0 !important;
+}
+
+.purple-radio .form-check-input[type="radio"]:checked {
+    background-color: #ffffff !important;
+    border-color: #7c3aed !important;
+    box-shadow: inset 0 0 0 5px #7c3aed !important;
+}
+
+.purple-radio .form-check-input[type="radio"]:focus {
+    outline: none !important;
+    box-shadow: inset 0 0 0 5px #7c3aed, 0 0 0 3px rgba(124, 58, 237, 0.2) !important;
+}
+
+.purple-radio .form-check-input[type="radio"]:hover {
+    border-color: #6d28d9 !important;
+}
+
+.purple-radio .form-check-label {
+    cursor: pointer;
+    padding-left: 4px;
+    color: #374151;
+    font-weight: 500;
 }
 </style>
