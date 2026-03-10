@@ -242,7 +242,7 @@
                                         style="width: 28px; height: 28px;" @click="prevMonth"><i
                                             class="ti ti-chevron-left"></i></button>
                                     <span class="fw-bold text-dark" style="font-size: 14px;">{{ monthNames[currentMonth]
-                                        }}
+                                    }}
                                         {{ currentYear }}</span>
                                     <button
                                         class="btn btn-sm btn-white border shadow-sm p-1 d-flex align-items-center justify-content-center"
@@ -270,9 +270,11 @@
                                         formatDate(selectedDate) }}:</h6>
                                     <div class="d-flex flex-wrap gap-2 mb-3">
                                         <button v-for="slot in availableSlots" :key="slot.id"
-                                            class="btn btn-sm flex-grow-1"
-                                            :class="selectedSlot === slot.id ? 'btn-primary text-white custom-primary-bg' : 'btn-outline-secondary'"
-                                            @click="selectSlot(slot)" style="font-size: 12px; min-width: 45%;">
+                                            class="btn btn-sm flex-grow-1" :class="[
+                                                selectedSlot === slot.id ? 'btn-primary text-white custom-primary-bg' : 'btn-outline-secondary',
+                                            ]" @click="!slot.disabled && selectSlot(slot)" :disabled="slot.disabled"
+                                            :title="slot.disabled ? 'This slot is no longer available (48-hour restriction)' : ''"
+                                            style="font-size: 12px; min-width: 45%;">
                                             {{ slot.time }}
                                         </button>
                                     </div>
@@ -644,6 +646,33 @@ const firstDayOfMonth = computed(() => {
     return new Date(currentYear.value, currentMonth.value, 1).getDay();
 });
 
+const isSlotValid = (dateStr: string, timeStr: string) => {
+    try {
+        const startTimeStr = timeStr.split('-')[0].trim();
+        const match = startTimeStr.match(/(\d+):(\d+)\s*(AM|PM)/i);
+        if (match) {
+            let hourVal = parseInt(match[1], 10);
+            const minVal = parseInt(match[2], 10);
+            const ampm = match[3];
+
+            if (ampm.toUpperCase() === 'PM' && hourVal < 12) hourVal += 12;
+            if (ampm.toUpperCase() === 'AM' && hourVal === 12) hourVal = 0;
+
+            const [year, month, day] = dateStr.split('-');
+            const slotDateTime = new Date(parseInt(year), parseInt(month) - 1, parseInt(day), hourVal, minVal, 0);
+
+            const now = new Date();
+            const diffHours = (slotDateTime.getTime() - now.getTime()) / (1000 * 60 * 60);
+
+            const bufferHours = Number(config.public.nfetSlotBufferHours) || 48;
+            return diffHours >= bufferHours;
+        }
+    } catch (err) {
+        console.error("Error validating slot time", err);
+    }
+    return false;
+};
+
 const calendarDays = computed(() => {
     const days = [];
     for (let i = 0; i < firstDayOfMonth.value; i++) {
@@ -657,7 +686,10 @@ const calendarDays = computed(() => {
         const dateString = `${currentYear.value}-${String(currentMonth.value + 1).padStart(2, '0')}-${String(i).padStart(2, '0')}`;
 
         // Allowed only if it's in the allowedDates list AND is today or in the future
-        const isAllowed = allowedDates.value.includes(dateString) && dateString >= todayStr;
+        // AND at least one slot is valid (>= 48 hours)
+        const isAllowed = allowedDates.value.includes(dateString) &&
+            dateString >= todayStr &&
+            staticSlots.some((timeStr: string) => isSlotValid(dateString, timeStr));
 
         days.push({
             day: i,
@@ -679,7 +711,8 @@ const selectDate = (day: any) => {
 
     availableSlots.value = staticSlots.map((timeStr: string, index: number) => ({
         id: index + 1,
-        time: timeStr
+        time: timeStr,
+        disabled: !isSlotValid(day.dateString, timeStr)
     }));
 };
 
@@ -710,13 +743,45 @@ const isBookingSlot = ref(false);
 const bookSlot = async () => {
     if (!selectedDate.value || !selectedSlot.value) return;
 
+    const slotObj = availableSlots.value.find((s: any) => s.id === selectedSlot.value);
+    if (!slotObj) return;
+
+    // Time difference check
+    try {
+        const slotDateStr = selectedDate.value;
+        const slotTimeStr = String(slotObj.time);
+        const startTimeStr = slotTimeStr.split('-')[0].trim();
+        const match = startTimeStr.match(/(\d+):(\d+)\s*(AM|PM)/i);
+
+        if (match) {
+            let hourVal = parseInt(match[1], 10);
+            const minVal = parseInt(match[2], 10);
+            const ampm = match[3];
+
+            if (ampm.toUpperCase() === 'PM' && hourVal < 12) hourVal += 12;
+            if (ampm.toUpperCase() === 'AM' && hourVal === 12) hourVal = 0;
+
+            const [year, month, day] = slotDateStr.split('-');
+            const slotDateTime = new Date(parseInt(year), parseInt(month) - 1, parseInt(day), hourVal, minVal, 0);
+
+            const now = new Date();
+            const diffHours = (slotDateTime.getTime() - now.getTime()) / (1000 * 60 * 60);
+
+            const bufferHours = Number(config.public.nfetSlotBufferHours) || 48;
+
+            if (diffHours < bufferHours) {
+                alert(`Slots can only be booked or changed at least ${bufferHours} hours before the scheduled time.`);
+                return;
+            }
+        }
+    } catch (err) {
+        console.error("Error calculating time difference", err);
+    }
+
     if (bookingDetails.isBooked) {
         const confirmed = await confirmSlotChange();
         if (!confirmed) return;
     }
-
-    const slotObj = availableSlots.value.find((s: any) => s.id === selectedSlot.value);
-    if (!slotObj) return;
 
     isBookingSlot.value = true;
     try {
