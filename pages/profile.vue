@@ -242,7 +242,7 @@
                                         style="width: 28px; height: 28px;" @click="prevMonth"><i
                                             class="ti ti-chevron-left"></i></button>
                                     <span class="fw-bold text-dark" style="font-size: 14px;">{{ monthNames[currentMonth]
-                                    }}
+                                        }}
                                         {{ currentYear }}</span>
                                     <button
                                         class="btn btn-sm btn-white border shadow-sm p-1 d-flex align-items-center justify-content-center"
@@ -446,7 +446,7 @@ const fetchStudentDetail = async () => {
             formData.dob = d.date_of_birth || d.dob || "";
             formData.nationality = d.nationality || "Indian";
             formData.complete_address = d.address || "";
-            formData.application_id = d.student_id || d.application_id || "";
+            formData.application_id = d.application_id || "";
 
             // Mappings for Choices
             const genderReverseMap: Record<number, string> = { 1: "Male", 2: "Female", 3: "Other" };
@@ -548,6 +548,7 @@ const fetchStudentDetail = async () => {
                 if (!formData.mobile) formData.mobile = detailRes.data.phone1 || detailRes.data.phone2 || detailRes.data.phone || "";
                 if (!formData.city) formData.city = detailRes.data.city || "";
                 if (!formData.state) formData.state = detailRes.data.state || "";
+                if (!formData.application_id) formData.application_id = detailRes.data.application_id || detailRes.data.student_id || "";
             }
         } catch (detailErr) {
             console.error("Error fetching detail API data:", detailErr);
