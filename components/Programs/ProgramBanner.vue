@@ -893,12 +893,15 @@ export default defineComponent({
                                     }
                                 );
                             } catch (studentErr: any) {
+                                console.error("Error creating student record:", studentErr);
                                 const errors = studentErr?.data?.non_field_errors || [];
-                                if (errors.includes("Email address is already registered with Us")) {
-                                    console.log("Student already registered, proceeding.");
-                                } else {
-                                    console.error("[PAYMENT] create_student error:", studentErr);
-                                }
+                                window.alert(errors)
+                                // if (errors.includes("Email address is already registered with Us")) {
+                                //     console.log("Student already registered, proceeding.");
+                                    
+                                // } else {
+                                //     console.error("[PAYMENT] create_student error:", studentErr);
+                                // }
                             }
                         } catch (e) {
                             console.error("[PAYMENT] complete-payment error:", e);
