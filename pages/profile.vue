@@ -285,8 +285,15 @@
                                         :disabled="isBookingSlot" @click="bookSlot">
                                         <span v-if="isBookingSlot" class="spinner-border spinner-border-sm"
                                             role="status" aria-hidden="true"></span>
-                                        {{ bookingDetails.isBooked ? 'Update Slot' : 'Book Slot' }} <i
-                                            v-if="!isBookingSlot" class="ti ti-arrow-right"></i>
+                                        <template v-if="bookingDetails.isBooked">
+                                            <div class="d-flex flex-column align-items-center"
+                                                style="line-height: 1.2;">
+                                                <span>Update Slot</span>
+                                                <small style="font-size: 0.75em;">(one time only)</small>
+                                            </div>
+                                        </template>
+                                        <template v-else>Book Slot</template> <i v-if="!isBookingSlot"
+                                            class="ti ti-arrow-right"></i>
                                     </button>
 
                                     <!-- Admit Card Button (Only show after successful API call in this session) -->
