@@ -242,7 +242,7 @@
                                         style="width: 28px; height: 28px;" @click="prevMonth"><i
                                             class="ti ti-chevron-left"></i></button>
                                     <span class="fw-bold text-dark" style="font-size: 14px;">{{ monthNames[currentMonth]
-                                    }}
+                                        }}
                                         {{ currentYear }}</span>
                                     <button
                                         class="btn btn-sm btn-white border shadow-sm p-1 d-flex align-items-center justify-content-center"
@@ -257,9 +257,11 @@
                                         :class="{
                                             'empty': !day,
                                             'allowed': day && day.isAllowed,
-                                            'disabled': day && !day.isAllowed,
+                                            'disabled': day && !day.isAllowed && !day.isBlocked,
+                                            'blocked': day && day.isBlocked,
                                             'selected': day && day.dateString === selectedDate
-                                        }" @click="selectDate(day)">
+                                        }" :title="day && day.isBlocked ? 'fully booked' : ''"
+                                        @click="selectDate(day)">
                                         {{ day ? day.day : '' }}
                                     </div>
                                 </div>
@@ -314,6 +316,24 @@
                 </div> <!-- End Right Column -->
             </div> <!-- End Main Row -->
         </div> <!-- End Main Layout Split -->
+        <!-- Slot Full Modal -->
+        <div v-if="showSlotFullModal" class="custom-modal-overlay">
+            <div class="custom-modal p-4">
+                <div class="text-center pb-3 pt-2">
+                    <div class="mb-3">
+                        <i class="ti ti-alert-circle text-danger" style="font-size: 48px;"></i>
+                    </div>
+                    <h5 class="mb-2 fw-bold" style="font-size: 18px; color: #333;">This slot is fully booked</h5>
+                    <p class="text-muted" style="font-size: 14px;">Please select another available date.
+                    </p>
+                </div>
+                <div class="d-flex justify-content-center pb-2">
+                    <button class="btn btn-primary custom-primary-bg fw-semibold"
+                        style="font-size: 16px; min-width: 140px; border-radius: 8px; padding: 10px 24px;"
+                        @click="showSlotFullModal = false">OK</button>
+                </div>
+            </div>
+        </div>
 
 
 
@@ -350,6 +370,7 @@ import WorkExperienceDetails from "../components/WorkExperienceDetails/WorkExper
 import DocumentUpload from "../components/DocumentUpload/DocumentUpload.vue";
 import StudentKits from "../components/StudentKits/StudentKits.vue";
 // import PrePaymentDeclaration from "../components/PrePaymentDeclaration/PrePaymentDeclaration.vue";
+import { staticSlots, allowedDates, blockedDates } from "../utils/constants";
 
 // Layer 1: Middleware for Nuxt navigation
 definePageMeta({
@@ -371,10 +392,6 @@ const { userId, init: initAuth } = useAuth()
 const config = useRuntimeConfig();
 
 // Start Global Scope 
-const staticSlots = [
-    "11:30 AM - 01:00 PM",
-    "01:30 PM - 03:00 PM"
-];
 
 // Hydrate auth state (reads from localStorage) on mount
 const profileImage = ref<string | null>(null);
@@ -631,13 +648,7 @@ const nextMonth = () => {
     currentDateObj.value = new Date(currentYear.value, currentMonth.value + 1, 1);
 };
 
-// Hardcode allowed dates
-const allowedDates = ref<string[]>([
-    "2026-03-14",
-    "2026-03-15",
-    "2026-03-21",
-    "2026-03-22"
-]);
+// Hardcode allowed dates extracted to constants
 
 const daysInMonth = computed(() => {
     return new Date(currentYear.value, currentMonth.value + 1, 0).getDate();
@@ -687,14 +698,17 @@ const calendarDays = computed(() => {
 
         // Allowed only if it's in the allowedDates list AND is today or in the future
         // AND at least one slot is valid (>= 48 hours)
-        const isAllowed = allowedDates.value.includes(dateString) &&
+        const isAllowed = allowedDates.includes(dateString) &&
             dateString >= todayStr &&
             staticSlots.some((timeStr: string) => isSlotValid(dateString, timeStr));
+
+        const isBlocked = blockedDates.includes(dateString);
 
         days.push({
             day: i,
             dateString,
-            isAllowed
+            isAllowed: isAllowed && !isBlocked,
+            isBlocked
         });
     }
     return days;
@@ -705,7 +719,12 @@ const selectedSlot = ref<number | string>('');
 const availableSlots = ref<any[]>([]);
 
 const selectDate = (day: any) => {
-    if (!day || !day.isAllowed) return;
+    if (!day) return;
+    if (day.isBlocked) {
+        showSlotFullModal.value = true;
+        return;
+    }
+    if (!day.isAllowed) return;
     selectedDate.value = day.dateString;
     selectedSlot.value = ''; // reset slot on date change
 
@@ -721,6 +740,7 @@ const selectSlot = (slot: any) => {
 };
 
 const showConfirmModal = ref(false);
+const showSlotFullModal = ref(false);
 const resolveConfirm = ref<((value: boolean) => void) | null>(null);
 
 const confirmSlotChange = () => {
@@ -1460,6 +1480,13 @@ const handleFinalSubmit = async () => {
 .calendar-day.disabled {
     opacity: 0.5;
     background: #f8fafc;
+}
+
+.calendar-day.blocked {
+    background: #fee2e2;
+    color: #ef4444;
+    cursor: pointer;
+    font-weight: 600;
 }
 
 .calendar-day.allowed {
