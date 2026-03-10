@@ -242,7 +242,7 @@
                                         style="width: 28px; height: 28px;" @click="prevMonth"><i
                                             class="ti ti-chevron-left"></i></button>
                                     <span class="fw-bold text-dark" style="font-size: 14px;">{{ monthNames[currentMonth]
-                                        }}
+                                    }}
                                         {{ currentYear }}</span>
                                     <button
                                         class="btn btn-sm btn-white border shadow-sm p-1 d-flex align-items-center justify-content-center"
@@ -288,7 +288,7 @@
                                         <button
                                             class="btn btn-primary w-100 custom-primary-bg d-flex justify-content-center align-items-center gap-2"
                                             style="pointer-events: auto;"
-                                            :disabled="isBookingSlot || (bookingDetails.isBooked && bookingDetails.updateCount >= 1)"
+                                            :disabled="isBookingSlot || (bookingDetails.isBooked && bookingDetails.updateCount >= 2)"
                                             @click="bookSlot">
                                             <span v-if="isBookingSlot" class="spinner-border spinner-border-sm"
                                                 role="status" aria-hidden="true"></span>
