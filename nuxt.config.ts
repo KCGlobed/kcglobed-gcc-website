@@ -70,6 +70,7 @@ export default defineNuxtConfig({
       apiBase: process.env.NUXT_PUBLIC_API_BASE,
       nfetDates: process.env.NUXT_PUBLIC_NFET_DATES || '',
       nfetSlots: process.env.NUXT_PUBLIC_NFET_SLOTS || '',
+      nfetSlotBufferHours: process.env.NUXT_PUBLIC_NFET_SLOT_BUFFER_HOURS || '48',
     }
   },
   plugins: ["~/plugins/scrollReveal.ts"],

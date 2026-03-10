@@ -242,7 +242,7 @@
                                         style="width: 28px; height: 28px;" @click="prevMonth"><i
                                             class="ti ti-chevron-left"></i></button>
                                     <span class="fw-bold text-dark" style="font-size: 14px;">{{ monthNames[currentMonth]
-                                    }}
+                                        }}
                                         {{ currentYear }}</span>
                                     <button
                                         class="btn btn-sm btn-white border shadow-sm p-1 d-flex align-items-center justify-content-center"
@@ -257,9 +257,11 @@
                                         :class="{
                                             'empty': !day,
                                             'allowed': day && day.isAllowed,
-                                            'disabled': day && !day.isAllowed,
+                                            'disabled': day && !day.isAllowed && !day.isBlocked,
+                                            'blocked': day && day.isBlocked,
                                             'selected': day && day.dateString === selectedDate
-                                        }" @click="selectDate(day)">
+                                        }" :title="day && day.isBlocked ? 'fully booked' : ''"
+                                        @click="selectDate(day)">
                                         {{ day ? day.day : '' }}
                                     </div>
                                 </div>
@@ -270,9 +272,11 @@
                                         formatDate(selectedDate) }}:</h6>
                                     <div class="d-flex flex-wrap gap-2 mb-3">
                                         <button v-for="slot in availableSlots" :key="slot.id"
-                                            class="btn btn-sm flex-grow-1"
-                                            :class="selectedSlot === slot.id ? 'btn-primary text-white custom-primary-bg' : 'btn-outline-secondary'"
-                                            @click="selectSlot(slot)" style="font-size: 12px; min-width: 45%;">
+                                            class="btn btn-sm flex-grow-1" :class="[
+                                                selectedSlot === slot.id ? 'btn-primary text-white custom-primary-bg' : 'btn-outline-secondary',
+                                            ]" @click="!slot.disabled && selectSlot(slot)" :disabled="slot.disabled"
+                                            :title="slot.disabled ? 'This slot is no longer available (48-hour restriction)' : ''"
+                                            style="font-size: 12px; min-width: 45%;">
                                             {{ slot.time }}
                                         </button>
                                     </div>
@@ -285,15 +289,23 @@
                                         :disabled="isBookingSlot" @click="bookSlot">
                                         <span v-if="isBookingSlot" class="spinner-border spinner-border-sm"
                                             role="status" aria-hidden="true"></span>
-                                        {{ bookingDetails.isBooked ? 'Update Slot' : 'Book Slot' }} <i
-                                            v-if="!isBookingSlot" class="ti ti-arrow-right"></i>
+                                        <template v-if="bookingDetails.isBooked">
+                                            <div class="d-flex flex-column align-items-center"
+                                                style="line-height: 1.2;">
+                                                <span>Update Slot</span>
+                                                <small style="font-size: 0.75em;">(one time only)</small>
+                                            </div>
+                                        </template>
+                                        <template v-else>Book Slot</template>
                                     </button>
 
-                                    <!-- Admit Card Button (Only show after successful API call in this session) -->
+                                    <!-- Admit Card Button -->
                                     <button v-if="showAdmitCardButton"
                                         class="btn btn-outline-success w-100 d-flex justify-content-center align-items-center gap-2"
-                                        @click="downloadAdmitCard">
-                                        Generate Admit Card <i class="ti ti-download"></i>
+                                        @click="downloadAdmitCard" :disabled="isDownloadingAdmitCard">
+                                        <span v-if="isDownloadingAdmitCard" class="spinner-border spinner-border-sm"
+                                            role="status" aria-hidden="true"></span>
+                                        <template v-else>Generate Admit Card <i class="ti ti-download"></i></template>
                                     </button>
                                 </div>
                                 <p v-else
@@ -306,8 +318,30 @@
                 </div> <!-- End Right Column -->
             </div> <!-- End Main Row -->
         </div> <!-- End Main Layout Split -->
+        <!-- Slot Full / General Alert Modal -->
+        <CommonAlert :show="alertState.show" :title="alertState.title" :message="alertState.message"
+            :type="alertState.type" @close="alertState.show = false" />
 
 
+
+        <!-- Confirmation Modal -->
+        <div v-if="showConfirmModal" class="custom-modal-overlay">
+            <div class="custom-modal p-4">
+                <div class="text-center pb-4 pt-3">
+                    <h5 class="mb-0 fw-bold" style="font-size: 18px; color: #333;">Are you sure you wish to change the
+                        slot?
+                    </h5>
+                </div>
+                <div class="d-flex justify-content-center gap-3 pb-2">
+                    <button class="btn btn-outline-secondary fw-semibold"
+                        style="font-size: 16px; min-width: 140px; border-radius: 8px; padding: 10px 24px;"
+                        @click="handleConfirm(false)">No</button>
+                    <button class="btn btn-primary custom-primary-bg fw-semibold"
+                        style="font-size: 16px; min-width: 140px; border-radius: 8px; padding: 10px 24px;"
+                        @click="handleConfirm(true)">Yes</button>
+                </div>
+            </div>
+        </div>
 
         <LayoutMainFooter />
         <LayoutCopyRight />
@@ -323,6 +357,7 @@ import WorkExperienceDetails from "../components/WorkExperienceDetails/WorkExper
 import DocumentUpload from "../components/DocumentUpload/DocumentUpload.vue";
 import StudentKits from "../components/StudentKits/StudentKits.vue";
 // import PrePaymentDeclaration from "../components/PrePaymentDeclaration/PrePaymentDeclaration.vue";
+import { staticSlots, allowedDates, blockedDates } from "../utils/constants";
 
 // Layer 1: Middleware for Nuxt navigation
 definePageMeta({
@@ -344,10 +379,6 @@ const { userId, init: initAuth } = useAuth()
 const config = useRuntimeConfig();
 
 // Start Global Scope 
-const staticSlots = [
-    "11:30 AM - 01:00 PM",
-    "01:30 PM - 03:00 PM"
-];
 
 // Hydrate auth state (reads from localStorage) on mount
 const profileImage = ref<string | null>(null);
@@ -453,7 +484,8 @@ const fetchStudentDetail = async () => {
             formData.existingDocuments = {
                 aadhaar: d.aadhaar || null,
                 dob_proof: d.dob_certificate || null,
-                photo: d.photo || null // Fetch proper document photo
+                photo: d.photo || null, // Fetch proper document photo
+                signature: d.signature || null // Fetch proper signature document
             };
 
             // Booking Details check
@@ -471,32 +503,6 @@ const fetchStudentDetail = async () => {
                 const matchingSlot = staticSlots.find(s => s === d.slot_time);
                 if (matchingSlot) {
                     selectedSlot.value = staticSlots.indexOf(matchingSlot) + 1;
-                }
-
-                // On mount: call slot upload API to get report_url for admit card download
-                try {
-                    const { getAccessToken } = useAuth();
-                    const token = getAccessToken();
-                    const slotResponse = await fetch(`${config.public.apiBase}/api/students/student-slot-upload/`, {
-                        method: "PATCH",
-                        body: JSON.stringify({
-                            slot_date: d.slot_date,
-                            slot_time: d.slot_time
-                        }),
-                        headers: {
-                            'Content-Type': 'application/json',
-                            ...(token ? { 'Authorization': `Bearer ${token}` } : {})
-                        }
-                    });
-                    if (slotResponse.ok) {
-                        const slotResult = await slotResponse.json();
-                        const reportUrl = slotResult.data?.report_url;
-                        if (reportUrl) {
-                            bookingDetails.admitCardUrl = reportUrl;
-                        }
-                    }
-                } catch (slotErr) {
-                    console.error("Failed to fetch admit card URL on mount:", slotErr);
                 }
 
                 // Always show admit card button if slot is already booked
@@ -604,13 +610,7 @@ const nextMonth = () => {
     currentDateObj.value = new Date(currentYear.value, currentMonth.value + 1, 1);
 };
 
-// Hardcode allowed dates
-const allowedDates = ref<string[]>([
-    "2026-03-14",
-    "2026-03-15",
-    "2026-03-21",
-    "2026-03-22"
-]);
+// Hardcode allowed dates extracted to constants
 
 const daysInMonth = computed(() => {
     return new Date(currentYear.value, currentMonth.value + 1, 0).getDate();
@@ -618,6 +618,33 @@ const daysInMonth = computed(() => {
 const firstDayOfMonth = computed(() => {
     return new Date(currentYear.value, currentMonth.value, 1).getDay();
 });
+
+const isSlotValid = (dateStr: string, timeStr: string) => {
+    try {
+        const startTimeStr = timeStr.split('-')[0].trim();
+        const match = startTimeStr.match(/(\d+):(\d+)\s*(AM|PM)/i);
+        if (match) {
+            let hourVal = parseInt(match[1], 10);
+            const minVal = parseInt(match[2], 10);
+            const ampm = match[3];
+
+            if (ampm.toUpperCase() === 'PM' && hourVal < 12) hourVal += 12;
+            if (ampm.toUpperCase() === 'AM' && hourVal === 12) hourVal = 0;
+
+            const [year, month, day] = dateStr.split('-');
+            const slotDateTime = new Date(parseInt(year), parseInt(month) - 1, parseInt(day), hourVal, minVal, 0);
+
+            const now = new Date();
+            const diffHours = (slotDateTime.getTime() - now.getTime()) / (1000 * 60 * 60);
+
+            const bufferHours = Number(config.public.nfetSlotBufferHours) || 48;
+            return diffHours >= bufferHours;
+        }
+    } catch (err) {
+        console.error("Error validating slot time", err);
+    }
+    return false;
+};
 
 const calendarDays = computed(() => {
     const days = [];
@@ -632,12 +659,18 @@ const calendarDays = computed(() => {
         const dateString = `${currentYear.value}-${String(currentMonth.value + 1).padStart(2, '0')}-${String(i).padStart(2, '0')}`;
 
         // Allowed only if it's in the allowedDates list AND is today or in the future
-        const isAllowed = allowedDates.value.includes(dateString) && dateString >= todayStr;
+        // AND at least one slot is valid (>= 48 hours)
+        const isAllowed = allowedDates.includes(dateString) &&
+            dateString >= todayStr &&
+            staticSlots.some((timeStr: string) => isSlotValid(dateString, timeStr));
+
+        const isBlocked = blockedDates.includes(dateString);
 
         days.push({
             day: i,
             dateString,
-            isAllowed
+            isAllowed: isAllowed && !isBlocked,
+            isBlocked
         });
     }
     return days;
@@ -648,18 +681,56 @@ const selectedSlot = ref<number | string>('');
 const availableSlots = ref<any[]>([]);
 
 const selectDate = (day: any) => {
-    if (!day || !day.isAllowed) return;
+    if (!day) return;
+    if (day.isBlocked) {
+        showAlert("This slot is fully booked", "Please select another available date.", "error");
+        return;
+    }
+    if (!day.isAllowed) return;
     selectedDate.value = day.dateString;
     selectedSlot.value = ''; // reset slot on date change
 
     availableSlots.value = staticSlots.map((timeStr: string, index: number) => ({
         id: index + 1,
-        time: timeStr
+        time: timeStr,
+        disabled: !isSlotValid(day.dateString, timeStr)
     }));
 };
 
 const selectSlot = (slot: any) => {
     selectedSlot.value = slot.id;
+};
+
+const showConfirmModal = ref(false);
+const resolveConfirm = ref<((value: boolean) => void) | null>(null);
+
+const alertState = reactive({
+    show: false,
+    title: '',
+    message: '',
+    type: 'error'
+});
+
+const showAlert = (title: string, message: string, type: string = 'error') => {
+    alertState.title = title;
+    alertState.message = message;
+    alertState.type = type;
+    alertState.show = true;
+};
+
+const confirmSlotChange = () => {
+    return new Promise<boolean>((resolve) => {
+        showConfirmModal.value = true;
+        resolveConfirm.value = resolve;
+    });
+};
+
+const handleConfirm = (confirmed: boolean) => {
+    showConfirmModal.value = false;
+    if (resolveConfirm.value) {
+        resolveConfirm.value(confirmed);
+        resolveConfirm.value = null;
+    }
 };
 
 const isBookingSlot = ref(false);
@@ -669,6 +740,43 @@ const bookSlot = async () => {
 
     const slotObj = availableSlots.value.find((s: any) => s.id === selectedSlot.value);
     if (!slotObj) return;
+
+    // Time difference check
+    try {
+        const slotDateStr = selectedDate.value;
+        const slotTimeStr = String(slotObj.time);
+        const startTimeStr = slotTimeStr.split('-')[0].trim();
+        const match = startTimeStr.match(/(\d+):(\d+)\s*(AM|PM)/i);
+
+        if (match) {
+            let hourVal = parseInt(match[1], 10);
+            const minVal = parseInt(match[2], 10);
+            const ampm = match[3];
+
+            if (ampm.toUpperCase() === 'PM' && hourVal < 12) hourVal += 12;
+            if (ampm.toUpperCase() === 'AM' && hourVal === 12) hourVal = 0;
+
+            const [year, month, day] = slotDateStr.split('-');
+            const slotDateTime = new Date(parseInt(year), parseInt(month) - 1, parseInt(day), hourVal, minVal, 0);
+
+            const now = new Date();
+            const diffHours = (slotDateTime.getTime() - now.getTime()) / (1000 * 60 * 60);
+
+            const bufferHours = Number(config.public.nfetSlotBufferHours) || 48;
+
+            if (diffHours < bufferHours) {
+                showAlert("", `Slots can only be booked or changed at least ${bufferHours} hours before the scheduled time.`, "warning");
+                return;
+            }
+        }
+    } catch (err) {
+        console.error("Error calculating time difference", err);
+    }
+
+    if (bookingDetails.isBooked) {
+        const confirmed = await confirmSlotChange();
+        if (!confirmed) return;
+    }
 
     isBookingSlot.value = true;
     try {
@@ -700,35 +808,62 @@ const bookSlot = async () => {
             bookingDetails.admitCardUrl = reportUrl;
             showAdmitCardButton.value = true;
 
-            alert("Slot booked successfully! You can now download your admit card.");
+            showAlert("Success", "Slot booked successfully! You can now download your admit card.", "success");
         } else {
             const errorData = await response.json().catch(() => ({}));
             throw new Error(errorData.message || "Failed to book slot");
         }
     } catch (err: any) {
         console.error("Failed to book slot:", err);
-        alert(err.message || "Failed to book slot. Please try again.");
+        showAlert("Booking Failed", err.message || "Failed to book slot. Please try again.", "error");
     } finally {
         isBookingSlot.value = false;
     }
 };
 
-const downloadAdmitCard = () => {
-    if (bookingDetails.admitCardUrl) {
-        // If it's a blob URL, download it, else open the external URL
-        if (bookingDetails.admitCardUrl.startsWith('blob:') || bookingDetails.admitCardUrl.includes('fslfdlfj')) {
-            const link = document.createElement('a');
-            link.href = bookingDetails.admitCardUrl;
-            link.setAttribute('download', `NFET_Admit_Card_${bookingDetails.date}.pdf`);
-            document.body.appendChild(link);
-            link.click();
-            document.body.removeChild(link);
+const isDownloadingAdmitCard = ref(false);
+
+const downloadAdmitCard = async () => {
+    isDownloadingAdmitCard.value = true;
+    try {
+        const { getAccessToken } = useAuth();
+        const token = getAccessToken();
+        const response = await fetch(`${config.public.apiBase}/api/students/student-admit-card-download/`, {
+            method: "GET",
+            headers: {
+                'Content-Type': 'application/json',
+                ...(token ? { 'Authorization': `Bearer ${token}` } : {})
+            }
+        });
+
+        if (response.ok) {
+            const result = await response.json();
+            const reportUrl = result.data?.report_url || result.report_url;
+            if (reportUrl) {
+                // If it's a blob URL, download it, else open the external URL
+                if (reportUrl.startsWith('blob:') || reportUrl.includes('fslfdlfj')) {
+                    const link = document.createElement('a');
+                    link.href = reportUrl;
+                    link.setAttribute('download', `NFET_Admit_Card_${bookingDetails.date}.pdf`);
+                    document.body.appendChild(link);
+                    link.click();
+                    document.body.removeChild(link);
+                } else {
+                    // It's a standard URL, open in new tab
+                    window.open(reportUrl, '_blank');
+                }
+            } else {
+                showAlert("Error", "No admit card URL found in the response.", "error");
+            }
         } else {
-            // It's a standard URL, open in new tab
-            window.open(bookingDetails.admitCardUrl, '_blank');
+            const errorData = await response.json().catch(() => ({}));
+            throw new Error(errorData.message || "Failed to download admit card");
         }
-    } else {
-        alert("No admit card available. Please book a slot first.");
+    } catch (err: any) {
+        console.error("Failed to download admit card:", err);
+        showAlert("Download Failed", err.message || "Failed to download admit card. Please try again.", "error");
+    } finally {
+        isDownloadingAdmitCard.value = false;
     }
 };
 
@@ -768,8 +903,18 @@ const formData = reactive({
     pg_institution: "",
     employment_status: "Fresher",
     work_experience: [] as any[],
-    documents: {} as Record<string, any>,
-    existingDocuments: {} as Record<string, string | null>,
+    documents: {
+        aadhaar: null,
+        dob_proof: null,
+        photo: null,
+        signature: null
+    } as Record<string, any>,
+    existingDocuments: {
+        aadhaar: null,
+        dob_proof: null,
+        photo: null,
+        signature: null
+    } as Record<string, string | null>,
     declaration: false
 });
 
@@ -806,11 +951,11 @@ const handleProfileImageUpload = async (event: Event) => {
         if (res) {
             // Update the UI immediately
             profileImage.value = URL.createObjectURL(file);
-            alert("Profile image updated successfully!");
+            showAlert("Success", "Profile image updated successfully!", "success");
         }
     } catch (err) {
         console.error("Failed to upload profile image:", err);
-        alert("Failed to upload profile image.");
+        showAlert("Upload Failed", "Failed to upload profile image.", "error");
     } finally {
         isImageUploading.value = false;
         // Reset input to allow uploading the same file again if needed
@@ -836,7 +981,7 @@ const handleFinalSubmit = async () => {
     if (section4aRef.value?.validate && !section4aRef.value.validate()) { openSection.value = 4; return; }
 
     if (!formData.declaration) {
-        alert("Please check the declaration before submitting.");
+        showAlert("Declaration Required", "Please check the declaration before submitting.", "warning");
         return;
     }
 
@@ -911,6 +1056,9 @@ const handleFinalSubmit = async () => {
         if (formData.documents.photo instanceof File) {
             data.append('photo', formData.documents.photo);
         }
+        if (formData.documents.signature instanceof File) {
+            data.append('signature', formData.documents.signature);
+        }
 
         const { getAccessToken } = useAuth();
         const token = getAccessToken();
@@ -931,12 +1079,12 @@ const handleFinalSubmit = async () => {
         });
 
         if (response.success || response.status === "200" || response.status === 200 || response.message === "Message sent Successfully" || response.message?.toLowerCase().includes("success")) {
-            alert("Profile updated successfully!");
+            showAlert("Success", "Profile updated successfully!", "success");
             // Refresh details to reflect any new image
             await fetchStudentDetail();
         } else {
             console.error("Backend Error Response:", response);
-            alert("Failed to update profile: " + (response.message || "Unknown error"));
+            showAlert("Failed to update profile", response.message || "Unknown error", "error");
         }
     } catch (err: any) {
         console.error("Submission error details:", err);
@@ -953,7 +1101,7 @@ const handleFinalSubmit = async () => {
                 errMsg = err.data;
             }
         }
-        alert("Submission Failed: " + errMsg);
+        showAlert("Submission Failed", errMsg, "error");
     } finally {
         isSubmitting.value = false;
     }
@@ -1349,6 +1497,13 @@ const handleFinalSubmit = async () => {
     background: #f8fafc;
 }
 
+.calendar-day.blocked {
+    background: #fee2e2;
+    color: #ef4444;
+    cursor: pointer;
+    font-weight: 600;
+}
+
 .calendar-day.allowed {
     background: #ede9fe;
     color: #7c3aed;
@@ -1391,5 +1546,63 @@ const handleFinalSubmit = async () => {
     cursor: not-allowed;
     background: rgba(255, 255, 255, 0);
     /* Ensure it's a solid block for clicks */
+}
+
+/* Custom Modal Styles */
+.custom-modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 9999;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    backdrop-filter: blur(4px);
+}
+
+.custom-modal {
+    background: #fff;
+    border-radius: 12px;
+    width: 90%;
+    max-width: 450px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+    overflow: hidden;
+    animation: modalFadeIn 0.3s ease;
+}
+
+.custom-modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 16px 20px;
+    border-bottom: 1px solid #f0f0f0;
+    background: #fafafa;
+}
+
+.custom-modal-body {
+    padding: 24px 20px;
+    font-size: 16px;
+    color: #333;
+}
+
+.custom-modal-footer {
+    padding: 16px 20px;
+    border-top: 1px solid #f0f0f0;
+    background: #fafafa;
+}
+
+@keyframes modalFadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
 </style>

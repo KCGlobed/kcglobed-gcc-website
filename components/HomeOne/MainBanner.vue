@@ -740,10 +740,7 @@ export default defineComponent({
     resetHigherQualification() {
       this.form.higherQualification = ""
       this.form.higherQualificationOther = ""
-    }
-
-    ,
-
+    },
     async submitForm() {
       if (!this.validateForm()) return // Transform camelCase form to snake_case payload for API
 
