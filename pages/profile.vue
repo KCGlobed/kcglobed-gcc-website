@@ -242,7 +242,7 @@
                                         style="width: 28px; height: 28px;" @click="prevMonth"><i
                                             class="ti ti-chevron-left"></i></button>
                                     <span class="fw-bold text-dark" style="font-size: 14px;">{{ monthNames[currentMonth]
-                                    }}
+                                        }}
                                         {{ currentYear }}</span>
                                     <button
                                         class="btn btn-sm btn-white border shadow-sm p-1 d-flex align-items-center justify-content-center"
@@ -292,8 +292,7 @@
                                                 <small style="font-size: 0.75em;">(one time only)</small>
                                             </div>
                                         </template>
-                                        <template v-else>Book Slot</template> <i v-if="!isBookingSlot"
-                                            class="ti ti-arrow-right"></i>
+                                        <template v-else>Book Slot</template>
                                     </button>
 
                                     <!-- Admit Card Button (Only show after successful API call in this session) -->
@@ -315,6 +314,25 @@
         </div> <!-- End Main Layout Split -->
 
 
+
+        <!-- Confirmation Modal -->
+        <div v-if="showConfirmModal" class="custom-modal-overlay">
+            <div class="custom-modal p-4">
+                <div class="text-center pb-4 pt-3">
+                    <h5 class="mb-0 fw-bold" style="font-size: 18px; color: #333;">Are you sure you wish to change the
+                        slot?
+                    </h5>
+                </div>
+                <div class="d-flex justify-content-center gap-3 pb-2">
+                    <button class="btn btn-outline-secondary fw-semibold"
+                        style="font-size: 16px; min-width: 140px; border-radius: 8px; padding: 10px 24px;"
+                        @click="handleConfirm(false)">No</button>
+                    <button class="btn btn-primary custom-primary-bg fw-semibold"
+                        style="font-size: 16px; min-width: 140px; border-radius: 8px; padding: 10px 24px;"
+                        @click="handleConfirm(true)">Yes</button>
+                </div>
+            </div>
+        </div>
 
         <LayoutMainFooter />
         <LayoutCopyRight />
@@ -669,10 +687,33 @@ const selectSlot = (slot: any) => {
     selectedSlot.value = slot.id;
 };
 
+const showConfirmModal = ref(false);
+const resolveConfirm = ref<((value: boolean) => void) | null>(null);
+
+const confirmSlotChange = () => {
+    return new Promise<boolean>((resolve) => {
+        showConfirmModal.value = true;
+        resolveConfirm.value = resolve;
+    });
+};
+
+const handleConfirm = (confirmed: boolean) => {
+    showConfirmModal.value = false;
+    if (resolveConfirm.value) {
+        resolveConfirm.value(confirmed);
+        resolveConfirm.value = null;
+    }
+};
+
 const isBookingSlot = ref(false);
 
 const bookSlot = async () => {
     if (!selectedDate.value || !selectedSlot.value) return;
+
+    if (bookingDetails.isBooked) {
+        const confirmed = await confirmSlotChange();
+        if (!confirmed) return;
+    }
 
     const slotObj = availableSlots.value.find((s: any) => s.id === selectedSlot.value);
     if (!slotObj) return;
@@ -1398,5 +1439,63 @@ const handleFinalSubmit = async () => {
     cursor: not-allowed;
     background: rgba(255, 255, 255, 0);
     /* Ensure it's a solid block for clicks */
+}
+
+/* Custom Modal Styles */
+.custom-modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 9999;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    backdrop-filter: blur(4px);
+}
+
+.custom-modal {
+    background: #fff;
+    border-radius: 12px;
+    width: 90%;
+    max-width: 450px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+    overflow: hidden;
+    animation: modalFadeIn 0.3s ease;
+}
+
+.custom-modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 16px 20px;
+    border-bottom: 1px solid #f0f0f0;
+    background: #fafafa;
+}
+
+.custom-modal-body {
+    padding: 24px 20px;
+    font-size: 16px;
+    color: #333;
+}
+
+.custom-modal-footer {
+    padding: 16px 20px;
+    border-top: 1px solid #f0f0f0;
+    background: #fafafa;
+}
+
+@keyframes modalFadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
 </style>
