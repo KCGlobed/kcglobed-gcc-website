@@ -299,11 +299,13 @@
                                         <template v-else>Book Slot</template>
                                     </button>
 
-                                    <!-- Admit Card Button (Only show after successful API call in this session) -->
+                                    <!-- Admit Card Button -->
                                     <button v-if="showAdmitCardButton"
                                         class="btn btn-outline-success w-100 d-flex justify-content-center align-items-center gap-2"
-                                        @click="downloadAdmitCard">
-                                        Generate Admit Card <i class="ti ti-download"></i>
+                                        @click="downloadAdmitCard" :disabled="isDownloadingAdmitCard">
+                                        <span v-if="isDownloadingAdmitCard" class="spinner-border spinner-border-sm"
+                                            role="status" aria-hidden="true"></span>
+                                        <template v-else>Generate Admit Card <i class="ti ti-download"></i></template>
                                     </button>
                                 </div>
                                 <p v-else
@@ -316,24 +318,9 @@
                 </div> <!-- End Right Column -->
             </div> <!-- End Main Row -->
         </div> <!-- End Main Layout Split -->
-        <!-- Slot Full Modal -->
-        <div v-if="showSlotFullModal" class="custom-modal-overlay">
-            <div class="custom-modal p-4">
-                <div class="text-center pb-3 pt-2">
-                    <div class="mb-3">
-                        <i class="ti ti-alert-circle text-danger" style="font-size: 48px;"></i>
-                    </div>
-                    <h5 class="mb-2 fw-bold" style="font-size: 18px; color: #333;">This slot is fully booked</h5>
-                    <p class="text-muted" style="font-size: 14px;">Please select another available date.
-                    </p>
-                </div>
-                <div class="d-flex justify-content-center pb-2">
-                    <button class="btn btn-primary custom-primary-bg fw-semibold"
-                        style="font-size: 16px; min-width: 140px; border-radius: 8px; padding: 10px 24px;"
-                        @click="showSlotFullModal = false">OK</button>
-                </div>
-            </div>
-        </div>
+        <!-- Slot Full / General Alert Modal -->
+        <CommonAlert :show="alertState.show" :title="alertState.title" :message="alertState.message"
+            :type="alertState.type" @close="alertState.show = false" />
 
 
 
@@ -497,7 +484,8 @@ const fetchStudentDetail = async () => {
             formData.existingDocuments = {
                 aadhaar: d.aadhaar || null,
                 dob_proof: d.dob_certificate || null,
-                photo: d.photo || null // Fetch proper document photo
+                photo: d.photo || null, // Fetch proper document photo
+                signature: d.signature || null // Fetch proper signature document
             };
 
             // Booking Details check
@@ -515,32 +503,6 @@ const fetchStudentDetail = async () => {
                 const matchingSlot = staticSlots.find(s => s === d.slot_time);
                 if (matchingSlot) {
                     selectedSlot.value = staticSlots.indexOf(matchingSlot) + 1;
-                }
-
-                // On mount: call slot upload API to get report_url for admit card download
-                try {
-                    const { getAccessToken } = useAuth();
-                    const token = getAccessToken();
-                    const slotResponse = await fetch(`${config.public.apiBase}/api/students/student-slot-upload/`, {
-                        method: "PATCH",
-                        body: JSON.stringify({
-                            slot_date: d.slot_date,
-                            slot_time: d.slot_time
-                        }),
-                        headers: {
-                            'Content-Type': 'application/json',
-                            ...(token ? { 'Authorization': `Bearer ${token}` } : {})
-                        }
-                    });
-                    if (slotResponse.ok) {
-                        const slotResult = await slotResponse.json();
-                        const reportUrl = slotResult.data?.report_url;
-                        if (reportUrl) {
-                            bookingDetails.admitCardUrl = reportUrl;
-                        }
-                    }
-                } catch (slotErr) {
-                    console.error("Failed to fetch admit card URL on mount:", slotErr);
                 }
 
                 // Always show admit card button if slot is already booked
@@ -721,7 +683,7 @@ const availableSlots = ref<any[]>([]);
 const selectDate = (day: any) => {
     if (!day) return;
     if (day.isBlocked) {
-        showSlotFullModal.value = true;
+        showAlert("This slot is fully booked", "Please select another available date.", "error");
         return;
     }
     if (!day.isAllowed) return;
@@ -740,8 +702,21 @@ const selectSlot = (slot: any) => {
 };
 
 const showConfirmModal = ref(false);
-const showSlotFullModal = ref(false);
 const resolveConfirm = ref<((value: boolean) => void) | null>(null);
+
+const alertState = reactive({
+    show: false,
+    title: '',
+    message: '',
+    type: 'error'
+});
+
+const showAlert = (title: string, message: string, type: string = 'error') => {
+    alertState.title = title;
+    alertState.message = message;
+    alertState.type = type;
+    alertState.show = true;
+};
 
 const confirmSlotChange = () => {
     return new Promise<boolean>((resolve) => {
@@ -790,7 +765,7 @@ const bookSlot = async () => {
             const bufferHours = Number(config.public.nfetSlotBufferHours) || 48;
 
             if (diffHours < bufferHours) {
-                alert(`Slots can only be booked or changed at least ${bufferHours} hours before the scheduled time.`);
+                showAlert("", `Slots can only be booked or changed at least ${bufferHours} hours before the scheduled time.`, "warning");
                 return;
             }
         }
@@ -833,35 +808,62 @@ const bookSlot = async () => {
             bookingDetails.admitCardUrl = reportUrl;
             showAdmitCardButton.value = true;
 
-            alert("Slot booked successfully! You can now download your admit card.");
+            showAlert("Success", "Slot booked successfully! You can now download your admit card.", "success");
         } else {
             const errorData = await response.json().catch(() => ({}));
             throw new Error(errorData.message || "Failed to book slot");
         }
     } catch (err: any) {
         console.error("Failed to book slot:", err);
-        alert(err.message || "Failed to book slot. Please try again.");
+        showAlert("Booking Failed", err.message || "Failed to book slot. Please try again.", "error");
     } finally {
         isBookingSlot.value = false;
     }
 };
 
-const downloadAdmitCard = () => {
-    if (bookingDetails.admitCardUrl) {
-        // If it's a blob URL, download it, else open the external URL
-        if (bookingDetails.admitCardUrl.startsWith('blob:') || bookingDetails.admitCardUrl.includes('fslfdlfj')) {
-            const link = document.createElement('a');
-            link.href = bookingDetails.admitCardUrl;
-            link.setAttribute('download', `NFET_Admit_Card_${bookingDetails.date}.pdf`);
-            document.body.appendChild(link);
-            link.click();
-            document.body.removeChild(link);
+const isDownloadingAdmitCard = ref(false);
+
+const downloadAdmitCard = async () => {
+    isDownloadingAdmitCard.value = true;
+    try {
+        const { getAccessToken } = useAuth();
+        const token = getAccessToken();
+        const response = await fetch(`${config.public.apiBase}/api/students/student-admit-card-download/`, {
+            method: "GET",
+            headers: {
+                'Content-Type': 'application/json',
+                ...(token ? { 'Authorization': `Bearer ${token}` } : {})
+            }
+        });
+
+        if (response.ok) {
+            const result = await response.json();
+            const reportUrl = result.data?.report_url || result.report_url;
+            if (reportUrl) {
+                // If it's a blob URL, download it, else open the external URL
+                if (reportUrl.startsWith('blob:') || reportUrl.includes('fslfdlfj')) {
+                    const link = document.createElement('a');
+                    link.href = reportUrl;
+                    link.setAttribute('download', `NFET_Admit_Card_${bookingDetails.date}.pdf`);
+                    document.body.appendChild(link);
+                    link.click();
+                    document.body.removeChild(link);
+                } else {
+                    // It's a standard URL, open in new tab
+                    window.open(reportUrl, '_blank');
+                }
+            } else {
+                showAlert("Error", "No admit card URL found in the response.", "error");
+            }
         } else {
-            // It's a standard URL, open in new tab
-            window.open(bookingDetails.admitCardUrl, '_blank');
+            const errorData = await response.json().catch(() => ({}));
+            throw new Error(errorData.message || "Failed to download admit card");
         }
-    } else {
-        alert("No admit card available. Please book a slot first.");
+    } catch (err: any) {
+        console.error("Failed to download admit card:", err);
+        showAlert("Download Failed", err.message || "Failed to download admit card. Please try again.", "error");
+    } finally {
+        isDownloadingAdmitCard.value = false;
     }
 };
 
@@ -901,8 +903,18 @@ const formData = reactive({
     pg_institution: "",
     employment_status: "Fresher",
     work_experience: [] as any[],
-    documents: {} as Record<string, any>,
-    existingDocuments: {} as Record<string, string | null>,
+    documents: {
+        aadhaar: null,
+        dob_proof: null,
+        photo: null,
+        signature: null
+    } as Record<string, any>,
+    existingDocuments: {
+        aadhaar: null,
+        dob_proof: null,
+        photo: null,
+        signature: null
+    } as Record<string, string | null>,
     declaration: false
 });
 
@@ -939,11 +951,11 @@ const handleProfileImageUpload = async (event: Event) => {
         if (res) {
             // Update the UI immediately
             profileImage.value = URL.createObjectURL(file);
-            alert("Profile image updated successfully!");
+            showAlert("Success", "Profile image updated successfully!", "success");
         }
     } catch (err) {
         console.error("Failed to upload profile image:", err);
-        alert("Failed to upload profile image.");
+        showAlert("Upload Failed", "Failed to upload profile image.", "error");
     } finally {
         isImageUploading.value = false;
         // Reset input to allow uploading the same file again if needed
@@ -969,7 +981,7 @@ const handleFinalSubmit = async () => {
     if (section4aRef.value?.validate && !section4aRef.value.validate()) { openSection.value = 4; return; }
 
     if (!formData.declaration) {
-        alert("Please check the declaration before submitting.");
+        showAlert("Declaration Required", "Please check the declaration before submitting.", "warning");
         return;
     }
 
@@ -1044,6 +1056,9 @@ const handleFinalSubmit = async () => {
         if (formData.documents.photo instanceof File) {
             data.append('photo', formData.documents.photo);
         }
+        if (formData.documents.signature instanceof File) {
+            data.append('signature', formData.documents.signature);
+        }
 
         const { getAccessToken } = useAuth();
         const token = getAccessToken();
@@ -1064,12 +1079,12 @@ const handleFinalSubmit = async () => {
         });
 
         if (response.success || response.status === "200" || response.status === 200 || response.message === "Message sent Successfully" || response.message?.toLowerCase().includes("success")) {
-            alert("Profile updated successfully!");
+            showAlert("Success", "Profile updated successfully!", "success");
             // Refresh details to reflect any new image
             await fetchStudentDetail();
         } else {
             console.error("Backend Error Response:", response);
-            alert("Failed to update profile: " + (response.message || "Unknown error"));
+            showAlert("Failed to update profile", response.message || "Unknown error", "error");
         }
     } catch (err: any) {
         console.error("Submission error details:", err);
@@ -1086,7 +1101,7 @@ const handleFinalSubmit = async () => {
                 errMsg = err.data;
             }
         }
-        alert("Submission Failed: " + errMsg);
+        showAlert("Submission Failed", errMsg, "error");
     } finally {
         isSubmitting.value = false;
     }

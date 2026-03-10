@@ -71,6 +71,28 @@
                     </div>
                 </div>
             </div>
+
+            <!-- Signature -->
+            <div class="col-md-6">
+                <div class="upload-field mb-0">
+                    <label class="form-label fw-bold">Signature <span>*</span></label>
+                    <div class="input-group">
+                        <input type="file" class="form-control" accept=".jpg,.jpeg,.png"
+                            @change="handleFileChange('signature', $event)" :class="{ 'is-invalid': errors.signature }"
+                            :disabled="isDisabled">
+                        <span class="input-group-text bg-white" v-if="formData.documents.signature">
+                            <i class="ti ti-circle-check-filled text-success fs-5"></i>
+                        </span>
+                    </div>
+                    <div class="invalid-feedback d-block" v-if="errors.signature">{{ errors.signature }}</div>
+                    <div class="mt-2" v-if="formData.existingDocuments && formData.existingDocuments.signature">
+                        <a :href="formData.existingDocuments.signature" target="_blank"
+                            class="btn btn-sm btn-outline-primary">
+                            <i class="ti ti-eye"></i> View Current Signature
+                        </a>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 </template>
@@ -130,7 +152,8 @@ export default {
             const requiredFields = {
                 aadhaar: "Aadhaar Card is required",
                 dob_proof: "Proof of DOB is required",
-                photo: "Photograph is required"
+                photo: "Photograph is required",
+                signature: "Signature is required"
             };
 
             Object.keys(requiredFields).forEach(field => {

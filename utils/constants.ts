@@ -4,6 +4,7 @@ export const staticSlots = [
 ];
 
 export const allowedDates = [
+    // "2026-03-11",
     "2026-03-14",
     "2026-03-15",
     "2026-03-21",
