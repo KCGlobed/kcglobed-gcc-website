@@ -163,12 +163,12 @@
                                         <label class="form-label">Are you part of any student body/club/society in your
                                             college? <span>*</span></label>
                                         <div class="d-flex gap-4 mt-2">
-                                            <div class="form-check">
+                                            <div class="form-check purple-radio">
                                                 <input class="form-check-input" type="radio" v-model="form.studentBody"
                                                     value="Yes" id="studentBodyYes">
                                                 <label class="form-check-label" for="studentBodyYes">Yes</label>
                                             </div>
-                                            <div class="form-check">
+                                            <div class="form-check purple-radio">
                                                 <input class="form-check-input" type="radio" v-model="form.studentBody"
                                                     value="No" id="studentBodyNo">
                                                 <label class="form-check-label" for="studentBodyNo">No</label>
@@ -192,13 +192,13 @@
                                         <label class="form-label">Have you previously worked as a Student / Campus
                                             Ambassador for any professional body? <span>*</span></label>
                                         <div class="d-flex gap-4 mt-2">
-                                            <div class="form-check">
+                                            <div class="form-check purple-radio">
                                                 <input class="form-check-input" type="radio"
                                                     v-model="form.campusAmbassador" value="Yes"
                                                     id="campusAmbassadorYes">
                                                 <label class="form-check-label" for="campusAmbassadorYes">Yes</label>
                                             </div>
-                                            <div class="form-check">
+                                            <div class="form-check purple-radio">
                                                 <input class="form-check-input" type="radio"
                                                     v-model="form.campusAmbassador" value="No" id="campusAmbassadorNo">
                                                 <label class="form-check-label" for="campusAmbassadorNo">No</label>
@@ -567,5 +567,46 @@ export default defineComponent({
     padding: 40px;
     border-radius: 8px;
     box-shadow: 0 0 20px rgba(0, 0, 0, 0.06);
+}
+
+/* Purple circular radio buttons */
+.purple-radio .form-check-input[type="radio"] {
+    appearance: none !important;
+    -webkit-appearance: none !important;
+    width: 20px !important;
+    height: 20px !important;
+    border: 2px solid #7c3aed !important;
+    border-radius: 50% !important;
+    background-color: #ffffff !important;
+    cursor: pointer;
+    position: relative;
+    flex-shrink: 0;
+    margin-top: 2px;
+    transition: box-shadow 0.2s, border-color 0.2s;
+    display: inline-block;
+    box-sizing: border-box !important;
+    padding: 0 !important;
+}
+
+.purple-radio .form-check-input[type="radio"]:checked {
+    background-color: #ffffff !important;
+    border-color: #7c3aed !important;
+    box-shadow: inset 0 0 0 5px #7c3aed !important;
+}
+
+.purple-radio .form-check-input[type="radio"]:focus {
+    outline: none !important;
+    box-shadow: inset 0 0 0 5px #7c3aed, 0 0 0 3px rgba(124, 58, 237, 0.2) !important;
+}
+
+.purple-radio .form-check-input[type="radio"]:hover {
+    border-color: #6d28d9 !important;
+}
+
+.purple-radio .form-check-label {
+    cursor: pointer;
+    padding-left: 4px;
+    color: #374151;
+    font-weight: 500;
 }
 </style>

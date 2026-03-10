@@ -163,12 +163,12 @@
                                     <div class="input-box">
                                         <label class="form-label">Any Industrial Experience <span>*</span></label>
                                         <div class="d-flex gap-4 mt-2">
-                                            <div class="form-check">
+                                            <div class="form-check purple-radio">
                                                 <input class="form-check-input" type="radio"
                                                     v-model="form.hasIndustrialExp" value="Yes" id="indExpYes">
                                                 <label class="form-check-label" for="indExpYes">Yes</label>
                                             </div>
-                                            <div class="form-check">
+                                            <div class="form-check purple-radio">
                                                 <input class="form-check-input" type="radio"
                                                     v-model="form.hasIndustrialExp" value="No" id="indExpNo">
                                                 <label class="form-check-label" for="indExpNo">No</label>
@@ -254,7 +254,7 @@
                                         <label class="form-label">Estimated number of students you can engage:
                                             <span>*</span></label>
                                         <div class="d-flex flex-wrap gap-4 mt-2">
-                                            <div class="form-check" v-for="range in studentReachList" :key="range">
+                                            <div class="form-check purple-radio" v-for="range in studentReachList" :key="range">
                                                 <input class="form-check-input" type="radio" v-model="form.studentReach"
                                                     :value="range" :id="range">
                                                 <label class="form-check-label" :for="range">{{ range }}</label>
@@ -354,7 +354,7 @@ export default defineComponent({
                 designation: "",
                 designationOther: "",
                 teachingExperience: "",
-                hasIndustrialExp: "No", // radio default
+                hasIndustrialExp: "No",
                 industrialExperience: "",
                 highestQualification: "",
                 qualificationOther: "",
@@ -411,86 +411,29 @@ export default defineComponent({
     methods: {
         validateForm() {
             let isValid = true;
-            // Reset errors
             Object.keys(this.errors).forEach(key => {
                 (this.errors as any)[key] = "";
             });
 
-            if (!this.form.fullName) {
-                this.errors.fullName = "Full Name is required";
-                isValid = false;
-            }
-            if (!this.form.email) {
-                this.errors.email = "Email ID is required";
-                isValid = false;
-            } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(this.form.email)) {
-                this.errors.email = "Invalid Email ID";
-                isValid = false;
-            }
-            if (!this.form.mobile) {
-                this.errors.mobile = "Mobile Number is required";
-                isValid = false;
-            }
-            if (!this.form.city) {
-                this.errors.city = "City is required";
-                isValid = false;
-            }
-            if (!this.form.state) {
-                this.errors.state = "State is required";
-                isValid = false;
-            }
-            if (!this.form.address) {
-                this.errors.address = "Postal Address is required";
-                isValid = false;
-            }
-            if (!this.form.institutionName) {
-                this.errors.institutionName = "Institution Name is required";
-                isValid = false;
-            }
-            if (!this.form.department) {
-                this.errors.department = "Department is required";
-                isValid = false;
-            }
-            if (!this.form.designation) {
-                this.errors.designation = "Designation is required";
-                isValid = false;
-            }
-            if (this.form.designation === "Other (Please specify)" && !this.form.designationOther) {
-                this.errors.designationOther = "Please specify designation";
-                isValid = false;
-            }
-            if (!this.form.teachingExperience) {
-                this.errors.teachingExperience = "Teaching Experience is required";
-                isValid = false;
-            }
-            if (this.form.hasIndustrialExp === 'Yes' && !this.form.industrialExperience) {
-                this.errors.industrialExperience = "Please specify industrial experience";
-                isValid = false;
-            }
-            if (!this.form.highestQualification) {
-                this.errors.highestQualification = "Qualification is required";
-                isValid = false;
-            }
-            if (this.form.highestQualification === "Other (Please specify)" && !this.form.qualificationOther) {
-                this.errors.qualificationOther = "Please specify qualification";
-                isValid = false;
-            }
-            if (!this.form.motivation) {
-                this.errors.motivation = "Motivation description is required";
-                isValid = false;
-            }
-            if (this.form.supportActivities.length === 0) {
-                this.errors.supportActivities = "Please select at least one activity";
-                isValid = false;
-            }
-            if (!this.form.studentReach) {
-                this.errors.studentReach = "Please select student reach";
-                isValid = false;
-            }
-            if (!this.form.consent) {
-                this.errors.consent = "You must agree to the terms";
-                isValid = false;
-            }
+            if (!this.form.fullName) { this.errors.fullName = "Full Name is required"; isValid = false; }
+            if (!this.form.email) { this.errors.email = "Email ID is required"; isValid = false; }
+            else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(this.form.email)) { this.errors.email = "Invalid Email ID"; isValid = false; }
+            if (!this.form.mobile) { this.errors.mobile = "Mobile Number is required"; isValid = false; }
+            if (!this.form.city) { this.errors.city = "City is required"; isValid = false; }
+            if (!this.form.state) { this.errors.state = "State is required"; isValid = false; }
+            if (!this.form.address) { this.errors.address = "Postal Address is required"; isValid = false; }
+            if (!this.form.institutionName) { this.errors.institutionName = "Institution Name is required"; isValid = false; }
+            if (!this.form.department) { this.errors.department = "Department is required"; isValid = false; }
+            if (!this.form.designation) { this.errors.designation = "Designation is required"; isValid = false; }
+            if (this.form.designation === "Other (Please specify)" && !this.form.designationOther) { this.errors.designationOther = "Please specify designation"; isValid = false; }
+            if (!this.form.teachingExperience) { this.errors.teachingExperience = "Teaching Experience is required"; isValid = false; }
+            if (this.form.hasIndustrialExp === 'Yes' && !this.form.industrialExperience) { this.errors.industrialExperience = "Please specify industrial experience"; isValid = false; }
+            if (!this.form.highestQualification) { this.errors.highestQualification = "Qualification is required"; isValid = false; }
+            if (this.form.highestQualification === "Other (Please specify)" && !this.form.qualificationOther) { this.errors.qualificationOther = "Please specify qualification"; isValid = false; }
+            if (!this.form.motivation) { this.errors.motivation = "Motivation description is required"; isValid = false; }
+            if (this.form.supportActivities.length === 0) { this.errors.supportActivities = "Please select at least one activity"; isValid = false; }
+            if (!this.form.studentReach) { this.errors.studentReach = "Please select student reach"; isValid = false; }
+            if (!this.form.consent) { this.errors.consent = "You must agree to the terms"; isValid = false; }
 
             return isValid;
         },
@@ -579,5 +522,46 @@ export default defineComponent({
     padding: 40px;
     border-radius: 8px;
     box-shadow: 0 0 20px rgba(0, 0, 0, 0.06);
+}
+
+/* Purple circular radio buttons */
+.purple-radio .form-check-input[type="radio"] {
+    appearance: none !important;
+    -webkit-appearance: none !important;
+    width: 20px !important;
+    height: 20px !important;
+    border: 2px solid #7c3aed !important;
+    border-radius: 50% !important;
+    background-color: #ffffff !important;
+    cursor: pointer;
+    position: relative;
+    flex-shrink: 0;
+    margin-top: 2px;
+    transition: box-shadow 0.2s, border-color 0.2s;
+    display: inline-block;
+    box-sizing: border-box !important;
+    padding: 0 !important;
+}
+
+.purple-radio .form-check-input[type="radio"]:checked {
+    background-color: #ffffff !important;
+    border-color: #7c3aed !important;
+    box-shadow: inset 0 0 0 5px #7c3aed !important;
+}
+
+.purple-radio .form-check-input[type="radio"]:focus {
+    outline: none !important;
+    box-shadow: inset 0 0 0 5px #7c3aed, 0 0 0 3px rgba(124, 58, 237, 0.2) !important;
+}
+
+.purple-radio .form-check-input[type="radio"]:hover {
+    border-color: #6d28d9 !important;
+}
+
+.purple-radio .form-check-label {
+    cursor: pointer;
+    padding-left: 4px;
+    color: #374151;
+    font-weight: 500;
 }
 </style>
