@@ -49,6 +49,10 @@
                                 <h2 class="profile-name">
                                     {{ (formData.first_name || 'Applicant') + ' ' + (formData.last_name || '') }}
                                 </h2>
+                                <p class="profile-detail mb-2" v-if="formData?.application_id"
+                                    style="color: #7c3aed; font-weight: 600;">
+                                    Application ID: {{ formData.application_id }}
+                                </p>
                                 <p class="profile-detail" v-if="formData.email">
                                     <i class="ti ti-mail me-1"></i> {{ formData.email }}
                                 </p>
@@ -79,15 +83,21 @@
                                         </div>
                                     </div>
                                     <div class="accordion-header-right">
-
+                                        <span v-if="!isProfileEmpty && !isEditingSection[1]" @click.stop="enableEdit(1)"
+                                            class="edit-icon-btn me-3" title="Edit Section">
+                                            <i class="ti ti-pencil fs-5 text-primary"></i>
+                                        </span>
                                         <i class="ti accordion-chevron"
                                             :class="openSection === 1 ? 'ti-chevron-up' : 'ti-chevron-down'"></i>
                                     </div>
                                 </div>
                                 <div class="accordion-body p-4 p-lg-5" v-show="openSection === 1">
-                                    <PersonalInformation ref="section1Ref" :formData="formData" />
+                                    <fieldset :disabled="!isEditingSection[1]">
+                                        <PersonalInformation ref="section1Ref" :formData="formData" />
+                                    </fieldset>
                                 </div>
                             </div>
+
 
                             <!-- Section 2: Academic Information -->
                             <div class="accordion-section" :class="{ active: openSection === 2 }">
@@ -99,13 +109,18 @@
                                         </div>
                                     </div>
                                     <div class="accordion-header-right">
-
+                                        <span v-if="!isProfileEmpty && !isEditingSection[2]" @click.stop="enableEdit(2)"
+                                            class="edit-icon-btn me-3" title="Edit Section">
+                                            <i class="ti ti-pencil fs-5 text-primary"></i>
+                                        </span>
                                         <i class="ti accordion-chevron"
                                             :class="openSection === 2 ? 'ti-chevron-up' : 'ti-chevron-down'"></i>
                                     </div>
                                 </div>
                                 <div class="accordion-body p-4 p-lg-5" v-show="openSection === 2">
-                                    <AcademicInformation ref="section2Ref" :formData="formData" />
+                                    <fieldset :disabled="!isEditingSection[2]">
+                                        <AcademicInformation ref="section2Ref" :formData="formData" />
+                                    </fieldset>
                                 </div>
                             </div>
 
@@ -119,14 +134,22 @@
                                         </div>
                                     </div>
                                     <div class="accordion-header-right">
+                                        <span v-if="!isProfileEmpty && !isEditingSection[3]" @click.stop="enableEdit(3)"
+                                            class="edit-icon-btn me-3" title="Edit Section">
+                                            <i class="ti ti-pencil fs-5 text-primary"></i>
+                                        </span>
                                         <i class="ti accordion-chevron"
                                             :class="openSection === 3 ? 'ti-chevron-up' : 'ti-chevron-down'"></i>
                                     </div>
                                 </div>
                                 <div class="accordion-body p-4 p-lg-5" v-show="openSection === 3">
-                                    <WorkExperienceDetails ref="section3Ref" :formData="formData" />
+                                    <fieldset :disabled="!isEditingSection[3]">
+                                        <WorkExperienceDetails ref="section3Ref" :formData="formData"
+                                            :isDisabled="!isEditingSection[3]" />
+                                    </fieldset>
                                 </div>
                             </div>
+
 
                             <!-- Section 4: Documents & Declaration -->
                             <div class="accordion-section" :class="{ active: openSection === 4 }">
@@ -138,17 +161,22 @@
                                         </div>
                                     </div>
                                     <div class="accordion-header-right">
+                                        <span v-if="!isProfileEmpty && !isEditingSection[4]" @click.stop="enableEdit(4)"
+                                            class="edit-icon-btn me-3" title="Edit Section">
+                                            <i class="ti ti-pencil fs-5 text-primary"></i>
+                                        </span>
                                         <i class="ti accordion-chevron"
                                             :class="openSection === 4 ? 'ti-chevron-up' : 'ti-chevron-down'"></i>
                                     </div>
                                 </div>
                                 <div class="accordion-body p-4 p-lg-5" v-show="openSection === 4">
-                                    <DocumentUpload ref="section4aRef" :formData="formData" />
+                                    <DocumentUpload ref="section4aRef" :formData="formData"
+                                        :isDisabled="!isEditingSection[4]" />
                                     <!-- <div class="section-divider"></div> -->
                                     <!-- <PrePaymentDeclaration ref="section4bRef" :formData="formData" /> -->
                                 </div>
                             </div>
-                            <div class="p-3 bg-light rounded-3 mb-4">
+                            <div class="p-3 bg-light rounded-3 mb-4" v-if="isAnySectionEditing">
                                 <div class="form-check custom-declaration">
                                     <input class="form-check-input" type="checkbox" id="declaration"
                                         v-model="formData.declaration" />
@@ -166,7 +194,7 @@
                     </div>
 
                     <!-- Proceed to Pay Button -->
-                    <div class="pb-100">
+                    <div class="pb-100" v-if="isAnySectionEditing">
                         <div class="row">
                             <div class="col-lg-12">
                                 <div class="d-flex justify-content-center">
@@ -350,9 +378,17 @@ const fetchStudentDetail = async () => {
         // If returned payload is explicitly an empty array or missing data
         if (!response?.data || (Array.isArray(response.data) && response.data.length === 0)) {
             isProfileEmpty.value = true;
+            isEditingSection[1] = true;
+            isEditingSection[2] = true;
+            isEditingSection[3] = true;
+            isEditingSection[4] = true;
             console.warn("Profile is detected as EMPTY. Disabling sections.");
         } else {
             isProfileEmpty.value = false;
+            isEditingSection[1] = false;
+            isEditingSection[2] = false;
+            isEditingSection[3] = false;
+            isEditingSection[4] = false;
         }
 
         if (response?.data && !Array.isArray(response.data)) {
@@ -370,6 +406,7 @@ const fetchStudentDetail = async () => {
             formData.dob = d.date_of_birth || d.dob || "";
             formData.nationality = d.nationality || "Indian";
             formData.complete_address = d.address || "";
+            formData.application_id = d.student_id || d.application_id || "";
 
             // Mappings for Choices
             const genderReverseMap: Record<number, string> = { 1: "Male", 2: "Female", 3: "Other" };
@@ -537,6 +574,22 @@ onMounted(async () => {
 const openSection = ref<number | null>(1); // first section open by default
 const isOpenNfet = ref(true);
 
+const isEditingSection = reactive<Record<number, boolean>>({
+    1: false,
+    2: false,
+    3: false,
+    4: false
+});
+
+const isAnySectionEditing = computed(() => {
+    return isEditingSection[1] || isEditingSection[2] || isEditingSection[3] || isEditingSection[4];
+});
+
+const enableEdit = (sectionIndex: number) => {
+    isEditingSection[sectionIndex] = true;
+    openSection.value = sectionIndex;
+};
+
 // --- Calendar & Slots Logic ---
 const currentDateObj = ref(new Date());
 const currentMonth = computed(() => currentDateObj.value.getMonth());
@@ -688,6 +741,7 @@ const formatDate = (dateStr: string) => {
 const formData = reactive({
     first_name: "",
     last_name: "",
+    application_id: "",
     father_name: "",
     father_mobile: "",
     dob: "",
@@ -1228,6 +1282,28 @@ const handleFinalSubmit = async () => {
 
 .cursor-not-allowed {
     cursor: not-allowed !important;
+}
+
+.edit-icon-btn {
+    cursor: pointer;
+    padding: 6px;
+    border-radius: 6px;
+    transition: background 0.2s, transform 0.1s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #f8f9fa;
+    border: 1px solid #e9ecef;
+}
+
+.edit-icon-btn:hover {
+    background: #e0e7ff;
+    border-color: #c7d2fe;
+    transform: translateY(-1px);
+}
+
+.edit-icon-btn:active {
+    transform: translateY(0);
 }
 
 
