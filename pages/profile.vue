@@ -446,7 +446,6 @@ const fetchStudentDetail = async () => {
             formData.dob = d.date_of_birth || d.dob || "";
             formData.nationality = d.nationality || "Indian";
             formData.complete_address = d.address || "";
-            formData.application_id = d.application_id || "";
 
             // Mappings for Choices
             const genderReverseMap: Record<number, string> = { 1: "Male", 2: "Female", 3: "Other" };
