@@ -12,7 +12,8 @@
                     <label class="form-label fw-bold">Aadhaar Card <span>*</span></label>
                     <div class="input-group">
                         <input type="file" class="form-control" accept=".pdf,.jpg,.jpeg,.png"
-                            @change="handleFileChange('aadhaar', $event)" :class="{ 'is-invalid': errors.aadhaar }">
+                            @change="handleFileChange('aadhaar', $event)" :class="{ 'is-invalid': errors.aadhaar }"
+                            :disabled="isDisabled">
                         <span class="input-group-text bg-white" v-if="formData.documents.aadhaar">
                             <i class="ti ti-circle-check-filled text-success fs-5"></i>
                         </span>
@@ -33,7 +34,8 @@
                     <label class="form-label fw-bold">Proof of DOB (X Marksheet / Birth Cert) <span>*</span></label>
                     <div class="input-group">
                         <input type="file" class="form-control" accept=".pdf,.jpg,.jpeg,.png"
-                            @change="handleFileChange('dob_proof', $event)" :class="{ 'is-invalid': errors.dob_proof }">
+                            @change="handleFileChange('dob_proof', $event)" :class="{ 'is-invalid': errors.dob_proof }"
+                            :disabled="isDisabled">
                         <span class="input-group-text bg-white" v-if="formData.documents.dob_proof">
                             <i class="ti ti-circle-check-filled text-success fs-5"></i>
                         </span>
@@ -54,7 +56,8 @@
                     <label class="form-label fw-bold">Photograph <span>*</span></label>
                     <div class="input-group">
                         <input type="file" class="form-control" accept=".jpg,.jpeg,.png"
-                            @change="handleFileChange('photo', $event)" :class="{ 'is-invalid': errors.photo }">
+                            @change="handleFileChange('photo', $event)" :class="{ 'is-invalid': errors.photo }"
+                            :disabled="isDisabled">
                         <span class="input-group-text bg-white" v-if="formData.documents.photo">
                             <i class="ti ti-circle-check-filled text-success fs-5"></i>
                         </span>
@@ -64,6 +67,28 @@
                         <a :href="formData.existingDocuments.photo" target="_blank"
                             class="btn btn-sm btn-outline-primary">
                             <i class="ti ti-eye"></i> View Current Photograph
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Signature -->
+            <div class="col-md-6">
+                <div class="upload-field mb-0">
+                    <label class="form-label fw-bold">Signature <span>*</span></label>
+                    <div class="input-group">
+                        <input type="file" class="form-control" accept=".jpg,.jpeg,.png"
+                            @change="handleFileChange('signature', $event)" :class="{ 'is-invalid': errors.signature }"
+                            :disabled="isDisabled">
+                        <span class="input-group-text bg-white" v-if="formData.documents.signature">
+                            <i class="ti ti-circle-check-filled text-success fs-5"></i>
+                        </span>
+                    </div>
+                    <div class="invalid-feedback d-block" v-if="errors.signature">{{ errors.signature }}</div>
+                    <div class="mt-2" v-if="formData.existingDocuments && formData.existingDocuments.signature">
+                        <a :href="formData.existingDocuments.signature" target="_blank"
+                            class="btn btn-sm btn-outline-primary">
+                            <i class="ti ti-eye"></i> View Current Signature
                         </a>
                     </div>
                 </div>
@@ -79,6 +104,10 @@ export default {
         formData: {
             type: Object,
             required: true
+        },
+        isDisabled: {
+            type: Boolean,
+            default: false
         }
     },
     data() {
@@ -123,7 +152,8 @@ export default {
             const requiredFields = {
                 aadhaar: "Aadhaar Card is required",
                 dob_proof: "Proof of DOB is required",
-                photo: "Photograph is required"
+                photo: "Photograph is required",
+                signature: "Signature is required"
             };
 
             Object.keys(requiredFields).forEach(field => {
