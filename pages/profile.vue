@@ -288,7 +288,7 @@
                                         <button
                                             class="btn btn-primary w-100 custom-primary-bg d-flex justify-content-center align-items-center gap-2"
                                             style="pointer-events: auto;"
-                                            :disabled="isBookingSlot || (bookingDetails.isBooked && bookingDetails.updateCount >= 2)"
+                                            :disabled="isBookingSlot || (bookingDetails.isBooked && bookingDetails.updateCount > 2)"
                                             @click="bookSlot">
                                             <span v-if="isBookingSlot" class="spinner-border spinner-border-sm"
                                                 role="status" aria-hidden="true"></span>
@@ -301,7 +301,7 @@
                                             </template>
                                             <template v-else>Book Slot</template>
                                         </button>
-                                        <div v-if="bookingDetails.isBooked && bookingDetails.updateCount >= 1"
+                                        <div v-if="bookingDetails.isBooked && bookingDetails.updateCount > 2"
                                             class="custom-tooltip-content">
                                             This slot has already been updated once and cannot be changed again.
                                         </div>
