@@ -284,20 +284,28 @@
                                         available.
                                     </div>
 
-                                    <button
-                                        class="btn btn-primary w-100 custom-primary-bg d-flex justify-content-center align-items-center gap-2 mb-2"
-                                        :disabled="isBookingSlot" @click="bookSlot">
-                                        <span v-if="isBookingSlot" class="spinner-border spinner-border-sm"
-                                            role="status" aria-hidden="true"></span>
-                                        <template v-if="bookingDetails.isBooked">
-                                            <div class="d-flex flex-column align-items-center"
-                                                style="line-height: 1.2;">
-                                                <span>Update Slot</span>
-                                                <small style="font-size: 0.75em;">(one time only)</small>
-                                            </div>
-                                        </template>
-                                        <template v-else>Book Slot</template>
-                                    </button>
+                                    <div class="custom-tooltip-wrapper d-inline-block w-100 mb-2">
+                                        <button
+                                            class="btn btn-primary w-100 custom-primary-bg d-flex justify-content-center align-items-center gap-2"
+                                            style="pointer-events: auto;"
+                                            :disabled="isBookingSlot || (bookingDetails.isBooked && bookingDetails.updateCount >= 1)"
+                                            @click="bookSlot">
+                                            <span v-if="isBookingSlot" class="spinner-border spinner-border-sm"
+                                                role="status" aria-hidden="true"></span>
+                                            <template v-if="bookingDetails.isBooked">
+                                                <div class="d-flex flex-column align-items-center"
+                                                    style="line-height: 1.2;">
+                                                    <span>Update Slot</span>
+                                                    <small style="font-size: 0.75em;">(one time only)</small>
+                                                </div>
+                                            </template>
+                                            <template v-else>Book Slot</template>
+                                        </button>
+                                        <div v-if="bookingDetails.isBooked && bookingDetails.updateCount >= 1"
+                                            class="custom-tooltip-content">
+                                            This slot has already been updated once and cannot be changed again.
+                                        </div>
+                                    </div>
 
                                     <!-- Admit Card Button -->
                                     <button v-if="showAdmitCardButton"
@@ -389,7 +397,8 @@ const bookingDetails = reactive({
     isBooked: false,
     date: "",
     time: "",
-    admitCardUrl: "" as string | null
+    admitCardUrl: "" as string | null,
+    updateCount: 0
 });
 
 const showAdmitCardButton = ref(false);
@@ -493,6 +502,7 @@ const fetchStudentDetail = async () => {
                 bookingDetails.isBooked = true;
                 bookingDetails.date = d.slot_date;
                 bookingDetails.time = d.slot_time;
+                bookingDetails.updateCount = d.slot_update_count || 0;
                 selectedDate.value = d.slot_date;
 
                 availableSlots.value = staticSlots.map((timeStr: string, index: number) => ({
@@ -1410,6 +1420,50 @@ const handleFinalSubmit = async () => {
 
 .submit-btn {
     width: 500px;
+}
+
+
+/* Custom Tooltip styling */
+.custom-tooltip-wrapper {
+    position: relative;
+    cursor: not-allowed;
+}
+
+.custom-tooltip-content {
+    visibility: hidden;
+    opacity: 0;
+    width: 260px;
+    background-color: #a06d9c;
+    /* background-color: #872980; */
+    color: #fff;
+    text-align: center;
+    border-radius: 6px;
+    padding: 8px 12px;
+    position: absolute;
+    z-index: 1060;
+    bottom: 120%;
+    left: 50%;
+    margin-left: -130px;
+    font-size: 13px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    transition: opacity 0.3s, visibility 0.3s;
+    pointer-events: none;
+}
+
+.custom-tooltip-content::after {
+    content: "";
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    margin-left: -5px;
+    border-width: 5px;
+    border-style: solid;
+    border-color: #333 transparent transparent transparent;
+}
+
+.custom-tooltip-wrapper:hover .custom-tooltip-content {
+    visibility: visible;
+    opacity: 1;
 }
 
 .custom-declaration .form-check-input:checked {
