@@ -197,6 +197,14 @@ export default {
     onStateChange() {
       this.formData.city = "";
     },
+    scrollToFirstError() {
+      this.$nextTick(() => {
+        const el = this.$el.querySelector('.is-invalid');
+        if (el && el.scrollIntoView) {
+          el.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }
+      });
+    },
     validate() {
       this.errors = {};
       let isValid = true;
