@@ -73,7 +73,7 @@
                         <div class="profile-accordion">
 
                             <!-- Section 1: Personal Information -->
-                            <div class="accordion-section" :class="{ active: openSection === 1 }">
+                            <div class="accordion-section" :class="{ active: isSectionOpen(1) }">
                                 <div class="accordion-header" @click="toggleSection(1)">
                                     <div class="accordion-header-left">
                                         <div style="display: flex; align-items: center; gap: 10px;">
@@ -88,10 +88,10 @@
                                             <i class="ti ti-pencil fs-5 text-primary"></i>
                                         </span>
                                         <i class="ti accordion-chevron"
-                                            :class="openSection === 1 ? 'ti-chevron-up' : 'ti-chevron-down'"></i>
+                                            :class="isSectionOpen(1) ? 'ti-chevron-up' : 'ti-chevron-down'"></i>
                                     </div>
                                 </div>
-                                <div class="accordion-body p-4 p-lg-5" v-show="openSection === 1">
+                                <div class="accordion-body p-4 p-lg-5" v-show="isSectionOpen(1)">
                                     <fieldset :disabled="!isEditingSection[1]">
                                         <PersonalInformation ref="section1Ref" :formData="formData" />
                                     </fieldset>
@@ -100,7 +100,7 @@
 
 
                             <!-- Section 2: Academic Information -->
-                            <div class="accordion-section" :class="{ active: openSection === 2 }">
+                            <div class="accordion-section" :class="{ active: isSectionOpen(2) }">
                                 <div class="accordion-header" @click="toggleSection(2)">
                                     <div class="accordion-header-left">
                                         <div style="display: flex; align-items: center; gap: 10px;">
@@ -114,10 +114,10 @@
                                             <i class="ti ti-pencil fs-5 text-primary"></i>
                                         </span>
                                         <i class="ti accordion-chevron"
-                                            :class="openSection === 2 ? 'ti-chevron-up' : 'ti-chevron-down'"></i>
+                                            :class="isSectionOpen(2) ? 'ti-chevron-up' : 'ti-chevron-down'"></i>
                                     </div>
                                 </div>
-                                <div class="accordion-body p-4 p-lg-5" v-show="openSection === 2">
+                                <div class="accordion-body p-4 p-lg-5" v-show="isSectionOpen(2)">
                                     <fieldset :disabled="!isEditingSection[2]">
                                         <AcademicInformation ref="section2Ref" :formData="formData" />
                                     </fieldset>
@@ -125,7 +125,7 @@
                             </div>
 
                             <!-- Section 3: Work Experience -->
-                            <div class="accordion-section" :class="{ active: openSection === 3 }">
+                            <div class="accordion-section" :class="{ active: isSectionOpen(3) }">
                                 <div class="accordion-header" @click="toggleSection(3)">
                                     <div class="accordion-header-left">
                                         <div style="display: flex; align-items: center; gap: 10px;">
@@ -139,10 +139,10 @@
                                             <i class="ti ti-pencil fs-5 text-primary"></i>
                                         </span>
                                         <i class="ti accordion-chevron"
-                                            :class="openSection === 3 ? 'ti-chevron-up' : 'ti-chevron-down'"></i>
+                                            :class="isSectionOpen(3) ? 'ti-chevron-up' : 'ti-chevron-down'"></i>
                                     </div>
                                 </div>
-                                <div class="accordion-body p-4 p-lg-5" v-show="openSection === 3">
+                                <div class="accordion-body p-4 p-lg-5" v-show="isSectionOpen(3)">
                                     <fieldset :disabled="!isEditingSection[3]">
                                         <WorkExperienceDetails ref="section3Ref" :formData="formData"
                                             :isDisabled="!isEditingSection[3]" />
@@ -152,7 +152,7 @@
 
 
                             <!-- Section 4: Documents & Declaration -->
-                            <div class="accordion-section" :class="{ active: openSection === 4 }">
+                            <div class="accordion-section" :class="{ active: isSectionOpen(4) }">
                                 <div class="accordion-header" @click="toggleSection(4)">
                                     <div class="accordion-header-left">
                                         <div style="display: flex; align-items: center; gap: 10px;">
@@ -166,10 +166,10 @@
                                             <i class="ti ti-pencil fs-5 text-primary"></i>
                                         </span>
                                         <i class="ti accordion-chevron"
-                                            :class="openSection === 4 ? 'ti-chevron-up' : 'ti-chevron-down'"></i>
+                                            :class="isSectionOpen(4) ? 'ti-chevron-up' : 'ti-chevron-down'"></i>
                                     </div>
                                 </div>
-                                <div class="accordion-body p-4 p-lg-5" v-show="openSection === 4">
+                                <div class="accordion-body p-4 p-lg-5" v-show="isSectionOpen(4)">
                                     <DocumentUpload ref="section4aRef" :formData="formData"
                                         :isDisabled="!isEditingSection[4]" />
                                     <!-- <div class="section-divider"></div> -->
@@ -587,7 +587,10 @@ onMounted(async () => {
     }
 })
 
-const openSection = ref<number | null>(1); // first section open by default
+// track which sections are currently expanded; start with the first one open
+const openSections = ref<Set<number>>(new Set([1]));
+// helper for template checks
+const isSectionOpen = (idx: number) => openSections.value.has(idx);
 const isOpenNfet = ref(true);
 
 const isEditingSection = reactive<Record<number, boolean>>({
@@ -603,7 +606,7 @@ const isAnySectionEditing = computed(() => {
 
 const enableEdit = (sectionIndex: number) => {
     isEditingSection[sectionIndex] = true;
-    openSection.value = sectionIndex;
+    openSections.value.add(sectionIndex);
 };
 
 // --- Calendar & Slots Logic ---
@@ -980,15 +983,36 @@ const section4aRef = ref<any>(null);
 const section4bRef = ref<any>(null);
 
 const toggleSection = (index: number) => {
-    openSection.value = openSection.value === index ? null : index;
+    // expand or collapse only the clicked section without closing others
+    if (openSections.value.has(index)) {
+        openSections.value.delete(index);
+    } else {
+        openSections.value.add(index);
+    }
 };
 
 const handleFinalSubmit = async () => {
     // Validate all sections before submission
-    if (section1Ref.value?.validate && !section1Ref.value.validate()) { openSection.value = 1; return; }
-    if (section2Ref.value?.validate && !section2Ref.value.validate()) { openSection.value = 2; return; }
-    if (section3Ref.value?.validate && !section3Ref.value.validate()) { openSection.value = 3; return; }
-    if (section4aRef.value?.validate && !section4aRef.value.validate()) { openSection.value = 4; return; }
+    if (section1Ref.value?.validate && !section1Ref.value.validate()) {
+        openSections.value.add(1);
+        section1Ref.value?.scrollToFirstError?.();
+        return;
+    }
+    if (section2Ref.value?.validate && !section2Ref.value.validate()) {
+        openSections.value.add(2);
+        section2Ref.value?.scrollToFirstError?.();
+        return;
+    }
+    if (section3Ref.value?.validate && !section3Ref.value.validate()) {
+        openSections.value.add(3);
+        section3Ref.value?.scrollToFirstError?.();
+        return;
+    }
+    if (section4aRef.value?.validate && !section4aRef.value.validate()) {
+        openSections.value.add(4);
+        section4aRef.value?.scrollToFirstError?.();
+        return;
+    }
 
     if (!formData.declaration) {
         showAlert("Declaration Required", "Please check the declaration before submitting.", "warning");
@@ -1121,7 +1145,7 @@ const handleFinalSubmit = async () => {
 //     if (section4bRef.value?.validate) {
 //         const isValid = section4bRef.value.validate();
 //         if (!isValid) {
-//             openSection.value = 4;
+//             openSections.value.add(4);  // previous behavior (kept for reference)
 //             return;
 //         }
 //     }

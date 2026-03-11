@@ -161,6 +161,14 @@ export default {
   },
 
   methods: {
+    scrollToFirstError() {
+      this.$nextTick(() => {
+        const el = this.$el.querySelector('.is-invalid');
+        if (el && el.scrollIntoView) {
+          el.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }
+      });
+    },
     addJob() {
       this.formData.work_experience.push({
         org_name: "",

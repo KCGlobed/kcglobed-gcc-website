@@ -116,8 +116,8 @@
                                         </div>
 
                                         <p class="form-footer-text">
-                                            By submitting, you agree to our <a href="#">Terms</a> and <a
-                                                href="#">Privacy Policy</a>
+                                            By submitting, you agree to our <NuxtLink href="/terms-conditions">Terms
+                                            </NuxtLink> and <NuxtLink href="/privacy-policy">Privacy Policy</NuxtLink>
                                         </p>
                                     </form>
                                 </div>
