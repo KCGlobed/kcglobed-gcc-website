@@ -195,12 +195,15 @@ export async function sendPaymentFailureEmail(opts: {
   emailHost: string;
   emailUser: string;
   emailPassword: string;
+  emailPort?: number;
+  emailSecure?: boolean;
+  fromEmail?: string;
 }) {
   console.log("opts", opts);
   const transporter = nodemailer.createTransport({
     host: opts.emailHost,
-    port: 465,
-    secure: true,
+    port: opts.emailPort !== undefined ? opts.emailPort : 587,
+    secure: opts.emailSecure !== undefined ? opts.emailSecure : false,
     auth: {
       user: opts.emailUser,
       pass: opts.emailPassword
@@ -236,7 +239,7 @@ export async function sendPaymentFailureEmail(opts: {
 
   try {
     const info = await transporter.sendMail({
-      from: `"GCC School" <${opts.emailUser}>`,
+      from: opts.fromEmail ? `"GCC School" <${opts.fromEmail}>` : `"GCC School" <${opts.emailUser}>`,
       to: opts.to,
       subject: `Complete Your NFET Registration – Payment Pending`,
       html
