@@ -259,9 +259,10 @@
                                             'allowed': day && day.isAllowed,
                                             'disabled': day && !day.isAllowed && !day.isBlocked,
                                             'blocked': day && day.isBlocked,
-                                            'selected': day && day.dateString === selectedDate
-                                        }" :title="day && day.isBlocked ? 'fully booked' : ''"
-                                        @click="selectDate(day)">
+                                            'selected': day && day.dateString === selectedDate,
+                                            'cursor-not-allowed': bookingDetails.updateCount >= 2 && day && day.isAllowed
+                                        }" :title="day && day.isBlocked ? 'fully booked' : (bookingDetails.updateCount >= 2 ? 'Update limit reached' : '')"
+                                        @click="bookingDetails.updateCount < 2 && selectDate(day)">
                                         {{ day ? day.day : '' }}
                                     </div>
                                 </div>
@@ -274,8 +275,8 @@
                                         <button v-for="slot in availableSlots" :key="slot.id"
                                             class="btn btn-sm flex-grow-1" :class="[
                                                 selectedSlot === slot.id ? 'btn-primary text-white custom-primary-bg' : 'btn-outline-secondary',
-                                            ]" @click="!slot.disabled && selectSlot(slot)" :disabled="slot.disabled"
-                                            :title="slot.disabled ? 'This slot is no longer available (48-hour restriction)' : ''"
+                                            ]" @click="!slot.disabled && bookingDetails.updateCount < 2 && selectSlot(slot)" :disabled="slot.disabled || bookingDetails.updateCount >= 2"
+                                            :title="bookingDetails.updateCount >= 2 ? 'Update limit reached' : (slot.disabled ? 'This slot is no longer available (48-hour restriction)' : '')"
                                             style="font-size: 12px; min-width: 45%;">
                                             {{ slot.time }}
                                         </button>
@@ -284,27 +285,40 @@
                                         available.
                                     </div>
 
-                                    <div class="custom-tooltip-wrapper d-inline-block w-100 mb-2">
+                                    <div v-if="bookingDetails.updateCount <= 1" class="d-inline-block w-100 mb-2">
                                         <button
                                             class="btn btn-primary w-100 custom-primary-bg d-flex justify-content-center align-items-center gap-2"
-                                            style="pointer-events: auto;"
-                                            :disabled="isBookingSlot || (bookingDetails.isBooked && bookingDetails.updateCount > 2)"
-                                            @click="bookSlot">
+                                            style="pointer-events: auto;" :disabled="isBookingSlot" @click="bookSlot">
                                             <span v-if="isBookingSlot" class="spinner-border spinner-border-sm"
                                                 role="status" aria-hidden="true"></span>
-                                            <template v-if="bookingDetails.isBooked">
+
+                                            <!-- state 1: Update Count == 0 -->
+                                            <template v-if="bookingDetails.updateCount === 0">
+                                                Book Slot
+                                                <span class="custom-tooltip-wrapper d-inline-block ms-1" @click.stop>
+                                                    <i class="ti ti-info-circle" style="font-size: 16px;"></i>
+                                                    <div class="custom-tooltip-content" style="pointer-events: none;">
+                                                        Slot can be changed once, at least 48 hours before the scheduled time
+                                                    </div>
+                                                </span>
+                                            </template>
+                                            
+                                            <!-- state 2: Update Count === 1 -->
+                                            <template v-else-if="bookingDetails.updateCount === 1">
                                                 <div class="d-flex flex-column align-items-center"
                                                     style="line-height: 1.2;">
-                                                    <span>Update Slot</span>
+                                                    <span>Change Slot
+                                                        <span class="custom-tooltip-wrapper d-inline-block ms-1" @click.stop>
+                                                            <i class="ti ti-info-circle" style="font-size: 16px;"></i>
+                                                            <div class="custom-tooltip-content" style="pointer-events: none; bottom: 120%;">
+                                                                Slot can be changed once, at least 48 hours before the scheduled time
+                                                            </div>
+                                                        </span>
+                                                    </span>
                                                     <small style="font-size: 0.75em;">(one time only)</small>
                                                 </div>
                                             </template>
-                                            <template v-else>Book Slot</template>
                                         </button>
-                                        <div v-if="bookingDetails.isBooked && bookingDetails.updateCount > 2"
-                                            class="custom-tooltip-content">
-                                            This slot has already been updated once and cannot be changed again.
-                                        </div>
                                     </div>
 
                                     <!-- Admit Card Button -->
@@ -786,6 +800,12 @@ const bookSlot = async () => {
         console.error("Error calculating time difference", err);
     }
 
+    // New validation: Check if user is trying to book the very same slot they already have
+    if (bookingDetails.isBooked && bookingDetails.date === selectedDate.value && bookingDetails.time === String(slotObj.time)) {
+        showAlert("Same Slot Selected", "You’ve selected the same slot that you already booked. Please choose a different slot to update.", "info");
+        return;
+    }
+
     if (bookingDetails.isBooked) {
         const confirmed = await confirmSlotChange();
         if (!confirmed) return;
@@ -831,6 +851,7 @@ const bookSlot = async () => {
         showAlert("Booking Failed", err.message || "Failed to book slot. Please try again.", "error");
     } finally {
         isBookingSlot.value = false;
+        await fetchStudentDetail();
     }
 };
 
