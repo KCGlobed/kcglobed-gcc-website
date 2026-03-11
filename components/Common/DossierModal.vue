@@ -42,7 +42,7 @@
                                 <select v-model="form.state" class="form-select custom-input" @change="onStateChange">
                                     <option value="" disabled>Select State</option>
                                     <option v-for="state in states" :key="state.iso2" :value="state.iso2">{{ state.name
-                                        }}</option>
+                                    }}</option>
                                 </select>
                                 <small class="text-danger" v-if="errors.state">{{ errors.state }}</small>
                             </div>
@@ -104,10 +104,10 @@
                         <div class="text-center mt-4">
                             <p class="small text-muted mb-0">
                                 By submitting, you agree to our
-                                <NuxtLink to="#" class="text-purple text-decoration-none fw-bold">Terms
+                                <NuxtLink to="/terms-conditions" class="text-purple text-decoration-none fw-bold" @click="handleNavigation">Terms
                                 </NuxtLink>
                                 and
-                                <NuxtLink to="#" class="text-purple text-decoration-none fw-bold">Privacy
+                                <NuxtLink to="/privacy-policy" class="text-purple text-decoration-none fw-bold" @click="handleNavigation">Privacy
                                     Policy</NuxtLink>
                             </p>
                         </div>
@@ -422,6 +422,16 @@ export default defineComponent({
             });
         };
 
+        const handleNavigation = () => {
+             // Let the router go wherever it wants via NuxtLink
+             // but force the modal to close locally to clear backdrops
+             closeDossierModal().then(() => {
+                 setTimeout(() => {
+                     restoreBodyScroll();
+                 }, 300); // 300ms accounts for standard bootstrap transition
+             });
+        };
+
         const handlePayment = async () => {
             notification.message = '';
             notification.type = '';
@@ -581,7 +591,8 @@ export default defineComponent({
             notification,
             paymentStatus,
             paymentId,
-            statusModalId
+            statusModalId,
+            handleNavigation
         };
     }
 });

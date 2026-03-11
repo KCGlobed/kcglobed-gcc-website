@@ -1,11 +1,7 @@
 <template>
   <div>
-    <LayoutTopHeader class="style2-top-header" />
-    <LayoutNavbarStyleTwo class="inner-navbar" />
-    <CommonInnerPageBanner
-      pageTitle="Privacy & Policy"
-      mainTitle="PRIVACY & POLICY"
-    />
+    <LayoutTopHeader />
+    <LayoutMainNavbar />
     <PrivacyPolicy />
     <LayoutMainFooter />
     <LayoutCopyRight />
