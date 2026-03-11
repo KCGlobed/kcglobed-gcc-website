@@ -1,11 +1,7 @@
 <template>
   <div>
-    <LayoutTopHeader class="style2-top-header" />
-    <LayoutNavbarStyleTwo class="inner-navbar" />
-    <CommonInnerPageBanner
-      pageTitle="Terms & Conditions"
-      mainTitle="TERMS & CONDITIONS"
-    />
+    <LayoutTopHeader />
+    <LayoutMainNavbar />
     <TermsConditions />
     <LayoutMainFooter />
     <LayoutCopyRight />
