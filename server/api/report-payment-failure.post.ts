@@ -165,7 +165,10 @@ export default defineEventHandler(async (event) => {
                     paymentLink: paymentLink,
                     emailHost: config.emailHost || process.env.EMAIL_HOST || '',
                     emailUser: config.emailUser || process.env.EMAIL_HOST_USER || '',
-                    emailPassword: config.emailPassword || process.env.EMAIL_HOST_PASSWORD || ''
+                    emailPassword: config.emailPassword || process.env.EMAIL_HOST_PASSWORD || '',
+                    emailPort: process.env.EMAIL_PORT ? Number(process.env.EMAIL_PORT) : 587,
+                    emailSecure: process.env.EMAIL_USE_SSL === 'True' || process.env.EMAIL_USE_SSL === 'true',
+                    fromEmail: process.env.DEFAULT_FROM_EMAIL || process.env.EMAIL_HOST_USER || ''
                 });
                 console.log("[PAYMENT][failure] Sent failure email to", userEmail);
             } catch (emailErr: any) {
