@@ -54,7 +54,7 @@
 
         </div>
 
-        <div v-if="submitted" class="success-banner">✓ Your message has been submitted successfully!</div>
+        <div v-if="submitted" class="success-banner">Thanks for submitting. We will get back to you soon!</div>
         <div v-if="apiError" class="error-banner">⚠ {{ apiError }}</div>
 
         <div class="form-actions">

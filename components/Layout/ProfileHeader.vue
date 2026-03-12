@@ -30,7 +30,8 @@
                         <div class="navbar__dropdown" v-if="dropdownOpen">
                             <div class="navbar__dropdown-header">
                                 <span>Notifications</span>
-                                <button class="navbar__dropdown-clear" @click="clearNotifs">Clear all</button>
+                                <button v-if="notifications.length > 0" class="navbar__dropdown-clear"
+                                    @click="clearNotifs">Clear all</button>
                             </div>
                             <ul class="navbar__dropdown-list">
                                 <li v-for="(notif, i) in notifications" :key="i" class="navbar__notif-item">
@@ -40,8 +41,15 @@
                                         <p class="navbar__notif-time">{{ notif.time }}</p>
                                     </div>
                                 </li>
+                                <!-- Empty state -->
+                                <li v-if="notifications.length === 0" class="navbar__notif-empty">
+                                    <i class="ti ti-bell-off navbar__notif-empty-icon"></i>
+                                    <p class="navbar__notif-empty-text">No notifications</p>
+                                    <p class="navbar__notif-empty-sub">You're all caught up!</p>
+                                </li>
                             </ul>
-                            <a href="#" class="navbar__dropdown-footer">View all notifications →</a>
+                            <a v-if="notifications.length > 0" href="#" class="navbar__dropdown-footer">View all
+                                notifications →</a>
                         </div>
                     </transition>
                 </div>
@@ -51,10 +59,12 @@
 
                 <!-- Help -->
                 <div class="tip-wrap">
-                    <button class="navbar__btn" aria-label="Help">
-                        <span class="navbar__btn-glow"></span>
-                        <i class="ti ti-help"></i>
-                    </button>
+                    <a href="/help-line">
+                        <button class="navbar__btn" aria-label="Help">
+                            <span class="navbar__btn-glow"></span>
+                            <i class="ti ti-help"></i>
+                        </button>
+                    </a>
                     <div class="tip-box">
                         <div class="tip-arrow"></div>
                         <span>Help</span>
@@ -114,7 +124,7 @@
                         <i class="ti ti-chevron-right navbar__sidedrawer-arrow"></i>
                     </a>
 
-                    <a href="#" class="navbar__sidedrawer-item" @click="mobileOpen = false">
+                    <a href="/help-line" class="navbar__sidedrawer-item" @click="mobileOpen = false">
                         <span class="navbar__sidedrawer-icon navbar__sidedrawer-icon--help">
                             <i class="ti ti-help"></i>
                         </span>
@@ -162,16 +172,12 @@ export default defineComponent({
         const dropdownOpen = ref(false);
         const mobileOpen = ref(false);
         const bellRef = ref<HTMLElement | null>(null);
-        const notifCount = ref(3);
+        const notifCount = ref(0);
 
         // auth state and helpers
         const { isAuthenticated, logout, init } = useAuth();
 
-        const notifications = ref([
-            { title: "New message from Alex", time: "2 min ago" },
-            { title: "Your report is ready", time: "15 min ago" },
-            { title: "System update scheduled", time: "1 hr ago" },
-        ]);
+        const notifications = ref<{ title: string; time: string }[]>([]);
 
         const toggleDropdown = () => { dropdownOpen.value = !dropdownOpen.value; };
 
@@ -545,6 +551,36 @@ export default defineComponent({
 .navbar__dropdown-footer:hover {
     color: #d472d0;
     background: rgba(99, 102, 241, 0.05);
+}
+
+/* ── Empty notification state ── */
+.navbar__notif-empty {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 32px 16px;
+    gap: 6px;
+    list-style: none;
+}
+
+.navbar__notif-empty-icon {
+    font-size: 2rem;
+    color: rgba(255, 255, 255, 0.18);
+    margin-bottom: 4px;
+}
+
+.navbar__notif-empty-text {
+    margin: 0;
+    font-size: 0.85rem;
+    font-weight: 500;
+    color: rgba(255, 255, 255, 0.5);
+}
+
+.navbar__notif-empty-sub {
+    margin: 0;
+    font-size: 0.75rem;
+    color: rgba(255, 255, 255, 0.25);
 }
 
 /* ── Hamburger ── */
