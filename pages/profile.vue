@@ -3,7 +3,6 @@
         <LayoutTopHeader />
         <LayoutMainNavbar />
         <!-- <CommonInnerPageBanner pageTitle="Profile" /> -->
-
         <!-- Main Layout Split -->
         <div class="container pt-50 pb-100">
             <div class="row">
@@ -261,7 +260,8 @@
                                             'blocked': day && day.isBlocked,
                                             'selected': day && day.dateString === selectedDate,
                                             'cursor-not-allowed': bookingDetails.updateCount >= 2 && day && day.isAllowed
-                                        }" :title="day && day.isBlocked ? 'fully booked' : (bookingDetails.updateCount >= 2 ? 'Update limit reached' : '')"
+                                        }"
+                                        :title="day && day.isBlocked ? 'fully booked' : (bookingDetails.updateCount >= 2 ? 'Update limit reached' : '')"
                                         @click="bookingDetails.updateCount < 2 && selectDate(day)">
                                         {{ day ? day.day : '' }}
                                     </div>
@@ -275,7 +275,9 @@
                                         <button v-for="slot in availableSlots" :key="slot.id"
                                             class="btn btn-sm flex-grow-1" :class="[
                                                 selectedSlot === slot.id ? 'btn-primary text-white custom-primary-bg' : 'btn-outline-secondary',
-                                            ]" @click="!slot.disabled && bookingDetails.updateCount < 2 && selectSlot(slot)" :disabled="slot.disabled || bookingDetails.updateCount >= 2"
+                                            ]"
+                                            @click="!slot.disabled && bookingDetails.updateCount < 2 && selectSlot(slot)"
+                                            :disabled="slot.disabled || bookingDetails.updateCount >= 2"
                                             :title="bookingDetails.updateCount >= 2 ? 'Update limit reached' : (slot.disabled ? 'This slot is no longer available (48-hour restriction)' : '')"
                                             style="font-size: 12px; min-width: 45%;">
                                             {{ slot.time }}
@@ -298,20 +300,24 @@
                                                 <span class="custom-tooltip-wrapper d-inline-block ms-1" @click.stop>
                                                     <i class="ti ti-info-circle" style="font-size: 16px;"></i>
                                                     <div class="custom-tooltip-content" style="pointer-events: none;">
-                                                        Slot can be changed once, at least 48 hours before the scheduled time
+                                                        Slot can be changed once, at least 48 hours before the scheduled
+                                                        time
                                                     </div>
                                                 </span>
                                             </template>
-                                            
+
                                             <!-- state 2: Update Count === 1 -->
                                             <template v-else-if="bookingDetails.updateCount === 1">
                                                 <div class="d-flex flex-column align-items-center"
                                                     style="line-height: 1.2;">
                                                     <span>Change Slot
-                                                        <span class="custom-tooltip-wrapper d-inline-block ms-1" @click.stop>
+                                                        <span class="custom-tooltip-wrapper d-inline-block ms-1"
+                                                            @click.stop>
                                                             <i class="ti ti-info-circle" style="font-size: 16px;"></i>
-                                                            <div class="custom-tooltip-content" style="pointer-events: none; bottom: 120%;">
-                                                                Slot can be changed once, at least 48 hours before the scheduled time
+                                                            <div class="custom-tooltip-content"
+                                                                style="pointer-events: none; bottom: 120%;">
+                                                                Slot can be changed once, at least 48 hours before the
+                                                                scheduled time
                                                             </div>
                                                         </span>
                                                     </span>
