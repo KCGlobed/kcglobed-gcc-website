@@ -21,7 +21,7 @@
                         </div>
 
                         <!-- <div class="cta-box mt-5">
-                            <NuxtLink to="/nfet-exam" class="default-btn">
+                            <NuxtLink to="/nfet" class="default-btn">
                                 Join NFET Entrance Exam
                                 <i class="ti ti-arrow-narrow-right"></i>
                             </NuxtLink>

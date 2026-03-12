@@ -15,7 +15,7 @@
                     <NuxtLink to="/programs">Program</NuxtLink>
                   </li>
                   <li>
-                    <NuxtLink to="/nfet-exam">NFET Exam</NuxtLink>
+                    <NuxtLink to="/nfet">NFET Exam</NuxtLink>
                   </li>
                   <!-- <li>
                     <NuxtLink to="/admissions">Student Admission</NuxtLink>

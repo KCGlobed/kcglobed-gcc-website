@@ -23,7 +23,7 @@
           <img src="~/assets/img/mobileHeader/Icon(2).png" alt="Program" class="nav-icon" />
           <span>Program</span>
         </NuxtLink>
-        <NuxtLink to="/nfet-exam" class="nav-item" @click="handleClick">
+        <NuxtLink to="/nfet" class="nav-item" @click="handleClick">
           <img src="~/assets/img/mobileHeader/Icon(3).png" alt="NFET Exam" class="nav-icon" />
           <span>NFET Exam</span>
         </NuxtLink>

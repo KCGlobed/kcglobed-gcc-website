@@ -3,7 +3,6 @@
         <LayoutTopHeader />
         <LayoutMainNavbar />
         <!-- <CommonInnerPageBanner pageTitle="Profile" /> -->
-
         <!-- Main Layout Split -->
         <div class="container pt-50 pb-100">
             <div class="row">
