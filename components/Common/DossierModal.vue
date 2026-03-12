@@ -104,10 +104,14 @@
                         <div class="text-center mt-4">
                             <p class="small text-muted mb-0">
                                 By submitting, you agree to our
-                                <NuxtLink to="/terms-conditions" class="text-purple text-decoration-none fw-bold" @click="handleNavigation">Terms
+                                <NuxtLink to="/terms-conditions" class="text-purple text-decoration-none fw-bold"
+                                    @click="handleNavigation">
+                                    Terms
                                 </NuxtLink>
                                 and
-                                <NuxtLink to="/privacy-policy" class="text-purple text-decoration-none fw-bold" @click="handleNavigation">Privacy
+                                <NuxtLink to="/privacy-policy" class="text-purple text-decoration-none fw-bold"
+                                    @click="handleNavigation">
+                                    Privacy
                                     Policy</NuxtLink>
                             </p>
                         </div>
@@ -118,7 +122,12 @@
     </div>
 
     <!-- Payment Status Modal -->
-    <PaymentStatusModal :modal-id="statusModalId" :status="paymentStatus" :payment-id="paymentId" />
+    <PaymentStatusModal :modal-id="statusModalId" :status="paymentStatus" :payment-id="paymentId"
+        :message="processingMessage" />
+
+    <!-- Error/Success Alert Popup -->
+    <CommonAlert :show="alertPopup.show" :title="alertPopup.title" :message="alertPopup.message" :type="alertPopup.type"
+        @close="alertPopup.show = false" />
 </template>
 
 <script lang="ts">
@@ -136,7 +145,8 @@ const requestOptions: RequestInit = {
 export default defineComponent({
     name: 'DossierModal',
     components: {
-        PaymentStatusModal: defineAsyncComponent(() => import('~/components/Common/PaymentStatusModal.vue'))
+        PaymentStatusModal: defineAsyncComponent(() => import('~/components/Common/PaymentStatusModal.vue')),
+        CommonAlert: defineAsyncComponent(() => import('~/components/Common/CommonAlert.vue'))
     },
     props: {
         modalId: {
@@ -164,8 +174,27 @@ export default defineComponent({
         const formId = ref<number | null>(null);
         const closeModalBtn = ref<HTMLButtonElement | null>(null);
         const notification = reactive({ type: '', message: '' });
-        const paymentStatus = ref<'success' | ''>('');
+        const paymentStatus = ref<'success' | 'failed' | 'processing' | ''>('');
         const paymentId = ref('');
+        const isProcessing = ref(false);
+        const processingMessage = ref('');
+        const storedPassword = ref<string | null>(null);
+
+        const alertPopup = reactive({
+            show: false,
+            title: '',
+            message: '',
+            type: 'error' as 'error' | 'success'
+        });
+
+        const showAlert = (title: string, message: string, type: 'error' | 'success' = 'error') => {
+            alertPopup.title = title;
+            alertPopup.message = message;
+            alertPopup.type = type;
+            alertPopup.show = true;
+        };
+
+        const auth = useAuth();
 
         const resetForm = () => {
             form.name = '';
@@ -191,14 +220,27 @@ export default defineComponent({
             notification.message = message;
         };
 
-        const openStatusModal = async (status: 'success', pid: string = '') => {
+        const openStatusModal = async (status: 'success' | 'failed' | 'processing', message: string = '', pid: string = '') => {
             paymentStatus.value = status;
+            processingMessage.value = message;
             paymentId.value = pid;
             await nextTick();
             const el = document.getElementById(statusModalId);
             if (el) {
                 const { Modal } = await import('bootstrap');
-                new Modal(el).show();
+                const modal = Modal.getInstance(el) || new Modal(el);
+                modal.show();
+            }
+        };
+
+        const closeStatusModal = async () => {
+            const el = document.getElementById(statusModalId);
+            if (el) {
+                const { Modal } = await import('bootstrap');
+                const modal = Modal.getInstance(el);
+                if (modal) {
+                    modal.hide();
+                }
             }
         };
 
@@ -303,6 +345,38 @@ export default defineComponent({
                     city: form.city
                 };
                 const config = useRuntimeConfig();
+
+                // ── Pre-Dossier Email Validation ──
+                try {
+                    const checkRes: any = await $fetch(
+                        `${config.public.apiBase}/api/users/check_email/`,
+                        {
+                            method: 'POST',
+                            headers: { 'Content-Type': 'application/json' },
+                            body: { email: form.email },
+                        }
+                    );
+
+                    // If email exists, only block IF we are in 'apply' mode.
+                    // If in 'dossier' mode, we allow them to download the file anyway.
+                    if (checkRes.data?.isExist && props.mode === 'apply') {
+                        isSubmitting.value = false;
+                        await closeDossierModal();
+                        showAlert('', 'An account with this email address already exists. Please <a href="/login" class="text-purple fw-bold">log in</a> or <a href="/forgot-password" class="text-purple fw-bold">reset your password</a> if you <a href="/forgot-password" class="text-purple fw-bold">forgot it</a>.', 'error')
+                        return;
+                    }
+                } catch (checkErr: any) {
+                    // 404 means email NOT found, which is what we want for a new registration.
+                    // If it's not a 404, then it's a real server error.
+                    if (checkErr.status !== 404) {
+                        console.error('[CheckEmail - submitForm] Error:', checkErr);
+                        isSubmitting.value = false;
+                        showNotification('error', 'Failed to validate email status. Please try again.');
+                        return;
+                    }
+                    // If 404, we just continue normally.
+                }
+
                 const response: any = await $fetch(`${config.public.apiBase}/api/career/createdossierform`, {
                     method: "POST",
                     body: payload
@@ -423,21 +497,94 @@ export default defineComponent({
         };
 
         const handleNavigation = () => {
-             // Let the router go wherever it wants via NuxtLink
-             // but force the modal to close locally to clear backdrops
-             closeDossierModal().then(() => {
-                 setTimeout(() => {
-                     restoreBodyScroll();
-                 }, 300); // 300ms accounts for standard bootstrap transition
-             });
+            // Let the router go wherever it wants via NuxtLink
+            // but force the modal to close locally to clear backdrops
+            closeDossierModal().then(() => {
+                setTimeout(() => {
+                    restoreBodyScroll();
+                }, 300); // 300ms accounts for standard bootstrap transition
+            });
+        };
+
+        const autoLogin = async (email: string, password: string, pid: string = '') => {
+            try {
+                processingMessage.value = 'Signing you in...';
+                const config = useRuntimeConfig();
+                const response: any = await $fetch(
+                    `${config.public.apiBase}/api/users/website_login/`,
+                    {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: {
+                            email: email,
+                            password: password,
+                            role: 'student',
+                        },
+                    }
+                );
+
+                if (response.data?.token) {
+                    const { access, refresh } = response.data.token;
+                    const user_role = response.data.user_role ?? null;
+                    const user_id = response.data.user_id ?? null;
+
+                    auth.login({ access, refresh, user_role, user_id });
+
+                    // Show final success state in the modal
+                    paymentStatus.value = 'success';
+                    paymentId.value = pid;
+                    processingMessage.value = 'Successfully registered! Redirecting to profile...';
+
+                    setTimeout(() => {
+                        window.location.href = '/profile';
+                    }, 3000);
+                }
+            } catch (err: any) {
+                await closeStatusModal();
+                console.error('[AutoLogin] Error:', err);
+                showAlert('Login Failed', 'Account created but automatic login failed. Please login manually.', 'error');
+            }
         };
 
         const handlePayment = async () => {
+            if (!validateForm()) return;
+
             notification.message = '';
             notification.type = '';
-            isPaymentInProgress.value = true;
+
+            const config = useRuntimeConfig();
+
+            // 1. Pre-Payment Email Validation (Checked BEFORE showing any modal)
             try {
-                // 1. Call backend to create Cashfree order
+                const checkRes: any = await $fetch(
+                    `${config.public.apiBase}/api/users/check_email/`,
+                    {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: { email: form.email },
+                    }
+                );
+
+                if (checkRes.data?.isExist) {
+                    await closeDossierModal(); // Close dossier before showing error
+                    showAlert('', 'An account with this email address already exists. Please <a href="/login" class="text-purple fw-bold">log in</a> or <a href="/forgot-password" class="text-purple fw-bold">reset your password</a> if you <a href="/forgot-password" class="text-purple fw-bold">forgot it</a>.', 'error');
+                    return;
+                }
+            } catch (checkErr: any) {
+                // If status is 404, it means email is NOT registered, so we proceed.
+                if (checkErr.status !== 404) {
+                    console.error('[CheckEmail] Error:', checkErr);
+                    showAlert('Validation Error', 'Failed to validate email status. Please try again.', 'error');
+                    return;
+                }
+                // If 404, email is available, so we continue to payment.
+            }
+
+            // Open the Status Modal in processing mode only AFTER validation passes
+            await openStatusModal('processing', 'Initializing payment...');
+
+            try {
+                // 2. Initialize Payment
                 const res: any = await $fetch("/api/start-payment", {
                     method: "POST",
                     body: {
@@ -451,22 +598,24 @@ export default defineComponent({
                 });
 
                 if (!res.success) {
+                    await closeStatusModal();
                     showNotification('error', res.message || 'Payment initiation failed');
                     return;
                 }
 
-                // Close dossier modal and wait for it to fully hide before opening Cashfree
+                // Close DossierModal once we are moving to payment gateway
                 await closeDossierModal();
-                restoreBodyScroll();
+                // Temporarily hide StatusModal while Cashfree is open to avoid overlay confusion
+                await closeStatusModal();
 
-                // 2. Load Cashfree JS SDK
+                // 3. Load Cashfree JS SDK
                 const loaded = await loadCashfreeScript();
                 if (!loaded || !(window as any).Cashfree) {
                     alert("Cashfree SDK failed to load");
                     return;
                 }
 
-                // 3. Open Cashfree Checkout
+                // 4. Open Cashfree Checkout
                 const cfMode = res.environment === 'PRODUCTION' ? 'production' : 'sandbox';
                 const cashfree = (window as any).Cashfree({ mode: cfMode });
 
@@ -492,24 +641,27 @@ export default defineComponent({
                         } catch (e) { console.error("Failed to report failure:", e); }
 
                     } else if (result.paymentDetails) {
-                        // Payment successful – verify on server
+                        // RE-OPEN Status Modal to show progress
+                        await openStatusModal('processing', 'Verifying payment...');
+
                         try {
+                            // 5. Verify Payment
                             await $fetch("/api/complete-payment", {
                                 method: "POST",
                                 body: {
                                     cf_order_id: res.cf_order_id
-                                    // cf_payment_id not needed: backend uses PGOrderFetchPayments
                                 }
                             });
+
+                            // 6. Create Student Account after successful payment
+                            processingMessage.value = 'Creating your account...';
                             try {
-                                const config = useRuntimeConfig();
-                                await $fetch(
+                                const studentRes: any = await $fetch(
                                     `${config.public.apiBase}/api/users/create_student/`,
                                     {
                                         method: 'POST',
                                         headers: { 'Content-Type': 'application/json' },
-                                        body:
-                                        {
+                                        body: {
                                             "full_name": form.name,
                                             "email": form.email,
                                             "city": form.city,
@@ -518,45 +670,42 @@ export default defineComponent({
                                             "phone1": form.phone
                                         },
                                     }
-                                )
-                            } catch (studentErr: any) {
-                                const errors = studentErr?.data?.non_field_errors || [];
-                                if (errors.includes("Email address is already registered with Us")) {
-                                    console.log("Student already registered, proceeding.");
+                                );
+
+                                if (studentRes.success && studentRes.data?.password) {
+                                    await autoLogin(form.email, studentRes.data.password, res.cf_order_id);
                                 } else {
-                                    console.error("[PAYMENT] create_student error:", studentErr);
+                                    // Fallback success state if registration fails but payment was done
+                                    paymentStatus.value = 'success';
+                                    paymentId.value = res.cf_order_id;
+                                    processingMessage.value = 'Payment Successful! Redirecting to profile...';
+                                    resetForm();
+                                    setTimeout(() => {
+                                        window.location.href = '/profile';
+                                    }, 3000);
                                 }
+                            } catch (regErr: any) {
+                                console.error("[PAYMENT] Registration error after payment:", regErr);
+                                paymentStatus.value = 'success';
+                                paymentId.value = res.cf_order_id;
+                                processingMessage.value = 'Payment Successful! Redirecting to profile...';
+                                setTimeout(() => {
+                                    window.location.href = '/profile';
+                                }, 3000);
                             }
-                            resetForm()
 
                         } catch (e) {
+                            await closeStatusModal();
                             console.error("[PAYMENT] complete-payment error:", e);
+                            showAlert('Payment Error', 'Payment verification failed. Please contact support.', 'error');
                         }
-
-                        // Close modal and reset fields after successful payment
-                        await closeDossierModal();
-                        resetForm();
-
-                        openStatusModal('success', res.cf_order_id);
                     }
                 });
 
-                // ── RAZORPAY CHECKOUT (disabled) ─────────────────────────────────────
-                // const options = {
-                //   key: res.razorpay_key, amount: res.amount, currency: res.currency,
-                //   name: "Application Fee", order_id: res.razorpay_order_id,
-                //   handler: async (response) => { await $fetch("/api/complete-payment", { ... }); ... openStatusModal(...) },
-                //   prefill: { name, email, contact: phone }, modal: { ondismiss: () => restoreBodyScroll() },
-                // };
-                // const rzp = new (window as any).Razorpay(options);
-                // rzp.on("payment.failed", async (response) => { ... });
-                // rzp.open();
-
             } catch (err) {
+                await closeStatusModal();
                 console.error(err);
                 showNotification('error', 'Payment initiation failed');
-            } finally {
-                isPaymentInProgress.value = false;
             }
         };
 
@@ -592,13 +741,20 @@ export default defineComponent({
             paymentStatus,
             paymentId,
             statusModalId,
-            handleNavigation
+            handleNavigation,
+            alertPopup,
+            isProcessing,
+            processingMessage
         };
     }
 });
 </script>
 
 <style scoped>
+.text-purple {
+    color: #8A2BE2;
+}
+
 .modal-content {
     border-radius: 30px;
     box-shadow: 0 15px 50px rgba(138, 43, 226, 0.2);

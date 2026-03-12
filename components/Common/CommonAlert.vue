@@ -1,20 +1,22 @@
 <template>
-    <div v-if="show" class="custom-modal-overlay">
-        <div class="custom-modal p-4 position-relative">
-            <!-- Close Icon Top Right -->
-            <button class="btn-close position-absolute top-0 end-0 m-3" @click="$emit('close')"
-                aria-label="Close"></button>
+    <Teleport to="body">
+        <div v-if="show" class="custom-modal-overlay">
+            <div class="custom-modal p-4 position-relative">
+                <!-- Close Icon Top Right -->
+                <button class="btn-close position-absolute top-0 end-0 m-3" @click="$emit('close')"
+                    aria-label="Close"></button>
 
-            <div class="text-center pb-3 pt-2">
-                <!-- <div class="mb-3">
-                    <i :class="iconClass" style="font-size: 48px;"></i>
-                </div> -->
-                <h5 class="mb-2 fw-bold" style="font-size: 18px; color: #333;">{{ title }}</h5>
-                <p class="text-muted" style="font-size: 16px;">{{ message }}</p>
+                <div class="text-center pb-3 pt-2">
+                    <!-- <div class="mb-3">
+                        <i :class="iconClass" style="font-size: 48px;"></i>
+                    </div> -->
+                    <h5 class="mb-2 fw-bold" style="font-size: 18px; color: #333;">{{ title }}</h5>
+                    <p class="text-muted" style="font-size: 16px;" v-html="message"></p>
+                </div>
+                <!-- Removed bottom OK button as requested -->
             </div>
-            <!-- Removed bottom OK button as requested -->
         </div>
-    </div>
+    </Teleport>
 </template>
 
 <script setup lang="ts">
@@ -65,7 +67,7 @@ const iconClass = computed(() => {
     width: 100%;
     height: 100%;
     background: rgba(0, 0, 0, 0.5);
-    z-index: 1050;
+    z-index: 9999;
     display: flex;
     justify-content: center;
     align-items: center;
