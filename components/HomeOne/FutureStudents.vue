@@ -57,7 +57,7 @@
           </div>
 
           <div class="ticket-footer">
-            <a href="/nfet-exam" class="status-link">
+            <a href="/nfet" class="status-link">
               Your Professional Journey Begins Here.
             </a>
 
