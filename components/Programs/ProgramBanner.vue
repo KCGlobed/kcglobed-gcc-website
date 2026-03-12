@@ -171,7 +171,12 @@
     </div>
 
     <!-- Payment Status Modal -->
-    <PaymentStatusModal :modal-id="statusModalId" :status="paymentStatus" :payment-id="paymentId" />
+    <PaymentStatusModal :modal-id="statusModalId" :status="paymentStatus" :payment-id="paymentId"
+        :message="processingMessage" />
+
+    <!-- Error/Success Alert Popup -->
+    <CommonAlert :show="alertPopup.show" :title="alertPopup.title" :message="alertPopup.message" :type="alertPopup.type"
+        @close="alertPopup.show = false" />
 </template>
 
 <style scoped>
@@ -595,7 +600,8 @@ import gccPdf from "../../assets/gcc.pdf";
 export default defineComponent({
     name: "ProgramBanner",
     components: {
-        PaymentStatusModal: defineAsyncComponent(() => import('~/components/Common/PaymentStatusModal.vue'))
+        PaymentStatusModal: defineAsyncComponent(() => import('~/components/Common/PaymentStatusModal.vue')),
+        CommonAlert: defineAsyncComponent(() => import('~/components/Common/CommonAlert.vue'))
     },
     setup() {
         const isSubmitting = ref(false);
@@ -603,9 +609,66 @@ export default defineComponent({
         const isPaymentInProgress = ref(false);
         const formId = ref<number | null>(null);
         const notification = reactive({ type: '', message: '' });
-        const paymentStatus = ref<'success' | ''>('');
+        const paymentStatus = ref<'success' | 'failed' | 'processing' | ''>('');
         const paymentId = ref('');
+        const processingMessage = ref('');
         const statusModalId = 'paymentStatusModal_programBanner';
+
+        const auth = useAuth();
+
+        const alertPopup = reactive({
+            show: false,
+            title: '',
+            message: '',
+            type: 'error' as 'error' | 'success'
+        });
+
+        const showAlert = (title: string, message: string, type: 'error' | 'success' = 'error') => {
+            alertPopup.title = title;
+            alertPopup.message = message;
+            alertPopup.type = type;
+            alertPopup.show = true;
+        };
+
+        const autoLogin = async (email: string, password: string, pid: string = '') => {
+            try {
+                processingMessage.value = 'Signing you in...';
+                const config = useRuntimeConfig();
+                const response: any = await $fetch(
+                    `${config.public.apiBase}/api/users/website_login/`,
+                    {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: {
+                            email: email,
+                            password: password,
+                            role: 'student',
+                        },
+                    }
+                );
+
+                if (response.data?.token) {
+                    const { access, refresh } = response.data.token;
+                    const user_role = response.data.user_role ?? null;
+                    const user_id = response.data.user_id ?? null;
+
+                    auth.login({ access, refresh, user_role, user_id });
+
+                    // Show final success state in the modal
+                    paymentStatus.value = 'success';
+                    paymentId.value = pid;
+                    processingMessage.value = 'Successfully registered! Redirecting to profile...';
+
+                    setTimeout(() => {
+                        window.location.href = '/profile';
+                    }, 3000);
+                }
+            } catch (err: any) {
+                await closeStatusModal();
+                console.error('[AutoLogin] Error:', err);
+                showAlert('Login Failed', 'Account created but automatic login failed. Please login manually.', 'error');
+            }
+        };
 
         const form = reactive({
             name: "",
@@ -671,14 +734,27 @@ export default defineComponent({
             notification.message = message;
         };
 
-        const openStatusModal = async (status: 'success', pid: string = '') => {
+        const openStatusModal = async (status: 'success' | 'failed' | 'processing', message: string = '', pid: string = '') => {
             paymentStatus.value = status;
+            processingMessage.value = message;
             paymentId.value = pid;
             await nextTick();
             const el = document.getElementById(statusModalId);
             if (el) {
                 const { Modal } = await import('bootstrap');
-                new Modal(el).show();
+                const modal = Modal.getInstance(el) || new Modal(el);
+                modal.show();
+            }
+        };
+
+        const closeStatusModal = async () => {
+            const el = document.getElementById(statusModalId);
+            if (el) {
+                const { Modal } = await import('bootstrap');
+                const modal = Modal.getInstance(el);
+                if (modal) {
+                    modal.hide();
+                }
             }
         };
 
@@ -753,6 +829,31 @@ export default defineComponent({
             notification.message = '';
 
             try {
+                const config = useRuntimeConfig();
+
+                // ── Pre-Dossier Email Validation ──
+                try {
+                    const checkRes: any = await $fetch(
+                        `${config.public.apiBase}/api/users/check_email/`,
+                        {
+                            method: 'POST',
+                            headers: { 'Content-Type': 'application/json' },
+                            body: { email: form.email },
+                        }
+                    );
+
+                    if (checkRes.data?.isExist) {
+                        // We DON'T block download here anymore, just like DossierModal
+                        console.log("Email already exists, but allowing brochure download.");
+                    }
+                } catch (checkErr: any) {
+                    if (checkErr.status !== 404) {
+                        console.error('[CheckEmail - ProgramBanner] Error:', checkErr);
+                        // We still continue to brochure creation even if validation fails?
+                        // Actually, let's just log it and proceed to let them download.
+                    }
+                }
+
                 const payload = {
                     full_name: form.name,
                     email: form.email,
@@ -761,17 +862,32 @@ export default defineComponent({
                     city: form.city
                 };
 
-                const config = useRuntimeConfig();
                 const response: any = await $fetch(`${config.public.apiBase}/api/career/createdossierform`, {
                     method: "POST",
                     body: payload
                 });
+
                 if (response.success && response.data?.url) {
                     const fileUrl = response.data.url;
                     formId.value = response.data.id;
                     const fileName = fileUrl.split('/').pop() || 'Brochure.pdf';
 
-                    // Download on same page via proxy
+                    // Save lead instantly
+                    $fetch("/api/save-lead", {
+                        method: "POST",
+                        body: {
+                            name: form.name,
+                            email: form.email,
+                            mobile: form.mobile,
+                            state: form.state,
+                            city: form.city,
+                            form_type: 2,
+                            form_id: formId.value,
+                            action: 'download_brochure_clicked'
+                        }
+                    }).catch(() => { });
+
+                    // Download the file
                     window.location.href = `/api/download?url=${encodeURIComponent(fileUrl)}&filename=${encodeURIComponent(fileName)}`;
                     isDownloaded.value = true;
                     showNotification('success', 'Brochure downloaded! You can now proceed to pay the application fee.');
@@ -814,7 +930,37 @@ export default defineComponent({
             notification.message = '';
             notification.type = '';
             isPaymentInProgress.value = true;
+            
             try {
+                const config = useRuntimeConfig();
+
+                // ── Pre-Payment Email Validation ──
+                // (Block if they try to pay but are already registered)
+                try {
+                    const checkRes: any = await $fetch(
+                        `${config.public.apiBase}/api/users/check_email/`,
+                        {
+                            method: 'POST',
+                            headers: { 'Content-Type': 'application/json' },
+                            body: { email: form.email },
+                        }
+                    );
+
+                    if (checkRes.data?.isExist) {
+                        showAlert('', 'An account with this email address already exists. Please <a href="/login" class="text-purple fw-bold">log in</a> or <a href="/forgot-password" class="text-purple fw-bold">reset your password</a> if you <a href="/forgot-password" class="text-purple fw-bold">forgot it</a>.', 'error');
+                        return;
+                    }
+                } catch (checkErr: any) {
+                    if (checkErr.status !== 404) {
+                        console.error('[CheckEmail - handlePayment] Error:', checkErr);
+                        showNotification('error', 'Failed to validate email status. Please try again.');
+                        return;
+                    }
+                }
+
+                // Open processing modal immediately AFTER validation passes
+                await openStatusModal('processing', 'Initializing payment...');
+
                 // 1. Call backend to create Cashfree order
                 const res: any = await $fetch("/api/start-payment", {
                     method: "POST",
@@ -829,9 +975,12 @@ export default defineComponent({
                 });
 
                 if (!res.success) {
+                    await closeStatusModal();
                     showNotification('error', res.message || 'Payment initiation failed');
                     return;
                 }
+
+                processingMessage.value = 'Opening secure payment gateway...';
 
                 // 2. Load Cashfree JS SDK
                 const loaded = await loadCashfreeScript();
@@ -864,60 +1013,76 @@ export default defineComponent({
                         } catch (e) { console.error("Failed to report failure:", e); }
 
                     } else if (result.paymentDetails) {
-                        // Payment successful – verify on server
+                        // RE-OPEN Status Modal to show progress
+                        await openStatusModal('processing', 'Verifying payment...');
+
                         try {
+                            const config = useRuntimeConfig();
+                            // 5. Verify Payment
                             await $fetch("/api/complete-payment", {
                                 method: "POST",
                                 body: {
                                     cf_order_id: res.cf_order_id
-                                    // cf_payment_id not needed: backend uses PGOrderFetchPayments
                                 }
                             });
 
+                            // 6. Create Student Account after successful payment
+                            processingMessage.value = 'Creating your account...';
                             try {
-                                const config = useRuntimeConfig();
-                                await $fetch(
+                                const studentRes: any = await $fetch(
                                     `${config.public.apiBase}/api/users/create_student/`,
                                     {
                                         method: 'POST',
                                         headers: { 'Content-Type': 'application/json' },
-                                        body:
-                                        {
+                                        body: {
                                             "full_name": form.name,
                                             "email": form.email,
-                                            "phone1": form.mobile,
                                             "city": form.city,
                                             "state": form.state,
-                                            "country": "India"
+                                            "country": "India",
+                                            "phone1": form.mobile
                                         },
                                     }
                                 );
-                            } catch (studentErr: any) {
-                                const errors = studentErr?.data?.non_field_errors || [];
-                                if (errors.includes("Email address is already registered with Us")) {
-                                    console.log("Student already registered, proceeding.");
+
+                                if (studentRes.success && studentRes.data?.password) {
+                                    await autoLogin(form.email, studentRes.data.password, res.cf_order_id);
                                 } else {
-                                    console.error("[PAYMENT] create_student error:", studentErr);
+                                    // Fallback success state if registration fails but payment was done
+                                    paymentStatus.value = 'success';
+                                    paymentId.value = res.cf_order_id;
+                                    processingMessage.value = 'Payment Successful! Redirecting to profile...';
+                                    
+                                    // Reset form
+                                    form.name = '';
+                                    form.email = '';
+                                    form.mobile = '';
+                                    form.state = '';
+                                    form.city = '';
+                                    form.consent = false;
+                                    citiesList.value = [];
+                                    isDownloaded.value = false;
+                                    formId.value = null;
+
+                                    setTimeout(() => {
+                                        window.location.href = '/profile';
+                                    }, 3000);
                                 }
+                            } catch (regErr: any) {
+                                console.error("[PAYMENT] Registration error after payment:", regErr);
+                                paymentStatus.value = 'success';
+                                paymentId.value = res.cf_order_id;
+                                processingMessage.value = 'Payment Successful! Redirecting to profile...';
+                                setTimeout(() => {
+                                    window.location.href = '/profile';
+                                }, 3000);
                             }
+
                         } catch (e) {
+                            await closeStatusModal();
                             console.error("[PAYMENT] complete-payment error:", e);
+                            showAlert('Payment Error', 'Payment verification failed. Please contact support.', 'error');
                         }
-
-                        openStatusModal('success', res.cf_order_id);
-
-                        // Reset form after successful payment
-                        form.name = '';
-                        form.email = '';
-                        form.mobile = '';
-                        form.state = '';
-                        form.city = '';
-                        form.consent = false;
-                        citiesList.value = [];
-                        isDownloaded.value = false;
-                        formId.value = null;
-                        notification.message = '';
-                        notification.type = '';
                     }
                 });
 
@@ -953,7 +1118,9 @@ export default defineComponent({
             notification,
             paymentStatus,
             paymentId,
+            processingMessage,
             statusModalId,
+            alertPopup,
             onStateChange,
             validateForm,
             submitForm,
