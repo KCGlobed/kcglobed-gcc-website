@@ -1,7 +1,6 @@
 <template>
     <div>
-        <LayoutTopHeader />
-        <LayoutMainNavbar />
+        <LayoutProfileHeader />
         <!-- <CommonInnerPageBanner pageTitle="Profile" /> -->
         <!-- Main Layout Split -->
         <div class="container pt-50 pb-100">
@@ -241,7 +240,7 @@
                                         style="width: 28px; height: 28px;" @click="prevMonth"><i
                                             class="ti ti-chevron-left"></i></button>
                                     <span class="fw-bold text-dark" style="font-size: 14px;">{{ monthNames[currentMonth]
-                                        }}
+                                    }}
                                         {{ currentYear }}</span>
                                     <button
                                         class="btn btn-sm btn-white border shadow-sm p-1 d-flex align-items-center justify-content-center"
