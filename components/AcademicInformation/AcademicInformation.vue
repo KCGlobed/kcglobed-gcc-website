@@ -33,7 +33,7 @@
         </div>
         <div class="col-lg-3">
           <div class="input-box mb-0">
-            <label class="form-label fw-bold">Medium <span>*</span></label>
+            <label class="form-label fw-bold">Medium of Instruction <span>*</span></label>
             <select class="form-select" v-model="formData.class10_medium">
               <option>English</option>
               <option>Hindi</option>
@@ -73,7 +73,7 @@
         </div>
         <div class="col-lg-3">
           <div class="input-box mb-0">
-            <label class="form-label fw-bold">Medium <span>*</span></label>
+            <label class="form-label fw-bold">Medium of Instruction <span>*</span></label>
             <select class="form-select" v-model="formData.class12_medium">
               <option>English</option>
               <option>Hindi</option>

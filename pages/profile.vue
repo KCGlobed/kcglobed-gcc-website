@@ -86,7 +86,7 @@
                                     <div class="accordion-header-right">
                                         <span v-if="!isProfileEmpty && !isEditingSection[1]" @click.stop="enableEdit(1)"
                                             class="edit-icon-btn me-3" title="Edit Section">
-                                            <i class="ti ti-pencil fs-5 text-primary"></i>
+                                            <i class="ti ti-pencil fs-5 text-[#872980]"></i>
                                         </span>
                                         <i class="ti accordion-chevron"
                                             :class="isSectionOpen(1) ? 'ti-chevron-up' : 'ti-chevron-down'"></i>
@@ -112,7 +112,7 @@
                                     <div class="accordion-header-right">
                                         <span v-if="!isProfileEmpty && !isEditingSection[2]" @click.stop="enableEdit(2)"
                                             class="edit-icon-btn me-3" title="Edit Section">
-                                            <i class="ti ti-pencil fs-5 text-primary"></i>
+                                            <i class="ti ti-pencil fs-5 text-[#872980]"></i>
                                         </span>
                                         <i class="ti accordion-chevron"
                                             :class="isSectionOpen(2) ? 'ti-chevron-up' : 'ti-chevron-down'"></i>
@@ -137,7 +137,7 @@
                                     <div class="accordion-header-right">
                                         <span v-if="!isProfileEmpty && !isEditingSection[3]" @click.stop="enableEdit(3)"
                                             class="edit-icon-btn me-3" title="Edit Section">
-                                            <i class="ti ti-pencil fs-5 text-primary"></i>
+                                            <i class="ti ti-pencil fs-5 text-[#872980]"></i>
                                         </span>
                                         <i class="ti accordion-chevron"
                                             :class="isSectionOpen(3) ? 'ti-chevron-up' : 'ti-chevron-down'"></i>
@@ -164,7 +164,7 @@
                                     <div class="accordion-header-right">
                                         <span v-if="!isProfileEmpty && !isEditingSection[4]" @click.stop="enableEdit(4)"
                                             class="edit-icon-btn me-3" title="Edit Section">
-                                            <i class="ti ti-pencil fs-5 text-primary"></i>
+                                            <i class="ti ti-pencil fs-5 text-[#872980]"></i>
                                         </span>
                                         <i class="ti accordion-chevron"
                                             :class="isSectionOpen(4) ? 'ti-chevron-up' : 'ti-chevron-down'"></i>
