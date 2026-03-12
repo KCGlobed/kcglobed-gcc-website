@@ -6,11 +6,11 @@
     <SearchPopup />
     <MainSidebar />
     <GoTop />
-    
+
     <!-- feedback button & popup -->
     <button class="feedback-btn" @click="showFeedback = true"><i class="ti ti-message"></i></button>
     <FeedbackPopup v-model="showFeedback" />
-    
+
     <!-- only show on non‑profile routes -->
     <ContactSlide v-if="showContactSlide" />
   </div>
@@ -71,11 +71,15 @@ export default defineComponent({
   border: none;
   padding: .75rem 1rem;
   border-radius: 50px;
-  box-shadow: 0 2px 6px rgba(0,0,0,.3);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, .3);
   cursor: pointer;
   z-index: 999;
   font-weight: 500;
   transition: background 0.3s ease;
+}
+
+.feedback-btn i {
+  font-size: 24px;
 }
 
 .feedback-btn:hover {

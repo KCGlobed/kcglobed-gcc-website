@@ -4,7 +4,7 @@
       <button class="close" @click="close">×</button>
 
       <div class="modal-header justify-center p-0">
-        <h2>Feedback & Issues</h2>
+        <h2>Ask Your Query</h2>
       </div>
 
       <form @submit.prevent="handleSubmit" novalidate>
@@ -58,7 +58,6 @@
         <div v-if="apiError" class="error-banner">⚠ {{ apiError }}</div>
 
         <div class="form-actions">
-          <button type="button" class="btn-cancel" @click="close">Cancel</button>
           <button type="submit" class="btn-submit" :disabled="submitting">
             <span v-if="submitting" class="spinner"></span>
             {{ submitting ? 'Submitting…' : 'Submit' }}
@@ -331,10 +330,13 @@ textarea {
   align-items: center;
   gap: 0.4rem;
   transition: background 0.15s, transform 0.1s;
+  width: 100%;
+  justify-content: center;
+
 }
 
 .btn-submit:hover:not(:disabled) {
-  background: #4f46e5;
+  background: #872a80;
   transform: translateY(-1px);
 }
 
