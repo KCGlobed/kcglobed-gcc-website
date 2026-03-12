@@ -1,9 +1,10 @@
 <template>
     <div>
-        <LayoutTopHeader />
-        <LayoutMainNavbar />
-        <!-- <CommonInnerPageBanner pageTitle="Profile" /> -->
+        <!-- <LayoutTopHeader />
+        <LayoutMainNavbar /> -->
+        <LayoutProfileHeader />
 
+        <!-- <CommonInnerPageBanner pageTitle="Profile" /> -->
         <!-- Main Layout Split -->
         <div class="container pt-50 pb-100">
             <div class="row">
@@ -261,7 +262,8 @@
                                             'blocked': day && day.isBlocked,
                                             'selected': day && day.dateString === selectedDate,
                                             'cursor-not-allowed': bookingDetails.updateCount >= 2 && day && day.isAllowed
-                                        }" :title="day && day.isBlocked ? 'fully booked' : (bookingDetails.updateCount >= 2 ? 'Update limit reached' : '')"
+                                        }"
+                                        :title="day && day.isBlocked ? 'fully booked' : (bookingDetails.updateCount >= 2 ? 'Update limit reached' : '')"
                                         @click="bookingDetails.updateCount < 2 && selectDate(day)">
                                         {{ day ? day.day : '' }}
                                     </div>
@@ -275,7 +277,9 @@
                                         <button v-for="slot in availableSlots" :key="slot.id"
                                             class="btn btn-sm flex-grow-1" :class="[
                                                 selectedSlot === slot.id ? 'btn-primary text-white custom-primary-bg' : 'btn-outline-secondary',
-                                            ]" @click="!slot.disabled && bookingDetails.updateCount < 2 && selectSlot(slot)" :disabled="slot.disabled || bookingDetails.updateCount >= 2"
+                                            ]"
+                                            @click="!slot.disabled && bookingDetails.updateCount < 2 && selectSlot(slot)"
+                                            :disabled="slot.disabled || bookingDetails.updateCount >= 2"
                                             :title="bookingDetails.updateCount >= 2 ? 'Update limit reached' : (slot.disabled ? 'This slot is no longer available (48-hour restriction)' : '')"
                                             style="font-size: 12px; min-width: 45%;">
                                             {{ slot.time }}
@@ -298,20 +302,24 @@
                                                 <span class="custom-tooltip-wrapper d-inline-block ms-1" @click.stop>
                                                     <i class="ti ti-info-circle" style="font-size: 16px;"></i>
                                                     <div class="custom-tooltip-content" style="pointer-events: none;">
-                                                        Slot can be changed once, at least 48 hours before the scheduled time
+                                                        Slot can be changed once, at least 48 hours before the scheduled
+                                                        time
                                                     </div>
                                                 </span>
                                             </template>
-                                            
+
                                             <!-- state 2: Update Count === 1 -->
                                             <template v-else-if="bookingDetails.updateCount === 1">
                                                 <div class="d-flex flex-column align-items-center"
                                                     style="line-height: 1.2;">
                                                     <span>Change Slot
-                                                        <span class="custom-tooltip-wrapper d-inline-block ms-1" @click.stop>
+                                                        <span class="custom-tooltip-wrapper d-inline-block ms-1"
+                                                            @click.stop>
                                                             <i class="ti ti-info-circle" style="font-size: 16px;"></i>
-                                                            <div class="custom-tooltip-content" style="pointer-events: none; bottom: 120%;">
-                                                                Slot can be changed once, at least 48 hours before the scheduled time
+                                                            <div class="custom-tooltip-content"
+                                                                style="pointer-events: none; bottom: 120%;">
+                                                                Slot can be changed once, at least 48 hours before the
+                                                                scheduled time
                                                             </div>
                                                         </span>
                                                     </span>
@@ -323,12 +331,29 @@
 
                                     <!-- Admit Card Button -->
                                     <button v-if="showAdmitCardButton"
-                                        class="btn btn-outline-success w-100 d-flex justify-content-center align-items-center gap-2"
+                                        class="btn btn-outline-success w-100 d-flex justify-content-center align-items-center gap-2 mb-2"
                                         @click="downloadAdmitCard" :disabled="isDownloadingAdmitCard">
                                         <span v-if="isDownloadingAdmitCard" class="spinner-border spinner-border-sm"
                                             role="status" aria-hidden="true"></span>
                                         <template v-else>Generate Admit Card <i class="ti ti-download"></i></template>
                                     </button>
+
+                                    <!-- Start Exam Button -->
+                                    <a href="https://cocubes.in/gccschool-nfet" target="_blank"
+                                        class="btn w-100 d-flex justify-content-center align-items-center gap-2"
+                                        :class="bookingDetails.examStatus ? 'btn-primary custom-primary-bg' : 'btn-secondary disabled'"
+                                        v-if="bookingDetails.isBooked">
+                                        Start Exam
+                                        <i class="ti ti-external-link"></i>
+                                        <span class="custom-tooltip-wrapper d-inline-block ms-1" @click.stop.prevent>
+                                            <i class="ti ti-info-circle" style="font-size: 16px;"></i>
+                                            <div class="custom-tooltip-content"
+                                                style="pointer-events: none; bottom: 120%;">
+                                                {{ bookingDetails.examStatus ? 'The exam is enabled and ready to start'
+                                                    : 'Exam will be enabled 1 hour before the scheduled time.' }}
+                                            </div>
+                                        </span>
+                                    </a>
                                 </div>
                                 <p v-else
                                     class="text-muted small text-center py-2 px-3 bg-light rounded border border-dashed mt-3">
@@ -412,7 +437,8 @@ const bookingDetails = reactive({
     date: "",
     time: "",
     admitCardUrl: "" as string | null,
-    updateCount: 0
+    updateCount: 0,
+    examStatus: false
 });
 
 const showAdmitCardButton = ref(false);
@@ -467,16 +493,20 @@ const fetchStudentDetail = async () => {
 
             formData.class10_year = d.tenth_passing_year || "";
             formData.class10_score = d.tenth_passing_percentage || "";
+            const mediumReverseMap: Record<number, string> = { 1: "English", 2: "Hindi", 3: "Other" };
+            formData.class10_type = d.tenth_score_type || "Percentage";
+            formData.class10_medium = mediumReverseMap[d.tenth_medium] || "English";
+
             formData.class12_year = d.twelveth_passing_year || "";
             formData.class12_score = d.twelveth_passing_percentage || "";
-
-            const mediumReverseMap: Record<number, string> = { 1: "English", 2: "Hindi", 3: "Other" };
-            formData.medium = mediumReverseMap[d.medium_instruction] || "";
-            formData.medium_other = d.other_instruction || "";
+            formData.class12_type = d.twelveth_score_type || "Percentage";
+            formData.class12_medium = mediumReverseMap[d.twelveth_medium] || "English";
 
             const pgStatusReverseMap: Record<number, string> = { 1: "1", 2: "2" };
             formData.ug_status = pgStatusReverseMap[d.pg_status] || "1";
             formData.ug_cgpa = d.pg_percentage || "";
+            formData.ug_type = d.ug_score_type || "CGPA";
+            formData.ug_medium = mediumReverseMap[d.medium_instruction] || "English";
             formData.ug_institution = d.institution || "";
 
             const higherEdReverseMap: Record<number, string> = { 1: "Yes", 2: "No" };
@@ -531,6 +561,9 @@ const fetchStudentDetail = async () => {
                 // Always show admit card button if slot is already booked
                 showAdmitCardButton.value = true;
             }
+
+            // Map exam_status from backend
+            bookingDetails.examStatus = d.exam_status === true || d.exam_status === "true" || d.exam_status === 1;
         }
 
         // Fetch image specifically from the detail API as requested and fill fallback profile data
@@ -923,13 +956,22 @@ const formData = reactive({
     pin_code: "",
     complete_address: "",
     class10_year: "",
+    class10_type: "Percentage",
     class10_score: "",
+    class10_medium: "English",
+    class10_medium_other: "",
     class12_year: "",
+    class12_type: "Percentage",
     class12_score: "",
+    class12_medium: "English",
+    class12_medium_other: "",
     medium: "",
     medium_other: "",
     ug_status: "1",
+    ug_type: "CGPA",
     ug_cgpa: "",
+    ug_medium: "English",
+    ug_medium_other: "",
     ug_institution: "",
     pg_exists: "",
     pg_type: "",
@@ -1064,18 +1106,24 @@ const handleFinalSubmit = async () => {
         const genderMap: any = { "Male": 1, "Female": 2, "Other": 3 };
         data.append('gender', genderMap[formData.gender] || 1);
 
+        const mediumMap: any = { "English": 1, "Hindi": 2, "Other": 3 };
         data.append('tenth_passing_year', formData.class10_year || "");
         data.append('tenth_passing_percentage', formData.class10_score || "");
+        data.append('tenth_score_type', formData.class10_type);
+        data.append('tenth_medium', mediumMap[formData.class10_medium] || 1);
+
         data.append('twelveth_passing_year', formData.class12_year || "");
         data.append('twelveth_passing_percentage', formData.class12_score || "");
+        data.append('twelveth_score_type', formData.class12_type);
+        data.append('twelveth_medium', mediumMap[formData.class12_medium] || 1);
 
-        const mediumMap: any = { "English": 1, "Hindi": 2, "Other": 3 };
-        data.append('medium_instruction', mediumMap[formData.medium] || 1);
+        data.append('medium_instruction', mediumMap[formData.ug_medium] || 1);
         data.append('other_instruction', formData.medium_other || "");
 
         const pgStatusMap: any = { "1": 1, "2": 2 };
         data.append('pg_status', pgStatusMap[formData.ug_status] || 1);
         data.append('pg_percentage', formData.ug_cgpa || "");
+        data.append('ug_score_type', formData.ug_type);
         data.append('institution', formData.ug_institution || "");
 
         const higherEdMap: any = { "Yes": 1, "No": 2 };
