@@ -158,14 +158,16 @@ export default defineEventHandler(async (event) => {
                 // Determine payment link, could be the profile page or a direct checkout link
                 const siteUrl = config.public?.siteUrl || "https://www.gccschool.com";
                 const paymentLink = `${siteUrl}`;
-
                 await sendPaymentFailureEmail({
                     to: userEmail,
                     name: userName || 'Candidate',
                     paymentLink: paymentLink,
                     emailHost: config.emailHost || process.env.EMAIL_HOST || '',
                     emailUser: config.emailUser || process.env.EMAIL_HOST_USER || '',
-                    emailPassword: config.emailPassword || process.env.EMAIL_HOST_PASSWORD || ''
+                    emailPassword: config.emailPassword || process.env.EMAIL_HOST_PASSWORD || '',
+                    emailPort: process.env.EMAIL_PORT ? Number(process.env.EMAIL_PORT) : 587,
+                    emailSecure: process.env.EMAIL_USE_SSL === 'True' || process.env.EMAIL_USE_SSL === 'true',
+                    fromEmail: process.env.DEFAULT_FROM_EMAIL || process.env.EMAIL_HOST_USER || ''
                 });
                 console.log("[PAYMENT][failure] Sent failure email to", userEmail);
             } catch (emailErr: any) {
