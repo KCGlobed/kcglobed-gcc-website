@@ -3,68 +3,82 @@
     <form @submit.prevent>
       <div class="row g-4">
         <!-- Class 10 -->
-        <div class="col-lg-6">
+        <div class="col-lg-12">
+          <h5 class="fw-bold mb-3">Class 10th <span>*</span></h5>
+        </div>
+        <div class="col-lg-3">
           <div class="input-box mb-0">
-            <label class="form-label fw-bold">Class 10 – Year of Passing <span>*</span></label>
+            <label class="form-label fw-bold">Year of Passing <span>*</span></label>
             <input type="number" min="0" class="form-control" v-model="formData.class10_year"
               @input="handleInput('class10_year')" :class="{ 'is-invalid': errors.class10_year }" />
             <div class="invalid-feedback" v-if="errors.class10_year">{{ errors.class10_year }}</div>
           </div>
         </div>
-        <div class="col-lg-6">
+        <div class="col-lg-3">
           <div class="input-box mb-0">
-            <label class="form-label fw-bold">Class 10 – Percentage / CGPA <span>*</span></label>
-            <input type="number" step="0.01" min="0" max="100" class="form-control" v-model="formData.class10_score"
+            <label class="form-label fw-bold">Grade Type <span>*</span></label>
+            <select class="form-select" v-model="formData.class10_type" @change="handleInput('class10_score')">
+              <option value="Percentage">Percentage</option>
+              <option value="CGPA">CGPA</option>
+            </select>
+          </div>
+        </div>
+        <div class="col-lg-3">
+          <div class="input-box mb-0">
+            <label class="form-label fw-bold">Score <span>*</span></label>
+            <input type="number" step="0.01" min="0" class="form-control" v-model="formData.class10_score"
               @input="handleInput('class10_score')" :class="{ 'is-invalid': errors.class10_score }" />
             <div class="invalid-feedback" v-if="errors.class10_score">{{ errors.class10_score }}</div>
           </div>
         </div>
+        <div class="col-lg-3">
+          <div class="input-box mb-0">
+            <label class="form-label fw-bold">Medium <span>*</span></label>
+            <select class="form-select" v-model="formData.class10_medium">
+              <option>English</option>
+              <option>Hindi</option>
+              <option>Other</option>
+            </select>
+          </div>
+        </div>
 
         <!-- Class 12 -->
-        <div class="col-lg-6">
+        <div class="col-lg-12">
+          <h5 class="fw-bold mb-3 mt-2">Class 12th <span>*</span></h5>
+        </div>
+        <div class="col-lg-3">
           <div class="input-box mb-0">
-            <label class="form-label fw-bold">Class 12 – Year of Passing <span>*</span></label>
+            <label class="form-label fw-bold">Year of Passing <span>*</span></label>
             <input type="number" min="0" class="form-control" v-model="formData.class12_year"
               @input="handleInput('class12_year')" :class="{ 'is-invalid': errors.class12_year }" />
             <div class="invalid-feedback" v-if="errors.class12_year">{{ errors.class12_year }}</div>
           </div>
         </div>
-        <div class="col-lg-6">
+        <div class="col-lg-3">
           <div class="input-box mb-0">
-            <label class="form-label fw-bold">Class 12 – Percentage / CGPA <span>*</span></label>
-            <input type="number" step="0.01" min="0" max="100" class="form-control" v-model="formData.class12_score"
+            <label class="form-label fw-bold">Grade Type <span>*</span></label>
+            <select class="form-select" v-model="formData.class12_type" @change="handleInput('class12_score')">
+              <option value="Percentage">Percentage</option>
+              <option value="CGPA">CGPA</option>
+            </select>
+          </div>
+        </div>
+        <div class="col-lg-3">
+          <div class="input-box mb-0">
+            <label class="form-label fw-bold">Score <span>*</span></label>
+            <input type="number" step="0.01" min="0" class="form-control" v-model="formData.class12_score"
               @input="handleInput('class12_score')" :class="{ 'is-invalid': errors.class12_score }" />
             <div class="invalid-feedback" v-if="errors.class12_score">{{ errors.class12_score }}</div>
           </div>
         </div>
-
-        <!-- Medium of Instruction -->
-        <div class="col-lg-12">
+        <div class="col-lg-3">
           <div class="input-box mb-0">
-            <label class="form-label fw-bold d-block mb-2">Medium of Instruction <span>*</span></label>
-            <div class="d-flex gap-3 mt-1">
-              <div class="form-check">
-                <input class="form-check-input" type="radio" value="English" id="mediumEnglish"
-                  v-model="formData.medium" />
-                <label class="form-check-label" for="mediumEnglish">English</label>
-              </div>
-              <div class="form-check">
-                <input class="form-check-input" type="radio" value="Hindi" id="mediumHindi" v-model="formData.medium" />
-                <label class="form-check-label" for="mediumHindi">Hindi</label>
-              </div>
-              <div class="form-check">
-                <input class="form-check-input" type="radio" value="Other" id="mediumOther" v-model="formData.medium" />
-                <label class="form-check-label" for="mediumOther">Other</label>
-              </div>
-            </div>
-            <div class="text-danger small mt-1" v-if="errors.medium">{{ errors.medium }}</div>
-          </div>
-        </div>
-
-        <div class="col-lg-6" v-if="formData.medium === 'Other'">
-          <div class="input-box mb-0">
-            <label class="form-label fw-bold">Please Specify <span>*</span></label>
-            <input type="text" class="form-control" v-model="formData.medium_other" />
+            <label class="form-label fw-bold">Medium <span>*</span></label>
+            <select class="form-select" v-model="formData.class12_medium">
+              <option>English</option>
+              <option>Hindi</option>
+              <option>Other</option>
+            </select>
           </div>
         </div>
 
@@ -88,22 +102,39 @@
 
         <!-- UG Score & Institution -->
         <template v-if="formData.ug_status == '1' || formData.ug_status == '2'">
-          <div class="col-lg-6">
+          <div class="col-lg-3">
             <div class="input-box mb-0">
-              <label class="form-label fw-bold">{{ formData.ug_status == '2' ? 'Current CGPA / Percentage' :
-                'Final CGPA / Percentage' }} <span>*</span></label>
-              <input type="number" step="0.01" min="0" max="10" class="form-control" v-model="formData.ug_cgpa"
-                @input="handleInput('ug_cgpa')" :class="{ 'is-invalid': errors.ug_cgpa }" />
-              <div class="invalid-feedback" v-if="errors.ug_cgpa">{{ errors.ug_cgpa }}</div>
-              <small class="text-muted">Scale of 10.00</small>
+              <label class="form-label fw-bold">Grade Type <span>*</span></label>
+              <select class="form-select" v-model="formData.ug_type" @change="handleInput('ug_cgpa')">
+                <option value="Percentage">Percentage</option>
+                <option value="CGPA">CGPA</option>
+              </select>
             </div>
           </div>
-          <div class="col-lg-6">
+          <div class="col-lg-3">
+            <div class="input-box mb-0">
+              <label class="form-label fw-bold">Score <span>*</span></label>
+              <input type="number" step="0.01" min="0" class="form-control" v-model="formData.ug_cgpa"
+                @input="handleInput('ug_cgpa')" :class="{ 'is-invalid': errors.ug_cgpa }" />
+              <div class="invalid-feedback" v-if="errors.ug_cgpa">{{ errors.ug_cgpa }}</div>
+            </div>
+          </div>
+          <div class="col-lg-3">
             <div class="input-box mb-0">
               <label class="form-label fw-bold">Institution Name<span>*</span></label>
               <input type="text" class="form-control" v-model="formData.ug_institution"
                 :class="{ 'is-invalid': errors.ug_institution }" placeholder="Enter college name" />
               <div class="invalid-feedback" v-if="errors.ug_institution">{{ errors.ug_institution }}</div>
+            </div>
+          </div>
+          <div class="col-lg-3">
+            <div class="input-box mb-0">
+              <label class="form-label fw-bold">Medium of Instruction <span>*</span></label>
+              <select class="form-select" v-model="formData.ug_medium">
+                <option>English</option>
+                <option>Hindi</option>
+                <option>Other</option>
+              </select>
             </div>
           </div>
         </template>
@@ -193,10 +224,28 @@ export default {
         }
       }
 
-      if (field.includes('cgpa') && this.formData[field] > 10) {
-        this.errors[field] = "CGPA cannot exceed 10.00";
-      } else if ((field.includes('score')) && this.formData[field] > 100) {
-        this.errors[field] = "Score cannot exceed 100";
+      // Dynamic limits based on grade type
+      if (field === 'class10_score') {
+        const type = this.formData.class10_type;
+        if (type === 'CGPA' && this.formData[field] > 10) {
+          this.errors[field] = "CGPA cannot exceed 10.00";
+        } else if (type === 'Percentage' && this.formData[field] > 100) {
+          this.errors[field] = "Percentage cannot exceed 100";
+        }
+      } else if (field === 'class12_score') {
+        const type = this.formData.class12_type;
+        if (type === 'CGPA' && this.formData[field] > 10) {
+          this.errors[field] = "CGPA cannot exceed 10.00";
+        } else if (type === 'Percentage' && this.formData[field] > 100) {
+          this.errors[field] = "Percentage cannot exceed 100";
+        }
+      } else if (field === 'ug_cgpa') {
+        const type = this.formData.ug_type;
+        if (type === 'CGPA' && this.formData[field] > 10) {
+          this.errors[field] = "CGPA cannot exceed 10.00";
+        } else if (type === 'Percentage' && this.formData[field] > 100) {
+          this.errors[field] = "Percentage cannot exceed 100";
+        }
       }
     },
     validate() {
@@ -217,10 +266,6 @@ export default {
       }
       if (!this.formData.class12_score) {
         this.errors.class12_score = "Class 12 Score is required";
-        isValid = false;
-      }
-      if (!this.formData.medium) {
-        this.errors.medium = "Medium is required";
         isValid = false;
       }
 

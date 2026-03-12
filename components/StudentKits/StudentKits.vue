@@ -21,7 +21,8 @@
                                 <div class="icon-wrap text-white rounded-circle d-flex align-items-center justify-content-center"
                                     style="width: 40px; height: 40px; background-color: #872980; flex-shrink: 0;">
                                     <i v-if="kit.type === 'pdf'" class="ti ti-file-text"></i>
-                                    <i v-else class="ti ti-player-play-filled"></i>
+                                    <i v-else-if="kit.type === 'video'" class="ti ti-player-play-filled"></i>
+                                    <i v-else class="ti ti-external-link"></i>
                                 </div>
                                 <div>
                                     <h6 class="mb-1 text-dark" style="font-size: 14px; font-weight: 600;">{{ kit.title
@@ -29,7 +30,8 @@
                                     </h6>
                                     <small class="text-muted d-block" style="font-size: 12px;">
                                         <span v-if="kit.type === 'pdf'">View PDF</span>
-                                        <span v-else>Watch Video</span>
+                                        <span v-else-if="kit.type === 'video'">Watch Video</span>
+                                        <span v-else>Start Test</span>
                                     </small>
                                 </div>
                             </div>
@@ -89,11 +91,17 @@ const studentKits = [
     { title: "AEIAP Program Overview", mediaUrl: "https://storage.googleapis.com/gcc_static_files_backend/static/videos/AEIAP%20Program%20Overview.mp4", type: "video" },
     { title: "British Council - English for Work Course Overview", mediaUrl: "https://storage.googleapis.com/gcc_static_files_backend/static/videos/British%20Council%20%E2%80%93%20English%20for%20Work%20Course%20Overview.mp4", type: "video" },
     { title: "AON - Test Platform Walkthrough", mediaUrl: "https://storage.googleapis.com/gcc_static_files_backend/static/videos/AON%20%E2%80%93%20Test%20Platform%20Walkthrough.mp4", type: "video" },
-    { title: "Best Interview Questions", mediaUrl: "https://storage.googleapis.com/gcc_static_files_backend/static/videos/Best%20Interview%20Questions.pdf", type: "pdf" }
+    { title: "Best Interview Questions", mediaUrl: "https://storage.googleapis.com/gcc_static_files_backend/static/videos/Best%20Interview%20Questions.pdf", type: "pdf" },
+    { title: "Mock Test", link: "https://cocubes.in/gccschool-nfet-mock", type: "link" }
 ];
 
 const openMedia = (kit: any) => {
     if (props.isDisabled) return;
+
+    if (kit.link) {
+        window.open(kit.link, '_blank');
+        return;
+    }
 
     currentMediaUrl.value = kit.mediaUrl;
     currentMediaType.value = kit.type;

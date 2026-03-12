@@ -4,6 +4,18 @@
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content border-0 overflow-hidden text-center px-4 py-5">
 
+                <!-- PROCESSING STATE -->
+                <div v-if="status === 'processing'" class="status-content">
+                    <div class="icon-circle processing-circle mx-auto mb-4">
+                        <div class="spinner-border text-white" role="status">
+                            <span class="visually-hidden">Loading...</span>
+                        </div>
+                    </div>
+                    <h3 class="fw-bold mb-2 text-processing-title">Please Wait</h3>
+                    <p class="text-muted mb-0">{{ message || 'Processing your request...' }}</p>
+                    <p class="small text-muted mt-2">Do not refresh or close this window.</p>
+                </div>
+
                 <!-- SUCCESS STATE -->
                 <div v-if="status === 'success'" class="status-content">
                     <div class="icon-circle success-circle mx-auto mb-4">
@@ -59,10 +71,14 @@ export default defineComponent({
             default: 'paymentStatusModal'
         },
         status: {
-            type: String as () => 'success' | 'failed' | '',
+            type: String as () => 'success' | 'failed' | 'processing' | '',
             default: ''
         },
         paymentId: {
+            type: String,
+            default: ''
+        },
+        message: {
             type: String,
             default: ''
         }
@@ -97,12 +113,22 @@ export default defineComponent({
     box-shadow: 0 8px 25px rgba(239, 83, 80, 0.4);
 }
 
+.processing-circle {
+    background: linear-gradient(135deg, #8A2BE2, #4B0082);
+    color: white;
+    box-shadow: 0 8px 25px rgba(138, 43, 226, 0.4);
+}
+
 .text-success-title {
     color: #2E7D32;
 }
 
 .text-failed-title {
     color: #B71C1C;
+}
+
+.text-processing-title {
+    color: #4B0082;
 }
 
 .txn-box {
