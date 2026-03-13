@@ -34,7 +34,7 @@
                 <NuxtLink to="/career">Careers</NuxtLink>
               </li>
               <li v-if="isAuthenticated">
-                <NuxtLink to="/profile">Profile</NuxtLink>
+                <NuxtLink to="/myaccount">My Account</NuxtLink>
               </li>
               <li class="account-item" v-if="!isAuthenticated">
                 <i class="ti ti-user"></i>

@@ -10,30 +10,6 @@
       <form @submit.prevent="handleSubmit" novalidate>
         <div class="form-grid">
 
-          <!-- Row 1: Name full width -->
-          <div class="form-group full">
-            <label for="name">Name <span class="required">*</span></label>
-            <input id="name" v-model="form.name" type="text" placeholder="Enter your name"
-              :class="{ error: touched.name && errors.name }" @blur="touch('name')" />
-            <span class="error-msg">{{ touched.name && errors.name ? errors.name : '' }}</span>
-          </div>
-
-          <!-- Row 2: Phone + Email -->
-
-
-          <div class="form-group">
-            <label for="email">Email Address <span class="required">*</span></label>
-            <input id="email" v-model="form.email" type="email" placeholder="Enter your email"
-              :class="{ error: touched.email && errors.email }" @blur="touch('email')" />
-            <span class="error-msg">{{ touched.email && errors.email ? errors.email : '' }}</span>
-          </div>
-          <div class="form-group">
-            <label for="phone">Phone Number <span class="required">*</span></label>
-            <input id="phone" v-model="form.phone" type="tel" placeholder="Enter your phone number"
-              :class="{ error: touched.phone && errors.phone }" @blur="touch('phone')" />
-            <span class="error-msg">{{ touched.phone && errors.phone ? errors.phone : '' }}</span>
-          </div>
-
           <!-- Row 3: Subject full width -->
           <div class="form-group full">
             <label for="subject">Subject <span class="required">*</span></label>
@@ -76,16 +52,13 @@ const emit = defineEmits<{ 'update:modelValue': [value: boolean] }>();
 
 const config = useRuntimeConfig();
 
-const form = reactive({ name: '', email: '', phone: '', subject: '', message: '' });
-const touched = reactive({ name: false, email: false, phone: false, subject: false, message: false });
+const form = reactive({ subject: '', message: '' });
+const touched = reactive({ subject: false, message: false });
 const submitting = ref(false);
 const submitted = ref(false);
 const apiError = ref('');
 
 const validators: Record<string, (v: string) => string> = {
-  name: v => v.trim() ? '' : 'Name is required.',
-  email: v => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v.trim()) ? '' : 'Enter a valid email.',
-  phone: v => /^[+\d\s\-().]{7,20}$/.test(v.trim()) ? '' : 'Enter a valid phone number.',
   subject: v => v.trim().length >= 3 ? '' : 'Min 3 characters required.',
   message: v => v.trim().length < 10 ? 'Min 10 characters required.' : v.length > 500 ? 'Max 500 characters.' : '',
 };
@@ -113,20 +86,23 @@ async function handleSubmit() {
   apiError.value = '';
 
   try {
+    const { getAccessToken } = useAuth();
+    const token = getAccessToken();
+
     await $fetch(`${config.public.apiBase}/api/career/createsupportform`, {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
+      headers: {
+        'Content-Type': 'application/json',
+        ...(token ? { 'Authorization': `Bearer ${token}` } : {})
+      },
       body: {
-        name: form.name.trim(),
-        email: form.email.trim(),
-        phone: form.phone.trim(),
         subject: form.subject.trim(),
         message: form.message.trim(),
       },
     });
 
     submitted.value = true;
-    Object.assign(form, { name: '', email: '', phone: '', subject: '', message: '' });
+    Object.assign(form, { subject: '', message: '' });
     Object.keys(touched).forEach(k => ((touched as any)[k] = false));
     setTimeout(() => { submitted.value = false; close(); }, 2500);
   } catch (err: any) {

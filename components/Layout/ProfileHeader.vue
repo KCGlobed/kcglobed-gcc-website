@@ -54,12 +54,11 @@
                     </transition>
                 </div>
 
-                <!-- Divider -->
-                <span class="navbar__divider"></span>
+
 
                 <!-- Help -->
                 <div class="tip-wrap">
-                    <a href="/help-line">
+                    <a href="/help-line" @click.prevent="openHelp">
                         <button class="navbar__btn" aria-label="Help">
                             <span class="navbar__btn-glow"></span>
                             <i class="ti ti-help"></i>
@@ -124,7 +123,7 @@
                         <i class="ti ti-chevron-right navbar__sidedrawer-arrow"></i>
                     </a>
 
-                    <a href="/help-line" class="navbar__sidedrawer-item" @click="mobileOpen = false">
+                    <a href="/help-line" class="navbar__sidedrawer-item" @click.prevent="openHelp">
                         <span class="navbar__sidedrawer-icon navbar__sidedrawer-icon--help">
                             <i class="ti ti-help"></i>
                         </span>
@@ -161,7 +160,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, ref, onMounted, onUnmounted } from "vue";
+import { defineComponent, ref, onMounted, onUnmounted, inject } from "vue";
 import { useAuth } from '~/composables/useAuth' // add auth composable
 
 
@@ -219,10 +218,21 @@ export default defineComponent({
             window.location.href = '/login';
         };
 
+        const toggleHelpModal = inject('toggleHelpModal') as (() => void) | undefined;
+
+        const openHelp = () => {
+            if (toggleHelpModal) {
+                toggleHelpModal();
+                mobileOpen.value = false;
+            } else {
+                window.location.href = '/help-line';
+            }
+        };
+
         return {
             isScrolled, dropdownOpen, mobileOpen, bellRef,
             notifCount, notifications, toggleDropdown, clearNotifs,
-            handleLogout, isAuthenticated
+            handleLogout, isAuthenticated, openHelp
         };
     },
 });
@@ -296,15 +306,10 @@ export default defineComponent({
 .navbar__actions {
     display: flex;
     align-items: center;
-    gap: 4px;
+    gap: 12px;
 }
 
-.navbar__divider {
-    width: 1px;
-    height: 22px;
-    background: rgba(255, 255, 255, 0.1);
-    margin: 0 8px;
-}
+
 
 /* ══════════════════════════════════
    TOOLTIP WRAPPER
