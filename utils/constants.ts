@@ -14,5 +14,6 @@ export const allowedDates = [
 ];
 
 export const blockedDates = [
-    "2026-03-14"
+    "2026-03-14",
+    "2026-03-15"
 ]
