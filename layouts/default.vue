@@ -6,10 +6,13 @@
     <SearchPopup />
     <MainSidebar />
     <GoTop />
+    <HelpSupportModal v-model="showHelpModal" />
 
-    <!-- feedback button & popup -->
-    <button class="feedback-btn" @click="showFeedback = true"><i class="ti ti-message"></i></button>
-    <FeedbackPopup v-model="showFeedback" />
+
+
+    <!-- feedback button & popup (only on myaccount) -->
+    <button v-if="isMyAccount" class="feedback-btn" @click="showFeedback = true"><i class="ti ti-message"></i></button>
+    <FeedbackPopup v-if="isMyAccount" v-model="showFeedback" />
 
     <!-- only show on non‑profile routes -->
     <ContactSlide v-if="showContactSlide" />
@@ -17,7 +20,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, computed, ref } from "vue";
+import { defineComponent, computed, ref, provide } from "vue";
 import { useRoute } from "vue-router";         // Nuxt3: from '#app'
 import Preloader from "./Preloader.vue";
 import MobileDeviceNavbar from "./MobileDeviceNavbar.vue";
@@ -26,6 +29,7 @@ import MainSidebar from "./MainSidebar.vue";
 import ContactSlide from "../components/ContactSlide/ContactSlide.vue";
 import GoTop from "./GoTop.vue";
 import FeedbackPopup from "../components/FeedbackPopup.vue";
+import HelpSupportModal from "../components/HelpSupportModal.vue";
 
 export default defineComponent({
   components: {
@@ -36,17 +40,35 @@ export default defineComponent({
     GoTop,
     ContactSlide,               // register it
     FeedbackPopup,
+    HelpSupportModal
   },
   setup() {
     const route = useRoute();
+
+    const isMyAccount = computed(() => {
+      return route.name === "myaccount" || route.path === "/myaccount";
+    });
+
     const showContactSlide = computed(() => {
       // adjust the check to match your profile route name/path
-      return route.name !== "profile" && route.path !== "/profile";
+      return !isMyAccount.value;
     });
 
     const showFeedback = ref(false);
+    const showHelpModal = ref(false);
 
-    return { showContactSlide, showFeedback };
+    const toggleFeedbackModal = () => {
+      showFeedback.value = !showFeedback.value;
+    };
+
+    const toggleHelpModal = () => {
+      showHelpModal.value = !showHelpModal.value;
+    };
+
+    provide("toggleFeedbackModal", toggleFeedbackModal);
+    provide("toggleHelpModal", toggleHelpModal);
+
+    return { showContactSlide, showFeedback, showHelpModal, isMyAccount, toggleFeedbackModal, toggleHelpModal };
   },
   // data() {
   //   return {

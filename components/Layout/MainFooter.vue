@@ -43,7 +43,7 @@
                     <button class="footer-apply-btn" @click="openApplyModal">Apply Now</button>
                   </li>
                   <li v-if="isAuthenticated">
-                    <NuxtLink to="/profile">Profile</NuxtLink>
+                    <NuxtLink to="/myaccount">Profile</NuxtLink>
                   </li>
                   <li v-if="!isAuthenticated">
                     <NuxtLink to="/login">Login</NuxtLink>

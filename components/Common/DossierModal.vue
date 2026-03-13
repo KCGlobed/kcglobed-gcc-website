@@ -131,7 +131,8 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, ref, reactive, nextTick, defineAsyncComponent, onMounted, watch } from 'vue';
+import { defineComponent, ref, reactive, nextTick, defineAsyncComponent, onMounted, watch } from "vue";
+import { isValidMobile } from "~/utils/validators";
 
 const headers = new Headers();
 headers.append("X-CSCAPI-KEY", "Q3k5SXFtVjNubXRBZjdKRFJ1QVJLQkZqQ3lYT2JNVUhVZmhOYm5ESw==");
@@ -313,6 +314,9 @@ export default defineComponent({
             if (!form.phone.trim()) {
                 errors.phone = 'Phone number is required';
                 isValid = false;
+            } else if (!isValidMobile(form.phone)) {
+                errors.phone = 'Please enter a valid 10-digit mobile number';
+                isValid = false;
             }
             if (!form.state) {
                 errors.state = 'State is required';
@@ -342,7 +346,9 @@ export default defineComponent({
                     email: form.email,
                     phone: form.phone,
                     state: form.state,
-                    city: form.city
+                    city: form.city,
+                    source: 1,
+                    source_form: props.mode === 'apply' ? 1 : 2,
                 };
                 const config = useRuntimeConfig();
 
@@ -536,7 +542,7 @@ export default defineComponent({
                     processingMessage.value = 'Successfully registered! Redirecting to profile...';
 
                     setTimeout(() => {
-                        window.location.href = '/profile';
+                        window.location.href = '/myaccount';
                     }, 3000);
                 }
             } catch (err: any) {
@@ -681,7 +687,7 @@ export default defineComponent({
                                     processingMessage.value = 'Payment Successful! Redirecting to profile...';
                                     resetForm();
                                     setTimeout(() => {
-                                        window.location.href = '/profile';
+                                        window.location.href = '/myaccount';
                                     }, 3000);
                                 }
                             } catch (regErr: any) {
@@ -690,7 +696,7 @@ export default defineComponent({
                                 paymentId.value = res.cf_order_id;
                                 processingMessage.value = 'Payment Successful! Redirecting to profile...';
                                 setTimeout(() => {
-                                    window.location.href = '/profile';
+                                    window.location.href = '/myaccount';
                                 }, 3000);
                             }
 

@@ -85,7 +85,7 @@
         <!-- Undergraduate -->
         <div class="col-lg-12">
           <div class="border-top pt-4 mt-2">
-            <h5 class="fw-bold mb-3">Undergraduate Qualification (B.Com) <span>*</span></h5>
+            <h5 class="fw-bold mb-3">Undergraduate Qualification (B.Com/Hons) <span>*</span></h5>
             <div class="d-flex gap-4">
               <div class="form-check">
                 <input class="form-check-input" type="radio" value="1" id="ugCompleted" v-model="formData.ug_status" />

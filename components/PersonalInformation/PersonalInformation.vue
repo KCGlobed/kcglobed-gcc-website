@@ -7,6 +7,7 @@
           <div class="input-box mb-0">
             <label class="form-label fw-bold">Applicant First Name <span>*</span></label>
             <input type="text" class="form-control" placeholder="First Name" v-model="formData.first_name"
+              @blur="validateField('first_name')" @input="validateField('first_name')"
               :class="{ 'is-invalid': errors.first_name }" />
             <div class="invalid-feedback" v-if="errors.first_name">{{ errors.first_name }}</div>
           </div>
@@ -15,6 +16,7 @@
           <div class="input-box mb-0">
             <label class="form-label fw-bold">Applicant Last Name <span>*</span></label>
             <input type="text" class="form-control" placeholder="Last Name" v-model="formData.last_name"
+              @blur="validateField('last_name')" @input="validateField('last_name')"
               :class="{ 'is-invalid': errors.last_name }" />
             <div class="invalid-feedback" v-if="errors.last_name">{{ errors.last_name }}</div>
           </div>
@@ -25,7 +27,7 @@
           <div class="input-box mb-0">
             <label class="form-label fw-bold">Email ID <span>*</span></label>
             <input type="email" class="form-control" placeholder="Email ID" v-model="formData.email"
-              :class="{ 'is-invalid': errors.email }" />
+              @blur="validateField('email')" @input="validateField('email')" :class="{ 'is-invalid': errors.email }" />
             <div class="invalid-feedback" v-if="errors.email">{{ errors.email }}</div>
           </div>
         </div>
@@ -35,6 +37,7 @@
             <div class="input-group">
               <span class="input-group-text bg-white">+91</span>
               <input type="tel" class="form-control" placeholder="Mobile Number" v-model="formData.mobile"
+                @blur="validateField('mobile')" @input="validateField('mobile')"
                 :class="{ 'is-invalid': errors.mobile }" />
             </div>
             <div class="invalid-feedback d-block" v-if="errors.mobile">{{ errors.mobile }}</div>
@@ -63,14 +66,16 @@
         <div class="col-lg-4">
           <div class="input-box mb-0">
             <label class="form-label fw-bold">Date Of Birth <span>*</span></label>
-            <input type="date" class="form-control" v-model="formData.dob" :class="{ 'is-invalid': errors.dob }" />
+            <input type="date" class="form-control" v-model="formData.dob" @change="validateField('dob')"
+              :class="{ 'is-invalid': errors.dob }" />
             <div class="invalid-feedback" v-if="errors.dob">{{ errors.dob }}</div>
           </div>
         </div>
         <div class="col-lg-4">
           <div class="input-box mb-0">
             <label class="form-label fw-bold">Gender <span>*</span></label>
-            <select class="form-select" v-model="formData.gender" :class="{ 'is-invalid': errors.gender }">
+            <select class="form-select" v-model="formData.gender" @change="validateField('gender')"
+              :class="{ 'is-invalid': errors.gender }">
               <option selected disabled value="">--Select--</option>
               <option value="Male">Male</option>
               <option value="Female">Female</option>
@@ -90,7 +95,7 @@
         <div class="col-lg-4">
           <div class="input-box mb-0">
             <label class="form-label fw-bold">State <span>*</span></label>
-            <select class="form-select" v-model="formData.state" @change="onStateChange"
+            <select class="form-select" v-model="formData.state" @change="onStateChange(); validateField('state')"
               :class="{ 'is-invalid': errors.state }">
               <option value="" disabled>Select State</option>
               <option v-for="state in statesList" :key="state.iso2" :value="state.iso2">{{ state.name }}</option>
@@ -101,7 +106,8 @@
         <div class="col-lg-4">
           <div class="input-box mb-0">
             <label class="form-label fw-bold">City <span>*</span></label>
-            <select class="form-select" v-model="formData.city" :class="{ 'is-invalid': errors.city }">
+            <select class="form-select" v-model="formData.city" @change="validateField('city')"
+              :class="{ 'is-invalid': errors.city }">
               <option value="" disabled>Select City</option>
               <option v-for="city in citiesList" :key="city.id" :value="city.name">{{ city.name }}</option>
             </select>
@@ -113,6 +119,7 @@
           <div class="input-box mb-0">
             <label class="form-label fw-bold">PIN Code <span>*</span></label>
             <input type="text" class="form-control" placeholder="PIN Code" v-model="formData.pin_code"
+              @blur="validateField('pin_code')" @input="validateField('pin_code')"
               :class="{ 'is-invalid': errors.pin_code }" />
             <div class="invalid-feedback" v-if="errors.pin_code">{{ errors.pin_code }}</div>
           </div>
@@ -122,6 +129,7 @@
           <div class="input-box mb-0">
             <label class="form-label fw-bold">Complete Address <span>*</span></label>
             <textarea class="form-control" placeholder="Enter full address" v-model="formData.complete_address"
+              @blur="validateField('complete_address')" @input="validateField('complete_address')"
               :class="{ 'is-invalid': errors.complete_address }" rows="3"></textarea>
             <div class="invalid-feedback" v-if="errors.complete_address">{{ errors.complete_address }}</div>
           </div>
@@ -132,6 +140,8 @@
 </template>
 
 <script>
+import { isValidMobile, isValidPincode } from "../../utils/validators";
+
 const headers = new Headers();
 headers.append("X-CSCAPI-KEY", "Q3k5SXFtVjNubXRBZjdKRFJ1QVJLQkZqQ3lYT2JNVUhVZmhOYm5ESw==");
 
@@ -194,6 +204,62 @@ export default {
     }
   },
   methods: {
+    validateField(field) {
+      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      let error = "";
+
+      switch (field) {
+        case 'first_name':
+          if (!this.formData.first_name) error = "First Name is required";
+          break;
+        case 'last_name':
+          if (!this.formData.last_name) error = "Last Name is required";
+          break;
+        case 'email':
+          if (!this.formData.email) {
+            error = "Email is required";
+          } else if (!emailRegex.test(this.formData.email)) {
+            error = "Invalid email format";
+          }
+          break;
+        case 'mobile':
+          if (!this.formData.mobile) {
+            error = "Mobile Number is required";
+          } else if (!isValidMobile(this.formData.mobile)) {
+            error = "Invalid mobile number (10 digits)";
+          }
+          break;
+        case 'dob':
+          if (!this.formData.dob) error = "Date of Birth is required";
+          break;
+        case 'gender':
+          if (!this.formData.gender) error = "Gender is required";
+          break;
+        case 'state':
+          if (!this.formData.state) error = "State is required";
+          break;
+        case 'city':
+          if (!this.formData.city) error = "City is required";
+          break;
+        case 'pin_code':
+          if (!this.formData.pin_code) {
+            error = "PIN Code is required";
+          } else if (!isValidPincode(this.formData.pin_code)) {
+            error = "Invalid PIN code (6 digits)";
+          }
+          break;
+        case 'complete_address':
+          if (!this.formData.complete_address) error = "Complete Address is required";
+          break;
+      }
+
+      if (error) {
+        this.errors[field] = error;
+      } else {
+        delete this.errors[field];
+      }
+      return !error;
+    },
     onStateChange() {
       this.formData.city = "";
     },
@@ -206,58 +272,16 @@ export default {
       });
     },
     validate() {
-      this.errors = {};
+      const fields = [
+        'first_name', 'last_name', 'email', 'mobile',
+        'dob', 'gender', 'state', 'city', 'pin_code', 'complete_address'
+      ];
       let isValid = true;
-      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-      const phoneRegex = /^[0-9]{10}$/;
-
-      if (!this.formData.first_name) {
-        this.errors.first_name = "First Name is required";
-        isValid = false;
-      }
-      if (!this.formData.last_name) {
-        this.errors.last_name = "Last Name is required";
-        isValid = false;
-      }
-      if (!this.formData.email) {
-        this.errors.email = "Email is required";
-        isValid = false;
-      } else if (!emailRegex.test(this.formData.email)) {
-        this.errors.email = "Invalid email format";
-        isValid = false;
-      }
-      if (!this.formData.mobile) {
-        this.errors.mobile = "Mobile Number is required";
-        isValid = false;
-      } else if (!phoneRegex.test(this.formData.mobile)) {
-        this.errors.mobile = "Invalid mobile number (10 digits)";
-        isValid = false;
-      }
-      if (!this.formData.dob) {
-        this.errors.dob = "Date of Birth is required";
-        isValid = false;
-      }
-      if (!this.formData.gender) {
-        this.errors.gender = "Gender is required";
-        isValid = false;
-      }
-      if (!this.formData.city) {
-        this.errors.city = "City is required";
-        isValid = false;
-      }
-      if (!this.formData.state) {
-        this.errors.state = "State is required";
-        isValid = false;
-      }
-      if (!this.formData.pin_code) {
-        this.errors.pin_code = "PIN Code is required";
-        isValid = false;
-      }
-      if (!this.formData.complete_address) {
-        this.errors.complete_address = "Complete Address is required";
-        isValid = false;
-      }
-
+      fields.forEach(field => {
+        if (!this.validateField(field)) {
+          isValid = false;
+        }
+      });
       return isValid;
     },
   },
