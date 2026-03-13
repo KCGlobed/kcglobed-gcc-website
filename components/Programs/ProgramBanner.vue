@@ -584,6 +584,7 @@
 
 <script lang="ts">
 import { defineComponent, ref, reactive, nextTick, defineAsyncComponent, onMounted, watch } from "vue";
+import { isValidMobile } from "~/utils/validators";
 
 const headers = new Headers();
 headers.append("X-CSCAPI-KEY", "Q3k5SXFtVjNubXRBZjdKRFJ1QVJLQkZqQ3lYT2JNVUhVZmhOYm5ESw==");
@@ -808,6 +809,8 @@ export default defineComponent({
             }
             if (!form.mobile.trim()) {
                 errors.mobile = "Phone number is required";
+            } else if (!isValidMobile(form.mobile)) {
+                errors.mobile = "Please enter a valid 10-digit mobile number";
             }
             if (!form.state) {
                 errors.state = "State is required";
