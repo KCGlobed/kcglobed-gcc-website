@@ -360,6 +360,14 @@
                                         </button>
                                     </div>
 
+                                </div>
+                                <p v-else
+                                    class="text-muted small text-center py-2 px-3 bg-light rounded border border-dashed mt-3">
+                                    Please select a highlighted date.
+                                </p>
+
+                                <!-- Action Buttons -->
+                                <div class="mt-3">
                                     <button
                                         class="btn btn-outline-success w-100 d-flex justify-content-center align-items-center gap-2 mb-2"
                                         @click="downloadAdmitCard"
@@ -388,10 +396,6 @@
                                         </span>
                                     </a>
                                 </div>
-                                <p v-else
-                                    class="text-muted small text-center py-2 px-3 bg-light rounded border border-dashed mt-3">
-                                    Please select a highlighted date.
-                                </p>
 
                             </div>
                         </div>
@@ -987,13 +991,19 @@ const bookSlot = async () => {
             const result = await response.json();
             const reportUrl = result.data?.report_url;
 
+            const wasAlreadyBooked = bookingDetails.isBooked;
+
             bookingDetails.isBooked = true;
             bookingDetails.date = payload.slot_date;
             bookingDetails.time = payload.slot_time;
             bookingDetails.admitCardUrl = reportUrl;
             showAdmitCardButton.value = true;
 
-            showAlert("Success", "Slot booked successfully! You can now download your admit card.", "success");
+            if (wasAlreadyBooked) {
+                showAlert("Success", "Change request submitted successfully!", "success");
+            } else {
+                showAlert("Success", "Slot booked successfully! You can now download your admit card.", "success");
+            }
         } else {
             const errorData = await response.json().catch(() => ({}));
             throw new Error(errorData.message || "Failed to book slot");

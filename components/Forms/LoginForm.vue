@@ -222,7 +222,7 @@ async function handleSubmit() {
 
         // Hard redirect to profile (full page reload for clean mount)
         console.log('[Login] Auth successful. Navigating to /profile...')
-        window.location.href = '/profile'
+        window.location.href = '/myaccount'
 
     } catch (err: any) {
         console.error('[Login] API Error:', err)
