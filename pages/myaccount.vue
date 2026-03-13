@@ -36,7 +36,7 @@
 
                                     <!-- Hover Edit Icon -->
                                     <div class="edit-icon-overlay">
-                                        <i class="ti ti-camera"></i>
+                                        <i class="ti ti-pencil fs-5 text-[#872980]"></i>
                                     </div>
 
                                     <!-- Hidden File Input -->
@@ -45,26 +45,49 @@
                                 </div>
                             </div>
 
-                            <!-- Info below -->
-                            <div class="profile-info">
-                                <h2 class="profile-name">
-                                    {{ (formData.first_name || 'Applicant') + ' ' + (formData.last_name || '') }}
-                                </h2>
-                                <p class="profile-detail mb-2" v-if="formData?.application_id"
-                                    style="color: #7c3aed; font-weight: 600;">
-                                    Application ID: {{ formData.application_id }}
-                                </p>
-                                <p class="profile-detail" v-if="formData.email">
-                                    <i class="ti ti-mail me-1"></i> {{ formData.email }}
-                                </p>
-                                <p class="profile-detail" v-if="formData.mobile">
-                                    <i class="ti ti-phone me-1"></i> {{ formData.mobile }}
-                                </p>
-                                <p class="profile-detail" v-if="formData.city">
-                                    <i class="ti ti-map-pin me-1"></i> {{ formData.city }}<span v-if="formData.state">,
-                                        {{
-                                            formData.state }}</span>
-                                </p>
+                            <!-- Info block and Progress indicator side-by-side -->
+                            <div class="d-flex justify-content-between align-items-center w-100 px-lg-4 px-3">
+                                <div class="profile-info p-0">
+                                    <h2 class="profile-name">
+                                        {{ (formData.first_name || 'Applicant') + ' ' + (formData.last_name || '') }}
+                                    </h2>
+                                    <p class="profile-detail mb-2" v-if="formData?.application_id"
+                                        style="color: #872980; font-weight: 600;">
+                                        Application ID: {{ formData.application_id }}
+                                    </p>
+                                    <p class="profile-detail" v-if="formData.email">
+                                        <i class="ti ti-mail me-1"></i> {{ formData.email }}
+                                    </p>
+                                    <p class="profile-detail" v-if="formData.mobile">
+                                        <i class="ti ti-phone me-1"></i> {{ formData.mobile }}
+                                    </p>
+                                    <p class="profile-detail" v-if="formData.city">
+                                        <i class="ti ti-map-pin me-1"></i> {{ formData.city }}<span
+                                            v-if="formData.state">,
+                                            {{
+                                                formData.state }}</span>
+                                    </p>
+                                </div>
+
+                                <!-- Profile Progress Indicator -->
+                                <div
+                                    class="profile-progress-indicator d-flex flex-column align-items-center justify-content-center pe-lg-4 pb-3">
+                                    <div class="progress-circle-container">
+                                        <svg width="100" height="100" viewBox="0 0 100 100">
+                                            <circle cx="50" cy="50" r="42" fill="transparent" stroke="#f3f4f6"
+                                                stroke-width="8" />
+                                            <circle cx="50" cy="50" r="42" fill="transparent" stroke="#872980"
+                                                stroke-width="8" stroke-linecap="round" stroke-dasharray="263.89"
+                                                :stroke-dashoffset="263.89 - (profileCompletion * 263.89) / 100"
+                                                style="transition: stroke-dashoffset 0.8s ease;" />
+
+                                            <text x="50" y="55" font-family="Arial" font-size="20" font-weight="bold"
+                                                fill="#872980" text-anchor="middle">{{ profileCompletion }}%</text>
+                                        </svg>
+                                    </div>
+                                    <!-- <span class="progress-label small fw-bold text-muted mt-2"> Submit application to
+                                        download admit card.</span> -->
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -216,8 +239,9 @@
 
                 <!-- Right Column (20%) -->
                 <div class="col-lg-3 col-md-4">
-                    <div :title="isProfileEmpty ? 'This section will be enabled after you complete your profile.' : ''">
-                        <StudentKits :isDisabled="isProfileEmpty" />
+                    <div>
+                        <StudentKits :isDisabled="false" :userEmail="formData.email"
+                            :mockTestStatus="formData.mock_test_status" @onStatusUpdate="fetchStudentDetail" />
                     </div>
 
                     <!-- NFET Slot Booking Sidebar -->
@@ -243,7 +267,7 @@
                                         style="width: 28px; height: 28px;" @click="prevMonth"><i
                                             class="ti ti-chevron-left"></i></button>
                                     <span class="fw-bold text-dark" style="font-size: 14px;">{{ monthNames[currentMonth]
-                                        }}
+                                    }}
                                         {{ currentYear }}</span>
                                     <button
                                         class="btn btn-sm btn-white border shadow-sm p-1 d-flex align-items-center justify-content-center"
@@ -261,28 +285,34 @@
                                             'disabled': day && !day.isAllowed && !day.isBlocked,
                                             'blocked': day && day.isBlocked,
                                             'selected': day && day.dateString === selectedDate,
+                                            'is-current': day && day.dateString === bookingDetails.date,
                                             'cursor-not-allowed': bookingDetails.updateCount >= 2 && day && day.isAllowed
                                         }"
                                         :title="day && day.isBlocked ? 'fully booked' : (bookingDetails.updateCount >= 2 ? 'Update limit reached' : '')"
                                         @click="bookingDetails.updateCount < 2 && selectDate(day)">
-                                        {{ day ? day.day : '' }}
+                                        <span>{{ day ? day.day : '' }}</span>
                                     </div>
                                 </div>
 
                                 <!-- Slots -->
                                 <div class="slots-container" v-if="selectedDate">
-                                    <h6 class="mb-2 fw-semibold text-dark" style="font-size: 14px;">Slots for {{
+                                    <h6 class="mb-2 mt-2 fw-semibold text-dark" style="font-size: 14px;">Slots for {{
                                         formatDate(selectedDate) }}:</h6>
                                     <div class="d-flex flex-wrap gap-2 mb-3">
                                         <button v-for="slot in availableSlots" :key="slot.id"
-                                            class="btn btn-sm flex-grow-1" :class="[
+                                            class="btn btn-sm flex-grow-1 position-relative" :class="[
                                                 selectedSlot === slot.id ? 'btn-primary text-white custom-primary-bg' : 'btn-outline-secondary',
+                                                (selectedDate === bookingDetails.date && slot.time === bookingDetails.time) ? 'btn-current-slot' : ''
                                             ]"
                                             @click="!slot.disabled && bookingDetails.updateCount < 2 && selectSlot(slot)"
                                             :disabled="slot.disabled || bookingDetails.updateCount >= 2"
                                             :title="bookingDetails.updateCount >= 2 ? 'Update limit reached' : (slot.disabled ? 'This slot is no longer available (48-hour restriction)' : '')"
-                                            style="font-size: 12px; min-width: 45%;">
+                                            style="font-size: 12px; min-width: 45%; padding-top: 10px; padding-bottom: 10px;">
                                             {{ slot.time }}
+                                            <span
+                                                v-if="selectedDate === bookingDetails.date && slot.time === bookingDetails.time"
+                                                class="badge bg-primary position-absolute top-0 start-50 translate-middle-x"
+                                                style="font-size: 8px; transform: translate(-50%, -50%) !important; background-color: #872980 !important;">CURRENT</span>
                                         </button>
                                     </div>
                                     <div v-if="availableSlots.length === 0" class="text-muted small mb-3">No slots
@@ -292,7 +322,8 @@
                                     <div v-if="bookingDetails.updateCount <= 1" class="d-inline-block w-100 mb-2">
                                         <button
                                             class="btn btn-primary w-100 custom-primary-bg d-flex justify-content-center align-items-center gap-2"
-                                            style="pointer-events: auto;" :disabled="isBookingSlot" @click="bookSlot">
+                                            :class="{ 'btn-disabled-custom': isBookingSlot }"
+                                            style="pointer-events: auto;" @click="!isBookingSlot && bookSlot()">
                                             <span v-if="isBookingSlot" class="spinner-border spinner-border-sm"
                                                 role="status" aria-hidden="true"></span>
 
@@ -329,20 +360,22 @@
                                         </button>
                                     </div>
 
-                                    <!-- Admit Card Button -->
-                                    <button v-if="showAdmitCardButton"
+                                    <button
                                         class="btn btn-outline-success w-100 d-flex justify-content-center align-items-center gap-2 mb-2"
-                                        @click="downloadAdmitCard" :disabled="isDownloadingAdmitCard">
+                                        @click="downloadAdmitCard"
+                                        :disabled="!bookingDetails.isBooked || isDownloadingAdmitCard">
                                         <span v-if="isDownloadingAdmitCard" class="spinner-border spinner-border-sm"
                                             role="status" aria-hidden="true"></span>
-                                        <template v-else>Generate Admit Card <i class="ti ti-download"></i></template>
+                                        <template v-else>Download Admit Card <i class="ti ti-download"></i></template>
                                     </button>
 
                                     <!-- Start Exam Button -->
-                                    <a href="https://cocubes.in/gccschool-nfet" target="_blank"
+                                    <a :href="bookingDetails.examStatus ? 'https://cocubes.in/gccschool-nfet' : 'javascript:void(0)'"
+                                        target="_blank"
                                         class="btn w-100 d-flex justify-content-center align-items-center gap-2"
-                                        :class="bookingDetails.examStatus ? 'btn-primary custom-primary-bg' : 'btn-secondary disabled'"
-                                        v-if="bookingDetails.isBooked">
+                                        :class="bookingDetails.examStatus ? 'btn-primary custom-primary-bg' : 'btn-secondary btn-disabled-custom'"
+                                        v-if="bookingDetails.isBooked"
+                                        @click="!bookingDetails.examStatus && $event.preventDefault()">
                                         Start Exam
                                         <i class="ti ti-external-link"></i>
                                         <span class="custom-tooltip-wrapper d-inline-block ms-1" @click.stop.prevent>
@@ -359,6 +392,7 @@
                                     class="text-muted small text-center py-2 px-3 bg-light rounded border border-dashed mt-3">
                                     Please select a highlighted date.
                                 </p>
+
                             </div>
                         </div>
                     </div> <!-- End nfet-slot-sidebar -->
@@ -373,19 +407,42 @@
 
         <!-- Confirmation Modal -->
         <div v-if="showConfirmModal" class="custom-modal-overlay">
-            <div class="custom-modal p-4">
-                <div class="text-center pb-4 pt-3">
-                    <h5 class="mb-0 fw-bold" style="font-size: 18px; color: #333;">Are you sure you wish to change the
-                        slot?
+            <div class="custom-modal p-4 shadow-lg border-0">
+                <div class="text-center pb-3">
+                    <h5 class="mb-4 fw-bold" style="font-size: 20px; color: #1e1b4b;">Confirm Slot Change</h5>
+
+                    <div class="slot-diff-card p-3 rounded mb-4 text-start border bg-light">
+                        <div class="mb-3">
+                            <label class="text-muted small d-block mb-1 text-uppercase fw-bold"
+                                style="letter-spacing: 0.5px;">Current Booked Slot</label>
+                            <div class="d-flex align-items-center gap-2">
+                                <i class="ti ti-calendar-check fs-5 text-muted"></i>
+                                <span class="fw-bold text-dark">{{ formatDate(bookingDetails.date) }} | {{
+                                    bookingDetails.time }}</span>
+                            </div>
+                        </div>
+
+                        <div class="pt-3 border-top">
+                            <label class="text-muted small d-block mb-1 text-uppercase fw-bold"
+                                style="letter-spacing: 0.5px;">New Requested Slot</label>
+                            <div class="d-flex align-items-center gap-2">
+                                <i class="ti ti-calendar-plus fs-5 text-[#6D1E67]"></i>
+                                <span class="fw-bold text-[#6D1E67]">{{ formatDate(selectedDate) }} | {{
+                                    getSelectedSlotTime() }}</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <h5 class="mb-0 text-dark" style="font-size: 15px;">Are you sure you want to change your exam slot?
                     </h5>
                 </div>
-                <div class="d-flex justify-content-center gap-3 pb-2">
-                    <button class="btn btn-outline-secondary fw-semibold"
-                        style="font-size: 16px; min-width: 140px; border-radius: 8px; padding: 10px 24px;"
-                        @click="handleConfirm(false)">No</button>
-                    <button class="btn btn-primary custom-primary-bg fw-semibold"
-                        style="font-size: 16px; min-width: 140px; border-radius: 8px; padding: 10px 24px;"
-                        @click="handleConfirm(true)">Yes</button>
+
+                <div class="d-flex justify-content-center gap-3 mt-4">
+                    <button class="btn btn-light fw-bold flex-grow-1 border"
+                        style="border-radius: 12px; padding: 14px; color: #64748b;"
+                        @click="handleConfirm(false)">Cancel</button>
+                    <button class="btn btn-primary custom-primary-bg fw-bold flex-grow-1 shadow-sm"
+                        style="border-radius: 12px; padding: 14px;" @click="handleConfirm(true)">Confirm</button>
                 </div>
             </div>
         </div>
@@ -405,6 +462,7 @@ import DocumentUpload from "../components/DocumentUpload/DocumentUpload.vue";
 import StudentKits from "../components/StudentKits/StudentKits.vue";
 // import PrePaymentDeclaration from "../components/PrePaymentDeclaration/PrePaymentDeclaration.vue";
 import { staticSlots, allowedDates, blockedDates } from "../utils/constants";
+import { isValidMobile, isValidPincode } from "../utils/validators";
 
 // Layer 1: Middleware for Nuxt navigation
 definePageMeta({
@@ -412,7 +470,7 @@ definePageMeta({
 })
 
 useHead({
-    title: "My Application Profile",
+    title: "My Account",
     meta: [
         {
             name: "description",
@@ -431,6 +489,66 @@ const config = useRuntimeConfig();
 const profileImage = ref<string | null>(null);
 
 const isProfileEmpty = ref(false);
+
+const profileCompletion = computed(() => {
+    let totalProgress = 0;
+
+    // 1. Personal Information (25%) - 10 Fields
+    const p = formData;
+    const personalFields = [
+        'first_name', 'last_name', 'email', 'mobile',
+        'dob', 'gender', 'state', 'city', 'pin_code', 'complete_address'
+    ];
+    const personalCompleted = personalFields.filter(f => {
+        const val = p[f as keyof typeof p];
+        if (!val) return false;
+        if (f === 'mobile') return isValidMobile(String(val));
+        if (f === 'pin_code') return isValidPincode(String(val));
+        return !!val;
+    }).length;
+    totalProgress += (personalCompleted / personalFields.length) * 25;
+
+    // 2. Academic Information (25%)
+    const academicFields = [
+        'class10_year', 'class10_score',
+        'class12_year', 'class12_score',
+        'ug_status', 'pg_exists'
+    ];
+    let academicCompletedCount = academicFields.filter(f => !!p[f as keyof typeof p]).length;
+    let academicTotalFields = academicFields.length;
+
+    // If UG is selected as pursuing or completed, add 2 more fields
+    if (p.ug_status === '1' || p.ug_status === '2') {
+        academicTotalFields += 2;
+        if (p.ug_cgpa) academicCompletedCount++;
+        if (p.ug_institution) academicCompletedCount++;
+    }
+    totalProgress += (academicCompletedCount / academicTotalFields) * 25;
+
+    // 3. Work Experience (25%)
+    if (p.employment_status === 'Fresher') {
+        totalProgress += 25;
+    } else if (p.employment_status === 'Experienced') {
+        const jobs = p.work_experience || [];
+        if (jobs.length > 0) {
+            const firstJob = jobs[0];
+            const jobFields = ['org_name', 'designation', 'functional_area', 'from'];
+            const jobCompleted = jobFields.filter(f => !!firstJob[f]).length;
+            totalProgress += (jobCompleted / jobFields.length) * 25;
+        }
+    }
+
+    // 4. Documents (25%)
+    const docFields = ['aadhaar', 'dob_proof', 'photo', 'signature'];
+    const docCompleted = docFields.filter(field => {
+        const hasNew = !!p.documents[field];
+        const hasExisting = !!(p.existingDocuments && p.existingDocuments[field]);
+        return hasNew || hasExisting;
+    }).length;
+    totalProgress += (docCompleted / docFields.length) * 25;
+
+    return Math.round(totalProgress);
+});
 
 const bookingDetails = reactive({
     isBooked: false,
@@ -486,6 +604,7 @@ const fetchStudentDetail = async () => {
             formData.dob = d.date_of_birth || d.dob || "";
             formData.nationality = d.nationality || "Indian";
             formData.complete_address = d.address || "";
+            formData.mock_test_status = d.mock_test_status ?? 0;
 
             // Mappings for Choices
             const genderReverseMap: Record<number, string> = { 1: "Male", 2: "Female", 3: "Other" };
@@ -940,6 +1059,12 @@ const formatDate = (dateStr: string) => {
     return date.toLocaleDateString('en-US', { weekday: 'short', month: 'short', day: 'numeric' });
 };
 
+const getSelectedSlotTime = () => {
+    if (!selectedSlot.value) return "";
+    const slotObj = availableSlots.value.find((s: any) => s.id === selectedSlot.value);
+    return slotObj ? slotObj.time : "";
+};
+
 const formData = reactive({
     first_name: "",
     last_name: "",
@@ -950,6 +1075,7 @@ const formData = reactive({
     gender: "",
     nationality: "Indian",
     email: "",
+    mock_test_status: 0,
     mobile: "",
     city: "",
     state: "",
@@ -1302,6 +1428,32 @@ const handleFinalSubmit = async () => {
     box-shadow: 0 2px 20px rgba(108, 60, 220, 0.08);
     border: 1px solid rgba(108, 60, 220, 0.08);
     overflow: hidden;
+    display: flex;
+    flex-direction: column;
+}
+
+.profile-header-card .d-flex {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+}
+
+.profile-progress-indicator {
+    min-width: 200px;
+}
+
+.progress-circle-container {
+    filter: drop-shadow(0 4px 8px rgba(124, 58, 237, 0.1));
+}
+
+.progress-label {
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    font-size: 11px;
+    max-width: 200px;
+    text-align: center;
+    line-height: 1.4;
+    cursor: default;
 }
 
 /* Cover banner */
@@ -1519,14 +1671,21 @@ const handleFinalSubmit = async () => {
 /* Custom Tooltip styling */
 .custom-tooltip-wrapper {
     position: relative;
-    cursor: not-allowed;
+    cursor: pointer;
+    pointer-events: auto !important;
+}
+
+.btn-disabled-custom {
+    opacity: 0.65;
+    cursor: not-allowed !important;
+    pointer-events: auto !important;
 }
 
 .custom-tooltip-content {
     visibility: hidden;
     opacity: 0;
     width: 260px;
-    background-color: #a06d9c;
+    background-color: #A13E99;
     /* background-color: #872980; */
     color: #fff;
     text-align: center;
@@ -1663,10 +1822,86 @@ const handleFinalSubmit = async () => {
     background: #ddd6fe;
 }
 
+.calendar-day {
+    aspect-ratio: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    font-size: 13px;
+    border-radius: 6px;
+    cursor: default;
+    color: #94a3b8;
+    background: transparent;
+    position: relative;
+    padding-bottom: 4px;
+}
+
+.calendar-day.empty {
+    background: transparent;
+}
+
+.calendar-day.disabled {
+    opacity: 0.5;
+    background: #f8fafc;
+}
+
+.calendar-day.blocked {
+    background: #fee2e2;
+    color: #ef4444;
+    cursor: pointer;
+    font-weight: 600;
+}
+
+.calendar-day.allowed {
+    background: #ede9fe;
+    color: #7c3aed;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.calendar-day.allowed:hover {
+    background: #ddd6fe;
+}
+
 .calendar-day.selected {
-    background: #872980;
-    color: #fff;
-    box-shadow: 0 2px 8px rgba(135, 41, 128, 0.3);
+    background: #872980 !important;
+    color: #fff !important;
+    box-shadow: 0 4px 12px rgba(135, 41, 128, 0.35);
+    z-index: 2;
+    border-radius: 6px !important;
+    border: none !important;
+}
+
+.calendar-day.is-current {
+    background: #ffffff !important;
+    border: 2.5px solid #872980 !important;
+    color: #872980 !important;
+    font-weight: 800 !important;
+    border-radius: 6px !important;
+    position: relative;
+    z-index: 1;
+}
+
+.calendar-day.is-current.selected {
+    background: #872980 !important;
+    color: #fff !important;
+    border: 2px solid #872980 !important;
+    box-shadow: 0 0 0 2px #fff inset, 0 4px 12px rgba(135, 41, 128, 0.35);
+}
+
+.btn-current-slot {
+    border: 2px solid #872980 !important;
+    background-color: #fcf5fc !important;
+    color: #872980 !important;
+    font-weight: 700 !important;
+}
+
+.btn-current-slot.btn-primary {
+    border-color: #ffffff !important;
+    background-color: #872980 !important;
+    color: #ffffff !important;
 }
 
 .custom-primary-bg {
@@ -1702,12 +1937,12 @@ const handleFinalSubmit = async () => {
     left: 0;
     width: 100%;
     height: 100%;
-    background: rgba(0, 0, 0, 0.5);
+    background: rgba(0, 0, 0, 0.4);
     z-index: 9999;
     display: flex;
     align-items: center;
     justify-content: center;
-    backdrop-filter: blur(4px);
+    backdrop-filter: none;
 }
 
 .custom-modal {

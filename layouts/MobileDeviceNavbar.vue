@@ -37,7 +37,7 @@
         </NuxtLink>
 
         <!-- Auth Links -->
-        <NuxtLink v-if="isAuthenticated" to="/profile" class="nav-item" @click="handleClick">
+        <NuxtLink v-if="isAuthenticated" to="/myaccount" class="nav-item" @click="handleClick">
           <i class="ti ti-user nav-icon-ti"></i>
           <span>Profile</span>
         </NuxtLink>

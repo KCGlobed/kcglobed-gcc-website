@@ -660,7 +660,7 @@ export default defineComponent({
                     processingMessage.value = 'Successfully registered! Redirecting to profile...';
 
                     setTimeout(() => {
-                        window.location.href = '/profile';
+                        window.location.href = '/myaccount';
                     }, 3000);
                 }
             } catch (err: any) {
@@ -859,7 +859,9 @@ export default defineComponent({
                     email: form.email,
                     phone: form.mobile,
                     state: form.state,
-                    city: form.city
+                    city: form.city,
+                    source: 1,
+                    source_form: 3
                 };
 
                 const response: any = await $fetch(`${config.public.apiBase}/api/career/createdossierform`, {
@@ -930,7 +932,7 @@ export default defineComponent({
             notification.message = '';
             notification.type = '';
             isPaymentInProgress.value = true;
-            
+
             try {
                 const config = useRuntimeConfig();
 
@@ -1052,7 +1054,7 @@ export default defineComponent({
                                     paymentStatus.value = 'success';
                                     paymentId.value = res.cf_order_id;
                                     processingMessage.value = 'Payment Successful! Redirecting to profile...';
-                                    
+
                                     // Reset form
                                     form.name = '';
                                     form.email = '';
@@ -1065,7 +1067,7 @@ export default defineComponent({
                                     formId.value = null;
 
                                     setTimeout(() => {
-                                        window.location.href = '/profile';
+                                        window.location.href = '/myaccount';
                                     }, 3000);
                                 }
                             } catch (regErr: any) {
@@ -1074,7 +1076,7 @@ export default defineComponent({
                                 paymentId.value = res.cf_order_id;
                                 processingMessage.value = 'Payment Successful! Redirecting to profile...';
                                 setTimeout(() => {
-                                    window.location.href = '/profile';
+                                    window.location.href = '/myaccount';
                                 }, 3000);
                             }
 

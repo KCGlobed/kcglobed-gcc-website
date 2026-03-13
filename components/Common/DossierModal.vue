@@ -342,7 +342,9 @@ export default defineComponent({
                     email: form.email,
                     phone: form.phone,
                     state: form.state,
-                    city: form.city
+                    city: form.city,
+                    source: 1,
+                    source_form: props.mode === 'apply' ? 1 : 2,
                 };
                 const config = useRuntimeConfig();
 
@@ -536,7 +538,7 @@ export default defineComponent({
                     processingMessage.value = 'Successfully registered! Redirecting to profile...';
 
                     setTimeout(() => {
-                        window.location.href = '/profile';
+                        window.location.href = '/myaccount';
                     }, 3000);
                 }
             } catch (err: any) {
@@ -681,7 +683,7 @@ export default defineComponent({
                                     processingMessage.value = 'Payment Successful! Redirecting to profile...';
                                     resetForm();
                                     setTimeout(() => {
-                                        window.location.href = '/profile';
+                                        window.location.href = '/myaccount';
                                     }, 3000);
                                 }
                             } catch (regErr: any) {
@@ -690,7 +692,7 @@ export default defineComponent({
                                 paymentId.value = res.cf_order_id;
                                 processingMessage.value = 'Payment Successful! Redirecting to profile...';
                                 setTimeout(() => {
-                                    window.location.href = '/profile';
+                                    window.location.href = '/myaccount';
                                 }, 3000);
                             }
 
