@@ -38,7 +38,7 @@
 
                         <div class="row">
                             <div class="col-md-6 mb-2">
-                                <label class="form-label fw-bold small">State*</label>
+                                <label class="form-label fw-bold small">State/UT*</label>
                                 <select v-model="form.state" class="form-select custom-input" @change="onStateChange">
                                     <option value="" disabled>Select State</option>
                                     <option v-for="state in states" :key="state" :value="state">{{ state }}</option>

@@ -54,7 +54,7 @@
 
                                         <div class="row">
                                             <div class="col-md-6">
-                                                <label for="state">State*</label>
+                                                <label for="state">State/UT*</label>
                                                 <div class="form-floating mb-2">
                                                     <select class="form-select" id="state" v-model="form.state"
                                                         @change="onStateChange" :class="{ 'is-invalid': errors.state }">
