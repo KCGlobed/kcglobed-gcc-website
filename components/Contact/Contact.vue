@@ -94,10 +94,9 @@
                     </div>
                     <small class="text-danger" v-if="errors.email">{{ errors.email }}</small>
                   </div>
-                </div>
-                <div class="col-lg-6">
+                </div>                <div class="col-lg-6">
                   <div class="input-box">
-                    <label class="form-label">State <span>*</span></label>
+                    <label class="form-label">State/UT <span>*</span></label>
                     <select v-model="form.state" class="form-control" @change="onStateChange">
                       <option value="">Select State</option>
                       <option v-for="state in statesList" :key="state" :value="state">{{ state }}</option>
@@ -105,7 +104,7 @@
                     <small class="text-danger" v-if="errors.state">{{ errors.state }}</small>
                   </div>
                 </div>
-
+ 
                 <div class="col-lg-6">
                   <div class="input-box">
                     <label class="form-label">City <span>*</span></label>
@@ -116,6 +115,7 @@
                     <small class="text-danger" v-if="errors.city">{{ errors.city }}</small>
                   </div>
                 </div>
+
 
 
 
@@ -288,7 +288,7 @@
 import { defineComponent } from "vue";
 
 import universities from "../../assets/universities.json";
-import statesCities from "../../assets/states-cities.json";
+import stateCityData from "~/state_city.json";
 
 export default defineComponent({
   name: "Contact",
@@ -415,7 +415,7 @@ export default defineComponent({
   data() {
     return {
       colleges: universities,
-      statesData: statesCities as Record<string, string[]>,
+      statesData: stateCityData as Record<string, string[]>,
       form: {
         name: "",
         mobile: "",
@@ -458,11 +458,11 @@ export default defineComponent({
   },
   computed: {
     statesList(): string[] {
-      return Object.keys(this.statesData).sort();
+      return Object.keys(this.statesData).sort((a, b) => a.localeCompare(b));
     },
     citiesList(): string[] {
       if (!this.form.state || !this.statesData[this.form.state]) return [];
-      return this.statesData[this.form.state].sort();
+      return [...this.statesData[this.form.state]].sort((a, b) => a.localeCompare(b));
     }
   }
 });
