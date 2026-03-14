@@ -728,29 +728,8 @@ const fetchStudentDetail = async () => {
     }
 };
 
-const stateNameMap = ref<Record<string, string>>({});
-
 onMounted(async () => {
     initAuth()
-
-    // Fetch states to map iso2 code to full name for display
-    try {
-        const headers = new Headers();
-        headers.append("X-CSCAPI-KEY", "Q3k5SXFtVjNubXRBZjdKRFJ1QVJLQkZqQ3lYT2JNVUhVZmhOYm5ESw==");
-        const res = await fetch("https://api.countrystatecity.in/v1/countries/IN/states", {
-            method: 'GET',
-            headers: headers,
-            redirect: 'follow'
-        });
-        const statesData = await res.json();
-        const map: Record<string, string> = {};
-        statesData.forEach((s: any) => {
-            map[s.iso2] = s.name;
-        });
-        stateNameMap.value = map;
-    } catch (e) {
-        console.error("Failed to load states for mapping", e);
-    }
 
     if (userId.value) {
         await fetchStudentDetail()
