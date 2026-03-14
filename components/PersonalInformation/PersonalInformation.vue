@@ -57,6 +57,7 @@
           <div class="input-box mb-0">
             <label class="form-label fw-bold">Emergency Contact Number</label>
             <input type="tel" class="form-control" placeholder="Mobile Number" v-model="formData.father_mobile"
+              @blur="validateField('father_mobile')" @input="validateField('father_mobile')"
               :class="{ 'is-invalid': errors.father_mobile }" />
             <div class="invalid-feedback" v-if="errors.father_mobile">{{ errors.father_mobile }}</div>
           </div>
@@ -206,6 +207,11 @@ export default {
             error = "Invalid mobile number (10 digits)";
           }
           break;
+        case 'father_mobile':
+          if (this.formData.father_mobile && !isValidMobile(this.formData.father_mobile)) {
+            error = "Invalid mobile number (10 digits)";
+          }
+          break;
         case 'dob':
           if (!this.formData.dob) error = "Date of Birth is required";
           break;
@@ -250,7 +256,7 @@ export default {
     },
     validate() {
       const fields = [
-        'first_name', 'last_name', 'email', 'mobile',
+        'first_name', 'last_name', 'email', 'mobile', 'father_mobile',
         'dob', 'gender', 'state', 'city', 'pin_code', 'complete_address'
       ];
       let isValid = true;
