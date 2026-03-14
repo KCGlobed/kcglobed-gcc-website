@@ -343,9 +343,42 @@ export default {
 </script>
 
 <style scoped>
-.form-label span,
+h5 {
+  font-size: 16px;
+  font-weight: 700;
+  color: #111827;
+}
+
 h5 span {
-  color: #dc3545;
+  color: #ef4444;
+}
+
+.form-label {
+    font-size: 12px;
+    font-weight: 600;
+    color: #4B5563;
+    margin-bottom: 8px;
+}
+
+.form-label span {
+    color: #ef4444;
+}
+
+.form-control, .form-select {
+    background-color: #F9FAFB;
+    border: 1px solid #E5E7EB;
+    border-radius: 10px;
+    padding: 12px 16px;
+    font-size: 14px;
+    color: #111827;
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.form-control:focus, .form-select:focus {
+    background-color: #fff;
+    border-color: #872980;
+    box-shadow: 0 0 0 4px rgba(135, 41, 128, 0.1);
+    outline: none;
 }
 
 .form-check-input:checked {
@@ -353,19 +386,20 @@ h5 span {
   border-color: #872980;
 }
 
-.is-invalid {
-  border-color: #dc3545 !important;
-  background-image: none !important;
+.form-check-label {
+    font-size: 14px;
+    color: #374151;
+    font-weight: 500;
 }
 
 .invalid-feedback {
-  color: #dc3545;
-  font-size: 14px;
-  margin-top: 5px;
-  display: none;
+    font-size: 12px;
+    margin-top: 4px;
+    font-weight: 500;
+    color: #ef4444;
 }
 
-.invalid-feedback.d-block {
-  display: block;
+.border-top {
+    border-color: #F3F4F6 !important;
 }
 </style>

@@ -181,20 +181,59 @@ export default {
 </script>
 
 <style scoped>
+.form-label {
+    font-size: 12px;
+    font-weight: 600;
+    color: #4B5563;
+    margin-bottom: 8px;
+}
+
 .form-label span {
-    color: #dc3545;
+    color: #ef4444;
 }
 
 .bg-light-info {
-    background-color: #e7f3ff;
-    color: #0c5460;
+    background-color: #F0F9FF;
+    color: #0369A1;
+    border: 1px solid #E0F2FE !important;
+    border-radius: 10px;
+}
+
+.form-control {
+    background-color: #F9FAFB;
+    border: 1px solid #E5E7EB;
+    border-radius: 10px;
+    padding: 10px 14px;
+    font-size: 14px;
+    transition: all 0.2s;
+}
+
+.form-control:focus {
+    background-color: #fff;
+    border-color: #872980;
+    box-shadow: 0 0 0 4px rgba(135, 41, 128, 0.1);
+    outline: none;
+}
+
+.btn-outline-primary {
+    color: #872980;
+    border-color: #E9D5FF;
+    background-color: #FAF5FF;
+    font-weight: 600;
+    font-size: 13px;
+    padding: 8px 16px;
+    border-radius: 8px;
+}
+
+.btn-outline-primary:hover {
+    background-color: #872980;
+    border-color: #872980;
+    color: #fff;
 }
 
 .input-group-text {
+    border: 1px solid #E5E7EB;
     border-left: none;
-}
-
-.form-control.is-invalid+.input-group-text {
-    border-color: #dc3545;
+    border-radius: 0 10px 10px 0;
 }
 </style>
