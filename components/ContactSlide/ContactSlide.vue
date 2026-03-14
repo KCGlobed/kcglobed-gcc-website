@@ -43,21 +43,21 @@
 
         <div class="row">
             <div class="input-group">
-                <label>State*</label>
+                <label>State/UT*</label>
                 <select v-model="form.state" required>
                 <option value="">Select State</option>
-                <option v-for="state in states" :key="state.iso2" :value="state.iso2">
-                    {{ state.name }}
+                <option v-for="state in states" :key="state" :value="state">
+                    {{ state }}
                 </option>
                 </select>
             </div>
-
+ 
             <div class="input-group">
                 <label>City*</label>
                 <select v-model="form.city" required>
                 <option value="">Select City</option>
-                <option v-for="city in cities" :key="city.id" :value="city.name">
-                    {{ city.name }}
+                <option v-for="city in cities" :key="city" :value="city">
+                    {{ city }}
                 </option>
                 </select>
             </div>
@@ -79,6 +79,7 @@
 
 <script setup>
 import { ref, onMounted, watch } from "vue"
+import stateCityData from "~/state_city.json"
 
 const isOpen = ref(false)
 const loading = ref(false)
@@ -86,13 +87,6 @@ const message = ref("")
 
 const states = ref([])
 const cities = ref([])
-
-const requestOptions = {
-  method: "GET",
-  headers: {
-    "X-CSCAPI-KEY": "Q3k5SXFtVjNubXRBZjdKRFJ1QVJLQkZqQ3lYT2JNVUhVZmhOYm5ESw=="
-  }
-}
 
 const form = ref({
   first_name: "",
@@ -107,28 +101,20 @@ const toggleForm = () => {
   isOpen.value = !isOpen.value
 }
 
-onMounted(async () => {
-
-  const res = await fetch(
-    "https://api.countrystatecity.in/v1/countries/IN/states",
-    requestOptions
-  )
-
-  states.value = await res.json()
-
+onMounted(() => {
+  // Populate states from local JSON and sort alphabetically
+  const statesArr = Object.keys(stateCityData)
+  states.value = statesArr.sort((a, b) => a.localeCompare(b))
 })
 
-watch(() => form.value.state, async (state) => {
-
-  if (!state) return
-
-  const res = await fetch(
-    `https://api.countrystatecity.in/v1/countries/IN/states/${state}/cities`,
-    requestOptions
-  )
-
-  cities.value = await res.json()
-
+watch(() => form.value.state, (state) => {
+  if (!state) {
+    cities.value = []
+    return
+  }
+  // Populate cities from local JSON and sort alphabetically
+  const citiesArr = stateCityData[state] || []
+  cities.value = [...citiesArr].sort((a, b) => a.localeCompare(b))
 })
 
 const submitForm = async () => {

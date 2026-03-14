@@ -167,7 +167,10 @@
 
               <div class="col-md-6">
                 <div class="form-floating">
-                  <input v-model="form.city" class="form-control" placeholder="City">
+                  <select v-model="form.city" class="form-select" :disabled="!form.state">
+                    <option value="">Select City</option>
+                    <option v-for="city in citiesList" :key="city" :value="city">{{ city }}</option>
+                  </select>
                   <label>District/City</label>
                   <small class="text-danger" v-if="errors.city">{{ errors.city }}</small>
                 </div>
@@ -175,8 +178,11 @@
 
               <div class="col-md-6">
                 <div class="form-floating">
-                  <input v-model="form.state" class="form-control" placeholder="State">
-                  <label>State</label>
+                  <select v-model="form.state" class="form-select" @change="onStateChange">
+                    <option value="">Select State</option>
+                    <option v-for="state in statesList" :key="state" :value="state">{{ state }}</option>
+                  </select>
+                  <label>State/UT</label>
                   <small class="text-danger" v-if="errors.state">{{ errors.state }}</small>
                 </div>
               </div>
@@ -666,6 +672,7 @@ import image1 from "../../assets/img/heros/hero_bg.svg";
 import image2 from "../../assets/img/heros/hero2.jpg";
 import gccPdf from "../../assets/gcc.pdf";
 import universities from "../../assets/universities.json";
+import stateCityData from "~/state_city.json";
 
 export default defineComponent({
 
@@ -717,32 +724,26 @@ export default defineComponent({
       if (!this.form.pincode) this.errors.pincode = "Pincode is required"
 
       return Object.values(this.errors).every(error => error === "")
-    }
-
-    ,
-
+    },
     resetGraduationFields() {
       this.form.graduationProgramOther = ""
       this.form.graduationStatus = ""
       this.resetStatusFields()
-    }
-
-    ,
-
+    },
     resetStatusFields() {
       this.form.currentCGPA = ""
       this.form.firstDivision = ""
       this.resetHigherQualification()
-    }
-
-    ,
-
+    },
     resetHigherQualification() {
       this.form.higherQualification = ""
       this.form.higherQualificationOther = ""
     },
+    onStateChange() {
+      this.form.city = "";
+    },
     async submitForm() {
-      if (!this.validateForm()) return // Transform camelCase form to snake_case payload for API
+      if (!this.validateForm()) return
 
       const payload = {
         name: this.form.name,
@@ -761,8 +762,6 @@ export default defineComponent({
         pincode: this.form.pincode
       }
 
-        ;
-
       try {
         this.isSubmitting = true;
 
@@ -771,15 +770,12 @@ export default defineComponent({
           body: payload
         });
 
-        // $fetch throws automatically on 4xx/5xx errors, so if we reach here, it's success.
         if (response.success) {
           alert("Thank you! Our team will contact you soon.")
           const closeBtn = this.$refs.closeModalBtn as HTMLButtonElement;
           closeBtn.click();
-          window.open("https://storage.googleapis.com/static_files_backend/media/landing/GCC%20School%20Brochure%201.pdf",
-            "_blank");
+          window.open("https://storage.googleapis.com/static_files_backend/media/landing/GCC%20School%20Brochure%201.pdf", "_blank");
 
-          // Reset form
           this.form = {
             name: "",
             mobile: "",
@@ -799,29 +795,21 @@ export default defineComponent({
             pincode: "",
             consent: false
           }
-        }
-
-        else {
+        } else {
           alert(response.message || "Something went wrong. Please try again.")
         }
-      }
-
-      catch (error: any) {
+      } catch (error: any) {
         console.error("Submission Error:", error)
         alert(error.data?.message || "Server error. Try later.")
-      }
-
-      finally {
+      } finally {
         this.isSubmitting = false;
       }
     }
-  }
-
-  ,
+  },
   data() {
     return {
-
       colleges: universities,
+      statesData: stateCityData as Record<string, string[]>,
       form: {
         name: "",
         mobile: "",
@@ -835,15 +823,12 @@ export default defineComponent({
         firstDivision: "",
         higherQualification: "",
         higherQualificationOther: "",
-
         college: "",
         source: "",
         remarks: "",
         pincode: "",
         consent: false,
-      }
-
-      ,
+      },
       isSubmitting: false,
       errors: {
         name: "",
@@ -856,16 +841,12 @@ export default defineComponent({
         graduationStatus: "",
         currentCGPA: "",
         firstDivision: "",
-
         college: "",
         source: "",
         consent: "",
         pincode: ""
-      }
-
-      ,
+      },
       banners: [{
-
         id: 1,
         bgClass: "bg1",
         subTitle: "Cohort 2026 Application Open",
@@ -878,39 +859,37 @@ export default defineComponent({
         btnLinkTwo: gccPdf,
         updateTitle: "View all latest news updates of Tuva",
         updateLink: "/blog",
-        informations: [{
-          id: 1,
-          icon: "ti ti-world",
-          title: "Take A Tour",
-          link: "/schedule",
-        }
-
-          ,
-        {
-          id: 2,
-          icon: "ti ti-info-hexagon",
-          title: "Campus Information",
-          link: "/about-campus",
-        }
-
-          ,
-        {
-          id: 3,
-          icon: "ti ti-ballpen",
-          title: "Apply Now",
-          link: "/admission-form",
-        }
-
-          ,
+        informations: [
+          {
+            id: 1,
+            icon: "ti ti-world",
+            title: "Take A Tour",
+            link: "/schedule",
+          },
+          {
+            id: 2,
+            icon: "ti ti-info-hexagon",
+            title: "Campus Information",
+            link: "/about-campus",
+          },
+          {
+            id: 3,
+            icon: "ti ti-ballpen",
+            title: "Apply Now",
+            link: "/admission-form",
+          },
         ],
-      }
-
-      ],
+      }],
     }
-
-      ;
+  },
+  computed: {
+    statesList(): string[] {
+      return Object.keys(this.statesData).sort((a, b) => a.localeCompare(b));
+    },
+    citiesList(): string[] {
+      if (!this.form.state || !this.statesData[this.form.state]) return [];
+      return [...this.statesData[this.form.state]].sort((a, b) => a.localeCompare(b));
+    }
   }
-
-  ,
 });
 </script>

@@ -94,11 +94,11 @@
         <!-- Address Info -->
         <div class="col-lg-4">
           <div class="input-box mb-0">
-            <label class="form-label fw-bold">State <span>*</span></label>
+            <label class="form-label fw-bold">State/UT <span>*</span></label>
             <select class="form-select" v-model="formData.state" @change="onStateChange(); validateField('state')"
               :class="{ 'is-invalid': errors.state }">
               <option value="" disabled>Select State</option>
-              <option v-for="state in statesList" :key="state.iso2" :value="state.iso2">{{ state.name }}</option>
+              <option v-for="state in statesList" :key="state" :value="state">{{ state }}</option>
             </select>
             <div class="invalid-feedback" v-if="errors.state">{{ errors.state }}</div>
           </div>
@@ -109,7 +109,7 @@
             <select class="form-select" v-model="formData.city" @change="validateField('city')"
               :class="{ 'is-invalid': errors.city }">
               <option value="" disabled>Select City</option>
-              <option v-for="city in citiesList" :key="city.id" :value="city.name">{{ city.name }}</option>
+              <option v-for="city in citiesList" :key="city" :value="city">{{ city }}</option>
             </select>
             <div class="invalid-feedback" v-if="errors.city">{{ errors.city }}</div>
           </div>
@@ -141,15 +141,7 @@
 
 <script>
 import { isValidMobile, isValidPincode } from "../../utils/validators";
-
-const headers = new Headers();
-headers.append("X-CSCAPI-KEY", "Q3k5SXFtVjNubXRBZjdKRFJ1QVJLQkZqQ3lYT2JNVUhVZmhOYm5ESw==");
-
-const requestOptions = {
-  method: 'GET',
-  headers: headers,
-  redirect: 'follow'
-};
+import stateCityData from "../../state_city.json";
 
 export default {
   name: "PersonalInformation",
@@ -166,41 +158,26 @@ export default {
       citiesList: []
     };
   },
-  async mounted() {
-    try {
-      const res = await fetch(
-        "https://api.countrystatecity.in/v1/countries/IN/states",
-        requestOptions
-      );
-      this.statesList = await res.json();
+  mounted() {
+    // Populate states from local JSON and sort alphabetically
+    const statesArr = Object.keys(stateCityData);
+    this.statesList = statesArr.sort((a, b) => a.localeCompare(b));
 
-      // If editing a profile and state is already set, fetch its cities
-      if (this.formData.state) {
-        const cityRes = await fetch(
-          `https://api.countrystatecity.in/v1/countries/IN/states/${this.formData.state}/cities`,
-          requestOptions
-        );
-        this.citiesList = await cityRes.json();
-      }
-    } catch (error) {
-      console.error("Failed to load states", error);
+    // If editing a profile and state is already set, fetch its cities
+    if (this.formData.state) {
+      const cities = stateCityData[this.formData.state] || [];
+      this.citiesList = [...cities].sort((a, b) => a.localeCompare(b));
     }
   },
   watch: {
-    "formData.state": async function (newState) {
+    "formData.state": function (newState) {
       if (!newState) {
         this.citiesList = [];
         return;
       }
-      try {
-        const res = await fetch(
-          `https://api.countrystatecity.in/v1/countries/IN/states/${newState}/cities`,
-          requestOptions
-        );
-        this.citiesList = await res.json();
-      } catch (error) {
-        console.error("Failed to load cities", error);
-      }
+      // Populate cities from local JSON and sort alphabetically
+      const cities = stateCityData[newState] || [];
+      this.citiesList = [...cities].sort((a, b) => a.localeCompare(b));
     }
   },
   methods: {

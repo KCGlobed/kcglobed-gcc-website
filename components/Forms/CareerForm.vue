@@ -58,12 +58,11 @@
                                 </div>
                                 <div class="col-lg-6">
                                     <div class="input-box">
-                                        <label class="form-label">State <span>*</span></label>
+                                        <label class="form-label">State/UT <span>*</span></label>
                                         <div class="input-with-icon">
                                             <select v-model="form.state" class="form-control" @change="onStateChange">
                                                 <option value="">Select State</option>
-                                                <option v-for="state in statesList" :key="state.iso2"
-                                                    :value="state.iso2">{{ state.name
+                                                <option v-for="state in statesList" :key="state" :value="state">{{ state
                                                     }}</option>
                                             </select>
                                             <i class="ti ti-map"></i>
@@ -77,8 +76,8 @@
                                         <div class="input-with-icon">
                                             <select v-model="form.city" class="form-control" :disabled="!form.state">
                                                 <option value="">Select City</option>
-                                                <option v-for="city in citiesList" :key="city.id" :value="city.name">{{
-                                                    city.name }}
+                                                <option v-for="city in citiesList" :key="city" :value="city">{{
+                                                    city }}
                                                 </option>
                                             </select>
                                             <i class="ti ti-map-pin"></i>
@@ -250,13 +249,7 @@
 
 <script lang="ts">
 import { defineComponent } from "vue";
-
-const requestOptions = {
-    method: "GET",
-    headers: {
-        "X-CSCAPI-KEY": "Q3k5SXFtVjNubXRBZjdKRFJ1QVJLQkZqQ3lYT2JNVUhVZmhOYm5ESw=="
-    }
-}
+import stateCityData from "~/state_city.json";
 
 export default defineComponent({
     name: "CareerForm",
@@ -323,28 +316,24 @@ export default defineComponent({
                 consent: "",
             },
             loading: false,
-            statesList: [] as any[],
-            citiesList: [] as any[],
+            statesList: [] as string[],
+            citiesList: [] as string[],
         };
     },
-    async mounted() {
-        const res = await fetch(
-            "https://api.countrystatecity.in/v1/countries/IN/states",
-            requestOptions
-        )
-        this.statesList = await res.json()
+    mounted() {
+        // Populate states from local JSON and sort alphabetically
+        const statesArr = Object.keys(stateCityData);
+        this.statesList = statesArr.sort((a, b) => a.localeCompare(b));
     },
     watch: {
-        "form.state": async function (state: string) {
+        "form.state": function (state: string) {
             if (!state) {
                 this.citiesList = [];
                 return;
             }
-            const res = await fetch(
-                `https://api.countrystatecity.in/v1/countries/IN/states/${state}/cities`,
-                requestOptions
-            )
-            this.citiesList = await res.json()
+            // Populate cities from local JSON and sort alphabetically
+            const cities = (stateCityData as any)[state] || [];
+            this.citiesList = [...cities].sort((a, b) => a.localeCompare(b));
         }
     },
     methods: {
