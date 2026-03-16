@@ -86,7 +86,7 @@
         </div>
 
         <!-- Main Content Grid -->
-        <div class="main-content-area py-4 py-lg-5" style="background-color: #F3F4F6;">
+        <div class="main-content-area" style="background-color: #F3F4F6;">
             <div class="container-lg border-0">
                 <div class="row g-4">
                     <!-- Left Column (8 col) -->
