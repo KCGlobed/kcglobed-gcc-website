@@ -7,11 +7,11 @@
         <!-- <CommonInnerPageBanner pageTitle="Profile" /> -->
         <!-- Banner Section -->
         <div class="profile-banner-section py-3 py-lg-4">
-            <div class="container">
+            <div class="container-lg">
                 <div class="profile-banner-card overflow-hidden">
                     <div class="profile-banner-bg" :style="{ backgroundImage: `url(${heroBg})` }">
                         <div
-                            class="d-flex flex-column flex-lg-row align-items-center gap-4 px-4 py-4 h-100 position-relative">
+                            class="d-flex flex-column flex-md-row align-items-center gap-4 px-4 py-4 h-100 position-relative">
                             <!-- Left: Profile Image with Progress Ring -->
                             <div class="profile-image-section">
                                 <div class="profile-image-container" @click="triggerImageUpload">
@@ -39,12 +39,12 @@
                             </div>
 
                             <!-- Middle: Profile Info -->
-                            <div class="profile-details-section text-center text-lg-start flex-grow-1 mt-3 mt-lg-0">
-                                <div class="text-center text-lg-start mb-2">
+                            <div class="profile-details-section text-center text-md-start flex-grow-1 mt-3 mt-md-0">
+                                <div class="text-center text-md-start mb-2">
                                     <h2 class="profile-name-text mb-2 mb-lg-0">{{ (formData.first_name || 'Applicant') +
                                         ' ' +
                                         (formData.last_name || '') }}</h2>
-                                    <div class="status-pill d-lg-none d-inline-block mt-1 mb-2"
+                                    <div class="status-pill d-md-none d-inline-block mt-1 mb-2"
                                         :class="profileCompletion === 100 ? 'status-complete' : 'status-incomplete'">
                                         {{ profileCompletion === 100 ? 'Profile Complete' : 'Profile Incomplete' }}
                                     </div>
@@ -57,7 +57,7 @@
                                 </div>
 
                                 <div
-                                    class="d-flex flex-wrap justify-content-center justify-content-lg-start gap-3 gap-lg-4 profile-meta-info">
+                                    class="d-flex flex-wrap justify-content-center justify-content-md-start gap-3 gap-md-4 profile-meta-info">
                                     <div class="d-flex flex-nowrap gap-3 mobile-contact-row">
                                         <span class="d-flex align-items-center"><i class="ti ti-mail me-2"></i> {{
                                             formData.email }}</span>
@@ -72,7 +72,7 @@
                             </div>
 
                             <!-- Right: Status Badge -->
-                            <div class="profile-status-section d-none d-lg-block position-absolute"
+                            <div class="profile-status-section d-none d-md-block position-absolute"
                                 style="right: 40px; top: 40px;">
                                 <div class="status-pill"
                                     :class="profileCompletion === 100 ? 'status-complete' : 'status-incomplete'">
@@ -87,7 +87,7 @@
 
         <!-- Main Content Grid -->
         <div class="main-content-area py-4 py-lg-5" style="background-color: #F3F4F6;">
-            <div class="container border-0">
+            <div class="container-lg border-0">
                 <div class="row g-4">
                     <!-- Left Column (8 col) -->
                     <div class="col-lg-8">
