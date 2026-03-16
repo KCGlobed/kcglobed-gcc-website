@@ -5,7 +5,7 @@
         <!-- Applicant Name -->
         <div class="col-lg-6">
           <div class="input-box mb-0">
-            <label class="form-label fw-bold">Applicant First Name <span>*</span></label>
+            <label class="form-label fw-bold">First Name <span>*</span></label>
             <input type="text" class="form-control" placeholder="First Name" v-model="formData.first_name"
               @blur="validateField('first_name')" @input="validateField('first_name')"
               :class="{ 'is-invalid': errors.first_name }" />
@@ -14,7 +14,7 @@
         </div>
         <div class="col-lg-6">
           <div class="input-box mb-0">
-            <label class="form-label fw-bold">Applicant Last Name <span>*</span></label>
+            <label class="form-label fw-bold">Last Name <span>*</span></label>
             <input type="text" class="form-control" placeholder="Last Name" v-model="formData.last_name"
               @blur="validateField('last_name')" @input="validateField('last_name')"
               :class="{ 'is-invalid': errors.last_name }" />
@@ -273,60 +273,62 @@ export default {
 
 <style scoped>
 .form-label {
-    font-size: 12px;
-    font-weight: 600;
-    color: #4B5563;
-    margin-bottom: 8px;
+  font-size: 12px;
+  font-weight: 600;
+  color: #4B5563;
+  margin-bottom: 8px;
 }
 
 .form-label span {
-    color: #ef4444;
+  color: #ef4444;
 }
 
-.form-control, .form-select {
-    background-color: #F9FAFB;
-    border: 1px solid #E5E7EB;
-    border-radius: 10px;
-    padding: 12px 16px;
-    font-size: 14px;
-    color: #111827;
-    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+.form-control,
+.form-select {
+  background-color: #F9FAFB;
+  border: 1px solid #E5E7EB;
+  border-radius: 10px;
+  padding: 12px 16px;
+  font-size: 14px;
+  color: #111827;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .form-control::placeholder {
-    color: #9CA3AF;
+  color: #9CA3AF;
 }
 
-.form-control:focus, .form-select:focus {
-    background-color: #fff;
-    border-color: #872980;
-    box-shadow: 0 0 0 4px rgba(135, 41, 128, 0.1);
-    outline: none;
+.form-control:focus,
+.form-select:focus {
+  background-color: #fff;
+  border-color: #872980;
+  box-shadow: 0 0 0 4px rgba(135, 41, 128, 0.1);
+  outline: none;
 }
 
 .input-group-text {
-    font-size: 14px;
-    font-weight: 600;
-    background-color: #F9FAFB;
-    border: 1px solid #E5E7EB;
-    border-right: none;
-    color: #6B7280;
-    border-radius: 10px 0 0 10px;
-    padding: 0 16px;
+  font-size: 14px;
+  font-weight: 600;
+  background-color: #F9FAFB;
+  border: 1px solid #E5E7EB;
+  border-right: none;
+  color: #6B7280;
+  border-radius: 10px 0 0 10px;
+  padding: 0 16px;
 }
 
 .input-group .form-control {
-    border-left: none;
-    border-radius: 0 10px 10px 0;
+  border-left: none;
+  border-radius: 0 10px 10px 0;
 }
 
 .bg-light {
-    background-color: #F3F4F6 !important;
+  background-color: #F3F4F6 !important;
 }
 
 .invalid-feedback {
-    font-size: 12px;
-    margin-top: 4px;
-    font-weight: 500;
+  font-size: 12px;
+  margin-top: 4px;
+  font-weight: 500;
 }
 </style>

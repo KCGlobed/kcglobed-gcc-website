@@ -19,7 +19,7 @@
                                         <svg width="130" height="130" viewBox="0 0 130 130">
                                             <circle cx="65" cy="65" r="60" fill="transparent"
                                                 stroke="rgba(255,255,255,0.1)" stroke-width="8" />
-                                            <circle cx="65" cy="65" r="60" fill="transparent" stroke="#E026FF"
+                                            <circle cx="65" cy="65" r="60" fill="transparent" stroke="#B13AFB"
                                                 stroke-width="8" stroke-linecap="round" stroke-dasharray="376.99"
                                                 :stroke-dashoffset="376.99 - (profileCompletion * 376.99) / 100"
                                                 style="transition: stroke-dashoffset 0.8s ease;" />
@@ -45,8 +45,8 @@
 
                                 <div class="application-id-badge mb-3 d-inline-block">
                                     <span v-if="formData?.application_id">Application ID: {{ formData.application_id
-                                    }}</span>
-                                    <span v-else>Application ID: NFET-2026-000000</span>
+                                        }}</span>
+                                    <span v-else>- </span>
                                 </div>
 
                                 <div
@@ -246,11 +246,11 @@
                         <div class="profile-completeness-card mb-4 overflow-hidden rounded-4 shadow-sm bg-white">
                             <!-- Dark Header Section -->
                             <div class="completeness-header p-4">
-                                <h6 class="fw-bold mb-3 d-flex justify-content-between text-white">
+                                <h5 class="fw-bold mb-2 d-flex justify-content-between text-white">
                                     Profile Completeness
                                     <span class="completion-percent">{{ profileCompletion }}%</span>
-                                </h6>
-                                <div class="progress mb-3 custom-progress-track">
+                                </h5>
+                                <div class="progress mb-2 custom-progress-track">
                                     <div class="progress-bar custom-progress-fill" role="progressbar"
                                         :style="{ width: profileCompletion + '%' }" :aria-valuenow="profileCompletion"
                                         aria-valuemin="0" aria-valuemax="100"></div>
@@ -259,9 +259,9 @@
                             </div>
 
                             <!-- White Body Section -->
-                            <div class="completeness-body p-4 pt-0">
+                            <div class="completeness-body pb-4 pt-0">
                                 <ul class="list-unstyled mb-0 completion-checklist">
-                                    <li class="d-flex align-items-center justify-content-between py-3 border-bottom"
+                                    <li class="d-flex align-items-center justify-content-between py-3 px-4 border-bottom"
                                         v-for="(item, idx) in completionSteps" :key="idx">
                                         <div class="d-flex align-items-center gap-3">
                                             <div class="completeness-icon" :class="{ 'is-done': item.done }">
@@ -295,7 +295,7 @@
                         <div class="nfet-slot-sidebar bg-white rounded-4 shadow-sm border mb-4 overflow-hidden">
                             <div class="d-flex justify-content-between align-items-center p-4"
                                 @click="isOpenNfet = !isOpenNfet"
-                                style="cursor: pointer; user-select: none; background-color: #b5771d; color: white;">
+                                style="cursor: pointer; user-select: none; background-color: #CB9722; color: white;">
                                 <h5 class="m-0 text-white fw-bold d-flex align-items-center" style="font-size: 17px;">
                                     <i class="ti ti-calendar-event me-2 fs-4"></i>NFET Slot Booking
                                 </h5>
@@ -314,7 +314,7 @@
                                                 class="ti ti-chevron-left"></i></button>
                                         <span class="fw-bold text-dark" style="font-size: 14px;">{{
                                             monthNames[currentMonth]
-                                        }}
+                                            }}
                                             {{ currentYear }}</span>
                                         <button
                                             class="btn btn-sm btn-white border shadow-sm p-1 d-flex align-items-center justify-content-center"
@@ -1579,24 +1579,24 @@ const handleFinalSubmit = async () => {
 }
 
 .profile-name-text {
-    color: white;
+    color: #F5F3FF;
     font-size: 32px;
     font-weight: 800;
     letter-spacing: -0.5px;
 }
 
 .application-id-badge {
-    background: rgba(255, 255, 255, 0.1);
+    background: #8F037E !important;
     color: rgba(255, 255, 255, 0.9);
     padding: 6px 20px;
     border-radius: 50px;
     font-size: 15px;
     font-weight: 500;
-    backdrop-filter: blur(4px);
+    /* backdrop-filter: blur(4px); */
 }
 
 .profile-meta-info {
-    color: rgba(255, 255, 255, 0.8);
+    color: #F5F3FF;
     font-size: 15px;
     font-weight: 500;
 }
@@ -1609,14 +1609,14 @@ const handleFinalSubmit = async () => {
 }
 
 .status-incomplete {
-    background: #b5771d;
-    color: white;
+    background: #9E800C;
+    color: #FDFFF7;
     border: 1px solid rgba(234, 179, 8, 0.3);
 }
 
 .status-complete {
-    background: #b5771d;
-    color: white;
+    background: #9E800C;
+    color: #FDFFF7;
     border: 1px solid rgba(16, 185, 129, 0.3);
 }
 
@@ -1630,21 +1630,22 @@ const handleFinalSubmit = async () => {
 }
 
 .completeness-header {
-    background-color: #1c011f;
+    background-color: #1D011F;
+
 }
 
 .completion-percent {
-    color: #B149FF;
+    color: #C971FF;
 }
 
 .custom-progress-track {
     height: 10px;
-    background: white !important;
+    background: #E2E8F0 !important;
     border-radius: 10px;
 }
 
 .custom-progress-fill {
-    background-color: #B240FF;
+    background-color: #B13AFB;
     border-radius: 10px;
 }
 
@@ -1674,7 +1675,7 @@ const handleFinalSubmit = async () => {
 .completeness-icon.is-done {
     background-color: #DCFCE7;
     border-color: #DCFCE7;
-    color: #10B981;
+    color: #16A34A;
 }
 
 .completeness-icon .pending-dot {
@@ -1689,7 +1690,7 @@ const handleFinalSubmit = async () => {
     color: #16A34A;
     font-weight: 600;
     font-size: 12px;
-    padding: 4px 12px;
+    padding: 6px 12px;
 }
 
 .badge-pending {
@@ -1702,7 +1703,7 @@ const handleFinalSubmit = async () => {
 
 /* ─── Submit Section Styling ────────────────────────────── */
 .pill-submit-btn {
-    background: #872980;
+    background: #A03F99;
     color: white;
     border-radius: 50px;
     padding: 12px 60px;
@@ -1751,7 +1752,7 @@ const handleFinalSubmit = async () => {
 }
 
 .completion-checklist li {
-    border-bottom: 1px solid #F3F4F6;
+    border-bottom: 2px solid #F8FAFC;
     padding-bottom: 12px;
 }
 

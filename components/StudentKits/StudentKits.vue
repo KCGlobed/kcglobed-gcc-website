@@ -27,16 +27,13 @@
                                 </div>
                             </template>
                             <template v-else-if="kit.type === 'pdf'">
-                                <div
-                                    class="thumb-placeholder bg-light d-flex align-items-center justify-content-center">
-                                    <img src="https://upload.wikimedia.org/wikipedia/commons/8/87/PDF_file_icon.svg"
-                                        alt="PDF" style="width: 24px; opacity: 0.7;" />
+                                <div class="thumb-placeholder d-flex align-items-center justify-content-center">
+                                    <img :src="pdfIcon" alt="PDF" style="width: 28px;" />
                                 </div>
                             </template>
                             <template v-else>
-                                <div
-                                    class="thumb-placeholder bg-light d-flex align-items-center justify-content-center">
-                                    <i class="ti ti-clipboard-list text-primary fs-3"></i>
+                                <div class="thumb-placeholder d-flex align-items-center justify-content-center">
+                                    <img :src="mockTestIcon" alt="Mock Test" style="width: 28px;" />
                                 </div>
                             </template>
                         </div>
@@ -113,7 +110,9 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue';
+import { ref, computed } from 'vue';
+import pdfIcon from "@/assets/img/pdf.svg";
+import mockTestIcon from "@/assets/img/mocktest.png";
 
 const props = defineProps({
     isDisabled: {
@@ -139,8 +138,6 @@ const currentMediaUrl = ref("");
 const currentMediaType = ref("");
 const currentKitTitle = ref("");
 const pendingMockLink = ref("");
-
-import { computed } from 'vue';
 
 // Student Kits configuration
 const studentKits = computed(() => [
@@ -248,13 +245,17 @@ const handleGlobalKeydown = (e: KeyboardEvent) => {
 /* ─── Premium Redesign Styles ────────────────────────────── */
 .student-kits-sidebar {
     background-color: white;
-    border: 1px solid #F1F5F9;
+    padding: 3px;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
 }
 
 .kits-header {
-    background: #872980;
+    background: #A03F99;
     /* Premium Purple */
-    transition: background 0.3s ease;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+    transition: background 0.3s ease
 }
 
 
@@ -278,7 +279,8 @@ const handleGlobalKeydown = (e: KeyboardEvent) => {
     border-radius: 12px;
     overflow: hidden;
     position: relative;
-    border: 1px solid #F1F5F9;
+    border: 2px solid #EDE9FE;
+    background-color: #F5F3FF;
 }
 
 .thumb-placeholder {
@@ -333,8 +335,8 @@ const handleGlobalKeydown = (e: KeyboardEvent) => {
 }
 
 .watch-video {
-    background: #FFF1F2;
-    color: #F43F5E;
+    background: #FFF2F2;
+    color: #EB6466;
     padding: 2px 10px;
     border-radius: 50px;
     font-size: 11px;
