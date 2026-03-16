@@ -7,7 +7,7 @@
         <!-- <CommonInnerPageBanner pageTitle="Profile" /> -->
         <!-- Banner Section -->
         <div class="profile-banner-section p-3 p-lg-4">
-            <div class="container">
+            <div class="">
                 <div class="profile-banner-card overflow-hidden">
                     <div class="profile-banner-bg" :style="{ backgroundImage: `url(${heroBg})` }">
                         <div
@@ -40,8 +40,14 @@
 
                             <!-- Middle: Profile Info -->
                             <div class="profile-details-section text-center text-lg-start flex-grow-1 mt-3 mt-lg-0">
-                                <h2 class="profile-name-text mb-2">{{ (formData.first_name || 'Applicant') + ' ' +
-                                    (formData.last_name || '') }}</h2>
+                                <div class="text-center text-lg-start mb-2">
+                                    <h2 class="profile-name-text mb-2 mb-lg-0">{{ (formData.first_name || 'Applicant') + ' ' +
+                                        (formData.last_name || '') }}</h2>
+                                    <div class="status-pill d-lg-none d-inline-block mt-1 mb-2"
+                                        :class="profileCompletion === 100 ? 'status-complete' : 'status-incomplete'">
+                                        {{ profileCompletion === 100 ? 'Profile Complete' : 'Profile Incomplete' }}
+                                    </div>
+                                </div>
 
                                 <div class="application-id-badge mb-3 d-inline-block">
                                     <span v-if="formData?.application_id">Application ID: {{ formData.application_id
@@ -51,10 +57,12 @@
 
                                 <div
                                     class="d-flex flex-wrap justify-content-center justify-content-lg-start gap-3 gap-lg-4 profile-meta-info">
-                                    <span class="d-flex align-items-center"><i class="ti ti-mail me-2"></i> {{
-                                        formData.email }}</span>
-                                    <span class="d-flex align-items-center"><i class="ti ti-phone me-2"></i> {{
-                                        formData.mobile }}</span>
+                                    <div class="d-flex flex-nowrap gap-3 mobile-contact-row">
+                                        <span class="d-flex align-items-center"><i class="ti ti-mail me-2"></i> {{
+                                            formData.email }}</span>
+                                        <span class="d-flex align-items-center"><i class="ti ti-phone me-2"></i> {{
+                                            formData.mobile }}</span>
+                                    </div>
                                     <span class="d-flex align-items-center" v-if="formData.city || formData.state">
                                         <i class="ti ti-map-pin me-2"></i> {{ formData.city }}{{ formData.state ? ', ' +
                                             formData.state : '' }}
@@ -2249,5 +2257,46 @@ const handleFinalSubmit = async () => {
     justify-content: center;
     font-size: 16px;
     border: 1.5px solid #10B981;
+}
+@media (max-width: 991px) {
+    .profile-name-text {
+        font-size: 24px !important;
+    }
+
+    .status-pill.d-lg-none {
+        padding: 4px 12px;
+        font-size: 11px;
+        border-radius: 50px;
+    }
+
+    .application-id-badge {
+        font-size: 13px !important;
+        padding: 4px 15px !important;
+    }
+
+    .profile-meta-info {
+        justify-content: center !important;
+        gap: 15px !important;
+        font-size: 11px !important;
+        flex-wrap: wrap !important; /* Allow city to wrap below the contact row if needed */
+    }
+
+    .mobile-contact-row {
+        flex-wrap: nowrap !important;
+        overflow-x: auto;
+        white-space: nowrap;
+        scrollbar-width: none;
+    }
+
+    .mobile-contact-row::-webkit-scrollbar {
+        display: none;
+    }
+
+    .status-pill.d-lg-none {
+        padding: 4px 12px;
+        font-size: 11px;
+        border-radius: 50px;
+        white-space: nowrap;
+    }
 }
 </style>

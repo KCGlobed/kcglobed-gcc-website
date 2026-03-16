@@ -115,7 +115,11 @@
 import { ref, computed } from 'vue';
 import pdfIcon from "@/assets/img/pdf.svg";
 import mockTestIcon from "@/assets/img/mocktest.png";
-
+import thumb1 from '@/assets/img/thumb1.png'
+import thumb2 from '@/assets/img/thumb2.png'
+import thumb3 from '@/assets/img/thumb3.png'
+import thumb4 from '@/assets/img/thumb4.png'
+import thumb5 from '@/assets/img/thumb5.png'
 const props = defineProps({
     isDisabled: {
         type: Boolean,
