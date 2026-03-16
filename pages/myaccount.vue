@@ -6,8 +6,8 @@
 
         <!-- <CommonInnerPageBanner pageTitle="Profile" /> -->
         <!-- Banner Section -->
-        <div class="profile-banner-section p-3 p-lg-4">
-            <div class="">
+        <div class="profile-banner-section py-3 py-lg-4">
+            <div class="container">
                 <div class="profile-banner-card overflow-hidden">
                     <div class="profile-banner-bg" :style="{ backgroundImage: `url(${heroBg})` }">
                         <div
@@ -41,7 +41,8 @@
                             <!-- Middle: Profile Info -->
                             <div class="profile-details-section text-center text-lg-start flex-grow-1 mt-3 mt-lg-0">
                                 <div class="text-center text-lg-start mb-2">
-                                    <h2 class="profile-name-text mb-2 mb-lg-0">{{ (formData.first_name || 'Applicant') + ' ' +
+                                    <h2 class="profile-name-text mb-2 mb-lg-0">{{ (formData.first_name || 'Applicant') +
+                                        ' ' +
                                         (formData.last_name || '') }}</h2>
                                     <div class="status-pill d-lg-none d-inline-block mt-1 mb-2"
                                         :class="profileCompletion === 100 ? 'status-complete' : 'status-incomplete'">
@@ -51,7 +52,7 @@
 
                                 <div class="application-id-badge mb-3 d-inline-block">
                                     <span v-if="formData?.application_id">Application ID: {{ formData.application_id
-                                        }}</span>
+                                    }}</span>
                                     <span v-else>- </span>
                                 </div>
 
@@ -289,8 +290,10 @@
                             <!-- Footer Section -->
                             <div class="completeness-footer text-center py-3">
                                 <template v-if="profileCompletion < 100">
-                                    <button class="btn btn-link text-primary text-decoration-none fw-bold p-0 d-flex align-items-center justify-content-center gap-2 w-100"
-                                        @click="handleFinishProfile" style="font-size: 15px; color: #872980 !important;">
+                                    <button
+                                        class="btn btn-link text-primary text-decoration-none fw-bold p-0 d-flex align-items-center justify-content-center gap-2 w-100"
+                                        @click="handleFinishProfile"
+                                        style="font-size: 15px; color: #872980 !important;">
                                         Finish Profile Now <i class="ti ti-arrow-right"></i>
                                     </button>
                                 </template>
@@ -329,7 +332,7 @@
                                                 class="ti ti-chevron-left"></i></button>
                                         <span class="fw-bold text-dark" style="font-size: 14px;">{{
                                             monthNames[currentMonth]
-                                            }}
+                                        }}
                                             {{ currentYear }}</span>
                                         <button
                                             class="btn btn-sm btn-white border shadow-sm p-1 d-flex align-items-center justify-content-center"
@@ -2258,6 +2261,7 @@ const handleFinalSubmit = async () => {
     font-size: 16px;
     border: 1.5px solid #10B981;
 }
+
 @media (max-width: 991px) {
     .profile-name-text {
         font-size: 24px !important;
@@ -2278,7 +2282,8 @@ const handleFinalSubmit = async () => {
         justify-content: center !important;
         gap: 15px !important;
         font-size: 11px !important;
-        flex-wrap: wrap !important; /* Allow city to wrap below the contact row if needed */
+        flex-wrap: wrap !important;
+        /* Allow city to wrap below the contact row if needed */
     }
 
     .mobile-contact-row {
