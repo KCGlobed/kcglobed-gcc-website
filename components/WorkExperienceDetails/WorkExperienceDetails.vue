@@ -47,7 +47,7 @@
           <div v-for="(job, index) in formData.work_experience" :key="index"
             class="card mb-4 border-0 bg-light-purple shadow-sm overflow-hidden">
             <div class="card-header bg-white border-0 py-3 d-flex justify-content-between align-items-center">
-              <h6 class="mb-0 fw-bold text-primary">
+              <h6 class="mb-0 fw-bold d-flex align-items-center" style="color: #872980; font-size: 14px;">
                 <i class="ti ti-building me-2"></i>
                 {{ index === 0 ? 'Current Organization' : 'Past Organization ' + (index) }}
               </h6>
@@ -223,55 +223,75 @@ export default {
 </script>
 
 <style scoped>
+.form-label {
+    font-size: 12px;
+    font-weight: 600;
+    color: #4B5563;
+    margin-bottom: 8px;
+}
+
 .form-label span {
-  color: #dc3545;
+  color: #ef4444;
+}
+
+.form-control {
+    background-color: #F9FAFB;
+    border: 1px solid #E5E7EB;
+    border-radius: 10px;
+    padding: 12px 16px;
+    font-size: 14px;
+    color: #111827;
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.form-control:focus {
+    background-color: #fff;
+    border-color: #872980;
+    box-shadow: 0 0 0 4px rgba(135, 41, 128, 0.1);
+    outline: none;
 }
 
 .bg-light-purple {
-  background-color: #f8f6ff;
+  background-color: #ffffff;
+  border: 1px solid #F3F4F6 !important;
+  border-radius: 12px;
 }
 
-.disabled-card {
-  pointer-events: none;
-  opacity: 0.8;
-}
-
-/* Status Card Styling */
 .status-card {
   background: #fff;
-  border: 2px solid #e9ecef;
+  border: 1.5px solid #F3F4F6;
   border-radius: 12px;
-  padding: 16px;
+  padding: 24px;
   display: flex;
   align-items: center;
   gap: 16px;
   cursor: pointer;
-  transition: all 0.2s ease;
-  position: relative;
-  height: 100%;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .status-card:hover {
-  border-color: #872980;
-  background: rgba(135, 41, 128, 0.02);
+  border-color: #D6BCFA;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.05);
 }
 
 .status-card.active {
   border-color: #872980;
-  background: rgba(135, 41, 128, 0.05);
+  background: #FDF4FF;
+  box-shadow: 0 4px 15px rgba(135, 41, 128, 0.08);
 }
 
 .status-icon {
   width: 48px;
   height: 48px;
-  background: #f8f9fa;
-  border-radius: 10px;
+  background: #F9FAFB;
+  border-radius: 12px;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 24px;
-  color: #6c757d;
-  transition: all 0.2s ease;
+  font-size: 22px;
+  color: #6B7280;
+  transition: all 0.2s;
 }
 
 .status-card.active .status-icon {
@@ -279,35 +299,32 @@ export default {
   color: #fff;
 }
 
-.status-info {
-  flex: 1;
-}
-
 .status-title {
   display: block;
   font-weight: 700;
-  color: #2d3436;
-  margin-bottom: 2px;
+  color: #111827;
   font-size: 16px;
 }
 
 .status-desc {
-  margin: 0;
   font-size: 13px;
-  color: #636e72;
-  line-height: 1.4;
+  color: #6B7280;
+  margin: 0;
 }
 
 .status-check {
-  font-size: 20px;
   color: #872980;
+  font-size: 20px;
   opacity: 0;
-  transform: scale(0.8);
-  transition: all 0.2s ease;
+  transition: opacity 0.2s;
 }
 
 .status-card.active .status-check {
   opacity: 1;
-  transform: scale(1);
+}
+
+.disabled-card {
+    cursor: not-allowed !important;
+    opacity: 0.7;
 }
 </style>
