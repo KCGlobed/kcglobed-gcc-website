@@ -276,12 +276,19 @@
                                         </span>
                                     </li>
                                 </ul>
-                                <!-- <div class="text-center py-4">
-                                    <button class="btn btn-link text-primary text-decoration-none fw-bold p-0"
-                                        v-if="profileCompletion < 100" style="font-size: 16px;">
-                                        Finish Profile Now <i class="ti ti-arrow-right ms-1"></i>
+                            </div>
+
+                            <!-- Footer Section -->
+                            <div class="completeness-footer text-center py-3">
+                                <template v-if="profileCompletion < 100">
+                                    <button class="btn btn-link text-primary text-decoration-none fw-bold p-0 d-flex align-items-center justify-content-center gap-2 w-100"
+                                        @click="handleFinishProfile" style="font-size: 15px; color: #872980 !important;">
+                                        Finish Profile Now <i class="ti ti-arrow-right"></i>
                                     </button>
-                                </div> -->
+                                </template>
+                                <template v-else>
+                                    <span class="fw-bold text-success" style="font-size: 15px;">Finished</span>
+                                </template>
                             </div>
                         </div>
 
@@ -519,7 +526,7 @@
 
 <!-- ✅ PROTECTED ROUTE — redirects to /login if no valid token found -->
 <script setup lang="ts">
-import { ref, reactive, computed } from 'vue'
+import { ref, reactive, computed, onMounted, nextTick } from 'vue'
 import PersonalInformation from "../components/PersonalInformation/PersonalInformation.vue";
 import AcademicInformation from "../components/AcademicInformation/AcademicInformation.vue";
 import WorkExperienceDetails from "../components/WorkExperienceDetails/WorkExperienceDetails.vue";
@@ -615,6 +622,25 @@ const profileCompletion = computed(() => {
 
     return Math.round(totalProgress);
 });
+
+const firstIncompleteSectionIndex = computed(() => {
+    const steps = completionSteps.value;
+    const index = steps.findIndex(step => !step.done);
+    return index !== -1 ? index + 1 : null;
+});
+
+const handleFinishProfile = () => {
+    const idx = firstIncompleteSectionIndex.value;
+    if (idx !== null) {
+        openSections.value.add(idx);
+        nextTick(() => {
+            const sections = document.querySelectorAll('.accordion-section');
+            if (sections[idx - 1]) {
+                sections[idx - 1].scrollIntoView({ behavior: 'smooth', block: 'center' });
+            }
+        });
+    }
+};
 
 const completionSteps = computed(() => {
     const p = formData;
@@ -1651,6 +1677,11 @@ const handleFinalSubmit = async () => {
 
 .completeness-body {
     background-color: white;
+}
+
+.completeness-footer {
+    background-color: #F5F3FF;
+    border-top: 2px solid #F1F5F9;
 }
 
 .completion-checklist li {

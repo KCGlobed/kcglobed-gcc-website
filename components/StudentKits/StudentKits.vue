@@ -50,11 +50,11 @@
                                 <template v-else-if="kit.type === 'pdf'">
                                     <div class="d-flex align-items-center gap-2">
                                         <span class="meta-item pdf-badge">PDF</span>
-                                        <span class="meta-item">{{ kit.size || '2.4 MB' }}</span>
                                     </div>
                                 </template>
                                 <template v-else>
-                                    <span class="meta-action start-test">Start Test</span>
+                                    <span class="meta-action" :class="getMockTestClass(kit.status ?? 0)">{{
+                                        getMockTestLabel(kit.status ?? 0) }}</span>
                                 </template>
                             </div>
                         </div>
@@ -102,7 +102,9 @@
 
             </div>
             <div class="d-flex gap-3 justify-content-center">
-                <button class="btn btn-primary px-4 py-2 fw-bold" @click="confirmMockTest"> Start Now</button>
+                <button style="background-color: #A03F99;color: white;" class="btn px-4 py-2 fw-bold"
+                    @click="confirmMockTest"> Start
+                    Now</button>
                 <button class="btn btn-outline-secondary px-4 py-2" @click="cancelMockTest"> Later</button>
             </div>
         </div>
@@ -141,12 +143,12 @@ const pendingMockLink = ref("");
 
 // Student Kits configuration
 const studentKits = computed(() => [
-    { title: "GCC School Journey Overview", mediaUrl: "https://storage.googleapis.com/gcc_static_files_backend/static/videos/GCC%20School%20Journey%20Overview.mp4", type: "video", duration: "5:20 mins" },
-    { title: "NFET Exam Walkthrough Video", mediaUrl: "https://storage.googleapis.com/gcc_static_files_backend/static/videos/NFET%20Exam%20Walkthrough%20Video.mp4", type: "video", duration: "3:45 mins" },
-    { title: "AEIAP Program Overview", mediaUrl: "https://storage.googleapis.com/gcc_static_files_backend/static/videos/AEIAP%20Program%20Overview.mp4", type: "video", duration: "8:10 mins" },
-    { title: "British Council - English for Work", mediaUrl: "https://storage.googleapis.com/gcc_static_files_backend/static/videos/British%20Council%20%E2%80%93%20English%20for%20Work%20Course%20Overview.mp4", type: "video", duration: "12:30 mins" },
-    { title: "AON - Test Platform Walkthrough", mediaUrl: "https://storage.googleapis.com/gcc_static_files_backend/static/videos/AON%20%E2%80%93%20Test%20Platform%20Walkthrough.mp4", type: "video", duration: "4:15 mins" },
-    { title: "Best Interview Questions", mediaUrl: "https://storage.googleapis.com/gcc_static_files_backend/static/videos/Best%20Interview%20Questions.pdf", type: "pdf", size: "2.4 MB" },
+    { title: "GCC School Journey Overview", mediaUrl: "https://storage.googleapis.com/gcc_static_files_backend/static/videos/GCC%20School%20Journey%20Overview.mp4", type: "video", duration: "1:54 mins" },
+    { title: "NFET Exam Walkthrough Video", mediaUrl: "https://storage.googleapis.com/gcc_static_files_backend/static/videos/NFET%20Exam%20Walkthrough%20Video.mp4", type: "video", duration: "7:32 mins" },
+    { title: "AEIAP Program Overview", mediaUrl: "https://storage.googleapis.com/gcc_static_files_backend/static/videos/AEIAP%20Program%20Overview.mp4", type: "video", duration: "4:30 mins" },
+    { title: "British Council - English for Work", mediaUrl: "https://storage.googleapis.com/gcc_static_files_backend/static/videos/British%20Council%20%E2%80%93%20English%20for%20Work%20Course%20Overview.mp4", type: "video", duration: "1:23 mins" },
+    { title: "AON - Test Platform Walkthrough", mediaUrl: "https://storage.googleapis.com/gcc_static_files_backend/static/videos/AON%20%E2%80%93%20Test%20Platform%20Walkthrough.mp4", type: "video", duration: "2:36 mins" },
+    { title: "Best Interview Questions", mediaUrl: "https://storage.googleapis.com/gcc_static_files_backend/static/videos/Best%20Interview%20Questions.pdf", type: "pdf" },
     {
         title: "Mock Test",
         link: "https://cocubes.in/gccschool-nfet-mock",
@@ -160,6 +162,12 @@ const getMockTestLabel = (status: number) => {
     if (status === 1) return "In Progress";
     if (status === 2) return "Completed";
     return "Start Test";
+};
+
+const getMockTestClass = (status: number) => {
+    if (status === 1) return "status-in-progress";
+    if (status === 2) return "status-completed";
+    return "start-test";
 };
 
 const openMedia = (kit: any) => {
@@ -200,12 +208,9 @@ const confirmMockTest = async () => {
             },
             headers: token ? { 'Authorization': `Bearer ${token}` } : {}
         });
-
-        // Emit update to refresh status in parent
         emit('onStatusUpdate');
     } catch (err) {
         console.error("Failed to update mock test status:", err);
-        // We still proceed to open the link even if status update fails
     }
 
     if (pendingMockLink.value) {
@@ -263,7 +268,7 @@ const handleGlobalKeydown = (e: KeyboardEvent) => {
     cursor: pointer;
     transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     background: #ffffff;
-    border: 1px solid #F1F5F9 !important;
+    border: 1px solid #F1D1EE !important;
 }
 
 .kit-card:hover {
@@ -343,7 +348,15 @@ const handleGlobalKeydown = (e: KeyboardEvent) => {
 }
 
 .start-test {
-    color: #8B5CF6;
+    color: #A03F99;
+}
+
+.status-in-progress {
+    color: #D97706;
+}
+
+.status-completed {
+    color: #16A34A;
 }
 
 .disabled-overlay {
