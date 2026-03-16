@@ -17,25 +17,23 @@
                     <div class="kit-card p-2 rounded-4 border d-flex align-items-center gap-3">
                         <!-- Thumbnail/Icon Section -->
                         <div class="kit-thumbnail flex-shrink-0 position-relative outline-none">
-                            <template v-if="kit.type === 'video'">
-                                <div
-                                    class="thumb-placeholder bg-light d-flex align-items-center justify-content-center">
-                                    <!-- Use a generic thumb or video icon overlay -->
+                            <!-- Thumbnail Image -->
+                            <img v-if="kit.thumb" :src="kit.thumb" class="w-100 h-100"
+                                style="object-fit: cover; position: absolute; top: 0; left: 0;" alt="thumbnail" />
+
+                            <!-- Overlay (Icons or Play Button) -->
+                            <div class="thumb-overlay position-absolute top-0 start-0 w-100 h-100 d-flex align-items-center justify-content-center"
+                                :class="{ 'bg-light': !kit.thumb }">
+                                <template v-if="kit.type === 'video'">
                                     <div class="play-btn-circle">
                                         <i class="ti ti-player-play-filled"></i>
                                     </div>
-                                </div>
-                            </template>
-                            <template v-else-if="kit.type === 'pdf'">
-                                <div class="thumb-placeholder d-flex align-items-center justify-content-center">
-                                    <img :src="pdfIcon" alt="PDF" style="width: 28px;" />
-                                </div>
-                            </template>
-                            <template v-else>
-                                <div class="thumb-placeholder d-flex align-items-center justify-content-center">
-                                    <img :src="mockTestIcon" alt="Mock Test" style="width: 28px;" />
-                                </div>
-                            </template>
+                                </template>
+                                <template v-else-if="!kit.thumb">
+                                    <img v-if="kit.type === 'pdf'" :src="pdfIcon" alt="PDF" style="width: 28px;" />
+                                    <img v-else :src="mockTestIcon" alt="Mock Test" style="width: 28px;" />
+                                </template>
+                            </div>
                         </div>
 
                         <!-- Info Section -->
@@ -115,7 +113,11 @@
 import { ref, computed } from 'vue';
 import pdfIcon from "@/assets/img/pdf.svg";
 import mockTestIcon from "@/assets/img/mocktest.png";
-
+import thumb1 from '@/assets/img/thumb1.png'
+import thumb2 from '@/assets/img/thumb2.png'
+import thumb3 from '@/assets/img/thumb3.png'
+import thumb4 from '@/assets/img/thumb4.png'
+import thumb5 from '@/assets/img/thumb5.png'
 const props = defineProps({
     isDisabled: {
         type: Boolean,
@@ -143,11 +145,11 @@ const pendingMockLink = ref("");
 
 // Student Kits configuration
 const studentKits = computed(() => [
-    { title: "GCC School Journey Overview", mediaUrl: "https://storage.googleapis.com/gcc_static_files_backend/static/videos/GCC%20School%20Journey%20Overview.mp4", type: "video", duration: "1:54 mins" },
-    { title: "NFET Exam Walkthrough Video", mediaUrl: "https://storage.googleapis.com/gcc_static_files_backend/static/videos/NFET%20Exam%20Walkthrough%20Video.mp4", type: "video", duration: "7:32 mins" },
-    { title: "AEIAP Program Overview", mediaUrl: "https://storage.googleapis.com/gcc_static_files_backend/static/videos/AEIAP%20Program%20Overview.mp4", type: "video", duration: "4:30 mins" },
-    { title: "British Council - English for Work", mediaUrl: "https://storage.googleapis.com/gcc_static_files_backend/static/videos/British%20Council%20%E2%80%93%20English%20for%20Work%20Course%20Overview.mp4", type: "video", duration: "1:23 mins" },
-    { title: "AON - Test Platform Walkthrough", mediaUrl: "https://storage.googleapis.com/gcc_static_files_backend/static/videos/AON%20%E2%80%93%20Test%20Platform%20Walkthrough.mp4", type: "video", duration: "2:36 mins" },
+    { title: "GCC School Journey Overview", mediaUrl: "https://storage.googleapis.com/gcc_static_files_backend/static/videos/GCC%20School%20Journey%20Overview.mp4", type: "video", duration: "1:54 mins", thumb: thumb1 },
+    { title: "NFET Exam Walkthrough Video", mediaUrl: "https://storage.googleapis.com/gcc_static_files_backend/static/videos/NFET%20Exam%20Walkthrough%20Video.mp4", type: "video", duration: "7:32 mins", thumb: thumb2 },
+    { title: "AEIAP Program Overview", mediaUrl: "https://storage.googleapis.com/gcc_static_files_backend/static/videos/AEIAP%20Program%20Overview.mp4", type: "video", duration: "4:30 mins", thumb: thumb4 },
+    { title: "British Council - English for Work", mediaUrl: "https://storage.googleapis.com/gcc_static_files_backend/static/videos/British%20Council%20%E2%80%93%20English%20for%20Work%20Course%20Overview.mp4", type: "video", duration: "1:23 mins", thumb: thumb5 },
+    { title: "AON - Test Platform Walkthrough", mediaUrl: "https://storage.googleapis.com/gcc_static_files_backend/static/videos/AON%20%E2%80%93%20Test%20Platform%20Walkthrough.mp4", type: "video", duration: "2:36 mins", thumb: thumb3 },
     { title: "Best Interview Questions", mediaUrl: "https://storage.googleapis.com/gcc_static_files_backend/static/videos/Best%20Interview%20Questions.pdf", type: "pdf" },
     {
         title: "Mock Test",
