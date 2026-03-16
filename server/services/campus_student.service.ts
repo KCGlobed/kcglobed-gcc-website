@@ -20,10 +20,12 @@ export async function saveCampusStudent(data: any) {
       inspiration,
       promotion_channels,
       student_reach,
-      consent
+      consent,
+      is_verified,
+      mail_status
     )
     VALUES (
-      $1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, $15, $16, $17, $18
+      $1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, $15, $16, $17, $18, $19, $20
     )
     RETURNING id
   `;
@@ -46,7 +48,9 @@ export async function saveCampusStudent(data: any) {
     data.inspiration,
     JSON.stringify(Array.isArray(data.promotion_channels) ? data.promotion_channels : []),
     data.student_reach,
-    Boolean(data.consent)
+    Boolean(data.consent),
+    false,
+    false
   ];
 
   try {
