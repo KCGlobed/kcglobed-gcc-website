@@ -17,7 +17,7 @@ function extractFormIdFromOrderId(orderId: string): string | null {
 export default defineEventHandler(async (event) => {
     const body = await readBody(event);
     const config = useRuntimeConfig(event);
-    const activeGateway = config.paymentGateway || 'CASHFREE';
+    const activeGateway = config.paymentGateway || 'RAZORPAY';
 
     // Accept either razorpay or cashfree fields, or a generic 'order_id'
     const orderId = body.razorpay_order_id || body.cf_order_id || body.order_id;
