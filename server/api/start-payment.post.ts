@@ -6,8 +6,8 @@ export default defineEventHandler(async (event) => {
     const body = await readBody(event);
     const { user_id, name, email, mobile, form_type, form_id, city, state } = body;
     const config = useRuntimeConfig(event);
-    
-    const activeGateway = config.paymentGateway || 'CASHFREE';
+
+    const activeGateway = config.paymentGateway || 'RAZORPAY';
 
     console.log(`[PAYMENT][start] Initiating payment via ${activeGateway}`, {
         user_id, name, email, mobile, form_type, form_id,

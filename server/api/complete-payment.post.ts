@@ -8,7 +8,7 @@ import crypto from "crypto";
 export default defineEventHandler(async (event) => {
     const body = await readBody(event);
     const config = useRuntimeConfig(event);
-    const activeGateway = config.paymentGateway || 'CASHFREE';
+    const activeGateway = config.paymentGateway || 'RAZORPAY';
 
     let userId: string | null = null;
     let formType: string | null = null;
