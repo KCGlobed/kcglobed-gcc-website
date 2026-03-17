@@ -899,17 +899,17 @@ export default defineComponent({
             });
         };
 
-        // ── RAZORPAY: Load Script (disabled) ──────────────────────────────────
-        // const loadRazorpayScript = () => {
-        //     return new Promise((resolve) => {
-        //         if ((window as any).Razorpay) { resolve(true); return; }
-        //         const script = document.createElement("script");
-        //         script.src = "https://checkout.razorpay.com/v1/checkout.js";
-        //         script.onload = () => resolve(true);
-        //         script.onerror = () => resolve(false);
-        //         document.body.appendChild(script);
-        //     });
-        // };
+        // ── RAZORPAY: Load Script ──────────────────────────────────────────
+        const loadRazorpayScript = () => {
+            return new Promise((resolve) => {
+                if ((window as any).Razorpay) { resolve(true); return; }
+                const script = document.createElement("script");
+                script.src = "https://checkout.razorpay.com/v1/checkout.js";
+                script.onload = () => resolve(true);
+                script.onerror = () => resolve(false);
+                document.body.appendChild(script);
+            });
+        };
 
         const handlePayment = async () => {
             notification.message = '';
@@ -954,6 +954,8 @@ export default defineComponent({
                         name: form.name,
                         email: form.email,
                         mobile: form.mobile,
+                        city: form.city,
+                        state: form.state,
                         form_type: 2,
                         form_id: formId.value
                     }
@@ -965,111 +967,231 @@ export default defineComponent({
                     return;
                 }
 
-                processingMessage.value = 'Opening secure payment gateway...';
+                if (res.gateway === 'razorpay') {
+                    // 3. Load Razorpay JS SDK
+                    const loaded = await loadRazorpayScript();
+                    if (!loaded || !(window as any).Razorpay) {
+                        await closeStatusModal();
+                        alert("Razorpay SDK failed to load");
+                        return;
+                    }
 
-                // 2. Load Cashfree JS SDK
-                const loaded = await loadCashfreeScript();
-                if (!loaded || !(window as any).Cashfree) {
-                    alert("Cashfree SDK failed to load");
-                    return;
-                }
-
-                // 3. Open Cashfree Checkout
-                const cfMode = res.environment === 'PRODUCTION' ? 'production' : 'sandbox';
-                const cashfree = (window as any).Cashfree({ mode: cfMode });
-
-                cashfree.checkout({
-                    paymentSessionId: res.payment_session_id,
-                    redirectTarget: "_modal"
-                }).then(async (result: any) => {
-                    if (result.error) {
-                        console.error("[PAYMENT] Cashfree error:", result.error);
-                        try {
-                            await $fetch("/api/report-payment-failure", {
-                                method: "POST",
-                                body: {
-                                    cf_order_id: res.cf_order_id,
-                                    cf_payment_id: result.error?.payment_id || null,
-                                    error_code: result.error?.code,
-                                    error_description: result.error?.message,
-                                    error_source: result.error?.source
-                                }
-                            });
-                        } catch (e) { console.error("Failed to report failure:", e); }
-
-                    } else if (result.paymentDetails) {
-                        // RE-OPEN Status Modal to show progress
-                        await openStatusModal('processing', 'Verifying payment...');
-
-                        try {
-                            const config = useRuntimeConfig();
-                            // 5. Verify Payment
-                            await $fetch("/api/complete-payment", {
-                                method: "POST",
-                                body: {
-                                    cf_order_id: res.cf_order_id
-                                }
-                            });
-
-                            // 6. Create Student Account after successful payment
-                            processingMessage.value = 'Creating your account...';
+                    // 4. Open Razorpay Checkout
+                    const options = {
+                        key: res.key,
+                        amount: res.amount * 100,
+                        currency: res.currency,
+                        name: "KCGlobed GCC",
+                        description: "Application Fee",
+                        order_id: res.order_id,
+                        handler: async (response: any) => {
+                            await openStatusModal('processing', 'Verifying payment...');
                             try {
-                                const studentRes: any = await $fetch(
-                                    `${config.public.apiBase}/api/users/create_student/`,
-                                    {
-                                        method: 'POST',
-                                        headers: { 'Content-Type': 'application/json' },
-                                        body: {
-                                            "full_name": form.name,
-                                            "email": form.email,
-                                            "city": form.city,
-                                            "state": form.state,
-                                            "country": "India",
-                                            "phone1": form.mobile
-                                        },
+                                await $fetch("/api/complete-payment", {
+                                    method: "POST",
+                                    body: {
+                                        razorpay_order_id: response.razorpay_order_id,
+                                        razorpay_payment_id: response.razorpay_payment_id,
+                                        razorpay_signature: response.razorpay_signature
                                     }
-                                );
+                                });
 
-                                if (studentRes.success && studentRes.data?.password) {
-                                    await autoLogin(form.email, studentRes.data.password, res.cf_order_id);
-                                } else {
-                                    // Fallback success state if registration fails but payment was done
+                                // Create Student Account after successful payment
+                                processingMessage.value = 'Creating your account...';
+                                try {
+                                    const studentRes: any = await $fetch(
+                                        `${config.public.apiBase}/api/users/create_student/`,
+                                        {
+                                            method: 'POST',
+                                            headers: { 'Content-Type': 'application/json' },
+                                            body: {
+                                                "full_name": form.name,
+                                                "email": form.email,
+                                                "city": form.city,
+                                                "state": form.state,
+                                                "country": "India",
+                                                "phone1": form.mobile
+                                            },
+                                        }
+                                    );
+
+                                    if (studentRes.success && studentRes.data?.password) {
+                                        await autoLogin(form.email, studentRes.data.password, response.razorpay_order_id);
+                                    } else {
+                                        paymentStatus.value = 'success';
+                                        paymentId.value = response.razorpay_order_id;
+                                        processingMessage.value = 'Payment Successful! Redirecting to profile...';
+                                        setTimeout(() => {
+                                            window.location.href = '/myaccount';
+                                        }, 3000);
+                                    }
+                                } catch (regErr: any) {
+                                    console.error("[PAYMENT] Registration error after payment:", regErr);
                                     paymentStatus.value = 'success';
-                                    paymentId.value = res.cf_order_id;
+                                    paymentId.value = response.razorpay_order_id;
                                     processingMessage.value = 'Payment Successful! Redirecting to profile...';
-
-                                    // Reset form
-                                    form.name = '';
-                                    form.email = '';
-                                    form.mobile = '';
-                                    form.state = '';
-                                    form.city = '';
-                                    form.consent = false;
-                                    citiesList.value = [];
-                                    isDownloaded.value = false;
-                                    formId.value = null;
-
                                     setTimeout(() => {
                                         window.location.href = '/myaccount';
                                     }, 3000);
                                 }
-                            } catch (regErr: any) {
-                                console.error("[PAYMENT] Registration error after payment:", regErr);
-                                paymentStatus.value = 'success';
-                                paymentId.value = res.cf_order_id;
-                                processingMessage.value = 'Payment Successful! Redirecting to profile...';
-                                setTimeout(() => {
-                                    window.location.href = '/myaccount';
-                                }, 3000);
+                            } catch (e) {
+                                await closeStatusModal();
+                                showAlert('Payment Error', 'Payment verification failed. Please contact support.', 'error');
                             }
-
-                        } catch (e) {
-                            await closeStatusModal();
-                            console.error("[PAYMENT] complete-payment error:", e);
-                            showAlert('Payment Error', 'Payment verification failed. Please contact support.', 'error');
+                        },
+                        prefill: {
+                            name: form.name,
+                            email: form.email,
+                            contact: form.mobile
+                        },
+                        theme: {
+                            color: "#8A2BE2"
+                        },
+                        modal: {
+                            ondismiss: async () => {
+                                console.log("Razorpay payment dismissed");
+                                try {
+                                    await $fetch("/api/report-payment-failure", {
+                                        method: "POST",
+                                        body: {
+                                            razorpay_order_id: res.order_id,
+                                            error_description: "Payment cancelled by user"
+                                        }
+                                    });
+                                } catch (e) { console.error("Failed to report failure:", e); }
+                                isPaymentInProgress.value = false;
+                            }
                         }
+                    };
+
+                    const rzp = new (window as any).Razorpay(options);
+                    rzp.on('payment.failed', async (response: any) => {
+                        try {
+                            await $fetch("/api/report-payment-failure", {
+                                method: "POST",
+                                body: {
+                                    razorpay_order_id: res.order_id,
+                                    razorpay_payment_id: response.error.metadata.payment_id,
+                                    error_code: response.error.code,
+                                    error_description: response.error.description,
+                                    error_source: response.error.source,
+                                    error_step: response.error.step,
+                                    error_reason: response.error.reason
+                                }
+                            });
+                        } catch (e) { console.error("Failed to report failure:", e); }
+                        isPaymentInProgress.value = false;
+                    });
+
+                    rzp.open();
+                    await closeStatusModal();
+
+                } else {
+                    // DEFAULT: CASHFREE
+                    // 2. Load Cashfree JS SDK
+                    const loaded = await loadCashfreeScript();
+                    if (!loaded || !(window as any).Cashfree) {
+                        alert("Cashfree SDK failed to load");
+                        return;
                     }
-                });
+
+                    // 3. Open Cashfree Checkout
+                    const cfMode = res.environment === 'PRODUCTION' ? 'production' : 'sandbox';
+                    const cashfree = (window as any).Cashfree({ mode: cfMode });
+
+                    cashfree.checkout({
+                        paymentSessionId: res.payment_session_id,
+                        redirectTarget: "_modal"
+                    }).then(async (result: any) => {
+                        if (result.error) {
+                            console.error("[PAYMENT] Cashfree error:", result.error);
+                            try {
+                                await $fetch("/api/report-payment-failure", {
+                                    method: "POST",
+                                    body: {
+                                        cf_order_id: res.cf_order_id,
+                                        cf_payment_id: result.error?.payment_id || null,
+                                        error_code: result.error?.code,
+                                        error_description: result.error?.message,
+                                        error_source: result.error?.source
+                                    }
+                                });
+                            } catch (e) { console.error("Failed to report failure:", e); }
+                            isPaymentInProgress.value = false;
+
+                        } else if (result.paymentDetails) {
+                            // RE-OPEN Status Modal to show progress
+                            await openStatusModal('processing', 'Verifying payment...');
+
+                            try {
+                                // 5. Verify Payment
+                                await $fetch("/api/complete-payment", {
+                                    method: "POST",
+                                    body: {
+                                        cf_order_id: res.cf_order_id
+                                    }
+                                });
+
+                                // 6. Create Student Account after successful payment
+                                processingMessage.value = 'Creating your account...';
+                                try {
+                                    const studentRes: any = await $fetch(
+                                        `${config.public.apiBase}/api/users/create_student/`,
+                                        {
+                                            method: 'POST',
+                                            headers: { 'Content-Type': 'application/json' },
+                                            body: {
+                                                "full_name": form.name,
+                                                "email": form.email,
+                                                "city": form.city,
+                                                "state": form.state,
+                                                "country": "India",
+                                                "phone1": form.mobile
+                                            },
+                                        }
+                                    );
+
+                                    if (studentRes.success && studentRes.data?.password) {
+                                        await autoLogin(form.email, studentRes.data.password, res.cf_order_id);
+                                    } else {
+                                        // Fallback success state if registration fails but payment was done
+                                        paymentStatus.value = 'success';
+                                        paymentId.value = res.cf_order_id;
+                                        processingMessage.value = 'Payment Successful! Redirecting to profile...';
+
+                                        // Reset form
+                                        form.name = '';
+                                        form.email = '';
+                                        form.mobile = '';
+                                        form.state = '';
+                                        form.city = '';
+                                        form.consent = false;
+                                        citiesList.value = [];
+                                        isDownloaded.value = false;
+                                        formId.value = null;
+
+                                        setTimeout(() => {
+                                            window.location.href = '/myaccount';
+                                        }, 3000);
+                                    }
+                                } catch (regErr: any) {
+                                    console.error("[PAYMENT] Registration error after payment:", regErr);
+                                    paymentStatus.value = 'success';
+                                    paymentId.value = res.cf_order_id;
+                                    processingMessage.value = 'Payment Successful! Redirecting to profile...';
+                                    setTimeout(() => {
+                                        window.location.href = '/myaccount';
+                                    }, 3000);
+                                }
+
+                            } catch (e) {
+                                await closeStatusModal();
+                                console.error("[PAYMENT] complete-payment error:", e);
+                                showAlert('Payment Error', 'Payment verification failed. Please contact support.', 'error');
+                            }
+                        }
+                    });
+                }
 
                 // ── RAZORPAY CHECKOUT (disabled) ─────────────────────────────────────
                 // const options = {

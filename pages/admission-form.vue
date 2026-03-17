@@ -120,17 +120,17 @@ export default defineComponent({
       });
     }
 
-    // ── RAZORPAY: Load Script (disabled) ─────────────────────────────────────
-    // function loadRazorpayScript() {
-    //   return new Promise((resolve) => {
-    //     if ((window as any).Razorpay) { resolve(true); return; }
-    //     const script = document.createElement("script");
-    //     script.src = "https://checkout.razorpay.com/v1/checkout.js";
-    //     script.onload = () => resolve(true);
-    //     script.onerror = () => resolve(false);
-    //     document.body.appendChild(script);
-    //   });
-    // }
+    // ── RAZORPAY: Load Script ─────────────────────────────────────
+    function loadRazorpayScript() {
+      return new Promise((resolve) => {
+        if ((window as any).Razorpay) { resolve(true); return; }
+        const script = document.createElement("script");
+        script.src = "https://checkout.razorpay.com/v1/checkout.js";
+        script.onload = () => resolve(true);
+        script.onerror = () => resolve(false);
+        document.body.appendChild(script);
+      });
+    }
 
     const activeComponent = computed(() => {
       switch (currentStep.value) {
@@ -265,7 +265,9 @@ export default defineComponent({
             user_id: userId.value,
             name: formData.first_name + " " + formData.last_name,
             email: formData.email,
-            mobile: formData.mobile
+            mobile: formData.mobile,
+            city: formData.city,
+            state: formData.state
           }
         });
 
@@ -274,54 +276,135 @@ export default defineComponent({
           return;
         }
 
-        // 2. Load Cashfree JS SDK
-        const loaded = await loadCashfreeScript();
-        if (!loaded || !(window as any).Cashfree) {
-          alert("Cashfree SDK failed to load");
-          return;
-        }
+        if (res.gateway === 'razorpay') {
+          // 2. Load Razorpay JS SDK
+          const loaded = await loadRazorpayScript();
+          if (!loaded || !(window as any).Razorpay) {
+            alert("Razorpay SDK failed to load");
+            return;
+          }
 
-        // 3. Open Cashfree Checkout
-        const cfMode = res.environment === 'PRODUCTION' ? 'production' : 'sandbox';
-        const cashfree = (window as any).Cashfree({ mode: cfMode });
+          // 3. Open Razorpay Checkout
+          const options = {
+            key: res.key,
+            amount: res.amount * 100,
+            currency: res.currency,
+            name: "KCGlobed GCC",
+            description: "Application Fee",
+            order_id: res.order_id,
+            handler: async (response: any) => {
+              try {
+                await $fetch("/api/complete-payment", {
+                  method: "POST",
+                  body: {
+                    razorpay_order_id: response.razorpay_order_id,
+                    razorpay_payment_id: response.razorpay_payment_id,
+                    razorpay_signature: response.razorpay_signature
+                  }
+                });
+                alert("Payment Successful!");
+                window.location.href = '/myaccount';
+              } catch (e) {
+                console.error("[PAYMENT] complete-payment error:", e);
+                alert("Payment done but verification failed. Please contact support.");
+              }
+            },
+            prefill: {
+              name: formData.first_name + " " + formData.last_name,
+              email: formData.email,
+              contact: formData.mobile
+            },
+            theme: {
+              color: "#8A2BE2"
+            },
+            modal: {
+              ondismiss: async () => {
+                console.log("Razorpay payment dismissed");
+                try {
+                  await $fetch("/api/report-payment-failure", {
+                    method: "POST",
+                    body: {
+                      razorpay_order_id: res.order_id,
+                      error_description: "Payment cancelled by user"
+                    }
+                  });
+                } catch (e) { console.error("Failed to report failure:", e); }
+              }
+            }
+          };
 
-        cashfree.checkout({
-          paymentSessionId: res.payment_session_id,
-          redirectTarget: "_modal"
-        }).then(async (result: any) => {
-          if (result.error) {
-            console.error("[PAYMENT] Cashfree error:", result.error);
+          const rzp = new (window as any).Razorpay(options);
+          rzp.on('payment.failed', async (response: any) => {
             try {
               await $fetch("/api/report-payment-failure", {
                 method: "POST",
                 body: {
-                  cf_order_id: res.cf_order_id,
-                  cf_payment_id: result.error?.payment_id || null,
-                  error_code: result.error?.code,
-                  error_description: result.error?.message,
-                  error_source: result.error?.source
+                  razorpay_order_id: res.order_id,
+                  razorpay_payment_id: response.error.metadata.payment_id,
+                  error_code: response.error.code,
+                  error_description: response.error.description,
+                  error_source: response.error.source,
+                  error_step: response.error.step,
+                  error_reason: response.error.reason
                 }
               });
             } catch (e) { console.error("Failed to report failure:", e); }
-            alert(`Payment Failed: ${result.error.message || "Unknown error"}`);
+            alert(`Payment Failed: ${response.error.description}`);
+          });
 
-          } else if (result.paymentDetails) {
-            // Payment successful – verify on server
-            try {
-              await $fetch("/api/complete-payment", {
-                method: "POST",
-                body: {
-                  cf_order_id: res.cf_order_id,
-                  cf_payment_id: result.paymentDetails.paymentMessage || result.paymentDetails.cf_payment_id
-                }
-              });
-              alert("Payment Successful!");
-            } catch (e) {
-              console.error("[PAYMENT] complete-payment error:", e);
-              alert("Payment done but verification failed. Please contact support.");
-            }
+          rzp.open();
+
+        } else {
+          // DEFAULT: CASHFREE
+          // 2. Load Cashfree JS SDK
+          const loaded = await loadCashfreeScript();
+          if (!loaded || !(window as any).Cashfree) {
+            alert("Cashfree SDK failed to load");
+            return;
           }
-        });
+
+          // 3. Open Cashfree Checkout
+          const cfMode = res.environment === 'PRODUCTION' ? 'production' : 'sandbox';
+          const cashfree = (window as any).Cashfree({ mode: cfMode });
+
+          cashfree.checkout({
+            paymentSessionId: res.payment_session_id,
+            redirectTarget: "_modal"
+          }).then(async (result: any) => {
+            if (result.error) {
+              console.error("[PAYMENT] Cashfree error:", result.error);
+              try {
+                await $fetch("/api/report-payment-failure", {
+                  method: "POST",
+                  body: {
+                    cf_order_id: res.cf_order_id,
+                    cf_payment_id: result.error?.payment_id || null,
+                    error_code: result.error?.code,
+                    error_description: result.error?.message,
+                    error_source: result.error?.source
+                  }
+                });
+              } catch (e) { console.error("Failed to report failure:", e); }
+              alert(`Payment Failed: ${result.error.message || "Unknown error"}`);
+
+            } else if (result.paymentDetails) {
+              // Payment successful – verify on server
+              try {
+                await $fetch("/api/complete-payment", {
+                  method: "POST",
+                  body: {
+                    cf_order_id: res.cf_order_id
+                  }
+                });
+                alert("Payment Successful!");
+                window.location.href = '/myaccount';
+              } catch (e) {
+                console.error("[PAYMENT] complete-payment error:", e);
+                alert("Payment done but verification failed. Please contact support.");
+              }
+            }
+          });
+        }
 
         // ── RAZORPAY CHECKOUT (disabled) ─────────────────────────────────────
         // const options = {
