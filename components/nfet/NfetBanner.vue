@@ -31,24 +31,24 @@
                 <!-- Right Video Section -->
                 <div class="col-lg-6 right-col">
                     <div class="video-wrapper">
-                        <div class="video-container">
-                            <img v-if="!isPlaying"
-                                src="https://storage.googleapis.com/static_files_backend/media/images/manna%20sir%20thmbnl%20(1).jpg"
-                                alt="NFET Video Thumbnail" class="video-thumb" />
-                            <!-- <iframe v-if="isPlaying" src="" frameborder="0" allow="autoplay; encrypted-media"
-                                allowfullscreen class="video-iframe"></iframe> -->
-                            <div v-if="!isPlaying" class="play-overlay">
-                                <div class="play-btn">
-                                    <svg viewBox="0 0 24 24" fill="white" width="28" height="28">
-                                        <polygon points="5,3 19,12 5,21" />
-                                    </svg>
+                        <div class="video-container" @click="playVideo">
+                            <template v-if="!isPlaying">
+                                <img src="https://storage.googleapis.com/gcc_static_files_backend/static/images/manna%20sir%20thmbnl.jpg"
+                                    alt="NFET Video Thumbnail" class="video-thumb" />
+                                <div class="play-overlay">
+                                    <div class="play-btn">
+                                        <i class="ti ti-player-play-filled"></i>
+                                    </div>
                                 </div>
-                            </div>
+                            </template>
+                            <video v-else controls autoplay controlsList="nodownload" oncontextmenu="return false;"
+                                class="video-player">
+                                <source
+                                    src="https://storage.googleapis.com/gcc_static_files_backend/static/videos/MANNA%20SIR%20WEBSITE_FINAL%20100.mp4"
+                                    type="video/mp4">
+                                Your browser does not support the video tag.
+                            </video>
                         </div>
-                        <!-- <div class="video-label mt-3">
-                            <span class="watch-icon">▶</span>
-                            Watch: What is NFET?
-                        </div> -->
                     </div>
                 </div>
 
@@ -62,17 +62,13 @@
 </template>
 
 <script setup lang="ts">
-import { ref, onMounted } from 'vue';
+import { ref } from 'vue';
 
 const isPlaying = ref(false);
 
 function playVideo() {
     isPlaying.value = true;
 }
-
-onMounted(() => {
-    // onMounted logic removed since it was only for typing animation
-});
 </script>
 
 <style scoped>
@@ -165,6 +161,7 @@ onMounted(() => {
     cursor: pointer;
     aspect-ratio: 16 / 9;
     box-shadow: -5px -13px 30px rgba(225, 218, 218, 0.35);
+    background: #000;
 }
 
 .video-thumb {
@@ -194,29 +191,48 @@ onMounted(() => {
 }
 
 .play-btn {
-    width: 64px;
-    height: 64px;
-    background: rgba(241, 166, 62, 0.9);
+    width: 70px;
+    height: 70px;
+    background-color: #A13E99;
     border-radius: 50%;
     display: flex;
     align-items: center;
     justify-content: center;
-    padding-left: 5px;
-    transition: transform 0.3s ease, background 0.3s ease;
-    box-shadow: 0 0 0 12px rgba(241, 166, 62, 0.2);
+    font-size: 28px;
+    color: #ffffff;
+    box-shadow: 0 0 0 0 rgba(161, 62, 153, 0.4);
+    animation: pulse-play 2s infinite;
+    transition: all 0.3s ease;
 }
 
 .video-container:hover .play-btn {
     transform: scale(1.1);
-    background: #f1a63e;
+    background-color: #C436BE;
+    color: #ffffff;
+    animation: none;
 }
 
-.video-iframe {
+.video-player {
     width: 100%;
     height: 100%;
-    position: absolute;
-    top: 0;
-    left: 0;
+    object-fit: cover;
+}
+
+@keyframes pulse-play {
+    0% {
+        transform: scale(0.95);
+        box-shadow: 0 0 0 0 rgba(161, 62, 153, 0.7);
+    }
+
+    70% {
+        transform: scale(1);
+        box-shadow: 0 0 0 20px rgba(161, 62, 153, 0);
+    }
+
+    100% {
+        transform: scale(0.95);
+        box-shadow: 0 0 0 0 rgba(161, 62, 153, 0);
+    }
 }
 
 .video-label {

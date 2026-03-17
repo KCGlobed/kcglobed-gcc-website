@@ -45,7 +45,7 @@
           <div class="video-box-wrapper">
             <div class="video-section shadow-lg">
               <div class="video-container">
-                <video ref="infoVideo" controls muted loop class="w-100 h-100" @play="isVideoPlaying = true"
+                <video ref="infoVideo" controls muted loop controlsList="nodownload" oncontextmenu="return false;" class="w-100 h-100" @play="isVideoPlaying = true"
                   @pause="isVideoPlaying = false" style="object-fit: contain; background: #0b0b1a;">
                   <source
                     src="https://storage.googleapis.com/static_files_backend/media/images/Kamal%20Sir%20Video_1.mp4"
