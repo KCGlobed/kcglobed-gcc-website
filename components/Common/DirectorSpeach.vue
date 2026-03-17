@@ -42,15 +42,22 @@
 
                 <div class="col-lg-6 col-md-12 mt-5 mt-lg-0">
                     <div class="video-box-wrapper" data-aos="fade-left">
-                        <div class="video-preview-box shadow-lg">
-                            <img src="https://storage.googleapis.com/static_files_backend/media/images/manna%20sir%20thmbnl%20(1).jpg"
-                                alt="ED Message Video Preview" class="preview-img">
-                            <div class="play-btn-wrap">
-                                <div class="play-btn">
-                                    <i class="ti ti-player-play-filled"></i>
+                        <div class="video-preview-box shadow-lg" @click="playVideo">
+                            <template v-if="!isPlaying">
+                                <img src="https://storage.googleapis.com/gcc_static_files_backend/static/images/manna%20sir%20thmbnl.jpg"
+                                    alt="ED Message Video Preview" class="preview-img">
+                                <div class="play-btn-wrap">
+                                    <div class="play-btn">
+                                        <i class="ti ti-player-play-filled"></i>
+                                    </div>
                                 </div>
-                            </div>
-
+                            </template>
+                            <video v-else controls autoplay controlsList="nodownload" oncontextmenu="return false;" class="video-player">
+                                <source
+                                    src="https://storage.googleapis.com/gcc_static_files_backend/static/videos/MANNA%20SIR%20WEBSITE_FINAL%20100.mp4"
+                                    type="video/mp4">
+                                Your browser does not support the video tag.
+                            </video>
                         </div>
                         <!-- Decorative elements -->
                         <div class="shape-1"></div>
@@ -63,7 +70,13 @@
 </template>
 
 <script setup lang="ts">
-// Logic for video modal if needed later
+import { ref } from 'vue';
+
+const isPlaying = ref(false);
+
+const playVideo = () => {
+    isPlaying.value = true;
+};
 </script>
 
 <style scoped>
@@ -133,14 +146,22 @@
     display: flex;
     align-items: center;
     justify-content: center;
+    background: #000;
+    aspect-ratio: 16 / 9;
 }
 
 .preview-img {
     width: 100%;
-    height: auto;
-    object-fit: contain;
+    height: 100%;
+    object-fit: cover;
     display: block;
     transition: transform 0.5s ease;
+}
+
+.video-player {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
 }
 
 .video-preview-box:hover .preview-img {
@@ -158,21 +179,23 @@
 .play-btn {
     width: 80px;
     height: 80px;
-    background-color: #ffffff;
+    background-color: #A13E99;
     border-radius: 50%;
     display: flex;
     align-items: center;
     justify-content: center;
     font-size: 30px;
-    color: #fc6441;
-    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+    color: #ffffff;
+    box-shadow: 0 0 0 0 rgba(161, 62, 153, 0.4);
+    animation: pulse-play 2s infinite;
     transition: all 0.3s ease;
 }
 
 .video-preview-box:hover .play-btn {
     transform: scale(1.1);
-    background-color: #fc6441;
+    background-color: #C436BE;
     color: #ffffff;
+    animation: none;
 }
 
 .video-caption {
@@ -214,6 +237,23 @@
 
 .cta-box .default-btn {
     background-color: #A13E99;
+}
+
+@keyframes pulse-play {
+    0% {
+        transform: scale(0.95);
+        box-shadow: 0 0 0 0 rgba(161, 62, 153, 0.7);
+    }
+
+    70% {
+        transform: scale(1);
+        box-shadow: 0 0 0 20px rgba(161, 62, 153, 0);
+    }
+
+    100% {
+        transform: scale(0.95);
+        box-shadow: 0 0 0 0 rgba(161, 62, 153, 0);
+    }
 }
 
 @media (max-width: 1200px) {
