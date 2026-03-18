@@ -20,7 +20,7 @@ useHead({
 onMounted(() => {
   const token = localStorage.getItem('gcc_access_token')
   if (token) {
-    window.location.href = '/profile'
+    window.location.href = '/myaccount'
   }
 })
 </script>

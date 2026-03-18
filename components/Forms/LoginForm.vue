@@ -221,7 +221,7 @@ async function handleSubmit() {
         login({ access, refresh, user_role, user_id })
 
         // Hard redirect to profile (full page reload for clean mount)
-        console.log('[Login] Auth successful. Navigating to /profile...')
+        console.log('[Login] Auth successful. Navigating to /myaccount...')
         window.location.href = '/myaccount'
 
     } catch (err: any) {
