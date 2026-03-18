@@ -42,13 +42,13 @@ const timeline = [
     {
         label: 'NFET Slot\nBooking',
         icon: icon2,
-        date: 'March 01 - March 31, 2026',
+        date: 'March 10 - April 15, 2026',
         color: 'linear-gradient(135deg, #5b21b6 0%, #7c3aed 100%)',
     },
     {
         label: 'Result Communication',
         icon: icon3,
-        date: 'First Week of April, 2026',
+        date: 'Third week of April, 2026',
         color: 'linear-gradient(135deg, #7c3aed 0%, #9333ea 100%)',
     },
     {
