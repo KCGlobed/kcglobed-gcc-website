@@ -6,7 +6,7 @@ export default defineNuxtPlugin(() => {
     const router = useRouter()
 
     router.beforeEach((to) => {
-        const protectedRoutes = ['/profile']
+        const protectedRoutes = ['/myaccount']
 
         if (protectedRoutes.includes(to.path)) {
             const token = localStorage.getItem('gcc_access_token')
