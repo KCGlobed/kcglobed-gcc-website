@@ -142,7 +142,7 @@
                                                 <!-- <div class="video-badge-4k">
                                                     4k
                                                 </div> -->
-                                                <div class="video-play-overlay">
+                                                <div class="video-play-overlay" @click="banner.showVideo = true">
                                                     <div class="play-icon">
                                                         <i class="ti ti-player-play-filled"></i>
                                                     </div>
@@ -152,12 +152,12 @@
                                                     <p class="speaker-quote">LMS TUTORIAL & OVERVIEW</p>
                                                 </div> -->
                                             </template>
-                                            <!-- <video v-else controls autoplay class="video-element w-100 h-100">
+                                            <video v-else controls autoplay controlsList="nodownload" oncontextmenu="return false;" class="video-element w-100 h-100">
                                                 <source
-                                                    src="https://storage.googleapis.com/gcc_static_files_backend/static/videos/lms_tutorial.mp4"
+                                                    src="https://storage.googleapis.com/gcc_static_files_backend/static/videos/Nitis%20Sir%20Website%20Video._final_gcc.mp4"
                                                     type="video/mp4">
                                                 Your browser does not support the video tag.
-                                            </video> -->
+                                            </video>
                                         </div>
                                     </div>
                                 </div>
@@ -473,26 +473,30 @@
 
 
 .play-icon {
-    width: 65px;
-    height: 65px;
-    background: rgba(255, 255, 255, 0.95);
+    width: 80px;
+    height: 80px;
+    background-color: #A13E99;
     border-radius: 50%;
     display: flex;
     align-items: center;
     justify-content: center;
+    font-size: 30px;
+    color: #ffffff;
+    box-shadow: 0 0 0 0 rgba(161, 62, 153, 0.4);
+    animation: pulse-play 2s infinite;
     transition: all 0.3s ease;
 }
 
 .video-play-overlay:hover .play-icon {
-    background: #ffffff;
     transform: scale(1.1);
-    box-shadow: 0 5px 20px rgba(255, 255, 255, 0.4);
+    background-color: #C436BE;
+    color: #ffffff;
+    animation: none;
 }
 
 .play-icon i {
-    font-size: 1.8rem;
-    color: #6a1b9a;
-    margin-left: 3px;
+    font-size: 30px;
+    color: #ffffff;
 }
 
 .video-caption {
@@ -578,6 +582,23 @@
 
     .play-icon i {
         font-size: 1.5rem;
+    }
+}
+
+@keyframes pulse-play {
+    0% {
+        transform: scale(0.95);
+        box-shadow: 0 0 0 0 rgba(161, 62, 153, 0.7);
+    }
+
+    70% {
+        transform: scale(1);
+        box-shadow: 0 0 0 20px rgba(161, 62, 153, 0);
+    }
+
+    100% {
+        transform: scale(0.95);
+        box-shadow: 0 0 0 0 rgba(161, 62, 153, 0);
     }
 }
 </style>
