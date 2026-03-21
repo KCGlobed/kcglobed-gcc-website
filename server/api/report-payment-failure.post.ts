@@ -18,7 +18,7 @@ export default defineEventHandler(async (event) => {
     const body = await readBody(event);
     const config = useRuntimeConfig(event);
     const activeGateway = config.paymentGateway || 'RAZORPAY';
-
+    console.log(activeGateway,'---acitve gateway')
     // Accept either razorpay or cashfree fields, or a generic 'order_id'
     const orderId = body.razorpay_order_id || body.cf_order_id || body.order_id;
     const paymentId = body.razorpay_payment_id || body.cf_payment_id || body.payment_id;

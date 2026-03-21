@@ -9,7 +9,7 @@ export default defineEventHandler(async (event) => {
     const body = await readBody(event);
     const config = useRuntimeConfig(event);
     const activeGateway = config.paymentGateway || 'RAZORPAY';
-
+    console.log(activeGateway,'---acitve gateway')
     let userId: string | null = null;
     let formType: string | null = null;
     let formId: string | null = null;

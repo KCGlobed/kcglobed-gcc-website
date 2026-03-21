@@ -472,7 +472,9 @@
                                                 </div>
                                             </span>
                                         </a>
+                                       
                                     </div>
+                                     <Reattempt :formData="formData" />
 
                                 </div> <!-- End Position-Relative -->
                             </div> <!-- End v-show -->
@@ -543,6 +545,7 @@ import AcademicInformation from "../components/AcademicInformation/AcademicInfor
 import WorkExperienceDetails from "../components/WorkExperienceDetails/WorkExperienceDetails.vue";
 import DocumentUpload from "../components/DocumentUpload/DocumentUpload.vue";
 import StudentKits from "../components/StudentKits/StudentKits.vue";
+import Reattempt from "../components/reattempt/Reattempt.vue";
 import heroBg from "@/assets/img/heros/hero_bg.svg";
 // import PrePaymentDeclaration from "../components/PrePaymentDeclaration/PrePaymentDeclaration.vue";
 import { staticSlots, allowedDates, blockedDates } from "../utils/constants";
