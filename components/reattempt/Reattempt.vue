@@ -4,18 +4,19 @@
         <div class="reattempt-card p-4 rounded-4 shadow-sm border overflow-hidden position-relative">
             <div class="reattempt-content d-flex align-items-center justify-content-between gap-3">
                 <div class="d-flex align-items-center gap-3">
-                    <div class="icon-box">
+                    <!-- <div class="icon-box">
                         <i class="ti ti-rotate-clockwise fs-4"></i>
-                    </div>
+                    </div> -->
                     <div>
                         <h6 class="mb-1 fw-bold text-dark">Do you want to reattempt the exam?</h6>
-                        <p class="small text-muted mb-0">Get a second chance to improve your score.</p>
+                        <p class="small text-muted mb-2">Get a second chance to improve your score.</p>
                     </div>
                 </div>
-                <button class="btn btn-reattempt px-4 py-2 fw-bold" @click="showModal = true">
+               
+            </div>
+             <button class="btn btn-reattempt px-4 py-2 fw-bold" @click="showModal = true">
                     Reattempt <i class="ti ti-arrow-right ms-1"></i>
                 </button>
-            </div>
         </div>
 
         <!-- Payment Confirmation Modal -->
