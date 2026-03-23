@@ -9,7 +9,7 @@ export default defineEventHandler(async (event) => {
     const body = await readBody(event);
     const config = useRuntimeConfig(event);
     const activeGateway = config.paymentGateway || 'RAZORPAY';
-    console.log(activeGateway,'---acitve gateway')
+    console.log(activeGateway, '---acitve gateway')
     let userId: string | null = null;
     let formType: string | null = null;
     let formId: string | null = null;
@@ -22,11 +22,11 @@ export default defineEventHandler(async (event) => {
     let city = "";
     let actualPaymentId = 'N/A';
     let orderIdForDb = '';
-
+    let reAttemptStatus = false;
     if (activeGateway === 'RAZORPAY') {
-        const { razorpay_order_id, razorpay_payment_id, razorpay_signature } = body;
+        const { razorpay_order_id, razorpay_payment_id, razorpay_signature, re_attempt_status } = body;
         orderIdForDb = razorpay_order_id;
-
+        reAttemptStatus = re_attempt_status || false;
         if (!razorpay_order_id || !razorpay_payment_id || !razorpay_signature) {
             throw createError({ statusCode: 400, message: "Missing Razorpay payment details" });
         }
@@ -63,9 +63,9 @@ export default defineEventHandler(async (event) => {
         }
     } else {
         // DEFAULT: CASHFREE
-        const { cf_order_id } = body;
+        const { cf_order_id, re_attempt_status } = body;
         orderIdForDb = cf_order_id;
-
+        reAttemptStatus = re_attempt_status || false;
         if (!cf_order_id) {
             throw createError({ statusCode: 400, message: "Missing Cashfree order ID" });
         }
@@ -116,6 +116,7 @@ export default defineEventHandler(async (event) => {
     // ── Save success to DB ────────────────────────────────────────────────────
     try {
         const paymentDbId = await savePayment({
+           re_attempt_status: reAttemptStatus,
             student_id: userId,
             form_type: formType || 1,
             form_id: formId,

@@ -22,7 +22,7 @@ export default defineEventHandler(async (event) => {
     // Accept either razorpay or cashfree fields, or a generic 'order_id'
     const orderId = body.razorpay_order_id || body.cf_order_id || body.order_id;
     const paymentId = body.razorpay_payment_id || body.cf_payment_id || body.payment_id;
-
+    const re_attempt_status=body.re_attempt_status || false;
     if (!orderId) {
         console.error("[PAYMENT][failure] FAILED — Missing order_id in failure report", {
             event: "client_reported_failure",
@@ -60,7 +60,7 @@ export default defineEventHandler(async (event) => {
             const orderRes = await razorpay.orders.fetch(orderId);
             amount = Number(orderRes.amount) / 100;
             currency = orderRes.currency;
-
+            console.log(orderRes,'---order res')
             if (orderRes.notes) {
                 userId = orderRes.notes.user_id ? String(orderRes.notes.user_id) : null;
                 formType = orderRes.notes.form_type ? String(orderRes.notes.form_type) : null;
@@ -118,7 +118,9 @@ export default defineEventHandler(async (event) => {
 
     // ── Step 2: Always save the failure record to DB ──────────────────────────
     try {
+        console.log(userName,userEmail,userMobile,city,'----All the details---')
         await savePayment({
+            re_attempt_status,
             student_id: userId || null,
             form_type: formType || 1,
             form_id: formId,
@@ -137,7 +139,7 @@ export default defineEventHandler(async (event) => {
                 mobile: userMobile,
                 city: city,
                 state: state
-            })
+            }),
         });
 
         // --- LOG: Failure Recorded Successfully ---

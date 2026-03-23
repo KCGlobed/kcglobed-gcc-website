@@ -1,70 +1,86 @@
 <template>
     <div class="reattempt-container mt-4">
         <!-- Reattempt Prompt Card -->
-        <div v-if="props.reattempt!==0" class="reattempt-card p-4 rounded-4 shadow-sm border overflow-hidden position-relative">
+        <div v-if="props.reattempt !== 0"
+            class="reattempt-card p-4 rounded-4 shadow-sm border overflow-hidden position-relative">
             <div class="reattempt-content d-flex align-items-center justify-content-between gap-3">
                 <div class="d-flex align-items-center gap-3">
-                    <!-- <div class="icon-box">
-                        <i class="ti ti-rotate-clockwise fs-4"></i>
-                    </div> -->
                     <div>
                         <h6 class="mb-1 fw-bold text-dark">Do you want to reattempt the exam?</h6>
                         <p class="small text-muted mb-2">Get a second chance to improve your score.</p>
                     </div>
                 </div>
-               
             </div>
-             <button :disabled="props.reattempt===2" class="btn btn-reattempt px-4 py-2 fw-bold" @click="showModal = true">
-                    Reattempt <i class="ti ti-arrow-right ms-1"></i>
-                </button>
+            <button :disabled="props.reattempt === 2" class="btn btn-reattempt px-4 py-2 fw-bold"
+                @click="showModal = true">
+                Reattempt <i class="ti ti-arrow-right ms-1"></i>
+            </button>
         </div>
 
         <!-- Payment Confirmation Modal -->
         <Transition name="fade">
-            <div v-if="showModal" class="custom-modal-overlay" @click.self="showModal = false">
+            <div v-if="showModal" class="custom-modal-overlay" @click.self="!isProcessing && (showModal = false)">
                 <Transition name="scale">
                     <div class="custom-modal p-4 shadow-lg border-0 text-center" v-show="showModal">
-                        <!-- Top Icon -->
-                        <div class="modal-icon-header mb-4">
-                            <div class="icon-circle shadow-sm">
-                                <i class="ti ti-discount-2 fs-1 text-primary"></i>
+
+                        <!-- ── VERIFYING LOADER STATE ── -->
+                        <template v-if="isVerifying">
+                            <div class="verifying-state py-3">
+                                <div class="spinner-wrapper mb-4">
+                                    <div class="custom-spinner"></div>
+                                </div>
+                                <h5 class="fw-bold text-dark mb-2">{{ verifyingMessage }}</h5>
+                                <p class="text-muted small">Please wait, do not close this window.</p>
                             </div>
-                        </div>
+                        </template>
 
-                        <h3 class="fw-black mb-2" style="color: #1e1b4b;">Special Offer!</h3>
-                        <p class="text-secondary mb-4 px-2">
-                            Ready for another try? Get <span class="fw-bold text-primary">{{ discountPercent }}% OFF</span> for reattempting the exam.
-                        </p>
+                        <!-- ── NORMAL OFFER STATE ── -->
+                        <template v-else>
+                            <div class="modal-icon-header mb-4">
+                                <div class="icon-circle shadow-sm">
+                                    <i class="ti ti-discount-2 fs-1 text-primary"></i>
+                                </div>
+                            </div>
 
-                        <!-- Offer Banner -->
-                        <div class="offer-banner p-3 rounded-3 mb-4 d-flex align-items-center justify-content-center gap-2">
-                            <i class="ti ti-info-circle fs-5"></i>
-                            <span class="fw-semibold">This offer is valid for a limited time.</span>
-                        </div>
+                            <h3 class="fw-black mb-2" style="color: #1e1b4b;">Special Offer!</h3>
+                            <p class="text-secondary mb-4 px-2">
+                                Ready for another try? Get <span class="fw-bold text-primary">{{ discountPercent }}%
+                                    OFF</span> for reattempting the exam.
+                            </p>
 
-                        <!-- Price Detail -->
-                        <div class="price-display mb-4">
-                            <span class="text-muted text-decoration-line-through me-2">₹{{ originalPrice.toLocaleString() }}</span>
-                            <span class="text-primary fw-black fs-2">₹{{ discountedPrice.toLocaleString() }}</span>
-                        </div>
+                            <div
+                                class="offer-banner p-3 rounded-3 mb-4 d-flex align-items-center justify-content-center gap-2">
+                                <i class="ti ti-info-circle fs-5"></i>
+                                <span class="fw-semibold">This offer is valid for a limited time.</span>
+                            </div>
 
-                        <!-- Actions -->
-                        <div class="d-flex flex-column gap-2 mt-4">
-                            <button class="btn btn-pay-now py-3 fw-black shadow-sm" @click="initiatePayment" :disabled="isProcessing">
-                                <span v-if="isProcessing" class="spinner-border spinner-border-sm me-2"></span>
-                                {{ isProcessing ? 'Processing...' : 'Pay Now & Reattempt' }}
-                            </button>
-                            <button class="btn btn-link text-muted text-decoration-none py-2" @click="showModal = false" :disabled="isProcessing">
-                                Maybe Later
-                            </button>
-                        </div>
+                            <div class="price-display mb-4">
+                                <span class="text-muted text-decoration-line-through me-2">₹{{
+                                    originalPrice.toLocaleString() }}</span>
+                                <span class="text-primary fw-black fs-2">₹{{ discountedPrice.toLocaleString() }}</span>
+                            </div>
+
+                            <div class="d-flex flex-column gap-2 mt-4">
+                                <button class="btn btn-pay-now py-3 fw-black shadow-sm" @click="initiatePayment"
+                                    :disabled="isProcessing">
+                                    <span v-if="isProcessing" class="spinner-border spinner-border-sm me-2"></span>
+                                    {{ isProcessing ? 'Processing...' : 'Pay Now & Reattempt' }}
+                                </button>
+                                <button class="btn btn-link text-muted text-decoration-none py-2"
+                                    @click="showModal = false" :disabled="isProcessing">
+                                    Maybe Later
+                                </button>
+                            </div>
+                        </template>
+
                     </div>
                 </Transition>
             </div>
         </Transition>
 
         <!-- Payment Success/Failure Notification -->
-        <CommonAlert :show="alert.show" :title="alert.title" :message="alert.message" :type="alert.type" @close="alert.show = false" />
+        <CommonAlert :show="alert.show" :title="alert.title" :message="alert.message" :type="alert.type"
+            @close="alert.show = false" />
     </div>
 </template>
 
@@ -74,11 +90,14 @@ import { ref, reactive, computed } from 'vue';
 const props = defineProps<{
     formData: any;
     reattempt: number;
-}>();   
-console.log(props.reattempt,'----props')
+}>();
 
 const showModal = ref(false);
 const isProcessing = ref(false);
+
+// ── NEW: separate state for post-payment verification loader ──
+const isVerifying = ref(false);
+const verifyingMessage = ref('Verifying your payment...');
 
 const alert = reactive({
     show: false,
@@ -98,35 +117,47 @@ const discountedPrice = computed(() => {
     return Math.round(amount - discount);
 });
 
-// ── Payment SDK Loaders ─────────────────────────────────────────────────
-const loadCashfreeScript = () => {
-    return new Promise((resolve) => {
-        if ((window as any).Cashfree) { resolve(true); return; }
-        const script = document.createElement("script");
-        script.src = "https://sdk.cashfree.com/js/v3/cashfree.js";
-        script.onload = () => resolve(true);
-        script.onerror = () => resolve(false);
-        document.body.appendChild(script);
-    });
+const callReattempt = async () => {
+    try {
+        const { getAccessToken } = useAuth();
+        const token = getAccessToken();
+        const res = await $fetch(`${config.public.apiBase}/api/students/exam-re-attempt-status/`, {
+            method: "POST",
+            headers: {
+                'Authorization': `Bearer ${token}`
+            },
+            body: { status: true }
+        });
+        console.log(res, '---res---')
+    } catch (error) {
+        console.error("[REATTEMPT] callReattempt error:", error);
+    }
 };
 
-const loadRazorpayScript = () => {
-    return new Promise((resolve) => {
-        if ((window as any).Razorpay) { resolve(true); return; }
-        const script = document.createElement("script");
-        script.src = "https://checkout.razorpay.com/v1/checkout.js";
-        script.onload = () => resolve(true);
-        script.onerror = () => resolve(false);
-        document.body.appendChild(script);
-    });
-};
+// ── Payment SDK Loaders ──────────────────────────────────────────────────
+const loadCashfreeScript = () => new Promise((resolve) => {
+    if ((window as any).Cashfree) { resolve(true); return; }
+    const script = document.createElement("script");
+    script.src = "https://sdk.cashfree.com/js/v3/cashfree.js";
+    script.onload = () => resolve(true);
+    script.onerror = () => resolve(false);
+    document.body.appendChild(script);
+});
+
+const loadRazorpayScript = () => new Promise((resolve) => {
+    if ((window as any).Razorpay) { resolve(true); return; }
+    const script = document.createElement("script");
+    script.src = "https://checkout.razorpay.com/v1/checkout.js";
+    script.onload = () => resolve(true);
+    script.onerror = () => resolve(false);
+    document.body.appendChild(script);
+});
 
 const initiatePayment = async () => {
     isProcessing.value = true;
     try {
         const { userId } = useAuth();
-        
-        // 1. Create order on backend
+
         const res: any = await $fetch("/api/start-payment", {
             method: "POST",
             body: {
@@ -136,13 +167,13 @@ const initiatePayment = async () => {
                 mobile: props.formData.mobile,
                 city: props.formData.city,
                 state: props.formData.state,
-                payment_type: 'reattempt'
+                payment_type: 'reattempt',
+                form_type: 2,
+                form_id: props.formData.id
             }
         });
 
-        if (!res.success) {
-            throw new Error(res.message || "Payment initiation failed");
-        }
+        if (!res.success) throw new Error(res.message || "Payment initiation failed");
 
         if (res.gateway === 'razorpay') {
             await handleRazorpayPayment(res);
@@ -152,6 +183,7 @@ const initiatePayment = async () => {
 
     } catch (err: any) {
         console.error("[REATTEMPT] Payment Error:", err);
+        showModal.value = false;
         alert.show = true;
         alert.title = "Payment Failed";
         alert.message = err.message || "Something went wrong. Please try again.";
@@ -161,11 +193,41 @@ const initiatePayment = async () => {
     }
 };
 
+// ── Shared: show loader inside modal while verifying / failing ───────────
+const startVerifying = (message = 'Verifying your payment...') => {
+    isVerifying.value = true;
+    verifyingMessage.value = message;
+};
+
+const stopVerifying = () => {
+    isVerifying.value = false;
+};
+
+const onPaymentFailure = async (payload: any) => {
+    // Show "Recording failure..." loader inside modal
+    startVerifying('Recording payment status...');
+
+    try {
+        await $fetch("/api/report-payment-failure", {
+            method: "POST",
+            body: payload
+        });
+    } catch (e) {
+        console.error("[REATTEMPT] Failure report error:", e);
+    }
+
+    stopVerifying();
+    showModal.value = false;
+
+    alert.show = true;
+    alert.title = "Payment Failed";
+    alert.message = payload?.error_description || "Payment was not completed. Please try again.";
+    alert.type = "error";
+};
+
 const handleRazorpayPayment = async (res: any) => {
     const loaded = await loadRazorpayScript();
-    if (!loaded || !(window as any).Razorpay) {
-        throw new Error("Razorpay SDK failed to load");
-    }
+    if (!loaded || !(window as any).Razorpay) throw new Error("Razorpay SDK failed to load");
 
     const options = {
         key: res.key,
@@ -175,19 +237,28 @@ const handleRazorpayPayment = async (res: any) => {
         description: `Reattempt Fee (${discountPercent.value}% Off)`,
         order_id: res.order_id,
         handler: async (response: any) => {
+            // Show verifying loader as soon as Razorpay closes with success
+            startVerifying('Verifying your payment...');
             try {
                 await $fetch("/api/complete-payment", {
                     method: "POST",
                     body: {
                         razorpay_order_id: response.razorpay_order_id,
                         razorpay_payment_id: response.razorpay_payment_id,
-                        razorpay_signature: response.razorpay_signature
+                        razorpay_signature: response.razorpay_signature,
+                        re_attempt_status: true
                     }
                 });
+                await callReattempt(); // ✅ Correct — called after successful verification
+                stopVerifying();
                 onPaymentSuccess();
-            } catch (e) {
-                console.error("[REATTEMPT] Razorpay Verification Error:", e);
-                throw new Error("Payment verification failed. Please contact support.");
+            } catch (e: any) {
+                stopVerifying();
+                showModal.value = false;
+                alert.show = true;
+                alert.title = "Verification Failed";
+                alert.message = "Payment verification failed. Please contact support.";
+                alert.type = "error";
             }
         },
         prefill: {
@@ -197,19 +268,32 @@ const handleRazorpayPayment = async (res: any) => {
         },
         theme: { color: "#872980" },
         modal: {
-            ondismiss: () => { console.log("Razorpay dismissed"); }
+            ondismiss: async () => {
+                await onPaymentFailure({
+                    razorpay_order_id: res.order_id,
+                    error_description: "User cancelled payment",
+                    re_attempt_status: true
+                });
+            }
         }
     };
 
     const rzp = new (window as any).Razorpay(options);
+    rzp.on("payment.failed", async (response: any) => {
+        await onPaymentFailure({
+            razorpay_order_id: response.error.metadata?.order_id,
+            razorpay_payment_id: response.error.metadata?.payment_id,
+            error_code: response.error.code,
+            error_description: response.error.description,
+            re_attempt_status: true
+        });
+    });
     rzp.open();
 };
 
 const handleCashfreePayment = async (res: any) => {
     const loaded = await loadCashfreeScript();
-    if (!loaded || !(window as any).Cashfree) {
-        throw new Error("Cashfree SDK failed to load");
-    }
+    if (!loaded || !(window as any).Cashfree) throw new Error("Cashfree SDK failed to load");
 
     const cfMode = res.environment === 'PRODUCTION' ? 'production' : 'sandbox';
     const cashfree = (window as any).Cashfree({ mode: cfMode });
@@ -219,19 +303,40 @@ const handleCashfreePayment = async (res: any) => {
         redirectTarget: "_modal"
     }).then(async (result: any) => {
         if (result.error) {
-            throw new Error(result.error.message || "Cashfree payment failed");
-        } else if (result.paymentDetails) {
+            await onPaymentFailure({
+                cf_order_id: res.cf_order_id,
+                error_code: result.error.code,
+                error_description: result.error.message,
+                re_attempt_status: true
+            });
+            return;
+        }
+        if (result.paymentDetails) {
+            // Show verifying loader as soon as Cashfree closes with success
+            startVerifying('Verifying your payment...');
             try {
                 await $fetch("/api/complete-payment", {
                     method: "POST",
-                    body: { cf_order_id: res.cf_order_id }
+                    body: { cf_order_id: res.cf_order_id, re_attempt_status: true }
                 });
+                await callReattempt(); // ✅ Correct — called after successful verification
+                stopVerifying();
                 onPaymentSuccess();
-            } catch (e) {
-                console.error("[REATTEMPT] Cashfree Verification Error:", e);
-                throw new Error("Payment verification failed. Please contact support.");
+            } catch (e: any) {
+                stopVerifying();
+                showModal.value = false;
+                alert.show = true;
+                alert.title = "Verification Failed";
+                alert.message = "Payment verification failed. Please contact support.";
+                alert.type = "error";
             }
         }
+    }).catch(async (err: any) => {
+        await onPaymentFailure({
+            cf_order_id: res.cf_order_id,
+            error_description: err?.message || "Payment cancelled",
+            re_attempt_status: true
+        });
     });
 };
 
@@ -241,11 +346,8 @@ const onPaymentSuccess = () => {
     alert.title = "Success!";
     alert.message = "Payment successful. You can now reattempt the exam.";
     alert.type = "success";
-    
-    // Refresh page data or emit event
-    setTimeout(() => {
-        window.location.reload();
-    }, 2000);
+
+    setTimeout(() => { window.location.reload(); }, 2000);
 };
 </script>
 
@@ -261,17 +363,6 @@ const onPaymentSuccess = () => {
     transform: translateY(-2px);
 }
 
-.icon-box {
-    width: 48px;
-    height: 48px;
-    background: #fdf4ff;
-    color: #872980;
-    border-radius: 12px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
 .btn-reattempt {
     background: #872980;
     color: #fff;
@@ -285,7 +376,7 @@ const onPaymentSuccess = () => {
     box-shadow: 0 4px 12px rgba(135, 41, 128, 0.2);
 }
 
-/* Modal Styling */
+/* Modal */
 .custom-modal-overlay {
     position: fixed;
     top: 0;
@@ -363,10 +454,51 @@ const onPaymentSuccess = () => {
     cursor: not-allowed;
 }
 
-/* Transitions */
-.fade-enter-active, .fade-leave-active { transition: opacity 0.3s ease; }
-.fade-enter-from, .fade-leave-to { opacity: 0; }
+/* Verifying loader */
+.verifying-state {
+    padding: 20px 10px;
+}
 
-.scale-enter-active, .scale-leave-active { transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1); }
-.scale-enter-from, .scale-leave-to { opacity: 0; transform: scale(0.9) translateY(20px); }
+.spinner-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.custom-spinner {
+    width: 60px;
+    height: 60px;
+    border: 5px solid #f3e8f9;
+    border-top-color: #872980;
+    border-radius: 50%;
+    animation: spin 0.9s linear infinite;
+}
+
+@keyframes spin {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+/* Transitions */
+.fade-enter-active,
+.fade-leave-active {
+    transition: opacity 0.3s ease;
+}
+
+.fade-enter-from,
+.fade-leave-to {
+    opacity: 0;
+}
+
+.scale-enter-active,
+.scale-leave-active {
+    transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.scale-enter-from,
+.scale-leave-to {
+    opacity: 0;
+    transform: scale(0.9) translateY(20px);
+}
 </style>

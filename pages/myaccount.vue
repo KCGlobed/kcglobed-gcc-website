@@ -724,7 +724,7 @@ const fetchStudentDetail = async () => {
 
         if (response?.data && !Array.isArray(response.data)) {
             const d = response.data;
-            reattempt.value=d?.re_attempt
+            reattempt.value=d?.re_attempt_btn
             // Name splitting logic
             formData.first_name = d.first_name || "";
             formData.last_name = d.last_name || "";
