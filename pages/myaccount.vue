@@ -474,7 +474,7 @@
                                         </a>
                                        
                                     </div>
-                                     <Reattempt :formData="formData" />
+                                     <Reattempt :formData="formData" :reattempt="reattempt" />
 
                                 </div> <!-- End Position-Relative -->
                             </div> <!-- End v-show -->
@@ -574,7 +574,7 @@ const config = useRuntimeConfig();
 
 // Hydrate auth state (reads from localStorage) on mount
 const profileImage = ref<string | null>(null);
-
+const reattempt = ref<number>(0);
 const isProfileEmpty = ref(false);
 
 const profileCompletion = computed(() => {
@@ -724,7 +724,7 @@ const fetchStudentDetail = async () => {
 
         if (response?.data && !Array.isArray(response.data)) {
             const d = response.data;
-
+            reattempt.value=d?.re_attempt
             // Name splitting logic
             formData.first_name = d.first_name || "";
             formData.last_name = d.last_name || "";

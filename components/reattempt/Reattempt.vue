@@ -1,7 +1,7 @@
 <template>
     <div class="reattempt-container mt-4">
         <!-- Reattempt Prompt Card -->
-        <div class="reattempt-card p-4 rounded-4 shadow-sm border overflow-hidden position-relative">
+        <div v-if="props.reattempt!==0" class="reattempt-card p-4 rounded-4 shadow-sm border overflow-hidden position-relative">
             <div class="reattempt-content d-flex align-items-center justify-content-between gap-3">
                 <div class="d-flex align-items-center gap-3">
                     <!-- <div class="icon-box">
@@ -14,7 +14,7 @@
                 </div>
                
             </div>
-             <button class="btn btn-reattempt px-4 py-2 fw-bold" @click="showModal = true">
+             <button :disabled="props.reattempt===2" class="btn btn-reattempt px-4 py-2 fw-bold" @click="showModal = true">
                     Reattempt <i class="ti ti-arrow-right ms-1"></i>
                 </button>
         </div>
@@ -73,7 +73,9 @@ import { ref, reactive, computed } from 'vue';
 
 const props = defineProps<{
     formData: any;
-}>();
+    reattempt: number;
+}>();   
+console.log(props.reattempt,'----props')
 
 const showModal = ref(false);
 const isProcessing = ref(false);
@@ -296,12 +298,13 @@ const onPaymentSuccess = () => {
     align-items: center;
     justify-content: center;
     z-index: 9999;
+    padding: 15px;
 }
 
 .custom-modal {
     background: #fff;
     width: 100%;
-    max-width: 400px;
+    max-width: 450px;
     border-radius: 28px;
     position: relative;
     overflow: hidden;
