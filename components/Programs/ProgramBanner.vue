@@ -1002,7 +1002,7 @@ export default defineComponent({
                         key: res.key,
                         amount: res.amount * 100,
                         currency: res.currency,
-                        name: "KCGlobed GCC",
+                        name: "GCC School",
                         description: "Application Fee",
                         order_id: res.order_id,
                         handler: async (response: any) => {
