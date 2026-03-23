@@ -4,18 +4,26 @@ import { createRazorpayInstance } from "../utils/razorpay";
 
 export default defineEventHandler(async (event) => {
     const body = await readBody(event);
-    const { user_id, name, email, mobile, form_type, form_id, city, state } = body;
+    const { user_id, name, email, mobile, form_type, form_id, city, state, payment_type } = body;
     const config = useRuntimeConfig(event);
-
+    console.log(name, email, mobile, city, state, form_type, form_id, payment_type, '----body')
     const activeGateway = config.paymentGateway || 'RAZORPAY';
 
     console.log(`[PAYMENT][start] Initiating payment via ${activeGateway}`, {
-        user_id, name, email, mobile, form_type, form_id,
+        user_id, name, email, mobile, form_type, form_id, payment_type,
         timestamp: new Date().toISOString()
     });
 
-    const amount = Number(config.cashfreePaymentAmount || process.env.CASHFREE_PAYMENT_AMOUNT || 2950);
+    let amount = Number(config.paymentAmount || 2950);
     const currency = 'INR';
+    console.log(amount, '-----amount')
+    // Apply dynamic discount for reattempts
+    if (payment_type === 'reattempt') {
+        const discountPercent = Number(config.reattemptDiscountPercentage);
+        const discount = amount * (discountPercent / 100);
+        amount = Math.round(amount - discount);
+        console.log(`[PAYMENT][start] Reattempt discount (${discountPercent}%) applied. New amount: ${amount}`);
+    }
 
     if (activeGateway === 'RAZORPAY') {
         try {

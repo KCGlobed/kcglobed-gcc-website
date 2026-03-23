@@ -13,6 +13,7 @@ CREATE TABLE IF NOT EXISTS payments (
   created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
   updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
   source INT DEFAULT 1
+  re_attempt_status BOOLEAN DEFAULT true
 );
 
 -- Run these on your live DB if the table already exists with NOT NULL constraints:
