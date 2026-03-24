@@ -21,7 +21,7 @@ export async function savePayment(data: any) {
     )
     RETURNING id
   `;
-console.log(data,'----Data----')
+// console.log(data,'----Data----')
   const values = [
     //  data.re_attempt_status,
     false,
