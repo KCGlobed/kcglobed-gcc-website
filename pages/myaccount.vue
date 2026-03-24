@@ -472,7 +472,7 @@
                                                 </div>
                                             </span>
                                         </a>
-                                       
+                                            <Reattempt :formData="formData" :reattempt="reattempt" />
                                     </div>
                                      
 

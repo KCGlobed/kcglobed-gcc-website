@@ -1,6 +1,6 @@
 import { savePayment } from "../services/payment.service";
 
-export default defineEventHandler(async (event) => {
+export default defineEventHandler(async (event) => {                                                        
     const body = await readBody(event);
     const { name, email, mobile, state, city, form_type, form_id, action } = body;
 
