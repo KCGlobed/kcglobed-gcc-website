@@ -472,7 +472,9 @@
                                                 </div>
                                             </span>
                                         </a>
+                                       
                                     </div>
+                                     
 
                                 </div> <!-- End Position-Relative -->
                             </div> <!-- End v-show -->
@@ -543,6 +545,7 @@ import AcademicInformation from "../components/AcademicInformation/AcademicInfor
 import WorkExperienceDetails from "../components/WorkExperienceDetails/WorkExperienceDetails.vue";
 import DocumentUpload from "../components/DocumentUpload/DocumentUpload.vue";
 import StudentKits from "../components/StudentKits/StudentKits.vue";
+import Reattempt from "../components/reattempt/Reattempt.vue";
 import heroBg from "@/assets/img/heros/hero_bg.svg";
 // import PrePaymentDeclaration from "../components/PrePaymentDeclaration/PrePaymentDeclaration.vue";
 import { staticSlots, allowedDates, blockedDates } from "../utils/constants";
@@ -571,7 +574,7 @@ const config = useRuntimeConfig();
 
 // Hydrate auth state (reads from localStorage) on mount
 const profileImage = ref<string | null>(null);
-
+const reattempt = ref<number>(0);
 const isProfileEmpty = ref(false);
 
 const profileCompletion = computed(() => {
@@ -721,7 +724,7 @@ const fetchStudentDetail = async () => {
 
         if (response?.data && !Array.isArray(response.data)) {
             const d = response.data;
-
+            reattempt.value=d?.re_attempt_btn
             // Name splitting logic
             formData.first_name = d.first_name || "";
             formData.last_name = d.last_name || "";
