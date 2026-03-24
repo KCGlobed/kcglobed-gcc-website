@@ -474,7 +474,7 @@
                                         </a>
                                        
                                     </div>
-                                     <Reattempt :formData="formData" :reattempt="reattempt" />
+                                     
 
                                 </div> <!-- End Position-Relative -->
                             </div> <!-- End v-show -->
