@@ -82,13 +82,20 @@
                                             </div>
                                         </div>
 
-                                        <div class="form-check mb-3">
-                                            <input class="form-check-input" type="checkbox" id="consent"
-                                                v-model="form.consent" :class="{ 'is-invalid': errors.consent }">
-                                            <label class="form-check-label" for="consent">
-                                                Yes , I am commerce graduate with first division.*
-                                            </label>
-                                            <div class="invalid-feedback" v-if="errors.consent">{{ errors.consent }}
+                                        <div class="mb-3" v-if="isDownloaded" style="margin-top: 10px;">
+                                            <div class="d-flex justify-content-start align-items-center text-start">
+                                                <input class="form-check-input me-2 mt-0" type="checkbox" id="consent"
+                                                    v-model="form.consent" :class="{ 'is-invalid': errors.consent }"
+                                                    style="min-width: 1.2rem; height: 1.2rem; flex-shrink: 0;">
+                                                <label class="form-check-label small mb-0" for="consent"
+                                                    style="color: #555; line-height: 1.5; text-align: left;">
+                                                    By submitting, you agree to our <NuxtLink href="/terms-conditions">
+                                                        Terms</NuxtLink> and <NuxtLink href="/privacy-policy">Privacy
+                                                        Policy</NuxtLink>.*
+                                                </label>
+                                            </div>
+                                            <div class="invalid-feedback d-block text-start mt-1" v-if="errors.consent">
+                                                {{ errors.consent }}
                                             </div>
                                         </div>
                                         <!-- Step 1: Download Now button -->
@@ -115,7 +122,7 @@
                                             {{ notification.message }}
                                         </div>
 
-                                        <p class="form-footer-text">
+                                        <p class="form-footer-text" v-if="!isDownloaded">
                                             By submitting, you agree to our <NuxtLink href="/terms-conditions">Terms
                                             </NuxtLink> and <NuxtLink href="/privacy-policy">Privacy Policy</NuxtLink>
                                         </p>
@@ -152,7 +159,8 @@
                                                     <p class="speaker-quote">LMS TUTORIAL & OVERVIEW</p>
                                                 </div> -->
                                             </template>
-                                            <video v-else controls autoplay controlsList="nodownload" oncontextmenu="return false;" class="video-element w-100 h-100">
+                                            <video v-else controls autoplay controlsList="nodownload"
+                                                oncontextmenu="return false;" class="video-element w-100 h-100">
                                                 <source
                                                     src="https://storage.googleapis.com/gcc_static_files_backend/static/videos/Nitis%20Sir%20Website%20Video._final_gcc.mp4"
                                                     type="video/mp4">
@@ -333,6 +341,7 @@
     transition: all 0.3s ease;
     box-shadow: 0 4px 15px rgba(106, 27, 154, 0.3);
     color: #ffffff;
+    margin-top: 10px;
 }
 
 .register-btn:hover {
@@ -352,6 +361,7 @@
     color: #999;
     margin-top: 1.2rem;
     margin-bottom: 0;
+    margin-top: 10px;
 }
 
 .form-footer-text a {
@@ -768,6 +778,13 @@ export default defineComponent({
                 const modal = Modal.getInstance(el);
                 if (modal) {
                     modal.hide();
+                } else {
+                    el.classList.remove('show');
+                    el.style.display = 'none';
+                    document.body.classList.remove('modal-open');
+                    document.body.style.overflow = '';
+                    document.body.style.paddingRight = '';
+                    document.querySelectorAll('.modal-backdrop').forEach(b => b.remove());
                 }
             }
         };
@@ -819,8 +836,8 @@ export default defineComponent({
             if (!form.city) {
                 errors.city = "City is required";
             }
-            if (!form.consent) {
-                errors.consent = "You must be a commerce graduate to proceed";
+            if (isDownloaded.value && !form.consent) {
+                errors.consent = "You must agree to our Terms and Privacy Policy to proceed";
             }
 
             return Object.values(errors).every(error => error === "");
@@ -933,6 +950,8 @@ export default defineComponent({
         };
 
         const handlePayment = async () => {
+            if (!validateForm()) return;
+
             notification.message = '';
             notification.type = '';
             isPaymentInProgress.value = true;
@@ -1081,6 +1100,16 @@ export default defineComponent({
                                     });
                                 } catch (e) { console.error("Failed to report failure:", e); }
                                 isPaymentInProgress.value = false;
+                                await openStatusModal('failed', 'Payment was cancelled or failed.');
+                                form.name = '';
+                                form.email = '';
+                                form.mobile = '';
+                                form.state = '';
+                                form.city = '';
+                                form.consent = false;
+                                citiesList.value = [];
+                                isDownloaded.value = false;
+                                formId.value = null;
                             }
                         }
                     };
@@ -1102,6 +1131,16 @@ export default defineComponent({
                             });
                         } catch (e) { console.error("Failed to report failure:", e); }
                         isPaymentInProgress.value = false;
+                        await openStatusModal('failed', response?.error?.description || 'Payment failed. Please try again.');
+                        form.name = '';
+                        form.email = '';
+                        form.mobile = '';
+                        form.state = '';
+                        form.city = '';
+                        form.consent = false;
+                        citiesList.value = [];
+                        isDownloaded.value = false;
+                        formId.value = null;
                     });
 
                     rzp.open();
@@ -1139,6 +1178,16 @@ export default defineComponent({
                                 });
                             } catch (e) { console.error("Failed to report failure:", e); }
                             isPaymentInProgress.value = false;
+                            await openStatusModal('failed', result?.error?.message || 'Payment failed. Please try again.');
+                            form.name = '';
+                            form.email = '';
+                            form.mobile = '';
+                            form.state = '';
+                            form.city = '';
+                            form.consent = false;
+                            citiesList.value = [];
+                            isDownloaded.value = false;
+                            formId.value = null;
 
                         } else if (result.paymentDetails) {
                             // RE-OPEN Status Modal to show progress
