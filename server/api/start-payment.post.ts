@@ -8,7 +8,7 @@ export default defineEventHandler(async (event) => {
     const config = useRuntimeConfig(event);
     console.log(name, email, mobile, city, state, form_type, form_id, payment_type, '----body')
     const activeGateway = config.paymentGateway || 'CASHFREE';
-
+    console.log(activeGateway, '---activegateway')
     console.log(`[PAYMENT][start] Initiating payment via ${activeGateway}`, {
         user_id, name, email, mobile, form_type, form_id, payment_type,
         timestamp: new Date().toISOString()

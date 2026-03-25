@@ -12,7 +12,7 @@ CREATE TABLE IF NOT EXISTS payments (
   response JSONB,
   created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
   updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-  source INT DEFAULT 1
+  source INT DEFAULT 1,
   re_attempt_status BOOLEAN DEFAULT false
 );
 
