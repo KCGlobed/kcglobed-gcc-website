@@ -770,7 +770,6 @@ export default defineComponent({
                 modal.show();
             }
         };
-
         const closeStatusModal = async () => {
             const el = document.getElementById(statusModalId);
             if (el) {
