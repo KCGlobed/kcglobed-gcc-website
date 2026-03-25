@@ -56,15 +56,18 @@
                             </div>
                         </div>
 
-                        <div class="mb-4">
-                            <div class="form-check custom-checkbox">
-                                <input class="form-check-input" type="checkbox" v-model="form.isCommerceGraduate"
-                                    id="commerceCheck">
-                                <label class="form-check-label small text-muted" for="commerceCheck">
-                                    Yes , I am commerce graduate with first division.*
+                        <div class="mb-4" v-if="isDownloaded || mode === 'apply'" style="margin-top: 10px;">
+                            <div class="d-flex justify-content-start align-items-center custom-checkbox text-start">
+                                <input class="form-check-input me-2 m-0" type="checkbox" v-model="form.isCommerceGraduate"
+                                    id="commerceCheck" style="min-width: 1.2rem; height: 1.2rem; flex-shrink: 0; margin-top: 0 !important; margin-bottom: 0 !important;">
+                                <label class="form-check-label small text-muted m-0" for="commerceCheck" style="line-height: normal;">
+                                    By submitting, you agree to our
+                                    <NuxtLink to="/terms-conditions" class="text-purple text-decoration-none fw-bold" @click="handleNavigation">Terms</NuxtLink>
+                                    and
+                                    <NuxtLink to="/privacy-policy" class="text-purple text-decoration-none fw-bold" @click="handleNavigation">Privacy Policy</NuxtLink>.*
                                 </label>
                             </div>
-                            <small class="text-danger d-block mt-1" v-if="errors.isCommerceGraduate">{{
+                            <small class="text-danger d-block mt-1 text-start" v-if="errors.isCommerceGraduate">{{
                                 errors.isCommerceGraduate }}</small>
                         </div>
 
@@ -78,7 +81,7 @@
                         <!-- Dossier mode: DOWNLOAD NOW first, then PAY NOW -->
                         <template v-else>
                             <button v-if="!isDownloaded" type="submit"
-                                class="btn btn-register w-100 py-3 fw-bold text-uppercase" :disabled="isSubmitting">
+                                class="btn btn-register w-100 py-3 mt-2 fw-bold text-uppercase" :disabled="isSubmitting">
                                 <span v-if="isSubmitting" class="spinner-border spinner-border-sm me-2"></span>
                                 {{ isSubmitting ? 'Processing...' : 'DOWNLOAD NOW' }}
                             </button>
@@ -99,7 +102,7 @@
                             {{ notification.message }}
                         </div>
 
-                        <div class="text-center mt-4">
+                        <div class="text-center mt-4" v-if="!isDownloaded && mode !== 'apply'">
                             <p class="small text-muted mb-0">
                                 By submitting, you agree to our
                                 <NuxtLink to="/terms-conditions" class="text-purple text-decoration-none fw-bold"
@@ -231,6 +234,13 @@ export default defineComponent({
                 const modal = Modal.getInstance(el);
                 if (modal) {
                     modal.hide();
+                } else {
+                    el.classList.remove('show');
+                    el.style.display = 'none';
+                    document.body.classList.remove('modal-open');
+                    document.body.style.overflow = '';
+                    document.body.style.paddingRight = '';
+                    document.querySelectorAll('.modal-backdrop').forEach(b => b.remove());
                 }
             }
         };
@@ -310,8 +320,8 @@ export default defineComponent({
                 errors.city = 'City is required';
                 isValid = false;
             }
-            if (!form.isCommerceGraduate) {
-                errors.isCommerceGraduate = 'You must be a commerce graduate to proceed';
+            if ((isDownloaded.value || props.mode === 'apply') && !form.isCommerceGraduate) {
+                errors.isCommerceGraduate = 'You must agree to our Terms and Privacy Policy to proceed';
                 isValid = false;
             }
 
@@ -635,6 +645,7 @@ export default defineComponent({
 
                 if (!res.success) {
                     await closeStatusModal();
+                    await closeDossierModal();
                     showNotification('error', res.message || 'Payment initiation failed');
                     return;
                 }
@@ -693,6 +704,10 @@ export default defineComponent({
                                         }
                                     });
                                 } catch (e) { console.error("Failed to report failure:", e); }
+                                await openStatusModal('failed', 'Payment was cancelled or failed.');
+                                await closeDossierModal();
+                                resetForm();
+                                isPaymentInProgress.value = false;
                             }
                         }
                     };
@@ -713,6 +728,10 @@ export default defineComponent({
                                 }
                             });
                         } catch (e) { console.error("Failed to report failure:", e); }
+                        await openStatusModal('failed', response?.error?.description || 'Payment failed. Please try again.');
+                        await closeDossierModal();
+                        resetForm();
+                        isPaymentInProgress.value = false;
                     });
 
                     rzp.open();
@@ -753,6 +772,10 @@ export default defineComponent({
                                     }
                                 });
                             } catch (e) { console.error("Failed to report failure:", e); }
+                            await openStatusModal('failed', result?.error?.message || 'Payment failed. Please try again.');
+                            await closeDossierModal();
+                            resetForm();
+                            isPaymentInProgress.value = false;
 
                         } else if (result.paymentDetails) {
                             // RE-OPEN Status Modal to show progress
@@ -778,6 +801,7 @@ export default defineComponent({
 
             } catch (err) {
                 await closeStatusModal();
+                await closeDossierModal();
                 console.error(err);
                 showNotification('error', 'Payment initiation failed');
             }

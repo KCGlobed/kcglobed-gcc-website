@@ -51,8 +51,10 @@
                     </div>
                     <h3 class="fw-bold mb-2 text-failed-title">Payment Failed</h3>
                     <p class="text-muted mb-3">We were unable to process your payment.</p>
-                    <p class="small text-muted mb-4">Please try again or use a different payment method.</p>
+                    <p class="small text-muted mb-4">{{ message || 'Please try again or use a different payment method.' }}</p>
 
+                    <button type="button" class="btn btn-failed-retry w-100 py-3 fw-bold"
+                        data-bs-dismiss="modal">Close</button>
                 </div>
 
             </div>
