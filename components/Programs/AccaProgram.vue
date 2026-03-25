@@ -10,7 +10,7 @@
             <div class="row">
                 <div class="col-lg-12">
                     <div class="acca-program-image">
-                        <picture>
+                         <picture>
                             <source media="(max-width: 767px)" srcset="~/assets/img/programs/acca-mobile.png">
                             <img src="~/assets/img/programs/acca1.png" alt="ACCA Program">
                         </picture>

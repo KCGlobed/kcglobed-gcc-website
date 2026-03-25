@@ -2,8 +2,8 @@
     <div class="modal fade payment-status-modal" :id="modalId" tabindex="-1" aria-hidden="true"
         data-bs-backdrop="static">
         <div class="modal-dialog modal-dialog-centered">
-            <div class="modal-content border-0 overflow-hidden text-center px-4 py-5">
-
+            <div class="modal-content border-0 overflow-hidden text-center px-4 py-5 position-relative">
+                <button v-if="status === 'failed'" type="button" class="btn-close position-absolute top-0 end-0 m-3" data-bs-dismiss="modal" aria-label="Close"></button>
                 <!-- PROCESSING STATE -->
                 <div v-if="status === 'processing'" class="status-content">
                     <div class="icon-circle processing-circle mx-auto mb-4">
@@ -51,7 +51,7 @@
                     </div>
                     <h3 class="fw-bold mb-2 text-failed-title">Payment Failed</h3>
                     <p class="text-muted mb-3">We were unable to process your payment.</p>
-                    <p class="small text-muted mb-4">{{ message || 'Please try again or use a different payment method.' }}</p>
+                    <p class="small text-muted mb-4">Please try again or use a different payment method.</p>
 
                     <button type="button" class="btn btn-failed-retry w-100 py-3 fw-bold"
                         data-bs-dismiss="modal">Close</button>
