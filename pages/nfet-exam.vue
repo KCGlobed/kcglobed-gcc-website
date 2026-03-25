@@ -23,7 +23,6 @@
 <script setup lang="ts">
 import NfetBanner from '~/components/nfet/NfetBanner.vue';
 
-
 useHead({
     title: "GCC School | NFET",
 })
