@@ -165,7 +165,7 @@
                         <!-- Bottom Highlight Box -->
                         <div class="info-box mt-4">
                             NFET ensures a <strong>fair, professional, and industry-standard evaluation</strong>
-                            to shortlist capable candidates for future CGC career opportunities.
+                            to shortlist capable candidates for future GCC career opportunities.
                         </div>
 
                     </div>
