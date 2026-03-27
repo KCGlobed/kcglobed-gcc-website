@@ -5,7 +5,7 @@
             <!-- Logo -->
             <a class="navbar__logo" href="/">
                 <div class="navbar__logo-ring"></div>
-                <img src="~/assets/Logo/Logo/GCC-School-Logo-White.png" alt="logo" />
+                <img src="~/assets/Logo/Logo/GCC-School-Logo-White.jpeg" alt="logo" />
             </a>
 
             <!-- Desktop Actions -->
@@ -102,7 +102,7 @@
                 <!-- Drawer Header -->
                 <div class="navbar__sidedrawer-header">
                     <div class="navbar__sidedrawer-logo">
-                        <img src="~/assets/Logo/Logo/GCC-School-Logo-White.png" alt="logo" />
+                        <img src="~/assets/Logo/Logo/GCC-School-Logo-White.jpeg" alt="logo" />
 
                     </div>
                     <button class="navbar__sidedrawer-close" @click="mobileOpen = false" aria-label="Close">

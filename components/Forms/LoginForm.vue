@@ -14,7 +14,7 @@
                 <div class="card-logo">
                     <div class="logo-mark">
 
-                        <img src="/img/GCC-School-Logo-White.png" alt="" srcset="">
+                        <img src="/img/GCC-School-Logo-White.jpeg" alt="" srcset="">
                     </div>
                     <!-- <span class="logo-name">YourBrand</span> -->
                 </div>

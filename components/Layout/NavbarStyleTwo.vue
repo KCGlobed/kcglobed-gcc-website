@@ -2,7 +2,7 @@
   <nav :class="['navbar navbar-expand-lg top-navbar', { sticky: isSticky }]">
     <div class="container-fluid">
       <NuxtLink class="navbar-brand" to="/">
-        <img src="~/assets/Logo/Logo/GCC-School-Logo-White.png" class="navbar-logo" style="width: 140px;" alt="logo" />
+        <img src="~/assets/Logo/Logo/GCC-School-Logo-White.jpeg" class="navbar-logo" style="width: 140px;" alt="logo" />
       </NuxtLink>
       <a class="navbar-toggler home1-one-toggler" @click="stateStoreInstance.onMobileNavbarShow">
         <span class="burger-menu">
