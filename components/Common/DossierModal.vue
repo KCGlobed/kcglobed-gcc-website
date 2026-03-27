@@ -56,40 +56,95 @@
                             </div>
                         </div>
 
-                        <div class="mb-4">
-                            <div class="form-check custom-checkbox">
-                                <input class="form-check-input" type="checkbox" v-model="form.isCommerceGraduate"
-                                    id="commerceCheck">
-                                <label class="form-check-label small text-muted" for="commerceCheck">
-                                    Yes , I am commerce graduate with first division.*
-                                    <!-- By submitting, you agree to our Terms and Privacy Policy. -->
-                                </label>
-                            </div>
-                            <small class="text-danger d-block mt-1" v-if="errors.isCommerceGraduate">{{
-                                errors.isCommerceGraduate }}</small>
-                        </div>
+
 
                         <!-- Apply mode: single PAY NOW submit button -->
-                        <button v-if="mode === 'apply'" type="submit"
-                            class="btn btn-register w-100 py-3 fw-bold text-uppercase" :disabled="isSubmitting">
-                            <span v-if="isSubmitting" class="spinner-border spinner-border-sm me-2"></span>
-                            {{ isSubmitting ? 'Processing...' : 'Apply Now' }}
-                        </button>
+                        <div v-if="mode === 'apply'">
+                            <div class="mb-3">
+                                <div class="form-check d-flex align-items-center justify-content-start gap-2">
+                                    <input class="form-check-input mt-0" type="checkbox" v-model="form.isCommerceGraduate"
+                                        id="commerceCheckApply">
+                                    <label class="form-check-label small text-muted mb-0" for="commerceCheckApply">
+                                        By submitting, you agree to our
+                                        <NuxtLink to="/terms-conditions" target="_blank" class="text-purple text-decoration-none fw-bold"
+                                            @click="handleNavigation">
+                                            Terms
+                                        </NuxtLink>
+                                        and
+                                        <NuxtLink to="/privacy-policy" target="_blank" class="text-purple text-decoration-none fw-bold"
+                                            @click="handleNavigation">
+                                            Privacy Policy
+                                        </NuxtLink>
+                                    </label>
+                                </div>
+                                <div class="text-center">
+                                    <small class="text-danger" v-if="errors.isCommerceGraduate">
+                                        {{ errors.isCommerceGraduate }}
+                                    </small>
+                                </div>
+                            </div>
+                            <button type="submit" class="btn btn-register w-100 py-3 fw-bold text-uppercase"
+                                :disabled="isSubmitting">
+                                <span v-if="isSubmitting" class="spinner-border spinner-border-sm me-2"></span>
+                                {{ isSubmitting ? 'Processing...' : 'Apply Now' }}
+                            </button>
+                        </div>
 
                         <!-- Dossier mode: DOWNLOAD NOW first, then PAY NOW -->
                         <template v-else>
-                            <button v-if="!isDownloaded" type="submit"
-                                class="btn btn-register w-100 py-3 fw-bold text-uppercase" :disabled="isSubmitting">
-                                <span v-if="isSubmitting" class="spinner-border spinner-border-sm me-2"></span>
-                                {{ isSubmitting ? 'Processing...' : 'DOWNLOAD NOW' }}
-                            </button>
+                            <div v-if="!isDownloaded">
+                                <button type="submit" class="btn btn-register w-100 py-3 fw-bold text-uppercase"
+                                    :disabled="isSubmitting">
+                                    <span v-if="isSubmitting" class="spinner-border spinner-border-sm me-2"></span>
+                                    {{ isSubmitting ? 'Processing...' : 'DOWNLOAD NOW' }}
+                                </button>
+                                <div class="text-center mt-3">
+                                    <p class="small text-muted mb-0">
+                                        By submitting, you agree to our
+                                        <NuxtLink to="/terms-conditions" target="_blank" class="text-purple text-decoration-none fw-bold"
+                                            @click="handleNavigation">
+                                            Terms
+                                        </NuxtLink>
+                                        and
+                                        <NuxtLink to="/privacy-policy" target="_blank" class="text-purple text-decoration-none fw-bold"
+                                            @click="handleNavigation">
+                                            Privacy Policy
+                                        </NuxtLink>
+                                    </p>
+                                </div>
+                            </div>
 
-                            <button v-else type="button" @click="handlePayment"
-                                class="btn btn-register w-100 py-3 fw-bold text-uppercase"
-                                :disabled="isPaymentInProgress">
-                                <span v-if="isPaymentInProgress" class="spinner-border spinner-border-sm me-2"></span>
-                                {{ isPaymentInProgress ? 'Opening Payment...' : 'PAY NOW' }}
-                            </button>
+                            <div v-else>
+                                <div class="mb-3">
+                                    <div class="form-check d-flex align-items-center justify-content-start gap-2">
+                                        <input class="form-check-input mt-0" type="checkbox" v-model="form.isCommerceGraduate"
+                                            id="commerceCheckPay">
+                                        <label class="form-check-label small text-muted mb-0" for="commerceCheckPay">
+                                            By submitting, you agree to our
+                                            <NuxtLink to="/terms-conditions" target="_blank" class="text-purple text-decoration-none fw-bold"
+                                                @click="handleNavigation">
+                                                Terms
+                                            </NuxtLink>
+                                            and
+                                            <NuxtLink to="/privacy-policy" target="_blank" class="text-purple text-decoration-none fw-bold"
+                                                @click="handleNavigation">
+                                                Privacy Policy
+                                            </NuxtLink>
+                                        </label>
+                                    </div>
+                                    <div class="text-center">
+                                        <small class="text-danger" v-if="errors.isCommerceGraduate">
+                                            {{ errors.isCommerceGraduate }}
+                                        </small>
+                                    </div>
+                                </div>
+                                <button type="button" @click="handlePayment"
+                                    class="btn btn-register w-100 py-3 fw-bold text-uppercase"
+                                    :disabled="isPaymentInProgress">
+                                    <span v-if="isPaymentInProgress" class="spinner-border spinner-border-sm me-2"></span>
+                                    {{ isPaymentInProgress ? 'Opening Payment...' : 'PAY NOW' }}
+                                </button>
+                            </div>
                         </template>
 
                         <div v-if="notification.message"
@@ -100,20 +155,7 @@
                             {{ notification.message }}
                         </div>
 
-                        <div class="text-center mt-4">
-                            <p class="small text-muted mb-0">
-                                By submitting, you agree to our
-                                <NuxtLink to="/terms-conditions" class="text-purple text-decoration-none fw-bold"
-                                    @click="handleNavigation">
-                                    Terms
-                                </NuxtLink>
-                                and
-                                <NuxtLink to="/privacy-policy" class="text-purple text-decoration-none fw-bold"
-                                    @click="handleNavigation">
-                                    Privacy
-                                    Policy</NuxtLink>
-                            </p>
-                        </div>
+
                     </form>
                 </div>
             </div>
@@ -311,8 +353,8 @@ export default defineComponent({
                 errors.city = 'City is required';
                 isValid = false;
             }
-            if (!form.isCommerceGraduate) {
-                errors.isCommerceGraduate = 'You must be a commerce graduate to proceed';
+            if ((props.mode === 'apply' || isDownloaded.value) && !form.isCommerceGraduate) {
+                errors.isCommerceGraduate = 'You must agree to the Terms and Privacy Policy';
                 isValid = false;
             }
 

@@ -68,7 +68,7 @@
           <div class="input-box mb-0">
             <label class="form-label fw-bold">Date Of Birth <span>*</span></label>
             <input type="date" class="form-control" v-model="formData.dob" @change="validateField('dob')"
-              :class="{ 'is-invalid': errors.dob }" />
+              :class="{ 'is-invalid': errors.dob }" min="1996-01-01" :max="getMaxDOB()" />
             <div class="invalid-feedback" v-if="errors.dob">{{ errors.dob }}</div>
           </div>
         </div>
@@ -182,6 +182,15 @@ export default {
     }
   },
   methods: {
+    getMaxDOB() {
+      const today = new Date();
+      const minAgeDate = new Date(
+        today.getFullYear() - 18,
+        today.getMonth(),
+        today.getDate()
+      );
+      return minAgeDate.toISOString().split("T")[0];
+    },
     validateField(field) {
       const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
       let error = "";
@@ -213,7 +222,22 @@ export default {
           }
           break;
         case 'dob':
-          if (!this.formData.dob) error = "Date of Birth is required";
+          if (!this.formData.dob) {
+            error = "Date of Birth is required";
+          } else {
+            const selectedDate = new Date(this.formData.dob);
+
+            const today = new Date();
+            const minAgeDate = new Date(
+              today.getFullYear() - 18,
+              today.getMonth(),
+              today.getDate()
+            );
+
+            if (selectedDate > minAgeDate) {
+              error = "You must be at least 18 years old";
+            }
+          }
           break;
         case 'gender':
           if (!this.formData.gender) error = "Gender is required";

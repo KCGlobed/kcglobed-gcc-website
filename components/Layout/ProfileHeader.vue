@@ -5,7 +5,7 @@
             <!-- Logo -->
             <a class="navbar__logo" href="/">
                 <div class="navbar__logo-ring"></div>
-                <img src="~/assets/Logo/Logo/GCC-School-Logo-White.jpeg" alt="logo" />
+                <img src="~/assets/Logo/Logo/GCC-School-Logo-White.png" alt="logo" />
             </a>
 
             <!-- Desktop Actions -->
@@ -102,7 +102,7 @@
                 <!-- Drawer Header -->
                 <div class="navbar__sidedrawer-header">
                     <div class="navbar__sidedrawer-logo">
-                        <img src="~/assets/Logo/Logo/GCC-School-Logo-White.jpeg" alt="logo" />
+                        <img src="~/assets/Logo/Logo/GCC-School-Logo-White.png" alt="logo" />
 
                     </div>
                     <button class="navbar__sidedrawer-close" @click="mobileOpen = false" aria-label="Close">
@@ -141,17 +141,6 @@
                         <span class="navbar__sidedrawer-text">Logout</span>
                         <i class="ti ti-chevron-right navbar__sidedrawer-arrow"></i>
                     </a>
-                </div>
-
-                <!-- Drawer Footer -->
-                <div class="navbar__sidedrawer-footer">
-                    <div class="navbar__sidedrawer-user">
-                        <div class="navbar__sidedrawer-avatar">A</div>
-                        <div>
-                            <p class="navbar__sidedrawer-username">Alex Johnson</p>
-                            <p class="navbar__sidedrawer-email">alex@example.com</p>
-                        </div>
-                    </div>
                 </div>
 
             </div>

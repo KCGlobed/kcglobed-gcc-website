@@ -6,7 +6,7 @@
   ]" tabindex="-1" id="navbarOffcanvas">
     <div class="offcanvas-header">
       <NuxtLink to="/" @click="handleClick" class="logo d-inline-block">
-        <img src="~/assets/Logo/Logo/GCC-School-Logo-White.jpeg" alt="logo" class="header-logo" />
+        <img src="~/assets/Logo/Logo/GCC-School-Logo-White.png" alt="logo" class="header-logo" />
       </NuxtLink>
       <button type="button" class="close-btn" @click="closeNavbar" aria-label="Close">
         <i class="ti ti-x"></i>
