@@ -66,12 +66,12 @@
                                         id="commerceCheckApply">
                                     <label class="form-check-label small text-muted mb-0" for="commerceCheckApply">
                                         By submitting, you agree to our
-                                        <NuxtLink to="/terms-conditions" target="_blank" class="text-purple text-decoration-none fw-bold"
+                                        <NuxtLink to="/terms-conditions" class="text-purple text-decoration-none fw-bold"
                                             @click="handleNavigation">
                                             Terms
                                         </NuxtLink>
                                         and
-                                        <NuxtLink to="/privacy-policy" target="_blank" class="text-purple text-decoration-none fw-bold"
+                                        <NuxtLink to="/privacy-policy" class="text-purple text-decoration-none fw-bold"
                                             @click="handleNavigation">
                                             Privacy Policy
                                         </NuxtLink>
@@ -101,12 +101,12 @@
                                 <div class="text-center mt-3">
                                     <p class="small text-muted mb-0">
                                         By submitting, you agree to our
-                                        <NuxtLink to="/terms-conditions" target="_blank" class="text-purple text-decoration-none fw-bold"
+                                        <NuxtLink to="/terms-conditions" class="text-purple text-decoration-none fw-bold"
                                             @click="handleNavigation">
                                             Terms
                                         </NuxtLink>
                                         and
-                                        <NuxtLink to="/privacy-policy" target="_blank" class="text-purple text-decoration-none fw-bold"
+                                        <NuxtLink to="/privacy-policy"  class="text-purple text-decoration-none fw-bold"
                                             @click="handleNavigation">
                                             Privacy Policy
                                         </NuxtLink>
@@ -121,12 +121,12 @@
                                             id="commerceCheckPay">
                                         <label class="form-check-label small text-muted mb-0" for="commerceCheckPay">
                                             By submitting, you agree to our
-                                            <NuxtLink to="/terms-conditions" target="_blank" class="text-purple text-decoration-none fw-bold"
+                                            <NuxtLink to="/terms-conditions"  class="text-purple text-decoration-none fw-bold"
                                                 @click="handleNavigation">
                                                 Terms
                                             </NuxtLink>
                                             and
-                                            <NuxtLink to="/privacy-policy" target="_blank" class="text-purple text-decoration-none fw-bold"
+                                            <NuxtLink to="/privacy-policy"  class="text-purple text-decoration-none fw-bold"
                                                 @click="handleNavigation">
                                                 Privacy Policy
                                             </NuxtLink>

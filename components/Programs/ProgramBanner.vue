@@ -92,8 +92,8 @@
                                                 {{ isSubmitting ? 'Processing...' : 'DOWNLOAD NOW' }}
                                             </button>
                                             <p class="form-footer-text text-center mt-3 mb-0">
-                                                By submitting, you agree to our <NuxtLink to="/terms-conditions" target="_blank">Terms
-                                                </NuxtLink> and <NuxtLink to="/privacy-policy" target="_blank">Privacy Policy
+                                                By submitting, you agree to our <NuxtLink to="/terms-conditions" >Terms
+                                                </NuxtLink> and <NuxtLink to="/privacy-policy" >Privacy Policy
                                                 </NuxtLink>
                                             </p>
                                         </div>
