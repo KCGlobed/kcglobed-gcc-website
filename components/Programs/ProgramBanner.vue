@@ -82,31 +82,46 @@
                                             </div>
                                         </div>
 
-                                        <div class="form-check mb-3">
-                                            <input class="form-check-input" type="checkbox" id="consent"
-                                                v-model="form.consent" :class="{ 'is-invalid': errors.consent }">
-                                            <label class="form-check-label" for="consent">
-                                                Yes , I am commerce graduate with first division.*
-                                                <!-- By submitting, you agree to our Terms and Privacy Policy. -->
-                                            </label>
-                                            <div class="invalid-feedback" v-if="errors.consent">{{ errors.consent }}
-                                            </div>
-                                        </div>
+
                                         <!-- Step 1: Download Now button -->
-                                        <button v-if="!isDownloaded" type="submit"
-                                            class="btn btn-primary w-100 register-btn" :disabled="isSubmitting">
-                                            <span v-if="isSubmitting"
-                                                class="spinner-border spinner-border-sm me-2"></span>
-                                            {{ isSubmitting ? 'Processing...' : 'DOWNLOAD NOW' }}
-                                        </button>
+                                        <div v-if="!isDownloaded">
+                                            <button type="submit" class="btn btn-primary w-100 register-btn"
+                                                :disabled="isSubmitting">
+                                                <span v-if="isSubmitting"
+                                                    class="spinner-border spinner-border-sm me-2"></span>
+                                                {{ isSubmitting ? 'Processing...' : 'DOWNLOAD NOW' }}
+                                            </button>
+                                            <p class="form-footer-text text-center mt-3 mb-0">
+                                                By submitting, you agree to our <NuxtLink to="/terms-conditions" >Terms
+                                                </NuxtLink> and <NuxtLink to="/privacy-policy" >Privacy Policy
+                                                </NuxtLink>
+                                            </p>
+                                        </div>
 
                                         <!-- Step 2: Pay Now button (shown after download) -->
-                                        <button v-else type="button" @click="handlePayment"
-                                            class="btn btn-primary w-100 register-btn" :disabled="isPaymentInProgress">
-                                            <span v-if="isPaymentInProgress"
-                                                class="spinner-border spinner-border-sm me-2"></span>
-                                            {{ isPaymentInProgress ? 'Opening Payment...' : 'PAY NOW' }}
-                                        </button>
+                                        <div v-else>
+                                            <div class="mb-3">
+                                                <div class="form-check d-flex align-items-center justify-content-start gap-2">
+                                                    <input class="form-check-input mt-0" type="checkbox" id="consentPay"
+                                                        v-model="form.consent" :class="{ 'is-invalid': errors.consent }">
+                                                    <label class="form-check-label small text-muted mb-0" for="consentPay">
+                                                        By submitting, you agree to our
+                                                        <NuxtLink to="/terms-conditions">Terms</NuxtLink> and
+                                                        <NuxtLink to="/privacy-policy">Privacy Policy</NuxtLink>
+                                                    </label>
+                                                </div>
+                                                <div class="text-center" v-if="errors.consent">
+                                                    <small class="text-danger small">{{ errors.consent }}</small>
+                                                </div>
+                                            </div>
+                                            <button type="button" @click="handlePayment"
+                                                class="btn btn-primary w-100 register-btn"
+                                                :disabled="isPaymentInProgress">
+                                                <span v-if="isPaymentInProgress"
+                                                    class="spinner-border spinner-border-sm me-2"></span>
+                                                {{ isPaymentInProgress ? 'Opening Payment...' : 'PAY NOW' }}
+                                            </button>
+                                        </div>
 
                                         <div v-if="notification.message"
                                             :class="['alert mt-3 mb-0 py-2 px-3 rounded-3 small', notification.type === 'success' ? 'alert-success' : 'alert-danger']"
@@ -116,10 +131,7 @@
                                             {{ notification.message }}
                                         </div>
 
-                                        <p class="form-footer-text">
-                                            By submitting, you agree to our <NuxtLink href="/terms-conditions">Terms
-                                            </NuxtLink> and <NuxtLink href="/privacy-policy">Privacy Policy</NuxtLink>
-                                        </p>
+
                                     </form>
                                 </div>
                             </div>
@@ -820,8 +832,8 @@ export default defineComponent({
             if (!form.city) {
                 errors.city = "City is required";
             }
-            if (!form.consent) {
-                errors.consent = "You must be a commerce graduate to proceed";
+            if (isDownloaded.value && !form.consent) {
+                errors.consent = "You must agree to the Terms and Privacy Policy";
             }
 
             return Object.values(errors).every(error => error === "");

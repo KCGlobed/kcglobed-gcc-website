@@ -143,17 +143,6 @@
                     </a>
                 </div>
 
-                <!-- Drawer Footer -->
-                <div class="navbar__sidedrawer-footer">
-                    <div class="navbar__sidedrawer-user">
-                        <div class="navbar__sidedrawer-avatar">A</div>
-                        <div>
-                            <p class="navbar__sidedrawer-username">Alex Johnson</p>
-                            <p class="navbar__sidedrawer-email">alex@example.com</p>
-                        </div>
-                    </div>
-                </div>
-
             </div>
         </transition>
     </nav>

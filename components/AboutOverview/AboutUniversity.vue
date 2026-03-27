@@ -6,7 +6,7 @@
         <div class="col-lg-6" data-aos="fade-right" data-aos-delay="200">
           <div class="about-header mb-4">
             <div class="logo mb-4">
-              <img src="~/assets/Logo/Logo/GCC-School-Logo-White.png" alt="GCC School Logo" class="brand-logo" />
+              <img src="~/assets/Logo/Logo/GCC-School-Logo-White.jpeg" alt="GCC School Logo" class="brand-logo" />
             </div>
             <h3 class="section-title">About GCC School</h3>
             <p class="tagline">The First GCC-Trained Talent Cohort</p>
