@@ -1,31 +1,36 @@
 <template>
     <div class="reattempt-container mt-4">
-        <!-- Reattempt Prompt Card -->
-        <div v-if="props.reattempt !== 0"
-            class="reattempt-card p-4 rounded-4 shadow-sm border overflow-hidden position-relative">
-            <div class="reattempt-content d-flex align-items-center justify-content-between gap-3">
-                <div class="d-flex align-items-center gap-3">
-                    <div>
-                        <h6 class="mb-1 fw-bold text-dark">Do you want to reattempt the exam?</h6>
-                        <p class="small text-muted mb-2">Get a second chance to improve your score.</p>
-                    </div>
+        <div v-if="props.reattempt !== 0" class="reattempt-float" :class="{ disabled: props.reattempt === 2 }"
+            @click="props.reattempt !== 2 && (showModal = true)">
+            <div class="d-flex align-items-center gap-2">
+                <div class="d-flex flex-column text-start" style="line-height: 1.2;">
+                    <span class="reattempt-h1 fw-bold">Reattempt NFET</span>
+                    <span class="reattempt-h2">With 20% Discount</span>
                 </div>
+
+                <span class="custom-tooltip-wrapper ms-1" @click.stop>
+                    <i class="ti ti-info-circle fs-5"></i>
+                    <div class="custom-tooltip-content">
+                        You are eligible for a <b>one-time NFET reattempt</b>...
+                    </div>
+                </span>
             </div>
-            <button :disabled="props.reattempt === 2" class="btn btn-reattempt px-4 py-2 fw-bold"
-                @click="showModal = true">
-                Reattempt <i class="ti ti-arrow-right ms-1"></i>
-            </button>
         </div>
 
         <!-- Payment Confirmation Modal -->
         <Transition name="fade">
             <div v-if="showModal" class="custom-modal-overlay" @click.self="!isProcessing && (showModal = false)">
                 <Transition name="scale">
-                    <div class="custom-modal p-4 shadow-lg border-0 text-center" v-show="showModal">
+                    <div class="custom-modal shadow-lg border-0 text-center" v-show="showModal">
+
+                        <!-- Close Button -->
+                        <button class="btn-close-modal" @click="showModal = false" :disabled="isProcessing">
+                            <i class="ti ti-x"></i>
+                        </button>
 
                         <!-- ── VERIFYING LOADER STATE ── -->
                         <template v-if="isVerifying">
-                            <div class="verifying-state py-3">
+                            <div class="verifying-state py-5 px-4">
                                 <div class="spinner-wrapper mb-4">
                                     <div class="custom-spinner"></div>
                                 </div>
@@ -36,43 +41,41 @@
 
                         <!-- ── NORMAL OFFER STATE ── -->
                         <template v-else>
-                            <div class="modal-icon-header mb-4">
-                                <div class="icon-circle shadow-sm">
-                                    <i class="ti ti-discount-2 fs-1 text-primary"></i>
+                            <div class="modal-header-dark">
+                                <div class="icon-circle-new">
+                                    <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                        stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                                        <path d="M13 2L3 14H12L11 22L21 10H12L13 2Z" />
+                                    </svg>
+                                </div>
+                                <div class="badge-save">SAVE {{ discountPercent }}%</div>
+                            </div>
+
+                            <div class="modal-body-content p-4 pb-5">
+                                <h2 class="modal-title-bold mb-2">Retry for Less</h2>
+                                <p class="modal-desc-text mb-4">
+                                    Don't let a minor setback stop your progress.<br>
+                                    Save {{ discountPercent }}% on your exam reattempt today.
+                                </p>
+
+                                <div class="price-display-wrapper mb-4">
+                                    <span class="price-main">₹{{ discountedPrice.toLocaleString() }}</span>
+                                    <span class="price-strike ms-2">₹{{ originalPrice.toLocaleString() }}</span>
+                                </div>
+
+                                <div class="d-flex flex-column gap-3 pt-2">
+                                    <button class="btn-pay-now-premium" @click="initiatePayment"
+                                        :disabled="isProcessing">
+                                        <span v-if="isProcessing" class="spinner-border spinner-border-sm me-2"></span>
+                                        {{ isProcessing ? 'Processing...' : 'Pay Now' }}
+                                        <i v-if="!isProcessing" class="ti ti-arrow-right ms-2"></i>
+                                    </button>
+                                    <button class="btn-link-maybe" @click="showModal = false" :disabled="isProcessing">
+                                        Maybe Later
+                                    </button>
                                 </div>
                             </div>
-
-                            <h3 class="fw-black mb-2" style="color: #1e1b4b;">Special Offer!</h3>
-                            <p class="text-secondary mb-4 px-2">
-                                Ready for another try? Get <span class="fw-bold text-primary">{{ discountPercent }}%
-                                    OFF</span> for reattempting the exam.
-                            </p>
-
-                            <div
-                                class="offer-banner p-3 rounded-3 mb-4 d-flex align-items-center justify-content-center gap-2">
-                                <i class="ti ti-info-circle fs-5"></i>
-                                <span class="fw-semibold">This offer is valid for a limited time.</span>
-                            </div>
-
-                            <div class="price-display mb-4">
-                                <span class="text-muted text-decoration-line-through me-2">₹{{
-                                    originalPrice.toLocaleString() }}</span>
-                                <span class="text-primary fw-black fs-2">₹{{ discountedPrice.toLocaleString() }}</span>
-                            </div>
-
-                            <div class="d-flex flex-column gap-2 mt-4">
-                                <button class="btn btn-pay-now py-3 fw-black shadow-sm" @click="initiatePayment"
-                                    :disabled="isProcessing">
-                                    <span v-if="isProcessing" class="spinner-border spinner-border-sm me-2"></span>
-                                    {{ isProcessing ? 'Processing...' : 'Pay Now & Reattempt' }}
-                                </button>
-                                <button class="btn btn-link text-muted text-decoration-none py-2"
-                                    @click="showModal = false" :disabled="isProcessing">
-                                    Maybe Later
-                                </button>
-                            </div>
                         </template>
-
                     </div>
                 </Transition>
             </div>
@@ -121,6 +124,7 @@ const callReattempt = async () => {
     try {
         const { getAccessToken } = useAuth();
         const token = getAccessToken();
+        console.log(token, '---token---')
         const res = await $fetch(`${config.public.apiBase}/api/students/exam-re-attempt-status/`, {
             method: "POST",
             headers: {
@@ -319,7 +323,7 @@ const handleCashfreePayment = async (res: any) => {
                     method: "POST",
                     body: { cf_order_id: res.cf_order_id, re_attempt_status: true }
                 });
-                await callReattempt(); // ✅ Correct — called after successful verification
+                await callReattempt();
                 stopVerifying();
                 onPaymentSuccess();
             } catch (e: any) {
@@ -395,68 +399,143 @@ const onPaymentSuccess = () => {
 .custom-modal {
     background: #fff;
     width: 100%;
-    max-width: 450px;
-    border-radius: 28px;
+    max-width: 420px;
+    border-radius: 32px;
     position: relative;
     overflow: hidden;
+    border: none;
 }
 
-.modal-icon-header {
-    display: flex;
-    justify-content: center;
-}
-
-.icon-circle {
-    width: 80px;
-    height: 80px;
-    background: #fdf4ff;
-    border-radius: 50%;
+.btn-close-modal {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    background: transparent;
+    border: none;
+    color: rgba(255, 255, 255, 0.6);
+    cursor: pointer;
+    z-index: 10;
+    transition: all 0.2s ease;
+    padding: 5px;
     display: flex;
     align-items: center;
     justify-content: center;
 }
 
-.fw-black {
-    font-weight: 900;
+.btn-close-modal:hover {
+    color: #fff;
+    transform: scale(1.1);
 }
 
-.text-primary {
-    color: #872980 !important;
-}
-
-.offer-banner {
-    background: #f0f9ff;
-    color: #0369a1;
-    font-size: 13px;
-}
-
-.price-display {
+.modal-header-dark {
+    background: #140418;
+    padding: 40px 20px 30px;
     display: flex;
-    align-items: baseline;
+    flex-direction: column;
+    align-items: center;
+    gap: 16px;
+}
+
+.icon-circle-new {
+    width: 70px;
+    height: 70px;
+    background: #e0e7ff;
+    color: #6366f1;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 0 20px rgba(99, 102, 241, 0.2);
+}
+
+.badge-save {
+    background: #dcfce7;
+    color: #166534;
+    padding: 6px 16px;
+    border-radius: 100px;
+    font-size: 14px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.modal-title-bold {
+    font-size: 28px;
+    font-weight: 800;
+    color: #0d0b14;
+    letter-spacing: -0.5px;
+}
+
+.modal-desc-text {
+    color: #64748b;
+    font-size: 15px;
+    line-height: 1.5;
+}
+
+.price-display-wrapper {
+    display: flex;
+    align-items: center;
     justify-content: center;
 }
 
-.btn-pay-now {
-    background: linear-gradient(135deg, #872980, #6d1e67);
+.price-main {
+    font-size: 36px;
+    font-weight: 800;
+    color: #0d0b14;
+}
+
+.price-strike {
+    font-size: 20px;
+    color: #cbd5e1;
+    text-decoration: line-through;
+    font-weight: 500;
+}
+
+.btn-pay-now-premium {
+    background: #a240a0;
     color: #fff;
     border: none;
     border-radius: 16px;
+    padding: 16px 32px;
+    font-size: 18px;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     transition: all 0.3s ease;
 }
 
-.btn-pay-now:hover:not(:disabled) {
+.btn-pay-now-premium:hover:not(:disabled) {
+    background: #873285;
     transform: translateY(-2px);
-    box-shadow: 0 8px 20px rgba(135, 41, 128, 0.3);
+    box-shadow: 0 10px 25px rgba(162, 64, 160, 0.3);
 }
 
-.btn-pay-now:disabled {
+.btn-pay-now-premium:disabled {
     opacity: 0.7;
     cursor: not-allowed;
 }
 
+.btn-link-maybe {
+    background: transparent;
+    border: none;
+    color: #64748b;
+    font-size: 16px;
+    font-weight: 600;
+    padding: 8px;
+    transition: all 0.2s ease;
+}
+
+.btn-link-maybe:hover:not(:disabled) {
+    color: #0d0b14;
+}
+
 /* Verifying loader */
 .verifying-state {
-    padding: 20px 10px;
+    min-height: 300px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
 }
 
 .spinner-wrapper {
@@ -469,7 +548,7 @@ const onPaymentSuccess = () => {
     width: 60px;
     height: 60px;
     border: 5px solid #f3e8f9;
-    border-top-color: #872980;
+    border-top-color: #a240a0;
     border-radius: 50%;
     animation: spin 0.9s linear infinite;
 }
@@ -500,5 +579,95 @@ const onPaymentSuccess = () => {
 .scale-leave-to {
     opacity: 0;
     transform: scale(0.9) translateY(20px);
+}
+
+.reattempt-float {
+    position: fixed;
+    right: -50px;
+    top: 50%;
+    transform: translateY(-50%) rotate(-90deg);
+    background: #d39c00;
+    color: white;
+    padding: 10px 18px;
+    font-weight: 600;
+    border-radius: 8px 8px 0 0;
+    cursor: pointer;
+    white-space: nowrap;
+    transition: all 0.3s ease;
+}
+
+.reattempt-float:hover {
+    background: #b8860b;
+}
+
+.reattempt-float.disabled {
+    background: #ccc;
+    cursor: not-allowed;
+    pointer-events: none;
+}
+
+.reattempt-float:hover {
+    background: #b8860b;
+}
+
+.reattempt-float.disabled {
+    background: #ccc;
+    cursor: not-allowed;
+    pointer-events: none;
+}
+
+.reattempt-h1 {
+    font-size: 16px;
+}
+
+.reattempt-h2 {
+    font-size: 13px;
+    opacity: 0.9;
+}
+
+/* Custom Tooltip styling */
+.custom-tooltip-wrapper {
+    position: relative;
+    cursor: pointer;
+    pointer-events: auto !important;
+}
+
+.custom-tooltip-content {
+    visibility: hidden;
+    opacity: 0;
+    width: 280px;
+    background-color: #1e1b4b;
+    color: #fff;
+    text-align: left;
+    border-radius: 8px;
+    padding: 12px 16px;
+    position: absolute;
+    z-index: 1060;
+    bottom: calc(100% + 20px);
+    left: 50%;
+    transform: translateX(-50%) rotate(90deg);
+    font-size: 13px;
+    font-weight: 400;
+    line-height: 1.5;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+    transition: opacity 0.3s, visibility 0.3s;
+    pointer-events: none;
+    white-space: normal;
+}
+
+.custom-tooltip-content::after {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 100%;
+    margin-top: -8px;
+    border-width: 8px;
+    border-style: solid;
+    border-color: transparent transparent transparent #1e1b4b;
+}
+
+.custom-tooltip-wrapper:hover .custom-tooltip-content {
+    visibility: visible;
+    opacity: 1;
 }
 </style>

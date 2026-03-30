@@ -389,8 +389,9 @@
                                         <div v-if="bookingDetails.updateCount <= 1" class="d-inline-block w-100 mb-2">
                                             <button
                                                 class="btn btn-primary w-100 custom-primary-bg d-flex justify-content-center align-items-center gap-2"
-                                                :class="{ 'btn-disabled-custom': isBookingSlot }"
-                                                style="pointer-events: auto;" @click="!isBookingSlot && bookSlot()">
+                                                :class="{ 'btn-disabled-custom': isBookingSlot || isCurrentSlotInPast }"
+                                                :disabled="isBookingSlot || isCurrentSlotInPast"
+                                                style="pointer-events: auto;" @click="!isBookingSlot && !isCurrentSlotInPast && bookSlot()">
                                                 <span v-if="isBookingSlot" class="spinner-border spinner-border-sm"
                                                     role="status" aria-hidden="true"></span>
 
@@ -472,7 +473,7 @@
                                                 </div>
                                             </span>
                                         </a>
-                                       
+
                                     </div>
                                      
 
@@ -532,6 +533,7 @@
             </div>
         </div>
 
+        <Reattempt :formData="formData" :reattempt="reattempt" />
         <LayoutMainFooter />
         <LayoutCopyRight />
     </div>
@@ -693,6 +695,30 @@ const bookingDetails = reactive({
 });
 
 const showAdmitCardButton = ref(false);
+
+const isCurrentSlotInPast = computed(() => {
+    if (!bookingDetails.date || !bookingDetails.time) return false;
+    try {
+        const startTimeStr = bookingDetails.time.split('-')[0].trim();
+        const match = startTimeStr.match(/(\d+):(\d+)\s*(AM|PM)/i);
+        if (match) {
+            let hourVal = parseInt(match[1], 10);
+            const minVal = parseInt(match[2], 10);
+            const ampm = match[3];
+
+            if (ampm.toUpperCase() === 'PM' && hourVal < 12) hourVal += 12;
+            if (ampm.toUpperCase() === 'AM' && hourVal === 12) hourVal = 0;
+
+            const [year, month, day] = bookingDetails.date.split('-');
+            const slotDateTime = new Date(parseInt(year), parseInt(month) - 1, parseInt(day), hourVal, minVal, 0);
+
+            return slotDateTime < new Date();
+        }
+    } catch (err) {
+        console.error("Error validating current slot time", err);
+    }
+    return false;
+});
 
 const fetchStudentDetail = async () => {
     if (!userId.value) return;

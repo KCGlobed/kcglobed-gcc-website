@@ -13,7 +13,7 @@
                 <!-- Brand logo inside card -->
                 <div class="card-logo">
                     <div class="logo-mark">
-                        <img src="/img/GCC-School-Logo-White.jpeg" alt="" srcset="">
+                        <img src="~/assets/Logo/Logo/GCC-School-Logo-White.jpeg" alt="" srcset="">
                     </div>
                 </div>
 
