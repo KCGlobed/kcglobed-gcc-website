@@ -472,7 +472,7 @@
                                                 </div>
                                             </span>
                                         </a>
-                                       
+
                                     </div>
                                      
 
@@ -532,6 +532,7 @@
             </div>
         </div>
 
+        <Reattempt :formData="formData" :reattempt="reattempt" />
         <LayoutMainFooter />
         <LayoutCopyRight />
     </div>

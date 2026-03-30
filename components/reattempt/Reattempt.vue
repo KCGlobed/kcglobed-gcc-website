@@ -1,20 +1,25 @@
 <template>
     <div class="reattempt-container mt-4">
-        <!-- Reattempt Prompt Card -->
-        <div v-if="props.reattempt !== 0"
-            class="reattempt-card p-4 rounded-4 shadow-sm border overflow-hidden position-relative">
-            <div class="reattempt-content d-flex align-items-center justify-content-between gap-3">
-                <div class="d-flex align-items-center gap-3">
-                    <div>
-                        <h6 class="mb-1 fw-bold text-dark">Do you want to reattempt the exam?</h6>
-                        <p class="small text-muted mb-2">Get a second chance to improve your score.</p>
-                    </div>
+        <div class="reattempt-float" :class="{ disabled: props.reattempt === 2 }"
+            @click="props.reattempt !== 2 && (showModal = true)">
+            <div class="d-flex align-items-center gap-2">
+                <div class="d-flex flex-column text-start" style="line-height: 1.2;">
+                    <span class="reattempt-h1 fw-bold">Reattempt NFET</span>
+                    <span class="reattempt-h2">With 20% Discount</span>
                 </div>
+                <span class="custom-tooltip-wrapper ms-1" @click.stop>
+                    <i class="ti ti-info-circle fs-5"></i>
+                    <div class="custom-tooltip-content">
+                        You are eligible for a <b>one-time NFET reattempt</b> to improve your score.
+                        Avail a <b>20% discounted fee</b> for this attempt.
+                        After successful payment, you can book your <b>exam slot</b>. You may also <b>reschedule your slot once</b>,
+                        provided it is done at least <b>48 hours in advance</b>.
+                        Click the button to proceed with <b>payment</b> and <b>reattempt the exam</b>.
+                        <br>
+                        <b>Note: This is a one-time opportunity.</b>
+                    </div>
+                </span>
             </div>
-            <button :disabled="props.reattempt === 2" class="btn btn-reattempt px-4 py-2 fw-bold"
-                @click="showModal = true">
-                Reattempt <i class="ti ti-arrow-right ms-1"></i>
-            </button>
         </div>
 
         <!-- Payment Confirmation Modal -->
@@ -47,12 +52,6 @@
                                 Ready for another try? Get <span class="fw-bold text-primary">{{ discountPercent }}%
                                     OFF</span> for reattempting the exam.
                             </p>
-
-                            <div
-                                class="offer-banner p-3 rounded-3 mb-4 d-flex align-items-center justify-content-center gap-2">
-                                <i class="ti ti-info-circle fs-5"></i>
-                                <span class="fw-semibold">This offer is valid for a limited time.</span>
-                            </div>
 
                             <div class="price-display mb-4">
                                 <span class="text-muted text-decoration-line-through me-2">₹{{
@@ -500,5 +499,95 @@ const onPaymentSuccess = () => {
 .scale-leave-to {
     opacity: 0;
     transform: scale(0.9) translateY(20px);
+}
+
+.reattempt-float {
+    position: fixed;
+    right: -50px;
+    top: 50%;
+    transform: translateY(-50%) rotate(-90deg);
+    background: #d39c00;
+    color: white;
+    padding: 10px 18px;
+    font-weight: 600;
+    border-radius: 8px 8px 0 0;
+    cursor: pointer;
+    white-space: nowrap;
+    transition: all 0.3s ease;
+}
+
+.reattempt-float:hover {
+    background: #b8860b;
+}
+
+.reattempt-float.disabled {
+    background: #ccc;
+    cursor: not-allowed;
+    pointer-events: none;
+}
+
+.reattempt-float:hover {
+    background: #b8860b;
+}
+
+.reattempt-float.disabled {
+    background: #ccc;
+    cursor: not-allowed;
+    pointer-events: none;
+}
+
+.reattempt-h1 {
+    font-size: 16px;
+}
+
+.reattempt-h2 {
+    font-size: 13px;
+    opacity: 0.9;
+}
+
+/* Custom Tooltip styling */
+.custom-tooltip-wrapper {
+    position: relative;
+    cursor: pointer;
+    pointer-events: auto !important;
+}
+
+.custom-tooltip-content {
+    visibility: hidden;
+    opacity: 0;
+    width: 280px;
+    background-color: #1e1b4b;
+    color: #fff;
+    text-align: left;
+    border-radius: 8px;
+    padding: 12px 16px;
+    position: absolute;
+    z-index: 1060;
+    bottom: calc(100% + 20px);
+    left: 50%;
+    transform: translateX(-50%) rotate(90deg);
+    font-size: 13px;
+    font-weight: 400;
+    line-height: 1.5;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+    transition: opacity 0.3s, visibility 0.3s;
+    pointer-events: none;
+    white-space: normal;
+}
+
+.custom-tooltip-content::after {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 100%;
+    margin-top: -8px;
+    border-width: 8px;
+    border-style: solid;
+    border-color: transparent transparent transparent #1e1b4b;
+}
+
+.custom-tooltip-wrapper:hover .custom-tooltip-content {
+    visibility: visible;
+    opacity: 1;
 }
 </style>
