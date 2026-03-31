@@ -88,6 +88,16 @@ export default defineNuxtConfig({
   nitro: {
     preset: 'node-server',
     compressPublicAssets: true,
+    routeRules: {
+      '/api/**': {
+        cors: true,
+        headers: {
+          'access-control-allow-methods': 'GET, POST, PUT, DELETE, OPTIONS',
+          'access-control-allow-origin': '*',
+          'access-control-allow-headers': '*',
+        }
+      }
+    },
     output: {
       dir: "dist",
       serverDir: "dist/server",
