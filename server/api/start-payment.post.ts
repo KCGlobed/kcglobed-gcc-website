@@ -4,9 +4,9 @@ import { createRazorpayInstance } from "../utils/razorpay";
 
 export default defineEventHandler(async (event) => {
     const body = await readBody(event);
-    const { user_id, name, email, mobile, form_type, form_id, city, state, payment_type } = body;
+    const { user_id, name, email, mobile, form_type, form_id, city, state, payment_type, source = 1 } = body;
     const config = useRuntimeConfig(event);
-    console.log(name, email, mobile, city, state, form_type, form_id, payment_type, '----body')
+    console.log(name, email, mobile, city, state, form_type, form_id, payment_type, source, '----body')
     const activeGateway = config.paymentGateway || 'CASHFREE';
     console.log(activeGateway, '---activegateway')
     console.log(`[PAYMENT][start] Initiating payment via ${activeGateway}`, {
@@ -32,7 +32,7 @@ export default defineEventHandler(async (event) => {
                 amount: amount * 100, // Razorpay takes amount in paisa
                 currency,
                 receipt: `rcpt_${user_id || form_id || 'guest'}_${Date.now()}`,
-                notes: { user_id, form_type, form_id, name, email, mobile, city, state }
+                notes: { user_id, form_type, form_id, name, email, mobile, city, state, source }
             };
 
             const order = await razorpay.orders.create(orderOptions);
@@ -81,7 +81,8 @@ export default defineEventHandler(async (event) => {
                     form_type: String(form_type || ''),
                     form_id: String(form_id || ''),
                     city: String(city || ''),
-                    state: String(state || '')
+                    state: String(state || ''),
+                    source: String(source || '1')
                 }
             };
 
