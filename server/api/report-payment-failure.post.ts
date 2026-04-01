@@ -53,7 +53,7 @@ export default defineEventHandler(async (event) => {
     let state = '';
     let amount = Number(config.cashfreePaymentAmount || process.env.CASHFREE_PAYMENT_AMOUNT || 2950);
     let currency = 'INR';
-
+    let source = 1;
     if (activeGateway === 'RAZORPAY') {
         try {
             const { instance: razorpay } = createRazorpayInstance(config);
@@ -70,6 +70,7 @@ export default defineEventHandler(async (event) => {
                 userMobile = orderRes.notes.mobile ? String(orderRes.notes.mobile) : '';
                 city = orderRes.notes.city ? String(orderRes.notes.city) : '';
                 state = orderRes.notes.state ? String(orderRes.notes.state) : '';
+                source = orderRes.notes.source ? Number(orderRes.notes.source) : 1;
             }
         } catch (fetchError: any) {
             console.warn("[PAYMENT][failure] Could not fetch Razorpay order", fetchError.message);
@@ -98,6 +99,7 @@ export default defineEventHandler(async (event) => {
                     formId = orderData.order_tags.form_id || null;
                     city = orderData.order_tags.city || '';
                     state = orderData.order_tags.state || '';
+                    source = orderData.order_tags.source ? parseInt(orderData.order_tags.source) : 1;
                 }
 
                 if (!formId) {
@@ -140,6 +142,7 @@ export default defineEventHandler(async (event) => {
                 city: city,
                 state: state
             }),
+            source: source || 1
         });
 
         // --- LOG: Failure Recorded Successfully ---

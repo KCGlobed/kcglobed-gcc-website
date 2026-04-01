@@ -23,6 +23,7 @@ export default defineEventHandler(async (event) => {
     let actualPaymentId = 'N/A';
     let orderIdForDb = '';
     let reAttemptStatus = false;
+    let source = 1;
     if (activeGateway === 'RAZORPAY') {
         const { razorpay_order_id, razorpay_payment_id, razorpay_signature, re_attempt_status } = body;
         orderIdForDb = razorpay_order_id;
@@ -55,6 +56,7 @@ export default defineEventHandler(async (event) => {
                 userMobile = orderRes.notes.mobile ? String(orderRes.notes.mobile) : '';
                 state = orderRes.notes.state ? String(orderRes.notes.state) : '';
                 city = orderRes.notes.city ? String(orderRes.notes.city) : '';
+                source = orderRes.notes.source ? Number(orderRes.notes.source) : 1;
             }
             actualPaymentId = razorpay_payment_id;
         } catch (error: any) {
@@ -90,6 +92,7 @@ export default defineEventHandler(async (event) => {
                 formId = orderData.order_tags.form_id || null;
                 city = orderData.order_tags.city || '';
                 state = orderData.order_tags.state || '';
+                source = orderData.order_tags.source ? parseInt(orderData.order_tags.source) : 1;
             }
 
             // Fallback to customer details for name, email, mobile
@@ -134,7 +137,8 @@ export default defineEventHandler(async (event) => {
                 mobile: userMobile,
                 city: city,
                 state: state
-            })
+            }),
+            source: source || 1
         });
 
         // ── Step 3: Send Confirmation Email ─────────────────────────────────────
