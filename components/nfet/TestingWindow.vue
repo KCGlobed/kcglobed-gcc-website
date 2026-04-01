@@ -8,7 +8,7 @@
                 </div>
                 <div class="exam-window">
                     <p>Examination Window</p>
-                    <h2>March 10 - April 15 2026</h2>
+                    <h2>March 10 - May 15 2026</h2>
                     <p class="daily-slot">Daily Slots Available</p>
 
                     <p class="discription">Select your preferred date and time and take the first decisive step toward
