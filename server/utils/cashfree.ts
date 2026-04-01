@@ -9,7 +9,8 @@ export function createCashfreeInstance(config: any, event?: H3Event) {
         ? (getRequestHeader(event, "host") || getRequestHeader(event, "x-forwarded-host") || "")
         : "";
 
-    const isProd = host.includes("gccschool.com");
+    // const isProd = host.includes("gccschool.com");
+    const isProd = true;
     const cfEnvironment = isProd ? "PRODUCTION" : "SANDBOX";
 
 
