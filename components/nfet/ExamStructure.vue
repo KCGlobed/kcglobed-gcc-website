@@ -68,11 +68,11 @@
                         </div>
                         <div class="info-block">
                             <h4>Exam Window</h4>
-                            <p>February 21, 2026 to March 31, 2026</p>
+                            <p>March 10, 2026 to May 15, 2026</p>
                         </div>
                         <div class="info-block">
                             <h4>Results Declaration</h4>
-                            <p>NFET exam results will be announced on 4th April 2026.</p>
+                            <p>NFET exam results will be announced on 3rd week of May 2026.</p>
                         </div>
                     </div>
                 </div>
