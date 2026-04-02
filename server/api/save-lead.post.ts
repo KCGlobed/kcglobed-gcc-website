@@ -2,7 +2,7 @@ import { savePayment } from "../services/payment.service";
 
 export default defineEventHandler(async (event) => {
     const body = await readBody(event);
-    const { name, email, mobile, state, city, form_type, form_id, action } = body;
+    const { name, email, mobile, state, city, form_type, form_id, action,source } = body;
 
     const intentId = `intent_${form_id || Date.now()}`;
     console.log("[LEAD][click] CTA clicked — saving lead", {
@@ -28,7 +28,8 @@ export default defineEventHandler(async (event) => {
                 source: "cta_click", action,
                 name, email, mobile, state, city,
                 timestamp: new Date().toISOString()
-            })
+            }),
+            source: source || 1,
         });
 
         console.log("[LEAD][click] Lead saved to DB", {
