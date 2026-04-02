@@ -14,7 +14,9 @@ export function createCashfreeInstance(config: any, event?: H3Event) {
         "gcc-website-prod-932479078084.europe-west1.run.app"
     ];
 
+
     const isProd = isProdDomains.some(domain => host.includes(domain));
+
     const cfEnvironment = isProd ? "PRODUCTION" : "SANDBOX";
 
 
