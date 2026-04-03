@@ -534,6 +534,7 @@
         </div>
 
         <Reattempt :formData="formData" :reattempt="reattempt" />
+        <FeeWaiverModal v-if="showFeeWaiverModal" @close="showFeeWaiverModal = false" />
         <LayoutMainFooter />
         <LayoutCopyRight />
     </div>
@@ -549,6 +550,7 @@ import DocumentUpload from "../components/DocumentUpload/DocumentUpload.vue";
 import StudentKits from "../components/StudentKits/StudentKits.vue";
 import Reattempt from "../components/reattempt/Reattempt.vue";
 import heroBg from "@/assets/img/heros/hero_bg.svg";
+import FeeWaiverModal from "../components/university-fee-wavier/FeeWaiverModal.vue";
 // import PrePaymentDeclaration from "../components/PrePaymentDeclaration/PrePaymentDeclaration.vue";
 import { staticSlots, allowedDates, blockedDates } from "../utils/constants";
 import { isValidMobile, isValidPincode } from "../utils/validators";
@@ -645,7 +647,10 @@ const firstIncompleteSectionIndex = computed(() => {
     return index !== -1 ? index + 1 : null;
 });
 
+const showFeeWaiverModal = ref(false);
+
 const handleFinishProfile = () => {
+    // showFeeWaiverModal.value = true;
     const idx = firstIncompleteSectionIndex.value;
     if (idx !== null) {
         openSections.value.add(idx);
