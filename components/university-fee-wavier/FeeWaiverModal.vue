@@ -145,7 +145,7 @@ function handleSubmit() {
   display: flex;
   align-items: center;
   justify-content: center;
-  z-index: 1000;
+  z-index: 9999;
   padding: 16px;
 }
 
@@ -214,9 +214,9 @@ function handleSubmit() {
   border-radius: 100px;
   padding: 7px 16px;
   color: #16803c;
-  font-size: 11.5px;
-  font-weight: 600;
-  letter-spacing: 0.07em;
+  font-size: 10.5px;
+  font-weight: 500;
+  letter-spacing: 0.05em;
 }
 
 .modal-body {
@@ -225,8 +225,8 @@ function handleSubmit() {
 
 .title {
   /* font-family: 'Bebas Neue', sans-serif; */
-  font-size: 2rem;
-  /* font-weight: 400; */
+  font-size: 1.6rem;
+  font-weight: 600;
   /* letter-spacing: 0.04em; */
   text-align: center;
   color: #111;
@@ -238,7 +238,7 @@ function handleSubmit() {
 .subtitle {
   text-align: center;
   color: #555;
-  font-size: 0.92rem;
+  font-size: 0.85rem;
   /* line-height: 1.65; */
   /* margin: 0 0 22px; */
 }
@@ -253,8 +253,8 @@ function handleSubmit() {
 .upload-section { margin-bottom: 12px; }
 
 .upload-label {
-  font-size: 0.9rem;
-  font-weight: 600;
+  font-size: 0.85rem;
+  font-weight: 500;
   color: #111;
   /* margin: 0 0 10px; */
 }
@@ -278,9 +278,9 @@ function handleSubmit() {
 
 .hidden-input { display: none; }
 
-.upload-text { font-size: 0.88rem; color: #555; margin: 0; }
-.upload-link { color: #6d28d9; font-weight: 600; }
-.upload-formats { font-size: 0.76rem; color: #aaa; margin: 0; }
+.upload-text { font-size: 0.8rem; color: #555; margin: 0; }
+.upload-link { color: #6d28d9; font-weight: 500; }
+.upload-formats { font-size: 0.72rem; color: #aaa; margin: 0; }
 
 .file-preview { display: flex; align-items: center; gap: 10px; width: 100%; }
 .file-name {
@@ -325,8 +325,8 @@ function handleSubmit() {
 }
 .checkbox.checked { background: #6d28d9; border-color: #6d28d9; }
 
-.terms-text { font-size: 0.8rem; color: #444; }
-.terms-link { color: #6d28d9; text-decoration: none; font-weight: 500; }
+.terms-text { font-size: 0.75rem; color: #444; }
+.terms-link { color: #6d28d9; text-decoration: none; font-weight: 400; }
 .terms-link:hover { text-decoration: underline; }
 
 .submit-btn {
@@ -338,6 +338,7 @@ function handleSubmit() {
   padding: 12px 22px;
   font-family: 'DM Sans', sans-serif;
   font-size: 13px;
+  font-weight: 500;
   cursor: pointer;
   display: flex;
   align-items: center;
