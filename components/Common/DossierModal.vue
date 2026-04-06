@@ -558,8 +558,17 @@ export default defineComponent({
                     } else {
                         // In dossier mode: trigger download
                         window.location.href = `/api/download?url=${encodeURIComponent(fileUrl)}&filename=${encodeURIComponent(fileName)}`;
-                        isDownloaded.value = true;
-                        showNotification('success', 'Dossier downloaded! You can now proceed to pay the application fee.');
+                        
+                        const selectedUni = universityList.value.find(u => u.name === form.university);
+                        if (selectedUni && selectedUni.isHighlight) {
+                            showNotification('success', 'Dossier downloaded! Opening Fee Waiver...');
+                            // Do not change isDownloaded to true, avoiding the 'Pay Now' view
+                            await closeDossierModal();
+                            showFeeWaiverModal.value = true;
+                        } else {
+                            isDownloaded.value = true;
+                            showNotification('success', 'Dossier downloaded! You can now proceed to pay the application fee.');
+                        }
                     }
 
                 } else {
