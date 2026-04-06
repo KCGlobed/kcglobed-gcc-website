@@ -82,6 +82,28 @@
                                             </div>
                                         </div>
 
+                                        <div class="mb-3 position-relative">
+                                            <label class="form-label fw-bold small">University*</label>
+                                            <div class="searchable-select">
+                                                <input type="text" class="form-control custom-input"
+                                                    v-model="searchQuery" placeholder="Search University..."
+                                                    autocomplete="off" @focus="showUniDropdown = true"
+                                                    @input="showUniDropdown = true">
+
+                                                <div v-if="showUniDropdown && filteredUniversities.length > 0"
+                                                    class="dropdown-list shadow-sm">
+                                                    <div v-for="uni in filteredUniversities" :key="uni.id"
+                                                        class="dropdown-item" @click="selectUni(uni)">
+                                                        {{ uni.name }}
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <small class="text-danger" v-if="errors.university">
+                                                {{ errors.university }}
+                                            </small>
+                                        </div>
+
 
                                         <!-- Step 1: Download Now button -->
                                         <div v-if="!isDownloaded">
@@ -92,8 +114,8 @@
                                                 {{ isSubmitting ? 'Processing...' : 'DOWNLOAD NOW' }}
                                             </button>
                                             <p class="form-footer-text text-center mt-3 mb-0">
-                                                By submitting, you agree to our <NuxtLink to="/terms-conditions" >Terms
-                                                </NuxtLink> and <NuxtLink to="/privacy-policy" >Privacy Policy
+                                                By submitting, you agree to our <NuxtLink to="/terms-conditions">Terms
+                                                </NuxtLink> and <NuxtLink to="/privacy-policy">Privacy Policy
                                                 </NuxtLink>
                                             </p>
                                         </div>
@@ -101,10 +123,13 @@
                                         <!-- Step 2: Pay Now button (shown after download) -->
                                         <div v-else>
                                             <div class="mb-3">
-                                                <div class="form-check d-flex align-items-center justify-content-start gap-2">
+                                                <div
+                                                    class="form-check d-flex align-items-center justify-content-start gap-2">
                                                     <input class="form-check-input mt-0" type="checkbox" id="consentPay"
-                                                        v-model="form.consent" :class="{ 'is-invalid': errors.consent }">
-                                                    <label class="form-check-label small text-muted mb-0" for="consentPay">
+                                                        v-model="form.consent"
+                                                        :class="{ 'is-invalid': errors.consent }">
+                                                    <label class="form-check-label small text-muted mb-0"
+                                                        for="consentPay">
                                                         By submitting, you agree to our
                                                         <NuxtLink to="/terms-conditions">Terms</NuxtLink> and
                                                         <NuxtLink to="/privacy-policy">Privacy Policy</NuxtLink>
@@ -165,7 +190,8 @@
                                                     <p class="speaker-quote">LMS TUTORIAL & OVERVIEW</p>
                                                 </div> -->
                                             </template>
-                                            <video v-else controls autoplay controlsList="nodownload" oncontextmenu="return false;" class="video-element w-100 h-100">
+                                            <video v-else controls autoplay controlsList="nodownload"
+                                                oncontextmenu="return false;" class="video-element w-100 h-100">
                                                 <source
                                                     src="https://storage.googleapis.com/gcc_static_files_backend/static/videos/Nitis%20Sir%20Website%20Video._final_gcc.mp4"
                                                     type="video/mp4">
@@ -249,6 +275,48 @@
 /* Form Styling */
 .registration-form {
     width: 100%;
+}
+
+.custom-input {
+    background-color: #f8f9fa;
+    border: 1px solid #e9ecef;
+    border-radius: 12px;
+    padding: 10px 16px;
+    font-size: 14px;
+    transition: all 0.3s ease;
+}
+
+/* Searchable Select Styles */
+.searchable-select {
+    position: relative;
+    width: 100%;
+}
+
+.dropdown-list {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: 100%;
+    max-height: 200px;
+    overflow-y: auto;
+    background: #fff;
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    z-index: 9999;
+    margin-top: 4px;
+}
+
+.dropdown-item {
+    padding: 10px;
+    font-size: 14px;
+    cursor: pointer;
+    color: #333;
+    transition: background 0.2s ease;
+}
+
+.dropdown-item:hover {
+    background-color: #f3e5f5;
+    color: #6a1b9a;
 }
 
 .registration-form>label {
@@ -617,9 +685,10 @@
 </style>
 
 <script lang="ts">
-import { defineComponent, ref, reactive, nextTick, defineAsyncComponent, onMounted, watch } from "vue";
+import { defineComponent, ref, reactive, nextTick, defineAsyncComponent, onMounted, onUnmounted, watch } from "vue";
 import { isValidMobile } from "~/utils/validators";
 import stateCityData from "~/state_city.json";
+import universityData from "~/assets/universities.json";
 
 import image1 from "../../assets/img/heros/hero_bg.svg";
 import gccPdf from "../../assets/gcc.pdf";
@@ -640,6 +709,8 @@ export default defineComponent({
         const paymentId = ref('');
         const processingMessage = ref('');
         const statusModalId = 'paymentStatusModal_programBanner';
+        const searchQuery = ref("");
+        const showUniDropdown = ref(false);
 
         const auth = useAuth();
 
@@ -703,11 +774,13 @@ export default defineComponent({
             email: "",
             state: "",
             city: "",
+            university: "",
             consent: false,
         });
 
         const states = ref<string[]>([]);
         const citiesList = ref<string[]>([]);
+        const universityList = ref(universityData);
 
         const errors = reactive({
             name: "",
@@ -715,8 +788,22 @@ export default defineComponent({
             email: "",
             state: "",
             city: "",
-            consent: ""
+            consent: "",
+            university: "",
         });
+
+        const filteredUniversities = computed(() => {
+            const query = searchQuery.value.trim().toLowerCase();
+            if (!query) return universityList.value;
+            return universityList.value
+                .filter(u => u.name.toLowerCase().includes(query));
+        });
+
+        const selectUni = (uni: any) => {
+            form.university = uni.name;
+            searchQuery.value = uni.name;
+            showUniDropdown.value = false;
+        };
 
         const banners = reactive([
             {
@@ -774,6 +861,13 @@ export default defineComponent({
             }
         };
 
+        const handleClickOutside = (event: MouseEvent) => {
+            const target = event.target as HTMLElement;
+            if (!target.closest('.searchable-select')) {
+                showUniDropdown.value = false;
+            }
+        };
+
         const closeStatusModal = async () => {
             const el = document.getElementById(statusModalId);
             if (el) {
@@ -801,11 +895,17 @@ export default defineComponent({
 
         onMounted(() => {
             // Populate states from local JSON and sort alphabetically
+            window.addEventListener('click', handleClickOutside);
             const statesArr = Object.keys(stateCityData);
             states.value = statesArr.sort((a, b) => a.localeCompare(b));
         });
 
+        onUnmounted(() => {
+            window.removeEventListener('click', handleClickOutside);
+        })
+
         const validateForm = () => {
+            let isValid = true;
             errors.name = "";
             errors.mobile = "";
             errors.email = "";
@@ -831,6 +931,10 @@ export default defineComponent({
             }
             if (!form.city) {
                 errors.city = "City is required";
+            }
+            if (!form.university) {
+                errors.university = 'University is required';
+                isValid = false;
             }
             if (isDownloaded.value && !form.consent) {
                 errors.consent = "You must agree to the Terms and Privacy Policy";
@@ -877,6 +981,7 @@ export default defineComponent({
                     phone: form.mobile,
                     state: form.state,
                     city: form.city,
+                    university: form.university,
                     source: 1,
                     source_form: 3
                 };
@@ -1269,6 +1374,11 @@ export default defineComponent({
             validateForm,
             submitForm,
             handlePayment,
+            searchQuery,
+            showUniDropdown,
+            filteredUniversities,
+            selectUni,
+            handleClickOutside 
         };
     },
 });
