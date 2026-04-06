@@ -319,6 +319,11 @@ export default defineComponent({
             isCommerceGraduate: false
         });
 
+        const route = useRoute();
+        const utm_source = computed(() => (route.query.utm_source as string) || (useCookie('utm_source').value) || '');
+        const utm_medium = computed(() => (route.query.utm_medium as string) || (useCookie('utm_medium').value) || '');
+        const utm_campaign = computed(() => (route.query.utm_campaign as string) || (useCookie('utm_campaign').value) || '');
+
         const errors = reactive({
             name: '',
             email: '',
@@ -374,6 +379,39 @@ export default defineComponent({
                 .match(/^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/);
         };
 
+        const lastAbandonmentData = ref('');
+        const triggerAbandonment = async () => {
+            if (form.name && form.email && form.phone && validateEmail(form.email) && isValidMobile(form.phone)) {
+                // Prevent duplicate calls for the same value
+                const currentData = `${form.name}-${form.email}-${form.phone}`;
+                if (lastAbandonmentData.value === currentData) return;
+                lastAbandonmentData.value = currentData;
+
+                const config = useRuntimeConfig();
+                try {
+                    await $fetch(`${config.public.apiBase}/api/career/createabondantform`, {
+                        method: 'POST',
+                        body: {
+                            full_name: form.name,
+                            email: form.email,
+                            phone: form.phone,
+                            source: config.public.source || 1,
+                            source_form: props.mode === 'apply' ? 1 : 2,
+                            utm_source: utm_source.value,
+                            utm_medium: utm_medium.value,
+                            utm_campaign: utm_campaign.value,
+                        }
+                    });
+                } catch (err) {
+                    console.error('[Abandonment] Error:', err);
+                }
+            }
+        };
+
+        watch([() => form.name, () => form.email, () => form.phone], () => {
+            triggerAbandonment();
+        });
+
         const validateForm = () => {
             let isValid = true;
             errors.name = '';
@@ -426,6 +464,8 @@ export default defineComponent({
             isSubmitting.value = true;
 
             try {
+                const config = useRuntimeConfig();
+                
                 // Prepare payload for API
                 const payload = {
                     full_name: form.name,
@@ -436,8 +476,10 @@ export default defineComponent({
                     university: form.university,
                     source: 1,
                     source_form: props.mode === 'apply' ? 1 : 2,
+                    utm_source: utm_source.value,
+                    utm_medium: utm_medium.value,
+                    utm_campaign: utm_campaign.value,
                 };
-                const config = useRuntimeConfig();
 
                 // ── Pre-Dossier Email Validation ──
                 try {
@@ -492,7 +534,10 @@ export default defineComponent({
                             city: form.city,
                             form_type: 2,
                             form_id: formId.value,
-                            action: props.mode === 'apply' ? 'pay_now_clicked' : 'download_dossier_clicked'
+                            action: props.mode === 'apply' ? 'pay_now_clicked' : 'download_dossier_clicked',
+                            utm_source: utm_source.value,
+                            utm_medium: utm_medium.value,
+                            utm_campaign: utm_campaign.value,
                         }
                     }).catch(() => { /* silent — never block user flow */ });
 

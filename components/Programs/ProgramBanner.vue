@@ -778,6 +778,11 @@ export default defineComponent({
             consent: false,
         });
 
+        const route = useRoute();
+        const utm_source = computed(() => (route.query.utm_source as string) || (useCookie('utm_source').value) || '');
+        const utm_medium = computed(() => (route.query.utm_medium as string) || (useCookie('utm_medium').value) || '');
+        const utm_campaign = computed(() => (route.query.utm_campaign as string) || (useCookie('utm_campaign').value) || '');
+
         const states = ref<string[]>([]);
         const citiesList = ref<string[]>([]);
         const universityList = ref(universityData);
@@ -893,6 +898,43 @@ export default defineComponent({
             citiesList.value = [...cities].sort((a, b) => a.localeCompare(b));
         });
 
+        const validateEmailObj = (email: string) => {
+            return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+        };
+
+        const lastAbandonmentData = ref('');
+        const triggerAbandonment = async () => {
+            if (form.name && form.email && form.mobile && validateEmailObj(form.email) && isValidMobile(form.mobile)) {
+                // Prevent duplicate calls
+                const currentData = `${form.name}-${form.email}-${form.mobile}`;
+                if (lastAbandonmentData.value === currentData) return;
+                lastAbandonmentData.value = currentData;
+
+                const config = useRuntimeConfig();
+                try {
+                    await $fetch(`${config.public.apiBase}/api/career/createabondantform`, {
+                        method: 'POST',
+                        body: {
+                            full_name: form.name,
+                            email: form.email,
+                            phone: form.mobile,
+                            source: config.public.source || 1,
+                            source_form: 3,
+                            utm_source: utm_source.value,
+                            utm_medium: utm_medium.value,
+                            utm_campaign: utm_campaign.value,
+                        }
+                    });
+                } catch (err) {
+                    console.error('[Abandonment] Error:', err);
+                }
+            }
+        };
+
+        watch([() => form.name, () => form.email, () => form.mobile], () => {
+            triggerAbandonment();
+        });
+
         onMounted(() => {
             // Populate states from local JSON and sort alphabetically
             window.addEventListener('click', handleClickOutside);
@@ -981,9 +1023,12 @@ export default defineComponent({
                     phone: form.mobile,
                     state: form.state,
                     city: form.city,
+                    source:  1,
+                    source_form: 3,
+                    utm_source: utm_source.value,
+                    utm_medium: utm_medium.value,
+                    utm_campaign: utm_campaign.value,
                     university: form.university,
-                    source: 1,
-                    source_form: 3
                 };
 
                 const response: any = await $fetch(`${config.public.apiBase}/api/career/createdossierform`, {
@@ -1007,7 +1052,10 @@ export default defineComponent({
                             city: form.city,
                             form_type: 2,
                             form_id: formId.value,
-                            action: 'download_brochure_clicked'
+                            action: 'download_brochure_clicked',
+                            utm_source: utm_source.value,
+                            utm_medium: utm_medium.value,
+                            utm_campaign: utm_campaign.value,
                         }
                     }).catch(() => { });
 
