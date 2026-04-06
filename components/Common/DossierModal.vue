@@ -57,7 +57,7 @@
                         </div>
 
                         <div class="mb-2 position-relative">
-                            <label class="form-label fw-bold small">University*</label>
+                            <label class="form-label fw-bold small">Institution/University*</label>
                             <div class="searchable-select">
                                 <input type="text" class="form-control custom-input" v-model="searchQuery"
                                     placeholder="Search University..." autocomplete="off"
@@ -189,7 +189,8 @@
         @close="alertPopup.show = false" />
 
     <!-- Fee Waiver Modal -->
-    <FeeWaiverModal v-if="showFeeWaiverModal" @close="showFeeWaiverModal = false" />
+    <FeeWaiverModal v-if="showFeeWaiverModal" :dossierId="formId!" :userData="form"
+        @close="showFeeWaiverModal = false" />
 </template>
 
 <script lang="ts">
@@ -914,6 +915,7 @@ export default defineComponent({
 
         return {
             form,
+            formId,
             errors,
             states,
             citiesList,
