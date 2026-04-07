@@ -1,7 +1,7 @@
 <template>
     <div class="modal fade dossier-modal" :id="modalId" tabindex="-1" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered">
-            <div class="modal-content border-0 overflow-hidden">
+            <div class="modal-content border-0">
                 <div class="modal-body px-4 py-3 p-md-5 position-relative">
                     <button type="button" class="btn-close position-absolute top-0 end-0 m-3" data-bs-dismiss="modal"
                         ref="closeModalBtn"></button>
@@ -56,18 +56,33 @@
                             </div>
                         </div>
 
-
+                        <div class="mb-2 position-relative">
+                            <label class="form-label fw-bold small">Institution/University*</label>
+                            <div class="searchable-select">
+                                <input type="text" class="form-control custom-input" v-model="searchQuery"
+                                    placeholder="Search University..." autocomplete="off"
+                                    @focus="showUniDropdown = true" @input="showUniDropdown = true">
+                                <div v-if="showUniDropdown && filteredUniversities.length > 0"
+                                    class="dropdown-list shadow-sm">
+                                    <div v-for="uni in filteredUniversities" :key="uni.id" class="dropdown-item"
+                                        @click="selectUni(uni)">
+                                        {{ uni.name }}
+                                    </div>
+                                </div>
+                            </div>
+                            <small class="text-danger" v-if="errors.university">{{ errors.university }}</small>
+                        </div>
 
                         <!-- Apply mode: single PAY NOW submit button -->
                         <div v-if="mode === 'apply'">
                             <div class="mb-3">
                                 <div class="form-check d-flex align-items-center justify-content-start gap-2">
-                                    <input class="form-check-input mt-0" type="checkbox" v-model="form.isCommerceGraduate"
-                                        id="commerceCheckApply">
+                                    <input class="form-check-input mt-0" type="checkbox"
+                                        v-model="form.isCommerceGraduate" id="commerceCheckApply">
                                     <label class="form-check-label small text-muted mb-0" for="commerceCheckApply">
                                         By submitting, you agree to our
-                                        <NuxtLink to="/terms-conditions" class="text-purple text-decoration-none fw-bold"
-                                            @click="handleNavigation">
+                                        <NuxtLink to="/terms-conditions"
+                                            class="text-purple text-decoration-none fw-bold" @click="handleNavigation">
                                             Terms
                                         </NuxtLink>
                                         and
@@ -101,12 +116,12 @@
                                 <div class="text-center mt-3">
                                     <p class="small text-muted mb-0">
                                         By submitting, you agree to our
-                                        <NuxtLink to="/terms-conditions" class="text-purple text-decoration-none fw-bold"
-                                            @click="handleNavigation">
+                                        <NuxtLink to="/terms-conditions"
+                                            class="text-purple text-decoration-none fw-bold" @click="handleNavigation">
                                             Terms
                                         </NuxtLink>
                                         and
-                                        <NuxtLink to="/privacy-policy"  class="text-purple text-decoration-none fw-bold"
+                                        <NuxtLink to="/privacy-policy" class="text-purple text-decoration-none fw-bold"
                                             @click="handleNavigation">
                                             Privacy Policy
                                         </NuxtLink>
@@ -117,16 +132,18 @@
                             <div v-else>
                                 <div class="mb-3">
                                     <div class="form-check d-flex align-items-center justify-content-start gap-2">
-                                        <input class="form-check-input mt-0" type="checkbox" v-model="form.isCommerceGraduate"
-                                            id="commerceCheckPay">
+                                        <input class="form-check-input mt-0" type="checkbox"
+                                            v-model="form.isCommerceGraduate" id="commerceCheckPay">
                                         <label class="form-check-label small text-muted mb-0" for="commerceCheckPay">
                                             By submitting, you agree to our
-                                            <NuxtLink to="/terms-conditions"  class="text-purple text-decoration-none fw-bold"
+                                            <NuxtLink to="/terms-conditions"
+                                                class="text-purple text-decoration-none fw-bold"
                                                 @click="handleNavigation">
                                                 Terms
                                             </NuxtLink>
                                             and
-                                            <NuxtLink to="/privacy-policy"  class="text-purple text-decoration-none fw-bold"
+                                            <NuxtLink to="/privacy-policy"
+                                                class="text-purple text-decoration-none fw-bold"
                                                 @click="handleNavigation">
                                                 Privacy Policy
                                             </NuxtLink>
@@ -141,7 +158,8 @@
                                 <button type="button" @click="handlePayment"
                                     class="btn btn-register w-100 py-3 fw-bold text-uppercase"
                                     :disabled="isPaymentInProgress">
-                                    <span v-if="isPaymentInProgress" class="spinner-border spinner-border-sm me-2"></span>
+                                    <span v-if="isPaymentInProgress"
+                                        class="spinner-border spinner-border-sm me-2"></span>
                                     {{ isPaymentInProgress ? 'Opening Payment...' : 'PAY NOW' }}
                                 </button>
                             </div>
@@ -169,18 +187,25 @@
     <!-- Error/Success Alert Popup -->
     <CommonAlert :show="alertPopup.show" :title="alertPopup.title" :message="alertPopup.message" :type="alertPopup.type"
         @close="alertPopup.show = false" />
+
+    <!-- Fee Waiver Modal -->
+    <FeeWaiverModal v-if="showFeeWaiverModal" :dossierId="formId!" :userData="form"
+        @close="showFeeWaiverModal = false" />
 </template>
 
 <script lang="ts">
-import { defineComponent, ref, reactive, nextTick, defineAsyncComponent, onMounted, watch } from "vue";
+import { defineComponent, ref, reactive, nextTick, defineAsyncComponent, onMounted, onUnmounted, watch, computed } from "vue";
 import { isValidMobile } from "~/utils/validators";
 import stateCityData from "~/state_city.json";
+import universitiesList from "~/universities.json";
+import selectUniversityList from "~/select-university.json";
 
 export default defineComponent({
     name: 'DossierModal',
     components: {
         PaymentStatusModal: defineAsyncComponent(() => import('~/components/Common/PaymentStatusModal.vue')),
-        CommonAlert: defineAsyncComponent(() => import('~/components/Common/CommonAlert.vue'))
+        CommonAlert: defineAsyncComponent(() => import('~/components/Common/CommonAlert.vue')),
+        FeeWaiverModal: defineAsyncComponent(() => import('~/components/university-fee-wavier/FeeWaiverModal.vue'))
     },
     props: {
         modalId: {
@@ -205,6 +230,9 @@ export default defineComponent({
         const isSubmitting = ref(false);
         const isPaymentInProgress = ref(false);
         const isDownloaded = ref(false);
+        const showFeeWaiverModal = ref(false);
+        const searchQuery = ref("");
+        const showUniDropdown = ref(false);
         const formId = ref<number | null>(null);
         const closeModalBtn = ref<HTMLButtonElement | null>(null);
         const notification = reactive({ type: '', message: '' });
@@ -236,6 +264,7 @@ export default defineComponent({
             form.phone = '';
             form.state = '';
             form.city = '';
+            form.university = '';
             form.isCommerceGraduate = false;
             citiesList.value = [];
             errors.name = '';
@@ -243,8 +272,11 @@ export default defineComponent({
             errors.phone = '';
             errors.state = '';
             errors.city = '';
+            errors.university = '';
             errors.isCommerceGraduate = '';
             isDownloaded.value = false;
+            searchQuery.value = '';
+            showUniDropdown.value = false;
             notification.type = '';
             notification.message = '';
         };
@@ -284,6 +316,7 @@ export default defineComponent({
             phone: '',
             state: '',
             city: '',
+            university: '',
             isCommerceGraduate: false
         });
 
@@ -298,11 +331,39 @@ export default defineComponent({
             phone: '',
             state: '',
             city: '',
+            university: '',
             isCommerceGraduate: ''
         });
 
         const states = ref<string[]>([]);
         const citiesList = ref<string[]>([]);
+        const universityList = ref([
+            ...selectUniversityList.map((name, index) => ({ id: `s-${index}`, name, isHighlight: true })),
+            ...universitiesList
+                .filter(name => !selectUniversityList.includes(name))
+                .map((name, index) => ({ id: `u-${index}`, name, isHighlight: false }))
+        ]);
+
+        const filteredUniversities = computed(() => {
+            const query = searchQuery.value.trim().toLowerCase();
+            if (!query) return universityList.value;
+            return universityList.value
+                .filter(u => u.name.toLowerCase().includes(query));
+        });
+
+        const selectUni = (uni: any) => {
+            form.university = uni.name;
+            searchQuery.value = uni.name;
+            showUniDropdown.value = false;
+        };
+
+        // Close dropdown when clicking outside
+        const handleClickOutside = (event: MouseEvent) => {
+            const target = event.target as HTMLElement;
+            if (!target.closest('.searchable-select')) {
+                showUniDropdown.value = false;
+            }
+        };
 
         const onStateChange = () => {
             form.city = '';
@@ -391,6 +452,10 @@ export default defineComponent({
                 errors.city = 'City is required';
                 isValid = false;
             }
+            if (!form.university) {
+                errors.university = 'University is required';
+                isValid = false;
+            }
             if ((props.mode === 'apply' || isDownloaded.value) && !form.isCommerceGraduate) {
                 errors.isCommerceGraduate = 'You must agree to the Terms and Privacy Policy';
                 isValid = false;
@@ -414,6 +479,7 @@ export default defineComponent({
                     phone: form.phone,
                     state: form.state,
                     city: form.city,
+                    university: form.university,
                     source: 1,
                     source_form: props.mode === 'apply' ? 1 : 2,
                     utm_source: utm_source.value,
@@ -482,16 +548,33 @@ export default defineComponent({
                     }).catch(() => { /* silent — never block user flow */ });
 
                     if (props.mode === 'apply') {
-                        // In apply mode: skip download, go straight to payment
-                        showNotification('success', 'Details submitted! Opening payment...');
-                        isDownloaded.value = true;
-                        // Trigger payment automatically
-                        await handlePayment();
+                        const selectedUni = universityList.value.find(u => u.name === form.university);
+                        if (selectedUni && selectedUni.isHighlight) {
+                            showNotification('success', 'Details submitted! Opening Fee Waiver...');
+                            isDownloaded.value = true;
+                            await closeDossierModal();
+                            showFeeWaiverModal.value = true;
+                        } else {
+                            // In apply mode: skip download, go straight to payment
+                            showNotification('success', 'Details submitted! Opening payment...');
+                            isDownloaded.value = true;
+                            // Trigger payment automatically
+                            await handlePayment();
+                        }
                     } else {
                         // In dossier mode: trigger download
                         window.location.href = `/api/download?url=${encodeURIComponent(fileUrl)}&filename=${encodeURIComponent(fileName)}`;
-                        isDownloaded.value = true;
-                        showNotification('success', 'Dossier downloaded! You can now proceed to pay the application fee.');
+                        
+                        const selectedUni = universityList.value.find(u => u.name === form.university);
+                        if (selectedUni && selectedUni.isHighlight) {
+                            showNotification('success', 'Dossier downloaded! Opening Fee Waiver...');
+                            // Do not change isDownloaded to true, avoiding the 'Pay Now' view
+                            await closeDossierModal();
+                            showFeeWaiverModal.value = true;
+                        } else {
+                            isDownloaded.value = true;
+                            showNotification('success', 'Dossier downloaded! You can now proceed to pay the application fee.');
+                        }
                     }
 
                 } else {
@@ -880,19 +963,31 @@ export default defineComponent({
             if (el) {
                 el.addEventListener('show.bs.modal', resetForm);
             }
+            window.addEventListener('click', handleClickOutside);
             // Populate states from local JSON and sort alphabetically
             const statesArr = Object.keys(stateCityData);
             states.value = statesArr.sort((a, b) => a.localeCompare(b));
         });
 
+        onUnmounted(() => {
+            window.removeEventListener('click', handleClickOutside);
+        });
+
         return {
             form,
+            formId,
             errors,
             states,
             citiesList,
+            universityList,
+            searchQuery,
+            showUniDropdown,
+            filteredUniversities,
+            selectUni,
             onStateChange,
             isSubmitting,
             isDownloaded,
+            showFeeWaiverModal,
             isPaymentInProgress,
             submitForm,
             handlePayment,
@@ -1030,5 +1125,58 @@ export default defineComponent({
         padding-bottom: 12px !important;
         font-size: 14px;
     }
+}
+
+/* Searchable Select Styles */
+.searchable-select {
+    position: relative;
+    width: 100%;
+}
+
+.dropdown-list {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: 100%;
+    max-height: 250px;
+    overflow-y: auto;
+    background: #fff;
+    border: 1px solid #e9ecef;
+    border-radius: 12px;
+    z-index: 9999;
+    margin-top: 4px;
+}
+
+.dropdown-item {
+    padding: 10px 16px;
+    font-size: 14px;
+    cursor: pointer;
+    transition: background 0.2s ease;
+    color: #4a4a68;
+    white-space: normal;
+    line-height: 1.4;
+}
+
+.dropdown-item:hover {
+    background-color: #f8f0ff;
+    color: #8A2BE2;
+}
+
+.dropdown-list::-webkit-scrollbar {
+    width: 6px;
+}
+
+.dropdown-list::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    border-radius: 10px;
+}
+
+.dropdown-list::-webkit-scrollbar-thumb {
+    background: #ccc;
+    border-radius: 10px;
+}
+
+.dropdown-list::-webkit-scrollbar-thumb:hover {
+    background: #8A2BE2;
 }
 </style>

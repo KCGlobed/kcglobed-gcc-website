@@ -3,7 +3,8 @@
         data-bs-backdrop="static">
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content border-0 overflow-hidden text-center px-4 py-5 position-relative">
-                <button v-if="status === 'failed'" type="button" class="btn-close position-absolute top-0 end-0 m-3" data-bs-dismiss="modal" aria-label="Close"></button>
+                <button v-if="status === 'failed'" type="button" class="btn-close position-absolute top-0 end-0 m-3"
+                    data-bs-dismiss="modal" aria-label="Close"></button>
                 <!-- PROCESSING STATE -->
                 <div v-if="status === 'processing'" class="status-content">
                     <div class="icon-circle processing-circle mx-auto mb-4">
