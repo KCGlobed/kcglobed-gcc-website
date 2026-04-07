@@ -1058,7 +1058,7 @@ export default defineComponent({
     width: 22px;
     height: 22px;
     border-radius: 6px;
-    border: 2px solid #e9ecef;
+    border: 2px solid #000!important;
     cursor: pointer;
 }
 
