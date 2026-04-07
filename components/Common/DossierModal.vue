@@ -76,7 +76,7 @@
                         <!-- Apply mode: single PAY NOW submit button -->
                         <div v-if="mode === 'apply'">
                             <div class="mb-3">
-                                <div class="form-check d-flex align-items-center justify-content-start gap-2">
+                                <div class="form-check custom-checkbox d-flex align-items-center justify-content-start gap-2">
                                     <input class="form-check-input mt-0" type="checkbox"
                                         v-model="form.isCommerceGraduate" id="commerceCheckApply">
                                     <label class="form-check-label small text-muted mb-0" for="commerceCheckApply">
@@ -131,7 +131,7 @@
 
                             <div v-else>
                                 <div class="mb-3">
-                                    <div class="form-check d-flex align-items-center justify-content-start gap-2">
+                                    <div class="form-check custom-checkbox d-flex align-items-center justify-content-start gap-2">
                                         <input class="form-check-input mt-0" type="checkbox"
                                             v-model="form.isCommerceGraduate" id="commerceCheckPay">
                                         <label class="form-check-label small text-muted mb-0" for="commerceCheckPay">

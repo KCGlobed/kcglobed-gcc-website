@@ -124,7 +124,7 @@
                                         <div v-else>
                                             <div class="mb-3">
                                                 <div
-                                                    class="form-check d-flex align-items-center justify-content-start gap-2">
+                                                    class="form-check custom-checkbox d-flex align-items-center justify-content-start gap-2">
                                                     <input class="form-check-input mt-0" type="checkbox" id="consentPay"
                                                         v-model="form.consent"
                                                         :class="{ 'is-invalid': errors.consent }">
@@ -376,33 +376,34 @@
 
 /* Checkbox Styling */
 .form-check {
-    padding-left: 1.8rem;
+    padding-left: 0;
     margin-bottom: 1.5rem;
 }
 
-.form-check-input {
-    width: 1.1rem;
-    height: 1.1rem;
-    margin-top: 0.2rem;
-    border: 2px solid #d0d0d0;
+.custom-checkbox .form-check-input {
+    width: 22px;
+    height: 22px;
+    margin-top: 0;
+    border: 2px solid #000!important;
     cursor: pointer;
     transition: all 0.2s ease;
 }
 
-.form-check-input:checked {
+.custom-checkbox .form-check-input:checked {
     background-color: #6a1b9a;
     border-color: #6a1b9a;
 }
 
-.form-check-input:focus {
+.custom-checkbox .form-check-input:focus {
     box-shadow: 0 0 0 0.15rem rgba(106, 27, 154, 0.1);
 }
 
-.form-check-label {
+.custom-checkbox .form-check-label {
     color: #555;
     font-size: 0.85rem;
     cursor: pointer;
     line-height: 1.5;
+    padding-left: 8px;
 }
 
 /* Register Button */
