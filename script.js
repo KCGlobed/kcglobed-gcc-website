@@ -1,24 +1,48 @@
-
 import * as XLSX from "xlsx";
 import * as fs from "fs";
 
-const buf = fs.readFileSync("university.xlsx");
+const buf = fs.readFileSync("final_university.xlsx");
 const workbook = XLSX.read(buf);
-const sheet = workbook.Sheets[workbook.SheetNames[0]];
 
-// Read rows
-const rows = XLSX.utils.sheet_to_json(sheet, { header: 1 });
+console.log("📄 Available Sheets:", workbook.SheetNames);
 
-// Convert to simple array
-const data = rows
-  .slice(1) // remove header
-  .map(row => String(row[0]).trim()) // first column
-  .filter(val => val); // remove empty
+// Function to extract data
+function getDataFromSheet(sheetName, fallbackToFirst = false) {
+  let actualSheetName = sheetName;
 
-// Remove duplicates (optional but recommended)
-const uniqueData = [...new Set(data)];
+  // If sheet not found → fallback to first sheet
+  if (!workbook.SheetNames.includes(sheetName)) {
+    if (fallbackToFirst) {
+      actualSheetName = workbook.SheetNames[0];
+      console.log(`⚠️ "${sheetName}" not found. Using first sheet: "${actualSheetName}"`);
+    } else {
+      console.log(`❌ Sheet not found: ${sheetName}`);
+      return [];
+    }
+  }
 
-// Save JSON
-fs.writeFileSync("universities.json", JSON.stringify(uniqueData, null, 2));
+  const sheet = workbook.Sheets[actualSheetName];
+
+  const rows = XLSX.utils.sheet_to_json(sheet, { header: 1 });
+
+  return rows
+    .slice(1)
+    .map(row => String(row[0] || "").trim())
+    .filter(val => val);
+}
+
+// ✅ "All" → fallback to first sheet
+const allData = getDataFromSheet("All", true);
+
+// ✅ "Waive off" → no fallback (strict)
+const waiveOffData = getDataFromSheet("Waive off");
+
+// Remove duplicates
+const uniqueAll = [...new Set(allData)];
+const uniqueWaive = [...new Set(waiveOffData)];
+
+// Save files
+fs.writeFileSync("universities.json", JSON.stringify(uniqueAll, null, 2));
+fs.writeFileSync("select-university.json", JSON.stringify(uniqueWaive, null, 2));
 
 console.log("✅ Done!");
