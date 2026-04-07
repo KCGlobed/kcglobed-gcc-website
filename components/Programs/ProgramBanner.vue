@@ -376,7 +376,7 @@
 
 /* Checkbox Styling */
 .form-check {
-    padding-left: 0;
+    /* padding-left: 0; */
     margin-bottom: 1.5rem;
 }
 
