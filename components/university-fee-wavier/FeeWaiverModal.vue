@@ -123,10 +123,9 @@
         <!-- <h2 class="title" style="margin-bottom: 16px; font-size: 1.7rem;">Upload Successful!</h2> -->
         <p class="subtitle"
           style="font-size: 0.9rem; line-height: 1.6; color: #4a4a4a; margin: 0 auto; padding: 0 10px;">
-          Thank you for showing your interest. We have received your submission. Our team will verify your details, and
-          within
-          24 hours you will receive a notification via email.<br><br>
-          If successfully verified, you will receive your login ID and password to appear for NFET.
+          Your application submitted successfully and account may activate in 24 hrs. You may check your mail for
+          account
+          details.
         </p>
       </div>
     </div>
