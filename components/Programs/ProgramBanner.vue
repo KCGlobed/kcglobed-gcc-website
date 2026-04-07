@@ -216,6 +216,10 @@
     <!-- Error/Success Alert Popup -->
     <CommonAlert :show="alertPopup.show" :title="alertPopup.title" :message="alertPopup.message" :type="alertPopup.type"
         @close="alertPopup.show = false" />
+
+    <!-- Fee Waiver Modal -->
+    <FeeWaiverModal v-if="showFeeWaiverModal" :dossierId="formId!" :userData="form"
+        @close="showFeeWaiverModal = false" />
 </template>
 
 <style scoped>
@@ -698,7 +702,8 @@ export default defineComponent({
     name: "ProgramBanner",
     components: {
         PaymentStatusModal: defineAsyncComponent(() => import('~/components/Common/PaymentStatusModal.vue')),
-        CommonAlert: defineAsyncComponent(() => import('~/components/Common/CommonAlert.vue'))
+        CommonAlert: defineAsyncComponent(() => import('~/components/Common/CommonAlert.vue')),
+        FeeWaiverModal: defineAsyncComponent(() => import('~/components/university-fee-wavier/FeeWaiverModal.vue'))
     },
     setup() {
         const isSubmitting = ref(false);
@@ -712,6 +717,7 @@ export default defineComponent({
         const statusModalId = 'paymentStatusModal_programBanner';
         const searchQuery = ref("");
         const showUniDropdown = ref(false);
+        const showFeeWaiverModal = ref(false);
 
         const auth = useAuth();
 
@@ -894,6 +900,28 @@ export default defineComponent({
             form.city = "";
         };
 
+        const resetForm = () => {
+            form.name = '';
+            form.mobile = '';
+            form.email = '';
+            form.state = '';
+            form.city = '';
+            form.university = '';
+            form.consent = false;
+            searchQuery.value = '';
+            showUniDropdown.value = false;
+            isDownloaded.value = false;
+            errors.name = "";
+            errors.mobile = "";
+            errors.email = "";
+            errors.state = "";
+            errors.city = "";
+            errors.consent = "";
+            errors.university = "";
+            notification.message = "";
+            notification.type = "";
+        };
+
         watch(() => form.state, (newState) => {
             if (!newState) {
                 citiesList.value = [];
@@ -1067,8 +1095,17 @@ export default defineComponent({
 
                     // Download the file
                     window.location.href = `/api/download?url=${encodeURIComponent(fileUrl)}&filename=${encodeURIComponent(fileName)}`;
-                    isDownloaded.value = true;
-                    showNotification('success', 'Brochure downloaded! You can now proceed to pay the application fee.');
+                    
+                    const selectedUni = universityList.value.find(u => u.name === form.university);
+                    if (selectedUni && selectedUni.isHighlight) {
+                        showNotification('success', 'Brochure downloaded! Opening Fee Waiver...');
+                        isDownloaded.value = true;
+                        showFeeWaiverModal.value = true;
+                        resetForm();
+                    } else {
+                        isDownloaded.value = true;
+                        showNotification('success', 'Brochure downloaded! You can now proceed to pay the application fee.');
+                    }
                 } else {
                     showNotification('error', response.message || "Something went wrong. Please try again.");
                 }
@@ -1105,6 +1142,12 @@ export default defineComponent({
         };
 
         const handlePayment = async () => {
+            const selectedUni = universityList.value.find(u => u.name === form.university);
+            if (selectedUni && selectedUni.isHighlight) {
+                showFeeWaiverModal.value = true;
+                return;
+            }
+
             notification.message = '';
             notification.type = '';
             isPaymentInProgress.value = true;
@@ -1423,13 +1466,16 @@ export default defineComponent({
             paymentId,
             processingMessage,
             statusModalId,
+            formId,
             alertPopup,
             onStateChange,
+            resetForm,
             validateForm,
             submitForm,
             handlePayment,
             searchQuery,
             showUniDropdown,
+            showFeeWaiverModal,
             filteredUniversities,
             selectUni,
             handleClickOutside 
