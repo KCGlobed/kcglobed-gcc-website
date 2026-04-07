@@ -339,7 +339,9 @@ export default defineComponent({
         const citiesList = ref<string[]>([]);
         const universityList = ref([
             ...selectUniversityList.map((name, index) => ({ id: `s-${index}`, name, isHighlight: true })),
-            ...universitiesList.map((name, index) => ({ id: `u-${index}`, name, isHighlight: false }))
+            ...universitiesList
+                .filter(name => !selectUniversityList.includes(name))
+                .map((name, index) => ({ id: `u-${index}`, name, isHighlight: false }))
         ]);
 
         const filteredUniversities = computed(() => {

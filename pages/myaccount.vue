@@ -534,7 +534,8 @@
         </div>
 
         <Reattempt :formData="formData" :reattempt="reattempt" />
-        <FeeWaiverModal v-if="showFeeWaiverModal" @close="showFeeWaiverModal = false" />
+        <FeeWaiverModal v-if="showFeeWaiverModal" :dossierId="formData.application_id" :userData="formData"
+            @close="showFeeWaiverModal = false" />
         <LayoutMainFooter />
         <LayoutCopyRight />
     </div>
@@ -650,7 +651,7 @@ const firstIncompleteSectionIndex = computed(() => {
 const showFeeWaiverModal = ref(false);
 
 const handleFinishProfile = () => {
-    // showFeeWaiverModal.value = true;
+    showFeeWaiverModal.value = true;
     const idx = firstIncompleteSectionIndex.value;
     if (idx !== null) {
         openSections.value.add(idx);
