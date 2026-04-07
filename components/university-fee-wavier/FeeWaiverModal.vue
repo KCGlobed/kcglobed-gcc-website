@@ -120,8 +120,13 @@
             <polyline points="22 4 12 14.01 9 11.01"></polyline>
           </svg>
         </div>
-        <h2 class="title">Upload Successful!</h2>
-        <p class="subtitle mb-0">Your fee waiver documentation has been submitted correctly. Creating your account...
+        <!-- <h2 class="title" style="margin-bottom: 16px; font-size: 1.7rem;">Upload Successful!</h2> -->
+        <p class="subtitle"
+          style="font-size: 0.9rem; line-height: 1.6; color: #4a4a4a; margin: 0 auto; padding: 0 10px;">
+          Thank you for showing your interest. We have received your submission. Our team will verify your details, and
+          within
+          24 hours you will receive a notification via email.<br><br>
+          If successfully verified, you will receive your login ID and password to appear for NFET.
         </p>
       </div>
     </div>
@@ -205,55 +210,6 @@ async function handleSubmit() {
 
     if (response) {
       isSuccess.value = true
-
-      try {
-        processingMessage.value = 'Creating your account...'
-        const studentRes = await $fetch(`${config.public.apiBase}/api/users/create_student/`, {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: {
-            "full_name": props.userData.name,
-            "email": props.userData.email,
-            "city": props.userData.city,
-            "state": props.userData.state,
-            "country": "India",
-            "phone1": props.userData.phone
-          }
-        })
-
-        if (studentRes.success && studentRes.data?.password) {
-          processingMessage.value = 'Signing you in...'
-          const authResponse = await $fetch(`${config.public.apiBase}/api/users/website_login/`, {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: {
-              email: props.userData.email,
-              password: studentRes.data.password,
-              role: 'student',
-            }
-          })
-
-          if (authResponse.data?.token) {
-            const auth = useAuth()
-            const { access, refresh } = authResponse.data.token
-            const user_role = authResponse.data.user_role ?? null
-            const user_id = authResponse.data.user_id ?? null
-            auth.login({ access, refresh, user_role, user_id })
-
-            setTimeout(() => {
-              window.location.href = '/myaccount'
-            }, 3000)
-            return
-          }
-        }
-      } catch (err) {
-        console.error('Registration/Login Error:', err)
-      }
-
-      // Fallback direct redirect if login failed
-      setTimeout(() => {
-        window.location.href = '/myaccount'
-      }, 3500)
     }
   } catch (error) {
     console.error('Upload Error:', error)
@@ -322,7 +278,7 @@ async function handleSubmit() {
 
 .close-btn:hover {
   background: rgba(255, 255, 255, 0.28);
-  color: #fff;
+  /* color: #fff; */
 }
 
 .modal-header {

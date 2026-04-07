@@ -2,7 +2,7 @@
 import * as XLSX from "xlsx";
 import * as fs from "fs";
 
-const buf = fs.readFileSync("universities.xlsx");
+const buf = fs.readFileSync("university.xlsx");
 const workbook = XLSX.read(buf);
 const sheet = workbook.Sheets[workbook.SheetNames[0]];
 

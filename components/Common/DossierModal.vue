@@ -197,7 +197,8 @@
 import { defineComponent, ref, reactive, nextTick, defineAsyncComponent, onMounted, onUnmounted, watch, computed } from "vue";
 import { isValidMobile } from "~/utils/validators";
 import stateCityData from "~/state_city.json";
-import universityData from "~/assets/universities.json";
+import universitiesList from "~/universities.json";
+import selectUniversityList from "~/select-university.json";
 
 export default defineComponent({
     name: 'DossierModal',
@@ -336,7 +337,10 @@ export default defineComponent({
 
         const states = ref<string[]>([]);
         const citiesList = ref<string[]>([]);
-        const universityList = ref(universityData);
+        const universityList = ref([
+            ...selectUniversityList.map((name, index) => ({ id: `s-${index}`, name, isHighlight: true })),
+            ...universitiesList.map((name, index) => ({ id: `u-${index}`, name, isHighlight: false }))
+        ]);
 
         const filteredUniversities = computed(() => {
             const query = searchQuery.value.trim().toLowerCase();

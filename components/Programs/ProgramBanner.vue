@@ -688,7 +688,8 @@
 import { defineComponent, ref, reactive, nextTick, defineAsyncComponent, onMounted, onUnmounted, watch } from "vue";
 import { isValidMobile } from "~/utils/validators";
 import stateCityData from "~/state_city.json";
-import universityData from "~/assets/universities.json";
+import universitiesList from "~/universities.json";
+import selectUniversityList from "~/select-university.json";
 
 import image1 from "../../assets/img/heros/hero_bg.svg";
 import gccPdf from "../../assets/gcc.pdf";
@@ -785,7 +786,10 @@ export default defineComponent({
 
         const states = ref<string[]>([]);
         const citiesList = ref<string[]>([]);
-        const universityList = ref(universityData);
+        const universityList = ref([
+            ...selectUniversityList.map((name, index) => ({ id: `s-${index}`, name, isHighlight: true })),
+            ...universitiesList.map((name, index) => ({ id: `u-${index}`, name, isHighlight: false }))
+        ]);
 
         const errors = reactive({
             name: "",
