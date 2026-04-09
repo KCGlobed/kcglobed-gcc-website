@@ -32,13 +32,6 @@ import { defineComponent } from "vue";
 import BlogSearchBanner from "~/components/Blog/BlogSearchBanner.vue";
 import BlogCard from "~/components/Blog/BlogCard.vue";
 
-import image1 from "~/assets/img/blogs/inner-blog1.jpg";
-import image2 from "~/assets/img/blogs/inner-blog2.jpg";
-import image3 from "~/assets/img/blogs/inner-blog3.jpg";
-import image4 from "~/assets/img/blogs/inner-blog4.jpg";
-import image5 from "~/assets/img/blogs/inner-blog5.jpg";
-import image6 from "~/assets/img/blogs/inner-blog6.jpg";
-
 export default defineComponent({
   name: "BlogsIndex",
   components: {
