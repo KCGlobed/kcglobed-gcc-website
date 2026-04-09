@@ -384,7 +384,7 @@
     width: 22px;
     height: 22px;
     margin-top: 0;
-    border: 2px solid #000!important;
+    border: 2px solid #000 !important;
     cursor: pointer;
     transition: all 0.2s ease;
 }
@@ -1058,7 +1058,7 @@ export default defineComponent({
                     phone: form.mobile,
                     state: form.state,
                     city: form.city,
-                    source:  1,
+                    source: 1,
                     source_form: 3,
                     utm_source: utm_source.value,
                     utm_medium: utm_medium.value,
@@ -1096,7 +1096,7 @@ export default defineComponent({
 
                     // Download the file
                     window.location.href = `/api/download?url=${encodeURIComponent(fileUrl)}&filename=${encodeURIComponent(fileName)}`;
-                    
+
                     const selectedUni = universityList.value.find(u => u.name === form.university);
                     if (selectedUni && selectedUni.isHighlight) {
                         showNotification('success', 'Brochure downloaded! Opening Fee Waiver...');
@@ -1479,7 +1479,7 @@ export default defineComponent({
             showFeeWaiverModal,
             filteredUniversities,
             selectUni,
-            handleClickOutside 
+            handleClickOutside
         };
     },
 });
