@@ -23,7 +23,8 @@ service-account.json
 .env
 .env.*
 !.env.example
-
+convert.js
+offers.xlsx
 cashfree_results.json
 coupon.js
 coupons.json
