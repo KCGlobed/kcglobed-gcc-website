@@ -3,7 +3,46 @@
     <LayoutTopHeader />
     <LayoutMainNavbar />
     
-    <div class="container-fluid px-4 px-lg-5 pt-5 pb-5 mt-4" style="max-width: 1536px;">
+    <!-- Loading State -->
+    <div v-if="pending && !blog" class="container-fluid px-4 px-lg-5 pt-5 pb-5 mt-4" style="max-width: 1536px;">
+      <div class="row align-items-center mb-5 pb-3 border-bottom">
+        <div class="col-lg-6 mb-4 mb-lg-0 pe-lg-5">
+          <div class="skeleton-badge mb-3"></div>
+          <div class="skeleton-h1 mb-4"></div>
+          <div class="skeleton-meta-row mb-2"></div>
+          <div class="skeleton-text-meta"></div>
+        </div>
+        <div class="col-lg-6">
+          <div class="skeleton-featured-image"></div>
+        </div>
+      </div>
+      <div class="row g-4 g-lg-5">
+        <div class="col-lg-3 d-none d-lg-block">
+          <div class="skeleton-sidebar"></div>
+        </div>
+        <div class="col-lg-6">
+          <div class="skeleton-paragraph mb-3"></div>
+          <div class="skeleton-paragraph mb-3"></div>
+          <div class="skeleton-paragraph"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Error State -->
+    <!-- <div v-else-if="error || listError" class="container py-5 text-center mt-5">
+      <div class="alert alert-danger d-inline-block px-5 py-4 shadow-sm border-0 rounded-4">
+        <i class="ti ti-alert-triangle fs-1 text-danger mb-3 d-block"></i>
+        <h4 class="fw-bold">Connection Issue</h4>
+        <p class="text-muted">We couldn't load the blog content. Please check your connection.</p>
+        <div class="d-flex gap-2 justify-content-center mt-4">
+          <button @click="refreshAll" class="btn btn-outline-danger px-4">Retry</button>
+          <NuxtLink to="/blogs" class="btn btn-danger px-4">Back to Blogs</NuxtLink>
+        </div>
+      </div>
+    </div> -->
+
+    <!-- Content -->
+    <div v-else-if="blog" class="container-fluid px-4 px-lg-5 pt-5 pb-5 mt-4" style="max-width: 1536px;">
       <!-- Hero Section -->
       <div class="row align-items-center mb-5 pb-3 border-bottom">
         <div class="col-lg-6 mb-4 mb-lg-0 pe-lg-5">
@@ -16,14 +55,15 @@
           
           <div class="meta-section d-flex flex-column gap-2 text-secondary fs-7">
             <div class="d-flex align-items-center gap-3 mb-2 text-dark">
-              <div class="social-icons d-flex gap-2">
+              <!-- <div class="social-icons d-flex gap-2">
                 <a href="#" class="text-dark"><i class="ti ti-brand-x fw-bold fs-5"></i></a>
                 <a href="#" class="text-dark"><i class="ti ti-brand-linkedin fw-bold fs-5"></i></a>
                 <a href="#" class="text-dark"><i class="ti ti-brand-reddit fw-bold fs-5"></i></a>
                 <a href="#" class="text-dark"><i class="ti ti-link fw-bold fs-5"></i></a>
-              </div>
+              </div> -->
               <span class="d-flex align-items-center gap-1 text-muted">
-                <span style="font-size: 5px;">&#9679;</span> 18 Min Read
+                <!-- <span style="font-size: 5px;">&#9679;</span>  -->
+                {{ readingTime }} Min Read
               </span>
             </div>
             <span>Written by: <strong class="text-dark">KC GlobEd</strong></span>
@@ -31,51 +71,64 @@
           </div>
         </div>
         <div class="col-lg-6">
-          <img :src="blog.featuredImage" class="img-fluid w-100 object-fit-cover shadow-sm" alt="Blog Image" style="max-height: 400px;" />
+          <img :src="blog.featuredImage" class="img-fluid w-100 object-fit-cover shadow-sm rounded-3" alt="Blog Image" style="max-height: 400px;" />
         </div>
       </div>
       
       <!-- Content Section -->
-      <div class="row g-5">
+      <div class="row g-4 g-lg-5">
         <!-- Sidebar: Contents -->
         <div class="col-lg-3 d-none d-lg-block">
-          <div class="contents-sidebar border sticky-top" style="top: 100px; background-color: #fafafa;">
-            <h5 class="fw-bold fs-5 px-3 py-3 m-0 border-bottom">Contents</h5>
-            <div class="contents-list p-2">
-              <a href="#understanding" @click.prevent="scrollToId('understanding')" class="content-link d-block p-2 active text-dark fw-bold text-decoration-none">
-                Understanding the Basics: What Are PGP and MBA Programs?
+          <div class="contents-sidebar border sticky-top rounded-4 overflow-hidden shadow-sm" style="top: 100px; background-color: #fafafa;">
+            <h5 class="fw-bold fs-6 px-3 py-3 m-0 bg-white border-bottom">Table of Contents</h5>
+            <div class="contents-list p-2 custom-scrollbar" style="max-height: 70vh; overflow-y: auto;">
+              <a href="#overview" @click.prevent="scrollToId('overview')" 
+                 class="content-link d-block p-2 text-dark fw-bold text-decoration-none rounded-2 mb-1" 
+                 :class="{ 'active': activeTocId === 'overview' }">
+                Overview
               </a>
-              <a href="#pgp-vs-mba" @click.prevent="scrollToId('pgp-vs-mba')" class="content-link d-block p-2 text-muted text-decoration-none mt-1">
-                PGP in Business vs MBA: The Difference
-              </a>
-              <a href="#key-differences" @click.prevent="scrollToId('key-differences')" class="content-link d-block p-2 text-muted text-decoration-none mt-1">
-                PGP in Business vs MBA: Key Differences at a Glance
-              </a>
-              <a href="#which-program" @click.prevent="scrollToId('which-program')" class="content-link d-block p-2 text-muted text-decoration-none mt-1">
-                Which Program Is Right for You?
-              </a>
-              <a href="#career-pathways" @click.prevent="scrollToId('career-pathways')" class="content-link d-block p-2 text-muted text-decoration-none mt-1">
-                Career Pathways After PGP in Business vs MBA
-              </a>
-              <a href="#faqs" @click.prevent="scrollToId('faqs')" class="content-link d-block p-2 text-muted text-decoration-none mt-1">
-                FAQs: Common Questions About PGP vs MBA
-              </a>
+              <div v-for="item in toc" :key="item.id">
+                <a :href="'#' + item.id" @click.prevent="scrollToId(item.id)" 
+                   class="content-link d-block p-2 text-muted text-decoration-none rounded-2 mb-1"
+                   :class="{ 'active': activeTocId === item.id, 'ps-4 sub-link': item.level === 3 }">
+                  {{ item.text }}
+                </a>
+              </div>
             </div>
           </div>
         </div>
         
         <!-- Main Content -->
-        <div class="col-lg-6">
-          <div class="blog-content" v-html="blog.content"></div>
+        <div class="col-lg-6 pe-xl-5">
+          <div id="overview" class="scroll-margin"></div>
+          <div class="blog-content-wrapper shadow-none">
+            <div class="blog-content mb-5" v-html="processedContent"></div>
+            
+            <!-- Tags Section -->
+            <div v-if="blog?.tags && blog.tags.length > 0" class="tags-section mt-5">
+              <div class="divider-line mb-4"></div>
+              <div class="d-flex align-items-center gap-2">
+                <i class="ti ti-tag text-muted fs-5"></i>
+                <span class="text-uppercase text-muted fs-8 fw-bold" style="letter-spacing: 1px;">Tagged:</span>
+                <span class="fw-bold text-dark ps-2 fs-6" style="color: #101c38 !important;">{{ formattedTags }}</span>
+              </div>
+            </div>
+          </div>
         </div>
         
         <!-- Sidebar: Form -->
         <div class="col-lg-3">
-          <div class="sticky-top" style="top: 100px; z-index: 1;">
+          <div class="sticky-top sidebar-form-container" style="top: 100px; z-index: 1;">
             <CareerCounsellingForm />
           </div>
         </div>
       </div>
+    </div>
+
+    <!-- Not Found State -->
+    <div v-else-if="!pending" class="text-center py-5 mt-5">
+      <h3 class="text-muted">Blog not found.</h3>
+      <NuxtLink to="/blogs" class="btn border mt-3">Back to Blogs</NuxtLink>
     </div>
     
     <LayoutMainFooter />
@@ -83,106 +136,237 @@
   </div>
 </template>
 
-<script lang="ts">
-import { defineComponent } from "vue";
+<script setup>
+import { ref, computed, watch, nextTick, onMounted, onUnmounted } from "vue";
 import CareerCounsellingForm from "~/components/Forms/CareerCounsellingForm.vue";
-import defaultImage from "~/assets/img/blogs/inner-blog1.jpg";
 
-export default defineComponent({
-  name: "BlogDetailsPage",
-  components: {
-    CareerCounsellingForm,
-  },
-  data() {
-    return {
-      blog: {
-          "id": 7,
-          "title": "CPA Exam Prep Tips for Students",
-          "slug": "cpa-exam-prep-tips-for-students",
-          "content": "<p></p><p><span style=\"color: rgb(55, 65, 81);\">Do you face challenges and hindrances while preparing for the CPA Exam? Are you finding it difficult to multitask nowadays? Do you want to cut short the lengthy study plans? Don’t worry, we’ve got you covered! First, we congratulate you for taking the step forward to gaining a global credential that is rapidly gaining popularity and is one of the world’s most trusted profession.</span></p><p><span style=\"color: rgb(55, 65, 81);\">We, at KC GlobEd understand that these thoughts will keep bothering you until you get the right answer. To help you with this, we have come up with a solution to all your challenges with some pro tips to pass your CPA Exam in 1st attempt.</span></p><h2 id=\"understanding\"><strong style=\"color: inherit;\">Most Effective Tips for Qualify CPA Exams:</strong></h2><h3 id=\"pgp-vs-mba\"><strong style=\"color: inherit;\">1. Check your learning style</strong></h3><p><span style=\"color: rgb(55, 65, 81);\">Key to cut short the lengthy study is to recognize what you’re learning style is. Prioritizing what we need to know and identifying what you have already mastered, it saves plenty of hours during the preparation when you know where to focus.</span></p><p><strong style=\"color: rgb(17, 24, 39);\">Tip</strong><span style=\"color: rgb(55, 65, 81);\">: Realtime Score is the most reliable tool to help you gain confidence over how to take the preparation ahead. </span></p><h3 id=\"key-differences\"><strong style=\"color: inherit;\">2. “Get Set Go”</strong></h3><p><strong style=\"color: rgb(17, 24, 39);\"><em>Get</em></strong><span style=\"color: rgb(55, 65, 81);\"> – Get KC GlobEd’s technologically advanced cost-effective study material.</span></p><p><strong style=\"color: rgb(17, 24, 39);\"><em>Set </em></strong><span style=\"color: rgb(55, 65, 81);\">- Complete the initial assessment phase that will help you identify your strong and weak areas and set you for your CPA exam in the most focused and organized way.</span></p><p><strong style=\"color: rgb(17, 24, 39);\"><em>Go </em></strong><span style=\"color: rgb(55, 65, 81);\">– Pass the CPA exam in one go.</span></p><h3 id=\"which-program\"><strong style=\"color: inherit;\">3. Practice MCQs and Simulations</strong></h3><p><span style=\"color: rgb(55, 65, 81);\">Practicing MCQs and Simulations will help you get ready for the actual exam scenario. When you mark an answer, you can read the reason of why your answer was </span><strong style=\"color: rgb(17, 24, 39);\">correct or incorrect</strong><span style=\"color: rgb(55, 65, 81);\">. This is a best practice and will help you in gaining confidence about the concepts.</span></p><h3 id=\"career-pathways\"><strong style=\"color: inherit;\">4. Use Flash Cards</strong></h3><p><span style=\"color: rgb(55, 65, 81);\">Flashcards are a perfect tool to memorize large information in small bits, so you can remember, understand and retain the information that you need to pass your CPA Exams.</span></p><p><span style=\"color: rgb(55, 65, 81);\">Tip: Use Flashcards to expedite your revision a few weeks before your exam.</span></p><h3 id=\"faqs\"><strong style=\"color: inherit;\">5. Attend the live classes by our experienced professional instructors</strong></h3><p><span style=\"color: rgb(55, 65, 81);\">Our instructors will work with you to get you through difficult areas. They impart knowledge and experiences for explaining concepts so that you remember that on your exam day. Attending live classes can really help you pass the CPA exams in 1st attempt as all your queries and doubts are resolved immediately.</span></p><h3><strong style=\"color: inherit;\">6. Attend the Webinars</strong></h3><p><span style=\"color: rgb(55, 65, 81);\">Accounting and finance are industries that are evolving every day! We host regular webinars to keep the students updated on the Academic and Industry changes, Exam tips, and much more, this helps them to pass the CPA exam faster, also helping them in creating a stronger vision for their career.</span></p><h3><strong style=\"color: inherit;\">7. Use the Mentor support wisely</strong></h3><p><span style=\"color: rgb(55, 65, 81);\">A mentor is assigned to every student, with whom the student can have a one-on-one conversation related to their study plans, exam preparation, licensing and even career tips.</span></p><p><em style=\"color: rgb(55, 65, 81);\">We, at </em><em style=\"color: rgb(17, 24, 39);\"><u><a href=\"https://www.kcglobed.com/\" rel=\"noopener noreferrer\" target=\"_blank\">KC GlobEd</a></u></em><em style=\"color: rgb(55, 65, 81);\"> work hard every day to make your CPA Journey easier for you, contact our counsellors now to understand the process to become a future CPA!</em></p><p><em style=\"color: rgb(55, 65, 81);\">Call us on 011-</em><span style=\"color: rgb(55, 65, 81);\">47593546/+91 97735 76111 </span></p><p></p>",
-          "excerpt": "Do you face challenges and hindrances while preparing for the CPA Exam?",
-          "featuredImage": "https://storage.googleapis.com/gcc_static_files_backend/media/blog/images/Book-Mockup-1-front.png?X-Goog-Algorithm=GOOG4-RSA-SHA256&X-Goog-Credential=gcc-backend-sa%40gcc-backend.iam.gserviceaccount.com%2F20260409%2Fauto%2Fstorage%2Fgoog4_request&X-Goog-Date=20260409T114014Z&X-Goog-Expires=86400&X-Goog-SignedHeaders=host&X-Goog-Signature=2ae312c444c567cbbad202288bc0cde203df93814c265632e95a977ef8211821a29d68eed2e35db3aad7d6b84c2d032a18562a6e54d7dca5f7a7b56223d0b44f53cb0a1caffa67b1265b1d6efbcb4636d0d73e099b2a610f48ee0b3fd20d53e9d31833cd08491012d85c16c507fe9d10f4c09d8bfc3fd127951b04be0f42adcf6d28a5dd0a1e976200b0cc07a88eda16c4d0a5072133444852f5e9acff2cbd3fa5af79a39f708eab07f3fd42d21cc7a79c5ec5bcccb06ea25cd50c2bc166fff838b719f2e11e34fe0d166001726ea3403bd50df766ba8b2a3a68b3dc2c26edbd729c6e9d1fbed1c4ab5212bb7052317b83e748ae0cf28eb2aee65dae721edb9b",
-          "blogStatus": "published",
-          "published_at": "2026-02-09T15:44:00+05:30",
-          "metaTitle": "Do you face challenges and hindrances while preparing for the CPA Exam?",
-          "metaDescription": "Do you face challenges and hindrances while preparing for the CPA Exam?",
-          "status": false,
-          "created_at": "2026-02-09T15:44:28.534905+05:30",
-          "updated_at": "2026-02-09T15:44:28.534918+05:30",
-          "categories": [
-              {
-                  "id": 1,
-                  "name": "CPA EXAM",
-                  "status": true,
-                  "created_at": "2026-02-09T10:57:36.137291+05:30",
-                  "updated_at": "2026-02-09T10:57:36.137291+05:30"
-              }
-          ]
-      }
-    };
-  },
-  computed: {
-    blogCategory() {
-      if (this.blog.categories && this.blog.categories.length > 0) {
-        return this.blog.categories[0].name;
-      }
-      return "Blog";
-    },
-    formattedDate() {
-      if (!this.blog.published_at) return "";
-      const date = new Date(this.blog.published_at);
-      return date.toLocaleDateString("en-US", {
-        month: "long",
-        day: "numeric",
-        year: "numeric",
-        hour: "numeric",
-        minute: "numeric",
-      });
-    }
-  },
-  methods: {
-    scrollToId(id: string) {
-      const el = document.getElementById(id);
-      if (el) {
-        // Find the top position of the element, factoring in 120px offset for the sticky header
-        const y = el.getBoundingClientRect().top + window.scrollY - 120;
-        window.scrollTo({ top: y, behavior: 'smooth' });
-      }
+const route = useRoute();
+const config = useRuntimeConfig();
+const slug = route.params.slug;
+const apiBase = config.public.apiBase || '';
+
+const toc = ref([]);
+const activeTocId = ref('overview');
+const processedContent = ref('');
+
+// Step 1: Fetch list to find ID from slug
+const { data: listData, pending: listPending, error: listError, refresh: refreshList } = useFetch(`${apiBase}/api/blog/websiteblogs_list`, {
+  key: `list-for-${slug}-fetch`
+});
+
+const blogId = computed(() => {
+  const list = Array.isArray(listData.value) ? listData.value : (listData.value?.data || []);
+  const found = list.find(b => b.slug === slug);
+  return found?.id;
+});
+
+// Step 2: Fetch full detail using the ID
+const { data: blogDetail, pending: detailPending, error, refresh: refreshDetail } = useFetch(() => 
+  blogId.value ? `${apiBase}/api/blog/websiteblogs_detail/${blogId.value}` : null, 
+  { 
+    key: `blog-detail-${slug}-fetch`,
+    watch: [blogId],
+    transform: (res) => {
+      if (res?.data && Array.isArray(res.data) && res.data.length > 0) return res.data[0];
+      return res;
     }
   }
+);
+
+const blog = computed(() => {
+  const data = blogDetail.value;
+  if (data?.data && Array.isArray(data.data) && data.data.length > 0) return data.data[0];
+  return data || null;
 });
+
+const readingTime = computed(() => {
+  if (!blog.value?.content) return 0;
+  const words = blog.value.content.replace(/<[^>]*>/g, '').split(/\s+/).length;
+  return Math.ceil(words / 200);
+});
+
+const pending = computed(() => listPending.value || (blogId.value && detailPending.value));
+
+const formattedTags = computed(() => {
+  if (!blog.value?.tags || !Array.isArray(blog.value.tags)) return "";
+  return blog.value.tags.map(tag => tag.name).join(", ");
+});
+
+/**
+ * Robustly parses the blog content to generate the ToC and inject IDs.
+ * Uses browser DOMParser for maximum reliability over Regex.
+ */
+const processBlogContent = () => {
+  if (!blog.value?.content) {
+    processedContent.value = '';
+    toc.value = [];
+    return;
+  }
+
+  const parser = new DOMParser();
+  const doc = parser.parseFromString(blog.value.content, 'text/html');
+  const headings = doc.querySelectorAll('h2, h3');
+  const newToc = [];
+
+  headings.forEach((heading, index) => {
+    const id = `section-${index + 1}`;
+    heading.setAttribute('id', id);
+    heading.classList.add('scroll-margin');
+    
+    newToc.push({
+      id: id,
+      text: heading.textContent.trim(),
+      level: parseInt(heading.tagName[1])
+    });
+  });
+
+  processedContent.value = doc.body.innerHTML;
+  toc.value = newToc;
+};
+
+// Re-process when blog content arrives
+watch(blog, (newBlog) => {
+  if (newBlog) {
+    processBlogContent();
+  }
+}, { immediate: true });
+
+// Scroll spy logic
+const handleScroll = () => {
+  const sections = document.querySelectorAll('.scroll-margin');
+  let currentId = 'overview';
+  
+  // Higher threshold for mobile, smaller for desktop
+  const scrollPosition = window.scrollY + 120;
+  
+  sections.forEach((section) => {
+    const sectionTop = section.offsetTop;
+    if (scrollPosition >= sectionTop) {
+      currentId = section.id;
+    }
+  });
+  
+  activeTocId.value = currentId;
+};
+
+onMounted(() => {
+  window.addEventListener('scroll', handleScroll);
+  // If blog is already there (CSR), process it
+  if (blog.value) processBlogContent();
+});
+
+onUnmounted(() => {
+  window.removeEventListener('scroll', handleScroll);
+});
+
+const refreshAll = () => {
+  refreshList();
+  if (blogId.value) refreshDetail();
+};
+
+const blogCategory = computed(() => {
+  if (blog.value?.categories && blog.value.categories.length > 0) return blog.value.categories[0].name;
+  return "Blog";
+});
+
+const formattedDate = computed(() => {
+  if (!blog.value?.published_at) return "";
+  return new Date(blog.value.published_at).toLocaleDateString("en-US", {
+    month: "long", day: "numeric", year: "numeric"
+  });
+});
+
+const scrollToId = (id) => {
+  const el = document.getElementById(id);
+  if (el) {
+    const y = el.getBoundingClientRect().top + window.scrollY - 100;
+    window.scrollTo({ top: y, behavior: 'smooth' });
+    activeTocId.value = id;
+  }
+};
+
+useHead(() => ({
+  title: blog.value?.metaTitle || blog.value?.title || "Blog",
+  meta: [
+    { name: 'description', content: blog.value?.metaDescription || blog.value?.excerpt }
+  ]
+}));
 </script>
 
 <style scoped>
 .category-badge {
   background-color: #9b3d94;
-  letter-spacing: 0.5px;
-  border-radius: 5px;
+  letter-spacing: 0.5px; border-radius: 5px;
 }
-.fs-7 {
-  font-size: 0.85rem;
-}
-.text-purple {
-  color: #9b3d94;
+.fs-7 { font-size: 0.85rem; }
+.fs-8 { font-size: 0.75rem; }
+
+.blog-content :deep(p), .blog-content :deep(li), .blog-content :deep(div) {
+  color: #333;
+  line-height: 1.8;
+  font-size: 16px;
+  margin-bottom: 1.4rem;
+  word-break: break-word;
 }
 
-.blog-content p, .blog-content li {
-  color: #4a4a4a;
-  line-height: 1.7;
-  font-size: 15px;
+.blog-content :deep(h2), .blog-content :deep(h3) {
+  font-weight: 700;
+  margin-top: 2.5rem;
+  margin-bottom: 1.25rem;
+  color: #111;
+  scroll-margin-top: 110px;
+}
+
+.blog-content :deep(h2) { font-size: 1.75rem; margin-top: 3.5rem; }
+.blog-content :deep(h3) { font-size: 1.4rem; }
+
+.blog-content :deep(img) {
+  max-width: 100%; height: auto; border-radius: 8px; margin: 2rem 0;
 }
 
 .content-link {
-  font-size: 13px;
-  border-radius: 4px;
+  font-size: 14px;
+  transition: all 0.2s ease;
+  border-left: 3px solid transparent;
+  color: #666 !important;
 }
 
 .content-link:hover {
-  background-color: #eaeaea;
-  color: #111 !important;
+  background-color: #f0f0f0;
+  color: #9b3d94 !important;
 }
 
 .content-link.active {
-  background-color: #e6e6e6; 
+  background-color: #fff;
+  color: #9b3d94 !important;
+  font-weight: 700;
+  border-left-color: #9b3d94;
+  box-shadow: 0 4px 12px rgba(155, 61, 148, 0.08);
+}
+
+.sub-link { font-size: 13px; }
+
+.scroll-margin { scroll-margin-top: 110px; }
+
+.custom-scrollbar::-webkit-scrollbar { width: 4px; }
+.custom-scrollbar::-webkit-scrollbar-track { background: #f1f1f1; }
+.custom-scrollbar::-webkit-scrollbar-thumb { background: #ccc; border-radius: 10px; }
+
+.sidebar-form-container { max-width: 100%; overflow-x: hidden; }
+
+/* Tags Section Styling */
+.divider-line {
+  width: 50px;
+  height: 3px;
+  background-color: #101c38;
+}
+
+.tags-section .text-dark {
+  color: #101c38 !important;
+}
+
+@media (max-width: 991px) {
+  .blog-content :deep(h2) { font-size: 1.5rem; }
+  .blog-content :deep(h3) { font-size: 1.25rem; }
 }
 </style>
