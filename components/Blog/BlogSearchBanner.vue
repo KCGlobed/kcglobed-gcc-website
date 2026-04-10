@@ -17,11 +17,17 @@
           </span>
           <input
             type="text"
+            :value="modelValue"
             class="form-control border-0 shadow-none bg-white search-input text-secondary"
             placeholder="Search Headlines, News..."
+            @input="onInput"
+            @keyup.enter="triggerSearch"
           />
           <div class="divider d-flex align-items-center"></div>
-          <button class="btn border-0 text-dark px-4 search-btn">
+          <button 
+            class="btn border-0 text-dark px-4 search-btn"
+            @click="triggerSearch"
+          >
             Search
           </button>
         </div>
@@ -30,18 +36,30 @@
   </div>
 </template>
 
-<script lang="ts">
-import { defineComponent } from "vue";
+<script setup lang="ts">
+import { defineProps, defineEmits } from "vue";
 
-export default defineComponent({
-  name: "BlogSearchBanner",
-  props: {
-    resultsCount: {
-      type: [Number, String],
-      default: 0
-    }
+const props = defineProps({
+  modelValue: {
+    type: String,
+    default: ""
+  },
+  resultsCount: {
+    type: [Number, String],
+    default: 0
   }
 });
+
+const emit = defineEmits(["update:modelValue", "search"]);
+
+const onInput = (e: Event) => {
+  const target = e.target as HTMLInputElement;
+  emit("update:modelValue", target.value);
+};
+
+const triggerSearch = () => {
+  emit("search");
+};
 </script>
 
 <style scoped>
