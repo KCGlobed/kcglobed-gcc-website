@@ -3,66 +3,28 @@
     <LayoutTopHeader />
     <LayoutMainNavbar />
     
-    <!-- Loading State -->
-    <div v-if="pending && !blog" class="container-fluid px-4 px-lg-5 pt-5 pb-5 mt-4" style="max-width: 1536px;">
-      <div class="row align-items-center mb-5 pb-3 border-bottom">
-        <div class="col-lg-6 mb-4 mb-lg-0 pe-lg-5">
-          <div class="skeleton-badge mb-3"></div>
-          <div class="skeleton-h1 mb-4"></div>
-          <div class="skeleton-meta-row mb-2"></div>
-          <div class="skeleton-text-meta"></div>
-        </div>
-        <div class="col-lg-6">
-          <div class="skeleton-featured-image"></div>
-        </div>
-      </div>
-      <div class="row g-4 g-lg-5">
-        <div class="col-lg-3 d-none d-lg-block">
-          <div class="skeleton-sidebar"></div>
-        </div>
-        <div class="col-lg-6">
-          <div class="skeleton-paragraph mb-3"></div>
-          <div class="skeleton-paragraph mb-3"></div>
-          <div class="skeleton-paragraph"></div>
-        </div>
-      </div>
+    <!-- Simple Custom Loading Spinner -->
+    <div v-if="pending" class="loading-container">
+      <div class="custom-spinner"></div>
+      <p class="mt-3 text-muted fs-7 fw-medium">Loading content...</p>
     </div>
 
-    <!-- Error State -->
-    <!-- <div v-else-if="error || listError" class="container py-5 text-center mt-5">
-      <div class="alert alert-danger d-inline-block px-5 py-4 shadow-sm border-0 rounded-4">
-        <i class="ti ti-alert-triangle fs-1 text-danger mb-3 d-block"></i>
-        <h4 class="fw-bold">Connection Issue</h4>
-        <p class="text-muted">We couldn't load the blog content. Please check your connection.</p>
-        <div class="d-flex gap-2 justify-content-center mt-4">
-          <button @click="refreshAll" class="btn btn-outline-danger px-4">Retry</button>
-          <NuxtLink to="/blogs" class="btn btn-danger px-4">Back to Blogs</NuxtLink>
-        </div>
-      </div>
-    </div> -->
-
     <!-- Content -->
-    <div v-else-if="blog" class="container-fluid px-4 px-lg-5 pt-5 pb-5 mt-4" style="max-width: 1536px;">
+    <div v-else-if="blog" class="container-fluid px-3 px-md-4 px-lg-5 pt-3 pt-lg-5 pb-5 mt-2 mt-lg-4" style="max-width: 1536px;">
       <!-- Hero Section -->
-      <div class="row align-items-center mb-5 pb-3 border-bottom">
+      <div class="row align-items-center mb-4 mb-lg-5 pb-3 border-bottom hero-section">
         <div class="col-lg-6 mb-4 mb-lg-0 pe-lg-5">
           <div class="category-badge mb-3 d-inline-block px-3 py-1 text-white fw-bold text-uppercase fs-7">
             {{ blogCategory }}
           </div>
-          <h1 class="fw-bold mb-4 display-5 text-dark" style="letter-spacing: -1px; line-height: 1.2;">
+          <h1 class="fw-bold mb-3 mb-lg-4 blog-title text-dark">
             {{ blog.title }}
           </h1>
           
           <div class="meta-section d-flex flex-column gap-2 text-secondary fs-7">
             <div class="d-flex align-items-center gap-3 mb-2 text-dark">
-              <!-- <div class="social-icons d-flex gap-2">
-                <a href="#" class="text-dark"><i class="ti ti-brand-x fw-bold fs-5"></i></a>
-                <a href="#" class="text-dark"><i class="ti ti-brand-linkedin fw-bold fs-5"></i></a>
-                <a href="#" class="text-dark"><i class="ti ti-brand-reddit fw-bold fs-5"></i></a>
-                <a href="#" class="text-dark"><i class="ti ti-link fw-bold fs-5"></i></a>
-              </div> -->
               <span class="d-flex align-items-center gap-1 text-muted">
-                <!-- <span style="font-size: 5px;">&#9679;</span>  -->
+                <i class="ti ti-clock-hour-4 me-1"></i>
                 {{ readingTime }} Min Read
               </span>
             </div>
@@ -71,17 +33,17 @@
           </div>
         </div>
         <div class="col-lg-6">
-          <img :src="blog.featuredImage" class="img-fluid w-100 object-fit-cover shadow-sm rounded-3" alt="Blog Image" style="max-height: 400px;" />
+          <img :src="blog.featuredImage" class="img-fluid w-100 object-fit-cover shadow-sm rounded-3 featured-img" alt="Blog Image" />
         </div>
       </div>
       
       <!-- Content Section -->
-      <div class="row g-4 g-lg-5">
-        <!-- Sidebar: Contents -->
+      <div class="row g-4 g-xl-5">
+        <!-- Sidebar: Table of Contents (Desktop) -->
         <div class="col-lg-3 d-none d-lg-block">
-          <div class="contents-sidebar border sticky-top rounded-4 overflow-hidden shadow-sm" style="top: 100px; background-color: #fafafa;">
+          <div class="contents-sidebar border sticky-sidebar rounded-4 overflow-hidden shadow-sm">
             <h5 class="fw-bold fs-6 px-3 py-3 m-0 bg-white border-bottom">Table of Contents</h5>
-            <div class="contents-list p-2 custom-scrollbar" style="max-height: 70vh; overflow-y: auto;">
+            <div class="contents-list p-2 custom-scrollbar scrollable-sidebar-content">
               <a href="#overview" @click.prevent="scrollToId('overview')" 
                  class="content-link d-block p-2 text-dark fw-bold text-decoration-none rounded-2 mb-1" 
                  :class="{ 'active': activeTocId === 'overview' }">
@@ -98,16 +60,33 @@
           </div>
         </div>
         
-        <!-- Main Content -->
-        <div class="col-lg-6 pe-xl-5">
+        <!-- Main Content (Middle) -->
+        <div class="col-lg-6 col-md-12">
+          <!-- Mobile Specific ToC (Compact) -->
+          <div v-if="toc.length > 0" class="mobile-toc d-lg-none mb-4 p-3 border rounded-3 bg-light">
+            <button class="btn btn-link p-0 w-100 d-flex justify-content-between align-items-center text-decoration-none text-dark fw-bold mb-0" 
+                    type="button" @click="isMobileTocOpen = !isMobileTocOpen">
+              <span>Quick Navigation</span>
+              <i class="ti fs-5" :class="isMobileTocOpen ? 'ti-chevron-up' : 'ti-chevron-down'"></i>
+            </button>
+            <div v-show="isMobileTocOpen" class="mt-3 mobile-toc-list">
+              <div v-for="item in toc" :key="item.id">
+                <a :href="'#' + item.id" @click.prevent="scrollToId(item.id); isMobileTocOpen = false" 
+                   class="d-block py-2 text-muted text-decoration-none border-bottom-dashed fs-7">
+                  {{ item.text }}
+                </a>
+              </div>
+            </div>
+          </div>
+
           <div id="overview" class="scroll-margin"></div>
           <div class="blog-content-wrapper shadow-none">
             <div class="blog-content mb-5" v-html="processedContent"></div>
             
             <!-- Tags Section -->
-            <div v-if="blog?.tags && blog.tags.length > 0" class="tags-section mt-5">
+            <div v-if="blog?.tags && blog.tags.length > 0" class="tags-section mt-5 pb-4">
               <div class="divider-line mb-4"></div>
-              <div class="d-flex align-items-center gap-2">
+              <div class="d-flex align-items-center gap-2 flex-wrap">
                 <i class="ti ti-tag text-muted fs-5"></i>
                 <span class="text-uppercase text-muted fs-8 fw-bold" style="letter-spacing: 1px;">Tagged:</span>
                 <span class="fw-bold text-dark ps-2 fs-6" style="color: #101c38 !important;">{{ formattedTags }}</span>
@@ -116,23 +95,41 @@
           </div>
         </div>
         
-        <!-- Sidebar: Form -->
-        <div class="col-lg-3">
-          <div class="sticky-top sidebar-form-container" style="top: 100px; z-index: 1;">
-            <CareerCounsellingForm />
+        <!-- Sidebar: Sidebar Form (Right) -->
+        <div class="col-lg-3 col-md-12">
+          <div class="sticky-sidebar sidebar-form-wrapper">
+             <div class="scrollable-sidebar-content p-1">
+                <CareerCounsellingForm />
+             </div>
           </div>
         </div>
       </div>
     </div>
 
+    <!-- Error State -->
+    <div v-else-if="error" class="container py-5 mt-5">
+      <div class="alert alert-danger shadow-sm border-0 rounded-4 p-4 text-center">
+        <i class="ti ti-alert-circle fs-1 mb-3"></i>
+        <h4 class="fw-bold">Unable to load blog content</h4>
+        <p class="text-secondary mb-4">There was a problem connecting to our server. Please try again later.</p>
+        <button @click="refresh()" class="btn btn-danger px-4 py-2 rounded-3">
+          <i class="ti ti-refresh me-1"></i> Try Refreshing
+        </button>
+        <div class="mt-3 fs-8 text-muted">Error Trace: {{ error.message }}</div>
+      </div>
+    </div>
+
     <!-- Not Found State -->
-    <div v-else-if="!pending" class="text-center py-5 mt-5">
+    <div v-else-if="!pending" class="text-center py-5 mt-5 px-3">
       <h3 class="text-muted">Blog not found.</h3>
       <NuxtLink to="/blogs" class="btn border mt-3">Back to Blogs</NuxtLink>
     </div>
     
-    <LayoutMainFooter />
-    <LayoutCopyRight />
+    <!-- Footer components hidden while loading -->
+    <div v-if="!pending">
+      <LayoutMainFooter />
+      <LayoutCopyRight />
+    </div>
   </div>
 </template>
 
@@ -142,41 +139,50 @@ import CareerCounsellingForm from "~/components/Forms/CareerCounsellingForm.vue"
 
 const route = useRoute();
 const config = useRuntimeConfig();
-const slug = route.params.slug;
+const currentSlug = computed(() => route.params.slug);
 const apiBase = config.public.apiBase || '';
 
 const toc = ref([]);
 const activeTocId = ref('overview');
 const processedContent = ref('');
+const isMobileTocOpen = ref(false);
 
-// Step 1: Fetch list to find ID from slug
-const { data: listData, pending: listPending, error: listError, refresh: refreshList } = useFetch(`${apiBase}/api/blog/websiteblogs_list`, {
-  key: `list-for-${slug}-fetch`
-});
+// Combined Fetch Logic for SSR Reliability
+// - SSR (Refresh): Blocking (lazy: false) ensures content is available immediately for SEO and UX.
+// - Client (Navigation): Non-blocking (lazy: true) provides instant feedback with the spinner.
+// We use await with lazy: process.client to achieve this hybrid behavior in Nuxt 3.
+const { data: blog, pending, error, refresh } = await useAsyncData(() => `blog-detail-${route.params.slug}`, async () => {
+  try {
+    const slugValue = route.params.slug;
+    if (!slugValue) return null;
 
-const blogId = computed(() => {
-  const list = Array.isArray(listData.value) ? listData.value : (listData.value?.data || []);
-  const found = list.find(b => b.slug === slug);
-  return found?.id;
-});
+    console.log(`[Blog Detail] Fetching content for slug: ${slugValue}`);
 
-// Step 2: Fetch full detail using the ID
-const { data: blogDetail, pending: detailPending, error, refresh: refreshDetail } = useFetch(() => 
-  blogId.value ? `${apiBase}/api/blog/websiteblogs_detail/${blogId.value}` : null, 
-  { 
-    key: `blog-detail-${slug}-fetch`,
-    watch: [blogId],
-    transform: (res) => {
-      if (res?.data && Array.isArray(res.data) && res.data.length > 0) return res.data[0];
-      return res;
+    // 1. Fetch the list to find the ID from slug
+    const listResponse = await $fetch(`${apiBase}/api/blog/websiteblogs_list`);
+    const list = Array.isArray(listResponse) ? listResponse : (listResponse?.data || []);
+    const found = list.find(b => b.slug === slugValue);
+    
+    if (!found) {
+      console.warn(`[Blog Detail] No blog found with slug: ${slugValue}`);
+      return null;
     }
-  }
-);
 
-const blog = computed(() => {
-  const data = blogDetail.value;
-  if (data?.data && Array.isArray(data.data) && data.data.length > 0) return data.data[0];
-  return data || null;
+    // 2. Fetch full detail using the ID
+    const detailResponse = await $fetch(`${apiBase}/api/blog/websiteblogs_detail/${found.id}`);
+    
+    // Extract first item from data array if applicable
+    if (detailResponse?.data && Array.isArray(detailResponse.data) && detailResponse.data.length > 0) {
+      return detailResponse.data[0];
+    }
+    return detailResponse?.data || detailResponse;
+  } catch (err) {
+    console.error('[Blog Detail] Error during combined fetch:', err);
+    throw err;
+  }
+}, {
+  lazy: process.client,
+  watch: [() => route.params.slug]
 });
 
 const readingTime = computed(() => {
@@ -185,16 +191,14 @@ const readingTime = computed(() => {
   return Math.ceil(words / 200);
 });
 
-const pending = computed(() => listPending.value || (blogId.value && detailPending.value));
-
 const formattedTags = computed(() => {
   if (!blog.value?.tags || !Array.isArray(blog.value.tags)) return "";
   return blog.value.tags.map(tag => tag.name).join(", ");
 });
 
 /**
- * Robustly parses the blog content to generate the ToC and inject IDs.
- * Uses browser DOMParser for maximum reliability over Regex.
+ * Environment-agnostic parser to generate the ToC and inject IDs.
+ * Works on both Server (SSR) and Client (Hydration) without DOMParser.
  */
 const processBlogContent = () => {
   if (!blog.value?.content) {
@@ -203,24 +207,32 @@ const processBlogContent = () => {
     return;
   }
 
-  const parser = new DOMParser();
-  const doc = parser.parseFromString(blog.value.content, 'text/html');
-  const headings = doc.querySelectorAll('h2, h3');
+  const content = blog.value.content;
   const newToc = [];
+  let headingCount = 0;
 
-  headings.forEach((heading, index) => {
-    const id = `section-${index + 1}`;
-    heading.setAttribute('id', id);
-    heading.classList.add('scroll-margin');
+  // Regex to match H2 and H3 tags and their content
+  const headingRegex = /<(h[23])\b([^>]*)>([\s\S]*?)<\/h[23]>/gi;
+  
+  const processed = content.replace(headingRegex, (match, tag, attrs, text) => {
+    headingCount++;
+    const id = `section-${headingCount}`;
+    
+    // Extract plain text for the ToC (strip any nested HTML inside the heading and decode common entities)
+    let plainText = text.replace(/<[^>]*>/g, '').trim();
+    plainText = plainText.replace(/&nbsp;/g, ' '); // Fix for &nbsp; appearing in text
     
     newToc.push({
       id: id,
-      text: heading.textContent.trim(),
-      level: parseInt(heading.tagName[1])
+      text: plainText,
+      level: parseInt(tag[1])
     });
+
+    // Return the modified tag with the ID and scroll class
+    return `<${tag} id="${id}" ${attrs} class="scroll-margin">${text}</${tag}>`;
   });
 
-  processedContent.value = doc.body.innerHTML;
+  processedContent.value = processed;
   toc.value = newToc;
 };
 
@@ -235,9 +247,7 @@ watch(blog, (newBlog) => {
 const handleScroll = () => {
   const sections = document.querySelectorAll('.scroll-margin');
   let currentId = 'overview';
-  
-  // Higher threshold for mobile, smaller for desktop
-  const scrollPosition = window.scrollY + 120;
+  const scrollPosition = window.scrollY + 150;
   
   sections.forEach((section) => {
     const sectionTop = section.offsetTop;
@@ -251,7 +261,6 @@ const handleScroll = () => {
 
 onMounted(() => {
   window.addEventListener('scroll', handleScroll);
-  // If blog is already there (CSR), process it
   if (blog.value) processBlogContent();
 });
 
@@ -260,8 +269,7 @@ onUnmounted(() => {
 });
 
 const refreshAll = () => {
-  refreshList();
-  if (blogId.value) refreshDetail();
+  refresh();
 };
 
 const blogCategory = computed(() => {
@@ -301,27 +309,86 @@ useHead(() => ({
 .fs-7 { font-size: 0.85rem; }
 .fs-8 { font-size: 0.75rem; }
 
+/* --- Normal Custom Spinner --- */
+.loading-container {
+  min-height: 60vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+}
+
+.custom-spinner {
+  width: 45px;
+  height: 45px;
+  border: 4px solid #f3f3f3;
+  border-top: 4px solid #9b3d94;
+  border-radius: 50%;
+  animation: custom-spin 1s linear infinite;
+}
+
+@keyframes custom-spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.blog-title {
+  font-size: clamp(1.8rem, 5vw, 3rem);
+  letter-spacing: -1px; 
+  line-height: 1.2;
+}
+
+.featured-img {
+  max-height: 400px;
+}
+
 .blog-content :deep(p), .blog-content :deep(li), .blog-content :deep(div) {
   color: #333;
   line-height: 1.8;
-  font-size: 16px;
+  font-size: clamp(15px, 2vw, 16px);
   margin-bottom: 1.4rem;
   word-break: break-word;
 }
 
 .blog-content :deep(h2), .blog-content :deep(h3) {
   font-weight: 700;
-  margin-top: 2.5rem;
+  margin-top: clamp(2rem, 4vw, 3.5rem);
   margin-bottom: 1.25rem;
   color: #111;
   scroll-margin-top: 110px;
 }
 
-.blog-content :deep(h2) { font-size: 1.75rem; margin-top: 3.5rem; }
-.blog-content :deep(h3) { font-size: 1.4rem; }
+.blog-content :deep(h2) { font-size: clamp(1.4rem, 4vw, 1.75rem); }
+.blog-content :deep(h3) { font-size: clamp(1.2rem, 3vw, 1.4rem); }
 
 .blog-content :deep(img) {
   max-width: 100%; height: auto; border-radius: 8px; margin: 2rem 0;
+}
+
+/* Sidebar behavior */
+.sticky-sidebar {
+  position: sticky;
+  top: 100px;
+  z-index: 10;
+  background-color: #fafafa;
+}
+
+.scrollable-sidebar-content {
+  max-height: calc(100vh - 130px);
+  overflow-y: auto;
+  padding-right: 5px; /* space for scrollbar */
+}
+
+/* Mobile ToC */
+.mobile-toc {
+  box-shadow: 0 4px 15px rgba(0,0,0,0.03);
+}
+.border-bottom-dashed {
+  border-bottom: 1px dashed #ddd;
+}
+.border-bottom-dashed:last-child {
+  border-bottom: none;
 }
 
 .content-link {
@@ -348,25 +415,31 @@ useHead(() => ({
 
 .scroll-margin { scroll-margin-top: 110px; }
 
-.custom-scrollbar::-webkit-scrollbar { width: 4px; }
-.custom-scrollbar::-webkit-scrollbar-track { background: #f1f1f1; }
-.custom-scrollbar::-webkit-scrollbar-thumb { background: #ccc; border-radius: 10px; }
+.custom-scrollbar::-webkit-scrollbar { width: 3px; }
+.custom-scrollbar::-webkit-scrollbar-track { background: transparent; }
+.custom-scrollbar::-webkit-scrollbar-thumb { background: #ddd; border-radius: 10px; }
 
-.sidebar-form-container { max-width: 100%; overflow-x: hidden; }
-
-/* Tags Section Styling */
+/* Divider line for tags */
 .divider-line {
   width: 50px;
   height: 3px;
   background-color: #101c38;
 }
 
-.tags-section .text-dark {
-  color: #101c38 !important;
-}
-
 @media (max-width: 991px) {
-  .blog-content :deep(h2) { font-size: 1.5rem; }
-  .blog-content :deep(h3) { font-size: 1.25rem; }
+  .hero-section {
+    text-align: left;
+  }
+  .sticky-sidebar {
+    position: static;
+    margin-bottom: 2rem;
+  }
+  .scrollable-sidebar-content {
+    max-height: none;
+    overflow-y: visible;
+  }
+  .blog-title {
+    margin-top: 0.5rem;
+  }
 }
 </style>

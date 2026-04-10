@@ -15,7 +15,9 @@
         </NuxtLink>
       </h3>
       <div class="meta text-secondary fs-6">
-        <span class="fs-7">By </span><strong class="text-dark">KC GlobEd</strong> &mdash; {{ formattedDate }}
+        <NuxtLink :to="`/blogs/${blog.slug}`" class="text-dark text-decoration-none title-link">
+          <span class="fs-7">By </span><strong class="text-dark">KC GlobEd</strong> &mdash; {{ formattedDate }}
+        </NuxtLink>
       </div>
     </div>
   </div>
