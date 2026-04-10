@@ -1,6 +1,6 @@
 <template>
   <div class="counselling-form border p-4 bg-white rounded shadow-sm">
-    <h4 class="fw-bold fs-5 mb-4 text-dark">Get Free Career Counselling</h4>
+    <h5 class="fw-bold fs-5 mb-4 text-dark">Get Free Career Counselling</h5>
     <form @submit.prevent="submitForm">
       <div class="row g-2 mb-3">
         <div class="col-6">
