@@ -97,7 +97,7 @@
         
         <!-- Sidebar: Sidebar Form (Right) -->
         <div class="col-lg-3 col-md-12">
-          <div class="sticky-sidebar sidebar-form-wrapper">
+          <div class="sidebar-form-wrapper">
              <div class="scrollable-sidebar-content p-1">
                 <CareerCounsellingForm />
              </div>
