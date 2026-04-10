@@ -52,7 +52,7 @@
       <p class="fs-8 text-muted mb-3 terms-text">
         By continuing, I have read and agree to
         <br />
-        KC GlobEd's <a href="#" class="text-purple text-decoration-none">Terms</a> and <a href="#" class="text-purple text-decoration-none">Privacy Policy</a>
+      KC GlobEd's <NuxtLink to="/terms-conditions" class="text-purple text-decoration-none">Terms</NuxtLink> and <NuxtLink to="/privacy-policy" class="text-purple text-decoration-none">Privacy Policy</NuxtLink>
       </p>
 
       <button type="submit" class="btn text-white w-100 py-2 fs-7 submit-btn" :disabled="loading">
