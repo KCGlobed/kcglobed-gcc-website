@@ -375,9 +375,7 @@ useHead(() => ({
 }
 
 .scrollable-sidebar-content {
-  max-height: calc(100vh - 130px);
-  overflow-y: auto;
-  padding-right: 5px; /* space for scrollbar */
+  /* Removed internal scroll as requested by user */
 }
 
 /* Mobile ToC */
