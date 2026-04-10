@@ -35,11 +35,12 @@ import { defineComponent } from "vue";
 
 export default defineComponent({
   name: "BlogSearchBanner",
-  data() {
-    return {
-      resultsCount: 527,
-    };
-  },
+  props: {
+    resultsCount: {
+      type: [Number, String],
+      default: 0
+    }
+  }
 });
 </script>
 

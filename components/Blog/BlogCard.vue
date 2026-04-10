@@ -8,7 +8,7 @@
         {{ blogCategory }}
       </div>
     </div>
-    <div class="content pt-3">
+    <div class="content pt-1">
       <h3 class="fw-bold mb-3">
         <NuxtLink :to="`/blogs/${blog.slug}`" class="text-dark text-decoration-none title-link">
           {{ blog.title }}
@@ -81,13 +81,13 @@ export default defineComponent({
   left: 0;
   background-color: #9b3d94; /* Purple color matching the mockup */
   font-size: 11px;
-  letter-spacing: 0.5px;
+  /* letter-spacing: 0.5px; */
 }
 
 .title-link {
   transition: color 0.3s ease;
-  font-size: 1.25rem;
-  line-height: 1.4;
+  font-size: 1rem;
+  /* line-height: 1.4; */
 }
 
 .title-link:hover {
@@ -96,6 +96,9 @@ export default defineComponent({
 
 .meta {
   font-size: 0.85rem;
+  display: flex;
+  align-items: center;
+  gap: 0.3rem;
 }
 .fs-7 {
   font-size: 0.8rem;
