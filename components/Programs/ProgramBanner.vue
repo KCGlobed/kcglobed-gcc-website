@@ -794,10 +794,10 @@ export default defineComponent({
         const states = ref<string[]>([]);
         const citiesList = ref<string[]>([]);
         const universityList = ref([
-            ...selectUniversityList.map((name, index) => ({ id: `s-${index}`, name, isHighlight: true })),
             ...universitiesList
                 .filter(name => !selectUniversityList.includes(name))
-                .map((name, index) => ({ id: `u-${index}`, name, isHighlight: false }))
+                .map((name, index) => ({ id: `u-${index}`, name, isHighlight: false })),
+            ...selectUniversityList.map((name, index) => ({ id: `s-${index}`, name, isHighlight: true }))
         ]);
 
         const errors = reactive({
