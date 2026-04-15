@@ -13,7 +13,7 @@ node_modules
 logs
 *.log
 service-account.json
-
+coupons70.json
 # Misc
 .DS_Store
 .fleet
@@ -29,3 +29,4 @@ cashfree_results.json
 coupon.js
 coupons.json
 coupon_script.js
+webinar_coupons.xlsx
