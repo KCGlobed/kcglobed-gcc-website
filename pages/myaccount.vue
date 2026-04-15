@@ -69,6 +69,16 @@
                                             formData.state : '' }}
                                     </span>
                                 </div>
+
+                                <!-- Bottom: Download Report Button (Mobile) -->
+                                <div v-if="resultStatus" class="d-md-none mt-4 text-center">
+                                    <button class="status-pill report-download-btn d-flex align-items-center gap-2 mx-auto"
+                                        @click="downloadReport" :disabled="isDownloadingReport">
+                                        <span v-if="isDownloadingReport" class="spinner-border spinner-border-sm"></span>
+                                        <i v-else class="ti ti-download fs-6"></i>
+                                        Download Report
+                                    </button>
+                                </div>
                             </div>
 
                             <!-- Right: Status Badge -->
@@ -78,6 +88,17 @@
                                     :class="profileCompletion === 100 ? 'status-complete' : 'status-incomplete'">
                                     {{ profileCompletion === 100 ? 'Profile Complete' : 'Profile Incomplete' }}
                                 </div>
+                            </div>
+
+                            <!-- Bottom Right: Download Report Button (Desktop) -->
+                            <div v-if="resultStatus" class="d-none d-md-block position-absolute"
+                                style="right: 40px; bottom: 40px;">
+                                <button class="status-pill report-download-btn d-flex align-items-center gap-2"
+                                    @click="downloadReport" :disabled="isDownloadingReport">
+                                    <span v-if="isDownloadingReport" class="spinner-border spinner-border-sm"></span>
+                                    <i v-else class="ti ti-download fs-5"></i>
+                                    Download Report
+                                </button>
                             </div>
                         </div>
                     </div>
@@ -298,7 +319,18 @@
                                     </button>
                                 </template>
                                 <template v-else>
-                                    <span class="fw-bold text-success" style="font-size: 15px;">Finished</span>
+                                    <div class="d-flex flex-column align-items-center gap-3 px-4">
+                                        <span class="fw-bold text-success" style="font-size: 15px;">Finished</span>
+                                        <button v-if="resultStatus"
+                                            class="status-pill report-download-btn d-flex align-items-center gap-2 w-100 justify-content-center"
+                                            @click="downloadReport" :disabled="isDownloadingReport"
+                                            style="padding: 10px 20px;">
+                                            <span v-if="isDownloadingReport"
+                                                class="spinner-border spinner-border-sm"></span>
+                                            <i v-else class="ti ti-download fs-5"></i>
+                                            Download Report
+                                        </button>
+                                    </div>
                                 </template>
                             </div>
                         </div>
@@ -581,6 +613,8 @@ const config = useRuntimeConfig();
 const profileImage = ref<string | null>(null);
 const reattempt = ref<number>(0);
 const isProfileEmpty = ref(false);
+const resultStatus = ref(false);
+const reportUrl = ref<string | null>(null);
 
 const profileCompletion = computed(() => {
     let totalProgress = 0;
@@ -737,6 +771,9 @@ const fetchStudentDetail = async () => {
         });
 
         console.log("Profile Data Check:", response);
+        console.log(response,'-----response')
+        resultStatus.value = response?.data?.result_status === true;
+        reportUrl.value = response?.report_url || response?.data?.report_url || null;
 
         // If returned payload is explicitly an empty array or missing data
         if (!response?.data || (Array.isArray(response.data) && response.data.length === 0)) {
@@ -1568,6 +1605,39 @@ const handleFinalSubmit = async () => {
 //         alert("Payment initiation failed");
 //     }
 // };
+const isDownloadingReport = ref(false);
+const downloadReport = async () => {
+    isDownloadingReport.value = true;
+    try {
+        const { getAccessToken } = useAuth();
+        const token = getAccessToken();
+        const response = await fetch(`${config.public.apiBase}/api/students/student-score-card-download/`, {
+            method: "GET",
+            headers: {
+                'Content-Type': 'application/json',
+                ...(token ? { 'Authorization': `Bearer ${token}` } : {})
+            }
+        });
+
+        if (response.ok) {
+            const result = await response.json();
+            const reportUrl = result.data?.report_url || result.report_url || result.data?.score_card;
+            if (reportUrl) {
+                window.open(reportUrl, '_blank');
+            } else {
+                showAlert("Error", "No report URL found in the response.", "error");
+            }
+        } else {
+            const errorData = await response.json().catch(() => ({}));
+            throw new Error(errorData.message || "Failed to download report");
+        }
+    } catch (err: any) {
+        console.error("Failed to download report:", err);
+        showAlert("Download Failed", err.message || "Failed to download report. Please try again.", "error");
+    } finally {
+        isDownloadingReport.value = false;
+    }
+};
 </script>
 
 <style scoped>
@@ -1678,6 +1748,26 @@ const handleFinalSubmit = async () => {
     border-radius: 50px;
     font-size: 13px;
     font-weight: 600;
+}
+
+.report-download-btn {
+    background: #872980;
+    color: white;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 12px rgba(135, 41, 128, 0.25);
+}
+
+.report-download-btn:hover {
+    background: #72226c;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 15px rgba(135, 41, 128, 0.35);
+}
+
+.report-download-btn:disabled {
+    opacity: 0.7;
+    cursor: not-allowed;
 }
 
 .status-incomplete {
