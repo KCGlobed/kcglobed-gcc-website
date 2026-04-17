@@ -18,12 +18,12 @@
                 </Swiper>
                 <div ref="paginationRef" class="news-pagination"></div>
 
-                <div class="text-center mt-5">
+                <!-- <div class="text-center mt-5">
                     <NuxtLink to="/news" class="view-all-btn">
                         View All News
                         <i class="ri-arrow-right-line"></i>
                     </NuxtLink>
-                </div>
+                </div> -->
             </div>
         </div>
     </div>

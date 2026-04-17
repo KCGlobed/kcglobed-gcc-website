@@ -23,7 +23,7 @@
             <p>{{ news.excerpt }}</p>
             <a :href="news.url" class="read-more-btn" target="_blank" rel="noopener">
                 Read More
-                <span class="btn-arrow"><i class="ri-arrow-right-line"></i></span>
+                <!-- <span class="btn-arrow"><i class="ri-arrow-right-line"></i></span> -->
             </a>
         </div>
     </div>
