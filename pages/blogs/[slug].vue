@@ -17,8 +17,7 @@
           <div class="category-badge mb-3 d-inline-block px-3 py-1 text-white fw-bold text-uppercase fs-7">
             {{ blogCategory }}
           </div>
-          <h1 class="fw-bold mb-3 mb-lg-4 blog-title text-dark">
-            {{ blog.title }}
+          <h1 class="fw-bold mb-3 mb-lg-4 blog-title text-dark" v-html="blog.title">
           </h1>
           
           <div class="meta-section d-flex flex-column gap-2 text-secondary fs-7">
@@ -53,7 +52,7 @@
                 <a :href="'#' + item.id" @click.prevent="scrollToId(item.id)" 
                    class="content-link d-block p-2 text-muted text-decoration-none rounded-2 mb-1"
                    :class="{ 'active': activeTocId === item.id, 'ps-4 sub-link': item.level === 3 }">
-                  {{ item.text }}
+                  <span v-html="item.text"></span>
                 </a>
               </div>
             </div>
@@ -72,8 +71,7 @@
             <div v-show="isMobileTocOpen" class="mt-3 mobile-toc-list">
               <div v-for="item in toc" :key="item.id">
                 <a :href="'#' + item.id" @click.prevent="scrollToId(item.id); isMobileTocOpen = false" 
-                   class="d-block py-2 text-muted text-decoration-none border-bottom-dashed fs-7">
-                  {{ item.text }}
+                   class="d-block py-2 text-muted text-decoration-none border-bottom-dashed fs-7" v-html="item.text">
                 </a>
               </div>
             </div>
@@ -221,13 +219,12 @@ const processBlogContent = () => {
     headingCount++;
     const id = `section-${headingCount}`;
     
-    // Extract plain text for the ToC (strip any nested HTML inside the heading and decode common entities)
-    let plainText = text.replace(/<[^>]*>/g, '').trim();
-    plainText = plainText.replace(/&nbsp;/g, ' '); // Fix for &nbsp; appearing in text
+    // Extract text for the ToC (keep HTML for innerHTML rendering)
+    const tocText = text.trim();
     
     newToc.push({
       id: id,
-      text: plainText,
+      text: tocText,
       level: parseInt(tag[1])
     });
 
@@ -367,6 +364,29 @@ useHead(() => ({
 
 .blog-content :deep(img) {
   max-width: 100%; height: auto; border-radius: 8px; margin: 2rem 0;
+}
+
+/* Table styling for blog content */
+.blog-content :deep(table) {
+  width: 100% !important;
+  border-collapse: collapse !important;
+  margin: 2rem 0 !important;
+}
+
+.blog-content :deep(th),
+.blog-content :deep(td) {
+  padding: 12px 15px !important;
+  border: 1px solid #dee2e6 !important;
+  min-width: 100px;
+}
+
+.blog-content :deep(th) {
+  background-color: #f8f9fa;
+  font-weight: 700;
+}
+
+.blog-content {
+  overflow-x: auto;
 }
 
 /* Sidebar behavior */
