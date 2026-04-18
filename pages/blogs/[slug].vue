@@ -159,7 +159,9 @@ const { data: blog, pending, error, refresh } = await useAsyncData(() => `blog-d
     console.log(`[Blog Detail] Fetching content for slug: ${slugValue}`);
 
     // 1. Fetch the list to find the ID from slug
-    const listResponse = await $fetch(`${apiBase}/api/blog/websiteblogs_list`);
+    const listResponse = await $fetch(`${apiBase}/api/blog/websiteblogs_list`, {
+      params: { pageSize: 1000 }
+    });
     const list = Array.isArray(listResponse) ? listResponse : (listResponse?.data || []);
     const found = list.find(b => b.slug === slugValue);
     
@@ -182,7 +184,8 @@ const { data: blog, pending, error, refresh } = await useAsyncData(() => `blog-d
   }
 }, {
   lazy: process.client,
-  watch: [() => route.params.slug]
+  watch: [() => route.params.slug],
+  getCachedData: () => null
 });
 
 const readingTime = computed(() => {
