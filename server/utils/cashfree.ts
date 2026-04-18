@@ -3,6 +3,9 @@
 import { Cashfree, CFEnvironment } from "cashfree-pg";
 import type { H3Event } from "h3";
 
+let cachedProdInstance: Cashfree | null = null;
+let cachedSandboxInstance: Cashfree | null = null;
+
 export function createCashfreeInstance(config: any, event?: H3Event) {
     // ── Determine environment based on request host ───────────────────────────
     const host = event
@@ -35,13 +38,21 @@ export function createCashfreeInstance(config: any, event?: H3Event) {
         throw new Error(`Cashfree ${cfEnvironment} keys missing in ENV/Config`);
     }
 
-    const instance = new Cashfree(
-        isProd ? CFEnvironment.PRODUCTION : CFEnvironment.SANDBOX,
-        appId,
-        secretKey
-    );
-
-    console.log(`[PAYMENT] Cashfree initialized — host: "${host}", environment: ${cfEnvironment}`);
+    let instance: Cashfree;
+    
+    if (isProd) {
+        if (!cachedProdInstance) {
+            cachedProdInstance = new Cashfree(CFEnvironment.PRODUCTION, appId, secretKey);
+            console.log(`[PAYMENT] Cashfree initialized — host: "${host}", environment: PRODUCTION`);
+        }
+        instance = cachedProdInstance;
+    } else {
+        if (!cachedSandboxInstance) {
+            cachedSandboxInstance = new Cashfree(CFEnvironment.SANDBOX, appId, secretKey);
+            console.log(`[PAYMENT] Cashfree initialized — host: "${host}", environment: SANDBOX`);
+        }
+        instance = cachedSandboxInstance;
+    }
 
     return { instance, isProd, cfEnvironment, appId };
 }

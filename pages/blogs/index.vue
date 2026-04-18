@@ -168,12 +168,13 @@ const { data: blogsData, pending, error, refresh } = useFetch(`${apiBase}/api/bl
     start_date: startDate.value,
     end_date: endDate.value,
     page: page.value,
-    pageSize: 9
+    pageSize: 1000
   })),
+  getCachedData: () => null,
   transform: (res) => {
     // Correctly handle the paginated response structure
     const data = res.data || (Array.isArray(res) ? res : []);
-    
+      console.log(data.length,'-----data')
     // Extract total results from the pagination object provided by the backend
     const total = res.pagination?.total_results || res.count || res.total || data.length;
     
