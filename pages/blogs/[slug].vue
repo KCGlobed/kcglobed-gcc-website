@@ -2,7 +2,7 @@
   <div class="blog-details-page bg-white pb-5">
     <LayoutTopHeader />
     <LayoutMainNavbar />
-    
+
     <!-- Simple Custom Loading Spinner -->
     <div v-if="pending" class="loading-container">
       <div class="custom-spinner"></div>
@@ -10,7 +10,8 @@
     </div>
 
     <!-- Content -->
-    <div v-else-if="blog" class="container-fluid px-3 px-md-4 px-lg-5 pt-3 pt-lg-5 pb-5 mt-2 mt-lg-4" style="max-width: 1536px;">
+    <div v-else-if="blog" class="container-fluid px-3 px-md-4 px-lg-5 pt-3 pt-lg-5 pb-5 mt-2 mt-lg-4"
+      style="max-width: 1536px;">
       <!-- Hero Section -->
       <div class="row align-items-center mb-4 mb-lg-5 pb-3 border-bottom hero-section">
         <div class="col-lg-6 mb-4 mb-lg-0 pe-lg-5">
@@ -19,7 +20,7 @@
           </div>
           <h1 class="fw-bold mb-3 mb-lg-4 blog-title text-dark" v-html="blog.title">
           </h1>
-          
+
           <div class="meta-section d-flex flex-column gap-2 text-secondary fs-7">
             <div class="d-flex align-items-center gap-3 mb-2 text-dark">
               <span class="d-flex align-items-center gap-1 text-muted">
@@ -32,14 +33,15 @@
           </div>
         </div>
         <div class="col-lg-6">
-          <img :src="blog.featuredImage" class="img-fluid w-100 object-fit-cover shadow-sm rounded-3 featured-img" alt="Blog Image" />
+          <img :src="blog.featuredImage" class="img-fluid w-100 object-fit-cover shadow-sm rounded-3 featured-img"
+            alt="Blog Image" />
         </div>
       </div>
-      
+
       <!-- Content Section -->
       <div class="row g-4 g-xl-5">
         <!-- Sidebar: Table of Contents (Desktop) -->
-        <div class="col-lg-3 d-none d-lg-block">
+       <div class="col-lg-3 d-none d-lg-block">
           <div class="contents-sidebar border sticky-sidebar rounded-4 overflow-hidden shadow-sm">
             <h5 class="fw-bold fs-6 px-3 py-3 m-0 bg-white border-bottom">Table of Contents</h5>
             <div class="contents-list p-2 custom-scrollbar scrollable-sidebar-content">
@@ -58,20 +60,21 @@
             </div>
           </div>
         </div>
-        
+
         <!-- Main Content (Middle) -->
-        <div class="col-lg-6 col-md-12">
+        <div class="middle-content col-lg-6 col-md-12">
           <!-- Mobile Specific ToC (Compact) -->
           <div v-if="toc.length > 0" class="mobile-toc d-lg-none mb-4 p-3 border rounded-3 bg-light">
-            <button class="btn btn-link p-0 w-100 d-flex justify-content-between align-items-center text-decoration-none text-dark fw-bold mb-0" 
-                    type="button" @click="isMobileTocOpen = !isMobileTocOpen">
+            <button
+              class="btn btn-link p-0 w-100 d-flex justify-content-between align-items-center text-decoration-none text-dark fw-bold mb-0"
+              type="button" @click="isMobileTocOpen = !isMobileTocOpen">
               <span>Quick Navigation</span>
               <i class="ti fs-5" :class="isMobileTocOpen ? 'ti-chevron-up' : 'ti-chevron-down'"></i>
             </button>
             <div v-show="isMobileTocOpen" class="mt-3 mobile-toc-list">
               <div v-for="item in toc" :key="item.id">
-                <a :href="'#' + item.id" @click.prevent="scrollToId(item.id); isMobileTocOpen = false" 
-                   class="d-block py-2 text-muted text-decoration-none border-bottom-dashed fs-7" v-html="item.text">
+                <a :href="'#' + item.id" @click.prevent="scrollToId(item.id); isMobileTocOpen = false"
+                  class="d-block py-2 text-muted text-decoration-none border-bottom-dashed fs-7" v-html="item.text">
                 </a>
               </div>
             </div>
@@ -80,7 +83,7 @@
           <div id="overview" class="scroll-margin"></div>
           <div class="blog-content-wrapper shadow-none">
             <div class="blog-content mb-5" v-html="processedContent"></div>
-            
+
             <!-- Tags Section -->
             <div v-if="blog?.tags && blog.tags.length > 0" class="tags-section mt-5 pb-4">
               <div class="divider-line mb-4"></div>
@@ -92,13 +95,13 @@
             </div>
           </div>
         </div>
-        
+
         <!-- Sidebar: Sidebar Form (Right) -->
         <div class="col-lg-3 col-md-12">
           <div class="sidebar-form-wrapper">
-             <div class="scrollable-sidebar-content p-1">
-                <CareerCounsellingForm />
-             </div>
+            <div class="scrollable-sidebar-content p-1">
+              <CareerCounsellingForm />
+            </div>
           </div>
         </div>
       </div>
@@ -122,7 +125,7 @@
       <h3 class="text-muted">Blog not found.</h3>
       <NuxtLink to="/blogs" class="btn border mt-3">Back to Blogs</NuxtLink>
     </div>
-    
+
     <!-- Footer components hidden while loading -->
     <div v-if="!pending">
       <LayoutMainFooter />
@@ -162,7 +165,7 @@ const { data: blog, pending, error, refresh } = await useAsyncData(() => `blog-d
     });
     const list = Array.isArray(listResponse) ? listResponse : (listResponse?.data || []);
     const found = list.find(b => b.slug === slugValue);
-    
+
     if (!found) {
       console.warn(`[Blog Detail] No blog found with slug: ${slugValue}`);
       return null;
@@ -170,7 +173,7 @@ const { data: blog, pending, error, refresh } = await useAsyncData(() => `blog-d
 
     // 2. Fetch full detail using the ID
     const detailResponse = await $fetch(`${apiBase}/api/blog/websiteblogs_detail/${found.id}`);
-    
+
     // Extract first item from data array if applicable
     if (detailResponse?.data && Array.isArray(detailResponse.data) && detailResponse.data.length > 0) {
       return detailResponse.data[0];
@@ -208,20 +211,26 @@ const processBlogContent = () => {
     return;
   }
 
-  const content = blog.value.content;
+  // Replace non-breaking spaces (&nbsp; / \u00A0) with regular spaces
+  // so the browser can wrap text at word boundaries normally.
+  // Rich text editors often insert &nbsp; between words, which makes
+  // the browser treat entire paragraphs as one unbreakable "word".
+  let content = blog.value.content;
+  content = content.replace(/&nbsp;/gi, ' ').replace(/\u00A0/g, ' ');
+
   const newToc = [];
   let headingCount = 0;
 
   // Regex to match H2 and H3 tags and their content
   const headingRegex = /<(h[23])\b([^>]*)>([\s\S]*?)<\/h[23]>/gi;
-  
+
   const processed = content.replace(headingRegex, (match, tag, attrs, text) => {
     headingCount++;
     const id = `section-${headingCount}`;
-    
+
     // Extract text for the ToC (keep HTML for innerHTML rendering)
     const tocText = text.trim();
-    
+
     newToc.push({
       id: id,
       text: tocText,
@@ -248,14 +257,14 @@ const handleScroll = () => {
   const sections = document.querySelectorAll('.scroll-margin');
   let currentId = 'overview';
   const scrollPosition = window.scrollY + 150;
-  
+
   sections.forEach((section) => {
     const sectionTop = section.offsetTop;
     if (scrollPosition >= sectionTop) {
       currentId = section.id;
     }
   });
-  
+
   activeTocId.value = currentId;
 };
 
@@ -304,10 +313,36 @@ useHead(() => ({
 <style scoped>
 .category-badge {
   background-color: #9b3d94;
-  letter-spacing: 0.5px; border-radius: 5px;
+  letter-spacing: 0.5px;
+  border-radius: 5px;
 }
-.fs-7 { font-size: 0.85rem; }
-.fs-8 { font-size: 0.75rem; }
+
+.fs-7 {
+  font-size: 0.85rem;
+}
+
+.fs-8 {
+  font-size: 0.75rem;
+}
+.content-link {
+  font-size: 14px;
+  transition: all 0.2s ease;
+  border-left: 3px solid transparent;
+  color: #666 !important;
+}
+
+.content-link:hover {
+  background-color: #f0f0f0;
+  color: #9b3d94 !important;
+}
+
+.content-link.active {
+  background-color: #fff;
+  color: #9b3d94 !important;
+  font-weight: 700;
+  border-left-color: #9b3d94;
+  box-shadow: 0 4px 12px rgba(155, 61, 148, 0.08);
+}
 
 /* --- Normal Custom Spinner --- */
 .loading-container {
@@ -329,13 +364,18 @@ useHead(() => ({
 }
 
 @keyframes custom-spin {
-  0% { transform: rotate(0deg); }
-  100% { transform: rotate(360deg); }
+  0% {
+    transform: rotate(0deg);
+  }
+
+  100% {
+    transform: rotate(360deg);
+  }
 }
 
 .blog-title {
   font-size: clamp(1.8rem, 5vw, 3rem);
-  letter-spacing: -1px; 
+  letter-spacing: -1px;
   line-height: 1.2;
 }
 
@@ -343,41 +383,113 @@ useHead(() => ({
   max-height: 400px;
 }
 
-.blog-content :deep(p), .blog-content :deep(li), .blog-content :deep(div) {
+/* ================= BLOG CONTENT WRAPPER ================= */
+
+.blog-content {
+  width: 100%;
+  display: block;
+  overflow-x: hidden;
+  overflow-wrap: break-word;
+}
+
+/* Universal safety for all injected HTML */
+.blog-content :deep(*) {
+  max-width: 100%;
+  box-sizing: border-box;
+  overflow-wrap: break-word;
+  white-space: normal;
+}
+
+/* ================= TEXT ELEMENTS ================= */
+
+.blog-content :deep(p),
+.blog-content :deep(li),
+.blog-content :deep(div),
+.blog-content :deep(span) {
   color: #333;
   line-height: 1.8;
   font-size: clamp(15px, 2vw, 16px);
   margin-bottom: 1.4rem;
-  word-break: break-word;
 }
 
-.blog-content :deep(h2), .blog-content :deep(h3) {
-  font-weight: 700;
-  margin-top: clamp(2rem, 4vw, 3.5rem);
-  margin-bottom: 1.25rem;
+/* ================= HEADINGS ================= */
+
+.blog-content :deep(h1),
+.blog-content :deep(h2),
+.blog-content :deep(h3),
+.blog-content :deep(h4),
+.blog-content :deep(h5),
+.blog-content :deep(h6) {
   color: #111;
+  font-weight: 700;
+  line-height: 1.4;
+  margin-top: clamp(2rem, 4vw, 3rem);
+  margin-bottom: 1rem;
+}
+
+.blog-content :deep(h1) {
+  font-size: clamp(1.8rem, 5vw, 2.4rem);
+}
+
+.blog-content :deep(h2) {
+  font-size: clamp(1.5rem, 4vw, 1.8rem);
   scroll-margin-top: 110px;
 }
 
-.blog-content :deep(h2) { font-size: clamp(1.4rem, 4vw, 1.75rem); }
-.blog-content :deep(h3) { font-size: clamp(1.2rem, 3vw, 1.4rem); }
-
-.blog-content :deep(img) {
-  max-width: 100%; height: auto; border-radius: 8px; margin: 2rem 0;
+.blog-content :deep(h3) {
+  font-size: clamp(1.3rem, 3vw, 1.5rem);
+  scroll-margin-top: 110px;
 }
 
-/* Table styling for blog content */
+/* ================= LINKS ================= */
+
+.blog-content :deep(a) {
+  color: #9b3d94;
+  text-decoration: underline;
+  word-break: break-all;
+  /* prevent long URLs overflow */
+}
+
+/* ================= LISTS ================= */
+
+.blog-content :deep(ul),
+.blog-content :deep(ol) {
+  padding-left: 1.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.blog-content :deep(li) {
+  margin-bottom: 0.5rem;
+}
+
+/* ================= IMAGES / MEDIA ================= */
+
+.blog-content :deep(img),
+.blog-content :deep(video),
+.blog-content :deep(iframe) {
+  max-width: 100% !important;
+  height: auto !important;
+  border-radius: 8px;
+  margin: 1.5rem 0;
+  object-fit: contain;
+}
+
+/* ================= TABLES ================= */
+
 .blog-content :deep(table) {
-  width: 100% !important;
-  border-collapse: collapse !important;
-  margin: 2rem 0 !important;
+  width: 100%;
+  border-collapse: collapse;
+  margin: 2rem 0;
+  display: block;
+  overflow-x: auto;
 }
 
 .blog-content :deep(th),
 .blog-content :deep(td) {
-  padding: 12px 15px !important;
-  border: 1px solid #dee2e6 !important;
-  min-width: 100px;
+  padding: 12px 15px;
+  border: 1px solid #dee2e6;
+  text-align: left;
+  min-width: 120px;
 }
 
 .blog-content :deep(th) {
@@ -385,82 +497,57 @@ useHead(() => ({
   font-weight: 700;
 }
 
-.blog-content {
+/* ================= CODE BLOCKS ================= */
+
+.blog-content :deep(pre) {
+  background: #f6f8fa;
+  padding: 12px;
+  border-radius: 6px;
   overflow-x: auto;
+  margin: 1.5rem 0;
 }
 
-/* Sidebar behavior */
-.sticky-sidebar {
-  position: sticky;
-  top: 100px;
-  z-index: 10;
-  background-color: #fafafa;
+.blog-content :deep(code) {
+  font-family: monospace;
+  white-space: pre-wrap;
+  word-break: break-word;
 }
 
-.scrollable-sidebar-content {
-  /* Removed internal scroll as requested by user */
+/* ================= BLOCKQUOTE ================= */
+
+.blog-content :deep(blockquote) {
+  border-left: 4px solid #9b3d94;
+  padding-left: 1rem;
+  color: #555;
+  margin: 1.5rem 0;
+  font-style: italic;
 }
 
-/* Mobile ToC */
-.mobile-toc {
-  box-shadow: 0 4px 15px rgba(0,0,0,0.03);
-}
-.border-bottom-dashed {
-  border-bottom: 1px dashed #ddd;
-}
-.border-bottom-dashed:last-child {
-  border-bottom: none;
+/* ================= HR ================= */
+
+.blog-content :deep(hr) {
+  margin: 2rem 0;
+  border: none;
+  border-top: 1px solid #eee;
 }
 
-.content-link {
-  font-size: 14px;
-  transition: all 0.2s ease;
-  border-left: 3px solid transparent;
-  color: #666 !important;
-}
+/* ================= MOBILE OPTIMIZATION ================= */
 
-.content-link:hover {
-  background-color: #f0f0f0;
-  color: #9b3d94 !important;
-}
-
-.content-link.active {
-  background-color: #fff;
-  color: #9b3d94 !important;
-  font-weight: 700;
-  border-left-color: #9b3d94;
-  box-shadow: 0 4px 12px rgba(155, 61, 148, 0.08);
-}
-
-.sub-link { font-size: 13px; }
-
-.scroll-margin { scroll-margin-top: 110px; }
-
-.custom-scrollbar::-webkit-scrollbar { width: 3px; }
-.custom-scrollbar::-webkit-scrollbar-track { background: transparent; }
-.custom-scrollbar::-webkit-scrollbar-thumb { background: #ddd; border-radius: 10px; }
-
-/* Divider line for tags */
-.divider-line {
-  width: 50px;
-  height: 3px;
-  background-color: #101c38;
-}
-
-@media (max-width: 991px) {
-  .hero-section {
-    text-align: left;
+@media (max-width: 768px) {
+  .blog-content {
+    font-size: 14px;
   }
-  .sticky-sidebar {
-    position: static;
-    margin-bottom: 2rem;
+
+  .blog-content :deep(h1) {
+    font-size: 1.6rem;
   }
-  .scrollable-sidebar-content {
-    max-height: none;
-    overflow-y: visible;
+
+  .blog-content :deep(h2) {
+    font-size: 1.4rem;
   }
-  .blog-title {
-    margin-top: 0.5rem;
+
+  .blog-content :deep(h3) {
+    font-size: 1.2rem;
   }
 }
 </style>
