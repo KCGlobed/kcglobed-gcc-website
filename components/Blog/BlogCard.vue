@@ -1,25 +1,25 @@
 <template>
   <div class="blog-card bg-white p-3 pt-0 border-0">
-    <div class="image-wrapper position-relative">
-      <NuxtLink :to="`/blogs/${blog.slug}`">
+    <NuxtLink :to="`/blogs/${blog.slug}`" class="text-decoration-none">
+      <div class="image-wrapper position-relative">
         <img :src="blog.featuredImage" class="img-fluid w-100 object-fit-cover" :alt="blog.title" />
-      </NuxtLink>
-      <div class="category-badge text-white fw-bold text-uppercase px-3 py-1">
-        {{ blogCategory }}
+        <div class="category-badge text-white fw-bold text-uppercase px-3 py-1">
+          {{ blogCategory }}
+        </div>
       </div>
-    </div>
-    <div class="content pt-1">
-      <h3 class="fw-bold mb-3">
-        <NuxtLink :to="`/blogs/${blog.slug}`" class="text-dark text-decoration-none title-link">
-          {{ blog.title }}
-        </NuxtLink>
-      </h3>
-      <div class="meta text-secondary fs-6">
-        <NuxtLink :to="`/blogs/${blog.slug}`" class="text-dark text-decoration-none title-link">
-          <span class="">By </span><strong class="text-dark">GCC School</strong> &mdash; {{ formattedDate }}
-        </NuxtLink>
+      <div class="content pt-1">
+        <h3 class="fw-bold mb-3">
+          <div class="text-dark title-link">
+            {{ blog.title }}
+          </div>
+        </h3>
+        <div class="meta text-secondary fs-6">
+          <div class="text-dark title-link">
+            <span class="">By </span><strong class="text-dark">GCC School</strong> &mdash; {{ formattedDate }}
+          </div>
+        </div>
       </div>
-    </div>
+    </NuxtLink>
   </div>
 </template>
 

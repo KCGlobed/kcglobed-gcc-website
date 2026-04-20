@@ -41,19 +41,19 @@
       <!-- Content Section -->
       <div class="row g-4 g-xl-5">
         <!-- Sidebar: Table of Contents (Desktop) -->
-       <div class="col-lg-3 d-none d-lg-block">
+        <div class="col-lg-3 d-none d-lg-block">
           <div class="contents-sidebar border sticky-sidebar rounded-4 overflow-hidden shadow-sm">
             <h5 class="fw-bold fs-6 px-3 py-3 m-0 bg-white border-bottom">Table of Contents</h5>
             <div class="contents-list p-2 custom-scrollbar scrollable-sidebar-content">
-              <a href="#overview" @click.prevent="scrollToId('overview')" 
-                 class="content-link d-block p-2 text-dark fw-bold text-decoration-none rounded-2 mb-1" 
-                 :class="{ 'active': activeTocId === 'overview' }">
+              <a href="#overview" @click.prevent="scrollToId('overview')"
+                class="content-link d-block p-2 text-dark fw-bold text-decoration-none rounded-2 mb-1"
+                :class="{ 'active': activeTocId === 'overview' }">
                 Overview
               </a>
               <div v-for="item in toc" :key="item.id">
-                <a :href="'#' + item.id" @click.prevent="scrollToId(item.id)" 
-                   class="content-link d-block p-2 text-muted text-decoration-none rounded-2 mb-1"
-                   :class="{ 'active': activeTocId === item.id, 'ps-4 sub-link': item.level === 3 }">
+                <a :href="'#' + item.id" @click.prevent="scrollToId(item.id)"
+                  class="content-link d-block p-2 text-muted text-decoration-none rounded-2 mb-1"
+                  :class="{ 'active': activeTocId === item.id, 'ps-4 sub-link': item.level === 3 }">
                   <span v-html="item.text"></span>
                 </a>
               </div>
@@ -301,16 +301,19 @@ const scrollToId = (id) => {
     activeTocId.value = id;
   }
 };
+const cleanSchema = blog.value?.schema_markup
+  ?.replace(/<script.*?>/, '')
+  ?.replace(/<\/script>/, '');
 
 useHead(() => ({
   title: blog.value?.metaTitle || blog.value?.title || "Blog",
   meta: [
     { name: 'description', content: blog.value?.metaDescription || blog.value?.excerpt }
   ],
-  script: blog.value?.schema_markup ? [
+  script: cleanSchema ? [
     {
       type: 'application/ld+json',
-      innerHTML: blog.value.schema_markup
+      children: cleanSchema
     }
   ] : []
 }));
@@ -330,6 +333,7 @@ useHead(() => ({
 .fs-8 {
   font-size: 0.75rem;
 }
+
 .content-link {
   font-size: 14px;
   transition: all 0.2s ease;
