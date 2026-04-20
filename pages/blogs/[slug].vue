@@ -480,8 +480,6 @@ useHead(() => ({
   width: 100%;
   border-collapse: collapse;
   margin: 2rem 0;
-  display: block;
-  overflow-x: auto;
 }
 
 .blog-content :deep(th),
