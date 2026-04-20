@@ -34,7 +34,7 @@
         </div>
         <div class="col-lg-6">
           <img :src="blog.featuredImage" class="img-fluid w-100 object-fit-cover shadow-sm rounded-3 featured-img"
-            alt="Blog Image" />
+            :alt="blog.altImage || 'Blog Image'" />
         </div>
       </div>
 
@@ -306,7 +306,13 @@ useHead(() => ({
   title: blog.value?.metaTitle || blog.value?.title || "Blog",
   meta: [
     { name: 'description', content: blog.value?.metaDescription || blog.value?.excerpt }
-  ]
+  ],
+  script: blog.value?.schema_markup ? [
+    {
+      type: 'application/ld+json',
+      innerHTML: blog.value.schema_markup
+    }
+  ] : []
 }));
 </script>
 
@@ -527,6 +533,31 @@ useHead(() => ({
   margin: 2rem 0;
   border: none;
   border-top: 1px solid #eee;
+}
+
+/* ================= CUSTOM EDITOR BUTTON ================= */
+
+.blog-content :deep(.custom-editor-button) {
+  background: #a13e99;
+  border-radius: 50px !important;
+  box-shadow: 0 4px 15px #f1a63e4d;
+  color: #fff !important;
+  display: inline-block;
+  font-size: 14px !important;
+  font-weight: 700 !important;
+  letter-spacing: 1px;
+  line-height: normal !important;
+  padding: 10px 25px !important;
+  text-transform: uppercase;
+  transition: all .3s ease-in-out !important;
+  text-decoration: none !important;
+}
+
+.blog-content :deep(.custom-editor-button:hover) {
+  background: #a13e99;
+  opacity: 0.9;
+  color: #fff !important;
+  transform: translateY(-2px);
 }
 
 /* ================= MOBILE OPTIMIZATION ================= */
