@@ -39,6 +39,9 @@
                   <li>
                     <NuxtLink to="/career">Careers</NuxtLink>
                   </li>
+                  <li>
+                    <NuxtLink to="/blogs">Blogs</NuxtLink>
+                  </li>
                   <li class="apply-now-li">
                     <button class="footer-apply-btn" @click="openApplyModal">Apply Now</button>
                   </li>

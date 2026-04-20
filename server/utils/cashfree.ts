@@ -45,4 +45,3 @@ export function createCashfreeInstance(config: any, event?: H3Event) {
 
     return { instance, isProd, cfEnvironment, appId };
 }
-
