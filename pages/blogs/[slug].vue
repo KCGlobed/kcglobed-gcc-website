@@ -28,7 +28,7 @@
                 {{ readingTime }} Min Read
               </span>
             </div>
-            <span>Written by: <strong class="text-dark">KC GlobEd</strong></span>
+            <span>Written by: <strong class="text-dark">GCC School</strong></span>
             <span>Last updated: {{ formattedDate }}</span>
           </div>
         </div>
