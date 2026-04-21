@@ -668,10 +668,12 @@ export default defineComponent({
         };
 
         const postPaymentSuccess = async (pid: string) => {
+            console.log("[PAYMENT_SUCCESS] Initialization for order:", pid);
             // 6. Create Student Account after successful payment
             const config = useRuntimeConfig();
             processingMessage.value = 'Creating your account...';
             try {
+                console.log("[PAYMENT_SUCCESS] Creating student account for:", form.email);
                 const studentRes: any = await $fetch(
                     `${config.public.apiBase}/api/users/create_student/`,
                     {
@@ -688,9 +690,13 @@ export default defineComponent({
                     }
                 );
 
+                console.log("[PAYMENT_SUCCESS] Student creation response:", studentRes);
+
                 if (studentRes.success && studentRes.data?.password) {
+                    console.log("[PAYMENT_SUCCESS] Password received, triggering autoLogin");
                     await autoLogin(form.email, studentRes.data.password, pid);
                 } else {
+                    console.warn("[PAYMENT_SUCCESS] Student creation failed or no password returned. Redirecting to account page.");
                     // Fallback success state if registration fails but payment was done
                     paymentStatus.value = 'success';
                     paymentId.value = pid;
@@ -701,7 +707,7 @@ export default defineComponent({
                     }, 3000);
                 }
             } catch (regErr: any) {
-                console.error("[PAYMENT] Registration error after payment:", regErr);
+                console.error("[PAYMENT_SUCCESS] Registration error after payment:", regErr);
                 paymentStatus.value = 'success';
                 paymentId.value = pid;
                 processingMessage.value = 'Payment Successful! Redirecting to profile...';
@@ -712,6 +718,7 @@ export default defineComponent({
         };
 
         const autoLogin = async (email: string, password: string, pid: string = '') => {
+            console.log("[AUTOLOGIN] Starting automated login for:", email);
             try {
                 processingMessage.value = 'Signing you in...';
                 const config = useRuntimeConfig();
@@ -728,7 +735,10 @@ export default defineComponent({
                     }
                 );
 
+                console.log("[AUTOLOGIN] Login API Response:", response);
+
                 if (response.data?.token) {
+                    console.log("[AUTOLOGIN] Login successful. Extracting tokens and user info.");
                     const { access, refresh } = response.data.token;
                     const user_role = response.data.user_role ?? null;
                     const user_id = response.data.user_id ?? null;
@@ -743,10 +753,12 @@ export default defineComponent({
                     setTimeout(() => {
                         window.location.href = '/myaccount';
                     }, 3000);
+                } else {
+                    console.error("[AUTOLOGIN] Login failed - No token received");
                 }
             } catch (err: any) {
                 await closeStatusModal();
-                console.error('[AutoLogin] Error:', err);
+                console.error('[AUTOLOGIN] Critical Error:', err);
                 showAlert('Login Failed', 'Account created but automatic login failed. Please login manually.', 'error');
             }
         };
