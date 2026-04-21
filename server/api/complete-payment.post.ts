@@ -9,7 +9,12 @@ export default defineEventHandler(async (event) => {
     const body = await readBody(event);
     const config = useRuntimeConfig(event);
     const activeGateway = config.paymentGateway || 'RAZORPAY';
-    console.log(activeGateway, '---acitve gateway')
+    
+    console.log(`[PAYMENT][complete] Verification started. Gateway: ${activeGateway}`, {
+        orderId: body.razorpay_order_id || body.cf_order_id,
+        timestamp: new Date().toISOString()
+    });
+
     let userId: string | null = null;
     let formType: string | null = null;
     let formId: string | null = null;
@@ -37,9 +42,10 @@ export default defineEventHandler(async (event) => {
             .update(razorpay_order_id + "|" + razorpay_payment_id).digest("hex");
 
         if (generated_signature !== razorpay_signature) {
-            console.error("[PAYMENT][complete] Razorpay signature verification failed");
+            console.error("[PAYMENT][complete] Razorpay signature verification failed for order:", razorpay_order_id);
             throw createError({ statusCode: 400, message: "Invalid payment signature" });
         }
+        console.log("[PAYMENT][complete] Razorpay signature verified successfully:", razorpay_order_id);
 
         try {
             const { instance: razorpay } = createRazorpayInstance(config);
@@ -59,6 +65,7 @@ export default defineEventHandler(async (event) => {
                 source = orderRes.notes.source ? Number(orderRes.notes.source) : 1;
             }
             actualPaymentId = razorpay_payment_id;
+            console.log("[PAYMENT][complete] Order details fetched from Razorpay:", { amount, currency, userEmail, orderId: razorpay_order_id });
         } catch (error: any) {
             console.error("[PAYMENT][complete] Error fetching Razorpay order", error);
             throw createError({ statusCode: 500, message: "Failed to fetch order details" });
@@ -107,9 +114,11 @@ export default defineEventHandler(async (event) => {
             const successPayment = payments.find((p: any) => p.payment_status === 'SUCCESS');
 
             if (!successPayment) {
+                console.error("[PAYMENT][complete] Cashfree: No successful payment found for order:", cf_order_id);
                 throw createError({ statusCode: 400, message: "Payment not successful" });
             }
             actualPaymentId = String(successPayment.cf_payment_id);
+            console.log("[PAYMENT][complete] Cashfree payment verified successfully:", { orderId: cf_order_id, paymentId: actualPaymentId });
         } catch (error: any) {
             if (error.statusCode) throw error;
             throw createError({ statusCode: 500, message: "Failed to verify Cashfree payment" });
@@ -141,8 +150,11 @@ export default defineEventHandler(async (event) => {
             source: source || 1
         });
 
+        console.log("[PAYMENT][complete] Payment record saved to DB successfully. ID:", paymentDbId);
+
         // ── Step 3: Send Confirmation Email ─────────────────────────────────────
         if (userEmail) {
+            console.log("[PAYMENT][complete] Sending confirmation email to:", userEmail);
             // Logic to send email confirmation can be added here if needed
             // (Assuming existing service handles it or it's called elsewhere)
         }
