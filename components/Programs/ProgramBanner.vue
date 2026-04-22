@@ -1057,6 +1057,7 @@ export default defineComponent({
                         // Actually, let's just log it and proceed to let them download.
                     }
                 }
+                
                 const payload: any = {
                     full_name: form.name,
                     email: form.email,
