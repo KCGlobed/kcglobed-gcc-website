@@ -130,7 +130,7 @@ export default defineEventHandler(async (event) => {
     // ── Determine Fee Waiver Category ─────────────────────────────────────────
     const baseAmount = Number(config.paymentAmount || 2950);
     let feeWaiverCategory = "No Waiver";
-    if (amount === 0) {
+    if (amount === 1 || amount === 0 || amount===2) {
         feeWaiverCategory = "Free of cost (FOC)";
     } else if (amount < baseAmount) {
         feeWaiverCategory = "20% Fee Waiver";
