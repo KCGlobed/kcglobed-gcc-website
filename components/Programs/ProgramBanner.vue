@@ -1057,8 +1057,8 @@ export default defineComponent({
                         // Actually, let's just log it and proceed to let them download.
                     }
                 }
-
-                const payload = {
+                
+                const payload: any = {
                     full_name: form.name,
                     email: form.email,
                     phone: form.mobile,
@@ -1071,6 +1071,11 @@ export default defineComponent({
                     utm_campaign: utm_campaign.value,
                     university: form.university,
                 };
+
+                const selectedUni = universityList.value.find(u => u.name === form.university);
+                if (selectedUni && selectedUni.isHighlight) {
+                    payload.fee_waiver_category = "Free of cost (FOC)";
+                }
 
                 const response: any = await $fetch(`${config.public.apiBase}/api/career/createdossierform`, {
                     method: "POST",

@@ -20,7 +20,6 @@ export function createCashfreeInstance(config: any, event?: H3Event) {
     const cfEnvironment = isProd ? "PRODUCTION" : "SANDBOX";
 
 
-
     const appId = (isProd
         ? (config.cashfreeAppId || process.env.CASH_FREE_APP_ID_PROD)
         : (config.cashfreeAppIdDev || process.env.CASH_FREE_APP_ID_DEV)
