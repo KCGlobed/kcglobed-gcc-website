@@ -12,7 +12,7 @@ export function createCashfreeInstance(config: any, event?: H3Event) {
         "gccschool.com",
         "www.gccschool.com",
         "gcc-website-prod-932479078084.europe-west1.run.app",
-        "https://kcglobed-gcc-website-932479078084.asia-south1.run.app"
+        "kcglobed-gcc-website-932479078084.asia-south1.run.app"
     ];
 
 
