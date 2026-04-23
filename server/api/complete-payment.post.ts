@@ -9,7 +9,7 @@ export default defineEventHandler(async (event) => {
     const body = await readBody(event);
     const config = useRuntimeConfig(event);
     const activeGateway = config.paymentGateway || 'RAZORPAY';
-    
+
     console.log(`[PAYMENT][complete] Verification started. Gateway: ${activeGateway}`, {
         orderId: body.razorpay_order_id || body.cf_order_id,
         timestamp: new Date().toISOString()
@@ -114,21 +114,32 @@ export default defineEventHandler(async (event) => {
             const successPayment = payments.find((p: any) => p.payment_status === 'SUCCESS');
 
             if (!successPayment) {
-                console.error("[PAYMENT][complete] Cashfree: No successful payment found for order:", cf_order_id);
                 throw createError({ statusCode: 400, message: "Payment not successful" });
             }
+            console.log(successPayment,'--successPayment')
             actualPaymentId = String(successPayment.cf_payment_id);
-            console.log("[PAYMENT][complete] Cashfree payment verified successfully:", { orderId: cf_order_id, paymentId: actualPaymentId });
+            if (successPayment.payment_amount !== undefined) {
+                amount = Number(successPayment.payment_amount); // real-time paid amount
+            }
         } catch (error: any) {
             if (error.statusCode) throw error;
             throw createError({ statusCode: 500, message: "Failed to verify Cashfree payment" });
         }
     }
 
+    // ── Determine Fee Waiver Category ─────────────────────────────────────────
+    const baseAmount = Number(config.paymentAmount || 2950);
+    let feeWaiverCategory = "No Waiver";
+    if (amount === 1 || amount === 0 || amount===2) {
+        feeWaiverCategory = "Free of cost (FOC)";
+    } else if (amount < baseAmount) {
+        feeWaiverCategory = "20% Fee Waiver";
+    }
+
     // ── Save success to DB ────────────────────────────────────────────────────
     try {
         const paymentDbId = await savePayment({
-           re_attempt_status: reAttemptStatus,
+            re_attempt_status: reAttemptStatus,
             student_id: userId,
             form_type: formType || 1,
             form_id: formId,
@@ -147,14 +158,12 @@ export default defineEventHandler(async (event) => {
                 city: city,
                 state: state
             }),
-            source: source || 1
+            source: source || 1,
+            fee_waiver_category: feeWaiverCategory
         });
-
-        console.log("[PAYMENT][complete] Payment record saved to DB successfully. ID:", paymentDbId);
 
         // ── Step 3: Send Confirmation Email ─────────────────────────────────────
         if (userEmail) {
-            console.log("[PAYMENT][complete] Sending confirmation email to:", userEmail);
             // Logic to send email confirmation can be added here if needed
             // (Assuming existing service handles it or it's called elsewhere)
         }
