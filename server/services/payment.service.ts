@@ -14,15 +14,14 @@ export async function savePayment(data: any) {
       status,
       response,
       dossier_form_id,
-      source,
-      fee_waiver_category
+      source
     )
     VALUES (
-      $1, $2, $3, $4, $5, $6, $7, $8, $9,$10,$11,$12,$13
+      $1, $2, $3, $4, $5, $6, $7, $8, $9,$10,$11,$12
     )
     RETURNING id
   `;
-// console.log(data,'----Data----')
+  // console.log(data,'----Data----')
   const values = [
     //  data.re_attempt_status,
     false,
@@ -37,7 +36,7 @@ export async function savePayment(data: any) {
     data.response,
     data.form_id,
     data.source || 1,
-    data.fee_waiver_category || 'No Waiver'
+    // data.fee_waiver_category || 'No Waiver'
   ];
 
   const result = await pool.query(query, values);
