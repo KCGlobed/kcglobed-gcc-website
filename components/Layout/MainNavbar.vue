@@ -45,6 +45,11 @@
             </NuxtLink>
           </li>
           <li class="nav-item">
+            <NuxtLink to="/blogs" class="nav-link">
+              Blogs
+            </NuxtLink>
+          </li>
+          <li class="nav-item">
             <NuxtLink to="/about-overview" class="nav-link">
               About Us
             </NuxtLink>

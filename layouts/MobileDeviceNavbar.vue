@@ -31,6 +31,10 @@
           <img src="~/assets/img/mobileHeader/Icon(4).png" alt="Campus Life" class="nav-icon" />
           <span>Campus Life</span>
         </NuxtLink>
+        <NuxtLink to="/blogs" class="nav-item" @click="handleClick">
+          <img src="~/assets/img/mobileHeader/Icon(5).png" alt="Blogs" class="nav-icon" />
+          <span>Blogs</span>
+        </NuxtLink>
         <NuxtLink to="/about-overview" class="nav-item" @click="handleClick">
           <img src="~/assets/img/mobileHeader/Icon(5).png" alt="About Us" class="nav-icon" />
           <span>About Us</span>
