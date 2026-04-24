@@ -1,25 +1,35 @@
 <template>
     <div class="news-listing-area ptb-100">
         <div class="container">
-            <div class="row g-4 justify-content-center">
+            <div v-if="loading" class="text-center py-5">
+                <div class="spinner-border text-primary" role="status">
+                    <span class="visually-hidden">Loading...</span>
+                </div>
+            </div>
+            <div v-else class="row g-4 justify-content-center">
                 <div v-for="news in newsList" :key="news.id" class="col-lg-4 col-md-6" data-aos="fade-up">
                     <CommonNewsItemCard :news="news" />
+                </div>
+                <div v-if="newsList.length === 0" class="col-12 text-center py-5">
+                    <h3>No news found.</h3>
                 </div>
             </div>
 
             <!-- Pagination -->
-            <nav aria-label="Page navigation example" class="inner-pages-pagination mt-5">
+            <nav v-if="totalPages > 1 && !loading" aria-label="Page navigation example" class="inner-pages-pagination mt-5">
                 <ul class="pagination">
-                    <li class="page-item">
-                        <a class="page-link" href="#">
+                    <li class="page-item" :class="{ disabled: currentPage === 1 }">
+                        <a class="page-link" href="javascript:void(0)" @click="changePage(currentPage - 1)">
                             <i class="ri-arrow-left-s-line"></i>
                         </a>
                     </li>
-                    <li class="page-item"><a class="page-link active" href="#">1</a></li>
-                    <li class="page-item"><a class="page-link" href="#">2</a></li>
-                    <li class="page-item"><a class="page-link" href="#">3</a></li>
-                    <li class="page-item">
-                        <a class="page-link" href="#">
+                    <li v-for="page in totalPages" :key="page" class="page-item">
+                        <a class="page-link" :class="{ active: page === currentPage }" href="javascript:void(0)" @click="changePage(page)">
+                            {{ page }}
+                        </a>
+                    </li>
+                    <li class="page-item" :class="{ disabled: currentPage === totalPages }">
+                        <a class="page-link" href="javascript:void(0)" @click="changePage(currentPage + 1)">
                             <i class="ri-arrow-right-s-line"></i>
                         </a>
                     </li>
@@ -30,62 +40,50 @@
 </template>
 
 <script setup lang="ts">
-const newsList = [
-    {
-        id: 1,
-        title: 'GCC School and KC GlobEd Host Round Table Meeting on Impact of AI on GCCs - Building the Future Workforce',
-        excerpt: 'GCC School and KC GlobEd successfully organised a dynamic Round Table meeting on the theme Impact of AI on GCCs - Building the Future Workforce at Welcome hotel by ITC Hotels, Delhi-Gurugram Highway. The session witnessed participation from senior leaders of reputed organisations...',
-        date: 'Jan 29, 2026',
-        category: 'Business & Finance',
-        image: 'https://storage.googleapis.com/gcc_prod_static_files_backend/static/images/download.png',
-        url: 'https://www.ptinews.com/press-release/gcc-school-and-kc-globed-host-round-table-meeting-on-impact-of-ai-on-gccs-building-the-future-workforce/3323548'
-    },
-    {
-        id: 2,
-        title: 'Building the Future Workforce: AI’s Impact on GCCs – A Round Table by GCC School & KC GlobEd',
-        excerpt: ' GCC School and KC GlobEd successfully organised a dynamic Round Table meeting on the theme “Impact of AI on GCCs – Building the Future Workforce” at Welcome hotel by ITC Hotels, Delhi-Gurugram Highway....',
-        date: 'Nov 14, 2025',
-        category: 'Business & Finance',
-        image: 'https://storage.googleapis.com/static_files_backend/media/images/image%20(1).jpg',
-        url: 'https://english.indianews.in/india-news/gcc-school-and-kc-globed-host-round-table-meeting-on-impact-of-ai-on-gccs-building-the-future-workforce-848368/'
-    },
-    {
-        id: 3,
-        title: 'Tech4ed 2025 Sets New Benchmark In Global Learning With Strategic Collaborations And Knowledge Exchange',
-        excerpt: 'The 2nd edition of Tech4Ed International Conference 2025, organised under the aegis of the Association of Indian Universities (AIU) and KC GlobEd, concluded on an inspiring note at The Park, New Delhi. The event brought together a distinguished gathering of academic leaders...',
-        date: 'Nov 14, 2025',
-        category: 'Tech4ed',
-        image: 'https://storage.googleapis.com/gcc_prod_static_files_backend/static/images/F_92102image_story.jpeg',
-        url: 'https://menafn.com/1110349919/Tech4ed-2025-Sets-New-Benchmark-In-Global-Learning-With-Strategic-Collaborations-And-Knowledge-Exchange'
-    },
-    {
-        id: 4,
-        title: 'The Future of GCCs: Navigating Global Trends and Local Impact',
-        excerpt: 'As Global Capability Centers continue to evolve, understanding the intersection of global strategy and local execution becomes critical. This article explores recent trends...',
-        date: 'Oct 10, 2025',
-        category: 'Strategy',
-        image: 'https://storage.googleapis.com/static_files_backend/media/images/image%20(1).jpg',
-        url: '#'
-    },
-    {
-        id: 5,
-        title: 'KC GlobEd Expands Partnership with Top Global Universities',
-        excerpt: 'In a significant move to enhance global educational opportunities, KC GlobEd has announced several new partnerships with leading academic institutions...',
-        date: 'Sep 25, 2025',
-        category: 'Education',
-        image: 'https://storage.googleapis.com/gcc_prod_static_files_backend/static/images/download.png',
-        url: '#'
-    },
-    {
-        id: 6,
-        title: 'Alumni Spotlight: Success Stories from our Recent Graduates',
-        excerpt: 'Hear from our alumni who have successfully transitioned into high-impact roles at leading GCCs after completing our specialized programs...',
-        date: 'Aug 15, 2025',
-        category: 'Alumni',
-        image: 'https://storage.googleapis.com/gcc_prod_static_files_backend/static/images/F_92102image_story.jpeg',
-        url: '#'
+import { ref, onMounted, watch } from 'vue'
+
+const newsList = ref<any[]>([])
+const loading = ref(true)
+const currentPage = ref(1)
+const totalPages = ref(1)
+const pageSize = ref(6)
+
+const fetchNews = async (page = 1) => {
+    loading.value = true
+    const config = useRuntimeConfig()
+    try {
+        const response: any = await $fetch(`${config.public.apiBase}/api/blog/website_seminar_page_list`, {
+            params: {
+                page: page,
+                page_size: pageSize.value
+            }
+        })
+        if (response.success) {
+            newsList.value = response.data
+            if (response.pagination) {
+                totalPages.value = response.pagination.total_pages
+                currentPage.value = response.pagination.current_page
+            }
+        }
+    } catch (error) {
+        console.error('Error fetching news:', error)
+    } finally {
+        loading.value = false
+        // Scroll to top of listing after fetch
+        if (import.meta.client) {
+            window.scrollTo({ top: 0, behavior: 'smooth' })
+        }
     }
-]
+}
+
+const changePage = (page: number) => {
+    if (page < 1 || page > totalPages.value || page === currentPage.value) return
+    fetchNews(page)
+}
+
+onMounted(() => {
+    fetchNews()
+})
 </script>
 
 <style scoped>
