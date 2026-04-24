@@ -6,17 +6,23 @@
             </div>
 
             <div class="news-slider-wrapper" data-aos="fade-up" data-aos-delay="100">
-                <Swiper :slides-per-view="1" :space-between="24" :loop="true"
-                    :autoplay="{ delay: 4000, disableOnInteraction: false }"
-                    :pagination="{ clickable: true, el: paginationRef }" :breakpoints="{
+                <Swiper v-if="newsList.length > 0" :slides-per-view="1" :space-between="24" :loop="false" :rewind="true"
+                    :autoplay="{ delay: 4000, disableOnInteraction: false }" :grab-cursor="true" :round-lengths="true"
+                    :watch-slides-progress="true" :pagination="{ clickable: true, el: '.news-pagination' }"
+                    :breakpoints="{
                         768: { slidesPerView: 2, spaceBetween: 24 },
                         1024: { slidesPerView: 3, spaceBetween: 24 },
-                    }" :modules="[SwiperAutoplay, SwiperPagination]" class="news-swiper" @swiper="onSwiper">
+                    }" :modules="[SwiperAutoplay, SwiperPagination]" class="news-swiper">
                     <SwiperSlide v-for="news in newsList" :key="news.id">
                         <CommonNewsItemCard :news="news" />
                     </SwiperSlide>
                 </Swiper>
-                <div ref="paginationRef" class="news-pagination"></div>
+                <div v-else-if="loading" class="text-center py-5">
+                    <div class="spinner-border text-primary" role="status">
+                        <span class="visually-hidden">Loading...</span>
+                    </div>
+                </div>
+                <div class="news-pagination"></div>
 
                 <!-- <div class="text-center mt-5">
                     <NuxtLink to="/news" class="view-all-btn">
@@ -30,48 +36,31 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue'
+import { ref, onMounted, computed } from 'vue'
 
-const paginationRef = ref(null)
+const newsList = ref<any[]>([])
+const loading = ref(true)
 
-function onSwiper(swiper: any) {
-    swiper.params.pagination.el = paginationRef.value
-    swiper.pagination.init()
-    swiper.pagination.render()
-    swiper.pagination.update()
+// Only loop if we have enough items to avoid sliding glitches (at least 6 for 3 slides per view)
+const shouldLoop = computed(() => newsList.value.length >= 6)
+
+const fetchNews = async () => {
+    const config = useRuntimeConfig()
+    try {
+        const response: any = await $fetch(`${config.public.apiBase}/api/blog/website_seminar_page_list`)
+        if (response.success) {
+            newsList.value = response.data
+        }
+    } catch (error) {
+        console.error('Error fetching news:', error)
+    } finally {
+        loading.value = false
+    }
 }
 
-const newsList = [
-    {
-        id: 1,
-        title: 'GCC School and KC GlobEd Host Round Table Meeting on Impact of AI on GCCs - Building the Future Workforce',
-        excerpt: 'GCC School and KC GlobEd successfully organised a dynamic Round Table meeting on the theme Impact of AI on GCCs - Building the Future Workforce at Welcome hotel by ITC Hotels, Delhi-Gurugram Highway. The session witnessed participation from senior leaders of reputed organisations...',
-        date: 'Jan 29, 2026',
-        category: 'Business & Finance',
-        image: 'https://storage.googleapis.com/gcc_prod_static_files_backend/static/images/download.png',
-        url: 'https://www.ptinews.com/press-release/gcc-school-and-kc-globed-host-round-table-meeting-on-impact-of-ai-on-gccs-building-the-future-workforce/3323548'
-    },
-    {
-        id: 2,
-        title: 'Building the Future Workforce: AI’s Impact on GCCs – A Round Table by GCC School & KC GlobEd',
-        excerpt: ' GCC School and KC GlobEd successfully organised a dynamic Round Table meeting on the theme “Impact of AI on GCCs – Building the Future Workforce” at Welcome hotel by ITC Hotels, Delhi-Gurugram Highway....',
-        date: 'Nov 14, 2025',
-        category: 'Business & Finance',
-        image: 'https://storage.googleapis.com/static_files_backend/media/images/image%20(1).jpg',
-        url: 'https://english.indianews.in/india-news/gcc-school-and-kc-globed-host-round-table-meeting-on-impact-of-ai-on-gccs-building-the-future-workforce-848368/'
-    },
-
-    {
-        id: 3,
-        title: 'Tech4ed 2025 Sets New Benchmark In Global Learning With Strategic Collaborations And Knowledge Exchange',
-        excerpt: 'The 2nd edition of Tech4Ed International Conference 2025, organised under the aegis of the Association of Indian Universities (AIU) and KC GlobEd, concluded on an inspiring note at The Park, New Delhi. The event brought together a distinguished gathering of academic leaders...',
-        date: 'Nov 14, 2025',
-        category: 'Tech4ed',
-        image: 'https://storage.googleapis.com/gcc_prod_static_files_backend/static/images/F_92102image_story.jpeg',
-        url: 'https://menafn.com/1110349919/Tech4ed-2025-Sets-New-Benchmark-In-Global-Learning-With-Strategic-Collaborations-And-Knowledge-Exchange'
-    },
-
-]
+onMounted(() => {
+    fetchNews()
+})
 </script>
 
 <style scoped>

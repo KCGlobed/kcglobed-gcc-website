@@ -1,16 +1,16 @@
 <template>
     <div class="news-card">
         <div class="news-image">
-            <NuxtLink :to="news.url" target="_blank">
-                <img :src="news.image" :alt="news.title" loading="lazy" />
+            <NuxtLink :to="displayUrl" :target="displayUrl.startsWith('http') ? '_blank' : '_self'">
+                <img :src="displayImage" :alt="news.title" loading="lazy" />
             </NuxtLink>
-            <span class="category-badge">{{ news.category }}</span>
+            <span class="category-badge">{{ displayCategory }}</span>
         </div>
         <div class="news-content">
             <div class="meta">
                 <span class="meta-item">
                     <i class="ri-calendar-2-line"></i>
-                    {{ news.date }}
+                    {{ displayDate }}
                 </span>
                 <span class="meta-item">
                     <i class="ri-user-3-line"></i>
@@ -18,10 +18,10 @@
                 </span>
             </div>
             <h3>
-                <a :href="news.url" target="_blank" rel="noopener">{{ news.title }}</a>
+                <a :href="displayUrl" :target="displayUrl.startsWith('http') ? '_blank' : '_self'" rel="noopener">{{ news.title }}</a>
             </h3>
-            <p>{{ news.excerpt }}</p>
-            <a :href="news.url" class="read-more-btn" target="_blank" rel="noopener">
+            <p>{{ displayExcerpt }}</p>
+            <a :href="displayUrl" class="read-more-btn" :target="displayUrl.startsWith('http') ? '_blank' : '_self'" rel="noopener">
                 Read More
                 <!-- <span class="btn-arrow"><i class="ri-arrow-right-line"></i></span> -->
             </a>
@@ -30,17 +30,42 @@
 </template>
 
 <script setup lang="ts">
-defineProps<{
+import { computed } from 'vue';
+const props = defineProps<{
     news: {
         id: number | string;
         title: string;
-        excerpt: string;
-        date: string;
-        category: string;
-        image: string;
-        url: string;
+        excerpt?: string;
+        content?: string;
+        date?: string;
+        created_at?: string;
+        category?: string;
+        tags?: string;
+        image?: string;
+        thumbnailImage?: string;
+        url?: string;
+        event_link?: string;
     }
 }>();
+
+const displayExcerpt = computed(() => props.news.content || props.news.excerpt || '');
+const displayImage = computed(() => props.news.thumbnailImage || props.news.image || '');
+const displayCategory = computed(() => props.news.tags || props.news.category || 'News');
+const displayUrl = computed(() => props.news.event_link || props.news.url || '#');
+const displayDate = computed(() => {
+    const d = props.news.created_at || props.news.date;
+    if (!d) return '';
+    try {
+        const date = new Date(d);
+        return date.toLocaleDateString('en-US', {
+            month: 'short',
+            day: 'numeric',
+            year: 'numeric'
+        });
+    } catch (e) {
+        return d;
+    }
+});
 </script>
 
 <style scoped>
