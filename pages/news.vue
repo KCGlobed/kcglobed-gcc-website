@@ -1,4 +1,4 @@
-<template>
+ page<template>
   <div>
     <LayoutTopHeader class="style2-top-header" />
     <LayoutMainNavbar />
