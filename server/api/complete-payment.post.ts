@@ -116,7 +116,7 @@ export default defineEventHandler(async (event) => {
             if (!successPayment) {
                 throw createError({ statusCode: 400, message: "Payment not successful" });
             }
-            console.log(successPayment,'--successPayment')
+            console.log(successPayment, '--successPayment')
             actualPaymentId = String(successPayment.cf_payment_id);
             if (successPayment.payment_amount !== undefined) {
                 amount = Number(successPayment.payment_amount); // real-time paid amount
@@ -130,10 +130,14 @@ export default defineEventHandler(async (event) => {
     // ── Determine Fee Waiver Category ─────────────────────────────────────────
     const baseAmount = Number(config.paymentAmount || 2950);
     let feeWaiverCategory = "No Waiver";
-    if (amount === 1 || amount === 0 || amount===2) {
+    if (amount === 1 || amount === 0 || amount === 2) {
         feeWaiverCategory = "Free of cost (FOC)";
     } else if (amount < baseAmount) {
-        feeWaiverCategory = "20% Fee Waiver";
+        const waiverPercent = Math.round(
+            ((baseAmount - amount) / baseAmount) * 100
+        );
+
+        feeWaiverCategory = `${waiverPercent}% Fee Waiver`;
     }
 
     // ── Save success to DB ────────────────────────────────────────────────────
