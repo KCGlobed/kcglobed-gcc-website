@@ -3,10 +3,10 @@
     <div class="container h-100 position-relative">
       <div class="row h-100 align-items-center justify-content-center text-center">
         <div class="col-lg-8 col-md-10 mt-5 pt-4 banner-content-wrapper">
-          <h1 class="text-white fw-bold display-4 mb-2">Search Results for:</h1>
-          <p class="text-white mb-5 fs-6" style="opacity: 0.9;">
+          <h1 class="text-white fw-bold mb-2">Expert Insights, Practical Advice & GCC School Stories</h1>
+          <!-- <p class="text-white mb-5 fs-6" style="opacity: 0.9;">
             Showing {{ resultsCount }} results for your search
-          </p>
+          </p> -->
         </div>
       </div>
       
