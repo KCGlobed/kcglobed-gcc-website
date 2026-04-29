@@ -2,7 +2,7 @@ import { savePayment } from "../services/payment.service";
 
 export default defineEventHandler(async (event) => {
     const body = await readBody(event);
-    const { name, email, mobile, state, city, form_type, form_id, action,source } = body;
+    const { name, email, mobile, state, city, form_type, form_id, action,source,commingAmount } = body;
 
     const intentId = `intent_${form_id || Date.now()}`;
     console.log("[LEAD][click] CTA clicked — saving lead", {
@@ -12,7 +12,7 @@ export default defineEventHandler(async (event) => {
 
     try {
         const config = useRuntimeConfig(event);
-        const amount = Number(config.cashfreePaymentAmount || process.env.CASHFREE_PAYMENT_AMOUNT || 2950);
+        const amount = Number(commingAmount || config.cashfreePaymentAmount || process.env.CASHFREE_PAYMENT_AMOUNT || 2950);
 
         const id = await savePayment({
             student_id: null,

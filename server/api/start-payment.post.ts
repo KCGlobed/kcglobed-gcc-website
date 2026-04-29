@@ -4,7 +4,7 @@ import { createRazorpayInstance } from "../utils/razorpay";
 
 export default defineEventHandler(async (event) => {
     const body = await readBody(event);
-    const { user_id, name, email, mobile, form_type, form_id, city, state, payment_type, source = 1 } = body;
+    const { user_id, name, email, mobile, form_type, form_id, city, state, payment_type, source = 1, commingAmount } = body;
     const config = useRuntimeConfig(event);
     const activeGateway = config.paymentGateway || 'CASHFREE';
 
@@ -13,7 +13,7 @@ export default defineEventHandler(async (event) => {
         timestamp: new Date().toISOString()
     });
 
-    let amount = Number(config.paymentAmount || 2950);
+    let amount = Number(commingAmount || config.paymentAmount || 2950);
     const currency = 'INR';
     console.log(amount, '-----amount')
     // Apply dynamic discount for reattempts
