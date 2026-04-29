@@ -1123,6 +1123,7 @@ export default defineComponent({
                 }
             } catch (error: any) {
                 console.error("Submission Error:", error);
+                $fetch('/api/log-client-error', { method: 'POST', body: { context: 'ProgramBanner - submitForm', errorMessage: error?.data?.message || error?.message || 'Server error', errorData: error?.data || error?.message || String(error), userInfo: { email: form.email, phone: form.mobile, name: form.name } } }).catch(() => {});
                 showNotification('error', error.data?.message || "Server error. Please try again later.");
             } finally {
                 isSubmitting.value = false;
@@ -1290,6 +1291,7 @@ export default defineComponent({
                                 }
                             } catch (e) {
                                 await closeStatusModal();
+                                $fetch('/api/log-client-error', { method: 'POST', body: { context: 'ProgramBanner - completePayment (Razorpay)', errorMessage: (e as any)?.message || 'Payment verification failed', errorData: (e as any)?.data || (e as any)?.message || String(e), userInfo: { email: form.email } } }).catch(() => {});
                                 showAlert('Payment Error', 'Payment verification failed. Please contact support.', 'error');
                             }
                         },
@@ -1450,6 +1452,7 @@ export default defineComponent({
                             } catch (e) {
                                 await closeStatusModal();
                                 console.error("[PAYMENT] complete-payment error:", e);
+                                $fetch('/api/log-client-error', { method: 'POST', body: { context: 'ProgramBanner - completePayment (Cashfree)', errorMessage: (e as any)?.message || 'Payment verification failed', errorData: (e as any)?.data || (e as any)?.message || String(e), userInfo: { email: form.email } } }).catch(() => {});
                                 showAlert('Payment Error', 'Payment verification failed. Please contact support.', 'error');
                             }
                         }
@@ -1470,6 +1473,7 @@ export default defineComponent({
 
             } catch (err) {
                 console.error(err);
+                $fetch('/api/log-client-error', { method: 'POST', body: { context: 'ProgramBanner - handlePayment', errorMessage: (err as any)?.message || 'Payment initiation failed', errorData: (err as any)?.data || (err as any)?.message || String(err), userInfo: { email: form.email, phone: form.mobile, name: form.name } } }).catch(() => {});
                 showNotification('error', 'Payment initiation failed');
             } finally {
                 isPaymentInProgress.value = false;

@@ -10,10 +10,12 @@ export default defineEventHandler(async (event) => {
     const config = useRuntimeConfig(event);
     const activeGateway = config.paymentGateway || 'RAZORPAY';
 
-    console.log(`[PAYMENT][complete] Verification started. Gateway: ${activeGateway}`, {
-        orderId: body.razorpay_order_id || body.cf_order_id,
-        timestamp: new Date().toISOString()
-    });
+    console.log(`\n====== [PAYMENT][complete] Verification started ======`);
+    console.log(`Gateway: ${activeGateway}`);
+    console.log(`Order ID: ${body.razorpay_order_id || body.cf_order_id}`);
+    console.log(`Payload:`, JSON.stringify(body, null, 2));
+    console.log(`Timestamp: ${new Date().toISOString()}`);
+    console.log(`======================================================\n`);
 
     let userId: string | null = null;
     let formType: string | null = null;
@@ -67,7 +69,10 @@ export default defineEventHandler(async (event) => {
             actualPaymentId = razorpay_payment_id;
             console.log("[PAYMENT][complete] Order details fetched from Razorpay:", { amount, currency, userEmail, orderId: razorpay_order_id });
         } catch (error: any) {
-            console.error("[PAYMENT][complete] Error fetching Razorpay order", error);
+            console.error(`\n====== [PAYMENT][complete] Error fetching Razorpay order ======`);
+            console.error(`Order ID: ${razorpay_order_id}`);
+            console.error(`Error Details:`, error?.response?.data || error?.message || error);
+            console.error(`=================================================================\n`);
             throw createError({ statusCode: 500, message: "Failed to fetch order details" });
         }
     } else {
@@ -122,6 +127,10 @@ export default defineEventHandler(async (event) => {
                 amount = Number(successPayment.payment_amount); // real-time paid amount
             }
         } catch (error: any) {
+            console.error(`\n====== [PAYMENT][complete] Error verifying Cashfree payment ======`);
+            console.error(`Order ID: ${cf_order_id}`);
+            console.error(`Error Details:`, error?.response?.data || error?.message || error);
+            console.error(`==================================================================\n`);
             if (error.statusCode) throw error;
             throw createError({ statusCode: 500, message: "Failed to verify Cashfree payment" });
         }
@@ -174,7 +183,10 @@ export default defineEventHandler(async (event) => {
 
         return { success: true, message: "Payment verified and saved successfully", payment_id: paymentDbId };
     } catch (error: any) {
-        console.error("[PAYMENT][complete] Error saving payment to DB", error);
+        console.error(`\n====== [PAYMENT][complete] Error saving payment to DB ======`);
+        console.error(`Order ID: ${orderIdForDb}`);
+        console.error(`Error Details:`, error?.message || error);
+        console.error(`==============================================================\n`);
         throw createError({ statusCode: 500, message: error.message || "Failed to save payment" });
     }
 });

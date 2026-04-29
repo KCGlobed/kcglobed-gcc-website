@@ -33,15 +33,13 @@ export default defineEventHandler(async (event) => {
     }
 
     // --- LOG: Client Reported Failure (received) ---
-    console.log("[PAYMENT][failure] Client reported a payment failure", {
-        event: "client_reported_failure_received",
-        gateway: activeGateway.toLowerCase(),
-        order_id: orderId,
-        payment_id: paymentId || null,
-        error_code: body.error_code || null,
-        error_description: body.error_description || null,
-        timestamp: new Date().toISOString()
-    });
+    console.error(`\n====== [PAYMENT][failure] Client reported a payment failure ======`);
+    console.error(`Gateway: ${activeGateway.toLowerCase()}`);
+    console.error(`Order ID: ${orderId}`);
+    console.error(`Payment ID: ${paymentId || null}`);
+    console.error(`Payload received from client:`, JSON.stringify(body, null, 2));
+    console.error(`Timestamp: ${new Date().toISOString()}`);
+    console.error(`================================================================\n`);
 
     let userId: string | null = null;
     let formType: string | null = null;
