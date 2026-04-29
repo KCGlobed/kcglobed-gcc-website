@@ -86,7 +86,7 @@
                                     <li class="d-flex align-items-start">
                                         <i class="ti ti-clock text-warning mt-1 me-2 flex-shrink-0"></i>
                                         <span class="text-secondary">After verification, a concessional payment link
-                                            will be shared within 48 hours.</span>
+                                            will be shared within 8 hours.</span>
                                     </li>
                                     <li class="d-flex align-items-start">
                                         <i class="ti ti-alert-circle text-danger mt-1 me-2 flex-shrink-0"></i>

@@ -529,7 +529,7 @@ const detailedGuidelines = [
         icon: "",
         description: "Mandatory for appearing in the examination. Please ensure all details match your government ID.",
         items: [
-            "Download your admit card from the portal 48 hours before the exam.",
+            "Download your admit card from the portal 8 hours before the exam.",
             "Check all details on the admit card carefully.",
             "Instructions for the proctored test will be mentioned on the admit card."
         ]
