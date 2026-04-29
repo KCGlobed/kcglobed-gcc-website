@@ -405,7 +405,7 @@
                                                 ]"
                                                 @click="!slot.disabled && bookingDetails.updateCount < 2 && selectSlot(slot)"
                                                 :disabled="slot.disabled || bookingDetails.updateCount >= 2"
-                                                :title="bookingDetails.updateCount >= 2 ? 'Update limit reached' : (slot.disabled ? 'This slot is no longer available (48-hour restriction)' : '')"
+                                                :title="bookingDetails.updateCount >= 2 ? 'Update limit reached' : (slot.disabled ? 'This slot is no longer available (8-hour restriction)' : '')"
                                                 style="font-size: 12px; min-width: 45%; padding-top: 10px; padding-bottom: 10px;">
                                                 {{ slot.time }}
                                                 <span
@@ -435,7 +435,7 @@
                                                         <i class="ti ti-info-circle" style="font-size: 16px;"></i>
                                                         <div class="custom-tooltip-content"
                                                             style="pointer-events: none;">
-                                                            Slot can be changed once, at least 48 hours before the
+                                                            Slot can be changed once, at least 8 hours before the
                                                             scheduled
                                                             time
                                                         </div>
@@ -453,7 +453,7 @@
                                                                     style="font-size: 16px;"></i>
                                                                 <div class="custom-tooltip-content"
                                                                     style="pointer-events: none; bottom: 120%;">
-                                                                    Slot can be changed once, at least 48 hours before
+                                                                    Slot can be changed once, at least 8 hours before
                                                                     the
                                                                     scheduled time
                                                                 </div>
@@ -1019,7 +1019,7 @@ const calendarDays = computed(() => {
         const dateString = `${currentYear.value}-${String(currentMonth.value + 1).padStart(2, '0')}-${String(i).padStart(2, '0')}`;
 
         // Allowed only if it's in the allowedDates list AND is today or in the future
-        // AND at least one slot is valid (>= 48 hours)
+        // AND at least one slot is valid (>= 8 hours)
         const isAllowed = allowedDates.includes(dateString) &&
             dateString >= todayStr &&
             staticSlots.some((timeStr: string) => isSlotValid(dateString, timeStr));

@@ -217,7 +217,7 @@
               </ul>
             </li>
             <li>
-              The scorecard will be shared within <b>48 hours</b> from the date of test completion.
+              The scorecard will be shared within <b>8 hours</b> from the date of test completion.
             </li>
             <li>
               <b>No request</b> for answer keys, detailed solutions, re-evaluation, or rechecking will be entertained
