@@ -8,10 +8,11 @@ export default defineEventHandler(async (event) => {
     const config = useRuntimeConfig(event);
     const activeGateway = config.paymentGateway || 'CASHFREE';
 
-    console.log(`[PAYMENT][start] Initiating payment. Gateway: ${activeGateway}`, {
-        name, email, mobile, city, state, form_type, form_id, payment_type, source,
-        timestamp: new Date().toISOString()
-    });
+    console.log(`\n====== [PAYMENT][start] Initiating payment ======`);
+    console.log(`Gateway: ${activeGateway}`);
+    console.log(`Payload:`, JSON.stringify({ name, email, mobile, city, state, form_type, form_id, payment_type, source, commingAmount }, null, 2));
+    console.log(`Timestamp: ${new Date().toISOString()}`);
+    console.log(`=================================================\n`);
 
     let amount = Number(commingAmount || config.paymentAmount || 2950);
     const currency = 'INR';
@@ -46,7 +47,9 @@ export default defineEventHandler(async (event) => {
                 notes: orderOptions.notes
             };
         } catch (error: any) {
-            console.error("[PAYMENT][start] Razorpay order creation failed", error);
+            console.error(`\n====== [PAYMENT][start] Razorpay order creation failed ======`);
+            console.error(`Error Details:`, error?.response?.data || error?.message || error);
+            console.error(`=============================================================\n`);
             return { success: false, message: error.message || "Failed to create Razorpay order" };
         }
     } else {
@@ -99,6 +102,9 @@ export default defineEventHandler(async (event) => {
             };
         } catch (error: any) {
             const errorMessage = error?.response?.data?.message || error?.message || "Failed to create Cashfree order";
+            console.error(`\n====== [PAYMENT][start] Cashfree order creation failed ======`);
+            console.error(`Error Details:`, error?.response?.data || error?.message || error);
+            console.error(`=============================================================\n`);
             return { success: false, message: errorMessage };
         }
     }

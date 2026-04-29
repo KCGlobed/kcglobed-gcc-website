@@ -1517,6 +1517,18 @@ const handleFinalSubmit = async () => {
                 errMsg = err.data;
             }
         }
+        
+        // Log client error to server
+        $fetch('/api/log-client-error', {
+            method: 'POST',
+            body: {
+                context: 'myaccount.vue - submitForm/handleProfileUpdate',
+                errorMessage: errMsg,
+                errorData: err?.data || err?.message || String(err),
+                userInfo: { email: formData.email || 'Unknown' }
+            }
+        }).catch(e => console.error("Failed to send log to server", e));
+        
         showAlert("Submission Failed", errMsg, "error");
     } finally {
         isSubmitting.value = false;
