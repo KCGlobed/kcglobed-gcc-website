@@ -76,7 +76,7 @@
                                         @click="downloadReport" :disabled="isDownloadingReport">
                                         <span v-if="isDownloadingReport" class="spinner-border spinner-border-sm"></span>
                                         <i v-else class="ti ti-download fs-6"></i>
-                                        Download Report
+                                        Download Scorecard
                                     </button>
                                 </div>
                             </div>
@@ -97,7 +97,7 @@
                                     @click="downloadReport" :disabled="isDownloadingReport">
                                     <span v-if="isDownloadingReport" class="spinner-border spinner-border-sm"></span>
                                     <i v-else class="ti ti-download fs-5"></i>
-                                    Download Report
+                                    Download Scorecard
                                 </button>
                             </div>
                         </div>
@@ -328,7 +328,7 @@
                                             <span v-if="isDownloadingReport"
                                                 class="spinner-border spinner-border-sm"></span>
                                             <i v-else class="ti ti-download fs-5"></i>
-                                            Download Report
+                                            Download Scorecard
                                         </button>
                                     </div>
                                 </template>
