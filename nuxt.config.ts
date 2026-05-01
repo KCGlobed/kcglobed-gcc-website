@@ -70,6 +70,12 @@ export default defineNuxtConfig({
     emailUser: process.env.EMAIL_HOST_USER,
     emailPassword: process.env.EMAIL_HOST_PASSWORD,
 
+    // ── SMS (WebInfosys) ──────────────────────────────────────────────────────
+    smsApiKey: process.env.SMS_API_KEY,
+    smsSenderId: process.env.SMS_SENDER_ID,
+    smsEntityId: process.env.SMS_ENTITY_ID,
+    smsTemplateId: process.env.SMS_TEMPLATE_ID,
+
     public: {
       paymentGateway: process.env.PAYMENT_GATEWAY || 'CASHFREE',
       paymentAmount: process.env.PAYMENT_AMOUNT || '2950',

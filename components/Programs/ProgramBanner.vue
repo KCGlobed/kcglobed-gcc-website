@@ -40,15 +40,33 @@
                                             </div>
                                             <div class="col-md-6">
                                                 <label for="phoneNumber">Phone Number*</label>
-                                                <div class="form-floating mb-2">
+                                                <div class="input-group mb-2">
                                                     <input type="tel" class="form-control" id="phoneNumber"
                                                         v-model="form.mobile" placeholder="Enter your phone number"
-                                                        :class="{ 'is-invalid': errors.mobile }">
-                                                    <div class="invalid-feedback" v-if="errors.mobile">{{
-                                                        errors.mobile }}
-
-                                                    </div>
+                                                        :class="{ 'is-invalid': errors.mobile }" :disabled="isOtpVerified">
+                                                    <button class="btn btn-outline-purple btn-sm" type="button" @click="sendOtp"
+                                                        v-if="!isOtpVerified" :disabled="isSendingOtp || !isValidMobile(form.mobile)">
+                                                        {{ isOtpSent ? 'Resend' : 'Verify' }}
+                                                    </button>
+                                                    <span class="input-group-text bg-success text-white border-0" v-if="isOtpVerified">
+                                                        <i class="ti ti-check"></i>
+                                                    </span>
                                                 </div>
+                                                <div class="invalid-feedback d-block" v-if="errors.mobile">{{ errors.mobile }}</div>
+                                            </div>
+
+                                            <div class="col-md-12 mb-2" v-if="isOtpSent && !isOtpVerified">
+                                                <label class="form-label fw-bold small">Enter OTP*</label>
+                                                <div class="input-group">
+                                                    <input v-model="otpCode" type="text" class="form-control"
+                                                        placeholder="6-digit OTP" maxlength="6">
+                                                    <button class="btn btn-purple btn-sm" type="button" @click="verifyOtp"
+                                                        :disabled="isVerifyingOtp || otpCode.length !== 6">
+                                                        {{ isVerifyingOtp ? 'Verifying...' : 'Verify OTP' }}
+                                                    </button>
+                                                </div>
+                                                <small class="text-danger d-block" v-if="errors.otp">{{ errors.otp }}</small>
+                                                <small class="text-success d-block" v-if="otpMessage">{{ otpMessage }}</small>
                                             </div>
                                         </div>
 
@@ -729,6 +747,57 @@ export default defineComponent({
             type: 'error' as 'error' | 'success'
         });
 
+        const isOtpSent = ref(false);
+        const isOtpVerified = ref(false);
+        const isSendingOtp = ref(false);
+        const isVerifyingOtp = ref(false);
+        const otpCode = ref('');
+        const otpMessage = ref('');
+
+        const sendOtp = async () => {
+            if (!isValidMobile(form.mobile)) {
+                errors.mobile = 'Please enter a valid 10-digit mobile number';
+                return;
+            }
+            isSendingOtp.value = true;
+            errors.otp = '';
+            otpMessage.value = '';
+            try {
+                const res: any = await $fetch('/api/otp/send', {
+                    method: 'POST',
+                    body: { mobile: form.mobile }
+                });
+                if (res.success) {
+                    isOtpSent.value = true;
+                    otpMessage.value = 'OTP sent to your mobile number';
+                }
+            } catch (err: any) {
+                errors.mobile = err.data?.statusMessage || 'Failed to send OTP';
+            } finally {
+                isSendingOtp.value = false;
+            }
+        };
+
+        const verifyOtp = async () => {
+            if (otpCode.value.length !== 6) return;
+            isVerifyingOtp.value = true;
+            errors.otp = '';
+            try {
+                const res: any = await $fetch('/api/otp/verify', {
+                    method: 'POST',
+                    body: { mobile: form.mobile, otp: otpCode.value }
+                });
+                if (res.success) {
+                    isOtpVerified.value = true;
+                    otpMessage.value = 'Phone number verified successfully!';
+                }
+            } catch (err: any) {
+                errors.otp = err.data?.statusMessage || 'Invalid OTP';
+            } finally {
+                isVerifyingOtp.value = false;
+            }
+        };
+
         const showAlert = (title: string, message: string, type: 'error' | 'success' = 'error') => {
             alertPopup.title = title;
             alertPopup.message = message;
@@ -809,6 +878,7 @@ export default defineComponent({
         const errors = reactive({
             name: "",
             mobile: "",
+            otp: "",
             email: "",
             state: "",
             city: "",
@@ -925,8 +995,11 @@ export default defineComponent({
             errors.city = "";
             errors.consent = "";
             errors.university = "";
-            notification.message = "";
             notification.type = "";
+            isOtpSent.value = false;
+            isOtpVerified.value = false;
+            otpCode.value = '';
+            otpMessage.value = '';
         };
 
         watch(() => form.state, (newState) => {
@@ -1017,6 +1090,10 @@ export default defineComponent({
             }
             if (!form.university) {
                 errors.university = 'University is required';
+                isValid = false;
+            }
+            if (!isOtpVerified.value) {
+                errors.mobile = "Please verify your phone number";
                 isValid = false;
             }
             if (isDownloaded.value && !form.consent) {
@@ -1506,8 +1583,39 @@ export default defineComponent({
             showFeeWaiverModal,
             filteredUniversities,
             selectUni,
-            handleClickOutside
+            handleClickOutside,
+            isOtpSent,
+            isOtpVerified,
+            isSendingOtp,
+            isVerifyingOtp,
+            otpCode,
+            otpMessage,
+            sendOtp,
+            verifyOtp,
+            isValidMobile
         };
     },
 });
 </script>
+
+<style scoped>
+.btn-purple {
+    background-color: #6a1b9a;
+    color: white;
+}
+.btn-purple:hover {
+    background-color: #511970;
+    color: white;
+}
+.btn-outline-purple {
+    border-color: #6a1b9a;
+    color: #6a1b9a;
+}
+.btn-outline-purple:hover {
+    background-color: #6a1b9a;
+    color: white;
+}
+.text-purple {
+    color: #6a1b9a;
+}
+</style>
