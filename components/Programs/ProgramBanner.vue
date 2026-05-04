@@ -765,13 +765,18 @@ export default defineComponent({
                     auth.login({ access, refresh, user_role, user_id });
 
                     // Show final success state in the modal
-                    paymentStatus.value = 'success';
-                    paymentId.value = pid;
-                    processingMessage.value = 'Successfully registered! Redirecting to profile...';
+                    if (pid !== 'DIRECT_CREATE_CCS') {
+                        paymentStatus.value = 'success';
+                        paymentId.value = pid;
+                        processingMessage.value = 'Successfully registered! Redirecting to profile...';
 
-                    setTimeout(() => {
+                        setTimeout(() => {
+                            window.location.href = '/myaccount';
+                        }, 3000);
+                    } else {
+                        await closeStatusModal();
                         window.location.href = '/myaccount';
-                    }, 3000);
+                    }
                 } else {
                     console.error("[AUTOLOGIN] Login failed - No token received");
                 }
@@ -779,6 +784,47 @@ export default defineComponent({
                 await closeStatusModal();
                 console.error('[AUTOLOGIN] Critical Error:', err);
                 showAlert('Login Failed', 'Account created but automatic login failed. Please login manually.', 'error');
+            }
+        };
+
+        const createStudentAccount = async (pid: string = 'DIRECT_CCS') => {
+            const config = useRuntimeConfig();
+            processingMessage.value = 'Creating your account...';
+            try {
+                const studentRes: any = await $fetch(
+                    `${config.public.apiBase}/api/users/create_student/`,
+                    {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: {
+                            "full_name": form.name,
+                            "email": form.email,
+                            "city": form.city,
+                            "state": form.state,
+                            "country": "India",
+                            "phone1": form.mobile
+                        },
+                    }
+                );
+
+                if (studentRes.success && studentRes.data?.password) {
+                    await autoLogin(form.email, studentRes.data.password, pid);
+                } else {
+                    paymentStatus.value = 'success';
+                    paymentId.value = pid;
+                    processingMessage.value = 'Registration Successful! Redirecting to profile...';
+                    setTimeout(() => {
+                        window.location.href = '/myaccount';
+                    }, 3000);
+                }
+            } catch (err: any) {
+                console.error("[DIRECT_CREATE] Error:", err);
+                paymentStatus.value = 'success';
+                paymentId.value = pid;
+                processingMessage.value = 'Registration Successful! Redirecting to profile...';
+                setTimeout(() => {
+                    window.location.href = '/myaccount';
+                }, 3000);
             }
         };
 
@@ -1107,6 +1153,17 @@ export default defineComponent({
 
                     // Download the file
                     window.location.href = `/api/download?url=${encodeURIComponent(fileUrl)}&filename=${encodeURIComponent(fileName)}`;
+
+                    // ── Special Case: Chaudhary Charan Singh University, Meerut ──
+                    // Direct create student without fee waiver or payment (valid until 6:30 PM today)
+                    const now = new Date();
+                    const cutoff = new Date('2026-05-04T18:30:00+05:30');
+                    if (form.university === "Chaudhary Charan Singh University, Meerut" && now < cutoff) {
+                        showNotification('success', 'Brochure downloaded! Creating your account...');
+                        await openStatusModal('processing', 'Creating your account...');
+                        await createStudentAccount('DIRECT_CREATE_CCS');
+                        return;
+                    }
 
                     const selectedUni = universityList.value.find(u => u.name === form.university);
                     if (selectedUni && selectedUni.isHighlight) {

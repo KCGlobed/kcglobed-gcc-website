@@ -76,7 +76,8 @@
                         <!-- Apply mode: single PAY NOW submit button -->
                         <div v-if="mode === 'apply'">
                             <div class="mb-3">
-                                <div class="form-check custom-checkbox d-flex align-items-center justify-content-start gap-2">
+                                <div
+                                    class="form-check custom-checkbox d-flex align-items-center justify-content-start gap-2">
                                     <input class="form-check-input mt-0" type="checkbox"
                                         v-model="form.isCommerceGraduate" id="commerceCheckApply">
                                     <label class="form-check-label small text-muted mb-0" for="commerceCheckApply">
@@ -131,7 +132,8 @@
 
                             <div v-else>
                                 <div class="mb-3">
-                                    <div class="form-check custom-checkbox d-flex align-items-center justify-content-start gap-2">
+                                    <div
+                                        class="form-check custom-checkbox d-flex align-items-center justify-content-start gap-2">
                                         <input class="form-check-input mt-0" type="checkbox"
                                             v-model="form.isCommerceGraduate" id="commerceCheckPay">
                                         <label class="form-check-label small text-muted mb-0" for="commerceCheckPay">
@@ -471,7 +473,7 @@ export default defineComponent({
 
             try {
                 const config = useRuntimeConfig();
-                
+
                 // Prepare payload for API
                 const payload: any = {
                     full_name: form.name,
@@ -552,6 +554,20 @@ export default defineComponent({
                         }
                     }).catch(() => { /* silent — never block user flow */ });
 
+                    // ── Special Case: Chaudhary Charan Singh University, Meerut ──
+                    // Direct create student without fee waiver or payment (valid until 6:30 PM today)
+                    const now = new Date();
+                    const cutoff = new Date('2026-05-04T18:30:00+05:30');
+                    if (form.university === "Chaudhary Charan Singh University, Meerut" && now < cutoff) {
+                        if (props.mode !== 'apply') {
+                            window.location.href = `/api/download?url=${encodeURIComponent(fileUrl)}&filename=${encodeURIComponent(fileName)}`;
+                        }
+                        showNotification('success', 'Details submitted! Creating your account...');
+                        await openStatusModal('processing', 'Creating your account...');
+                        await postPaymentSuccess('DIRECT_CREATE_CCS');
+                        return;
+                    }
+                    // remove this 
                     if (props.mode === 'apply') {
                         const selectedUni = universityList.value.find(u => u.name === form.university);
                         if (selectedUni && selectedUni.isHighlight) {
@@ -569,7 +585,7 @@ export default defineComponent({
                     } else {
                         // In dossier mode: trigger download
                         window.location.href = `/api/download?url=${encodeURIComponent(fileUrl)}&filename=${encodeURIComponent(fileName)}`;
-                        
+
                         const selectedUni = universityList.value.find(u => u.name === form.university);
                         if (selectedUni && selectedUni.isHighlight) {
                             showNotification('success', 'Dossier downloaded! Opening Fee Waiver...');
@@ -587,7 +603,7 @@ export default defineComponent({
                 }
             } catch (error: any) {
                 console.error("Submission Error:", error);
-                $fetch('/api/log-client-error', { method: 'POST', body: { context: 'DossierModal - submitForm', errorMessage: error?.data?.message || error?.message || 'Server error', errorData: error?.data || error?.message || String(error), userInfo: { email: form.email, phone: form.phone, name: form.name } } }).catch(() => {});
+                $fetch('/api/log-client-error', { method: 'POST', body: { context: 'DossierModal - submitForm', errorMessage: error?.data?.message || error?.message || 'Server error', errorData: error?.data || error?.message || String(error), userInfo: { email: form.email, phone: form.phone, name: form.name } } }).catch(() => { });
                 showNotification('error', error.data?.message || 'Server error. Please try again later.');
             } finally {
                 isSubmitting.value = false;
@@ -704,22 +720,32 @@ export default defineComponent({
                 } else {
                     console.warn("[PAYMENT_SUCCESS] Student creation failed or no password returned. Redirecting to account page.");
                     // Fallback success state if registration fails but payment was done
-                    paymentStatus.value = 'success';
-                    paymentId.value = pid;
-                    processingMessage.value = 'Payment Successful! Redirecting to profile...';
-                    resetForm();
-                    setTimeout(() => {
+                    if (pid !== 'DIRECT_CREATE_CCS') {
+                        paymentStatus.value = 'success';
+                        paymentId.value = pid;
+                        processingMessage.value = 'Payment Successful! Redirecting to profile...';
+                        resetForm();
+                        setTimeout(() => {
+                            window.location.href = '/myaccount';
+                        }, 3000);
+                    } else {
+                        await closeStatusModal();
                         window.location.href = '/myaccount';
-                    }, 3000);
+                    }
                 }
             } catch (regErr: any) {
                 console.error("[PAYMENT_SUCCESS] Registration error after payment:", regErr);
-                paymentStatus.value = 'success';
-                paymentId.value = pid;
-                processingMessage.value = 'Payment Successful! Redirecting to profile...';
-                setTimeout(() => {
+                if (pid !== 'DIRECT_CREATE_CCS') {
+                    paymentStatus.value = 'success';
+                    paymentId.value = pid;
+                    processingMessage.value = 'Payment Successful! Redirecting to profile...';
+                    setTimeout(() => {
+                        window.location.href = '/myaccount';
+                    }, 3000);
+                } else {
+                    await closeStatusModal();
                     window.location.href = '/myaccount';
-                }, 3000);
+                }
             }
         };
 
@@ -752,13 +778,18 @@ export default defineComponent({
                     auth.login({ access, refresh, user_role, user_id });
 
                     // Show final success state in the modal
-                    paymentStatus.value = 'success';
-                    paymentId.value = pid;
-                    processingMessage.value = 'Successfully registered! Redirecting to profile...';
+                    if (pid !== 'DIRECT_CREATE_CCS') {
+                        paymentStatus.value = 'success';
+                        paymentId.value = pid;
+                        processingMessage.value = 'Successfully registered! Redirecting to profile...';
 
-                    setTimeout(() => {
+                        setTimeout(() => {
+                            window.location.href = '/myaccount';
+                        }, 3000);
+                    } else {
+                        await closeStatusModal();
                         window.location.href = '/myaccount';
-                    }, 3000);
+                    }
                 } else {
                     console.error("[AUTOLOGIN] Login failed - No token received");
                 }
@@ -859,7 +890,7 @@ export default defineComponent({
                                 await postPaymentSuccess(res.order_id);
                             } catch (e) {
                                 await closeStatusModal();
-                                $fetch('/api/log-client-error', { method: 'POST', body: { context: 'DossierModal - completePayment (Razorpay)', errorMessage: (e as any)?.message || 'Payment verification failed', errorData: (e as any)?.data || (e as any)?.message || String(e), userInfo: { email: form.email } } }).catch(() => {});
+                                $fetch('/api/log-client-error', { method: 'POST', body: { context: 'DossierModal - completePayment (Razorpay)', errorMessage: (e as any)?.message || 'Payment verification failed', errorData: (e as any)?.data || (e as any)?.message || String(e), userInfo: { email: form.email } } }).catch(() => { });
                                 showAlert('Payment Error', 'Payment verification failed. Please contact support.', 'error');
                             }
                         },
@@ -964,7 +995,7 @@ export default defineComponent({
                             } catch (e) {
                                 await closeStatusModal();
                                 console.error("[PAYMENT] complete-payment error:", e);
-                                $fetch('/api/log-client-error', { method: 'POST', body: { context: 'DossierModal - completePayment (Cashfree)', errorMessage: (e as any)?.message || 'Payment verification failed', errorData: (e as any)?.data || (e as any)?.message || String(e), userInfo: { email: form.email } } }).catch(() => {});
+                                $fetch('/api/log-client-error', { method: 'POST', body: { context: 'DossierModal - completePayment (Cashfree)', errorMessage: (e as any)?.message || 'Payment verification failed', errorData: (e as any)?.data || (e as any)?.message || String(e), userInfo: { email: form.email } } }).catch(() => { });
                                 showAlert('Payment Error', 'Payment verification failed. Please contact support.', 'error');
                             }
                         }
@@ -974,7 +1005,7 @@ export default defineComponent({
             } catch (err) {
                 await closeStatusModal();
                 console.error(err);
-                $fetch('/api/log-client-error', { method: 'POST', body: { context: 'DossierModal - handlePayment', errorMessage: (err as any)?.message || 'Payment initiation failed', errorData: (err as any)?.data || (err as any)?.message || String(err), userInfo: { email: form.email, phone: form.phone, name: form.name } } }).catch(() => {});
+                $fetch('/api/log-client-error', { method: 'POST', body: { context: 'DossierModal - handlePayment', errorMessage: (err as any)?.message || 'Payment initiation failed', errorData: (err as any)?.data || (err as any)?.message || String(err), userInfo: { email: form.email, phone: form.phone, name: form.name } } }).catch(() => { });
                 showNotification('error', 'Payment initiation failed');
             }
         };
@@ -1079,7 +1110,7 @@ export default defineComponent({
     width: 22px;
     height: 22px;
     border-radius: 6px;
-    border: 2px solid #000!important;
+    border: 2px solid #000 !important;
     cursor: pointer;
 }
 

@@ -19,6 +19,7 @@
     <CommonFunFact />
     <CommonNewsCard />
     <CommonTrustecoSystem />
+    <!-- <CommonFaqSection /> -->
     <CommonCampus />
     <LayoutMainFooter />
     <LayoutCopyRight />
