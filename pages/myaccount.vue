@@ -1488,11 +1488,13 @@ const handleFinalSubmit = async () => {
             }
         }
 
-        const response: any = await $fetch(`${config.public.apiBase}/api/students/create-update-student-profile/`, {
+        const rawResponse = await fetch(`${config.public.apiBase}/api/students/create-update-student-profile/`, {
             method: "POST",
             body: data,
             headers: token ? { 'Authorization': `Bearer ${token}` } : {}
         });
+        
+        const response: any = await rawResponse.json();
 
         if (response.success || response.status === "200" || response.status === 200 || response.message === "Message sent Successfully" || response.message?.toLowerCase().includes("success")) {
             showAlert("Success", "Profile updated successfully!", "success");
