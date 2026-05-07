@@ -19,9 +19,9 @@
 
                                     <form @submit.prevent="submitForm" class="registration-form">
                                         <label for="fullName">Full Name*</label>
-                                        <div class="form-floating mb-2">
+                                        <div class="">
 
-                                            <input type="text" class="form-control" id="fullName" v-model="form.name"
+                                            <input type="text" class="form-control custom-input mb-2" id="fullName" v-model="form.name"
                                                 placeholder="Enter your full name"
                                                 :class="{ 'is-invalid': errors.name }">
 
@@ -30,8 +30,8 @@
                                         <div class="row">
                                             <div class="col-md-6">
                                                 <label for="emailAddress">Email Address*</label>
-                                                <div class="form-floating mb-2">
-                                                    <input type="email" class="form-control" id="emailAddress"
+                                                <div class="">
+                                                    <input type="email" class="form-control custom-input mb-2" id="emailAddress"
                                                         v-model="form.email" placeholder="Enter your email address"
                                                         :class="{ 'is-invalid': errors.email }">
                                                     <div class="invalid-feedback" v-if="errors.email">{{ errors.email }}
@@ -40,8 +40,8 @@
                                             </div>
                                             <div class="col-md-6">
                                                 <label for="phoneNumber">Phone Number*</label>
-                                                <div class="form-floating mb-2">
-                                                    <input type="tel" class="form-control" id="phoneNumber"
+                                                <div class="">
+                                                    <input type="tel" class="form-control custom-input mb-2" id="phoneNumber"
                                                         v-model="form.mobile" placeholder="Enter your phone number"
                                                         :class="{ 'is-invalid': errors.mobile }">
                                                     <div class="invalid-feedback" v-if="errors.mobile">{{
@@ -55,8 +55,8 @@
                                         <div class="row">
                                             <div class="col-md-6">
                                                 <label for="state">State/UT*</label>
-                                                <div class="form-floating mb-2">
-                                                    <select class="form-select" id="state" v-model="form.state"
+                                                <div class="">
+                                                    <select class="form-select custom-input mb-2" id="state" v-model="form.state"
                                                         @change="onStateChange" :class="{ 'is-invalid': errors.state }">
                                                         <option value="" disabled>Select State</option>
                                                         <option v-for="state in states" :key="state" :value="state">{{
@@ -69,8 +69,8 @@
 
                                             <div class="col-md-6">
                                                 <label for="city">City*</label>
-                                                <div class="form-floating mb-2">
-                                                    <select class="form-select" id="city" v-model="form.city"
+                                                <div class="">
+                                                    <select class="form-select custom-input mb-2" id="city" v-model="form.city"
                                                         :class="{ 'is-invalid': errors.city }">
                                                         <option value="" disabled>Select City</option>
                                                         <option v-for="city in citiesList" :key="city" :value="city">{{
@@ -85,7 +85,7 @@
                                         <div class="mb-3 position-relative">
                                             <label class="form-label fw-bold small">University*</label>
                                             <div class="searchable-select">
-                                                <input type="text" class="form-control custom-input"
+                                                <input type="text" class="form-control custom-input mb-2"
                                                     v-model="searchQuery" placeholder="Search University..."
                                                     autocomplete="off" @focus="showUniDropdown = true"
                                                     @input="showUniDropdown = true">
@@ -102,6 +102,22 @@
                                             <small class="text-danger" v-if="errors.university">
                                                 {{ errors.university }}
                                             </small>
+                                        </div>
+
+                                        <div class="mb-3">
+                                            <label for="referralCode" class="d-flex align-items-center gap-1">
+                                                Referral Code <span class="text-muted fw-normal">(Optional)</span>
+                                                <span class="custom-tooltip-wrapper ms-1">
+                                                    <i class="ti ti-info-circle text-muted" style="font-size: 16px;"></i>
+                                                    <span class="custom-tooltip-content">
+                                                        Enter a referral code to avail special discounts or offers on your application.
+                                                    </span>
+                                                </span>
+                                            </label>
+                                            <div class="">
+                                                <input type="text" class="form-control custom-input mb-2" id="referralCode"
+                                                    v-model="form.referral_code" placeholder="Enter referral code">
+                                            </div>
                                         </div>
 
 
@@ -686,6 +702,51 @@
         transform: scale(0.95);
         box-shadow: 0 0 0 0 rgba(161, 62, 153, 0);
     }
+}
+
+/* Custom Tooltip styling */
+.custom-tooltip-wrapper {
+    position: relative;
+    cursor: pointer;
+    display: inline-block;
+}
+
+.custom-tooltip-content {
+    visibility: hidden;
+    opacity: 0;
+    width: 260px;
+    background-color: #A13E99;
+    color: #fff;
+    text-align: center;
+    border-radius: 8px;
+    padding: 8px 12px;
+    position: absolute;
+    z-index: 1060;
+    bottom: 125%;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 13px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    transition: opacity 0.3s, visibility 0.3s;
+    pointer-events: none;
+    font-weight: normal;
+    text-transform: none; /* Reset uppercase styling if any parent has it */
+}
+
+.custom-tooltip-content::after {
+    content: "";
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    border-width: 5px;
+    border-style: solid;
+    border-color: #A13E99 transparent transparent transparent;
+}
+
+.custom-tooltip-wrapper:hover .custom-tooltip-content {
+    visibility: visible;
+    opacity: 1;
 }
 </style>
 

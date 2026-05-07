@@ -73,6 +73,20 @@
                             <small class="text-danger" v-if="errors.university">{{ errors.university }}</small>
                         </div>
 
+                        <div class="mb-3">
+                            <label class="form-label fw-bold small d-flex align-items-center gap-1">
+                                Referral Code <span class="text-muted fw-normal">(Optional)</span>
+                                <span class="custom-tooltip-wrapper ms-1">
+                                    <i class="ti ti-info-circle text-muted" style="font-size: 16px;"></i>
+                                    <span class="custom-tooltip-content">
+                                        Enter a referral code to avail special discounts or offers on your application.
+                                    </span>
+                                </span>
+                            </label>
+                            <input v-model="form.referral_code" type="text" class="form-control custom-input"
+                                placeholder="Enter referral code">
+                        </div>
+
                         <!-- Apply mode: single PAY NOW submit button -->
                         <div v-if="mode === 'apply'">
                             <div class="mb-3">
@@ -1230,5 +1244,49 @@ export default defineComponent({
 
 .dropdown-list::-webkit-scrollbar-thumb:hover {
     background: #8A2BE2;
+}
+
+/* Custom Tooltip styling */
+.custom-tooltip-wrapper {
+    position: relative;
+    cursor: pointer;
+    display: inline-block;
+}
+
+.custom-tooltip-content {
+    visibility: hidden;
+    opacity: 0;
+    width: 260px;
+    background-color: #A13E99;
+    color: #fff;
+    text-align: center;
+    border-radius: 8px;
+    padding: 8px 12px;
+    position: absolute;
+    z-index: 1060;
+    bottom: 125%;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 13px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    transition: opacity 0.3s, visibility 0.3s;
+    pointer-events: none;
+    font-weight: normal;
+}
+
+.custom-tooltip-content::after {
+    content: "";
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    border-width: 5px;
+    border-style: solid;
+    border-color: #A13E99 transparent transparent transparent;
+}
+
+.custom-tooltip-wrapper:hover .custom-tooltip-content {
+    visibility: visible;
+    opacity: 1;
 }
 </style>
