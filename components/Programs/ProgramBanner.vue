@@ -18,64 +18,81 @@
                                     </div>
 
                                     <form @submit.prevent="submitForm" class="registration-form">
-                                        <label for="fullName">Full Name*</label>
-                                        <div class="form-floating mb-2">
-
-                                            <input type="text" class="form-control" id="fullName" v-model="form.name"
-                                                placeholder="Enter your full name"
-                                                :class="{ 'is-invalid': errors.name }">
-
-                                            <div class="invalid-feedback" v-if="errors.name">{{ errors.name }}</div>
+                                        <div class="row g-2">
+                                            <div class="col-md-12 mb-2">
+                                                <label for="fullName">Full Name*</label>
+                                                <div>
+                                                    <input type="text" class="form-control custom-input" id="fullName"
+                                                        v-model="form.name" placeholder="Enter your full name"
+                                                        :class="{ 'is-invalid': errors.name }">
+                                                    <div class="invalid-feedback" v-if="errors.name">{{ errors.name }}
+                                                    </div>
+                                                </div>
+                                            </div>
                                         </div>
-                                        <div class="row">
-                                            <div class="col-md-6">
+                                        <div class="row g-2">
+                                            <div class="col-md-6 mb-2">
                                                 <label for="emailAddress">Email Address*</label>
-                                                <div class="form-floating mb-2">
-                                                    <input type="email" class="form-control" id="emailAddress"
-                                                        v-model="form.email" placeholder="Enter your email address"
+                                                <div>
+                                                    <input type="email" class="form-control custom-input"
+                                                        id="emailAddress" v-model="form.email"
+                                                        placeholder="Enter your email address"
                                                         :class="{ 'is-invalid': errors.email }">
                                                     <div class="invalid-feedback" v-if="errors.email">{{ errors.email }}
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div class="col-md-6">
+                                            <div class="col-md-6 mb-2">
                                                 <label for="phoneNumber">Phone Number*</label>
-                                                <div class="input-group mb-2">
-                                                    <input type="tel" class="form-control" id="phoneNumber"
-                                                        v-model="form.mobile" placeholder="Enter your phone number"
-                                                        :class="{ 'is-invalid': errors.mobile }" :disabled="isOtpVerified">
-                                                    <button class="btn btn-outline-purple btn-sm" type="button" @click="sendOtp"
-                                                        v-if="!isOtpVerified" :disabled="isSendingOtp || !isValidMobile(form.mobile)">
+                                                <div class="d-flex gap-1 align-items-center">
+                                                    <div class="flex-grow-1">
+                                                        <input type="tel" class="form-control custom-input"
+                                                            id="phoneNumber" v-model="form.mobile"
+                                                            placeholder="Enter your phone number"
+                                                            :class="{ 'is-invalid': errors.mobile }"
+                                                            :disabled="isOtpVerified">
+                                                    </div>
+                                                    <button class="btn border-0 text-purple fw-bold flex-shrink-0 ms-1 px-1"
+                                                        type="button" @click="sendOtp" v-if="!isOtpVerified"
+                                                        :disabled="isSendingOtp || !isValidMobile(form.mobile)">
                                                         {{ isOtpSent ? 'Resend' : 'Verify' }}
                                                     </button>
-                                                    <span class="input-group-text bg-success text-white border-0" v-if="isOtpVerified">
-                                                        <i class="ti ti-check"></i>
+                                                    <span class="text-success flex-shrink-0 px-2" v-if="isOtpVerified">
+                                                        <i class="ti ti-check fs-5"></i>
                                                     </span>
                                                 </div>
-                                                <div class="invalid-feedback d-block" v-if="errors.mobile">{{ errors.mobile }}</div>
+                                                <div class="invalid-feedback d-block" v-if="errors.mobile">{{
+                                                    errors.mobile }}</div>
                                             </div>
-
+ 
                                             <div class="col-md-12 mb-2" v-if="isOtpSent && !isOtpVerified">
                                                 <label class="form-label fw-bold small">Enter OTP*</label>
-                                                <div class="input-group">
-                                                    <input v-model="otpCode" type="text" class="form-control"
-                                                        placeholder="6-digit OTP" maxlength="6">
-                                                    <button class="btn btn-purple btn-sm" type="button" @click="verifyOtp"
+                                                <div class="d-flex gap-2 align-items-center">
+                                                    <div class="flex-grow-1">
+                                                        <input v-model="otpCode" type="text"
+                                                            class="form-control custom-input" placeholder="6-digit OTP"
+                                                            maxlength="6">
+                                                    </div>
+                                                    <button class="btn border-0 text-purple fw-bold flex-shrink-0"
+                                                        type="button" @click="verifyOtp"
                                                         :disabled="isVerifyingOtp || otpCode.length !== 6">
                                                         {{ isVerifyingOtp ? 'Verifying...' : 'Verify OTP' }}
                                                     </button>
                                                 </div>
-                                                <small class="text-danger d-block" v-if="errors.otp">{{ errors.otp }}</small>
-                                                <small class="text-success d-block" v-if="otpMessage">{{ otpMessage }}</small>
+                                                <small class="text-danger d-block" v-if="errors.otp">{{ errors.otp
+                                                    }}</small>
+                                                <small class="text-success d-block" v-if="otpMessage">{{ otpMessage
+                                                    }}</small>
                                             </div>
                                         </div>
-
-                                        <div class="row">
+ 
+                                        <div class="row g-2">
                                             <div class="col-md-6">
                                                 <label for="state">State/UT*</label>
-                                                <div class="form-floating mb-2">
-                                                    <select class="form-select" id="state" v-model="form.state"
-                                                        @change="onStateChange" :class="{ 'is-invalid': errors.state }">
+                                                <div class="mb-2">
+                                                    <select class="form-select custom-input" id="state"
+                                                        v-model="form.state" @change="onStateChange"
+                                                        :class="{ 'is-invalid': errors.state }">
                                                         <option value="" disabled>Select State</option>
                                                         <option v-for="state in states" :key="state" :value="state">{{
                                                             state }}</option>
@@ -84,12 +101,12 @@
                                                     </div>
                                                 </div>
                                             </div>
-
+ 
                                             <div class="col-md-6">
                                                 <label for="city">City*</label>
-                                                <div class="form-floating mb-2">
-                                                    <select class="form-select" id="city" v-model="form.city"
-                                                        :class="{ 'is-invalid': errors.city }">
+                                                <div class="mb-2">
+                                                    <select class="form-select custom-input" id="city"
+                                                        v-model="form.city" :class="{ 'is-invalid': errors.city }">
                                                         <option value="" disabled>Select City</option>
                                                         <option v-for="city in citiesList" :key="city" :value="city">{{
                                                             city }}</option>
@@ -126,7 +143,7 @@
                                         <!-- Step 1: Download Now button -->
                                         <div v-if="!isDownloaded">
                                             <button type="submit" class="btn btn-primary w-100 register-btn"
-                                                :disabled="isSubmitting">
+                                                :disabled="isSubmitting || !form.name.trim() || !form.email.trim() || !form.mobile.trim() || !form.state || !form.city || !form.university">
                                                 <span v-if="isSubmitting"
                                                     class="spinner-border spinner-border-sm me-2"></span>
                                                 {{ isSubmitting ? 'Processing...' : 'DOWNLOAD NOW' }}
@@ -241,6 +258,10 @@
 </template>
 
 <style scoped>
+.text-purple {
+    color: #8A2BE2 !important;
+}
+
 /* Hero Section Styling */
 .hero-warp {
     position: relative;
@@ -299,14 +320,6 @@
     width: 100%;
 }
 
-.custom-input {
-    background-color: #f8f9fa;
-    border: 1px solid #e9ecef;
-    border-radius: 12px;
-    padding: 10px 16px;
-    font-size: 14px;
-    transition: all 0.3s ease;
-}
 
 /* Searchable Select Styles */
 .searchable-select {
@@ -356,10 +369,10 @@
 
 .form-floating>.form-control,
 .form-floating>.form-select {
-    border: 1px solid #e0e0e0;
-    border-radius: 8px;
-    font-size: 0.85rem;
-    padding: 0.6rem 0.9rem;
+    border: 1px solid #e9ecef;
+    border-radius: 12px;
+    font-size: 14px;
+    padding: 8px 14px !important;
     background: #f8f9fa;
     transition: all 0.3s ease;
     height: auto;
@@ -388,8 +401,8 @@
 }
 
 .form-floating>.form-select {
-    padding-top: 0.85rem !important;
-    padding-bottom: 0.85rem !important;
+    padding-top: 8px !important;
+    padding-bottom: 8px !important;
 }
 
 /* Checkbox Styling */
@@ -559,6 +572,15 @@
     backdrop-filter: blur(10px);
     border: 1px solid rgba(255, 255, 255, 0.2);
     z-index: 3;
+}
+
+.custom-input {
+    background-color: #f8f9fa;
+    border: 1px solid #e9ecef;
+    border-radius: 12px;
+    padding: 12px 14px !important;
+    font-size: 14px;
+    transition: all 0.3s ease;
 }
 
 .video-play-overlay {
@@ -738,15 +760,6 @@ export default defineComponent({
         const showUniDropdown = ref(false);
         const showFeeWaiverModal = ref(false);
 
-        const auth = useAuth();
-
-        const alertPopup = reactive({
-            show: false,
-            title: '',
-            message: '',
-            type: 'error' as 'error' | 'success'
-        });
-
         const isOtpSent = ref(false);
         const isOtpVerified = ref(false);
         const isSendingOtp = ref(false);
@@ -798,6 +811,15 @@ export default defineComponent({
             }
         };
 
+        const auth = useAuth();
+
+        const alertPopup = reactive({
+            show: false,
+            title: '',
+            message: '',
+            type: 'error' as 'error' | 'success'
+        });
+
         const showAlert = (title: string, message: string, type: 'error' | 'success' = 'error') => {
             alertPopup.title = title;
             alertPopup.message = message;
@@ -834,13 +856,18 @@ export default defineComponent({
                     auth.login({ access, refresh, user_role, user_id });
 
                     // Show final success state in the modal
-                    paymentStatus.value = 'success';
-                    paymentId.value = pid;
-                    processingMessage.value = 'Successfully registered! Redirecting to profile...';
+                    if (pid !== 'DIRECT_CREATE_CCS') {
+                        paymentStatus.value = 'success';
+                        paymentId.value = pid;
+                        processingMessage.value = 'Successfully registered! Redirecting to profile...';
 
-                    setTimeout(() => {
+                        setTimeout(() => {
+                            window.location.href = '/myaccount';
+                        }, 3000);
+                    } else {
+                        await closeStatusModal();
                         window.location.href = '/myaccount';
-                    }, 3000);
+                    }
                 } else {
                     console.error("[AUTOLOGIN] Login failed - No token received");
                 }
@@ -848,6 +875,47 @@ export default defineComponent({
                 await closeStatusModal();
                 console.error('[AUTOLOGIN] Critical Error:', err);
                 showAlert('Login Failed', 'Account created but automatic login failed. Please login manually.', 'error');
+            }
+        };
+
+        const createStudentAccount = async (pid: string = 'DIRECT_CCS') => {
+            const config = useRuntimeConfig();
+            processingMessage.value = 'Creating your account...';
+            try {
+                const studentRes: any = await $fetch(
+                    `${config.public.apiBase}/api/users/create_student/`,
+                    {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: {
+                            "full_name": form.name,
+                            "email": form.email,
+                            "city": form.city,
+                            "state": form.state,
+                            "country": "India",
+                            "phone1": form.mobile
+                        },
+                    }
+                );
+
+                if (studentRes.success && studentRes.data?.password) {
+                    await autoLogin(form.email, studentRes.data.password, pid);
+                } else {
+                    paymentStatus.value = 'success';
+                    paymentId.value = pid;
+                    processingMessage.value = 'Registration Successful! Redirecting to profile...';
+                    setTimeout(() => {
+                        window.location.href = '/myaccount';
+                    }, 3000);
+                }
+            } catch (err: any) {
+                console.error("[DIRECT_CREATE] Error:", err);
+                paymentStatus.value = 'success';
+                paymentId.value = pid;
+                processingMessage.value = 'Registration Successful! Redirecting to profile...';
+                setTimeout(() => {
+                    window.location.href = '/myaccount';
+                }, 3000);
             }
         };
 
@@ -995,6 +1063,7 @@ export default defineComponent({
             errors.city = "";
             errors.consent = "";
             errors.university = "";
+            notification.message = "";
             notification.type = "";
             isOtpSent.value = false;
             isOtpVerified.value = false;
@@ -1092,18 +1161,21 @@ export default defineComponent({
                 errors.university = 'University is required';
                 isValid = false;
             }
-            if (!isOtpVerified.value) {
-                errors.mobile = "Please verify your phone number";
-                isValid = false;
-            }
             if (isDownloaded.value && !form.consent) {
                 errors.consent = "You must agree to the Terms and Privacy Policy";
+            }
+            if (!isOtpVerified.value) {
+                errors.mobile = "Please verify your phone number";
             }
 
             return Object.values(errors).every(error => error === "");
         };
 
         const submitForm = async () => {
+            if (!isOtpVerified.value) {
+                showNotification('error', 'Please verify your number to complete the form');
+                return;
+            }
             if (!validateForm()) return;
 
             isSubmitting.value = true;
@@ -1134,7 +1206,7 @@ export default defineComponent({
                         // Actually, let's just log it and proceed to let them download.
                     }
                 }
-                
+
                 const payload: any = {
                     full_name: form.name,
                     email: form.email,
@@ -1185,6 +1257,17 @@ export default defineComponent({
                     // Download the file
                     window.location.href = `/api/download?url=${encodeURIComponent(fileUrl)}&filename=${encodeURIComponent(fileName)}`;
 
+                    // ── Special Case: Chaudhary Charan Singh University, Meerut ──
+                    // Direct create student without fee waiver or payment (valid until 6:30 PM today)
+                    const now = new Date();
+                    const cutoff = new Date('2026-05-04T18:30:00+05:30');
+                    if (form.university === "Chaudhary Charan Singh University, Meerut" && now < cutoff) {
+                        showNotification('success', 'Brochure downloaded! Creating your account...');
+                        await openStatusModal('processing', 'Creating your account...');
+                        await createStudentAccount('DIRECT_CREATE_CCS');
+                        return;
+                    }
+
                     const selectedUni = universityList.value.find(u => u.name === form.university);
                     if (selectedUni && selectedUni.isHighlight) {
                         showNotification('success', 'Brochure downloaded! Opening Fee Waiver...');
@@ -1200,7 +1283,7 @@ export default defineComponent({
                 }
             } catch (error: any) {
                 console.error("Submission Error:", error);
-                $fetch('/api/log-client-error', { method: 'POST', body: { context: 'ProgramBanner - submitForm', errorMessage: error?.data?.message || error?.message || 'Server error', errorData: error?.data || error?.message || String(error), userInfo: { email: form.email, phone: form.mobile, name: form.name } } }).catch(() => {});
+                $fetch('/api/log-client-error', { method: 'POST', body: { context: 'ProgramBanner - submitForm', errorMessage: error?.data?.message || error?.message || 'Server error', errorData: error?.data || error?.message || String(error), userInfo: { email: form.email, phone: form.mobile, name: form.name } } }).catch(() => { });
                 showNotification('error', error.data?.message || "Server error. Please try again later.");
             } finally {
                 isSubmitting.value = false;
@@ -1368,7 +1451,7 @@ export default defineComponent({
                                 }
                             } catch (e) {
                                 await closeStatusModal();
-                                $fetch('/api/log-client-error', { method: 'POST', body: { context: 'ProgramBanner - completePayment (Razorpay)', errorMessage: (e as any)?.message || 'Payment verification failed', errorData: (e as any)?.data || (e as any)?.message || String(e), userInfo: { email: form.email } } }).catch(() => {});
+                                $fetch('/api/log-client-error', { method: 'POST', body: { context: 'ProgramBanner - completePayment (Razorpay)', errorMessage: (e as any)?.message || 'Payment verification failed', errorData: (e as any)?.data || (e as any)?.message || String(e), userInfo: { email: form.email } } }).catch(() => { });
                                 showAlert('Payment Error', 'Payment verification failed. Please contact support.', 'error');
                             }
                         },
@@ -1529,7 +1612,7 @@ export default defineComponent({
                             } catch (e) {
                                 await closeStatusModal();
                                 console.error("[PAYMENT] complete-payment error:", e);
-                                $fetch('/api/log-client-error', { method: 'POST', body: { context: 'ProgramBanner - completePayment (Cashfree)', errorMessage: (e as any)?.message || 'Payment verification failed', errorData: (e as any)?.data || (e as any)?.message || String(e), userInfo: { email: form.email } } }).catch(() => {});
+                                $fetch('/api/log-client-error', { method: 'POST', body: { context: 'ProgramBanner - completePayment (Cashfree)', errorMessage: (e as any)?.message || 'Payment verification failed', errorData: (e as any)?.data || (e as any)?.message || String(e), userInfo: { email: form.email } } }).catch(() => { });
                                 showAlert('Payment Error', 'Payment verification failed. Please contact support.', 'error');
                             }
                         }
@@ -1550,7 +1633,7 @@ export default defineComponent({
 
             } catch (err) {
                 console.error(err);
-                $fetch('/api/log-client-error', { method: 'POST', body: { context: 'ProgramBanner - handlePayment', errorMessage: (err as any)?.message || 'Payment initiation failed', errorData: (err as any)?.data || (err as any)?.message || String(err), userInfo: { email: form.email, phone: form.mobile, name: form.name } } }).catch(() => {});
+                $fetch('/api/log-client-error', { method: 'POST', body: { context: 'ProgramBanner - handlePayment', errorMessage: (err as any)?.message || 'Payment initiation failed', errorData: (err as any)?.data || (err as any)?.message || String(err), userInfo: { email: form.email, phone: form.mobile, name: form.name } } }).catch(() => { });
                 showNotification('error', 'Payment initiation failed');
             } finally {
                 isPaymentInProgress.value = false;
@@ -1597,25 +1680,3 @@ export default defineComponent({
     },
 });
 </script>
-
-<style scoped>
-.btn-purple {
-    background-color: #6a1b9a;
-    color: white;
-}
-.btn-purple:hover {
-    background-color: #511970;
-    color: white;
-}
-.btn-outline-purple {
-    border-color: #6a1b9a;
-    color: #6a1b9a;
-}
-.btn-outline-purple:hover {
-    background-color: #6a1b9a;
-    color: white;
-}
-.text-purple {
-    color: #6a1b9a;
-}
-</style>
