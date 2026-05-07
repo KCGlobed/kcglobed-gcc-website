@@ -333,7 +333,8 @@ export default defineComponent({
             state: '',
             city: '',
             university: '',
-            isCommerceGraduate: false
+            isCommerceGraduate: false,
+            referral_code: ''
         });
 
         const route = useRoute();

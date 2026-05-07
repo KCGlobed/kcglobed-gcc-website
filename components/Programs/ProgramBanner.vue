@@ -897,6 +897,7 @@ export default defineComponent({
             city: "",
             university: "",
             consent: false,
+            referral_code: "",
         });
 
         const route = useRoute();
