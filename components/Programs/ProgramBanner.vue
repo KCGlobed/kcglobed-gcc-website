@@ -18,7 +18,7 @@
                                     </div>
 
                                     <form @submit.prevent="submitForm" class="registration-form">
-                                        <label for="fullName">Full Name*</label>
+                                        <label for="fullName" class="form-label fw-bold small">Full Name*</label>
                                         <div class="">
 
                                             <input type="text" class="form-control custom-input mb-2" id="fullName" v-model="form.name"
@@ -29,7 +29,7 @@
                                         </div>
                                         <div class="row">
                                             <div class="col-md-6">
-                                                <label for="emailAddress">Email Address*</label>
+                                                <label for="emailAddress" class="form-label fw-bold small">Email Address*</label>
                                                 <div class="">
                                                     <input type="email" class="form-control custom-input mb-2" id="emailAddress"
                                                         v-model="form.email" placeholder="Enter your email address"
@@ -39,7 +39,7 @@
                                                 </div>
                                             </div>
                                             <div class="col-md-6">
-                                                <label for="phoneNumber">Phone Number*</label>
+                                                <label for="phoneNumber" class="form-label fw-bold small">Phone Number*</label>
                                                 <div class="">
                                                     <input type="tel" class="form-control custom-input mb-2" id="phoneNumber"
                                                         v-model="form.mobile" placeholder="Enter your phone number"
@@ -54,7 +54,7 @@
 
                                         <div class="row">
                                             <div class="col-md-6">
-                                                <label for="state">State/UT*</label>
+                                                <label for="state" class="form-label fw-bold small">State/UT*</label>
                                                 <div class="">
                                                     <select class="form-select custom-input mb-2" id="state" v-model="form.state"
                                                         @change="onStateChange" :class="{ 'is-invalid': errors.state }">
@@ -68,7 +68,7 @@
                                             </div>
 
                                             <div class="col-md-6">
-                                                <label for="city">City*</label>
+                                                <label for="city" class="form-label fw-bold small">City*</label>
                                                 <div class="">
                                                     <select class="form-select custom-input mb-2" id="city" v-model="form.city"
                                                         :class="{ 'is-invalid': errors.city }">
@@ -105,7 +105,7 @@
                                         </div>
 
                                         <div class="mb-3">
-                                            <label for="referralCode" class="d-flex align-items-center gap-1">
+                                            <label for="referralCode" class="d-flex align-items-center gap-1 form-label fw-bold small">
                                                 Referral Code <span class="text-muted fw-normal">(Optional)</span>
                                                 <span class="custom-tooltip-wrapper ms-1">
                                                     <i class="ti ti-info-circle text-muted" style="font-size: 16px;"></i>
