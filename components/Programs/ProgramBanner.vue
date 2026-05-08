@@ -1293,23 +1293,13 @@ export default defineComponent({
 
         const states = ref<string[]>([]);
         const citiesList = ref<string[]>([]);
+
         const universityList = ref([
             ...universitiesList
                 .filter(name => !selectUniversityList.includes(name))
                 .map((name, index) => ({ id: `u-${index}`, name, isHighlight: false })),
             ...selectUniversityList.map((name, index) => ({ id: `s-${index}`, name, isHighlight: true }))
         ]);
-
-        const errors = reactive({
-            name: "",
-            mobile: "",
-            email: "",
-            state: "",
-            city: "",
-            consent: "",
-            university: "",
-            referral_code: "",
-        });
 
         const filteredUniversities = computed(() => {
             const query = searchQuery.value.trim().toLowerCase();
@@ -1323,6 +1313,19 @@ export default defineComponent({
             searchQuery.value = uni.name;
             showUniDropdown.value = false;
         };
+
+        const errors = reactive({
+            name: "",
+            mobile: "",
+            email: "",
+            state: "",
+            city: "",
+            consent: "",
+            university: "",
+            referral_code: "",
+        });
+
+
 
         const banners = reactive([
             {
@@ -1515,6 +1518,7 @@ export default defineComponent({
                 errors.university = 'University is required';
                 isValid = false;
             }
+
             if (isDownloaded.value && !form.consent) {
                 errors.consent = "You must agree to the Terms and Privacy Policy";
             }
@@ -1591,8 +1595,7 @@ export default defineComponent({
                     utm_medium: utm_medium.value,
                     utm_campaign: utm_campaign.value,
                     university: form.university,
-                    referred_code: form.referral_code,
-                    referral_code: form.referral_code,
+                    referred_code: form.referral_code
                 };
 
                 const response: any = await $fetch(`${config.public.apiBase}/api/career/createdossierform`, {
@@ -1618,24 +1621,22 @@ export default defineComponent({
                             action: 'download_brochure_clicked',
                             utm_source: utm_source.value,
                             utm_medium: utm_medium.value,
-                            utm_campaign: utm_campaign.value,
-                            referred_code: form.referral_code,
-                            referral_code: form.referral_code,
+                            utm_campaign: utm_campaign.value
                         }
                     }).catch(() => { });
-
-                    // Download the file
-                    window.location.href = `/api/download?url=${encodeURIComponent(fileUrl)}&filename=${encodeURIComponent(fileName)}`;
 
                     // ── Referral Code: Skip payment, create account first, then show congratulations popup ──
                     if (referralVerified) {
                         // Create account first in the background (no PaymentStatusModal shown)
                         await createStudentAccount('REFERRAL_CODE');
+                        window.location.href = `/api/download?url=${encodeURIComponent(fileUrl)}&filename=${encodeURIComponent(fileName)}`;
                         showCelebrationPopup.value = true;
                         isSubmitting.value = false;
                         return;
                     }
 
+                    // Download the file
+                    window.location.href = `/api/download?url=${encodeURIComponent(fileUrl)}&filename=${encodeURIComponent(fileName)}`;
                     isDownloaded.value = true;
                     showNotification('success', 'Brochure downloaded! You can now proceed to pay the application fee.');
                 } else {
@@ -1675,12 +1676,6 @@ export default defineComponent({
         };
 
         const handlePayment = async () => {
-            const selectedUni = universityList.value.find(u => u.name === form.university);
-            if (selectedUni && selectedUni.isHighlight) {
-                showFeeWaiverModal.value = true;
-                return;
-            }
-
             notification.message = '';
             notification.type = '';
             isPaymentInProgress.value = true;
