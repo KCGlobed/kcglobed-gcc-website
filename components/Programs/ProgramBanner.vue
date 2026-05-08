@@ -114,10 +114,26 @@
                                                     </span>
                                                 </span>
                                             </label>
-                                            <div class="">
-                                                <input type="text" class="form-control custom-input mb-2" id="referralCode"
-                                                    v-model="form.referral_code" placeholder="Enter referral code">
+                                            <div class="referral-input-group">
+                                                <input type="text" class="form-control custom-input mb-0 referral-field" id="referralCode"
+                                                    v-model="form.referral_code" placeholder="Enter referral code"
+                                                    :class="{ 'referral-verified': referralApplied, 'is-invalid': errors.referral_code }"
+                                                    :readonly="referralApplied"
+                                                    @input="referralApplied = false; errors.referral_code = ''">
+                                                <button
+                                                    v-if="!referralApplied"
+                                                    type="button"
+                                                    class="btn-apply-coupon"
+                                                    :disabled="isVerifyingReferral || !form.referral_code.trim()"
+                                                    @click="verifyAndApplyReferral">
+                                                    <span v-if="isVerifyingReferral" class="spinner-border spinner-border-sm"></span>
+                                                    <span v-else>Apply</span>
+                                                </button>
+                                                <div v-else class="referral-applied-badge">
+                                                    <i class="ti ti-check"></i> Applied
+                                                </div>
                                             </div>
+                                            <small class="text-danger" v-if="errors.referral_code">{{ errors.referral_code }}</small>
                                         </div>
 
 
@@ -236,6 +252,53 @@
     <!-- Fee Waiver Modal -->
     <FeeWaiverModal v-if="showFeeWaiverModal" :dossierId="formId!" :userData="form"
         @close="showFeeWaiverModal = false" />
+
+    <!-- 🎉 Referral Success Celebration Popup -->
+    <Teleport to="body">
+        <Transition name="celebration-fade">
+            <div v-if="showCelebrationPopup" class="celebration-overlay" @click.self="showCelebrationPopup = false">
+                <div class="celebration-card">
+                    <!-- Confetti particles -->
+                    <div class="confetti-container">
+                        <span v-for="n in 40" :key="n" class="confetti-particle" :style="getConfettiStyle(n)"></span>
+                    </div>
+
+                    <!-- Close Button -->
+                    <button class="celebration-close" @click="showCelebrationPopup = false">
+                        <i class="ti ti-x"></i>
+                    </button>
+
+                    <!-- Content -->
+                    <div class="celebration-content">
+                        <div class="celebration-emoji">🎉</div>
+                        <h2 class="celebration-title">Congratulations!</h2>
+
+                        <div class="celebration-body">
+                            <p>Your referral coupon has been applied successfully and your <strong>application fee has been waived off.</strong></p>
+
+                            <div class="celebration-divider"></div>
+
+                            <p>Your <strong>NFET login credentials and exam details</strong> have been sent to your registered <strong>Email ID and Mobile Number.</strong></p>
+                            <p class="text-sm-muted">Please check your Inbox/Spam folder along with WhatsApp/SMS for further instructions.</p>
+
+                            <div class="celebration-divider"></div>
+
+                            <p class="celebration-referral-note">✨ You can also <strong>refer your friends</strong> and earn cashback rewards.</p>
+                            <p class="text-sm-muted">Your unique referral code will be shared with you via Email, SMS, and WhatsApp shortly.</p>
+
+                            <div class="celebration-divider"></div>
+
+                            <p class="celebration-welcome">🏫 Welcome to <strong>GCC School</strong> — Your Gateway to Global Finance Careers.</p>
+                        </div>
+
+                        <button class="celebration-cta" @click="handleCelebrationCta">
+                            Got it, Continue <i class="ti ti-arrow-right ms-2"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </Transition>
+    </Teleport>
 </template>
 
 <style scoped>
@@ -748,6 +811,272 @@
     visibility: visible;
     opacity: 1;
 }
+
+/* ─── Referral Input Group ─────────────────────────────────────────────── */
+.referral-input-group {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.referral-field {
+    flex: 1;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.referral-field.referral-verified {
+    border-color: #28a745 !important;
+    background-color: #f0fff4 !important;
+    color: #155724;
+}
+
+.btn-apply-coupon {
+    flex-shrink: 0;
+    background: linear-gradient(135deg, #6a1b9a, #8e24aa);
+    color: #fff;
+    border: none;
+    border-radius: 10px;
+    padding: 10px 18px;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.25s ease;
+    white-space: nowrap;
+    letter-spacing: 0.5px;
+}
+
+.btn-apply-coupon:hover:not(:disabled) {
+    transform: translateY(-1px);
+    box-shadow: 0 4px 14px rgba(106, 27, 154, 0.4);
+    filter: brightness(1.1);
+}
+
+.btn-apply-coupon:disabled {
+    opacity: 0.55;
+    cursor: not-allowed;
+}
+
+.referral-applied-badge {
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    background: #d4edda;
+    color: #155724;
+    border: 1.5px solid #28a745;
+    border-radius: 10px;
+    padding: 9px 14px;
+    font-size: 13px;
+    font-weight: 600;
+    white-space: nowrap;
+    animation: badge-pop 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+@keyframes badge-pop {
+    0% { transform: scale(0.5); opacity: 0; }
+    100% { transform: scale(1); opacity: 1; }
+}
+
+.referral-success-msg {
+    display: block;
+    margin-top: 5px;
+    font-size: 12.5px;
+    animation: fadeInUp 0.4s ease;
+}
+
+@keyframes fadeInUp {
+    from { opacity: 0; transform: translateY(6px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* ─── Celebration Overlay ──────────────────────────────────────────────── */
+.celebration-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.65);
+    backdrop-filter: blur(6px);
+    z-index: 99999;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+}
+
+.celebration-card {
+    position: relative;
+    background: #fff;
+    border-radius: 28px;
+    max-width: 520px;
+    width: 100%;
+    overflow: hidden;
+    box-shadow: 0 30px 80px rgba(106, 27, 154, 0.35), 0 0 0 1px rgba(106, 27, 154, 0.08);
+    animation: card-bounce-in 0.55s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+@keyframes card-bounce-in {
+    0% { transform: scale(0.6) translateY(40px); opacity: 0; }
+    100% { transform: scale(1) translateY(0); opacity: 1; }
+}
+
+.confetti-container {
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 140px;
+    overflow: hidden;
+    pointer-events: none;
+}
+
+.confetti-particle {
+    position: absolute;
+    top: -20px;
+    border-radius: 2px;
+    animation: confetti-fall linear infinite;
+    opacity: 0.85;
+}
+
+@keyframes confetti-fall {
+    0% { transform: translateY(-20px) rotate(0deg); opacity: 1; }
+    80% { opacity: 1; }
+    100% { transform: translateY(160px) rotate(540deg); opacity: 0; }
+}
+
+.celebration-close {
+    position: absolute;
+    top: 14px;
+    right: 14px;
+    z-index: 10;
+    background: rgba(0,0,0,0.08);
+    border: none;
+    border-radius: 50%;
+    width: 34px;
+    height: 34px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    font-size: 18px;
+    color: #555;
+    transition: background 0.2s, transform 0.2s;
+}
+
+.celebration-close:hover {
+    background: rgba(0,0,0,0.15);
+    transform: rotate(90deg);
+}
+
+.celebration-content {
+    padding: 48px 36px 36px;
+    text-align: center;
+}
+
+.celebration-emoji {
+    font-size: 64px;
+    line-height: 1;
+    margin-bottom: 12px;
+    display: block;
+    animation: emoji-bounce 0.8s ease 0.3s both;
+}
+
+@keyframes emoji-bounce {
+    0% { transform: scale(0) rotate(-30deg); }
+    60% { transform: scale(1.25) rotate(10deg); }
+    100% { transform: scale(1) rotate(0deg); }
+}
+
+.celebration-title {
+    font-size: 1.9rem;
+    font-weight: 800;
+    background: linear-gradient(135deg, #6a1b9a, #8e24aa, #FFD700);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    margin-bottom: 20px;
+    letter-spacing: -0.5px;
+}
+
+.celebration-body {
+    text-align: left;
+    font-size: 0.92rem;
+    color: #444;
+    line-height: 1.65;
+}
+
+.celebration-body p {
+    margin-bottom: 8px;
+}
+
+.celebration-body strong {
+    color: #511970;
+}
+
+.celebration-divider {
+    height: 1px;
+    background: linear-gradient(90deg, transparent, #ddc0f0, transparent);
+    margin: 14px 0;
+}
+
+.text-sm-muted {
+    font-size: 0.82rem !important;
+    color: #888 !important;
+}
+
+.celebration-referral-note {
+    color: #6a1b9a;
+    font-weight: 500;
+}
+
+.celebration-welcome {
+    font-size: 0.95rem;
+    color: #333;
+    font-weight: 500;
+}
+
+.celebration-cta {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 24px;
+    background: linear-gradient(135deg, #6a1b9a 0%, #8e24aa 100%);
+    color: #fff;
+    border: none;
+    border-radius: 14px;
+    padding: 14px 32px;
+    font-size: 1rem;
+    font-weight: 700;
+    cursor: pointer;
+    width: 100%;
+    letter-spacing: 0.5px;
+    transition: all 0.3s ease;
+    box-shadow: 0 6px 20px rgba(106, 27, 154, 0.35);
+}
+
+.celebration-cta:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 28px rgba(106, 27, 154, 0.45);
+    filter: brightness(1.08);
+}
+
+/* Transition */
+.celebration-fade-enter-active,
+.celebration-fade-leave-active {
+    transition: opacity 0.35s ease;
+}
+.celebration-fade-enter-from,
+.celebration-fade-leave-to {
+    opacity: 0;
+}
+
+@media (max-width: 576px) {
+    .celebration-content {
+        padding: 44px 22px 28px;
+    }
+    .celebration-title {
+        font-size: 1.5rem;
+    }
+    .celebration-emoji {
+        font-size: 52px;
+    }
+}
 </style>
 
 <script lang="ts">
@@ -797,6 +1126,52 @@ export default defineComponent({
             alertPopup.show = true;
         };
 
+        const referralApplied = ref(false);
+        const isVerifyingReferral = ref(false);
+        const showCelebrationPopup = ref(false);
+
+        const getConfettiStyle = (n: number) => {
+            const colors = ['#8A2BE2', '#A13E99', '#FFD700', '#FF6B6B', '#4ECDC4', '#45B7D1', '#96CEB4', '#FFEAA7', '#DDA0DD', '#98D8C8'];
+            const color = colors[n % colors.length];
+            const left = `${(n * 7.3 + 13) % 100}%`;
+            const delay = `${(n * 0.13) % 3}s`;
+            const duration = `${2.5 + (n * 0.11) % 2}s`;
+            const size = `${6 + (n % 5) * 2}px`;
+            return { left, animationDelay: delay, animationDuration: duration, background: color, width: size, height: size };
+        };
+
+        const verifyAndApplyReferral = async () => {
+            if (!form.referral_code.trim()) return;
+            isVerifyingReferral.value = true;
+            errors.referral_code = '';
+            try {
+                const config = useRuntimeConfig();
+                const verifyRes: any = await $fetch(`${config.public.apiBase}/api/users/verify_refferal_code/`, {
+                    method: 'POST',
+                    body: { refferal_code: form.referral_code }
+                });
+                // Handle 200 response with success: false in body
+                if (verifyRes?.success === false || verifyRes?.data?.verified_status === false) {
+                    errors.referral_code = verifyRes.message || 'Invalid referral code';
+                } else {
+                    referralApplied.value = true;
+                    // Congratulations popup will be shown after form submission
+                    showCelebrationPopup.value = false;
+                }
+            } catch (err: any) {
+                // API returns HTTP 400 for invalid codes — $fetch throws, body is in err.data
+                const apiMessage = err?.data?.message || err?.data?.data?.message;
+                errors.referral_code = apiMessage || err?.message || 'Invalid referral code';
+            } finally {
+                isVerifyingReferral.value = false;
+            }
+        };
+
+        const handleCelebrationCta = () => {
+            showCelebrationPopup.value = false;
+            window.location.href = '/myaccount';
+        };
+
         const autoLogin = async (email: string, password: string, pid: string = '') => {
             console.log("[AUTOLOGIN] Starting automated login for:", email);
             try {
@@ -826,7 +1201,9 @@ export default defineComponent({
                     auth.login({ access, refresh, user_role, user_id });
 
                     // Show final success state in the modal
-                    if (pid !== 'DIRECT_CREATE_CCS') {
+                    if (pid === 'REFERRAL_CODE') {
+                        // Referral code: do nothing, let submitForm show the popup
+                    } else if (pid !== 'DIRECT_CREATE_CCS') {
                         paymentStatus.value = 'success';
                         paymentId.value = pid;
                         processingMessage.value = 'Successfully registered! Redirecting to profile...';
@@ -863,13 +1240,30 @@ export default defineComponent({
                             "city": form.city,
                             "state": form.state,
                             "country": "India",
-                            "phone1": form.mobile
+                            "phone1": form.mobile,
+                            "referred_code": form.referral_code || ""
                         },
                     }
                 );
 
                 if (studentRes.success && studentRes.data?.password) {
                     await autoLogin(form.email, studentRes.data.password, pid);
+                } else {
+                    if (pid === 'REFERRAL_CODE') {
+                        // Referral code: do nothing, let submitForm show the popup
+                    } else {
+                        paymentStatus.value = 'success';
+                        paymentId.value = pid;
+                        processingMessage.value = 'Registration Successful! Redirecting to profile...';
+                        setTimeout(() => {
+                            window.location.href = '/myaccount';
+                        }, 3000);
+                    }
+                }
+            } catch (err: any) {
+                console.error("[DIRECT_CREATE] Error:", err);
+                if (pid === 'REFERRAL_CODE') {
+                    // Referral code: do nothing, let submitForm show the popup
                 } else {
                     paymentStatus.value = 'success';
                     paymentId.value = pid;
@@ -878,14 +1272,6 @@ export default defineComponent({
                         window.location.href = '/myaccount';
                     }, 3000);
                 }
-            } catch (err: any) {
-                console.error("[DIRECT_CREATE] Error:", err);
-                paymentStatus.value = 'success';
-                paymentId.value = pid;
-                processingMessage.value = 'Registration Successful! Redirecting to profile...';
-                setTimeout(() => {
-                    window.location.href = '/myaccount';
-                }, 3000);
             }
         };
 
@@ -922,6 +1308,7 @@ export default defineComponent({
             city: "",
             consent: "",
             university: "",
+            referral_code: "",
         });
 
         const filteredUniversities = computed(() => {
@@ -1103,6 +1490,7 @@ export default defineComponent({
             errors.state = "";
             errors.city = "";
             errors.consent = "";
+            errors.referral_code = "";
 
             if (!form.name.trim()) {
                 errors.name = "Full name is required";
@@ -1143,6 +1531,31 @@ export default defineComponent({
             try {
                 const config = useRuntimeConfig();
 
+                // ── Referral Code Validation (use pre-verified state if already applied) ──
+                let referralVerified = referralApplied.value;
+                if (form.referral_code && !referralVerified) {
+                    try {
+                        const verifyRes: any = await $fetch(`${config.public.apiBase}/api/users/verify_refferal_code/`, {
+                            method: 'POST',
+                            body: { refferal_code: form.referral_code }
+                        });
+                        // Handle 200 with success:false in body
+                        if (verifyRes?.success === false || verifyRes?.data?.verified_status === false) {
+                            errors.referral_code = verifyRes.message || 'Invalid referral code';
+                            isSubmitting.value = false;
+                            return;
+                        }
+                        referralVerified = true;
+                    } catch (verifyErr: any) {
+                        // API returns HTTP 400 for invalid codes — body is in verifyErr.data
+                        console.error('[Verify Referral Code] Error:', verifyErr);
+                        const apiMsg = verifyErr?.data?.message || verifyErr?.data?.data?.message;
+                        errors.referral_code = apiMsg || verifyErr?.message || 'Invalid referral code';
+                        isSubmitting.value = false;
+                        return;
+                    }
+                }
+
                 // ── Pre-Dossier Email Validation ──
                 try {
                     const checkRes: any = await $fetch(
@@ -1178,12 +1591,9 @@ export default defineComponent({
                     utm_medium: utm_medium.value,
                     utm_campaign: utm_campaign.value,
                     university: form.university,
+                    referred_code: form.referral_code,
+                    referral_code: form.referral_code,
                 };
-
-                const selectedUni = universityList.value.find(u => u.name === form.university);
-                if (selectedUni && selectedUni.isHighlight) {
-                    payload.fee_waiver_category = "Free of cost (FOC)";
-                }
 
                 const response: any = await $fetch(`${config.public.apiBase}/api/career/createdossierform`, {
                     method: "POST",
@@ -1195,7 +1605,6 @@ export default defineComponent({
                     formId.value = response.data.id;
                     const fileName = fileUrl.split('/').pop() || 'Brochure.pdf';
 
-                    // Save lead instantly
                     $fetch("/api/save-lead", {
                         method: "POST",
                         body: {
@@ -1210,33 +1619,25 @@ export default defineComponent({
                             utm_source: utm_source.value,
                             utm_medium: utm_medium.value,
                             utm_campaign: utm_campaign.value,
+                            referred_code: form.referral_code,
+                            referral_code: form.referral_code,
                         }
                     }).catch(() => { });
 
                     // Download the file
                     window.location.href = `/api/download?url=${encodeURIComponent(fileUrl)}&filename=${encodeURIComponent(fileName)}`;
 
-                    // ── Special Case: Chaudhary Charan Singh University, Meerut ──
-                    // Direct create student without fee waiver or payment (valid until 6:30 PM today)
-                    const now = new Date();
-                    const cutoff = new Date('2026-05-04T18:30:00+05:30');
-                    if (form.university === "Chaudhary Charan Singh University, Meerut" && now < cutoff) {
-                        showNotification('success', 'Brochure downloaded! Creating your account...');
-                        await openStatusModal('processing', 'Creating your account...');
-                        await createStudentAccount('DIRECT_CREATE_CCS');
+                    // ── Referral Code: Skip payment, create account first, then show congratulations popup ──
+                    if (referralVerified) {
+                        // Create account first in the background (no PaymentStatusModal shown)
+                        await createStudentAccount('REFERRAL_CODE');
+                        showCelebrationPopup.value = true;
+                        isSubmitting.value = false;
                         return;
                     }
 
-                    const selectedUni = universityList.value.find(u => u.name === form.university);
-                    if (selectedUni && selectedUni.isHighlight) {
-                        showNotification('success', 'Brochure downloaded! Opening Fee Waiver...');
-                        isDownloaded.value = true;
-                        showFeeWaiverModal.value = true;
-                        resetForm();
-                    } else {
-                        isDownloaded.value = true;
-                        showNotification('success', 'Brochure downloaded! You can now proceed to pay the application fee.');
-                    }
+                    isDownloaded.value = true;
+                    showNotification('success', 'Brochure downloaded! You can now proceed to pay the application fee.');
                 } else {
                     showNotification('error', response.message || "Something went wrong. Please try again.");
                 }
@@ -1380,7 +1781,8 @@ export default defineComponent({
                                                 "city": form.city,
                                                 "state": form.state,
                                                 "country": "India",
-                                                "phone1": form.mobile
+                                                "phone1": form.mobile,
+                                                "referred_code": form.referral_code || ""
                                             },
                                         }
                                     );
@@ -1526,7 +1928,8 @@ export default defineComponent({
                                                 "city": form.city,
                                                 "state": form.state,
                                                 "country": "India",
-                                                "phone1": form.mobile
+                                                "phone1": form.mobile,
+                                                "referred_code": form.referral_code || ""
                                             },
                                         }
                                     );
@@ -1625,7 +2028,13 @@ export default defineComponent({
             showFeeWaiverModal,
             filteredUniversities,
             selectUni,
-            handleClickOutside
+            handleClickOutside,
+            referralApplied,
+            isVerifyingReferral,
+            verifyAndApplyReferral,
+            showCelebrationPopup,
+            handleCelebrationCta,
+            getConfettiStyle
         };
     },
 });
