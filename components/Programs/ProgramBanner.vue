@@ -1598,6 +1598,10 @@ export default defineComponent({
                     referred_code: form.referral_code
                 };
 
+                if (referralVerified) {
+                    payload.fee_waiver_category = "Free of cost (FOC)";
+                }
+
                 const response: any = await $fetch(`${config.public.apiBase}/api/career/createdossierform`, {
                     method: "POST",
                     body: payload

@@ -642,6 +642,10 @@ export default defineComponent({
                     referred_code: form.referral_code || ""
                 };
 
+                if (referralVerified) {
+                    payload.fee_waiver_category = "Free of cost (FOC)";
+                }
+
                 // ── Pre-Dossier Email Validation ──
                 try {
                     const checkRes: any = await $fetch(
