@@ -391,6 +391,7 @@ export default defineComponent({
             form.state = '';
             form.city = '';
             form.university = '';
+            form.referral_code = '';
             form.isCommerceGraduate = false;
             citiesList.value = [];
             errors.name = '';
@@ -400,11 +401,13 @@ export default defineComponent({
             errors.city = '';
             errors.university = '';
             errors.isCommerceGraduate = '';
+            errors.referral_code = '';
             isDownloaded.value = false;
             searchQuery.value = '';
             showUniDropdown.value = false;
             notification.type = '';
             notification.message = '';
+            referralApplied.value = false;
         };
 
         const showNotification = (type: 'success' | 'error', message: string) => {
@@ -848,6 +851,10 @@ export default defineComponent({
 
                 console.log("[PAYMENT_SUCCESS] Student creation response:", studentRes);
 
+                // Empty the coupon code field after creating student
+                form.referral_code = '';
+                referralApplied.value = false;
+
                 if (studentRes.success && studentRes.data?.password) {
                     console.log("[PAYMENT_SUCCESS] Password received, triggering autoLogin");
                     await autoLogin(form.email, studentRes.data.password, pid);
@@ -870,6 +877,8 @@ export default defineComponent({
                 }
             } catch (regErr: any) {
                 console.error("[PAYMENT_SUCCESS] Registration error after payment:", regErr);
+                form.referral_code = '';
+                referralApplied.value = false;
                 if (pid === 'REFERRAL_CODE') {
                     // Referral code: do nothing, let submitForm show the popup
                 } else if (pid !== 'DIRECT_CREATE_CCS') {
@@ -1153,6 +1162,11 @@ export default defineComponent({
             const el = document.getElementById(props.modalId);
             if (el) {
                 el.addEventListener('show.bs.modal', resetForm);
+                el.addEventListener('hidden.bs.modal', () => {
+                    form.referral_code = '';
+                    referralApplied.value = false;
+                    errors.referral_code = '';
+                });
             }
             window.addEventListener('click', handleClickOutside);
             // Populate states from local JSON and sort alphabetically
