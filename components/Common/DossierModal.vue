@@ -251,8 +251,8 @@
 
                             <div class="celebration-divider"></div>
 
-                            <p>Your <strong>NFET login credentials and exam details</strong> have been sent to your registered <strong>Email ID and Mobile Number.</strong></p>
-                            <p class="text-sm-muted">Please check your Inbox/Spam folder along with WhatsApp/SMS for further instructions.</p>
+                            <p>Your <strong>NFET login credentials and exam details</strong> have been sent to your registered <strong>Email ID.</strong></p>
+                            <!-- <p class="text-sm-muted">Please check your Inbox/Spam folder along with WhatsApp/SMS for further instructions.</p> -->
 
                             <div class="celebration-divider"></div>
 
