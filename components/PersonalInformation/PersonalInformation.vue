@@ -49,6 +49,7 @@
           <div class="input-box mb-0">
             <label class="form-label fw-bold">Emergency Contact Name</label>
             <input type="text" class="form-control" placeholder="Contact Name" v-model="formData.father_name"
+              @blur="validateField('father_name')" @input="validateField('father_name')"
               :class="{ 'is-invalid': errors.father_name }" />
             <div class="invalid-feedback" v-if="errors.father_name">{{ errors.father_name }}</div>
           </div>
@@ -216,6 +217,11 @@ export default {
             error = "Invalid mobile number (10 digits)";
           }
           break;
+        case 'father_name':
+          if (this.formData.father_name && !/^[A-Za-z ]+$/.test(this.formData.father_name)) {
+            error = "Only alphabets and spaces are allowed.";
+          }
+          break;
         case 'father_mobile':
           if (this.formData.father_mobile && !isValidMobile(this.formData.father_mobile)) {
             error = "Invalid mobile number (10 digits)";
@@ -280,7 +286,7 @@ export default {
     },
     validate() {
       const fields = [
-        'first_name', 'last_name', 'email', 'mobile', 'father_mobile',
+        'first_name', 'last_name', 'email', 'mobile', 'father_name', 'father_mobile',
         'dob', 'gender', 'state', 'city', 'pin_code', 'complete_address'
       ];
       let isValid = true;
