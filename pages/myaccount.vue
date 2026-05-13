@@ -118,7 +118,7 @@
                             <div class="profile-accordion">
 
                                 <!-- Section 1: Pre Interview -->
-                                <div class="accordion-section" :class="{ active: isSectionOpen(1) }">
+                                <div v-if="isPreInterviewVisible" class="accordion-section" :class="{ active: isSectionOpen(1) }">
                                     <div class="accordion-header" @click="toggleSection(1)">
                                         <div class="accordion-header-left">
                                             <div style="display: flex; align-items: center; gap: 10px;">
@@ -321,7 +321,7 @@
                             <div class="completeness-body pb-4 pt-0">
                                 <ul class="list-unstyled mb-0 completion-checklist">
                                     <li class="d-flex align-items-center justify-content-between py-3 px-4 border-bottom"
-                                        v-for="(item, idx) in completionSteps" :key="idx">
+                                        v-for="(item, idx) in completionSteps" :key="idx" v-show="item.visible !== false">
                                         <div class="d-flex align-items-center gap-3">
                                             <div class="completeness-icon" :class="{ 'is-done': item.done }">
                                                 <i v-if="item.done" class="ti ti-check"></i>
@@ -645,12 +645,21 @@ const reattempt = ref<number>(0);
 const isProfileEmpty = ref(false);
 const resultStatus = ref(false);
 const reportUrl = ref<string | null>(null);
+const studentResult = ref("");
+
+const isPreInterviewVisible = computed(() => {
+    if (!studentResult.value) return false;
+    const val = parseFloat(studentResult.value);
+    return !isNaN(val) && val >= 60;
+});
 
 const profileCompletion = computed(() => {
     let totalProgress = 0;
     const p = formData;
 
-    // 1. Pre Interview (20%)
+    const sectionWeight = isPreInterviewVisible.value ? 20 : 25;
+
+    // 1. Pre Interview (dynamically weighted)
     const piMandatory = [
         'identity_proof', 'tenth_marksheet', 'twelth_marksheet',
         'graduation_first_marksheet', 'graduation_second_marksheet', 'graduation_third_marksheet',
@@ -692,9 +701,11 @@ const profileCompletion = computed(() => {
         piTotal += 1; 
     }
 
-    totalProgress += (piDocsCount / piTotal) * 20;
+    if (isPreInterviewVisible.value) {
+        totalProgress += (piDocsCount / piTotal) * sectionWeight;
+    }
 
-    // 2. Personal Information (20%) - 10 Fields
+    // 2. Personal Information (dynamically weighted) - 10 Fields
     const personalFields = [
         'first_name', 'last_name', 'email', 'mobile',
         'dob', 'gender', 'state', 'city', 'pin_code', 'complete_address'
@@ -706,9 +717,9 @@ const profileCompletion = computed(() => {
         if (f === 'pin_code') return isValidPincode(String(val));
         return !!val;
     }).length;
-    totalProgress += (personalCompleted / personalFields.length) * 20;
+    totalProgress += (personalCompleted / personalFields.length) * sectionWeight;
 
-    // 3. Academic Information (20%)
+    // 3. Academic Information (dynamically weighted)
     const academicFields = [
         'class10_year', 'class10_score',
         'class12_year', 'class12_score',
@@ -723,36 +734,36 @@ const profileCompletion = computed(() => {
         if (p.ug_cgpa) academicCompletedCount++;
         if (p.ug_institution) academicCompletedCount++;
     }
-    totalProgress += (academicCompletedCount / academicTotalFields) * 20;
+    totalProgress += (academicCompletedCount / academicTotalFields) * sectionWeight;
 
-    // 4. Work Experience (20%)
+    // 4. Work Experience (dynamically weighted)
     if (p.employment_status === 'Fresher') {
-        totalProgress += 20;
+        totalProgress += sectionWeight;
     } else if (p.employment_status === 'Experienced') {
         const jobs = p.work_experience || [];
         if (jobs.length > 0) {
             const firstJob = jobs[0];
             const jobFields = ['org_name', 'designation', 'functional_area', 'from'];
             const jobCompleted = jobFields.filter(f => !!firstJob[f]).length;
-            totalProgress += (jobCompleted / jobFields.length) * 20;
+            totalProgress += (jobCompleted / jobFields.length) * sectionWeight;
         }
     }
 
-    // 5. Documents (20%)
+    // 5. Documents (dynamically weighted)
     const docFields = ['aadhaar', 'dob_proof', 'photo', 'signature'];
     const docCompleted = docFields.filter(field => {
         const hasNew = !!p.documents[field];
         const hasExisting = !!(p.existingDocuments && p.existingDocuments[field]);
         return hasNew || hasExisting;
     }).length;
-    totalProgress += (docCompleted / docFields.length) * 20;
+    totalProgress += (docCompleted / docFields.length) * sectionWeight;
 
     return Math.round(totalProgress);
 });
 
 const firstIncompleteSectionIndex = computed(() => {
     const steps = completionSteps.value;
-    const index = steps.findIndex(step => !step.done);
+    const index = steps.findIndex(step => step.visible !== false && !step.done);
     return index !== -1 ? index + 1 : null;
 });
 
@@ -829,11 +840,11 @@ const completionSteps = computed(() => {
     });
 
     return [
-        { label: 'Pre Interview Documents', done: preInterviewDone },
-        { label: 'Personal Information', done: personalDone },
-        { label: 'Academic Information', done: academicDone },
-        { label: 'Work Experience', done: workDone },
-        { label: 'Documents Upload', done: docsDone }
+        { label: 'Pre Interview Documents', done: preInterviewDone, visible: isPreInterviewVisible.value },
+        { label: 'Personal Information', done: personalDone, visible: true },
+        { label: 'Academic Information', done: academicDone, visible: true },
+        { label: 'Work Experience', done: workDone, visible: true },
+        { label: 'Documents Upload', done: docsDone, visible: true }
     ];
 });
 
@@ -908,6 +919,7 @@ const fetchStudentDetail = async () => {
         if (response?.data && !Array.isArray(response.data)) {
             const d = response.data;
             reattempt.value=d?.re_attempt_btn
+            studentResult.value = d?.student_result ? String(d.student_result) : "";
             // Name splitting logic
             formData.first_name = d.first_name || "";
             formData.last_name = d.last_name || "";
@@ -1057,6 +1069,11 @@ const fetchStudentDetail = async () => {
             }
         } catch (detailErr) {
             console.error("Error fetching detail API data:", detailErr);
+        }
+
+        if (!isPreInterviewVisible.value) {
+            openSections.value.add(2);
+            openSections.value.delete(1);
         }
 
     } catch (err) {
