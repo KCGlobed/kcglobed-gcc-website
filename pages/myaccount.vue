@@ -52,7 +52,7 @@
 
                                 <div class="application-id-badge mb-3 d-inline-block">
                                     <span v-if="formData?.application_id">Application ID: {{ formData.application_id
-                                    }}</span>
+                                        }}</span>
                                     <span v-else>- </span>
                                 </div>
 
@@ -72,9 +72,11 @@
 
                                 <!-- Bottom: Download Report Button (Mobile) -->
                                 <div v-if="resultStatus" class="d-md-none mt-4 text-center">
-                                    <button class="status-pill report-download-btn d-flex align-items-center gap-2 mx-auto"
+                                    <button
+                                        class="status-pill report-download-btn d-flex align-items-center gap-2 mx-auto"
                                         @click="downloadReport" :disabled="isDownloadingReport">
-                                        <span v-if="isDownloadingReport" class="spinner-border spinner-border-sm"></span>
+                                        <span v-if="isDownloadingReport"
+                                            class="spinner-border spinner-border-sm"></span>
                                         <i v-else class="ti ti-download fs-6"></i>
                                         Download Scorecard
                                     </button>
@@ -117,16 +119,17 @@
                         <div class="pb-30">
                             <div class="profile-accordion">
 
-                                <!-- Section 1: Personal Information -->
-                                <div class="accordion-section" :class="{ active: isSectionOpen(1) }">
+                                <!-- Section 1: Pre Interview -->
+                                <div v-if="isPreInterviewVisible" class="accordion-section"
+                                    :class="{ active: isSectionOpen(1) }">
                                     <div class="accordion-header" @click="toggleSection(1)">
                                         <div class="accordion-header-left">
                                             <div style="display: flex; align-items: center; gap: 10px;">
                                                 <div v-if="completionSteps[0].done" class="section-complete-check">
                                                     <i class="ti ti-check"></i>
                                                 </div>
-                                                <span v-else class="accordion-icon"><i class="ti ti-user"></i></span>
-                                                <h4>Personal Information</h4>
+                                                <span v-else class="accordion-icon"><i class="ti ti-files"></i></span>
+                                                <h4>Pre Interview</h4>
                                             </div>
                                         </div>
                                         <div class="accordion-header-right">
@@ -141,13 +144,13 @@
                                     </div>
                                     <div class="accordion-body p-4 p-lg-5" v-show="isSectionOpen(1)">
                                         <fieldset :disabled="!isEditingSection[1]">
-                                            <PersonalInformation ref="section1Ref" :formData="formData" />
+                                            <PreInterview ref="section1Ref" :formData="formData"
+                                                :isDisabled="!isEditingSection[1]" />
                                         </fieldset>
                                     </div>
                                 </div>
 
-
-                                <!-- Section 2: Academic Information -->
+                                <!-- Section 2: Personal Information -->
                                 <div class="accordion-section" :class="{ active: isSectionOpen(2) }">
                                     <div class="accordion-header" @click="toggleSection(2)">
                                         <div class="accordion-header-left">
@@ -155,8 +158,8 @@
                                                 <div v-if="completionSteps[1].done" class="section-complete-check">
                                                     <i class="ti ti-check"></i>
                                                 </div>
-                                                <span v-else class="accordion-icon"><i class="ti ti-school"></i></span>
-                                                <h4>Academic Information</h4>
+                                                <span v-else class="accordion-icon"><i class="ti ti-user"></i></span>
+                                                <h4>Personal Information</h4>
                                             </div>
                                         </div>
                                         <div class="accordion-header-right">
@@ -171,12 +174,13 @@
                                     </div>
                                     <div class="accordion-body p-4 p-lg-5" v-show="isSectionOpen(2)">
                                         <fieldset :disabled="!isEditingSection[2]">
-                                            <AcademicInformation ref="section2Ref" :formData="formData" />
+                                            <PersonalInformation ref="section2Ref" :formData="formData" />
                                         </fieldset>
                                     </div>
                                 </div>
 
-                                <!-- Section 3: Work Experience -->
+
+                                <!-- Section 3: Academic Information -->
                                 <div class="accordion-section" :class="{ active: isSectionOpen(3) }">
                                     <div class="accordion-header" @click="toggleSection(3)">
                                         <div class="accordion-header-left">
@@ -184,9 +188,8 @@
                                                 <div v-if="completionSteps[2].done" class="section-complete-check">
                                                     <i class="ti ti-check"></i>
                                                 </div>
-                                                <span v-else class="accordion-icon"><i
-                                                        class="ti ti-briefcase"></i></span>
-                                                <h4>Work Experience</h4>
+                                                <span v-else class="accordion-icon"><i class="ti ti-school"></i></span>
+                                                <h4>Academic Information</h4>
                                             </div>
                                         </div>
                                         <div class="accordion-header-right">
@@ -201,14 +204,12 @@
                                     </div>
                                     <div class="accordion-body p-4 p-lg-5" v-show="isSectionOpen(3)">
                                         <fieldset :disabled="!isEditingSection[3]">
-                                            <WorkExperienceDetails ref="section3Ref" :formData="formData"
-                                                :isDisabled="!isEditingSection[3]" />
+                                            <AcademicInformation ref="section3Ref" :formData="formData" />
                                         </fieldset>
                                     </div>
                                 </div>
 
-
-                                <!-- Section 4: Documents & Declaration -->
+                                <!-- Section 4: Work Experience -->
                                 <div class="accordion-section" :class="{ active: isSectionOpen(4) }">
                                     <div class="accordion-header" @click="toggleSection(4)">
                                         <div class="accordion-header-left">
@@ -216,8 +217,9 @@
                                                 <div v-if="completionSteps[3].done" class="section-complete-check">
                                                     <i class="ti ti-check"></i>
                                                 </div>
-                                                <span v-else class="accordion-icon"><i class="ti ti-files"></i></span>
-                                                <h4>Documents</h4>
+                                                <span v-else class="accordion-icon"><i
+                                                        class="ti ti-briefcase"></i></span>
+                                                <h4>Work Experience</h4>
                                             </div>
                                         </div>
                                         <div class="accordion-header-right">
@@ -231,12 +233,43 @@
                                         </div>
                                     </div>
                                     <div class="accordion-body p-4 p-lg-5" v-show="isSectionOpen(4)">
-                                        <DocumentUpload ref="section4aRef" :formData="formData"
-                                            :isDisabled="!isEditingSection[4]" />
+                                        <fieldset :disabled="!isEditingSection[4]">
+                                            <WorkExperienceDetails ref="section4Ref" :formData="formData"
+                                                :isDisabled="!isEditingSection[4]" />
+                                        </fieldset>
+                                    </div>
+                                </div>
+
+
+                                <!-- Section 5: Documents & Declaration -->
+                                <div class="accordion-section" :class="{ active: isSectionOpen(5) }">
+                                    <div class="accordion-header" @click="toggleSection(5)">
+                                        <div class="accordion-header-left">
+                                            <div style="display: flex; align-items: center; gap: 10px;">
+                                                <div v-if="completionSteps[4].done" class="section-complete-check">
+                                                    <i class="ti ti-check"></i>
+                                                </div>
+                                                <span v-else class="accordion-icon"><i class="ti ti-files"></i></span>
+                                                <h4>Documents</h4>
+                                            </div>
+                                        </div>
+                                        <div class="accordion-header-right">
+                                            <span v-if="!isProfileEmpty && !isEditingSection[5]"
+                                                @click.stop="enableEdit(5)" class="edit-icon-btn me-3"
+                                                title="Edit Section">
+                                                <i class="ti ti-pencil fs-5 text-[#872980]"></i>
+                                            </span>
+                                            <i class="ti accordion-chevron"
+                                                :class="isSectionOpen(5) ? 'ti-chevron-up' : 'ti-chevron-down'"></i>
+                                        </div>
+                                    </div>
+                                    <div class="accordion-body p-4 p-lg-5" v-show="isSectionOpen(5)">
+                                        <DocumentUpload ref="section5Ref" :formData="formData"
+                                            :isDisabled="!isEditingSection[5]" />
                                         <!-- <div class="section-divider"></div> -->
                                         <!-- <PrePaymentDeclaration ref="section4bRef" :formData="formData" /> -->
                                     </div>
-                                </div> <!-- End Section 4 -->
+                                </div> <!-- End Section 5 -->
                             </div> <!-- End profile-accordion -->
                         </div> <!-- End pb-30 -->
 
@@ -292,7 +325,8 @@
                             <div class="completeness-body pb-4 pt-0">
                                 <ul class="list-unstyled mb-0 completion-checklist">
                                     <li class="d-flex align-items-center justify-content-between py-3 px-4 border-bottom"
-                                        v-for="(item, idx) in completionSteps" :key="idx">
+                                        v-for="(item, idx) in completionSteps" :key="idx"
+                                        v-show="item.visible !== false">
                                         <div class="d-flex align-items-center gap-3">
                                             <div class="completeness-icon" :class="{ 'is-done': item.done }">
                                                 <i v-if="item.done" class="ti ti-check"></i>
@@ -364,7 +398,7 @@
                                                 class="ti ti-chevron-left"></i></button>
                                         <span class="fw-bold text-dark" style="font-size: 14px;">{{
                                             monthNames[currentMonth]
-                                        }}
+                                            }}
                                             {{ currentYear }}</span>
                                         <button
                                             class="btn btn-sm btn-white border shadow-sm p-1 d-flex align-items-center justify-content-center"
@@ -423,7 +457,8 @@
                                                 class="btn btn-primary w-100 custom-primary-bg d-flex justify-content-center align-items-center gap-2"
                                                 :class="{ 'btn-disabled-custom': isBookingSlot || isCurrentSlotInPast }"
                                                 :disabled="isBookingSlot || isCurrentSlotInPast"
-                                                style="pointer-events: auto;" @click="!isBookingSlot && !isCurrentSlotInPast && bookSlot()">
+                                                style="pointer-events: auto;"
+                                                @click="!isBookingSlot && !isCurrentSlotInPast && bookSlot()">
                                                 <span v-if="isBookingSlot" class="spinner-border spinner-border-sm"
                                                     role="status" aria-hidden="true"></span>
 
@@ -507,7 +542,7 @@
                                         </a>
 
                                     </div>
-                                     
+
 
                                 </div> <!-- End Position-Relative -->
                             </div> <!-- End v-show -->
@@ -576,6 +611,7 @@
 <!-- ✅ PROTECTED ROUTE — redirects to /login if no valid token found -->
 <script setup lang="ts">
 import { ref, reactive, computed, onMounted, nextTick } from 'vue'
+import PreInterview from "../components/PreInterview/PreInterview.vue";
 import PersonalInformation from "../components/PersonalInformation/PersonalInformation.vue";
 import AcademicInformation from "../components/AcademicInformation/AcademicInformation.vue";
 import WorkExperienceDetails from "../components/WorkExperienceDetails/WorkExperienceDetails.vue";
@@ -615,12 +651,66 @@ const reattempt = ref<number>(0);
 const isProfileEmpty = ref(false);
 const resultStatus = ref(false);
 const reportUrl = ref<string | null>(null);
+const studentResult = ref("");
+
+const isPreInterviewVisible = computed(() => {
+    if (!studentResult.value) return false;
+    const val = parseFloat(studentResult.value);
+    return !isNaN(val) && val >= 60;
+});
 
 const profileCompletion = computed(() => {
     let totalProgress = 0;
-
-    // 1. Personal Information (25%) - 10 Fields
     const p = formData;
+
+    const sectionWeight = isPreInterviewVisible.value ? 20 : 25;
+    // 1. Pre Interview (dynamically weighted)
+    const piMandatory = [
+        'identity_proof', 'tenth_marksheet', 'twelth_marksheet',
+        'graduation_first_marksheet', 'graduation_second_marksheet', 'graduation_third_marksheet',
+        'graduation_forth_marksheet', 'graduation_fifth_marksheet'
+    ];
+    let piDocsCount = piMandatory.filter(field => !!p.documents[field] || !!(p.existingDocuments && p.existingDocuments[field])).length;
+    let piTotal = piMandatory.length;
+
+    if (p.accounting_profession === '1') {
+        piTotal += 1;
+        if (p.fee_preference_agree) piDocsCount++;
+    } else if (p.accounting_profession === '2') {
+        piTotal += 3; // Co-app PAN, Aadhaar, and shared bank statement
+        if (!!p.documents['co_applicant_pan_card'] || !!(p.existingDocuments && p.existingDocuments['co_applicant_pan_card'])) piDocsCount++;
+        if (!!p.documents['co_applicant_aadhaar'] || !!(p.existingDocuments && p.existingDocuments['co_applicant_aadhaar'])) piDocsCount++;
+        if (!!p.documents['co_applicant_six_month_bank'] || !!(p.existingDocuments && p.existingDocuments['co_applicant_six_month_bank'])) piDocsCount++;
+
+        if (p.co_applicant_profession === '1') {
+            piTotal += 4;
+            const salDocs = ['co_applicant_sallary_slip', 'co_applicant_form16', 'co_applicant_employee_id_card', 'co_applicant_passport_size'];
+            salDocs.forEach(field => {
+                if (!!p.documents[field] || !!(p.existingDocuments && p.existingDocuments[field])) piDocsCount++;
+            });
+        } else if (p.co_applicant_profession === '2') {
+            piTotal += 2;
+            const selfDocs = ['co_applicant_income_tax_return', 'co_applicant_compute_income'];
+            selfDocs.forEach(field => {
+                if (!!p.documents[field] || !!(p.existingDocuments && p.existingDocuments[field])) piDocsCount++;
+            });
+        } else if (p.co_applicant_profession === '3') {
+            piTotal += 1;
+            const agriDocs = ['co_applicant_agriculture_income'];
+            agriDocs.forEach(field => {
+                if (!!p.documents[field] || !!(p.existingDocuments && p.existingDocuments[field])) piDocsCount++;
+            });
+        }
+    } else if (!p.accounting_profession) {
+        // If preference isn't selected yet, include it in the total fields
+        piTotal += 1;
+    }
+
+    if (isPreInterviewVisible.value) {
+        totalProgress += (piDocsCount / piTotal) * sectionWeight;
+    }
+
+    // 2. Personal Information (dynamically weighted) - 10 Fields
     const personalFields = [
         'first_name', 'last_name', 'email', 'mobile',
         'dob', 'gender', 'state', 'city', 'pin_code', 'complete_address'
@@ -632,9 +722,9 @@ const profileCompletion = computed(() => {
         if (f === 'pin_code') return isValidPincode(String(val));
         return !!val;
     }).length;
-    totalProgress += (personalCompleted / personalFields.length) * 25;
+    totalProgress += (personalCompleted / personalFields.length) * sectionWeight;
 
-    // 2. Academic Information (25%)
+    // 3. Academic Information (dynamically weighted)
     const academicFields = [
         'class10_year', 'class10_score',
         'class12_year', 'class12_score',
@@ -649,36 +739,36 @@ const profileCompletion = computed(() => {
         if (p.ug_cgpa) academicCompletedCount++;
         if (p.ug_institution) academicCompletedCount++;
     }
-    totalProgress += (academicCompletedCount / academicTotalFields) * 25;
+    totalProgress += (academicCompletedCount / academicTotalFields) * sectionWeight;
 
-    // 3. Work Experience (25%)
+    // 4. Work Experience (dynamically weighted)
     if (p.employment_status === 'Fresher') {
-        totalProgress += 25;
+        totalProgress += sectionWeight;
     } else if (p.employment_status === 'Experienced') {
         const jobs = p.work_experience || [];
         if (jobs.length > 0) {
             const firstJob = jobs[0];
             const jobFields = ['org_name', 'designation', 'functional_area', 'from'];
             const jobCompleted = jobFields.filter(f => !!firstJob[f]).length;
-            totalProgress += (jobCompleted / jobFields.length) * 25;
+            totalProgress += (jobCompleted / jobFields.length) * sectionWeight;
         }
     }
 
-    // 4. Documents (25%)
+    // 5. Documents (dynamically weighted)
     const docFields = ['aadhaar', 'dob_proof', 'photo', 'signature'];
     const docCompleted = docFields.filter(field => {
         const hasNew = !!p.documents[field];
         const hasExisting = !!(p.existingDocuments && p.existingDocuments[field]);
         return hasNew || hasExisting;
     }).length;
-    totalProgress += (docCompleted / docFields.length) * 25;
+    totalProgress += (docCompleted / docFields.length) * sectionWeight;
 
     return Math.round(totalProgress);
 });
 
 const firstIncompleteSectionIndex = computed(() => {
     const steps = completionSteps.value;
-    const index = steps.findIndex(step => !step.done);
+    const index = steps.findIndex(step => step.visible !== false && !step.done);
     return index !== -1 ? index + 1 : null;
 });
 
@@ -701,27 +791,65 @@ const handleFinishProfile = () => {
 const completionSteps = computed(() => {
     const p = formData;
 
-    // Personal (1)
+    // Pre Interview (1)
+    const piMandatory = [
+        'identity_proof', 'tenth_marksheet', 'twelth_marksheet',
+        'graduation_first_marksheet', 'graduation_second_marksheet', 'graduation_third_marksheet',
+        'graduation_forth_marksheet', 'graduation_fifth_marksheet'
+    ];
+    let preInterviewDone = piMandatory.every(field => {
+        return !!p.documents[field] || !!(p.existingDocuments && p.existingDocuments[field]);
+    });
+
+    if (preInterviewDone) {
+        if (p.accounting_profession === '1') {
+            preInterviewDone = preInterviewDone && !!p.fee_preference_agree;
+        } else if (p.accounting_profession === '2') {
+            const coappDocs = ['co_applicant_pan_card', 'co_applicant_aadhaar', 'co_applicant_six_month_bank'];
+            const coappDone = coappDocs.every(field => !!p.documents[field] || !!(p.existingDocuments && p.existingDocuments[field]));
+
+            let profDocsDone = false;
+            if (p.co_applicant_profession === '1') {
+                profDocsDone = ['co_applicant_sallary_slip', 'co_applicant_form16', 'co_applicant_employee_id_card', 'co_applicant_passport_size'].every(
+                    field => !!p.documents[field] || !!(p.existingDocuments && p.existingDocuments[field])
+                );
+            } else if (p.co_applicant_profession === '2') {
+                profDocsDone = ['co_applicant_income_tax_return', 'co_applicant_compute_income'].every(
+                    field => !!p.documents[field] || !!(p.existingDocuments && p.existingDocuments[field])
+                );
+            } else if (p.co_applicant_profession === '3') {
+                profDocsDone = ['co_applicant_agriculture_income'].every(
+                    field => !!p.documents[field] || !!(p.existingDocuments && p.existingDocuments[field])
+                );
+            }
+            preInterviewDone = preInterviewDone && coappDone && profDocsDone;
+        } else {
+            preInterviewDone = false; // Selection is mandatory
+        }
+    }
+
+    // Personal (2)
     const personalFields = ['first_name', 'last_name', 'email', 'mobile', 'dob', 'gender', 'state', 'city', 'pin_code', 'complete_address'];
     const personalDone = personalFields.every(f => !!p[f as keyof typeof p]);
 
-    // Academic (2) - simple check for basic fields
+    // Academic (3) - simple check for basic fields
     const academicDone = !!p.class10_year && !!p.class10_score && !!p.class12_year && !!p.class12_score;
 
-    // Work (3)
+    // Work (4)
     const workDone = p.employment_status === 'Fresher' || (p.work_experience && p.work_experience.length > 0 && !!p.work_experience[0].org_name);
 
-    // Documents (4)
+    // Documents (5)
     const docFields = ['aadhaar', 'dob_proof', 'photo', 'signature'];
     const docsDone = docFields.every(field => {
         return !!p.documents[field] || !!(p.existingDocuments && p.existingDocuments[field]);
     });
 
     return [
-        { label: 'Personal Information', done: personalDone },
-        { label: 'Academic Information', done: academicDone },
-        { label: 'Work Experience', done: workDone },
-        { label: 'Documents Upload', done: docsDone }
+        { label: 'Pre Interview Documents', done: preInterviewDone, visible: isPreInterviewVisible.value },
+        { label: 'Personal Information', done: personalDone, visible: true },
+        { label: 'Academic Information', done: academicDone, visible: true },
+        { label: 'Work Experience', done: workDone, visible: true },
+        { label: 'Documents Upload', done: docsDone, visible: true }
     ];
 });
 
@@ -771,7 +899,7 @@ const fetchStudentDetail = async () => {
         });
 
         console.log("Profile Data Check:", response);
-        console.log(response,'-----response')
+        console.log(response, '-----response')
         resultStatus.value = response?.data?.result_status === true;
         reportUrl.value = response?.report_url || response?.data?.report_url || null;
 
@@ -782,6 +910,7 @@ const fetchStudentDetail = async () => {
             isEditingSection[2] = true;
             isEditingSection[3] = true;
             isEditingSection[4] = true;
+            isEditingSection[5] = true;
             console.warn("Profile is detected as EMPTY. Disabling sections.");
         } else {
             isProfileEmpty.value = false;
@@ -789,11 +918,13 @@ const fetchStudentDetail = async () => {
             isEditingSection[2] = false;
             isEditingSection[3] = false;
             isEditingSection[4] = false;
+            isEditingSection[5] = false;
         }
 
         if (response?.data && !Array.isArray(response.data)) {
             const d = response.data;
-            reattempt.value=d?.re_attempt_btn
+            reattempt.value = d?.re_attempt_btn
+            studentResult.value = d?.student_result ? String(d.student_result) : "";
             // Name splitting logic
             formData.first_name = d.first_name || "";
             formData.last_name = d.last_name || "";
@@ -854,11 +985,35 @@ const fetchStudentDetail = async () => {
             formData.father_name = d.contact_name || "";
             formData.father_mobile = d.contact_phone || "";
 
+            formData.accounting_profession = d.accounting_profession ? String(d.accounting_profession) : "";
+            formData.additional_qualification = d.additional_qualification || "";
+            formData.co_applicant_profession = d.co_applicant_profession ? String(d.co_applicant_profession) : "";
+
             formData.existingDocuments = {
                 aadhaar: d.aadhaar || null,
                 dob_proof: d.dob_certificate || null,
                 photo: d.photo || null, // Fetch proper document photo
-                signature: d.signature || null // Fetch proper signature document
+                signature: d.signature || null, // Fetch proper signature document
+                identity_proof: d.identity_proof || null,
+                tenth_marksheet: d.tenth_marksheet || null,
+                twelth_marksheet: d.twelth_marksheet || null,
+                graduation_first_marksheet: d.graduation_first_marksheet || null,
+                graduation_second_marksheet: d.graduation_second_marksheet || null,
+                graduation_third_marksheet: d.graduation_third_marksheet || null,
+                graduation_forth_marksheet: d.graduation_forth_marksheet || null,
+                graduation_fifth_marksheet: d.graduation_fifth_marksheet || null,
+                graduation_sixth_marksheet: d.graduation_sixth_marksheet || null,
+                additional_document: d.additional_document || null,
+                co_applicant_pan_card: d.co_applicant_pan_card || null,
+                co_applicant_aadhaar: d.co_applicant_aadhaar || null,
+                co_applicant_sallary_slip: d.co_applicant_sallary_slip || null,
+                co_applicant_form16: d.co_applicant_form16 || null,
+                co_applicant_employee_id_card: d.co_applicant_employee_id_card || null,
+                co_applicant_passport_size: d.co_applicant_passport_size || null,
+                co_applicant_income_tax_return: d.co_applicant_income_tax_return || null,
+                co_applicant_compute_income: d.co_applicant_compute_income || null,
+                co_applicant_six_month_bank: d.co_applicant_six_month_bank || null,
+                co_applicant_agriculture_income: d.co_applicant_agriculture_income || null
             };
 
             // Booking Details check
@@ -921,6 +1076,11 @@ const fetchStudentDetail = async () => {
             console.error("Error fetching detail API data:", detailErr);
         }
 
+        if (!isPreInterviewVisible.value) {
+            openSections.value.add(2);
+            openSections.value.delete(1);
+        }
+
     } catch (err) {
         console.error("Error fetching student details:", err);
     }
@@ -944,11 +1104,12 @@ const isEditingSection = reactive<Record<number, boolean>>({
     1: false,
     2: false,
     3: false,
-    4: false
+    4: false,
+    5: false
 });
 
 const isAnySectionEditing = computed(() => {
-    return isEditingSection[1] || isEditingSection[2] || isEditingSection[3] || isEditingSection[4];
+    return isEditingSection[1] || isEditingSection[2] || isEditingSection[3] || isEditingSection[4] || isEditingSection[5];
 });
 
 const enableEdit = (sectionIndex: number) => {
@@ -1292,17 +1453,61 @@ const formData = reactive({
     pg_institution: "",
     employment_status: "Fresher",
     work_experience: [] as any[],
+    accounting_profession: "",
+    fee_preference_agree: false,
+    additional_qualification: "",
+    co_applicant_profession: "",
     documents: {
         aadhaar: null,
         dob_proof: null,
         photo: null,
-        signature: null
+        signature: null,
+        identity_proof: null,
+        tenth_marksheet: null,
+        twelth_marksheet: null,
+        graduation_first_marksheet: null,
+        graduation_second_marksheet: null,
+        graduation_third_marksheet: null,
+        graduation_forth_marksheet: null,
+        graduation_fifth_marksheet: null,
+        graduation_sixth_marksheet: null,
+        additional_document: null,
+        co_applicant_pan_card: null,
+        co_applicant_aadhaar: null,
+        co_applicant_sallary_slip: null,
+        co_applicant_form16: null,
+        co_applicant_employee_id_card: null,
+        co_applicant_passport_size: null,
+        co_applicant_income_tax_return: null,
+        co_applicant_compute_income: null,
+        co_applicant_six_month_bank: null,
+        co_applicant_agriculture_income: null
     } as Record<string, any>,
     existingDocuments: {
         aadhaar: null,
         dob_proof: null,
         photo: null,
-        signature: null
+        signature: null,
+        identity_proof: null,
+        tenth_marksheet: null,
+        twelth_marksheet: null,
+        graduation_first_marksheet: null,
+        graduation_second_marksheet: null,
+        graduation_third_marksheet: null,
+        graduation_forth_marksheet: null,
+        graduation_fifth_marksheet: null,
+        graduation_sixth_marksheet: null,
+        additional_document: null,
+        co_applicant_pan_card: null,
+        co_applicant_aadhaar: null,
+        co_applicant_sallary_slip: null,
+        co_applicant_form16: null,
+        co_applicant_employee_id_card: null,
+        co_applicant_passport_size: null,
+        co_applicant_income_tax_return: null,
+        co_applicant_compute_income: null,
+        co_applicant_six_month_bank: null,
+        co_applicant_agriculture_income: null
     } as Record<string, string | null>,
     declaration: false
 });
@@ -1355,8 +1560,8 @@ const handleProfileImageUpload = async (event: Event) => {
 const section1Ref = ref<any>(null);
 const section2Ref = ref<any>(null);
 const section3Ref = ref<any>(null);
-const section4aRef = ref<any>(null);
-const section4bRef = ref<any>(null);
+const section4Ref = ref<any>(null);
+const section5Ref = ref<any>(null);
 
 const toggleSection = (index: number) => {
     // expand or collapse only the clicked section without closing others
@@ -1384,9 +1589,14 @@ const handleFinalSubmit = async () => {
         section3Ref.value?.scrollToFirstError?.();
         return;
     }
-    if (section4aRef.value?.validate && !section4aRef.value.validate()) {
+    if (section4Ref.value?.validate && !section4Ref.value.validate()) {
         openSections.value.add(4);
-        section4aRef.value?.scrollToFirstError?.();
+        section4Ref.value?.scrollToFirstError?.();
+        return;
+    }
+    if (section5Ref.value?.validate && !section5Ref.value.validate()) {
+        openSections.value.add(5);
+        section5Ref.value?.scrollToFirstError?.();
         return;
     }
 
@@ -1475,6 +1685,25 @@ const handleFinalSubmit = async () => {
         if (formData.documents.signature instanceof File) {
             data.append('signature', formData.documents.signature);
         }
+        data.append('accounting_profession', formData.accounting_profession);
+        data.append('additional_qualification', formData.additional_qualification);
+        data.append('co_applicant_profession', String(formData.co_applicant_profession || ""));
+
+        const newDocKeys = [
+            'identity_proof', 'tenth_marksheet', 'twelth_marksheet',
+            'graduation_first_marksheet', 'graduation_second_marksheet', 'graduation_third_marksheet',
+            'graduation_forth_marksheet', 'graduation_fifth_marksheet', 'graduation_sixth_marksheet',
+            'additional_document', 'co_applicant_pan_card', 'co_applicant_aadhaar',
+            'co_applicant_sallary_slip', 'co_applicant_form16', 'co_applicant_employee_id_card',
+            'co_applicant_passport_size', 'co_applicant_income_tax_return', 'co_applicant_compute_income',
+            'co_applicant_six_month_bank', 'co_applicant_agriculture_income'
+        ];
+
+        newDocKeys.forEach(key => {
+            if (formData.documents[key] instanceof File) {
+                data.append(key, formData.documents[key]);
+            }
+        });
 
         const { getAccessToken } = useAuth();
         const token = getAccessToken();
@@ -1493,7 +1722,7 @@ const handleFinalSubmit = async () => {
             body: data,
             headers: token ? { 'Authorization': `Bearer ${token}` } : {}
         });
-        
+
         const response: any = await rawResponse.json();
 
         if (response.success || response.status === "200" || response.status === 200 || response.message === "Message sent Successfully" || response.message?.toLowerCase().includes("success")) {
@@ -1519,7 +1748,7 @@ const handleFinalSubmit = async () => {
                 errMsg = err.data;
             }
         }
-        
+
         // Log client error to server
         $fetch('/api/log-client-error', {
             method: 'POST',
@@ -1530,7 +1759,7 @@ const handleFinalSubmit = async () => {
                 userInfo: { email: formData.email || 'Unknown' }
             }
         }).catch(e => console.error("Failed to send log to server", e));
-        
+
         showAlert("Submission Failed", errMsg, "error");
     } finally {
         isSubmitting.value = false;
