@@ -652,37 +652,44 @@ const profileCompletion = computed(() => {
 
     // 1. Pre Interview (20%)
     const piMandatory = [
-        'pi_pan_card', 'pi_10th_marksheet', 'pi_12th_marksheet',
-        'pi_grad_sem1', 'pi_grad_sem2', 'pi_grad_sem3',
-        'pi_grad_sem4', 'pi_grad_sem5'
+        'identity_proof', 'tenth_marksheet', 'twelth_marksheet',
+        'graduation_first_marksheet', 'graduation_second_marksheet', 'graduation_third_marksheet',
+        'graduation_forth_marksheet', 'graduation_fifth_marksheet'
     ];
     let piDocsCount = piMandatory.filter(field => !!p.documents[field] || !!(p.existingDocuments && p.existingDocuments[field])).length;
     let piTotal = piMandatory.length;
 
-    if (p.pi_funding_type === 'Loan') {
-        piTotal += 2; // Co-app PAN, Aadhaar
-        if (!!p.documents['pi_coapp_pan'] || !!(p.existingDocuments && p.existingDocuments['pi_coapp_pan'])) piDocsCount++;
-        if (!!p.documents['pi_coapp_aadhaar'] || !!(p.existingDocuments && p.existingDocuments['pi_coapp_aadhaar'])) piDocsCount++;
+    if (p.accounting_profession === '1') {
+        piTotal += 1;
+        if (p.fee_preference_agree) piDocsCount++;
+    } else if (p.accounting_profession === '2') {
+        piTotal += 3; // Co-app PAN, Aadhaar, and shared bank statement
+        if (!!p.documents['co_applicant_pan_card'] || !!(p.existingDocuments && p.existingDocuments['co_applicant_pan_card'])) piDocsCount++;
+        if (!!p.documents['co_applicant_aadhaar'] || !!(p.existingDocuments && p.existingDocuments['co_applicant_aadhaar'])) piDocsCount++;
+        if (!!p.documents['co_applicant_six_month_bank'] || !!(p.existingDocuments && p.existingDocuments['co_applicant_six_month_bank'])) piDocsCount++;
 
-        if (p.pi_coapp_profession === 'Salaried') {
-            piTotal += 5;
-            const salDocs = ['pi_sal_salary_slip', 'pi_sal_bank_statement', 'pi_sal_form16', 'pi_sal_emp_id', 'pi_sal_photo'];
+        if (p.co_applicant_profession === '1') {
+            piTotal += 4;
+            const salDocs = ['co_applicant_sallary_slip', 'co_applicant_form16', 'co_applicant_employee_id_card', 'co_applicant_passport_size'];
             salDocs.forEach(field => {
                 if (!!p.documents[field] || !!(p.existingDocuments && p.existingDocuments[field])) piDocsCount++;
             });
-        } else if (p.pi_coapp_profession === 'Self-employed') {
-            piTotal += 3;
-            const selfDocs = ['pi_self_itr', 'pi_self_computation', 'pi_self_bank_statement'];
+        } else if (p.co_applicant_profession === '2') {
+            piTotal += 2;
+            const selfDocs = ['co_applicant_income_tax_return', 'co_applicant_compute_income'];
             selfDocs.forEach(field => {
                 if (!!p.documents[field] || !!(p.existingDocuments && p.existingDocuments[field])) piDocsCount++;
             });
-        } else if (p.pi_coapp_profession === 'Agriculture') {
-            piTotal += 2;
-            const agriDocs = ['pi_agri_bank_statement', 'pi_agri_income_cert'];
+        } else if (p.co_applicant_profession === '3') {
+            piTotal += 1;
+            const agriDocs = ['co_applicant_agriculture_income'];
             agriDocs.forEach(field => {
                 if (!!p.documents[field] || !!(p.existingDocuments && p.existingDocuments[field])) piDocsCount++;
             });
         }
+    } else if (!p.accounting_profession) {
+        // If preference isn't selected yet, include it in the total fields
+        piTotal += 1; 
     }
 
     totalProgress += (piDocsCount / piTotal) * 20;
@@ -770,33 +777,39 @@ const completionSteps = computed(() => {
 
     // Pre Interview (1)
     const piMandatory = [
-        'pi_pan_card', 'pi_10th_marksheet', 'pi_12th_marksheet',
-        'pi_grad_sem1', 'pi_grad_sem2', 'pi_grad_sem3',
-        'pi_grad_sem4', 'pi_grad_sem5'
+        'identity_proof', 'tenth_marksheet', 'twelth_marksheet',
+        'graduation_first_marksheet', 'graduation_second_marksheet', 'graduation_third_marksheet',
+        'graduation_forth_marksheet', 'graduation_fifth_marksheet'
     ];
     let preInterviewDone = piMandatory.every(field => {
         return !!p.documents[field] || !!(p.existingDocuments && p.existingDocuments[field]);
     });
 
-    if (preInterviewDone && p.pi_funding_type === 'Loan') {
-        const coappDocs = ['pi_coapp_pan', 'pi_coapp_aadhaar'];
-        const coappDone = coappDocs.every(field => !!p.documents[field] || !!(p.existingDocuments && p.existingDocuments[field]));
-        
-        let profDocsDone = false;
-        if (p.pi_coapp_profession === 'Salaried') {
-            profDocsDone = ['pi_sal_salary_slip', 'pi_sal_bank_statement', 'pi_sal_form16', 'pi_sal_emp_id', 'pi_sal_photo'].every(
-                field => !!p.documents[field] || !!(p.existingDocuments && p.existingDocuments[field])
-            );
-        } else if (p.pi_coapp_profession === 'Self-employed') {
-            profDocsDone = ['pi_self_itr', 'pi_self_computation', 'pi_self_bank_statement'].every(
-                field => !!p.documents[field] || !!(p.existingDocuments && p.existingDocuments[field])
-            );
-        } else if (p.pi_coapp_profession === 'Agriculture') {
-            profDocsDone = ['pi_agri_bank_statement', 'pi_agri_income_cert'].every(
-                field => !!p.documents[field] || !!(p.existingDocuments && p.existingDocuments[field])
-            );
+    if (preInterviewDone) {
+        if (p.accounting_profession === '1') {
+            preInterviewDone = preInterviewDone && !!p.fee_preference_agree;
+        } else if (p.accounting_profession === '2') {
+            const coappDocs = ['co_applicant_pan_card', 'co_applicant_aadhaar', 'co_applicant_six_month_bank'];
+            const coappDone = coappDocs.every(field => !!p.documents[field] || !!(p.existingDocuments && p.existingDocuments[field]));
+            
+            let profDocsDone = false;
+            if (p.co_applicant_profession === '1') {
+                profDocsDone = ['co_applicant_sallary_slip', 'co_applicant_form16', 'co_applicant_employee_id_card', 'co_applicant_passport_size'].every(
+                    field => !!p.documents[field] || !!(p.existingDocuments && p.existingDocuments[field])
+                );
+            } else if (p.co_applicant_profession === '2') {
+                profDocsDone = ['co_applicant_income_tax_return', 'co_applicant_compute_income'].every(
+                    field => !!p.documents[field] || !!(p.existingDocuments && p.existingDocuments[field])
+                );
+            } else if (p.co_applicant_profession === '3') {
+                profDocsDone = ['co_applicant_agriculture_income'].every(
+                    field => !!p.documents[field] || !!(p.existingDocuments && p.existingDocuments[field])
+                );
+            }
+            preInterviewDone = preInterviewDone && coappDone && profDocsDone;
+        } else {
+            preInterviewDone = false; // Selection is mandatory
         }
-        preInterviewDone = preInterviewDone && coappDone && profDocsDone;
     }
 
     // Personal (2)
@@ -955,37 +968,35 @@ const fetchStudentDetail = async () => {
             formData.father_name = d.contact_name || "";
             formData.father_mobile = d.contact_phone || "";
 
-            formData.pi_funding_type = d.pi_funding_type || "";
-            formData.pi_add_qual_name = d.pi_add_qual_name || "";
-            formData.pi_coapp_profession = d.pi_coapp_profession || "";
+            formData.accounting_profession = d.accounting_profession ? String(d.accounting_profession) : "";
+            formData.additional_qualification = d.additional_qualification || "";
+            formData.co_applicant_profession = d.co_applicant_profession ? String(d.co_applicant_profession) : "";
 
             formData.existingDocuments = {
                 aadhaar: d.aadhaar || null,
                 dob_proof: d.dob_certificate || null,
                 photo: d.photo || null, // Fetch proper document photo
                 signature: d.signature || null, // Fetch proper signature document
-                pi_pan_card: d.pi_pan_card || null,
-                pi_10th_marksheet: d.pi_10th_marksheet || null,
-                pi_12th_marksheet: d.pi_12th_marksheet || null,
-                pi_grad_sem1: d.pi_grad_sem1 || null,
-                pi_grad_sem2: d.pi_grad_sem2 || null,
-                pi_grad_sem3: d.pi_grad_sem3 || null,
-                pi_grad_sem4: d.pi_grad_sem4 || null,
-                pi_grad_sem5: d.pi_grad_sem5 || null,
-                pi_grad_sem6: d.pi_grad_sem6 || null,
-                pi_add_qual_doc: d.pi_add_qual_doc || null,
-                pi_coapp_pan: d.pi_coapp_pan || null,
-                pi_coapp_aadhaar: d.pi_coapp_aadhaar || null,
-                pi_sal_salary_slip: d.pi_sal_salary_slip || null,
-                pi_sal_bank_statement: d.pi_sal_bank_statement || null,
-                pi_sal_form16: d.pi_sal_form16 || null,
-                pi_sal_emp_id: d.pi_sal_emp_id || null,
-                pi_sal_photo: d.pi_sal_photo || null,
-                pi_self_itr: d.pi_self_itr || null,
-                pi_self_computation: d.pi_self_computation || null,
-                pi_self_bank_statement: d.pi_self_bank_statement || null,
-                pi_agri_bank_statement: d.pi_agri_bank_statement || null,
-                pi_agri_income_cert: d.pi_agri_income_cert || null
+                identity_proof: d.identity_proof || null,
+                tenth_marksheet: d.tenth_marksheet || null,
+                twelth_marksheet: d.twelth_marksheet || null,
+                graduation_first_marksheet: d.graduation_first_marksheet || null,
+                graduation_second_marksheet: d.graduation_second_marksheet || null,
+                graduation_third_marksheet: d.graduation_third_marksheet || null,
+                graduation_forth_marksheet: d.graduation_forth_marksheet || null,
+                graduation_fifth_marksheet: d.graduation_fifth_marksheet || null,
+                graduation_sixth_marksheet: d.graduation_sixth_marksheet || null,
+                additional_document: d.additional_document || null,
+                co_applicant_pan_card: d.co_applicant_pan_card || null,
+                co_applicant_aadhaar: d.co_applicant_aadhaar || null,
+                co_applicant_sallary_slip: d.co_applicant_sallary_slip || null,
+                co_applicant_form16: d.co_applicant_form16 || null,
+                co_applicant_employee_id_card: d.co_applicant_employee_id_card || null,
+                co_applicant_passport_size: d.co_applicant_passport_size || null,
+                co_applicant_income_tax_return: d.co_applicant_income_tax_return || null,
+                co_applicant_compute_income: d.co_applicant_compute_income || null,
+                co_applicant_six_month_bank: d.co_applicant_six_month_bank || null,
+                co_applicant_agriculture_income: d.co_applicant_agriculture_income || null
             };
 
             // Booking Details check
@@ -1420,64 +1431,61 @@ const formData = reactive({
     pg_institution: "",
     employment_status: "Fresher",
     work_experience: [] as any[],
-    pi_funding_type: "",
-    pi_add_qual_name: "",
-    pi_coapp_profession: "",
+    accounting_profession: "",
+    fee_preference_agree: false,
+    additional_qualification: "",
+    co_applicant_profession: "",
     documents: {
         aadhaar: null,
         dob_proof: null,
         photo: null,
         signature: null,
-        pi_pan_card: null,
-        pi_10th_marksheet: null,
-        pi_12th_marksheet: null,
-        pi_grad_sem1: null,
-        pi_grad_sem2: null,
-        pi_grad_sem3: null,
-        pi_grad_sem4: null,
-        pi_grad_sem5: null,
-        pi_grad_sem6: null,
-        pi_add_qual_doc: null,
-        pi_coapp_pan: null,
-        pi_coapp_aadhaar: null,
-        pi_sal_salary_slip: null,
-        pi_sal_bank_statement: null,
-        pi_sal_form16: null,
-        pi_sal_emp_id: null,
-        pi_sal_photo: null,
-        pi_self_itr: null,
-        pi_self_computation: null,
-        pi_self_bank_statement: null,
-        pi_agri_bank_statement: null,
-        pi_agri_income_cert: null
+        identity_proof: null,
+        tenth_marksheet: null,
+        twelth_marksheet: null,
+        graduation_first_marksheet: null,
+        graduation_second_marksheet: null,
+        graduation_third_marksheet: null,
+        graduation_forth_marksheet: null,
+        graduation_fifth_marksheet: null,
+        graduation_sixth_marksheet: null,
+        additional_document: null,
+        co_applicant_pan_card: null,
+        co_applicant_aadhaar: null,
+        co_applicant_sallary_slip: null,
+        co_applicant_form16: null,
+        co_applicant_employee_id_card: null,
+        co_applicant_passport_size: null,
+        co_applicant_income_tax_return: null,
+        co_applicant_compute_income: null,
+        co_applicant_six_month_bank: null,
+        co_applicant_agriculture_income: null
     } as Record<string, any>,
     existingDocuments: {
         aadhaar: null,
         dob_proof: null,
         photo: null,
         signature: null,
-        pi_pan_card: null,
-        pi_10th_marksheet: null,
-        pi_12th_marksheet: null,
-        pi_grad_sem1: null,
-        pi_grad_sem2: null,
-        pi_grad_sem3: null,
-        pi_grad_sem4: null,
-        pi_grad_sem5: null,
-        pi_grad_sem6: null,
-        pi_add_qual_doc: null,
-        pi_coapp_pan: null,
-        pi_coapp_aadhaar: null,
-        pi_sal_salary_slip: null,
-        pi_sal_bank_statement: null,
-        pi_sal_form16: null,
-        pi_sal_emp_id: null,
-        pi_sal_photo: null,
-        pi_self_itr: null,
-        pi_self_computation: null,
-        pi_self_bank_statement: null,
-        pi_agri_bank_statement: null,
-        pi_agri_income_cert: null
+        identity_proof: null,
+        tenth_marksheet: null,
+        twelth_marksheet: null,
+        graduation_first_marksheet: null,
+        graduation_second_marksheet: null,
+        graduation_third_marksheet: null,
+        graduation_forth_marksheet: null,
+        graduation_fifth_marksheet: null,
+        graduation_sixth_marksheet: null,
+        additional_document: null,
+        co_applicant_pan_card: null,
+        co_applicant_aadhaar: null,
+        co_applicant_sallary_slip: null,
+        co_applicant_form16: null,
+        co_applicant_employee_id_card: null,
+        co_applicant_passport_size: null,
+        co_applicant_income_tax_return: null,
+        co_applicant_compute_income: null,
+        co_applicant_six_month_bank: null,
+        co_applicant_agriculture_income: null
     } as Record<string, string | null>,
     declaration: false
 });
@@ -1655,19 +1663,18 @@ const handleFinalSubmit = async () => {
         if (formData.documents.signature instanceof File) {
             data.append('signature', formData.documents.signature);
         }
-        data.append('pi_funding_type', formData.pi_funding_type);
-        data.append('pi_add_qual_name', formData.pi_add_qual_name);
-        data.append('pi_coapp_profession', formData.pi_coapp_profession);
+        data.append('accounting_profession', formData.accounting_profession);
+        data.append('additional_qualification', formData.additional_qualification);
+        data.append('co_applicant_profession', String(formData.co_applicant_profession || ""));
 
         const newDocKeys = [
-            'pi_pan_card', 'pi_10th_marksheet', 'pi_12th_marksheet',
-            'pi_grad_sem1', 'pi_grad_sem2', 'pi_grad_sem3',
-            'pi_grad_sem4', 'pi_grad_sem5', 'pi_grad_sem6',
-            'pi_add_qual_doc', 'pi_coapp_pan', 'pi_coapp_aadhaar',
-            'pi_sal_salary_slip', 'pi_sal_bank_statement', 'pi_sal_form16',
-            'pi_sal_emp_id', 'pi_sal_photo', 'pi_self_itr',
-            'pi_self_computation', 'pi_self_bank_statement',
-            'pi_agri_bank_statement', 'pi_agri_income_cert'
+            'identity_proof', 'tenth_marksheet', 'twelth_marksheet',
+            'graduation_first_marksheet', 'graduation_second_marksheet', 'graduation_third_marksheet',
+            'graduation_forth_marksheet', 'graduation_fifth_marksheet', 'graduation_sixth_marksheet',
+            'additional_document', 'co_applicant_pan_card', 'co_applicant_aadhaar',
+            'co_applicant_sallary_slip', 'co_applicant_form16', 'co_applicant_employee_id_card',
+            'co_applicant_passport_size', 'co_applicant_income_tax_return', 'co_applicant_compute_income',
+            'co_applicant_six_month_bank', 'co_applicant_agriculture_income'
         ];
 
         newDocKeys.forEach(key => {
