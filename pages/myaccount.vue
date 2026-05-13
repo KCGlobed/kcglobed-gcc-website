@@ -651,15 +651,41 @@ const profileCompletion = computed(() => {
     const p = formData;
 
     // 1. Pre Interview (20%)
-    const preInterviewFields = Array.from({ length: 10 }, (_, i) => `pre_interview_doc_${i + 1}`);
-    const preInterviewHasDocs = preInterviewFields.some(field => {
-        const hasNew = !!p.documents[field];
-        const hasExisting = !!(p.existingDocuments && p.existingDocuments[field]);
-        return hasNew || hasExisting;
-    });
-    if (preInterviewHasDocs) {
-        totalProgress += 20;
+    const piMandatory = [
+        'pi_pan_card', 'pi_10th_marksheet', 'pi_12th_marksheet',
+        'pi_grad_sem1', 'pi_grad_sem2', 'pi_grad_sem3',
+        'pi_grad_sem4', 'pi_grad_sem5'
+    ];
+    let piDocsCount = piMandatory.filter(field => !!p.documents[field] || !!(p.existingDocuments && p.existingDocuments[field])).length;
+    let piTotal = piMandatory.length;
+
+    if (p.pi_funding_type === 'Loan') {
+        piTotal += 2; // Co-app PAN, Aadhaar
+        if (!!p.documents['pi_coapp_pan'] || !!(p.existingDocuments && p.existingDocuments['pi_coapp_pan'])) piDocsCount++;
+        if (!!p.documents['pi_coapp_aadhaar'] || !!(p.existingDocuments && p.existingDocuments['pi_coapp_aadhaar'])) piDocsCount++;
+
+        if (p.pi_coapp_profession === 'Salaried') {
+            piTotal += 5;
+            const salDocs = ['pi_sal_salary_slip', 'pi_sal_bank_statement', 'pi_sal_form16', 'pi_sal_emp_id', 'pi_sal_photo'];
+            salDocs.forEach(field => {
+                if (!!p.documents[field] || !!(p.existingDocuments && p.existingDocuments[field])) piDocsCount++;
+            });
+        } else if (p.pi_coapp_profession === 'Self-employed') {
+            piTotal += 3;
+            const selfDocs = ['pi_self_itr', 'pi_self_computation', 'pi_self_bank_statement'];
+            selfDocs.forEach(field => {
+                if (!!p.documents[field] || !!(p.existingDocuments && p.existingDocuments[field])) piDocsCount++;
+            });
+        } else if (p.pi_coapp_profession === 'Agriculture') {
+            piTotal += 2;
+            const agriDocs = ['pi_agri_bank_statement', 'pi_agri_income_cert'];
+            agriDocs.forEach(field => {
+                if (!!p.documents[field] || !!(p.existingDocuments && p.existingDocuments[field])) piDocsCount++;
+            });
+        }
     }
+
+    totalProgress += (piDocsCount / piTotal) * 20;
 
     // 2. Personal Information (20%) - 10 Fields
     const personalFields = [
@@ -743,10 +769,35 @@ const completionSteps = computed(() => {
     const p = formData;
 
     // Pre Interview (1)
-    const preInterviewFields = Array.from({ length: 10 }, (_, i) => `pre_interview_doc_${i + 1}`);
-    const preInterviewDone = preInterviewFields.some(field => {
+    const piMandatory = [
+        'pi_pan_card', 'pi_10th_marksheet', 'pi_12th_marksheet',
+        'pi_grad_sem1', 'pi_grad_sem2', 'pi_grad_sem3',
+        'pi_grad_sem4', 'pi_grad_sem5'
+    ];
+    let preInterviewDone = piMandatory.every(field => {
         return !!p.documents[field] || !!(p.existingDocuments && p.existingDocuments[field]);
     });
+
+    if (preInterviewDone && p.pi_funding_type === 'Loan') {
+        const coappDocs = ['pi_coapp_pan', 'pi_coapp_aadhaar'];
+        const coappDone = coappDocs.every(field => !!p.documents[field] || !!(p.existingDocuments && p.existingDocuments[field]));
+        
+        let profDocsDone = false;
+        if (p.pi_coapp_profession === 'Salaried') {
+            profDocsDone = ['pi_sal_salary_slip', 'pi_sal_bank_statement', 'pi_sal_form16', 'pi_sal_emp_id', 'pi_sal_photo'].every(
+                field => !!p.documents[field] || !!(p.existingDocuments && p.existingDocuments[field])
+            );
+        } else if (p.pi_coapp_profession === 'Self-employed') {
+            profDocsDone = ['pi_self_itr', 'pi_self_computation', 'pi_self_bank_statement'].every(
+                field => !!p.documents[field] || !!(p.existingDocuments && p.existingDocuments[field])
+            );
+        } else if (p.pi_coapp_profession === 'Agriculture') {
+            profDocsDone = ['pi_agri_bank_statement', 'pi_agri_income_cert'].every(
+                field => !!p.documents[field] || !!(p.existingDocuments && p.existingDocuments[field])
+            );
+        }
+        preInterviewDone = preInterviewDone && coappDone && profDocsDone;
+    }
 
     // Personal (2)
     const personalFields = ['first_name', 'last_name', 'email', 'mobile', 'dob', 'gender', 'state', 'city', 'pin_code', 'complete_address'];
@@ -904,21 +955,37 @@ const fetchStudentDetail = async () => {
             formData.father_name = d.contact_name || "";
             formData.father_mobile = d.contact_phone || "";
 
+            formData.pi_funding_type = d.pi_funding_type || "";
+            formData.pi_add_qual_name = d.pi_add_qual_name || "";
+            formData.pi_coapp_profession = d.pi_coapp_profession || "";
+
             formData.existingDocuments = {
                 aadhaar: d.aadhaar || null,
                 dob_proof: d.dob_certificate || null,
                 photo: d.photo || null, // Fetch proper document photo
                 signature: d.signature || null, // Fetch proper signature document
-                pre_interview_doc_1: d.pre_interview_doc_1 || null,
-                pre_interview_doc_2: d.pre_interview_doc_2 || null,
-                pre_interview_doc_3: d.pre_interview_doc_3 || null,
-                pre_interview_doc_4: d.pre_interview_doc_4 || null,
-                pre_interview_doc_5: d.pre_interview_doc_5 || null,
-                pre_interview_doc_6: d.pre_interview_doc_6 || null,
-                pre_interview_doc_7: d.pre_interview_doc_7 || null,
-                pre_interview_doc_8: d.pre_interview_doc_8 || null,
-                pre_interview_doc_9: d.pre_interview_doc_9 || null,
-                pre_interview_doc_10: d.pre_interview_doc_10 || null
+                pi_pan_card: d.pi_pan_card || null,
+                pi_10th_marksheet: d.pi_10th_marksheet || null,
+                pi_12th_marksheet: d.pi_12th_marksheet || null,
+                pi_grad_sem1: d.pi_grad_sem1 || null,
+                pi_grad_sem2: d.pi_grad_sem2 || null,
+                pi_grad_sem3: d.pi_grad_sem3 || null,
+                pi_grad_sem4: d.pi_grad_sem4 || null,
+                pi_grad_sem5: d.pi_grad_sem5 || null,
+                pi_grad_sem6: d.pi_grad_sem6 || null,
+                pi_add_qual_doc: d.pi_add_qual_doc || null,
+                pi_coapp_pan: d.pi_coapp_pan || null,
+                pi_coapp_aadhaar: d.pi_coapp_aadhaar || null,
+                pi_sal_salary_slip: d.pi_sal_salary_slip || null,
+                pi_sal_bank_statement: d.pi_sal_bank_statement || null,
+                pi_sal_form16: d.pi_sal_form16 || null,
+                pi_sal_emp_id: d.pi_sal_emp_id || null,
+                pi_sal_photo: d.pi_sal_photo || null,
+                pi_self_itr: d.pi_self_itr || null,
+                pi_self_computation: d.pi_self_computation || null,
+                pi_self_bank_statement: d.pi_self_bank_statement || null,
+                pi_agri_bank_statement: d.pi_agri_bank_statement || null,
+                pi_agri_income_cert: d.pi_agri_income_cert || null
             };
 
             // Booking Details check
@@ -1353,37 +1420,64 @@ const formData = reactive({
     pg_institution: "",
     employment_status: "Fresher",
     work_experience: [] as any[],
+    pi_funding_type: "",
+    pi_add_qual_name: "",
+    pi_coapp_profession: "",
     documents: {
         aadhaar: null,
         dob_proof: null,
         photo: null,
         signature: null,
-        pre_interview_doc_1: null,
-        pre_interview_doc_2: null,
-        pre_interview_doc_3: null,
-        pre_interview_doc_4: null,
-        pre_interview_doc_5: null,
-        pre_interview_doc_6: null,
-        pre_interview_doc_7: null,
-        pre_interview_doc_8: null,
-        pre_interview_doc_9: null,
-        pre_interview_doc_10: null
+        pi_pan_card: null,
+        pi_10th_marksheet: null,
+        pi_12th_marksheet: null,
+        pi_grad_sem1: null,
+        pi_grad_sem2: null,
+        pi_grad_sem3: null,
+        pi_grad_sem4: null,
+        pi_grad_sem5: null,
+        pi_grad_sem6: null,
+        pi_add_qual_doc: null,
+        pi_coapp_pan: null,
+        pi_coapp_aadhaar: null,
+        pi_sal_salary_slip: null,
+        pi_sal_bank_statement: null,
+        pi_sal_form16: null,
+        pi_sal_emp_id: null,
+        pi_sal_photo: null,
+        pi_self_itr: null,
+        pi_self_computation: null,
+        pi_self_bank_statement: null,
+        pi_agri_bank_statement: null,
+        pi_agri_income_cert: null
     } as Record<string, any>,
     existingDocuments: {
         aadhaar: null,
         dob_proof: null,
         photo: null,
         signature: null,
-        pre_interview_doc_1: null,
-        pre_interview_doc_2: null,
-        pre_interview_doc_3: null,
-        pre_interview_doc_4: null,
-        pre_interview_doc_5: null,
-        pre_interview_doc_6: null,
-        pre_interview_doc_7: null,
-        pre_interview_doc_8: null,
-        pre_interview_doc_9: null,
-        pre_interview_doc_10: null
+        pi_pan_card: null,
+        pi_10th_marksheet: null,
+        pi_12th_marksheet: null,
+        pi_grad_sem1: null,
+        pi_grad_sem2: null,
+        pi_grad_sem3: null,
+        pi_grad_sem4: null,
+        pi_grad_sem5: null,
+        pi_grad_sem6: null,
+        pi_add_qual_doc: null,
+        pi_coapp_pan: null,
+        pi_coapp_aadhaar: null,
+        pi_sal_salary_slip: null,
+        pi_sal_bank_statement: null,
+        pi_sal_form16: null,
+        pi_sal_emp_id: null,
+        pi_sal_photo: null,
+        pi_self_itr: null,
+        pi_self_computation: null,
+        pi_self_bank_statement: null,
+        pi_agri_bank_statement: null,
+        pi_agri_income_cert: null
     } as Record<string, string | null>,
     declaration: false
 });
@@ -1561,12 +1655,26 @@ const handleFinalSubmit = async () => {
         if (formData.documents.signature instanceof File) {
             data.append('signature', formData.documents.signature);
         }
-        for (let i = 1; i <= 10; i++) {
-            const key = `pre_interview_doc_${i}`;
+        data.append('pi_funding_type', formData.pi_funding_type);
+        data.append('pi_add_qual_name', formData.pi_add_qual_name);
+        data.append('pi_coapp_profession', formData.pi_coapp_profession);
+
+        const newDocKeys = [
+            'pi_pan_card', 'pi_10th_marksheet', 'pi_12th_marksheet',
+            'pi_grad_sem1', 'pi_grad_sem2', 'pi_grad_sem3',
+            'pi_grad_sem4', 'pi_grad_sem5', 'pi_grad_sem6',
+            'pi_add_qual_doc', 'pi_coapp_pan', 'pi_coapp_aadhaar',
+            'pi_sal_salary_slip', 'pi_sal_bank_statement', 'pi_sal_form16',
+            'pi_sal_emp_id', 'pi_sal_photo', 'pi_self_itr',
+            'pi_self_computation', 'pi_self_bank_statement',
+            'pi_agri_bank_statement', 'pi_agri_income_cert'
+        ];
+
+        newDocKeys.forEach(key => {
             if (formData.documents[key] instanceof File) {
                 data.append(key, formData.documents[key]);
             }
-        }
+        });
 
         const { getAccessToken } = useAuth();
         const token = getAccessToken();
