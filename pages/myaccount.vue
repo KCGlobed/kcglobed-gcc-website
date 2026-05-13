@@ -117,7 +117,7 @@
                         <div class="pb-30">
                             <div class="profile-accordion">
 
-                                <!-- Section 1: Personal Information -->
+                                <!-- Section 1: Pre Interview -->
                                 <div class="accordion-section" :class="{ active: isSectionOpen(1) }">
                                     <div class="accordion-header" @click="toggleSection(1)">
                                         <div class="accordion-header-left">
@@ -125,8 +125,8 @@
                                                 <div v-if="completionSteps[0].done" class="section-complete-check">
                                                     <i class="ti ti-check"></i>
                                                 </div>
-                                                <span v-else class="accordion-icon"><i class="ti ti-user"></i></span>
-                                                <h4>Personal Information</h4>
+                                                <span v-else class="accordion-icon"><i class="ti ti-files"></i></span>
+                                                <h4>Pre Interview</h4>
                                             </div>
                                         </div>
                                         <div class="accordion-header-right">
@@ -141,13 +141,12 @@
                                     </div>
                                     <div class="accordion-body p-4 p-lg-5" v-show="isSectionOpen(1)">
                                         <fieldset :disabled="!isEditingSection[1]">
-                                            <PersonalInformation ref="section1Ref" :formData="formData" />
+                                            <PreInterview ref="section1Ref" :formData="formData" :isDisabled="!isEditingSection[1]" />
                                         </fieldset>
                                     </div>
                                 </div>
 
-
-                                <!-- Section 2: Academic Information -->
+                                <!-- Section 2: Personal Information -->
                                 <div class="accordion-section" :class="{ active: isSectionOpen(2) }">
                                     <div class="accordion-header" @click="toggleSection(2)">
                                         <div class="accordion-header-left">
@@ -155,8 +154,8 @@
                                                 <div v-if="completionSteps[1].done" class="section-complete-check">
                                                     <i class="ti ti-check"></i>
                                                 </div>
-                                                <span v-else class="accordion-icon"><i class="ti ti-school"></i></span>
-                                                <h4>Academic Information</h4>
+                                                <span v-else class="accordion-icon"><i class="ti ti-user"></i></span>
+                                                <h4>Personal Information</h4>
                                             </div>
                                         </div>
                                         <div class="accordion-header-right">
@@ -171,12 +170,13 @@
                                     </div>
                                     <div class="accordion-body p-4 p-lg-5" v-show="isSectionOpen(2)">
                                         <fieldset :disabled="!isEditingSection[2]">
-                                            <AcademicInformation ref="section2Ref" :formData="formData" />
+                                            <PersonalInformation ref="section2Ref" :formData="formData" />
                                         </fieldset>
                                     </div>
                                 </div>
 
-                                <!-- Section 3: Work Experience -->
+
+                                <!-- Section 3: Academic Information -->
                                 <div class="accordion-section" :class="{ active: isSectionOpen(3) }">
                                     <div class="accordion-header" @click="toggleSection(3)">
                                         <div class="accordion-header-left">
@@ -184,9 +184,8 @@
                                                 <div v-if="completionSteps[2].done" class="section-complete-check">
                                                     <i class="ti ti-check"></i>
                                                 </div>
-                                                <span v-else class="accordion-icon"><i
-                                                        class="ti ti-briefcase"></i></span>
-                                                <h4>Work Experience</h4>
+                                                <span v-else class="accordion-icon"><i class="ti ti-school"></i></span>
+                                                <h4>Academic Information</h4>
                                             </div>
                                         </div>
                                         <div class="accordion-header-right">
@@ -201,14 +200,12 @@
                                     </div>
                                     <div class="accordion-body p-4 p-lg-5" v-show="isSectionOpen(3)">
                                         <fieldset :disabled="!isEditingSection[3]">
-                                            <WorkExperienceDetails ref="section3Ref" :formData="formData"
-                                                :isDisabled="!isEditingSection[3]" />
+                                            <AcademicInformation ref="section3Ref" :formData="formData" />
                                         </fieldset>
                                     </div>
                                 </div>
 
-
-                                <!-- Section 4: Documents & Declaration -->
+                                <!-- Section 4: Work Experience -->
                                 <div class="accordion-section" :class="{ active: isSectionOpen(4) }">
                                     <div class="accordion-header" @click="toggleSection(4)">
                                         <div class="accordion-header-left">
@@ -216,8 +213,9 @@
                                                 <div v-if="completionSteps[3].done" class="section-complete-check">
                                                     <i class="ti ti-check"></i>
                                                 </div>
-                                                <span v-else class="accordion-icon"><i class="ti ti-files"></i></span>
-                                                <h4>Documents</h4>
+                                                <span v-else class="accordion-icon"><i
+                                                        class="ti ti-briefcase"></i></span>
+                                                <h4>Work Experience</h4>
                                             </div>
                                         </div>
                                         <div class="accordion-header-right">
@@ -231,12 +229,43 @@
                                         </div>
                                     </div>
                                     <div class="accordion-body p-4 p-lg-5" v-show="isSectionOpen(4)">
-                                        <DocumentUpload ref="section4aRef" :formData="formData"
-                                            :isDisabled="!isEditingSection[4]" />
+                                        <fieldset :disabled="!isEditingSection[4]">
+                                            <WorkExperienceDetails ref="section4Ref" :formData="formData"
+                                                :isDisabled="!isEditingSection[4]" />
+                                        </fieldset>
+                                    </div>
+                                </div>
+
+
+                                <!-- Section 5: Documents & Declaration -->
+                                <div class="accordion-section" :class="{ active: isSectionOpen(5) }">
+                                    <div class="accordion-header" @click="toggleSection(5)">
+                                        <div class="accordion-header-left">
+                                            <div style="display: flex; align-items: center; gap: 10px;">
+                                                <div v-if="completionSteps[4].done" class="section-complete-check">
+                                                    <i class="ti ti-check"></i>
+                                                </div>
+                                                <span v-else class="accordion-icon"><i class="ti ti-files"></i></span>
+                                                <h4>Documents</h4>
+                                            </div>
+                                        </div>
+                                        <div class="accordion-header-right">
+                                            <span v-if="!isProfileEmpty && !isEditingSection[5]"
+                                                @click.stop="enableEdit(5)" class="edit-icon-btn me-3"
+                                                title="Edit Section">
+                                                <i class="ti ti-pencil fs-5 text-[#872980]"></i>
+                                            </span>
+                                            <i class="ti accordion-chevron"
+                                                :class="isSectionOpen(5) ? 'ti-chevron-up' : 'ti-chevron-down'"></i>
+                                        </div>
+                                    </div>
+                                    <div class="accordion-body p-4 p-lg-5" v-show="isSectionOpen(5)">
+                                        <DocumentUpload ref="section5Ref" :formData="formData"
+                                            :isDisabled="!isEditingSection[5]" />
                                         <!-- <div class="section-divider"></div> -->
                                         <!-- <PrePaymentDeclaration ref="section4bRef" :formData="formData" /> -->
                                     </div>
-                                </div> <!-- End Section 4 -->
+                                </div> <!-- End Section 5 -->
                             </div> <!-- End profile-accordion -->
                         </div> <!-- End pb-30 -->
 
@@ -576,6 +605,7 @@
 <!-- ✅ PROTECTED ROUTE — redirects to /login if no valid token found -->
 <script setup lang="ts">
 import { ref, reactive, computed, onMounted, nextTick } from 'vue'
+import PreInterview from "../components/PreInterview/PreInterview.vue";
 import PersonalInformation from "../components/PersonalInformation/PersonalInformation.vue";
 import AcademicInformation from "../components/AcademicInformation/AcademicInformation.vue";
 import WorkExperienceDetails from "../components/WorkExperienceDetails/WorkExperienceDetails.vue";
@@ -618,9 +648,20 @@ const reportUrl = ref<string | null>(null);
 
 const profileCompletion = computed(() => {
     let totalProgress = 0;
-
-    // 1. Personal Information (25%) - 10 Fields
     const p = formData;
+
+    // 1. Pre Interview (20%)
+    const preInterviewFields = Array.from({ length: 10 }, (_, i) => `pre_interview_doc_${i + 1}`);
+    const preInterviewHasDocs = preInterviewFields.some(field => {
+        const hasNew = !!p.documents[field];
+        const hasExisting = !!(p.existingDocuments && p.existingDocuments[field]);
+        return hasNew || hasExisting;
+    });
+    if (preInterviewHasDocs) {
+        totalProgress += 20;
+    }
+
+    // 2. Personal Information (20%) - 10 Fields
     const personalFields = [
         'first_name', 'last_name', 'email', 'mobile',
         'dob', 'gender', 'state', 'city', 'pin_code', 'complete_address'
@@ -632,9 +673,9 @@ const profileCompletion = computed(() => {
         if (f === 'pin_code') return isValidPincode(String(val));
         return !!val;
     }).length;
-    totalProgress += (personalCompleted / personalFields.length) * 25;
+    totalProgress += (personalCompleted / personalFields.length) * 20;
 
-    // 2. Academic Information (25%)
+    // 3. Academic Information (20%)
     const academicFields = [
         'class10_year', 'class10_score',
         'class12_year', 'class12_score',
@@ -649,29 +690,29 @@ const profileCompletion = computed(() => {
         if (p.ug_cgpa) academicCompletedCount++;
         if (p.ug_institution) academicCompletedCount++;
     }
-    totalProgress += (academicCompletedCount / academicTotalFields) * 25;
+    totalProgress += (academicCompletedCount / academicTotalFields) * 20;
 
-    // 3. Work Experience (25%)
+    // 4. Work Experience (20%)
     if (p.employment_status === 'Fresher') {
-        totalProgress += 25;
+        totalProgress += 20;
     } else if (p.employment_status === 'Experienced') {
         const jobs = p.work_experience || [];
         if (jobs.length > 0) {
             const firstJob = jobs[0];
             const jobFields = ['org_name', 'designation', 'functional_area', 'from'];
             const jobCompleted = jobFields.filter(f => !!firstJob[f]).length;
-            totalProgress += (jobCompleted / jobFields.length) * 25;
+            totalProgress += (jobCompleted / jobFields.length) * 20;
         }
     }
 
-    // 4. Documents (25%)
+    // 5. Documents (20%)
     const docFields = ['aadhaar', 'dob_proof', 'photo', 'signature'];
     const docCompleted = docFields.filter(field => {
         const hasNew = !!p.documents[field];
         const hasExisting = !!(p.existingDocuments && p.existingDocuments[field]);
         return hasNew || hasExisting;
     }).length;
-    totalProgress += (docCompleted / docFields.length) * 25;
+    totalProgress += (docCompleted / docFields.length) * 20;
 
     return Math.round(totalProgress);
 });
@@ -701,23 +742,30 @@ const handleFinishProfile = () => {
 const completionSteps = computed(() => {
     const p = formData;
 
-    // Personal (1)
+    // Pre Interview (1)
+    const preInterviewFields = Array.from({ length: 10 }, (_, i) => `pre_interview_doc_${i + 1}`);
+    const preInterviewDone = preInterviewFields.some(field => {
+        return !!p.documents[field] || !!(p.existingDocuments && p.existingDocuments[field]);
+    });
+
+    // Personal (2)
     const personalFields = ['first_name', 'last_name', 'email', 'mobile', 'dob', 'gender', 'state', 'city', 'pin_code', 'complete_address'];
     const personalDone = personalFields.every(f => !!p[f as keyof typeof p]);
 
-    // Academic (2) - simple check for basic fields
+    // Academic (3) - simple check for basic fields
     const academicDone = !!p.class10_year && !!p.class10_score && !!p.class12_year && !!p.class12_score;
 
-    // Work (3)
+    // Work (4)
     const workDone = p.employment_status === 'Fresher' || (p.work_experience && p.work_experience.length > 0 && !!p.work_experience[0].org_name);
 
-    // Documents (4)
+    // Documents (5)
     const docFields = ['aadhaar', 'dob_proof', 'photo', 'signature'];
     const docsDone = docFields.every(field => {
         return !!p.documents[field] || !!(p.existingDocuments && p.existingDocuments[field]);
     });
 
     return [
+        { label: 'Pre Interview Documents', done: preInterviewDone },
         { label: 'Personal Information', done: personalDone },
         { label: 'Academic Information', done: academicDone },
         { label: 'Work Experience', done: workDone },
@@ -782,6 +830,7 @@ const fetchStudentDetail = async () => {
             isEditingSection[2] = true;
             isEditingSection[3] = true;
             isEditingSection[4] = true;
+            isEditingSection[5] = true;
             console.warn("Profile is detected as EMPTY. Disabling sections.");
         } else {
             isProfileEmpty.value = false;
@@ -789,6 +838,7 @@ const fetchStudentDetail = async () => {
             isEditingSection[2] = false;
             isEditingSection[3] = false;
             isEditingSection[4] = false;
+            isEditingSection[5] = false;
         }
 
         if (response?.data && !Array.isArray(response.data)) {
@@ -858,7 +908,17 @@ const fetchStudentDetail = async () => {
                 aadhaar: d.aadhaar || null,
                 dob_proof: d.dob_certificate || null,
                 photo: d.photo || null, // Fetch proper document photo
-                signature: d.signature || null // Fetch proper signature document
+                signature: d.signature || null, // Fetch proper signature document
+                pre_interview_doc_1: d.pre_interview_doc_1 || null,
+                pre_interview_doc_2: d.pre_interview_doc_2 || null,
+                pre_interview_doc_3: d.pre_interview_doc_3 || null,
+                pre_interview_doc_4: d.pre_interview_doc_4 || null,
+                pre_interview_doc_5: d.pre_interview_doc_5 || null,
+                pre_interview_doc_6: d.pre_interview_doc_6 || null,
+                pre_interview_doc_7: d.pre_interview_doc_7 || null,
+                pre_interview_doc_8: d.pre_interview_doc_8 || null,
+                pre_interview_doc_9: d.pre_interview_doc_9 || null,
+                pre_interview_doc_10: d.pre_interview_doc_10 || null
             };
 
             // Booking Details check
@@ -944,11 +1004,12 @@ const isEditingSection = reactive<Record<number, boolean>>({
     1: false,
     2: false,
     3: false,
-    4: false
+    4: false,
+    5: false
 });
 
 const isAnySectionEditing = computed(() => {
-    return isEditingSection[1] || isEditingSection[2] || isEditingSection[3] || isEditingSection[4];
+    return isEditingSection[1] || isEditingSection[2] || isEditingSection[3] || isEditingSection[4] || isEditingSection[5];
 });
 
 const enableEdit = (sectionIndex: number) => {
@@ -1296,13 +1357,33 @@ const formData = reactive({
         aadhaar: null,
         dob_proof: null,
         photo: null,
-        signature: null
+        signature: null,
+        pre_interview_doc_1: null,
+        pre_interview_doc_2: null,
+        pre_interview_doc_3: null,
+        pre_interview_doc_4: null,
+        pre_interview_doc_5: null,
+        pre_interview_doc_6: null,
+        pre_interview_doc_7: null,
+        pre_interview_doc_8: null,
+        pre_interview_doc_9: null,
+        pre_interview_doc_10: null
     } as Record<string, any>,
     existingDocuments: {
         aadhaar: null,
         dob_proof: null,
         photo: null,
-        signature: null
+        signature: null,
+        pre_interview_doc_1: null,
+        pre_interview_doc_2: null,
+        pre_interview_doc_3: null,
+        pre_interview_doc_4: null,
+        pre_interview_doc_5: null,
+        pre_interview_doc_6: null,
+        pre_interview_doc_7: null,
+        pre_interview_doc_8: null,
+        pre_interview_doc_9: null,
+        pre_interview_doc_10: null
     } as Record<string, string | null>,
     declaration: false
 });
@@ -1355,8 +1436,8 @@ const handleProfileImageUpload = async (event: Event) => {
 const section1Ref = ref<any>(null);
 const section2Ref = ref<any>(null);
 const section3Ref = ref<any>(null);
-const section4aRef = ref<any>(null);
-const section4bRef = ref<any>(null);
+const section4Ref = ref<any>(null);
+const section5Ref = ref<any>(null);
 
 const toggleSection = (index: number) => {
     // expand or collapse only the clicked section without closing others
@@ -1384,9 +1465,14 @@ const handleFinalSubmit = async () => {
         section3Ref.value?.scrollToFirstError?.();
         return;
     }
-    if (section4aRef.value?.validate && !section4aRef.value.validate()) {
+    if (section4Ref.value?.validate && !section4Ref.value.validate()) {
         openSections.value.add(4);
-        section4aRef.value?.scrollToFirstError?.();
+        section4Ref.value?.scrollToFirstError?.();
+        return;
+    }
+    if (section5Ref.value?.validate && !section5Ref.value.validate()) {
+        openSections.value.add(5);
+        section5Ref.value?.scrollToFirstError?.();
         return;
     }
 
@@ -1474,6 +1560,12 @@ const handleFinalSubmit = async () => {
         }
         if (formData.documents.signature instanceof File) {
             data.append('signature', formData.documents.signature);
+        }
+        for (let i = 1; i <= 10; i++) {
+            const key = `pre_interview_doc_${i}`;
+            if (formData.documents[key] instanceof File) {
+                data.append(key, formData.documents[key]);
+            }
         }
 
         const { getAccessToken } = useAuth();
