@@ -52,7 +52,7 @@
 
                                 <div class="application-id-badge mb-3 d-inline-block">
                                     <span v-if="formData?.application_id">Application ID: {{ formData.application_id
-                                    }}</span>
+                                        }}</span>
                                     <span v-else>- </span>
                                 </div>
 
@@ -72,9 +72,11 @@
 
                                 <!-- Bottom: Download Report Button (Mobile) -->
                                 <div v-if="resultStatus" class="d-md-none mt-4 text-center">
-                                    <button class="status-pill report-download-btn d-flex align-items-center gap-2 mx-auto"
+                                    <button
+                                        class="status-pill report-download-btn d-flex align-items-center gap-2 mx-auto"
                                         @click="downloadReport" :disabled="isDownloadingReport">
-                                        <span v-if="isDownloadingReport" class="spinner-border spinner-border-sm"></span>
+                                        <span v-if="isDownloadingReport"
+                                            class="spinner-border spinner-border-sm"></span>
                                         <i v-else class="ti ti-download fs-6"></i>
                                         Download Scorecard
                                     </button>
@@ -118,7 +120,8 @@
                             <div class="profile-accordion">
 
                                 <!-- Section 1: Pre Interview -->
-                                <div v-if="isPreInterviewVisible" class="accordion-section" :class="{ active: isSectionOpen(1) }">
+                                <div v-if="isPreInterviewVisible" class="accordion-section"
+                                    :class="{ active: isSectionOpen(1) }">
                                     <div class="accordion-header" @click="toggleSection(1)">
                                         <div class="accordion-header-left">
                                             <div style="display: flex; align-items: center; gap: 10px;">
@@ -141,7 +144,8 @@
                                     </div>
                                     <div class="accordion-body p-4 p-lg-5" v-show="isSectionOpen(1)">
                                         <fieldset :disabled="!isEditingSection[1]">
-                                            <PreInterview ref="section1Ref" :formData="formData" :isDisabled="!isEditingSection[1]" />
+                                            <PreInterview ref="section1Ref" :formData="formData"
+                                                :isDisabled="!isEditingSection[1]" />
                                         </fieldset>
                                     </div>
                                 </div>
@@ -321,7 +325,8 @@
                             <div class="completeness-body pb-4 pt-0">
                                 <ul class="list-unstyled mb-0 completion-checklist">
                                     <li class="d-flex align-items-center justify-content-between py-3 px-4 border-bottom"
-                                        v-for="(item, idx) in completionSteps" :key="idx" v-show="item.visible !== false">
+                                        v-for="(item, idx) in completionSteps" :key="idx"
+                                        v-show="item.visible !== false">
                                         <div class="d-flex align-items-center gap-3">
                                             <div class="completeness-icon" :class="{ 'is-done': item.done }">
                                                 <i v-if="item.done" class="ti ti-check"></i>
@@ -393,7 +398,7 @@
                                                 class="ti ti-chevron-left"></i></button>
                                         <span class="fw-bold text-dark" style="font-size: 14px;">{{
                                             monthNames[currentMonth]
-                                        }}
+                                            }}
                                             {{ currentYear }}</span>
                                         <button
                                             class="btn btn-sm btn-white border shadow-sm p-1 d-flex align-items-center justify-content-center"
@@ -452,7 +457,8 @@
                                                 class="btn btn-primary w-100 custom-primary-bg d-flex justify-content-center align-items-center gap-2"
                                                 :class="{ 'btn-disabled-custom': isBookingSlot || isCurrentSlotInPast }"
                                                 :disabled="isBookingSlot || isCurrentSlotInPast"
-                                                style="pointer-events: auto;" @click="!isBookingSlot && !isCurrentSlotInPast && bookSlot()">
+                                                style="pointer-events: auto;"
+                                                @click="!isBookingSlot && !isCurrentSlotInPast && bookSlot()">
                                                 <span v-if="isBookingSlot" class="spinner-border spinner-border-sm"
                                                     role="status" aria-hidden="true"></span>
 
@@ -536,7 +542,7 @@
                                         </a>
 
                                     </div>
-                                     
+
 
                                 </div> <!-- End Position-Relative -->
                             </div> <!-- End v-show -->
@@ -658,7 +664,6 @@ const profileCompletion = computed(() => {
     const p = formData;
 
     const sectionWeight = isPreInterviewVisible.value ? 20 : 25;
-
     // 1. Pre Interview (dynamically weighted)
     const piMandatory = [
         'identity_proof', 'tenth_marksheet', 'twelth_marksheet',
@@ -698,7 +703,7 @@ const profileCompletion = computed(() => {
         }
     } else if (!p.accounting_profession) {
         // If preference isn't selected yet, include it in the total fields
-        piTotal += 1; 
+        piTotal += 1;
     }
 
     if (isPreInterviewVisible.value) {
@@ -802,7 +807,7 @@ const completionSteps = computed(() => {
         } else if (p.accounting_profession === '2') {
             const coappDocs = ['co_applicant_pan_card', 'co_applicant_aadhaar', 'co_applicant_six_month_bank'];
             const coappDone = coappDocs.every(field => !!p.documents[field] || !!(p.existingDocuments && p.existingDocuments[field]));
-            
+
             let profDocsDone = false;
             if (p.co_applicant_profession === '1') {
                 profDocsDone = ['co_applicant_sallary_slip', 'co_applicant_form16', 'co_applicant_employee_id_card', 'co_applicant_passport_size'].every(
@@ -894,7 +899,7 @@ const fetchStudentDetail = async () => {
         });
 
         console.log("Profile Data Check:", response);
-        console.log(response,'-----response')
+        console.log(response, '-----response')
         resultStatus.value = response?.data?.result_status === true;
         reportUrl.value = response?.report_url || response?.data?.report_url || null;
 
@@ -918,7 +923,7 @@ const fetchStudentDetail = async () => {
 
         if (response?.data && !Array.isArray(response.data)) {
             const d = response.data;
-            reattempt.value=d?.re_attempt_btn
+            reattempt.value = d?.re_attempt_btn
             studentResult.value = d?.student_result ? String(d.student_result) : "";
             // Name splitting logic
             formData.first_name = d.first_name || "";
@@ -1717,7 +1722,7 @@ const handleFinalSubmit = async () => {
             body: data,
             headers: token ? { 'Authorization': `Bearer ${token}` } : {}
         });
-        
+
         const response: any = await rawResponse.json();
 
         if (response.success || response.status === "200" || response.status === 200 || response.message === "Message sent Successfully" || response.message?.toLowerCase().includes("success")) {
@@ -1743,7 +1748,7 @@ const handleFinalSubmit = async () => {
                 errMsg = err.data;
             }
         }
-        
+
         // Log client error to server
         $fetch('/api/log-client-error', {
             method: 'POST',
@@ -1754,7 +1759,7 @@ const handleFinalSubmit = async () => {
                 userInfo: { email: formData.email || 'Unknown' }
             }
         }).catch(e => console.error("Failed to send log to server", e));
-        
+
         showAlert("Submission Failed", errMsg, "error");
     } finally {
         isSubmitting.value = false;
