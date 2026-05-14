@@ -1577,26 +1577,31 @@ const handleFinalSubmit = async () => {
     if (section1Ref.value?.validate && !section1Ref.value.validate()) {
         openSections.value.add(1);
         section1Ref.value?.scrollToFirstError?.();
+        showAlert("Incomplete Information", "Please fill all required fields in the 'Pre Interview' section.", "warning");
         return;
     }
     if (section2Ref.value?.validate && !section2Ref.value.validate()) {
         openSections.value.add(2);
         section2Ref.value?.scrollToFirstError?.();
+        showAlert("Incomplete Information", "Please fill all required fields in the 'Personal Information' section.", "warning");
         return;
     }
     if (section3Ref.value?.validate && !section3Ref.value.validate()) {
         openSections.value.add(3);
         section3Ref.value?.scrollToFirstError?.();
+        showAlert("Incomplete Information", "Please fill all required fields in the 'Academic Information' section.", "warning");
         return;
     }
     if (section4Ref.value?.validate && !section4Ref.value.validate()) {
         openSections.value.add(4);
         section4Ref.value?.scrollToFirstError?.();
+        showAlert("Incomplete Information", "Please fill all required fields in the 'Work Experience' section.", "warning");
         return;
     }
     if (section5Ref.value?.validate && !section5Ref.value.validate()) {
         openSections.value.add(5);
         section5Ref.value?.scrollToFirstError?.();
+        showAlert("Incomplete Information", "Please fill all required fields in the 'Documents' section.", "warning");
         return;
     }
 
@@ -1717,21 +1722,41 @@ const handleFinalSubmit = async () => {
             }
         }
 
-        const rawResponse = await fetch(`${config.public.apiBase}/api/students/create-update-student-profile/`, {
-            method: "POST",
-            body: data,
-            headers: token ? { 'Authorization': `Bearer ${token}` } : {}
-        });
+        const controller = new AbortController();
+        const timeoutId = setTimeout(() => controller.abort(), 120000); // 120s timeout
 
-        const response: any = await rawResponse.json();
+        console.log("--- STARTING SUBMISSION ---");
+        try {
+            const rawResponse = await fetch(`${config.public.apiBase}/api/students/create-update-student-profile/`, {
+                method: "POST",
+                body: data,
+                headers: token ? { 'Authorization': `Bearer ${token}` } : {},
+                signal: controller.signal
+            });
+            clearTimeout(timeoutId);
 
-        if (response.success || response.status === "200" || response.status === 200 || response.message === "Message sent Successfully" || response.message?.toLowerCase().includes("success")) {
-            showAlert("Success", "Profile updated successfully!", "success");
-            // Refresh details to reflect any new image
-            await fetchStudentDetail();
-        } else {
-            console.error("Backend Error Response:", response);
-            showAlert("Failed to update profile", response.message || "Unknown error", "error");
+            if (!rawResponse.ok) {
+                const errorText = await rawResponse.text();
+                console.error("Server error (non-ok):", rawResponse.status, errorText);
+                throw new Error(`Server returned ${rawResponse.status}: ${errorText || 'Unknown error'}`);
+            }
+
+            const response: any = await rawResponse.json();
+
+            if (response.success || response.status === "200" || response.status === 200 || response.message === "Message sent Successfully" || response.message?.toLowerCase().includes("success")) {
+                showAlert("Success", "Profile updated successfully!", "success");
+                // Refresh details to reflect any new image
+                await fetchStudentDetail();
+            } else {
+                console.error("Backend Error Response:", response);
+                showAlert("Failed to update profile", response.message || "Unknown error", "error");
+            }
+        } catch (fetchErr: any) {
+            clearTimeout(timeoutId);
+            if (fetchErr.name === 'AbortError') {
+                throw new Error("Submission timed out. This could be due to a slow internet connection or large file uploads. Please try again with a better connection.");
+            }
+            throw fetchErr;
         }
     } catch (err: any) {
         console.error("Submission error details:", err);
