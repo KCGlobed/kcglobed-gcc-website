@@ -285,7 +285,6 @@
         </Transition>
     </Teleport>
 </template>
-
 <script lang="ts">
 import { defineComponent, ref, reactive, nextTick, defineAsyncComponent, onMounted, onUnmounted, watch, computed } from "vue";
 import { isValidMobile } from "~/utils/validators";
