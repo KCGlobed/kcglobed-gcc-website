@@ -24,9 +24,9 @@
                                             <input type="text" class="form-control custom-input mb-2" id="fullName" v-model="form.name"
                                                 placeholder="Enter your full name"
                                                 :class="{ 'is-invalid': errors.name }">
-
                                             <div class="invalid-feedback" v-if="errors.name">{{ errors.name }}</div>
                                         </div>
+
                                         <div class="row">
                                             <div class="col-md-6">
                                                 <label for="emailAddress" class="form-label fw-bold small">Email Address*</label>
@@ -39,17 +39,25 @@
                                                 </div>
                                             </div>
                                             <div class="col-md-6">
-                                                <label for="phoneNumber" class="form-label fw-bold small">Phone Number*</label>
-                                                <div class="">
-                                                    <input type="tel" class="form-control custom-input mb-2" id="phoneNumber"
-                                                        v-model="form.mobile" placeholder="Enter your phone number"
-                                                        :class="{ 'is-invalid': errors.mobile }">
-                                                    <div class="invalid-feedback" v-if="errors.mobile">{{
-                                                        errors.mobile }}
-
-                                                    </div>
-                                                </div>
+                                                <OtpVerification 
+                                                    v-model="form.mobile"
+                                                    v-model:verified="otpVerified"
+                                                    v-model:sent="otpSent"
+                                                    :error="errors.mobile"
+                                                    :show-otp="false"
+                                                    @error-clear="errors.mobile = ''"
+                                                />
                                             </div>
+                                        </div>
+
+                                        <div v-if="otpSent && !otpVerified" class="mb-2">
+                                            <OtpVerification 
+                                                v-model="form.mobile"
+                                                v-model:verified="otpVerified"
+                                                v-model:sent="otpSent"
+                                                :show-phone="false"
+                                                @error-clear="errors.mobile = ''"
+                                            />
                                         </div>
 
                                         <div class="row">
@@ -1085,6 +1093,7 @@ import { isValidMobile } from "~/utils/validators";
 import stateCityData from "~/state_city.json";
 import universitiesList from "~/universities.json";
 import selectUniversityList from "~/select-university.json";
+import OtpVerification from '../Common/OtpVerification.vue';
 
 import image1 from "../../assets/img/heros/hero_bg.svg";
 import gccPdf from "../../assets/gcc.pdf";
@@ -1094,7 +1103,8 @@ export default defineComponent({
     components: {
         PaymentStatusModal: defineAsyncComponent(() => import('~/components/Common/PaymentStatusModal.vue')),
         CommonAlert: defineAsyncComponent(() => import('~/components/Common/CommonAlert.vue')),
-        FeeWaiverModal: defineAsyncComponent(() => import('~/components/university-fee-wavier/FeeWaiverModal.vue'))
+        FeeWaiverModal: defineAsyncComponent(() => import('~/components/university-fee-wavier/FeeWaiverModal.vue')),
+        OtpVerification
     },
     setup() {
         const isSubmitting = ref(false);
@@ -1425,6 +1435,9 @@ export default defineComponent({
             errors.university = "";
             notification.message = "";
             notification.type = "";
+            // Reset OTP state
+            otpSent.value = false;
+            otpVerified.value = false;
         };
 
         watch(() => form.state, (newState) => {
@@ -1442,6 +1455,11 @@ export default defineComponent({
         };
 
         const lastAbandonmentData = ref('');
+
+        // --- OTP Verification State ---
+        const otpSent = ref(false);
+        const otpVerified = ref(false);
+
         const triggerAbandonment = async () => {
             if (form.name && form.email && form.mobile && validateEmailObj(form.email) && isValidMobile(form.mobile)) {
                 // Prevent duplicate calls
@@ -1518,12 +1536,17 @@ export default defineComponent({
                 errors.university = 'University is required';
                 isValid = false;
             }
-
+            if (!otpVerified.value) {
+                if (!otpSent.value) {
+                    errors.mobile = 'Please click "Verify" to receive an OTP';
+                }
+                isValid = false;
+            }
             if (isDownloaded.value && !form.consent) {
                 errors.consent = "You must agree to the Terms and Privacy Policy";
             }
 
-            return Object.values(errors).every(error => error === "");
+            return isValid && Object.values(errors).every(error => error === "");
         };
 
         const submitForm = async () => {
@@ -1680,6 +1703,7 @@ export default defineComponent({
         };
 
         const handlePayment = async () => {
+            if (!validateForm()) return;
             notification.message = '';
             notification.type = '';
             isPaymentInProgress.value = true;
@@ -2033,7 +2057,10 @@ export default defineComponent({
             verifyAndApplyReferral,
             showCelebrationPopup,
             handleCelebrationCta,
-            getConfettiStyle
+            getConfettiStyle,
+            // OTP
+            otpSent,
+            otpVerified
         };
     },
 });
