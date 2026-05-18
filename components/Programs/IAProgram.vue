@@ -82,14 +82,13 @@ const trimesters = [
         modules: [
             [
                 '<strong>Financial Reporting (FR)</strong>',
-                '<strong>Audit & Assurance (AA)</strong>',
-                'AI for Finance, Audit & Accounting',
-                'Data analytics, Power BI, Advance Excel'
+                '<strong>Audit & Assurance (AA)</strong>'
             ],
             [
                 'MS Office',
-                'Communication & Presentation Skills – British Council',
-                'Corporate Internal Training'
+                'Advance Excel',
+                'Data analytics',
+                'Power BI',
             ]
         ]
     },
@@ -106,7 +105,11 @@ const trimesters = [
                 '<strong>Performance Management (PM)</strong>'
             ],
             [
-                '<div class="d-flex flex-column"><span class="text-gray-900 font-bold" style="color: #7A1C62; font-weight: 700 ">GCC Internship - 6 hr/day</span><span class="text-gray-700 text-sm">(Interim Busy Season)</span></div>'
+
+                'British Council - English for Work',
+                'AI for Finance',
+                'AI for Accounts',
+                'AI for Auditor'
             ]
         ]
     },
@@ -122,7 +125,8 @@ const trimesters = [
                 '<strong>Strategic Business Leader (SBL)</strong>'
             ],
             [
-                '<div class="d-flex flex-column"><span class="text-gray-900 font-bold" style="color: #7A1C62; font-weight: 700 ">GCC Internship - 6 hr/day</span><span class="text-gray-700 text-sm">(Year-End Busy Season)</span></div>'
+                'SAP FICO',
+                'Quick Book'
             ]
         ]
     },
@@ -138,7 +142,9 @@ const trimesters = [
                 '<strong>Advanced Financial Management (AFM)</strong>'
             ],
             [
-                '<div class="d-flex flex-column"><span class="text-gray-900 font-bold" style="font-weight: 700 ">Corporate Internal Training</span><span class="text-gray-700 text-sm">(Earmarked GCC Candidates)</span></div>'
+                'GCC Visits',
+                'Diversity & Inclusiveness (D & I)',
+                'Finthon to solve real GCC Business Problems'
             ]
         ]
     }
