@@ -120,7 +120,7 @@
                             <div class="profile-accordion">
 
                                 <!-- Section 1: Pre Interview -->
-                                <div v-if="isPreInterviewVisible" class="accordion-section"
+                                <!-- <div v-if="isPreInterviewVisible" class="accordion-section"
                                     :class="{ active: isSectionOpen(1) }">
                                     <div class="accordion-header" @click="toggleSection(1)">
                                         <div class="accordion-header-left">
@@ -148,7 +148,7 @@
                                                 :isDisabled="!isEditingSection[1]" />
                                         </fieldset>
                                     </div>
-                                </div>
+                                </div> -->
 
                                 <!-- Section 2: Personal Information -->
                                 <div class="accordion-section" :class="{ active: isSectionOpen(2) }">
