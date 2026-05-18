@@ -15,9 +15,10 @@
                 <span>Then Trained</span>
               </div>
               <div class="box">
-                <img src="../../assets/img/heros/panleIcon2.png" class="icon" />
+                <!-- <img src="../../assets/img/heros/panleIcon2.png" class="icon" />
                 <p>Paid Internship</p>
-                <span>6 Months</span>
+                <span>6 Months</span> -->
+                <img src="../../assets/img/common/adaptive.svg" alt="">
               </div>
               <div class="box">
                 <img src="/img/acca.svg" alt="acca" class="logo" />
