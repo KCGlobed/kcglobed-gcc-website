@@ -755,7 +755,7 @@ const profileCompletion = computed(() => {
     }
 
     // 5. Documents (dynamically weighted)
-    const docFields = ['aadhaar', 'dob_proof', 'photo', 'signature'];
+    const docFields = ['aadhaar', 'dob_proof', 'photo', 'signature', 'resume'];
     const docCompleted = docFields.filter(field => {
         const hasNew = !!p.documents[field];
         const hasExisting = !!(p.existingDocuments && p.existingDocuments[field]);
@@ -839,7 +839,7 @@ const completionSteps = computed(() => {
     const workDone = p.employment_status === 'Fresher' || (p.work_experience && p.work_experience.length > 0 && !!p.work_experience[0].org_name);
 
     // Documents (5)
-    const docFields = ['aadhaar', 'dob_proof', 'photo', 'signature'];
+    const docFields = ['aadhaar', 'dob_proof', 'photo', 'signature', 'resume'];
     const docsDone = docFields.every(field => {
         return !!p.documents[field] || !!(p.existingDocuments && p.existingDocuments[field]);
     });
@@ -994,6 +994,7 @@ const fetchStudentDetail = async () => {
                 dob_proof: d.dob_certificate || null,
                 photo: d.photo || null, // Fetch proper document photo
                 signature: d.signature || null, // Fetch proper signature document
+                resume: d.resume || null,
                 identity_proof: d.identity_proof || null,
                 tenth_marksheet: d.tenth_marksheet || null,
                 twelth_marksheet: d.twelth_marksheet || null,
@@ -1462,6 +1463,7 @@ const formData = reactive({
         dob_proof: null,
         photo: null,
         signature: null,
+        resume: null,
         identity_proof: null,
         tenth_marksheet: null,
         twelth_marksheet: null,
@@ -1488,6 +1490,7 @@ const formData = reactive({
         dob_proof: null,
         photo: null,
         signature: null,
+        resume: null,
         identity_proof: null,
         tenth_marksheet: null,
         twelth_marksheet: null,
@@ -1689,6 +1692,9 @@ const handleFinalSubmit = async () => {
         }
         if (formData.documents.signature instanceof File) {
             data.append('signature', formData.documents.signature);
+        }
+        if (formData.documents.resume instanceof File) {
+            data.append('resume', formData.documents.resume);
         }
         data.append('accounting_profession', formData.accounting_profession);
         data.append('additional_qualification', formData.additional_qualification);
