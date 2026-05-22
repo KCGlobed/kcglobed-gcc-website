@@ -1,8 +1,7 @@
 <template>
     <div class="document-upload-section">
         <div class="alert alert-info py-2 mb-4 border-0 bg-light-info">
-            <small class="fw-medium"><i class="ti ti-info-circle me-1"></i> Accepted Formats: PDF, JPG, PNG (Max 2MB per
-                file)</small>
+            <small class="fw-medium"><i class="ti ti-info-circle me-1"></i> Accepted Formats: PDF, JPG, PNG, DOC, DOCX (Max 2MB per file, 5MB for Resume)</small>
         </div>
 
         <div class="row g-4">
@@ -93,6 +92,28 @@
                     </div>
                 </div>
             </div>
+
+            <!-- Resume -->
+            <div class="col-md-6">
+                <div class="upload-field mb-0">
+                    <label class="form-label fw-bold">Resume <span v-if="!resumeKeyStatus">*</span></label>
+                    <div class="input-group">
+                        <input type="file" class="form-control" accept=".pdf,.doc,.docx,.jpg,.jpeg,.png"
+                            @change="handleFileChange('resume', $event)" :class="{ 'is-invalid': errors.resume }"
+                            :disabled="isDisabled">
+                        <span class="input-group-text bg-white" v-if="formData.documents.resume">
+                            <i class="ti ti-circle-check-filled text-success fs-5"></i>
+                        </span>
+                    </div>
+                    <div class="invalid-feedback d-block" v-if="errors.resume">{{ errors.resume }}</div>
+                    <div class="mt-2" v-if="formData.existingDocuments && formData.existingDocuments.resume">
+                        <a :href="formData.existingDocuments.resume" target="_blank"
+                            class="btn btn-sm btn-outline-primary">
+                            <i class="ti ti-eye"></i> View Current Resume
+                        </a>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 </template>
@@ -106,6 +127,10 @@ export default {
             required: true
         },
         isDisabled: {
+            type: Boolean,
+            default: false
+        },
+        resumeKeyStatus: {
             type: Boolean,
             default: false
         }
@@ -132,18 +157,25 @@ export default {
             }
 
             // Simple validation: Size check
-            const maxSize = 2 * 1024 * 1024; // 2MB
+            const maxSize = field === 'resume' ? 5 * 1024 * 1024 : 2 * 1024 * 1024; // 5MB for resume, 2MB for others
             if (file.size > maxSize) {
-                this.errors[field] = "File size exceeds 2MB limit.";
+                this.errors[field] = `File size exceeds ${field === 'resume' ? '5MB' : '2MB'} limit.`;
                 event.target.value = ""; // Clear input
                 this.formData.documents[field] = null;
                 return;
             }
 
             // Accepted type check (Basic)
-            const allowedTypes = ['application/pdf', 'image/jpeg', 'image/png', 'image/jpg'];
+            const allowedTypes = [
+                'application/pdf', 
+                'image/jpeg', 
+                'image/png', 
+                'image/jpg',
+                'application/msword',
+                'application/vnd.openxmlformats-officedocument.wordprocessingml.document'
+            ];
             if (!allowedTypes.includes(file.type)) {
-                this.errors[field] = "Invalid file type. Only PDF/JPG/PNG allowed.";
+                this.errors[field] = "Invalid file type. Only PDF/JPG/PNG/Word documents allowed.";
                 event.target.value = "";
                 this.formData.documents[field] = null;
                 return;
@@ -163,6 +195,10 @@ export default {
                 photo: "Photograph is required",
                 signature: "Signature is required"
             };
+
+            if (!this.resumeKeyStatus) {
+                requiredFields.resume = "Resume is required";
+            }
 
             Object.keys(requiredFields).forEach(field => {
                 const hasNewDocument = !!this.formData.documents[field];
