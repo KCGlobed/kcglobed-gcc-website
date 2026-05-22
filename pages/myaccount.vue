@@ -52,7 +52,7 @@
 
                                 <div class="application-id-badge mb-3 d-inline-block">
                                     <span v-if="formData?.application_id">Application ID: {{ formData.application_id
-                                        }}</span>
+                                    }}</span>
                                     <span v-else>- </span>
                                 </div>
 
@@ -155,7 +155,7 @@
                                     <div class="accordion-header" @click="toggleSection(2)">
                                         <div class="accordion-header-left">
                                             <div style="display: flex; align-items: center; gap: 10px;">
-                                                <div v-if="completionSteps[1].done" class="section-complete-check">
+                                                <div v-if="completionSteps[0].done" class="section-complete-check">
                                                     <i class="ti ti-check"></i>
                                                 </div>
                                                 <span v-else class="accordion-icon"><i class="ti ti-user"></i></span>
@@ -185,7 +185,7 @@
                                     <div class="accordion-header" @click="toggleSection(3)">
                                         <div class="accordion-header-left">
                                             <div style="display: flex; align-items: center; gap: 10px;">
-                                                <div v-if="completionSteps[2].done" class="section-complete-check">
+                                                <div v-if="completionSteps[1].done" class="section-complete-check">
                                                     <i class="ti ti-check"></i>
                                                 </div>
                                                 <span v-else class="accordion-icon"><i class="ti ti-school"></i></span>
@@ -214,7 +214,7 @@
                                     <div class="accordion-header" @click="toggleSection(4)">
                                         <div class="accordion-header-left">
                                             <div style="display: flex; align-items: center; gap: 10px;">
-                                                <div v-if="completionSteps[3].done" class="section-complete-check">
+                                                <div v-if="completionSteps[2].done" class="section-complete-check">
                                                     <i class="ti ti-check"></i>
                                                 </div>
                                                 <span v-else class="accordion-icon"><i
@@ -246,7 +246,7 @@
                                     <div class="accordion-header" @click="toggleSection(5)">
                                         <div class="accordion-header-left">
                                             <div style="display: flex; align-items: center; gap: 10px;">
-                                                <div v-if="completionSteps[4].done" class="section-complete-check">
+                                                <div v-if="completionSteps[3].done" class="section-complete-check">
                                                     <i class="ti ti-check"></i>
                                                 </div>
                                                 <span v-else class="accordion-icon"><i class="ti ti-files"></i></span>
@@ -265,7 +265,7 @@
                                     </div>
                                     <div class="accordion-body p-4 p-lg-5" v-show="isSectionOpen(5)">
                                         <DocumentUpload ref="section5Ref" :formData="formData"
-                                            :isDisabled="!isEditingSection[5]" />
+                                            :isDisabled="!isEditingSection[5]" :resumeKeyStatus="resumeKeyStatus" />
                                         <!-- <div class="section-divider"></div> -->
                                         <!-- <PrePaymentDeclaration ref="section4bRef" :formData="formData" /> -->
                                     </div>
@@ -398,7 +398,7 @@
                                                 class="ti ti-chevron-left"></i></button>
                                         <span class="fw-bold text-dark" style="font-size: 14px;">{{
                                             monthNames[currentMonth]
-                                            }}
+                                        }}
                                             {{ currentYear }}</span>
                                         <button
                                             class="btn btn-sm btn-white border shadow-sm p-1 d-flex align-items-center justify-content-center"
@@ -519,14 +519,20 @@
                                         </button>
 
                                         <!-- Start Exam Button -->
-                                        <a :href="bookingDetails.examStatus ? 'https://cocubes.in/gccschool-nfet' : 'javascript:void(0)'"
-                                            target="_blank"
-                                            class="btn w-100 d-flex justify-content-center align-items-center gap-2"
+                                        <button class="btn w-100 d-flex justify-content-center align-items-center gap-2"
                                             :class="bookingDetails.examStatus ? 'btn-primary custom-primary-bg' : 'btn-secondary btn-disabled-custom'"
-                                            v-if="bookingDetails.isBooked"
-                                            @click="!bookingDetails.examStatus && $event.preventDefault()">
-                                            Start Exam
-                                            <i class="ti ti-external-link"></i>
+                                            v-if="bookingDetails.isBooked" :disabled="isStartingExam"
+                                            @click="handleStartExamClick($event)">
+                                            <span v-if="isStartingExam" class="spinner-border spinner-border-sm"
+                                                role="status" aria-hidden="true"></span>
+                                            <template v-else-if="bookingDetails.examUrl">
+                                                Resume Exam
+                                                <i class="ti ti-external-link"></i>
+                                            </template>
+                                            <template v-else>
+                                                Start Exam
+                                                <i class="ti ti-external-link"></i>
+                                            </template>
                                             <span class="custom-tooltip-wrapper d-inline-block ms-1"
                                                 @click.stop.prevent>
                                                 <i class="ti ti-info-circle" style="font-size: 16px;"></i>
@@ -539,7 +545,7 @@
                                                     }}
                                                 </div>
                                             </span>
-                                        </a>
+                                        </button>
 
                                     </div>
 
@@ -650,6 +656,7 @@ const profileImage = ref<string | null>(null);
 const reattempt = ref<number>(0);
 const isProfileEmpty = ref(false);
 const resultStatus = ref(false);
+const resumeKeyStatus = ref(false);
 const reportUrl = ref<string | null>(null);
 const studentResult = ref("");
 
@@ -663,52 +670,7 @@ const profileCompletion = computed(() => {
     let totalProgress = 0;
     const p = formData;
 
-    const sectionWeight = isPreInterviewVisible.value ? 20 : 25;
-    // 1. Pre Interview (dynamically weighted)
-    const piMandatory = [
-        'identity_proof', 'tenth_marksheet', 'twelth_marksheet',
-        'graduation_first_marksheet', 'graduation_second_marksheet', 'graduation_third_marksheet',
-        'graduation_forth_marksheet', 'graduation_fifth_marksheet'
-    ];
-    let piDocsCount = piMandatory.filter(field => !!p.documents[field] || !!(p.existingDocuments && p.existingDocuments[field])).length;
-    let piTotal = piMandatory.length;
-
-    if (p.accounting_profession === '1') {
-        piTotal += 1;
-        if (p.fee_preference_agree) piDocsCount++;
-    } else if (p.accounting_profession === '2') {
-        piTotal += 3; // Co-app PAN, Aadhaar, and shared bank statement
-        if (!!p.documents['co_applicant_pan_card'] || !!(p.existingDocuments && p.existingDocuments['co_applicant_pan_card'])) piDocsCount++;
-        if (!!p.documents['co_applicant_aadhaar'] || !!(p.existingDocuments && p.existingDocuments['co_applicant_aadhaar'])) piDocsCount++;
-        if (!!p.documents['co_applicant_six_month_bank'] || !!(p.existingDocuments && p.existingDocuments['co_applicant_six_month_bank'])) piDocsCount++;
-
-        if (p.co_applicant_profession === '1') {
-            piTotal += 4;
-            const salDocs = ['co_applicant_sallary_slip', 'co_applicant_form16', 'co_applicant_employee_id_card', 'co_applicant_passport_size'];
-            salDocs.forEach(field => {
-                if (!!p.documents[field] || !!(p.existingDocuments && p.existingDocuments[field])) piDocsCount++;
-            });
-        } else if (p.co_applicant_profession === '2') {
-            piTotal += 2;
-            const selfDocs = ['co_applicant_income_tax_return', 'co_applicant_compute_income'];
-            selfDocs.forEach(field => {
-                if (!!p.documents[field] || !!(p.existingDocuments && p.existingDocuments[field])) piDocsCount++;
-            });
-        } else if (p.co_applicant_profession === '3') {
-            piTotal += 1;
-            const agriDocs = ['co_applicant_agriculture_income'];
-            agriDocs.forEach(field => {
-                if (!!p.documents[field] || !!(p.existingDocuments && p.existingDocuments[field])) piDocsCount++;
-            });
-        }
-    } else if (!p.accounting_profession) {
-        // If preference isn't selected yet, include it in the total fields
-        piTotal += 1;
-    }
-
-    if (isPreInterviewVisible.value) {
-        totalProgress += (piDocsCount / piTotal) * sectionWeight;
-    }
+    const sectionWeight = 25; // 4 sections: Personal, Academic, Work Experience, Documents Upload
 
     // 2. Personal Information (dynamically weighted) - 10 Fields
     const personalFields = [
@@ -756,6 +718,12 @@ const profileCompletion = computed(() => {
 
     // 5. Documents (dynamically weighted)
     const docFields = ['aadhaar', 'dob_proof', 'photo', 'signature', 'resume'];
+    if (resumeKeyStatus.value) {
+        const index = docFields.indexOf('resume');
+        if (index > -1) {
+            docFields.splice(index, 1);
+        }
+    }
     const docCompleted = docFields.filter(field => {
         const hasNew = !!p.documents[field];
         const hasExisting = !!(p.existingDocuments && p.existingDocuments[field]);
@@ -769,7 +737,7 @@ const profileCompletion = computed(() => {
 const firstIncompleteSectionIndex = computed(() => {
     const steps = completionSteps.value;
     const index = steps.findIndex(step => step.visible !== false && !step.done);
-    return index !== -1 ? index + 1 : null;
+    return index !== -1 ? index + 2 : null;
 });
 
 const showFeeWaiverModal = ref(false);
@@ -792,6 +760,7 @@ const completionSteps = computed(() => {
     const p = formData;
 
     // Pre Interview (1)
+    /*
     const piMandatory = [
         'identity_proof', 'tenth_marksheet', 'twelth_marksheet',
         'graduation_first_marksheet', 'graduation_second_marksheet', 'graduation_third_marksheet',
@@ -827,6 +796,8 @@ const completionSteps = computed(() => {
             preInterviewDone = false; // Selection is mandatory
         }
     }
+    */
+    const preInterviewDone = false;
 
     // Personal (2)
     const personalFields = ['first_name', 'last_name', 'email', 'mobile', 'dob', 'gender', 'state', 'city', 'pin_code', 'complete_address'];
@@ -840,12 +811,18 @@ const completionSteps = computed(() => {
 
     // Documents (5)
     const docFields = ['aadhaar', 'dob_proof', 'photo', 'signature', 'resume'];
+    if (resumeKeyStatus.value) {
+        const index = docFields.indexOf('resume');
+        if (index > -1) {
+            docFields.splice(index, 1);
+        }
+    }
     const docsDone = docFields.every(field => {
         return !!p.documents[field] || !!(p.existingDocuments && p.existingDocuments[field]);
     });
 
     return [
-        { label: 'Pre Interview Documents', done: preInterviewDone, visible: isPreInterviewVisible.value },
+        // { label: 'Pre Interview Documents', done: preInterviewDone, visible: false },
         { label: 'Personal Information', done: personalDone, visible: true },
         { label: 'Academic Information', done: academicDone, visible: true },
         { label: 'Work Experience', done: workDone, visible: true },
@@ -859,7 +836,8 @@ const bookingDetails = reactive({
     time: "",
     admitCardUrl: "" as string | null,
     updateCount: 0,
-    examStatus: false
+    examStatus: false,
+    examUrl: ""
 });
 
 const showAdmitCardButton = ref(false);
@@ -901,6 +879,7 @@ const fetchStudentDetail = async () => {
         console.log("Profile Data Check:", response);
         console.log(response, '-----response')
         resultStatus.value = response?.data?.result_status === true;
+        resumeKeyStatus.value = response?.data?.resume_key_status === true || response?.data?.resume_key_status === "true" || response?.resume_key_status === true || response?.resume_key_status === "true";
         reportUrl.value = response?.report_url || response?.data?.report_url || null;
 
         // If returned payload is explicitly an empty array or missing data
@@ -1039,8 +1018,11 @@ const fetchStudentDetail = async () => {
                 showAdmitCardButton.value = true;
             }
 
-            // Map exam_status from backend
+            // Map exam_status and exam_url from backend
             bookingDetails.examStatus = d.exam_status === true || d.exam_status === "true" || d.exam_status === 1;
+            bookingDetails.examUrl = d.exam_url || "";
+
+            // (localStorage check moved down after application_id is populated)
         }
 
         // Fetch image specifically from the detail API as requested and fill fallback profile data
@@ -1256,6 +1238,46 @@ const handleConfirm = (confirmed: boolean) => {
 };
 
 const isBookingSlot = ref(false);
+const isStartingExam = ref(false);
+
+
+const handleStartExamClick = async (event: MouseEvent) => {
+    event.preventDefault();
+    if (!bookingDetails.examStatus || isStartingExam.value) return;
+
+    isStartingExam.value = true;
+    try {
+        await fetchStudentDetail();
+        let targetUrl = bookingDetails.examUrl;
+
+        if (!targetUrl) {
+            const { getAccessToken } = useAuth();
+            const token = getAccessToken();
+            const response: any = await $fetch(`${config.public.apiBase}/api/students/schedule-assessment/`, {
+                method: "POST",
+                body: {
+                    email: formData.application_id || formData.email,
+                    first_name: formData.first_name,
+                    last_name: formData.last_name
+                },
+                headers: token ? { 'Authorization': `Bearer ${token}` } : {}
+            });
+
+            if (response && response.data && response.data.assessmentlink) {
+                targetUrl = response.data.assessmentlink;
+            }
+        }
+
+        if (targetUrl) {
+            window.open(targetUrl, '_blank');
+            bookingDetails.examUrl = targetUrl;
+        }
+    } catch (err) {
+        console.error("Failed to start exam:", err);
+    } finally {
+        isStartingExam.value = false;
+    }
+};
 
 const bookSlot = async () => {
     if (!selectedDate.value || !selectedSlot.value) return;
