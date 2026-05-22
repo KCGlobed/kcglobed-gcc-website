@@ -96,7 +96,7 @@
             <!-- Resume -->
             <div class="col-md-6">
                 <div class="upload-field mb-0">
-                    <label class="form-label fw-bold">Resume <span>*</span></label>
+                    <label class="form-label fw-bold">Resume <span v-if="!resumeKeyStatus">*</span></label>
                     <div class="input-group">
                         <input type="file" class="form-control" accept=".pdf,.doc,.docx,.jpg,.jpeg,.png"
                             @change="handleFileChange('resume', $event)" :class="{ 'is-invalid': errors.resume }"
@@ -127,6 +127,10 @@ export default {
             required: true
         },
         isDisabled: {
+            type: Boolean,
+            default: false
+        },
+        resumeKeyStatus: {
             type: Boolean,
             default: false
         }
@@ -189,9 +193,12 @@ export default {
                 aadhaar: "Aadhaar Card is required",
                 dob_proof: "Proof of DOB is required",
                 photo: "Photograph is required",
-                signature: "Signature is required",
-                resume: "Resume is required"
+                signature: "Signature is required"
             };
+
+            if (!this.resumeKeyStatus) {
+                requiredFields.resume = "Resume is required";
+            }
 
             Object.keys(requiredFields).forEach(field => {
                 const hasNewDocument = !!this.formData.documents[field];
