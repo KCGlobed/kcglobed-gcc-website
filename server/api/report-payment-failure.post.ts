@@ -120,7 +120,7 @@ export default defineEventHandler(async (event) => {
     // ── Step 2: Always save the failure record to DB ──────────────────────────
     try {
         console.log(userName,userEmail,userMobile,city,'----All the details---')
-        await savePayment({
+        const failurePayload = {
             re_attempt_status,
             student_id: userId || null,
             form_type: formType || 1,
@@ -142,7 +142,29 @@ export default defineEventHandler(async (event) => {
                 state: state
             }),
             source: source || 1
-        });
+        };
+
+        if (re_attempt_status) {
+            // ── Call external API if reattempt ────────────────────────────────────
+            try {
+                const apiBase = process.env.NUXT_PUBLIC_API_BASE;
+                const authHeader = getHeader(event, 'authorization');
+                const headers: Record<string, string> = { 'Content-Type': 'application/json' };
+                if (authHeader) headers['Authorization'] = authHeader;
+
+                await $fetch(`${apiBase}/api/students/create_student_payment/`, {
+                    method: 'POST',
+                    headers,
+                    body: failurePayload
+                });
+                console.log(`[PAYMENT][failure] Reattempt payment failure successfully sent to external API.`);
+            } catch (apiError: any) {
+                console.error(`[PAYMENT][failure] Reattempt API call failed:`, apiError?.message || apiError);
+            }
+        } else {
+            // Only save to local DB if not reattempt
+            await savePayment(failurePayload);
+        }
 
         // --- LOG: Failure Recorded Successfully ---
         console.log("[PAYMENT][failure] RECORDED — Client failure saved to DB", {

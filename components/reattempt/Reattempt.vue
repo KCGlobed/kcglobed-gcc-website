@@ -160,10 +160,14 @@ const loadRazorpayScript = () => new Promise((resolve) => {
 const initiatePayment = async () => {
     isProcessing.value = true;
     try {
-        const { userId } = useAuth();
+        const { userId, getAccessToken } = useAuth();
+        const token = getAccessToken();
+        const headers: Record<string, string> = {};
+        if (token) headers['Authorization'] = `Bearer ${token}`;
 
         const res: any = await $fetch("/api/start-payment", {
             method: "POST",
+            headers,
             body: {
                 user_id: userId.value,
                 name: `${props.formData.first_name || ''} ${props.formData.last_name || ''}`.trim() || 'Applicant',
@@ -212,8 +216,14 @@ const onPaymentFailure = async (payload: any) => {
     startVerifying('Recording payment status...');
 
     try {
+        const { getAccessToken } = useAuth();
+        const token = getAccessToken();
+        const headers: Record<string, string> = {};
+        if (token) headers['Authorization'] = `Bearer ${token}`;
+
         await $fetch("/api/report-payment-failure", {
             method: "POST",
+            headers,
             body: payload
         });
     } catch (e) {
@@ -244,8 +254,14 @@ const handleRazorpayPayment = async (res: any) => {
             // Show verifying loader as soon as Razorpay closes with success
             startVerifying('Verifying your payment...');
             try {
+                const { getAccessToken } = useAuth();
+                const token = getAccessToken();
+                const headers: Record<string, string> = {};
+                if (token) headers['Authorization'] = `Bearer ${token}`;
+
                 await $fetch("/api/complete-payment", {
                     method: "POST",
+                    headers,
                     body: {
                         razorpay_order_id: response.razorpay_order_id,
                         razorpay_payment_id: response.razorpay_payment_id,
@@ -319,8 +335,14 @@ const handleCashfreePayment = async (res: any) => {
             // Show verifying loader as soon as Cashfree closes with success
             startVerifying('Verifying your payment...');
             try {
+                const { getAccessToken } = useAuth();
+                const token = getAccessToken();
+                const headers: Record<string, string> = {};
+                if (token) headers['Authorization'] = `Bearer ${token}`;
+
                 await $fetch("/api/complete-payment", {
                     method: "POST",
+                    headers,
                     body: { cf_order_id: res.cf_order_id, re_attempt_status: true }
                 });
                 await callReattempt();

@@ -151,7 +151,7 @@ export default defineEventHandler(async (event) => {
 
     // ── Save success to DB ────────────────────────────────────────────────────
     try {
-        const paymentDbId = await savePayment({
+        const paymentPayload = {
             re_attempt_status: reAttemptStatus,
             student_id: userId,
             form_type: formType || 1,
@@ -173,7 +173,30 @@ export default defineEventHandler(async (event) => {
             }),
             source: source || 1,
             fee_waiver_category: feeWaiverCategory
-        });
+        };
+
+        let paymentDbId = null;
+        if (reAttemptStatus) {
+            // ── Call external API if reattempt ────────────────────────────────────
+            try {
+                const apiBase = process.env.NUXT_PUBLIC_API_BASE;
+                const authHeader = getHeader(event, 'authorization');
+                const headers: Record<string, string> = { 'Content-Type': 'application/json' };
+                if (authHeader) headers['Authorization'] = authHeader;
+
+                await $fetch(`${apiBase}/api/students/create_student_payment/`, {
+                    method: 'POST',
+                    headers,
+                    body: paymentPayload
+                });
+                console.log(`[PAYMENT][complete] Reattempt payment successfully sent to external API.`);
+            } catch (apiError: any) {
+                console.error(`[PAYMENT][complete] Reattempt API call failed:`, apiError?.message || apiError);
+            }
+        } else {
+            // Only save to local DB if not reattempt
+            paymentDbId = await savePayment(paymentPayload);
+        }
 
         // ── Step 3: Send Confirmation Email ─────────────────────────────────────
         if (userEmail) {
