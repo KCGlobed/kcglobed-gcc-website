@@ -6,6 +6,8 @@
 </template>
 
 <script setup lang="ts">
+
+
 const route = useRoute();
 const canonicalUrl = computed(() => `https://www.gccschool.com${route.path}`);
 useHead({
