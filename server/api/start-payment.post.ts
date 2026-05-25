@@ -37,6 +37,42 @@ export default defineEventHandler(async (event) => {
 
             const order = await razorpay.orders.create(orderOptions);
 
+            // Forward to Django backend if reattempt
+            if (payment_type === 'reattempt') {
+                try {
+                    const apiBase = process.env.NUXT_PUBLIC_API_BASE;
+                    const authHeader = getHeader(event, 'authorization');
+                    const headers: Record<string, string> = { 'Content-Type': 'application/json' };
+                    if (authHeader) headers['Authorization'] = authHeader;
+
+                    await $fetch(`${apiBase}/api/students/create_student_payment/`, {
+                        method: 'POST',
+                        headers,
+                        body: {
+                            re_attempt_status: true,
+                            student_id: user_id || null,
+                            form_type: form_type || 1,
+                            form_id: form_id || null,
+                            razorpay_order_id: order.id,
+                            razorpay_payment_id: 'N/A',
+                            razorpay_signature: 'N/A',
+                            amount,
+                            currency,
+                            status: 'initiated',
+                            response: JSON.stringify({
+                                source: "razorpay_start",
+                                name, email, mobile, state, city,
+                                timestamp: new Date().toISOString()
+                            }),
+                            source: source || 1
+                        }
+                    });
+                    console.log(`[PAYMENT][start] Razorpay reattempt payment created successfully on external API.`);
+                } catch (apiError: any) {
+                    console.error(`[PAYMENT][start] Razorpay reattempt API call failed:`, apiError?.message || apiError);
+                }
+            }
+
             return {
                 success: true,
                 gateway: "razorpay",
@@ -90,6 +126,42 @@ export default defineEventHandler(async (event) => {
 
             const response = await cashfree.PGCreateOrder(orderRequest);
             const orderData = response.data;
+
+            // Forward to Django backend if reattempt
+            if (payment_type === 'reattempt') {
+                try {
+                    const apiBase = process.env.NUXT_PUBLIC_API_BASE;
+                    const authHeader = getHeader(event, 'authorization');
+                    const headers: Record<string, string> = { 'Content-Type': 'application/json' };
+                    if (authHeader) headers['Authorization'] = authHeader;
+
+                    await $fetch(`${apiBase}/api/students/create_student_payment/`, {
+                        method: 'POST',
+                        headers,
+                        body: {
+                            re_attempt_status: true,
+                            student_id: user_id || null,
+                            form_type: form_type || 1,
+                            form_id: form_id || null,
+                            razorpay_order_id: orderData.order_id,
+                            razorpay_payment_id: 'N/A',
+                            razorpay_signature: 'N/A',
+                            amount,
+                            currency,
+                            status: 'initiated',
+                            response: JSON.stringify({
+                                source: "cashfree_start",
+                                name, email, mobile, state, city,
+                                timestamp: new Date().toISOString()
+                            }),
+                            source: source || 1
+                        }
+                    });
+                    console.log(`[PAYMENT][start] Cashfree reattempt payment created successfully on external API.`);
+                } catch (apiError: any) {
+                    console.error(`[PAYMENT][start] Cashfree reattempt API call failed:`, apiError?.message || apiError);
+                }
+            }
 
             return {
                 success: true,
