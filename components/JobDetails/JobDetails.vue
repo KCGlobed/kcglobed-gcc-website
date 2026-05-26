@@ -165,7 +165,7 @@
           streamlined deployment processes, we encourage you to apply and become
           a valuable part of our dedicated team.
         </p>
-        <NuxtLink to="/admission-form" class="default-btn">
+        <NuxtLink to="/login" class="default-btn">
           Apply Now <i class="ti ti-arrow-narrow-right"></i>
         </NuxtLink>
       </div>

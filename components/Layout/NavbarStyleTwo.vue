@@ -52,11 +52,7 @@
 
           </li>
 
-          <li class="nav-item">
-            <a href="/admissions" class="nav-link">
-              Admissions
-            </a>
-          </li>
+
           <li class="nav-item">
             <a href="/campus-life" class="nav-link">
               Campus Life

@@ -23,14 +23,9 @@
                 <li>
                   <NuxtLink to="/blog">Portal</NuxtLink>
                 </li>
-                <li>
-                  <NuxtLink to="/academic-calendar">Calendar</NuxtLink>
-                </li>
+
                 <li>
                   <NuxtLink to="/alumni">Alumni</NuxtLink>
-                </li>
-                <li>
-                  <NuxtLink to="/events">Events</NuxtLink>
                 </li>
               </ul>
               <ul class="header-account">
@@ -102,14 +97,9 @@
                 <li>
                   <NuxtLink to="/blog">Portal</NuxtLink>
                 </li>
-                <li>
-                  <NuxtLink to="/academic-calendar">Calendar</NuxtLink>
-                </li>
+
                 <li>
                   <NuxtLink to="/alumni">Alumni</NuxtLink>
-                </li>
-                <li>
-                  <NuxtLink to="/events">Events</NuxtLink>
                 </li>
               </ul>
               <ul class="header-account">

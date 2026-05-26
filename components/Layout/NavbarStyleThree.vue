@@ -139,43 +139,7 @@
                   </li>
                 </ul>
               </li>
-              <li class="nav-item">
-                <a href="javascript:void(0)" class="dropdown-toggle nav-link">
-                  Application Forms
-                </a>
-                <ul class="dropdown-menu">
-                  <li class="nav-item">
-                    <NuxtLink to="/admission-form" class="nav-link">
-                      Personal Information
-                    </NuxtLink>
-                  </li>
-                  <li class="nav-item">
-                    <NuxtLink to="/academic-information" class="nav-link">
-                      Academic Information
-                    </NuxtLink>
-                  </li>
-                  <li class="nav-item">
-                    <NuxtLink to="/english-proficiency" class="nav-link">
-                      English Proficiency
-                    </NuxtLink>
-                  </li>
-                  <li class="nav-item">
-                    <NuxtLink to="/program-choice" class="nav-link">
-                      Program Choice
-                    </NuxtLink>
-                  </li>
-                  <li class="nav-item">
-                    <NuxtLink to="/document-upload" class="nav-link">
-                      Document Upload
-                    </NuxtLink>
-                  </li>
-                  <li class="nav-item">
-                    <NuxtLink to="/submission" class="nav-link">
-                      Submission
-                    </NuxtLink>
-                  </li>
-                </ul>
-              </li>
+
               <li class="nav-item">
                 <a href="javascript:void(0)" class="dropdown-toggle nav-link">
                   Blogs
@@ -191,23 +155,7 @@
                   </li>
                 </ul>
               </li>
-              <li class="nav-item">
-                <a href="javascript:void(0)" class="dropdown-toggle nav-link">
-                  Events
-                </a>
-                <ul class="dropdown-menu">
-                  <li class="nav-item">
-                    <NuxtLink to="/events" class="nav-link">
-                      Our Events
-                    </NuxtLink>
-                  </li>
-                  <li class="nav-item">
-                    <NuxtLink to="/event-details" class="nav-link">
-                      Event Details
-                    </NuxtLink>
-                  </li>
-                </ul>
-              </li>
+
               <li class="nav-item">
                 <NuxtLink to="/faq" class="nav-link">FAQ</NuxtLink>
               </li>
@@ -224,21 +172,12 @@
                   <li class="nav-item">
                     <NuxtLink to="/login" class="nav-link">Login</NuxtLink>
                   </li>
-                  <li class="nav-item">
-                    <NuxtLink to="/register" class="nav-link">
-                      Register
-                    </NuxtLink>
-                  </li>
                 </ul>
               </li>
               <li class="nav-item">
                 <NuxtLink to="/alumni" class="nav-link">Alumni</NuxtLink>
               </li>
-              <li class="nav-item">
-                <NuxtLink to="/academic-calendar" class="nav-link">
-                  Academic Calendar
-                </NuxtLink>
-              </li>
+
               <li class="nav-item">
                 <NuxtLink to="/contact" class="nav-link">Contact Us</NuxtLink>
               </li>

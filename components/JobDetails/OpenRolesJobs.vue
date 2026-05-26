@@ -50,7 +50,7 @@ export default defineComponent({
           date: "30 Nov 2024",
           location: "32/6, Western Hill, Canada",
           btnText: "Apply Now",
-          btnLink: "/admission-form",
+          btnLink: "/login",
           dataDelay: "200",
         },
         {
@@ -61,7 +61,7 @@ export default defineComponent({
           date: "28 Nov 2024",
           location: "32/6, Western Hill, Canada",
           btnText: "Apply Now",
-          btnLink: "/admission-form",
+          btnLink: "/login",
           dataDelay: "300",
         },
       ],

@@ -14,8 +14,8 @@
               The mission of Tuva is to serve as a digital gateway and
               information hub for all members of the university community.
             </p>
-            <NuxtLink to="/register" class="recognized-link">
-              Register Now For Fall 2024
+            <NuxtLink to="/login" class="recognized-link">
+              Apply Now For Fall 2024
               <i class="ti ti-arrow-narrow-right"></i>
             </NuxtLink>
           </div>

@@ -123,6 +123,13 @@ import { ref, computed, watch } from "vue";
 import BlogSearchBanner from "~/components/Blog/BlogSearchBanner.vue";
 import BlogCard from "~/components/Blog/BlogCard.vue";
 
+useHead({
+  title: "GCC School",
+  meta: [
+    { name: "description", content: "Stay updated with the GCC School blog. Read expert insights, career guidance, educational trends, and professional tips for accounting and finance students." }
+  ]
+})
+
 const config = useRuntimeConfig();
 const apiBase = config.public.apiBase || '';
 

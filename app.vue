@@ -11,6 +11,9 @@
 const route = useRoute();
 const canonicalUrl = computed(() => `https://www.gccschool.com${route.path}`);
 useHead({
+  htmlAttrs: {
+    lang: 'eng'
+  },
   title: "GCC School",
   meta: [
     { name: "description", content: "GCC School" }

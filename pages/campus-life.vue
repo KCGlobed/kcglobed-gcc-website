@@ -17,5 +17,8 @@
 // export default defineComponent({});
 useHead({
     title: "GCC School | Campus Life",
+    meta: [
+        { name: "description", content: "Experience life at GCC School. Explore our vibrant campus culture, student organizations, state-of-the-art facilities, and diverse extracurricular activities." }
+    ]
 })
 </script>

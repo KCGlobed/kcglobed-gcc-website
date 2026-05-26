@@ -27,7 +27,7 @@
               study spaces for students.
             </p>
             <div class="residence-button">
-              <NuxtLink to="/admission-form" class="default-btn">
+              <NuxtLink to="/login" class="default-btn">
                 Apply To Residence
                 <i class="ti ti-arrow-narrow-right"></i>
               </NuxtLink>

@@ -18,6 +18,9 @@
 // export default defineComponent({});
 useHead({
     title: "GCC School | Campus CEO - Student",
+    meta: [
+        { name: "description", content: "Become a student leader with the GCC School Campus CEO program. Develop essential leadership, marketing, and corporate skills while driving growth on campus." }
+    ]
 })
 
 </script>

@@ -5,6 +5,9 @@ export default defineNuxtConfig({
   app: {
     // baseURL: "/tuva/",
     head: {
+      htmlAttrs: {
+        lang: 'eng'
+      },
       meta: [
         { name: 'google-site-verification', content: 'O_n2cuv-YeR9IgQt1HCNWTCY7aIvfyJfpB59jnIEau0' }
       ],

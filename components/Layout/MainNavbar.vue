@@ -213,12 +213,7 @@ export default defineComponent({
           , "Pathway to Success", "About ACCA", "Exclusive National & International Credentials", "British Council English Certification", "M.Sc. in Professional Accountancy – University of London (Optional)", "PGCM – Public Accounting (AICTE-approved)"
         ]
       },
-      {
-        title: "Admissions",
-        description: "Information about admissions process",
-        path: "/admissions",
-        keywords: ["enrollment", "registration", "apply", "admission", "join", "entry", "fees", "प्रवेश"]
-      },
+
       {
         title: "Campus Life",
         description: "Student life and activities",
@@ -265,7 +260,6 @@ export default defineComponent({
     const quickLinks: SearchResult[] = [
       { title: "About Us", description: "", path: "/about-overview" },
       { title: "Programs", description: "", path: "/programs" },
-      { title: "Admissions", description: "", path: "/admissions" },
       { title: "Contact Us", description: "", path: "/contact-us" },
     ];
 
