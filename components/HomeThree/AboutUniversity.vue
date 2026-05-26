@@ -7,18 +7,18 @@
             <div class="row">
               <div class="col-lg-6 col-md-6" data-aos="zoom-in-up" data-aos-delay="200">
                 <div class="image reveal2">
-                  <img src="~/assets/img/abouts/Program-Highlights.png" alt="image" />
+                  <img src="~/assets/img/abouts/Program-Highlights.png" alt="image" loading="lazy" decoding="async" />
                 </div>
               </div>
               <div class="col-lg-6 col-md-6" data-aos="zoom-in-up" data-aos-delay="300">
                 <div class="image style2 reveal3">
-                  <img src="~/assets/img/abouts/Program-Highlights-2.png" alt="image" />
+                  <img src="~/assets/img/abouts/Program-Highlights-2.png" alt="image" loading="lazy" decoding="async" />
                 </div>
               </div>
             </div>
             <!-- <div class="round-shape" data-aos="zoom-in" data-aos-delay="200">
-              <img src="~/assets/img/svgs/main-log.svg" class="main-logo" alt="image" />
-              <img src="~/assets/img/shapes/text-shape1.png" class="text-shape" alt="" />
+              <img src="~/assets/img/svgs/main-log.svg" class="main-logo" alt="image" loading="lazy" decoding="async" />
+              <img src="~/assets/img/shapes/text-shape1.png" class="text-shape" alt="" loading="lazy" decoding="async" />
             </div> -->
           </div>
         </div>
@@ -46,7 +46,7 @@
       </div>
     </div>
     <!-- <div class="all-shapes">
-      <img src="~/assets/img/abouts/about-logo1.png" class="about-logo" alt="image" />
+      <img src="~/assets/img/abouts/about-logo1.png" class="about-logo" alt="image" loading="lazy" decoding="async" />
     </div> -->
   </div>
 </template>

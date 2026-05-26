@@ -7,7 +7,7 @@
             <div class="row g-4">
               <div class="col-lg-5 col-md-6">
                 <div class="image reveal2">
-                  <img src="~/assets/img/programs/program1.jpg" alt="image" />
+                  <img src="~/assets/img/programs/program1.jpg" alt="image" loading="lazy" decoding="async" />
                 </div>
                 <div class="logo-content">
                   <div class="logo">
@@ -26,7 +26,7 @@
               </div>
               <div class="col-lg-7 col-md-6">
                 <div class="big-image reveal3">
-                  <img src="~/assets/img/programs/program2.jpg" alt="image" />
+                  <img src="~/assets/img/programs/program2.jpg" alt="image" loading="lazy" decoding="async" />
                 </div>
               </div>
             </div>
@@ -48,7 +48,7 @@
                   placeholder="Find your program like “Graphic Design”"
                 />
                 <button class="search-btn" type="submit">
-                  <img src="~/assets/img/svgs/search.svg" alt="image" />
+                  <img src="~/assets/img/svgs/search.svg" alt="image" loading="lazy" decoding="async" />
                 </button>
               </form>
             </div>

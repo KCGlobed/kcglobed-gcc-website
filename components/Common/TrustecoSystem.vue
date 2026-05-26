@@ -2,7 +2,7 @@
     <div class="trust-ecosystem-section">
         <div class="container">
             <div class="header-logo d-flex justify-content-center align-items-center mb-3">
-                <img src="@/assets/img/common/logo_kcglobed.svg" alt="Logo" class="header-logo">
+                <img src="@/assets/img/common/logo_kcglobed.svg" alt="Logo" class="header-logo" loading="lazy" decoding="async">
             </div>
             <div class="header-v2 mb-3" data-aos="fade-up">
 
@@ -41,7 +41,7 @@
                 </div>
                 <div class="organistion-grid" data-aos="zoom-in">
                     <div v-for="(item, index) in ecosystemImages" :key="index" class="org-card">
-                        <img :src="item.image" alt="Organization Logo" class="org-logo">
+                        <img :src="item.image" alt="Organization Logo" class="org-logo" loading="lazy" decoding="async">
                     </div>
                 </div>
 

@@ -10,7 +10,7 @@
                             <!-- Image -->
                             <div class="col-md-4 position-relative">
                                 <div class="profile-img-wrapper">
-                                    <img src="~/assets/img/abouts/kamal.png" class="profile-img creator-img" />
+                                    <img src="~/assets/img/abouts/kamal.png" class="profile-img creator-img" loading="lazy" decoding="async" />
                                     <div class="name-tag shadow-sm">
                                         <h6 class="mb-1 text-purple fw-bold">Dr. Kamal Chhabra</h6>
                                         <p class="mb-0 text-dark small fw-semibold">US CPA & CA</p>
@@ -46,7 +46,7 @@
                             <!-- Image -->
                             <div class="col-md-4 position-relative text-end">
                                 <div class="profile-img-wrapper right">
-                                    <img src="~/assets/img/abouts/mana.png" class="profile-img director-img" />
+                                    <img src="~/assets/img/abouts/mana.png" class="profile-img director-img" loading="lazy" decoding="async" />
                                     <div class="name-tag shadow-sm">
                                         <h6 class="mb-1 text-purple fw-bold">Prof. (Dr.) Manpreet Singh Manna</h6>
                                         <p class="mb-0 text-dark small fw-semibold">Executive Director GCC School</p>

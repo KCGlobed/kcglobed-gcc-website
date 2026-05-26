@@ -21,7 +21,7 @@
       <div class="row">
         <div class="col-lg-6">
           <div class="positive-image">
-            <img src="~/assets/img/jobs/job1.jpg" alt="image" />
+            <img src="~/assets/img/jobs/job1.jpg" alt="image" loading="lazy" decoding="async" />
           </div>
         </div>
         <div class="col-lg-6">
@@ -33,7 +33,7 @@
                 alt="image"
               />
             </div>
-            <img src="~/assets/img/jobs/job2.jpg" alt="image" />
+            <img src="~/assets/img/jobs/job2.jpg" alt="image" loading="lazy" decoding="async" />
           </div>
         </div>
       </div>

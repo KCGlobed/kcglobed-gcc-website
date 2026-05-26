@@ -13,10 +13,10 @@
 
                     <!-- Image -->
                     <div class="image-wrapper">
-                        <img :src="item.image" :alt="item.alt" />
+                        <img :src="item.image" :alt="item.alt" loading="lazy" decoding="async" />
 
                         <span v-if="item.tag" class="tag">
-                            <img :src="item.icon" alt="" />
+                            <img :src="item.icon" alt="" loading="lazy" decoding="async" />
                             {{ item.tag }}
                         </span>
                     </div>
@@ -26,7 +26,7 @@
                         <h4>{{ item.title }}</h4>
 
                         <div class="members">
-                            <img v-for="(m, idx) in item.members" :key="idx" :src="m" alt="Club Member Avatar" />
+                            <img v-for="(m, idx) in item.members" :key="idx" :src="m" alt="Club Member Avatar" loading="lazy" decoding="async" />
 
                             <div class="count-avatar">
                                 +{{ item.count }}

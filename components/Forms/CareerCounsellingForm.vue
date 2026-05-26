@@ -23,7 +23,7 @@
         <div class="input-group input-group-sm">
           <input v-model="form.phone" type="tel" class="form-control border" placeholder="Enter your mobile number" required />
           <span class="input-group-text bg-white border">
-            <img src="https://flagcdn.com/w20/in.png" alt="India Flag" class="flag-icon" />
+            <img src="https://flagcdn.com/w20/in.png" alt="India Flag" class="flag-icon" loading="lazy" decoding="async" />
           </span>
         </div>
       </div>

@@ -10,30 +10,30 @@
             </div>
             <div class="boxes-container">
               <div class="box">
-                <img src="../../assets/img/heros/panleIcon1.png" class="icon" />
+                <img src="../../assets/img/heros/panleIcon1.png" class="icon" loading="lazy" decoding="async" />
                 <p>Hired First</p>
                 <span>Then Trained</span>
               </div>
               <div class="box">
-                <!-- <img src="../../assets/img/heros/panleIcon2.png" class="icon" />
+                <!-- <img src="../../assets/img/heros/panleIcon2.png" class="icon" loading="lazy" decoding="async" />
                 <p>Paid Internship</p>
                 <span>6 Months</span> -->
-                <img src="../../assets/img/common/adaptive.svg" alt="Adaptive Industry Learning">
+                <img src="../../assets/img/common/adaptive.svg" alt="Adaptive Industry Learning" loading="lazy" decoding="async">
               </div>
               <div class="box">
-                <img src="/img/acca.svg" alt="acca" class="logo" />
+                <img src="/img/acca.svg" alt="acca" class="logo" loading="lazy" decoding="async" />
                 <span class="mt-1">UK ACCA <br> Integrated</span>
               </div>
               <div class="box">
-                <img src="../../assets/img/heros/panleIcon4.png" alt="british council" class="logo" />
+                <img src="../../assets/img/heros/panleIcon4.png" alt="british council" class="logo" loading="lazy" decoding="async" />
                 <span class="mt-2">Master in Corporate Communication</span>
               </div>
               <div class="box">
-                <img src="../../assets/img/heros/panleIcon5.png" alt="AIMA" class="logo" />
+                <img src="../../assets/img/heros/panleIcon5.png" alt="AIMA" class="logo" loading="lazy" decoding="async" />
                 <span class="mt-2">AICTE Approved PGCM Certificate from AIMA</span>
               </div>
               <div class="box">
-                <img src="../../assets/img/heros/panleIcon6.png" class="icon" />
+                <img src="../../assets/img/heros/panleIcon6.png" class="icon" loading="lazy" decoding="async" />
                 <p>AI First</p>
                 <span>Integrated Curriculum</span>
               </div>
@@ -66,7 +66,7 @@
                   class="video-poster-img" @click="playVideo" alt="Thumbnail">
               </div>
               <!-- <div class="video-badge-new">
-                <img src="~/assets/Logo/Logo/GCC-School-Logo-White.png" alt="GCC Logo" />
+                <img src="~/assets/Logo/Logo/GCC-School-Logo-White.png" alt="GCC Logo" loading="lazy" decoding="async" />
                 <div class="badge-content">
                   <span class="badge-tag">AI-Enabled</span>
                   <span class="badge-title">LMS Tutorial</span>

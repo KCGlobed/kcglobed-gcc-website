@@ -16,7 +16,7 @@
                         <div class="fun-fact-card">
                             <div class="icon">
                                 <div class="icon style">
-                                    <img :src="funfact.icon" :alt="funfact.alt" />
+                                    <img :src="funfact.icon" :alt="funfact.alt" loading="lazy" decoding="async" />
                                 </div>
                             </div>
                         </div>
@@ -26,7 +26,7 @@
                         <div class="fun-fact-card">
                             <div class="icon">
                                 <div class="icon style">
-                                    <img :src="funfact.icon" :alt="funfact.alt" />
+                                    <img :src="funfact.icon" :alt="funfact.alt" loading="lazy" decoding="async" />
                                 </div>
                             </div>
                         </div>
@@ -40,7 +40,7 @@
                         <div class="fun-fact-card">
                             <div class="icon">
                                 <div class="icon style">
-                                    <img :src="funfact.icon" :alt="funfact.alt" />
+                                    <img :src="funfact.icon" :alt="funfact.alt" loading="lazy" decoding="async" />
                                 </div>
                             </div>
                         </div>
@@ -50,7 +50,7 @@
                         <div class="fun-fact-card">
                             <div class="icon">
                                 <div class="icon style">
-                                    <img :src="funfact.icon" :alt="funfact.alt" />
+                                    <img :src="funfact.icon" :alt="funfact.alt" loading="lazy" decoding="async" />
                                 </div>
                             </div>
                         </div>

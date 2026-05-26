@@ -9,7 +9,7 @@
           :data-aos-delay="apply.dataDelay">
           <div class="apply-card">
             <div class="icon">
-              <img :src="apply.icon" alt="icon" />
+              <img :src="apply.icon" alt="icon" loading="lazy" decoding="async" />
             </div>
             <h3>{{ apply.title }}</h3>
             <p>
@@ -24,7 +24,7 @@
       </div>
     </div>
     <div class="all-shapes">
-      <img src="~/assets/img/shapes/apply-shape1.png" class="apply-shape1" alt="image" />
+      <img src="~/assets/img/shapes/apply-shape1.png" class="apply-shape1" alt="image" loading="lazy" decoding="async" />
     </div>
   </div>
 </template>

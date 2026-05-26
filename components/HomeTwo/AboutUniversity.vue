@@ -6,7 +6,7 @@
           <div class="about-logo-content">
             <div class="logo">
               <div class="logo">
-                <img src="~/assets/img/abouts/about-logo1.png" alt="login" />
+                <img src="~/assets/img/abouts/about-logo1.png" alt="login" loading="lazy" decoding="async" />
               </div>
             </div>
             <div class="content">

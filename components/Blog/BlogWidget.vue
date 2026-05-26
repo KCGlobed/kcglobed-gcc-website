@@ -6,7 +6,7 @@
         <form>
           <input type="text" class="form-control" placeholder="Find article" />
           <button class="search-btn" type="submit">
-            <img src="~/assets/img/svgs/search.svg" alt="image" />
+            <img src="~/assets/img/svgs/search.svg" alt="image" loading="lazy" decoding="async" />
           </button>
         </form>
       </div>

@@ -4,7 +4,7 @@
       <div class="row g-0">
         <div class="col-lg-6" data-aos="fade-up" data-aos-delay="200">
           <div class="culture-box">
-            <img src="~/assets/img/cultures/culture1.jpg" alt="image" />
+            <img src="~/assets/img/cultures/culture1.jpg" alt="image" loading="lazy" decoding="async" />
             <div class="content">
               <h3>
                 <NuxtLink to="/about-campus">Our University Culture</NuxtLink>
@@ -22,7 +22,7 @@
         </div>
         <div class="col-lg-6">
           <div class="culture-box" data-aos="fade-up" data-aos-delay="200">
-            <img src="~/assets/img/cultures/culture2.jpg" alt="image" />
+            <img src="~/assets/img/cultures/culture2.jpg" alt="image" loading="lazy" decoding="async" />
             <div class="content">
               <h3>
                 <NuxtLink to="/about-campus">Our University Culture</NuxtLink>

@@ -30,7 +30,7 @@
             :data-aos-delay="program.dataDelay"
           >
             <div class="image">
-              <img :src="program.image" class="image" alt="image" />
+              <img :src="program.image" class="image" alt="image" loading="lazy" decoding="async" />
             </div>
           </div>
         </div>

@@ -9,7 +9,7 @@
           :data-aos-delay="credit.dataDelay">
           <div class="transfer-credit-card">
             <div class="image">
-              <img :src="credit.image" alt="image" />
+              <img :src="credit.image" alt="image" loading="lazy" decoding="async" />
             </div>
             <div class="content">
               <h3>

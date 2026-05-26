@@ -35,10 +35,10 @@
         <div class="col-lg-6" data-aos="fade-left" data-aos-delay="300">
           <div class="image-composition">
             <div class="image-card main-img">
-              <img src="~/assets/img/abouts/about-gcc2.png" alt="GCC Innovation" />
+              <img src="~/assets/img/abouts/about-gcc2.png" alt="GCC Innovation" loading="lazy" decoding="async" />
             </div>
             <div class="image-card secondary-img">
-              <img src="~/assets/img/abouts/about-gcc3.png" alt="GCC Growth" />
+              <img src="~/assets/img/abouts/about-gcc3.png" alt="GCC Growth" loading="lazy" decoding="async" />
             </div>
             <!-- Decoratiive Element -->
             <div class="dots-pattern"></div>

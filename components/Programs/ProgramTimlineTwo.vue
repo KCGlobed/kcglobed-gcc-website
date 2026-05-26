@@ -9,7 +9,7 @@
                         :data-aos-delay="index * 50">
                         <!-- Left colored section -->
                         <div class="row-left" :style="{ background: item.color }">
-                            <span class="row-icon "><img :src="item.icon" alt=""></span>
+                            <span class="row-icon "><img :src="item.icon" alt="" loading="lazy" decoding="async"></span>
                             <span class="row-label">{{ item.label }}</span>
                         </div>
                         <!-- Right date section -->
