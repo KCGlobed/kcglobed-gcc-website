@@ -33,27 +33,27 @@
               <ul class="social-list">
                 <li>
                   <a href="https://www.facebook.com/share/187jgT5gev/" target="_blank" class="icon">
-                    <img src="~/assets/img/svgs/facebook.svg" alt="icon" />
+                    <img src="~/assets/img/svgs/facebook.svg" alt="icon" loading="lazy" decoding="async" />
                   </a>
                 </li>
                 <li>
                   <a href="https://x.com/gccschool2026" target="_blank" class="icon">
-                    <img src="~/assets/img/svgs/twitter.svg" alt="icon" />
+                    <img src="~/assets/img/svgs/twitter.svg" alt="icon" loading="lazy" decoding="async" />
                   </a>
                 </li>
                 <li>
                   <a href="https://www.instagram.com/gccschool?igsh=MXQxc2JhazAwcG55cQ==" target="_blank" class="icon">
-                    <img src="~/assets/img/svgs/instagram.svg" alt="icon" />
+                    <img src="~/assets/img/svgs/instagram.svg" alt="icon" loading="lazy" decoding="async" />
                   </a>
                 </li>
                 <li>
                   <a href="https://www.linkedin.com/company/gccschool/" target="_blank" class="icon">
-                    <img src="~/assets/img/svgs/linkedin.svg" alt="icon" />
+                    <img src="~/assets/img/svgs/linkedin.svg" alt="icon" loading="lazy" decoding="async" />
                   </a>
                 </li>
                 <li>
                   <a href="https://www.youtube.com/@GCCSchool" target="_blank" class="icon">
-                    <img src="~/assets/img/svgs/youtube.svg" alt="icon" />
+                    <img src="~/assets/img/svgs/youtube.svg" alt="icon" loading="lazy" decoding="async" />
                   </a>
                 </li>
               </ul>

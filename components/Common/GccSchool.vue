@@ -14,17 +14,17 @@
                 <div class="row g-4 justify-content-center">
                     <div class="col-lg-4 col-md-6 col-12" data-aos="fade-up" data-aos-delay="100">
                         <div class="gcc-image-box">
-                            <img src="../../assets/img/heros/3.svg" class="img-fluid" alt="GCC School Feature 1" />
+                            <img src="../../assets/img/heros/3.svg" class="img-fluid" alt="GCC School Feature 1" loading="lazy" decoding="async" />
                         </div>
                     </div>
                     <div class="col-lg-4 col-md-6 col-12" data-aos="fade-up" data-aos-delay="200">
                         <div class="gcc-image-box">
-                            <img src="../../assets/img/heros/1.svg" class="img-fluid" alt="GCC School Feature 2" />
+                            <img src="../../assets/img/heros/1.svg" class="img-fluid" alt="GCC School Feature 2" loading="lazy" decoding="async" />
                         </div>
                     </div>
                     <div class="col-lg-4 col-md-6 col-12" data-aos="fade-up" data-aos-delay="300">
                         <div class="gcc-image-box">
-                            <img src="../../assets/img/heros/4.svg" class="img-fluid" alt="GCC School Feature 3" />
+                            <img src="../../assets/img/heros/4.svg" class="img-fluid" alt="GCC School Feature 3" loading="lazy" decoding="async" />
                         </div>
                     </div>
                 </div>

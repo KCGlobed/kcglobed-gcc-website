@@ -2,7 +2,7 @@
   <div class="blog-card bg-white p-3 pt-0 border-0">
     <NuxtLink :to="`/blogs/${blog.slug}`" class="text-decoration-none">
       <div class="image-wrapper position-relative">
-        <img :src="blog.featuredImage" class="img-fluid w-100 object-fit-cover" :alt="blog.title" />
+        <img :src="blog.featuredImage" class="img-fluid w-100 object-fit-cover" :alt="blog.title" loading="lazy" decoding="async" />
         <div class="category-badge text-white fw-bold text-uppercase px-3 py-1">
           {{ blogCategory }}
         </div>

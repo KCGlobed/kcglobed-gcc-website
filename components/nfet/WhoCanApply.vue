@@ -12,7 +12,7 @@
                     <div class="card-wrapper">
                         <div v-for="(item, index) in cards" :key="index" class="eligibility-card">
                             <div class="icon">
-                                <img :src="item.icon" alt="" srcset="">
+                                <img :src="item.icon" alt="" srcset="" loading="lazy" decoding="async">
                             </div>
                             <h3>{{ item.title }}</h3>
                             <!-- <p>{{ item.desc }}</p> -->

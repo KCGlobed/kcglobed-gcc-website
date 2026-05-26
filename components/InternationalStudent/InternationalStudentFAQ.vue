@@ -71,7 +71,7 @@
         </div>
         <div class="col-lg-5">
           <div class="question-images">
-            <img src="~/assets/img/questions/question2.jpg" alt="image" />
+            <img src="~/assets/img/questions/question2.jpg" alt="image" loading="lazy" decoding="async" />
           </div>
         </div>
       </div>

@@ -2,7 +2,7 @@
     <div class="sustainable-goals-wrapper">
         <!-- Yellow dots decoration - hidden on mobile -->
         <div class="d-none d-lg-flex align-items-center justify-content-start">
-            <img :src="yellowSquareDots" alt="Yellow Square Dots" class="position-absolute dots-yellow" />
+            <img :src="yellowSquareDots" alt="Yellow Square Dots" class="position-absolute dots-yellow" loading="lazy" decoding="async" />
         </div>
 
         <!-- Main content -->
@@ -21,14 +21,14 @@
             <div class="goals-grid px-2 px-lg-4 mt-4 mt-lg-5 mb-4 mb-lg-5 mx-3 mx-lg-5">
                 <div v-for="(image, index) in goals" :key="index" class="goal-item"
                     :class="{ 'is-active': activeGoalIndexes.includes(index + 1) }">
-                    <img class="goal-image" :src="`${bucketURL}${image}`" :alt="`Goal ${index + 1}`" />
+                    <img class="goal-image" :src="`${bucketURL}${image}`" :alt="`Goal ${index + 1}`" loading="lazy" decoding="async" />
                 </div>
             </div>
         </div>
 
         <!-- Purple dots decoration - hidden on mobile -->
         <div class="d-none d-lg-flex align-items-center justify-content-end">
-            <img :src="purpleSquareDots" alt="Purple Square Dots" class="position-absolute dots-purple" />
+            <img :src="purpleSquareDots" alt="Purple Square Dots" class="position-absolute dots-purple" loading="lazy" decoding="async" />
         </div>
     </div>
 </template>

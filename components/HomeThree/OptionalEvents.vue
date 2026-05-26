@@ -33,7 +33,7 @@
         >
           <SwiperSlide v-for="event in events" :key="event.id">
             <div class="optional-event-widget">
-              <img :src="event.image" alt="image" />
+              <img :src="event.image" alt="image" loading="lazy" decoding="async" />
               <NuxtLink to="/accessibility" class="optional-content">
                 {{ event.title }}
               </NuxtLink>

@@ -13,7 +13,7 @@
                 and get hired, and plan your future.
               </p>
               <div class="image">
-                <img src="~/assets/img/enquirys/enquiry4.jpg" alt="image" />
+                <img src="~/assets/img/enquirys/enquiry4.jpg" alt="image" loading="lazy" decoding="async" />
               </div>
             </div>
             <div class="career-service-support">

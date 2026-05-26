@@ -18,7 +18,7 @@
                 <div class="main-blog-card">
                   <div class="image">
                     <NuxtLink to="/blog-details">
-                      <img :src="blog.image" alt="image" />
+                      <img :src="blog.image" alt="image" loading="lazy" decoding="async" />
                     </NuxtLink>
                   </div>
                   <div class="content">

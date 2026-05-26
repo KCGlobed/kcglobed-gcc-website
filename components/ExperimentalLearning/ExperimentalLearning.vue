@@ -13,7 +13,7 @@
                 full potential.
               </p>
               <div class="image">
-                <img src="~/assets/img/enquirys/enquiry5.jpg" alt="image" />
+                <img src="~/assets/img/enquirys/enquiry5.jpg" alt="image" loading="lazy" decoding="async" />
               </div>
             </div>
             <div class="experimental-question">

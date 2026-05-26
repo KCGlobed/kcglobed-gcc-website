@@ -70,7 +70,7 @@
                 <li>Corporate and Business Law (LW)</li>
               </ul>
               <div class="all-shapes">
-                <img src="~/assets/img/shapes/administration-shape.png" class="administration-shape" alt="image" />
+                <img src="~/assets/img/shapes/administration-shape.png" class="administration-shape" alt="image" loading="lazy" decoding="async" />
               </div>
             </div>
           </div>

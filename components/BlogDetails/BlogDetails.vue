@@ -19,7 +19,7 @@
                 <li>2 min read</li>
               </ul>
               <div class="image">
-                <img src="~/assets/img/blogs/blog-details1.jpg" alt="image" />
+                <img src="~/assets/img/blogs/blog-details1.jpg" alt="image" loading="lazy" decoding="async" />
               </div>
               <p>
                 At some point in our lives, we've all been inspired, motivated,
@@ -62,7 +62,7 @@
             </div>
             <div class="blog-style-content">
               <div class="icon">
-                <img src="~/assets/img/svgs/quote.svg" alt="image" />
+                <img src="~/assets/img/svgs/quote.svg" alt="image" loading="lazy" decoding="async" />
               </div>
               <p>
                 “To nominate a teacher, participants need to share their
@@ -136,7 +136,7 @@
                     target="_blank"
                     class="icon"
                   >
-                    <img src="~/assets/img/svgs/facebook.svg" alt="icon" />
+                    <img src="~/assets/img/svgs/facebook.svg" alt="icon" loading="lazy" decoding="async" />
                   </a>
                 </li>
                 <li>
@@ -145,7 +145,7 @@
                     target="_blank"
                     class="icon"
                   >
-                    <img src="~/assets/img/svgs/twitter.svg" alt="icon" />
+                    <img src="~/assets/img/svgs/twitter.svg" alt="icon" loading="lazy" decoding="async" />
                   </a>
                 </li>
                 <li>
@@ -154,7 +154,7 @@
                     target="_blank"
                     class="icon"
                   >
-                    <img src="~/assets/img/svgs/instagram.svg" alt="icon" />
+                    <img src="~/assets/img/svgs/instagram.svg" alt="icon" loading="lazy" decoding="async" />
                   </a>
                 </li>
                 <li>
@@ -163,7 +163,7 @@
                     target="_blank"
                     class="icon"
                   >
-                    <img src="~/assets/img/svgs/linkedin.svg" alt="icon" />
+                    <img src="~/assets/img/svgs/linkedin.svg" alt="icon" loading="lazy" decoding="async" />
                   </a>
                 </li>
                 <li>
@@ -172,7 +172,7 @@
                     target="_blank"
                     class="icon"
                   >
-                    <img src="~/assets/img/svgs/youtube.svg" alt="icon" />
+                    <img src="~/assets/img/svgs/youtube.svg" alt="icon" loading="lazy" decoding="async" />
                   </a>
                 </li>
               </ul>

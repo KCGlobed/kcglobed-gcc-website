@@ -15,7 +15,7 @@
       <div class="hero-item-box" data-aos="fade-up" data-aos-delay="300">
         <div class="image">
           <div class="image">
-            <img src="~/assets/img/heros/style2-hero2.png" alt="image" />
+            <img src="~/assets/img/heros/style2-hero2.png" alt="image" loading="lazy" decoding="async" />
           </div>
         </div>
         <div class="content">

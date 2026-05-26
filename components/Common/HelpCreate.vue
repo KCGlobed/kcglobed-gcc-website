@@ -5,7 +5,7 @@
         <div class="blog-donate" data-aos="zoom-in-up" data-aos-delay="200">
           <div class="icon">
             <div class="icon">
-              <img src="~/assets/img/svgs/donate.svg" alt="image" />
+              <img src="~/assets/img/svgs/donate.svg" alt="image" loading="lazy" decoding="async" />
             </div>
           </div>
           <div class="content">

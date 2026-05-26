@@ -28,12 +28,12 @@
           <SwiperSlide v-for="program in programs" :key="program.id">
             <div class="management-widget">
               <div class="image">
-                <img :src="program.image" alt="image" />
+                <img :src="program.image" alt="image" loading="lazy" decoding="async" />
               </div>
               <div class="content">
                 <!-- <ul>
                   <li>
-                    <img src="~/assets/img/svgs/graduate.svg" alt="icon" />
+                    <img src="~/assets/img/svgs/graduate.svg" alt="icon" loading="lazy" decoding="async" />
                     {{ program.tag }}
                   </li>
                 </ul> -->

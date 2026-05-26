@@ -2,7 +2,7 @@
   <nav :class="['navbar navbar-expand-lg top-navbar', { sticky: isSticky }]">
     <div class="container-fluid">
       <NuxtLink class="navbar-brand" to="/">
-        <img src="~/assets/Logo/Logo/GCC-School-Logo-White.jpeg" class="navbar-logo" style="width: 140px;" alt="logo" />
+        <img src="~/assets/Logo/Logo/GCC-School-Logo-White.jpeg" class="navbar-logo" style="width: 140px;" alt="logo" loading="lazy" decoding="async" />
       </NuxtLink>
       <a class="navbar-toggler home1-one-toggler" @click="stateStoreInstance.onMobileNavbarShow">
         <span class="burger-menu">
@@ -70,14 +70,14 @@
             <div class="search-bar main-menu__search search-toggler" @click="stateStoreInstance.onChange"
               style="cursor: pointer">
               <div class="search-btn">
-                <img src="~/assets/img/svgs/search.svg" alt="image" />
+                <img src="~/assets/img/svgs/search.svg" alt="image" loading="lazy" decoding="async" />
               </div>
             </div>
           </div>
 
           <div class="option-item">
             <button class="btn side-bar-btn" type="button" @click="stateStoreInstance.onSidebarShow">
-              <img src="~/assets/img/svgs/menu.svg" alt="svg" />
+              <img src="~/assets/img/svgs/menu.svg" alt="svg" loading="lazy" decoding="async" />
             </button>
           </div>
         </div>

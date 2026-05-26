@@ -18,7 +18,7 @@
                   placeholder="Find your program like “Graphic Design”"
                 />
                 <button class="search-btn" type="submit">
-                  <img src="~/assets/img/svgs/search.svg" alt="image" />
+                  <img src="~/assets/img/svgs/search.svg" alt="image" loading="lazy" decoding="async" />
                 </button>
               </form>
             </div>

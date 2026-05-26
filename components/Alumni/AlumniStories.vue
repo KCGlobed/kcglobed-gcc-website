@@ -15,7 +15,7 @@
           <div class="article-item">
             <div class="image">
               <div class="image">
-                <img src="~/assets/img/enquirys/alumni1.jpg" alt="image" />
+                <img src="~/assets/img/enquirys/alumni1.jpg" alt="image" loading="lazy" decoding="async" />
               </div>
             </div>
             <div class="content">
@@ -35,7 +35,7 @@
           <div class="article-item">
             <div class="image">
               <div class="image">
-                <img src="~/assets/img/enquirys/alumni2.jpg" alt="image" />
+                <img src="~/assets/img/enquirys/alumni2.jpg" alt="image" loading="lazy" decoding="async" />
               </div>
             </div>
             <div class="content">
@@ -55,7 +55,7 @@
         <div class="col-lg-4">
           <div class="article-card">
             <div class="image">
-              <img src="~/assets/img/enquirys/alumni3.jpg" alt="image" />
+              <img src="~/assets/img/enquirys/alumni3.jpg" alt="image" loading="lazy" decoding="async" />
             </div>
             <div class="content">
               <span class="title">Convocation</span>
@@ -72,7 +72,7 @@
           <div class="article-item style2">
             <div class="image">
               <div class="image">
-                <img src="~/assets/img/enquirys/alumni4.jpg" alt="image" />
+                <img src="~/assets/img/enquirys/alumni4.jpg" alt="image" loading="lazy" decoding="async" />
               </div>
             </div>
             <div class="content">
@@ -92,7 +92,7 @@
           <div class="article-item style2">
             <div class="image">
               <div class="image">
-                <img src="~/assets/img/enquirys/alumni5.jpg" alt="image" />
+                <img src="~/assets/img/enquirys/alumni5.jpg" alt="image" loading="lazy" decoding="async" />
               </div>
             </div>
             <div class="content">

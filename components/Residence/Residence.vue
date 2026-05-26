@@ -12,7 +12,7 @@
               </p>
             </div>
             <div class="image">
-              <img src="~/assets/img/enquirys/enquiry3.jpg" alt="image" />
+              <img src="~/assets/img/enquirys/enquiry3.jpg" alt="image" loading="lazy" decoding="async" />
             </div>
             <p>
               Living in a Tuva residence is perhaps the easiest way to begin

@@ -6,7 +6,7 @@
         <div class="col-lg-6" data-aos="fade-right" data-aos-delay="200">
           <div class="about-header mb-4">
             <div class="logo mb-4">
-              <img src="~/assets/Logo/Logo/GCC-School-Logo-White.jpeg" alt="GCC School Logo" class="brand-logo" />
+              <img src="~/assets/Logo/Logo/GCC-School-Logo-White.jpeg" alt="GCC School Logo" class="brand-logo" loading="lazy" decoding="async" />
             </div>
             <h3 class="section-title">About GCC School</h3>
             <p class="tagline">The First GCC-Trained Talent Cohort</p>
@@ -53,7 +53,7 @@
       <div class="row mt-5 pt-4" data-aos="fade-up" data-aos-delay="400">
         <div class="col-12">
           <div class="image-showcase">
-            <img src="~/assets/img/abouts/about-gcc.png" alt="About GCC Context" class="img-fluid rounded-shadow" />
+            <img src="~/assets/img/abouts/about-gcc.png" alt="About GCC Context" class="img-fluid rounded-shadow" loading="lazy" decoding="async" />
           </div>
         </div>
       </div>

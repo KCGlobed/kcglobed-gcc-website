@@ -25,7 +25,7 @@
                     <div class="mentor-card" v-for="(mentor, index) in boardMentors" :key="index">
                         <a :href="mentor.link" target="_blank">
                             <div class="mentor-image-wrapper">
-                                <img :src="mentor.image" :alt="mentor.name" class="mentor-image" />
+                                <img :src="mentor.image" :alt="mentor.name" class="mentor-image" loading="lazy" decoding="async" />
                             </div>
                         </a>
 
@@ -38,7 +38,7 @@
 
                 <div class="mentor-grid compact">
                     <div class="mentor-card compact" v-for="(leader, index) in executiveLeaders" :key="index">
-                        <img :src="leader.image" :alt="leader.name" class="mentor-image compact" />
+                        <img :src="leader.image" :alt="leader.name" class="mentor-image compact" loading="lazy" decoding="async" />
 
                     </div>
                 </div>
@@ -48,7 +48,7 @@
             <div v-if="activeTab === 'masters'" class="tab-content fade-in">
                 <div class="mentor-grid compact">
                     <div class="mentor-item" v-for="(master, index) in masters" :key="index">
-                        <img :src="master.image" :alt="master.name" class="mentor-image compact" />
+                        <img :src="master.image" :alt="master.name" class="mentor-image compact" loading="lazy" decoding="async" />
 
                     </div>
                 </div>

@@ -2,7 +2,7 @@
   <div class="about-style2-image-warp ptb-100">
     <div class="container">
       <div class="inner-about-style2-image">
-        <img src="~/assets/img/abouts/inner-about4.jpg" alt="image" />
+        <img src="~/assets/img/abouts/inner-about4.jpg" alt="image" loading="lazy" decoding="async" />
       </div>
       <div class="row g-4">
         <div class="col-lg-6">

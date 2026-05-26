@@ -13,8 +13,8 @@
                 <div class="col-12">
                     <div class="image-box">
                         <div class="image-box-inner">
-                            <img src="~/assets/img/common/graph.svg" alt="" srcset="">
-                            <img src="~/assets/img/common/marketdata.svg" alt="" srcset="">
+                            <img src="~/assets/img/common/graph.svg" alt="" srcset="" loading="lazy" decoding="async">
+                            <img src="~/assets/img/common/marketdata.svg" alt="" srcset="" loading="lazy" decoding="async">
 
                         </div>
 
@@ -27,14 +27,14 @@
                 <div class="col-md-6">
                     <div class="image-box">
                         <div class="image-box-inner">
-                            <img src="~/assets/img/common/growth.svg" alt="GCC growth projection" srcset="">
+                            <img src="~/assets/img/common/growth.svg" alt="GCC growth projection" srcset="" loading="lazy" decoding="async">
                         </div>
                     </div>
                 </div>
                 <div class="col-md-6">
                     <div class="image-box">
                         <div class="image-box-inner">
-                            <img src="/img/graph.svg" alt="finance proffesionals gap " srcset="">
+                            <img src="/img/graph.svg" alt="finance proffesionals gap " srcset="" loading="lazy" decoding="async">
                         </div>
                     </div>
                 </div>

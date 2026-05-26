@@ -23,7 +23,7 @@
         </div>
       </div>
       <div class="inner-graduate-program-image">
-        <img src="~/assets/img/programs/inner-program6.jpg" alt="image" />
+        <img src="~/assets/img/programs/inner-program6.jpg" alt="image" loading="lazy" decoding="async" />
       </div>
     </div>
   </div>

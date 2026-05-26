@@ -21,8 +21,8 @@
             <div class="row">
               <div class="col-lg-6" data-aos="zoom-in-up" data-aos-delay="200">
                 <div class="mission-image reveal2">
-                  <img :src="mission.image" alt="Image" />
-                  <img src="assets/img/shapes/mission-shape1.png" class="mission-shape" alt="image" />
+                  <img :src="mission.image" alt="Image" loading="lazy" decoding="async" />
+                  <img src="assets/img/shapes/mission-shape1.png" class="mission-shape" alt="image" loading="lazy" decoding="async" />
                 </div>
               </div>
               <div class="col-lg-6">
@@ -30,7 +30,7 @@
                   <!-- <h3>{{ mission.heading }}</h3> -->
                   <div class="mission-box">
                     <!-- <div class="icon">
-                      <img src="assets/img/svgs/mission1.svg" alt="image" />
+                      <img src="assets/img/svgs/mission1.svg" alt="image" loading="lazy" decoding="async" />
                     </div> -->
                     <h5>{{ mission.title }}</h5>
                     <p>{{ mission.description }}</p>

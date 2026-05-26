@@ -4,7 +4,7 @@
       <div class="row align-items-start">
         <div class="col-lg-6" data-aos="fade-up" data-aos-delay="200">
           <div class="recognized-image reveal2">
-            <img src="~/assets/img/recognized.png" alt="image" />
+            <img src="~/assets/img/recognized.png" alt="image" loading="lazy" decoding="async" />
           </div>
         </div>
         <div class="col-lg-6" data-aos="fade-up" data-aos-delay="200">
