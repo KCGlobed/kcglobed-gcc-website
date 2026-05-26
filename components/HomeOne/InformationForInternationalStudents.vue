@@ -18,7 +18,7 @@
                 <!-- <img src="../../assets/img/heros/panleIcon2.png" class="icon" />
                 <p>Paid Internship</p>
                 <span>6 Months</span> -->
-                <img src="../../assets/img/common/adaptive.svg" alt="">
+                <img src="../../assets/img/common/adaptive.svg" alt="Adaptive Industry Learning">
               </div>
               <div class="box">
                 <img src="/img/acca.svg" alt="acca" class="logo" />

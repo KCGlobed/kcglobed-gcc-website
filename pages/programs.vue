@@ -39,5 +39,8 @@
 // export default defineComponent({});
 useHead({
   title: "GCC School | Programs",
+  meta: [
+    { name: "description", content: "Advance your career with GCC School's professional programs. Explore specialized courses designed to equip graduates with industry-ready skills and global recognition." }
+  ]
 })
 </script>

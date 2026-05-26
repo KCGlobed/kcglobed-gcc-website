@@ -14,7 +14,7 @@
               NFET is designed to identify high-potential commerce graduates and connect them with
               global finance, accounting, and corporate career pathways.
             </p>
-            <NuxtLink to="/register" class="recognized-link">
+            <NuxtLink to="/login" class="recognized-link">
               Apply Now
               <i class="ti ti-arrow-narrow-right"></i>
             </NuxtLink>

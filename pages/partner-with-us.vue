@@ -15,5 +15,8 @@
 // export default defineComponent({});
 useHead({
     title: "GCC School | Partner With Us",
+    meta: [
+        { name: "description", content: "Partner with GCC School to bridge the gap between education and industry. Explore institutional collaborations, affiliate opportunities, and corporate alliances." }
+    ]
 })
 </script>

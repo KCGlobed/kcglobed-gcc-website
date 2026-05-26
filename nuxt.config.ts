@@ -1,9 +1,13 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
+  compatibilityDate: '2026-05-25',
   devtools: { enabled: false },
   app: {
     // baseURL: "/tuva/",
     head: {
+      htmlAttrs: {
+        lang: 'eng'
+      },
       meta: [
         { name: 'google-site-verification', content: 'O_n2cuv-YeR9IgQt1HCNWTCY7aIvfyJfpB59jnIEau0' }
       ],
@@ -42,7 +46,55 @@ export default defineNuxtConfig({
     "/assets/scss/style.css",
     "/assets/scss/responsive.css",
   ],
-  modules: ["@bootstrap-vue-next/nuxt", "nuxt-swiper", "nuxt-aos"],
+  modules: ["@bootstrap-vue-next/nuxt", "nuxt-swiper", "nuxt-aos", '@vite-pwa/nuxt'],
+  pwa: {
+    registerType: 'autoUpdate',
+
+    manifest: {
+      name: 'GCC Website',
+      short_name: 'GCC',
+      description: 'GCC Website',
+      start_url: '/',
+      scope: '/',
+      theme_color: '#3d3d3dff',
+      background_color: '#393939ff',
+      display: 'standalone',
+      icons: [
+        {
+          src: '/pwa_icon_192.png',
+          sizes: '192x192',
+          type: 'image/png'
+        },
+        {
+          src: '/pwa_icon_512.png',
+          sizes: '512x512',
+          type: 'image/png'
+        }
+      ]
+    },
+    devOptions: {
+      enabled: true,
+      navigateFallbackAllowlist: [/^\/$/]
+    },
+    // workbox: {
+    //   globPatterns: ['**/*.{js,css,html,ico,png,svg}'],
+
+    //   runtimeCaching: [
+    //     {
+    //       urlPattern: /^https:\/\/your-api-domain\.com\/.*/i,
+    //       handler: 'NetworkFirst',
+    //       options: {
+    //         cacheName: 'api-cache',
+    //         expiration: {
+    //           maxEntries: 50,
+    //           maxAgeSeconds: 60 * 60 * 24 // 1 day
+    //         }
+    //       }
+    //     }
+    //   ]
+    // }
+  },
+
   runtimeConfig: {
 
     // ── Razorpay (disabled – kept for reference) ──────────────────────────────

@@ -46,7 +46,7 @@
               Are you ready to take the next step toward your future career?
             </span>
             <div class="requirement-button">
-              <NuxtLink to="/admission-form" class="default-btn style1">
+              <NuxtLink to="/login" class="default-btn style1">
                 Apply Now
                 <i class="ti ti-arrow-narrow-right"></i>
               </NuxtLink>

@@ -11,9 +11,9 @@
                 The program enables individuals and professionals to enter global finance with structured, LMS-based
                 learning focused on international accounting, professional skills, and industry exposure.
               </p>
-              <a href="/admission-form" class="default-btn secodary-btn">Apply Now
+              <NuxtLink to="/login" class="default-btn secodary-btn">Apply Now
                 <i class="ti ti-arrow-narrow-right"></i>
-              </a>
+              </NuxtLink>
             </div>
           </div>
         </div>

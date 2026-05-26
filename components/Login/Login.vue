@@ -61,10 +61,6 @@
               </button>
             </div>
           </div>
-          <p>
-            Don’t have an account?
-            <NuxtLink to="/register">Register Now </NuxtLink>
-          </p>
         </form>
       </div>
     </div>

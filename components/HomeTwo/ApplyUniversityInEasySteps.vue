@@ -59,7 +59,7 @@ export default defineComponent({
           shortDesc:
             "Already exempted for commerce graduates*",
           btnText: "Apply Now",
-          btnLink: "/admission-form",
+          btnLink: "/login",
           dataDelay: "200",
         },
         {
@@ -77,7 +77,7 @@ export default defineComponent({
             "Financial Management (FM)",
           ],
           btnText: "Apply Now",
-          btnLink: "/admission-form",
+          btnLink: "/login",
           dataDelay: "300",
         },
         {
@@ -92,7 +92,7 @@ export default defineComponent({
             "Advanced Financial Management (AFM)",
           ],
           btnText: "Apply Now",
-          btnLink: "/admission-form",
+          btnLink: "/login",
           dataDelay: "400",
         },
       ],

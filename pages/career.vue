@@ -17,6 +17,9 @@
 // export default defineComponent({});
 useHead({
     title: "GCC School | Career",
+    meta: [
+        { name: "description", content: "Build a rewarding career with GCC School. Explore corporate job openings, faculty positions, and exciting growth opportunities within our educational community." }
+    ]
 })
 
 </script>

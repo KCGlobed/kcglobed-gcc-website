@@ -8,11 +8,11 @@
 
         <!-- Image Grid -->
         <div class="leaders-grid">
-            <img class="gi gi-1" :src="images[0]" />
-            <img class="gi gi-2" :src="images[1]" />
-            <img class="gi gi-3" :src="images[2]" />
-            <img class="gi gi-4" :src="images[3]" />
-            <img class="gi gi-5" :src="images[4]" />
+            <img class="gi gi-1" :src="images[0]" alt="Round Table" />
+            <img class="gi gi-2" :src="images[1]" alt="Round Table" />
+            <img class="gi gi-3" :src="images[2]" alt="Round Table" />
+            <img class="gi gi-4" :src="images[3]" alt="Round Table" />
+            <img class="gi gi-5" :src="images[4]" alt="Round Table" />
         </div>
         <!-- Video -->
         <!-- <VideoBox video-src="https://storage.googleapis.com/gcc_static_files_backend/static/videos/lms_tutorial.mp4"

@@ -51,7 +51,7 @@ export default defineComponent({
           shortDesc:
             "After you submit your application, an admissions representative will contact you and will help you to participate in the online exam.",
           btnText: "Apply Now",
-          btnLink: "/admission-form",
+          btnLink: "/login",
           dataDelay: "200",
         },
         {
@@ -62,7 +62,7 @@ export default defineComponent({
           shortDesc:
             "After you submit your application, an admissions representative will contact you and will help you to participate in the online exam.",
           btnText: "Apply Now",
-          btnLink: "/admission-form",
+          btnLink: "/login",
           dataDelay: "300",
         },
         {
@@ -72,7 +72,7 @@ export default defineComponent({
           shortDesc:
             "After you submit your application, an admissions representative will contact you and will help you to participate in the online exam.",
           btnText: "Apply Now",
-          btnLink: "/admission-form",
+          btnLink: "/login",
           dataDelay: "400",
         },
       ],

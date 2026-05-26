@@ -48,7 +48,7 @@ export default defineComponent({
           shortDesc:
             "Tell us a little about yourself and we’ll help with the rest. Our convenient online application tool only takes 10 minutes to complete.",
           btnText: "Apply Now",
-          btnLink: "/admission-form",
+          btnLink: "/login",
           dataDelay: "200",
         },
         {
@@ -58,7 +58,7 @@ export default defineComponent({
           shortDesc:
             "After you submit your application, an admissions representative will contact you and will help you to participate in the online exam.",
           btnText: "Apply Now",
-          btnLink: "/admission-form",
+          btnLink: "/login",
           dataDelay: "300",
         },
         {
@@ -68,7 +68,7 @@ export default defineComponent({
           shortDesc:
             "Once you’ve completed your application and connected with an admissions representative, you’re ready to create your schedule.",
           btnText: "Apply Now",
-          btnLink: "/admission-form",
+          btnLink: "/login",
           dataDelay: "400",
         },
       ],
