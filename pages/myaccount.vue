@@ -672,15 +672,19 @@ const profileCompletion = computed(() => {
 
     const sectionWeight = 25; // 4 sections: Personal, Academic, Work Experience, Documents Upload
 
-    // 2. Personal Information (dynamically weighted) - 10 Fields
+    // 2. Personal Information (dynamically weighted) - 14 or 15 Fields
     const personalFields = [
         'first_name', 'last_name', 'email', 'mobile',
-        'dob', 'gender', 'state', 'city', 'pin_code', 'complete_address'
+        'dob', 'gender', 'state', 'city', 'pin_code', 'complete_address',
+        'parent_name', 'parent_phone', 'parent_email', 'parent_relationship'
     ];
+    if (p.parent_relationship === 'Other') {
+        personalFields.push('parent_relationship_other');
+    }
     const personalCompleted = personalFields.filter(f => {
         const val = p[f as keyof typeof p];
         if (!val) return false;
-        if (f === 'mobile') return isValidMobile(String(val));
+        if (f === 'mobile' || f === 'parent_phone') return isValidMobile(String(val));
         if (f === 'pin_code') return isValidPincode(String(val));
         return !!val;
     }).length;
@@ -800,8 +804,21 @@ const completionSteps = computed(() => {
     const preInterviewDone = false;
 
     // Personal (2)
-    const personalFields = ['first_name', 'last_name', 'email', 'mobile', 'dob', 'gender', 'state', 'city', 'pin_code', 'complete_address'];
-    const personalDone = personalFields.every(f => !!p[f as keyof typeof p]);
+    const personalFields = [
+        'first_name', 'last_name', 'email', 'mobile', 'dob', 'gender', 'state', 'city', 'pin_code', 'complete_address',
+        'parent_name', 'parent_phone', 'parent_email', 'parent_relationship'
+    ];
+    if (p.parent_relationship === 'Other') {
+        personalFields.push('parent_relationship_other');
+    }
+    const personalDone = personalFields.every(f => {
+        const val = p[f as keyof typeof p];
+        if (!val) return false;
+        if (f === 'mobile' || f === 'parent_phone') return isValidMobile(String(val));
+        if (f === 'pin_code') return isValidPincode(String(val));
+        if (f === 'email' || f === 'parent_email') return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(String(val));
+        return !!val;
+    });
 
     // Academic (3) - simple check for basic fields
     const academicDone = !!p.class10_year && !!p.class10_score && !!p.class12_year && !!p.class12_score;
@@ -963,6 +980,11 @@ const fetchStudentDetail = async () => {
 
             formData.father_name = d.contact_name || "";
             formData.father_mobile = d.contact_phone || "";
+            formData.parent_name = d.parent_name || "";
+            formData.parent_phone = d.parent_phone || "";
+            formData.parent_email = d.parent_email || "";
+            formData.parent_relationship = d.parent_relationship || "";
+            formData.parent_relationship_other = d.parent_relationship_other || "";
 
             formData.accounting_profession = d.accounting_profession ? String(d.accounting_profession) : "";
             formData.additional_qualification = d.additional_qualification || "";
@@ -1452,6 +1474,11 @@ const formData = reactive({
     state: "",
     pin_code: "",
     complete_address: "",
+    parent_name: "",
+    parent_phone: "",
+    parent_email: "",
+    parent_relationship: "",
+    parent_relationship_other: "",
     class10_year: "",
     class10_type: "Percentage",
     class10_score: "",
@@ -1654,6 +1681,11 @@ const handleFinalSubmit = async () => {
         data.append('nationality', formData.nationality);
         data.append('pincode', formData.pin_code);
         data.append('address', formData.complete_address);
+        data.append('parent_name', formData.parent_name);
+        data.append('parent_phone', formData.parent_phone);
+        data.append('parent_email', formData.parent_email);
+        data.append('parent_relationship', formData.parent_relationship);
+        data.append('parent_relationship_other', formData.parent_relationship === 'Other' ? formData.parent_relationship_other : '');
 
         // 2. Exact Integer Mappings
         const genderMap: any = { "Male": 1, "Female": 2, "Other": 3 };
