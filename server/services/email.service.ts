@@ -218,13 +218,13 @@ export async function sendPaymentFailureEmail(opts: {
   
   <p>Greetings from GCC School!</p>
   
-  <p>It is found that you could not make the NFET enrolment fee successfully. You may enroll by paying the fee at this link:</p>
+  <p>We noticed that you could not complete the payment for the NFET registration.
+Please try again here: <a href="https://www.gccschool.com/">https://www.gccschool.com/</a>
+</p>
   
-  <p><a href="${opts.paymentLink}" style="color: #A13E99; text-decoration: underline;">${opts.paymentLink}</a></p>
+  <p>On successful registration, you will receive your student kit (free of cost) in your dashboard.</p>
   
-  <p>Once your payment is successful, you will receive your student kit (free of cost) on your dashboard.</p>
-  
-  <p>If you need any assistance, you may reach out to our team through email &ndash; <a href="mailto:info@gccschool.com">info@gccschool.com</a> and mobile &ndash; +91 9773576111.</p>
+  <p>If you need any assistance, please reach to us at info@gccschool.com or call us on +91 9773576111.</p>
   
   <p>Thank You!</p>
   
