@@ -27,17 +27,15 @@
                             </div>
 
                             <div class="col-md-6 mb-2">
-                                <OtpVerification 
-                                    v-model="form.phone"
-                                    v-model:verified="otpVerified"
-                                    v-model:sent="otpSent"
-                                    :error="errors.phone"
-                                    :show-otp="false"
-                                    @error-clear="errors.phone = ''"
-                                />
+                                <label class="form-label fw-bold small">Phone Number*</label>
+                                <input v-model="form.phone" type="tel" class="form-control custom-input"
+                                    placeholder="Enter your phone number">
+                                <small class="text-danger" v-if="errors.phone">{{ errors.phone }}</small>
                             </div>
                         </div>
 
+                        <!-- OTP verification input commented out -->
+                        <!--
                         <div v-if="otpSent && !otpVerified" class="mb-2">
                             <OtpVerification 
                                 v-model="form.phone"
@@ -47,6 +45,7 @@
                                 @error-clear="errors.phone = ''"
                             />
                         </div>
+                        -->
 
                         <div class="row">
                             <div class="col-md-6 mb-2">
@@ -608,12 +607,14 @@ export default defineComponent({
                 errors.university = 'University is required';
                 isValid = false;
             }
+            /*
             if (!otpVerified.value) {
                 if (!otpSent.value) {
                     errors.phone = 'Please click "Verify" to receive an OTP';
                 }
                 isValid = false;
             }
+            */
             if ((props.mode === 'apply' || isDownloaded.value) && !form.isCommerceGraduate) {
                 errors.isCommerceGraduate = 'You must agree to the Terms and Privacy Policy';
                 isValid = false;
