@@ -178,7 +178,7 @@
                                         </div>
                                         <div class="accordion-body p-4 p-lg-5" v-show="isSectionOpen(2)">
                                             <fieldset :disabled="!isEditingSection[2]">
-                                                <PersonalInformation ref="section2Ref" :formData="formData" />
+                                                <PersonalInformation ref="section2Ref" :formData="formData" :guardianKeyStatus="guardianKeyStatus" />
                                             </fieldset>
                                         </div>
                                     </div>
@@ -678,6 +678,7 @@ const reattempt = ref<number>(0);
 const isProfileEmpty = ref(false);
 const resultStatus = ref(false);
 const resumeKeyStatus = ref(false);
+const guardianKeyStatus = ref(false);
 const reportUrl = ref<string | null>(null);
 const studentResult = ref("");
 
@@ -693,19 +694,21 @@ const profileCompletion = computed(() => {
 
     const sectionWeight = 25; // 4 sections: Personal, Academic, Work Experience, Documents Upload
 
-    // 2. Personal Information (dynamically weighted) - 14 or 15 Fields
+    // 2. Personal Information (dynamically weighted) - 10 to 15 Fields
     const personalFields = [
         'first_name', 'last_name', 'email', 'mobile',
-        'dob', 'gender', 'state', 'city', 'pin_code', 'complete_address',
-        // 'parent_name', 'parent_phone', 'parent_email', 'parent_relationship'
+        'dob', 'gender', 'state', 'city', 'pin_code', 'complete_address'
     ];
-    // if (p.parent_relationship === 'Other') {
-    //     personalFields.push('parent_relationship_other');
-    // }
+    if (!guardianKeyStatus.value) {
+        personalFields.push('guardian_name', 'guardian_phone', 'guardian_email', 'guardian_dropdown');
+        if (p.guardian_dropdown === 'Other') {
+            personalFields.push('guardian_other_reason');
+        }
+    }
     const personalCompleted = personalFields.filter(f => {
         const val = p[f as keyof typeof p];
         if (!val) return false;
-        if (f === 'mobile' || f === 'parent_phone') return isValidMobile(String(val));
+        if (f === 'mobile' || f === 'guardian_phone') return isValidMobile(String(val));
         if (f === 'pin_code') return isValidPincode(String(val));
         return !!val;
     }).length;
@@ -826,18 +829,20 @@ const completionSteps = computed(() => {
 
     // Personal (2)
     const personalFields = [
-        'first_name', 'last_name', 'email', 'mobile', 'dob', 'gender', 'state', 'city', 'pin_code', 'complete_address',
-        // 'parent_name', 'parent_phone', 'parent_email', 'parent_relationship'
+        'first_name', 'last_name', 'email', 'mobile', 'dob', 'gender', 'state', 'city', 'pin_code', 'complete_address'
     ];
-    // if (p.parent_relationship === 'Other') {
-    //     personalFields.push('parent_relationship_other');
-    // }
+    if (!guardianKeyStatus.value) {
+        personalFields.push('guardian_name', 'guardian_phone', 'guardian_email', 'guardian_dropdown');
+        if (p.guardian_dropdown === 'Other') {
+            personalFields.push('guardian_other_reason');
+        }
+    }
     const personalDone = personalFields.every(f => {
         const val = p[f as keyof typeof p];
         if (!val) return false;
-        if (f === 'mobile' || f === 'parent_phone') return isValidMobile(String(val));
+        if (f === 'mobile' || f === 'guardian_phone') return isValidMobile(String(val));
         if (f === 'pin_code') return isValidPincode(String(val));
-        if (f === 'email' || f === 'parent_email') return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(String(val));
+        if (f === 'email' || f === 'guardian_email') return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(String(val));
         return !!val;
     });
 
@@ -918,6 +923,7 @@ const fetchStudentDetail = async () => {
         console.log(response, '-----response')
         resultStatus.value = response?.data?.result_status === true;
         resumeKeyStatus.value = response?.data?.resume_key_status === true || response?.data?.resume_key_status === "true" || response?.resume_key_status === true || response?.resume_key_status === "true";
+        guardianKeyStatus.value = response?.data?.guardian_key_status === true || response?.data?.guardian_key_status === "true" || response?.guardian_key_status === true || response?.guardian_key_status === "true";
         reportUrl.value = response?.report_url || response?.data?.report_url || null;
 
         // If returned payload is explicitly an empty array or missing data
@@ -1001,11 +1007,12 @@ const fetchStudentDetail = async () => {
 
             formData.father_name = d.contact_name || "";
             formData.father_mobile = d.contact_phone || "";
-            // formData.parent_name = d.parent_name || "";
-            // formData.parent_phone = d.parent_phone || "";
-            // formData.parent_email = d.parent_email || "";
-            // formData.parent_relationship = d.parent_relationship || "";
-            // formData.parent_relationship_other = d.parent_relationship_other || "";
+            formData.guardian_name = d.guardian_name || "";
+            formData.guardian_phone = d.guardian_phone || "";
+            formData.guardian_email = d.guardian_email || "";
+            const relationshipReverseMap: Record<number, string> = { 1: "Mother", 2: "Father", 3: "Other" };
+            formData.guardian_dropdown = relationshipReverseMap[d.guardian_dropdown] || "";
+            formData.guardian_other_reason = d.guardian_other_reason || "";
 
             formData.accounting_profession = d.accounting_profession ? String(d.accounting_profession) : "";
             formData.additional_qualification = d.additional_qualification || "";
@@ -1502,11 +1509,11 @@ const formData = reactive({
     state: "",
     pin_code: "",
     complete_address: "",
-    // parent_name: "",
-    // parent_phone: "",
-    // parent_email: "",
-    // parent_relationship: "",
-    // parent_relationship_other: "",
+    guardian_name: "",
+    guardian_phone: "",
+    guardian_email: "",
+    guardian_dropdown: "",
+    guardian_other_reason: "",
     class10_year: "",
     class10_type: "Percentage",
     class10_score: "",
@@ -1709,11 +1716,12 @@ const handleFinalSubmit = async () => {
         data.append('nationality', formData.nationality);
         data.append('pincode', formData.pin_code);
         data.append('address', formData.complete_address);
-        // data.append('parent_name', formData.parent_name);
-        // data.append('parent_phone', formData.parent_phone);
-        // data.append('parent_email', formData.parent_email);
-        // data.append('parent_relationship', formData.parent_relationship);
-        // data.append('parent_relationship_other', formData.parent_relationship === 'Other' ? formData.parent_relationship_other : '');
+        data.append('guardian_name', formData.guardian_name);
+        data.append('guardian_phone', formData.guardian_phone);
+        data.append('guardian_email', formData.guardian_email);
+        const relationshipMap: any = { "Mother": 1, "Father": 2, "Other": 3 };
+        data.append('guardian_dropdown', relationshipMap[formData.guardian_dropdown] || "");
+        data.append('guardian_other_reason', formData.guardian_dropdown === 'Other' ? formData.guardian_other_reason : '');
 
         // 2. Exact Integer Mappings
         const genderMap: any = { "Male": 1, "Female": 2, "Other": 3 };
@@ -1879,88 +1887,7 @@ const handleFinalSubmit = async () => {
     }
 }
 
-// const handleFinalSubmit = async () => {
-//     if (section4bRef.value?.validate) {
-//         const isValid = section4bRef.value.validate();
-//         if (!isValid) {
-//             openSections.value.add(4);  // previous behavior (kept for reference)
-//             return;
-//         }
-//     }
 
-//     try {
-//         const res: any = await $fetch("/api/start-payment", {
-//             method: "POST",
-//             body: {
-//                 user_id: userId.value,
-//                 name: formData.first_name + " " + formData.last_name,
-//                 email: formData.email,
-//                 mobile: formData.mobile
-//             }
-//         });
-
-//         const loaded = await loadRazorpayScript();
-//         if (!loaded || !(window as any).Razorpay) {
-//             alert("Razorpay SDK failed to load");
-//             return;
-//         }
-
-//         const options = {
-//             key: res.razorpay_key,
-//             amount: res.amount,
-//             currency: res.currency,
-//             name: "Application Fee",
-//             description: "NFET Application Payment",
-//             order_id: res.razorpay_order_id,
-
-//             handler: async function (response: any) {
-//                 await $fetch("/api/complete-payment", {
-//                     method: "POST",
-//                     body: {
-//                         razorpay_payment_id: response.razorpay_payment_id,
-//                         razorpay_order_id: response.razorpay_order_id,
-//                         razorpay_signature: response.razorpay_signature
-//                     }
-//                 });
-//                 alert("Payment Successful!");
-//             },
-
-//             prefill: {
-//                 name: formData.first_name + " " + formData.last_name,
-//                 email: formData.email,
-//                 contact: formData.mobile
-//             },
-
-//             theme: {
-//                 color: "#FBB03B"
-//             }
-//         };
-
-//         const rzp = new (window as any).Razorpay(options);
-//         rzp.on("payment.failed", async (response: any) => {
-//             console.error("Payment Failed:", response.error);
-//             try {
-//                 await $fetch("/api/report-payment-failure", {
-//                     method: "POST",
-//                     body: {
-//                         razorpay_order_id: res.razorpay_order_id,
-//                         razorpay_payment_id: response.error.metadata?.payment_id,
-//                         error_details: response.error
-//                     }
-//                 });
-//             } catch (reportError) {
-//                 console.error("Failed to report payment failure:", reportError);
-//             }
-//             alert(`Payment Failed: ${response.error.description || "Unknown error"}`);
-//         });
-
-//         rzp.open();
-
-//     } catch (err) {
-//         console.error(err);
-//         alert("Payment initiation failed");
-//     }
-// };
 const isDownloadingReport = ref(false);
 const downloadReport = async () => {
     isDownloadingReport.value = true;
