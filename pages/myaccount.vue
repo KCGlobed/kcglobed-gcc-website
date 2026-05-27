@@ -676,11 +676,11 @@ const profileCompletion = computed(() => {
     const personalFields = [
         'first_name', 'last_name', 'email', 'mobile',
         'dob', 'gender', 'state', 'city', 'pin_code', 'complete_address',
-        'parent_name', 'parent_phone', 'parent_email', 'parent_relationship'
+        // 'parent_name', 'parent_phone', 'parent_email', 'parent_relationship'
     ];
-    if (p.parent_relationship === 'Other') {
-        personalFields.push('parent_relationship_other');
-    }
+    // if (p.parent_relationship === 'Other') {
+    //     personalFields.push('parent_relationship_other');
+    // }
     const personalCompleted = personalFields.filter(f => {
         const val = p[f as keyof typeof p];
         if (!val) return false;
@@ -806,11 +806,11 @@ const completionSteps = computed(() => {
     // Personal (2)
     const personalFields = [
         'first_name', 'last_name', 'email', 'mobile', 'dob', 'gender', 'state', 'city', 'pin_code', 'complete_address',
-        'parent_name', 'parent_phone', 'parent_email', 'parent_relationship'
+        // 'parent_name', 'parent_phone', 'parent_email', 'parent_relationship'
     ];
-    if (p.parent_relationship === 'Other') {
-        personalFields.push('parent_relationship_other');
-    }
+    // if (p.parent_relationship === 'Other') {
+    //     personalFields.push('parent_relationship_other');
+    // }
     const personalDone = personalFields.every(f => {
         const val = p[f as keyof typeof p];
         if (!val) return false;
@@ -980,11 +980,11 @@ const fetchStudentDetail = async () => {
 
             formData.father_name = d.contact_name || "";
             formData.father_mobile = d.contact_phone || "";
-            formData.parent_name = d.parent_name || "";
-            formData.parent_phone = d.parent_phone || "";
-            formData.parent_email = d.parent_email || "";
-            formData.parent_relationship = d.parent_relationship || "";
-            formData.parent_relationship_other = d.parent_relationship_other || "";
+            // formData.parent_name = d.parent_name || "";
+            // formData.parent_phone = d.parent_phone || "";
+            // formData.parent_email = d.parent_email || "";
+            // formData.parent_relationship = d.parent_relationship || "";
+            // formData.parent_relationship_other = d.parent_relationship_other || "";
 
             formData.accounting_profession = d.accounting_profession ? String(d.accounting_profession) : "";
             formData.additional_qualification = d.additional_qualification || "";
@@ -1474,11 +1474,11 @@ const formData = reactive({
     state: "",
     pin_code: "",
     complete_address: "",
-    parent_name: "",
-    parent_phone: "",
-    parent_email: "",
-    parent_relationship: "",
-    parent_relationship_other: "",
+    // parent_name: "",
+    // parent_phone: "",
+    // parent_email: "",
+    // parent_relationship: "",
+    // parent_relationship_other: "",
     class10_year: "",
     class10_type: "Percentage",
     class10_score: "",
@@ -1681,11 +1681,11 @@ const handleFinalSubmit = async () => {
         data.append('nationality', formData.nationality);
         data.append('pincode', formData.pin_code);
         data.append('address', formData.complete_address);
-        data.append('parent_name', formData.parent_name);
-        data.append('parent_phone', formData.parent_phone);
-        data.append('parent_email', formData.parent_email);
-        data.append('parent_relationship', formData.parent_relationship);
-        data.append('parent_relationship_other', formData.parent_relationship === 'Other' ? formData.parent_relationship_other : '');
+        // data.append('parent_name', formData.parent_name);
+        // data.append('parent_phone', formData.parent_phone);
+        // data.append('parent_email', formData.parent_email);
+        // data.append('parent_relationship', formData.parent_relationship);
+        // data.append('parent_relationship_other', formData.parent_relationship === 'Other' ? formData.parent_relationship_other : '');
 
         // 2. Exact Integer Mappings
         const genderMap: any = { "Male": 1, "Female": 2, "Other": 3 };

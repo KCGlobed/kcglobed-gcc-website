@@ -1,22 +1,19 @@
 <template>
-  <div>
+  <div style="display: flex; flex-direction: column; min-height: 100vh;">
     <LayoutTopHeader />
     <LayoutMainNavbar />
-    <!-- <FormsPartnerWithUsForm /> -->
-    <!-- <CommonCommingSoon /> -->
-    <FormsLoginForm />
+    <div style="flex: 1; display: flex; align-items: center; justify-content: center; background: #f3f4f8;">
+      <FormsLoginForm />
+    </div>
     <LayoutMainFooter />
-    <!-- <LayoutCopyRight /> -->
   </div>
 </template>
 
 <script setup lang="ts">
-
 useHead({
   title: "GCC School | Login",
 })
 
-// If already authenticated, redirect straight to profile
 onMounted(() => {
   const token = localStorage.getItem('gcc_access_token')
   if (token) {

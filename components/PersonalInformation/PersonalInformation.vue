@@ -65,7 +65,7 @@
         </div>
 
         <!-- Parent/Guardian Details -->
-        <div class="col-lg-6">
+        <!-- <div class="col-lg-6">
           <div class="input-box mb-0">
             <label class="form-label fw-bold">Parent/Guardian Name <span>*</span></label>
             <input type="text" class="form-control" placeholder="Parent/Guardian Name" v-model="formData.parent_name"
@@ -73,9 +73,9 @@
               :class="{ 'is-invalid': errors.parent_name }" />
             <div class="invalid-feedback" v-if="errors.parent_name">{{ errors.parent_name }}</div>
           </div>
-        </div>
+        </div> -->
 
-        <div class="col-lg-6">
+        <!-- <div class="col-lg-6">
           <div class="input-box mb-0">
             <label class="form-label fw-bold">Relationship <span>*</span></label>
             <select class="form-select" v-model="formData.parent_relationship" @change="onRelationshipChange"
@@ -87,20 +87,22 @@
             </select>
             <div class="invalid-feedback" v-if="errors.parent_relationship">{{ errors.parent_relationship }}</div>
           </div>
-        </div>
+        </div> -->
 
         <!-- Dynamic Other Relationship Specification -->
-        <div class="col-lg-12" v-if="formData.parent_relationship === 'Other'">
+        <!-- <div class="col-lg-12" v-if="formData.parent_relationship === 'Other'">
           <div class="input-box mb-0">
             <label class="form-label fw-bold">Please specify relationship <span>*</span></label>
-            <input type="text" class="form-control" placeholder="Specify Relationship" v-model="formData.parent_relationship_other"
-              @blur="validateField('parent_relationship_other')" @input="validateField('parent_relationship_other')"
+            <input type="text" class="form-control" placeholder="Specify Relationship"
+              v-model="formData.parent_relationship_other" @blur="validateField('parent_relationship_other')"
+              @input="validateField('parent_relationship_other')"
               :class="{ 'is-invalid': errors.parent_relationship_other }" />
-            <div class="invalid-feedback" v-if="errors.parent_relationship_other">{{ errors.parent_relationship_other }}</div>
+            <div class="invalid-feedback" v-if="errors.parent_relationship_other">{{ errors.parent_relationship_other }}
+            </div>
           </div>
-        </div>
+        </div> -->
 
-        <div class="col-lg-6">
+        <!-- <div class="col-lg-6">
           <div class="input-box mb-0">
             <label class="form-label fw-bold">Parent/Guardian Phone Number <span>*</span></label>
             <input type="tel" class="form-control" placeholder="Phone Number" v-model="formData.parent_phone"
@@ -108,9 +110,9 @@
               :class="{ 'is-invalid': errors.parent_phone }" />
             <div class="invalid-feedback" v-if="errors.parent_phone">{{ errors.parent_phone }}</div>
           </div>
-        </div>
+        </div> -->
 
-        <div class="col-lg-6">
+        <!-- <div class="col-lg-6">
           <div class="input-box mb-0">
             <label class="form-label fw-bold">Parent/Guardian Email ID <span>*</span></label>
             <input type="email" class="form-control" placeholder="Email ID" v-model="formData.parent_email"
@@ -118,7 +120,7 @@
               :class="{ 'is-invalid': errors.parent_email }" />
             <div class="invalid-feedback" v-if="errors.parent_email">{{ errors.parent_email }}</div>
           </div>
-        </div>
+        </div> -->
 
         <!-- Personal Details -->
         <div class="col-lg-4">
@@ -283,37 +285,37 @@ export default {
             error = "Invalid mobile number (10 digits)";
           }
           break;
-        case 'parent_name':
-          if (!this.formData.parent_name) {
-            error = "Parent/Guardian Name is required";
-          } else if (!/^[A-Za-z ]+$/.test(this.formData.parent_name)) {
-            error = "Only alphabets and spaces are allowed.";
-          }
-          break;
-        case 'parent_phone':
-          if (!this.formData.parent_phone) {
-            error = "Parent/Guardian Phone Number is required";
-          } else if (!isValidMobile(this.formData.parent_phone)) {
-            error = "Invalid mobile number (10 digits)";
-          }
-          break;
-        case 'parent_email':
-          if (!this.formData.parent_email) {
-            error = "Parent/Guardian Email ID is required";
-          } else if (!emailRegex.test(this.formData.parent_email)) {
-            error = "Invalid email format";
-          }
-          break;
-        case 'parent_relationship':
-          if (!this.formData.parent_relationship) {
-            error = "Relationship is required";
-          }
-          break;
-        case 'parent_relationship_other':
-          if (this.formData.parent_relationship === 'Other' && !this.formData.parent_relationship_other) {
-            error = "Relationship specification is required";
-          }
-          break;
+        // case 'parent_name':
+        //   if (!this.formData.parent_name) {
+        //     error = "Parent/Guardian Name is required";
+        //   } else if (!/^[A-Za-z ]+$/.test(this.formData.parent_name)) {
+        //     error = "Only alphabets and spaces are allowed.";
+        //   }
+        //   break;
+        // case 'parent_phone':
+        //   if (!this.formData.parent_phone) {
+        //     error = "Parent/Guardian Phone Number is required";
+        //   } else if (!isValidMobile(this.formData.parent_phone)) {
+        //     error = "Invalid mobile number (10 digits)";
+        //   }
+        //   break;
+        // case 'parent_email':
+        //   if (!this.formData.parent_email) {
+        //     error = "Parent/Guardian Email ID is required";
+        //   } else if (!emailRegex.test(this.formData.parent_email)) {
+        //     error = "Invalid email format";
+        //   }
+        //   break;
+        // case 'parent_relationship':
+        //   if (!this.formData.parent_relationship) {
+        //     error = "Relationship is required";
+        //   }
+        //   break;
+        // case 'parent_relationship_other':
+        //   if (this.formData.parent_relationship === 'Other' && !this.formData.parent_relationship_other) {
+        //     error = "Relationship specification is required";
+        //   }
+        //   break;
         case 'dob':
           if (!this.formData.dob) {
             error = "Date of Birth is required";
