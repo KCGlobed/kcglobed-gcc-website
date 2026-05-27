@@ -3,124 +3,127 @@
         <!-- <LayoutTopHeader />
         <LayoutMainNavbar /> -->
         <LayoutProfileHeader />
-
-        <!-- <CommonInnerPageBanner pageTitle="Profile" /> -->
-        <!-- Banner Section -->
-        <div class="profile-banner-section py-3 py-lg-4">
-            <div class="container-lg">
-                <div class="profile-banner-card overflow-hidden">
-                    <div class="profile-banner-bg" :style="{ backgroundImage: `url(${heroBg})` }">
-                        <div
-                            class="d-flex flex-column flex-md-row align-items-center gap-4 px-4 py-4 h-100 position-relative">
-                            <!-- Left: Profile Image with Progress Ring -->
-                            <div class="profile-image-section">
-                                <div class="profile-image-container" @click="triggerImageUpload">
-                                    <div class="progress-ring-svg">
-                                        <svg width="130" height="130" viewBox="0 0 130 130">
-                                            <circle cx="65" cy="65" r="60" fill="transparent"
-                                                stroke="rgba(255,255,255,0.1)" stroke-width="8" />
-                                            <circle cx="65" cy="65" r="60" fill="transparent" stroke="#B13AFB"
-                                                stroke-width="8" stroke-linecap="round" stroke-dasharray="376.99"
-                                                :stroke-dashoffset="376.99 - (profileCompletion * 376.99) / 100"
-                                                style="transition: stroke-dashoffset 0.8s ease;" />
-                                        </svg>
+        <template v-if="isAuthChecked">
+            <!-- <CommonInnerPageBanner pageTitle="Profile" /> -->
+            <!-- Banner Section -->
+            <div class="profile-banner-section py-3 py-lg-4">
+                <div class="container-lg">
+                    <div class="profile-banner-card overflow-hidden">
+                        <div class="profile-banner-bg" :style="{ backgroundImage: `url(${heroBg})` }">
+                            <div
+                                class="d-flex flex-column flex-md-row align-items-center gap-4 px-4 py-4 h-100 position-relative">
+                                <!-- Left: Profile Image with Progress Ring -->
+                                <div class="profile-image-section">
+                                    <div class="profile-image-container" @click="triggerImageUpload">
+                                        <div class="progress-ring-svg">
+                                            <svg width="130" height="130" viewBox="0 0 130 130">
+                                                <circle cx="65" cy="65" r="60" fill="transparent"
+                                                    stroke="rgba(255,255,255,0.1)" stroke-width="8" />
+                                                <circle cx="65" cy="65" r="60" fill="transparent" stroke="#B13AFB"
+                                                    stroke-width="8" stroke-linecap="round" stroke-dasharray="376.99"
+                                                    :stroke-dashoffset="376.99 - (profileCompletion * 376.99) / 100"
+                                                    style="transition: stroke-dashoffset 0.8s ease;" />
+                                            </svg>
+                                        </div>
+                                        <div class="profile-image-inner">
+                                            <img v-if="profileImage" :src="profileImage" alt="Profile" />
+                                            <i v-else class="ti ti-user text-white fs-1"></i>
+                                            <div v-if="isImageUploading" class="upload-spinner-overlay">
+                                                <span class="spinner-border spinner-border-sm text-white"></span>
+                                            </div>
+                                        </div>
+                                        <div class="progress-badge-pill">{{ profileCompletion }}%</div>
+                                        <input type="file" ref="profileImageInput" class="d-none" accept="image/*"
+                                            @change="handleProfileImageUpload" />
                                     </div>
-                                    <div class="profile-image-inner">
-                                        <img v-if="profileImage" :src="profileImage" alt="Profile" />
-                                        <i v-else class="ti ti-user text-white fs-1"></i>
-                                        <div v-if="isImageUploading" class="upload-spinner-overlay">
-                                            <span class="spinner-border spinner-border-sm text-white"></span>
+                                </div>
+
+                                <!-- Middle: Profile Info -->
+                                <div class="profile-details-section text-center text-md-start flex-grow-1 mt-3 mt-md-0">
+                                    <div class="text-center text-md-start mb-2">
+                                        <h2 class="profile-name-text mb-2 mb-lg-0">{{ (formData.first_name ||
+                                            'Applicant') +
+                                            ' ' +
+                                            (formData.last_name || '') }}</h2>
+                                        <div class="status-pill d-md-none d-inline-block mt-1 mb-2"
+                                            :class="profileCompletion === 100 ? 'status-complete' : 'status-incomplete'">
+                                            {{ profileCompletion === 100 ? 'Profile Complete' : 'Profile Incomplete' }}
                                         </div>
                                     </div>
-                                    <div class="progress-badge-pill">{{ profileCompletion }}%</div>
-                                    <input type="file" ref="profileImageInput" class="d-none" accept="image/*"
-                                        @change="handleProfileImageUpload" />
-                                </div>
-                            </div>
 
-                            <!-- Middle: Profile Info -->
-                            <div class="profile-details-section text-center text-md-start flex-grow-1 mt-3 mt-md-0">
-                                <div class="text-center text-md-start mb-2">
-                                    <h2 class="profile-name-text mb-2 mb-lg-0">{{ (formData.first_name || 'Applicant') +
-                                        ' ' +
-                                        (formData.last_name || '') }}</h2>
-                                    <div class="status-pill d-md-none d-inline-block mt-1 mb-2"
+                                    <div class="application-id-badge mb-3 d-inline-block">
+                                        <span v-if="formData?.application_id">Application ID: {{ formData.application_id
+                                        }}</span>
+                                        <span v-else>- </span>
+                                    </div>
+
+                                    <div
+                                        class="d-flex flex-wrap justify-content-center justify-content-md-start gap-3 gap-md-4 profile-meta-info">
+                                        <div class="d-flex flex-nowrap gap-3 mobile-contact-row">
+                                            <span class="d-flex align-items-center"><i class="ti ti-mail me-2"></i> {{
+                                                formData.email }}</span>
+                                            <span class="d-flex align-items-center"><i class="ti ti-phone me-2"></i> {{
+                                                formData.mobile }}</span>
+                                        </div>
+                                        <span class="d-flex align-items-center" v-if="formData.city || formData.state">
+                                            <i class="ti ti-map-pin me-2"></i> {{ formData.city }}{{ formData.state ?
+                                                ', ' +
+                                                formData.state : '' }}
+                                        </span>
+                                    </div>
+
+                                    <!-- Bottom: Download Report Button (Mobile) -->
+                                    <div v-if="resultStatus" class="d-md-none mt-4 text-center">
+                                        <button
+                                            class="status-pill report-download-btn d-flex align-items-center gap-2 mx-auto"
+                                            @click="downloadReport" :disabled="isDownloadingReport">
+                                            <span v-if="isDownloadingReport"
+                                                class="spinner-border spinner-border-sm"></span>
+                                            <i v-else class="ti ti-download fs-6"></i>
+                                            Download Scorecard
+                                        </button>
+                                    </div>
+                                </div>
+
+                                <!-- Right: Status Badge -->
+                                <div class="profile-status-section d-none d-md-block position-absolute"
+                                    style="right: 40px; top: 40px;">
+                                    <div class="status-pill"
                                         :class="profileCompletion === 100 ? 'status-complete' : 'status-incomplete'">
                                         {{ profileCompletion === 100 ? 'Profile Complete' : 'Profile Incomplete' }}
                                     </div>
                                 </div>
 
-                                <div class="application-id-badge mb-3 d-inline-block">
-                                    <span v-if="formData?.application_id">Application ID: {{ formData.application_id
-                                    }}</span>
-                                    <span v-else>- </span>
-                                </div>
-
-                                <div
-                                    class="d-flex flex-wrap justify-content-center justify-content-md-start gap-3 gap-md-4 profile-meta-info">
-                                    <div class="d-flex flex-nowrap gap-3 mobile-contact-row">
-                                        <span class="d-flex align-items-center"><i class="ti ti-mail me-2"></i> {{
-                                            formData.email }}</span>
-                                        <span class="d-flex align-items-center"><i class="ti ti-phone me-2"></i> {{
-                                            formData.mobile }}</span>
-                                    </div>
-                                    <span class="d-flex align-items-center" v-if="formData.city || formData.state">
-                                        <i class="ti ti-map-pin me-2"></i> {{ formData.city }}{{ formData.state ? ', ' +
-                                            formData.state : '' }}
-                                    </span>
-                                </div>
-
-                                <!-- Bottom: Download Report Button (Mobile) -->
-                                <div v-if="resultStatus" class="d-md-none mt-4 text-center">
-                                    <button
-                                        class="status-pill report-download-btn d-flex align-items-center gap-2 mx-auto"
+                                <!-- Bottom Right: Download Report Button (Desktop) -->
+                                <div v-if="resultStatus" class="d-none d-md-block position-absolute"
+                                    style="right: 40px; bottom: 40px;">
+                                    <button class="status-pill report-download-btn d-flex align-items-center gap-2"
                                         @click="downloadReport" :disabled="isDownloadingReport">
                                         <span v-if="isDownloadingReport"
                                             class="spinner-border spinner-border-sm"></span>
-                                        <i v-else class="ti ti-download fs-6"></i>
+                                        <i v-else class="ti ti-download fs-5"></i>
                                         Download Scorecard
                                     </button>
                                 </div>
-                            </div>
-
-                            <!-- Right: Status Badge -->
-                            <div class="profile-status-section d-none d-md-block position-absolute"
-                                style="right: 40px; top: 40px;">
-                                <div class="status-pill"
-                                    :class="profileCompletion === 100 ? 'status-complete' : 'status-incomplete'">
-                                    {{ profileCompletion === 100 ? 'Profile Complete' : 'Profile Incomplete' }}
-                                </div>
-                            </div>
-
-                            <!-- Bottom Right: Download Report Button (Desktop) -->
-                            <div v-if="resultStatus" class="d-none d-md-block position-absolute"
-                                style="right: 40px; bottom: 40px;">
-                                <button class="status-pill report-download-btn d-flex align-items-center gap-2"
-                                    @click="downloadReport" :disabled="isDownloadingReport">
-                                    <span v-if="isDownloadingReport" class="spinner-border spinner-border-sm"></span>
-                                    <i v-else class="ti ti-download fs-5"></i>
-                                    Download Scorecard
-                                </button>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
 
-        <!-- Main Content Grid -->
-        <div class="main-content-area" style="background-color: #F3F4F6;">
-            <div class="container-lg border-0">
-                <div class="row g-4">
-                    <!-- Left Column (8 col) -->
-                    <div class="col-lg-8">
+            <!-- Main Content Grid -->
+            <div class="main-content-area" style="background-color: #F3F4F6;">
+                <div class="container-lg border-0">
+                    <div class="row g-4">
+                        <!-- Left Column (8 col) -->
+                        <div class="col-lg-8">
 
-                        <!-- 4 Accordion Sections -->
-                        <div class="pb-30">
-                            <div class="profile-accordion">
+                            <!-- 4 Accordion Sections -->
+                            <div class="pb-30">
+                                <div class="profile-accordion">
 
-                                <!-- Section 1: Pre Interview -->
-                                <!-- <div v-if="isPreInterviewVisible" class="accordion-section"
+                                    <!-- Section 1: Pre Interview -->
+                                    <!-- <div v-if="isPreInterviewVisible" class="accordion-section"
                                     :class="{ active: isSectionOpen(1) }">
                                     <div class="accordion-header" @click="toggleSection(1)">
                                         <div class="accordion-header-left">
@@ -150,467 +153,484 @@
                                     </div>
                                 </div> -->
 
-                                <!-- Section 2: Personal Information -->
-                                <div class="accordion-section" :class="{ active: isSectionOpen(2) }">
-                                    <div class="accordion-header" @click="toggleSection(2)">
-                                        <div class="accordion-header-left">
-                                            <div style="display: flex; align-items: center; gap: 10px;">
-                                                <div v-if="completionSteps[0].done" class="section-complete-check">
-                                                    <i class="ti ti-check"></i>
-                                                </div>
-                                                <span v-else class="accordion-icon"><i class="ti ti-user"></i></span>
-                                                <h4>Personal Information</h4>
-                                            </div>
-                                        </div>
-                                        <div class="accordion-header-right">
-                                            <span v-if="!isProfileEmpty && !isEditingSection[2]"
-                                                @click.stop="enableEdit(2)" class="edit-icon-btn me-3"
-                                                title="Edit Section">
-                                                <i class="ti ti-pencil fs-5 text-[#872980]"></i>
-                                            </span>
-                                            <i class="ti accordion-chevron"
-                                                :class="isSectionOpen(2) ? 'ti-chevron-up' : 'ti-chevron-down'"></i>
-                                        </div>
-                                    </div>
-                                    <div class="accordion-body p-4 p-lg-5" v-show="isSectionOpen(2)">
-                                        <fieldset :disabled="!isEditingSection[2]">
-                                            <PersonalInformation ref="section2Ref" :formData="formData" />
-                                        </fieldset>
-                                    </div>
-                                </div>
-
-
-                                <!-- Section 3: Academic Information -->
-                                <div class="accordion-section" :class="{ active: isSectionOpen(3) }">
-                                    <div class="accordion-header" @click="toggleSection(3)">
-                                        <div class="accordion-header-left">
-                                            <div style="display: flex; align-items: center; gap: 10px;">
-                                                <div v-if="completionSteps[1].done" class="section-complete-check">
-                                                    <i class="ti ti-check"></i>
-                                                </div>
-                                                <span v-else class="accordion-icon"><i class="ti ti-school"></i></span>
-                                                <h4>Academic Information</h4>
-                                            </div>
-                                        </div>
-                                        <div class="accordion-header-right">
-                                            <span v-if="!isProfileEmpty && !isEditingSection[3]"
-                                                @click.stop="enableEdit(3)" class="edit-icon-btn me-3"
-                                                title="Edit Section">
-                                                <i class="ti ti-pencil fs-5 text-[#872980]"></i>
-                                            </span>
-                                            <i class="ti accordion-chevron"
-                                                :class="isSectionOpen(3) ? 'ti-chevron-up' : 'ti-chevron-down'"></i>
-                                        </div>
-                                    </div>
-                                    <div class="accordion-body p-4 p-lg-5" v-show="isSectionOpen(3)">
-                                        <fieldset :disabled="!isEditingSection[3]">
-                                            <AcademicInformation ref="section3Ref" :formData="formData" />
-                                        </fieldset>
-                                    </div>
-                                </div>
-
-                                <!-- Section 4: Work Experience -->
-                                <div class="accordion-section" :class="{ active: isSectionOpen(4) }">
-                                    <div class="accordion-header" @click="toggleSection(4)">
-                                        <div class="accordion-header-left">
-                                            <div style="display: flex; align-items: center; gap: 10px;">
-                                                <div v-if="completionSteps[2].done" class="section-complete-check">
-                                                    <i class="ti ti-check"></i>
-                                                </div>
-                                                <span v-else class="accordion-icon"><i
-                                                        class="ti ti-briefcase"></i></span>
-                                                <h4>Work Experience</h4>
-                                            </div>
-                                        </div>
-                                        <div class="accordion-header-right">
-                                            <span v-if="!isProfileEmpty && !isEditingSection[4]"
-                                                @click.stop="enableEdit(4)" class="edit-icon-btn me-3"
-                                                title="Edit Section">
-                                                <i class="ti ti-pencil fs-5 text-[#872980]"></i>
-                                            </span>
-                                            <i class="ti accordion-chevron"
-                                                :class="isSectionOpen(4) ? 'ti-chevron-up' : 'ti-chevron-down'"></i>
-                                        </div>
-                                    </div>
-                                    <div class="accordion-body p-4 p-lg-5" v-show="isSectionOpen(4)">
-                                        <fieldset :disabled="!isEditingSection[4]">
-                                            <WorkExperienceDetails ref="section4Ref" :formData="formData"
-                                                :isDisabled="!isEditingSection[4]" />
-                                        </fieldset>
-                                    </div>
-                                </div>
-
-
-                                <!-- Section 5: Documents & Declaration -->
-                                <div class="accordion-section" :class="{ active: isSectionOpen(5) }">
-                                    <div class="accordion-header" @click="toggleSection(5)">
-                                        <div class="accordion-header-left">
-                                            <div style="display: flex; align-items: center; gap: 10px;">
-                                                <div v-if="completionSteps[3].done" class="section-complete-check">
-                                                    <i class="ti ti-check"></i>
-                                                </div>
-                                                <span v-else class="accordion-icon"><i class="ti ti-files"></i></span>
-                                                <h4>Documents</h4>
-                                            </div>
-                                        </div>
-                                        <div class="accordion-header-right">
-                                            <span v-if="!isProfileEmpty && !isEditingSection[5]"
-                                                @click.stop="enableEdit(5)" class="edit-icon-btn me-3"
-                                                title="Edit Section">
-                                                <i class="ti ti-pencil fs-5 text-[#872980]"></i>
-                                            </span>
-                                            <i class="ti accordion-chevron"
-                                                :class="isSectionOpen(5) ? 'ti-chevron-up' : 'ti-chevron-down'"></i>
-                                        </div>
-                                    </div>
-                                    <div class="accordion-body p-4 p-lg-5" v-show="isSectionOpen(5)">
-                                        <DocumentUpload ref="section5Ref" :formData="formData"
-                                            :isDisabled="!isEditingSection[5]" :resumeKeyStatus="resumeKeyStatus" />
-                                        <!-- <div class="section-divider"></div> -->
-                                        <!-- <PrePaymentDeclaration ref="section4bRef" :formData="formData" /> -->
-                                    </div>
-                                </div> <!-- End Section 5 -->
-                            </div> <!-- End profile-accordion -->
-                        </div> <!-- End pb-30 -->
-
-                        <!-- Combined Declaration & Submit Card -->
-                        <div class="p-4 p-lg-5 bg-white rounded-4 shadow-sm mb-4" v-if="isAnySectionEditing">
-                            <div class="d-flex align-items-start mb-4">
-                                <div class="form-check custom-declaration mt-1">
-                                    <input class="form-check-input" type="checkbox" id="declaration"
-                                        v-model="formData.declaration"
-                                        style="cursor: pointer; width: 20px; height: 20px;" />
-                                </div>
-                                <label class="form-check-label ms-3 text-secondary" for="declaration"
-                                    style="font-size: 15px; line-height: 1.6; cursor: pointer;">
-                                    I declare that all the information and documents submitted by me are true to
-                                    the best of my knowledge. I agree that in case any information or document found
-                                    fake/forged/false submitted by me, then my candidature may cancel at any
-                                    stage of course.
-                                </label>
-                            </div>
-
-                            <div class="d-flex justify-content-center pt-2">
-                                <button class="pill-submit-btn" @click="handleFinalSubmit"
-                                    :disabled="!formData.declaration || isSubmitting"
-                                    :class="{ 'opacity-50 cursor-not-allowed': !formData.declaration || isSubmitting }">
-                                    <span v-if="isSubmitting" class="spinner-border spinner-border-sm me-2"
-                                        role="status" aria-hidden="true"></span>
-                                    {{ isSubmitting ? 'Submitting...' : 'Submit' }}
-                                    <i v-if="!isSubmitting" class="ti ti-brand-telegram fs-4 ms-2"></i>
-                                </button>
-                            </div>
-                        </div>
-                    </div> <!-- End Left Column -->
-
-                    <!-- Right Column (4 col) -->
-                    <div class="col-lg-4">
-                        <!-- Profile Completeness Sidebar Card -->
-                        <div class="profile-completeness-card mb-4 overflow-hidden rounded-4 shadow-sm bg-white">
-                            <!-- Dark Header Section -->
-                            <div class="completeness-header p-4">
-                                <h5 class="fw-bold mb-2 d-flex justify-content-between text-white">
-                                    Profile Completeness
-                                    <span class="completion-percent">{{ profileCompletion }}%</span>
-                                </h5>
-                                <div class="progress mb-2 custom-progress-track">
-                                    <div class="progress-bar custom-progress-fill" role="progressbar"
-                                        :style="{ width: profileCompletion + '%' }" :aria-valuenow="profileCompletion"
-                                        aria-valuemin="0" aria-valuemax="100"></div>
-                                </div>
-                                <p class="small text-white mb-0">Complete your profile to unlock all features.</p>
-                            </div>
-
-                            <!-- White Body Section -->
-                            <div class="completeness-body pb-4 pt-0">
-                                <ul class="list-unstyled mb-0 completion-checklist">
-                                    <li class="d-flex align-items-center justify-content-between py-3 px-4 border-bottom"
-                                        v-for="(item, idx) in completionSteps" :key="idx"
-                                        v-show="item.visible !== false">
-                                        <div class="d-flex align-items-center gap-3">
-                                            <div class="completeness-icon" :class="{ 'is-done': item.done }">
-                                                <i v-if="item.done" class="ti ti-check"></i>
-                                                <div v-else class="pending-dot"></div>
-                                            </div>
-                                            <span class="fw-semibold text-dark" style="font-size: 14px;">{{
-                                                item.label }}</span>
-                                        </div>
-                                        <span class="badge" :class="item.done ? 'badge-done' : 'badge-pending'">
-                                            {{ item.done ? 'Done' : 'Pending' }}
-                                        </span>
-                                    </li>
-                                </ul>
-                            </div>
-
-                            <!-- Footer Section -->
-                            <div class="completeness-footer text-center py-3">
-                                <template v-if="profileCompletion < 100">
-                                    <button
-                                        class="btn btn-link text-primary text-decoration-none fw-bold p-0 d-flex align-items-center justify-content-center gap-2 w-100"
-                                        @click="handleFinishProfile"
-                                        style="font-size: 15px; color: #872980 !important;">
-                                        Finish Profile Now <i class="ti ti-arrow-right"></i>
-                                    </button>
-                                </template>
-                                <template v-else>
-                                    <div class="d-flex flex-column align-items-center gap-3 px-4">
-                                        <span class="fw-bold text-success" style="font-size: 15px;">Finished</span>
-                                        <button v-if="resultStatus"
-                                            class="status-pill report-download-btn d-flex align-items-center gap-2 w-100 justify-content-center"
-                                            @click="downloadReport" :disabled="isDownloadingReport"
-                                            style="padding: 10px 20px;">
-                                            <span v-if="isDownloadingReport"
-                                                class="spinner-border spinner-border-sm"></span>
-                                            <i v-else class="ti ti-download fs-5"></i>
-                                            Download Scorecard
-                                        </button>
-                                    </div>
-                                </template>
-                            </div>
-                        </div>
-
-
-                        <div>
-                            <StudentKits :isDisabled="false" :userEmail="formData.email"
-                                :mockTestStatus="formData.mock_test_status" @onStatusUpdate="fetchStudentDetail" />
-                        </div>
-
-                        <!-- NFET Slot Booking Sidebar -->
-                        <div class="nfet-slot-sidebar bg-white rounded-4 shadow-sm border mb-4 overflow-hidden">
-                            <div class="d-flex justify-content-between align-items-center p-4"
-                                @click="isOpenNfet = !isOpenNfet"
-                                style="cursor: pointer; user-select: none; background-color: #CB9722; color: white;">
-                                <h5 class="m-0 text-white fw-bold d-flex align-items-center" style="font-size: 17px;">
-                                    <i class="ti ti-calendar-event me-2 fs-4"></i>NFET Slot Booking
-                                </h5>
-                                <i class="ti fs-5" :class="isOpenNfet ? 'ti-chevron-up' : 'ti-chevron-down'"></i>
-                            </div>
-
-                            <div v-show="isOpenNfet" class="nfet-slide-content p-4" style="position: relative;">
-                                <div v-if="isProfileEmpty" class="disabled-overlay"
-                                    title="This section will be enabled after you complete your profile."></div>
-                                <div :class="{ 'opacity-50 pointer-events-none': isProfileEmpty }">
-                                    <div
-                                        class="d-flex justify-content-between align-items-center mb-3 bg-light p-2 rounded">
-                                        <button
-                                            class="btn btn-sm btn-white border shadow-sm p-1 d-flex align-items-center justify-content-center"
-                                            style="width: 28px; height: 28px;" @click="prevMonth"><i
-                                                class="ti ti-chevron-left"></i></button>
-                                        <span class="fw-bold text-dark" style="font-size: 14px;">{{
-                                            monthNames[currentMonth]
-                                        }}
-                                            {{ currentYear }}</span>
-                                        <button
-                                            class="btn btn-sm btn-white border shadow-sm p-1 d-flex align-items-center justify-content-center"
-                                            style="width: 28px; height: 28px;" @click="nextMonth"><i
-                                                class="ti ti-chevron-right"></i></button>
-                                    </div>
-                                    <div class="calendar-grid">
-                                        <div class="calendar-day-header text-muted fw-semibold"
-                                            v-for="day in ['Su', 'Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa']" :key="day">{{ day
-                                            }}
-                                        </div>
-                                        <div class="calendar-day" v-for="(day, idx) in calendarDays"
-                                            :key="'empty-' + idx" :class="{
-                                                'empty': !day,
-                                                'allowed': day && day.isAllowed,
-                                                'disabled': day && !day.isAllowed && !day.isBlocked,
-                                                'blocked': day && day.isBlocked,
-                                                'selected': day && day.dateString === selectedDate,
-                                                'is-current': day && day.dateString === bookingDetails.date,
-                                                'cursor-not-allowed': bookingDetails.updateCount >= 2 && day && day.isAllowed
-                                            }"
-                                            :title="day && day.isBlocked ? 'fully booked' : (bookingDetails.updateCount >= 2 ? 'Update limit reached' : '')"
-                                            @click="bookingDetails.updateCount < 2 && selectDate(day)">
-                                            <span>{{ day ? day.day : '' }}</span>
-                                        </div>
-                                    </div>
-
-                                    <!-- Slots -->
-                                    <div class="slots-container" v-if="selectedDate">
-                                        <h6 class="mb-2 mt-2 fw-semibold text-dark" style="font-size: 14px;">Slots for
-                                            {{
-                                                formatDate(selectedDate) }}:</h6>
-                                        <div class="d-flex flex-wrap gap-2 mb-3">
-                                            <button v-for="slot in availableSlots" :key="slot.id"
-                                                class="btn btn-sm flex-grow-1 position-relative" :class="[
-                                                    selectedSlot === slot.id ? 'btn-primary text-white custom-primary-bg' : 'btn-outline-secondary',
-                                                    (selectedDate === bookingDetails.date && slot.time === bookingDetails.time) ? 'btn-current-slot' : ''
-                                                ]"
-                                                @click="!slot.disabled && bookingDetails.updateCount < 2 && selectSlot(slot)"
-                                                :disabled="slot.disabled || bookingDetails.updateCount >= 2"
-                                                :title="bookingDetails.updateCount >= 2 ? 'Update limit reached' : (slot.disabled ? 'This slot is no longer available (8-hour restriction)' : '')"
-                                                style="font-size: 12px; min-width: 45%; padding-top: 10px; padding-bottom: 10px;">
-                                                {{ slot.time }}
-                                                <span
-                                                    v-if="selectedDate === bookingDetails.date && slot.time === bookingDetails.time"
-                                                    class="badge bg-primary position-absolute top-0 start-50 translate-middle-x"
-                                                    style="font-size: 8px; transform: translate(-50%, -50%) !important; background-color: #872980 !important;">CURRENT</span>
-                                            </button>
-                                        </div>
-                                        <div v-if="availableSlots.length === 0" class="text-muted small mb-3">No slots
-                                            available.
-                                        </div>
-
-                                        <div v-if="bookingDetails.updateCount <= 1" class="d-inline-block w-100 mb-2">
-                                            <button
-                                                class="btn btn-primary w-100 custom-primary-bg d-flex justify-content-center align-items-center gap-2"
-                                                :class="{ 'btn-disabled-custom': isBookingSlot || isCurrentSlotInPast }"
-                                                :disabled="isBookingSlot || isCurrentSlotInPast"
-                                                style="pointer-events: auto;"
-                                                @click="!isBookingSlot && !isCurrentSlotInPast && bookSlot()">
-                                                <span v-if="isBookingSlot" class="spinner-border spinner-border-sm"
-                                                    role="status" aria-hidden="true"></span>
-
-                                                <!-- state 1: Update Count == 0 -->
-                                                <template v-if="bookingDetails.updateCount === 0">
-                                                    Book Slot
-                                                    <span class="custom-tooltip-wrapper d-inline-block ms-1"
-                                                        @click.stop>
-                                                        <i class="ti ti-info-circle" style="font-size: 16px;"></i>
-                                                        <div class="custom-tooltip-content"
-                                                            style="pointer-events: none;">
-                                                            Slot can be changed once, at least 8 hours before the
-                                                            scheduled
-                                                            time
-                                                        </div>
-                                                    </span>
-                                                </template>
-
-                                                <!-- state 2: Update Count === 1 -->
-                                                <template v-else-if="bookingDetails.updateCount === 1">
-                                                    <div class="d-flex flex-column align-items-center"
-                                                        style="line-height: 1.2;">
-                                                        <span>Change Slot
-                                                            <span class="custom-tooltip-wrapper d-inline-block ms-1"
-                                                                @click.stop>
-                                                                <i class="ti ti-info-circle"
-                                                                    style="font-size: 16px;"></i>
-                                                                <div class="custom-tooltip-content"
-                                                                    style="pointer-events: none; bottom: 120%;">
-                                                                    Slot can be changed once, at least 8 hours before
-                                                                    the
-                                                                    scheduled time
-                                                                </div>
-                                                            </span>
-                                                        </span>
-                                                        <small style="font-size: 0.75em;">(one time only)</small>
+                                    <!-- Section 2: Personal Information -->
+                                    <div class="accordion-section" :class="{ active: isSectionOpen(2) }">
+                                        <div class="accordion-header" @click="toggleSection(2)">
+                                            <div class="accordion-header-left">
+                                                <div style="display: flex; align-items: center; gap: 10px;">
+                                                    <div v-if="completionSteps[0].done" class="section-complete-check">
+                                                        <i class="ti ti-check"></i>
                                                     </div>
-                                                </template>
+                                                    <span v-else class="accordion-icon"><i
+                                                            class="ti ti-user"></i></span>
+                                                    <h4>Personal Information</h4>
+                                                </div>
+                                            </div>
+                                            <div class="accordion-header-right">
+                                                <span v-if="!isProfileEmpty && !isEditingSection[2]"
+                                                    @click.stop="enableEdit(2)" class="edit-icon-btn me-3"
+                                                    title="Edit Section">
+                                                    <i class="ti ti-pencil fs-5 text-[#872980]"></i>
+                                                </span>
+                                                <i class="ti accordion-chevron"
+                                                    :class="isSectionOpen(2) ? 'ti-chevron-up' : 'ti-chevron-down'"></i>
+                                            </div>
+                                        </div>
+                                        <div class="accordion-body p-4 p-lg-5" v-show="isSectionOpen(2)">
+                                            <fieldset :disabled="!isEditingSection[2]">
+                                                <PersonalInformation ref="section2Ref" :formData="formData" />
+                                            </fieldset>
+                                        </div>
+                                    </div>
+
+
+                                    <!-- Section 3: Academic Information -->
+                                    <div class="accordion-section" :class="{ active: isSectionOpen(3) }">
+                                        <div class="accordion-header" @click="toggleSection(3)">
+                                            <div class="accordion-header-left">
+                                                <div style="display: flex; align-items: center; gap: 10px;">
+                                                    <div v-if="completionSteps[1].done" class="section-complete-check">
+                                                        <i class="ti ti-check"></i>
+                                                    </div>
+                                                    <span v-else class="accordion-icon"><i
+                                                            class="ti ti-school"></i></span>
+                                                    <h4>Academic Information</h4>
+                                                </div>
+                                            </div>
+                                            <div class="accordion-header-right">
+                                                <span v-if="!isProfileEmpty && !isEditingSection[3]"
+                                                    @click.stop="enableEdit(3)" class="edit-icon-btn me-3"
+                                                    title="Edit Section">
+                                                    <i class="ti ti-pencil fs-5 text-[#872980]"></i>
+                                                </span>
+                                                <i class="ti accordion-chevron"
+                                                    :class="isSectionOpen(3) ? 'ti-chevron-up' : 'ti-chevron-down'"></i>
+                                            </div>
+                                        </div>
+                                        <div class="accordion-body p-4 p-lg-5" v-show="isSectionOpen(3)">
+                                            <fieldset :disabled="!isEditingSection[3]">
+                                                <AcademicInformation ref="section3Ref" :formData="formData" />
+                                            </fieldset>
+                                        </div>
+                                    </div>
+
+                                    <!-- Section 4: Work Experience -->
+                                    <div class="accordion-section" :class="{ active: isSectionOpen(4) }">
+                                        <div class="accordion-header" @click="toggleSection(4)">
+                                            <div class="accordion-header-left">
+                                                <div style="display: flex; align-items: center; gap: 10px;">
+                                                    <div v-if="completionSteps[2].done" class="section-complete-check">
+                                                        <i class="ti ti-check"></i>
+                                                    </div>
+                                                    <span v-else class="accordion-icon"><i
+                                                            class="ti ti-briefcase"></i></span>
+                                                    <h4>Work Experience</h4>
+                                                </div>
+                                            </div>
+                                            <div class="accordion-header-right">
+                                                <span v-if="!isProfileEmpty && !isEditingSection[4]"
+                                                    @click.stop="enableEdit(4)" class="edit-icon-btn me-3"
+                                                    title="Edit Section">
+                                                    <i class="ti ti-pencil fs-5 text-[#872980]"></i>
+                                                </span>
+                                                <i class="ti accordion-chevron"
+                                                    :class="isSectionOpen(4) ? 'ti-chevron-up' : 'ti-chevron-down'"></i>
+                                            </div>
+                                        </div>
+                                        <div class="accordion-body p-4 p-lg-5" v-show="isSectionOpen(4)">
+                                            <fieldset :disabled="!isEditingSection[4]">
+                                                <WorkExperienceDetails ref="section4Ref" :formData="formData"
+                                                    :isDisabled="!isEditingSection[4]" />
+                                            </fieldset>
+                                        </div>
+                                    </div>
+
+
+                                    <!-- Section 5: Documents & Declaration -->
+                                    <div class="accordion-section" :class="{ active: isSectionOpen(5) }">
+                                        <div class="accordion-header" @click="toggleSection(5)">
+                                            <div class="accordion-header-left">
+                                                <div style="display: flex; align-items: center; gap: 10px;">
+                                                    <div v-if="completionSteps[3].done" class="section-complete-check">
+                                                        <i class="ti ti-check"></i>
+                                                    </div>
+                                                    <span v-else class="accordion-icon"><i
+                                                            class="ti ti-files"></i></span>
+                                                    <h4>Documents</h4>
+                                                </div>
+                                            </div>
+                                            <div class="accordion-header-right">
+                                                <span v-if="!isProfileEmpty && !isEditingSection[5]"
+                                                    @click.stop="enableEdit(5)" class="edit-icon-btn me-3"
+                                                    title="Edit Section">
+                                                    <i class="ti ti-pencil fs-5 text-[#872980]"></i>
+                                                </span>
+                                                <i class="ti accordion-chevron"
+                                                    :class="isSectionOpen(5) ? 'ti-chevron-up' : 'ti-chevron-down'"></i>
+                                            </div>
+                                        </div>
+                                        <div class="accordion-body p-4 p-lg-5" v-show="isSectionOpen(5)">
+                                            <DocumentUpload ref="section5Ref" :formData="formData"
+                                                :isDisabled="!isEditingSection[5]" :resumeKeyStatus="resumeKeyStatus" />
+                                            <!-- <div class="section-divider"></div> -->
+                                            <!-- <PrePaymentDeclaration ref="section4bRef" :formData="formData" /> -->
+                                        </div>
+                                    </div> <!-- End Section 5 -->
+                                </div> <!-- End profile-accordion -->
+                            </div> <!-- End pb-30 -->
+
+                            <!-- Combined Declaration & Submit Card -->
+                            <div class="p-4 p-lg-5 bg-white rounded-4 shadow-sm mb-4" v-if="isAnySectionEditing">
+                                <div class="d-flex align-items-start mb-4">
+                                    <div class="form-check custom-declaration mt-1">
+                                        <input class="form-check-input" type="checkbox" id="declaration"
+                                            v-model="formData.declaration"
+                                            style="cursor: pointer; width: 20px; height: 20px;" />
+                                    </div>
+                                    <label class="form-check-label ms-3 text-secondary" for="declaration"
+                                        style="font-size: 15px; line-height: 1.6; cursor: pointer;">
+                                        I declare that all the information and documents submitted by me are true to
+                                        the best of my knowledge. I agree that in case any information or document found
+                                        fake/forged/false submitted by me, then my candidature may cancel at any
+                                        stage of course.
+                                    </label>
+                                </div>
+
+                                <div class="d-flex justify-content-center pt-2">
+                                    <button class="pill-submit-btn" @click="handleFinalSubmit"
+                                        :disabled="!formData.declaration || isSubmitting"
+                                        :class="{ 'opacity-50 cursor-not-allowed': !formData.declaration || isSubmitting }">
+                                        <span v-if="isSubmitting" class="spinner-border spinner-border-sm me-2"
+                                            role="status" aria-hidden="true"></span>
+                                        {{ isSubmitting ? 'Submitting...' : 'Submit' }}
+                                        <i v-if="!isSubmitting" class="ti ti-brand-telegram fs-4 ms-2"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div> <!-- End Left Column -->
+
+                        <!-- Right Column (4 col) -->
+                        <div class="col-lg-4">
+                            <!-- Profile Completeness Sidebar Card -->
+                            <div class="profile-completeness-card mb-4 overflow-hidden rounded-4 shadow-sm bg-white">
+                                <!-- Dark Header Section -->
+                                <div class="completeness-header p-4">
+                                    <h5 class="fw-bold mb-2 d-flex justify-content-between text-white">
+                                        Profile Completeness
+                                        <span class="completion-percent">{{ profileCompletion }}%</span>
+                                    </h5>
+                                    <div class="progress mb-2 custom-progress-track">
+                                        <div class="progress-bar custom-progress-fill" role="progressbar"
+                                            :style="{ width: profileCompletion + '%' }"
+                                            :aria-valuenow="profileCompletion" aria-valuemin="0" aria-valuemax="100">
+                                        </div>
+                                    </div>
+                                    <p class="small text-white mb-0">Complete your profile to unlock all features.</p>
+                                </div>
+
+                                <!-- White Body Section -->
+                                <div class="completeness-body pb-4 pt-0">
+                                    <ul class="list-unstyled mb-0 completion-checklist">
+                                        <li class="d-flex align-items-center justify-content-between py-3 px-4 border-bottom"
+                                            v-for="(item, idx) in completionSteps" :key="idx"
+                                            v-show="item.visible !== false">
+                                            <div class="d-flex align-items-center gap-3">
+                                                <div class="completeness-icon" :class="{ 'is-done': item.done }">
+                                                    <i v-if="item.done" class="ti ti-check"></i>
+                                                    <div v-else class="pending-dot"></div>
+                                                </div>
+                                                <span class="fw-semibold text-dark" style="font-size: 14px;">{{
+                                                    item.label }}</span>
+                                            </div>
+                                            <span class="badge" :class="item.done ? 'badge-done' : 'badge-pending'">
+                                                {{ item.done ? 'Done' : 'Pending' }}
+                                            </span>
+                                        </li>
+                                    </ul>
+                                </div>
+
+                                <!-- Footer Section -->
+                                <div class="completeness-footer text-center py-3">
+                                    <template v-if="profileCompletion < 100">
+                                        <button
+                                            class="btn btn-link text-primary text-decoration-none fw-bold p-0 d-flex align-items-center justify-content-center gap-2 w-100"
+                                            @click="handleFinishProfile"
+                                            style="font-size: 15px; color: #872980 !important;">
+                                            Finish Profile Now <i class="ti ti-arrow-right"></i>
+                                        </button>
+                                    </template>
+                                    <template v-else>
+                                        <div class="d-flex flex-column align-items-center gap-3 px-4">
+                                            <span class="fw-bold text-success" style="font-size: 15px;">Finished</span>
+                                            <button v-if="resultStatus"
+                                                class="status-pill report-download-btn d-flex align-items-center gap-2 w-100 justify-content-center"
+                                                @click="downloadReport" :disabled="isDownloadingReport"
+                                                style="padding: 10px 20px;">
+                                                <span v-if="isDownloadingReport"
+                                                    class="spinner-border spinner-border-sm"></span>
+                                                <i v-else class="ti ti-download fs-5"></i>
+                                                Download Scorecard
                                             </button>
                                         </div>
-
-                                    </div>
-                                    <p v-else
-                                        class="text-muted small text-center py-2 px-3 bg-light rounded border border-dashed mt-3">
-                                        Please select a highlighted date.
-                                    </p>
-
-                                    <!-- Action Buttons -->
-                                    <div class="mt-3">
-                                        <button
-                                            class="btn btn-outline-success w-100 d-flex justify-content-center align-items-center gap-2 mb-2"
-                                            @click="downloadAdmitCard"
-                                            :disabled="!bookingDetails.isBooked || isDownloadingAdmitCard">
-                                            <span v-if="isDownloadingAdmitCard" class="spinner-border spinner-border-sm"
-                                                role="status" aria-hidden="true"></span>
-                                            <template v-else>Download Admit Card <i
-                                                    class="ti ti-download"></i></template>
-                                        </button>
-
-                                        <!-- Start Exam Button -->
-                                        <button class="btn w-100 d-flex justify-content-center align-items-center gap-2"
-                                            :class="bookingDetails.examStatus ? 'btn-primary custom-primary-bg' : 'btn-secondary btn-disabled-custom'"
-                                            v-if="bookingDetails.isBooked" :disabled="isStartingExam"
-                                            @click="handleStartExamClick($event)">
-                                            <span v-if="isStartingExam" class="spinner-border spinner-border-sm"
-                                                role="status" aria-hidden="true"></span>
-                                            <template v-else-if="bookingDetails.examUrl">
-                                                Resume Exam
-                                                <i class="ti ti-external-link"></i>
-                                            </template>
-                                            <template v-else>
-                                                Start Exam
-                                                <i class="ti ti-external-link"></i>
-                                            </template>
-                                            <span class="custom-tooltip-wrapper d-inline-block ms-1"
-                                                @click.stop.prevent>
-                                                <i class="ti ti-info-circle" style="font-size: 16px;"></i>
-                                                <div class="custom-tooltip-content"
-                                                    style="pointer-events: none; bottom: 120%;">
-                                                    {{
-                                                        bookingDetails.examStatus
-                                                            ? 'The exam is enabled and ready to start'
-                                                            : 'Exam will be enabled 1 hour before the scheduled time.'
-                                                    }}
-                                                </div>
-                                            </span>
-                                        </button>
-
-                                    </div>
+                                    </template>
+                                </div>
+                            </div>
 
 
-                                </div> <!-- End Position-Relative -->
-                            </div> <!-- End v-show -->
-                        </div> <!-- End NFET Slot Sidebar -->
-                    </div> <!-- End Col-LG-4 -->
-                </div> <!-- End Row -->
-            </div> <!-- End Container -->
-        </div> <!-- End Main Content Area -->
+                            <div>
+                                <StudentKits :isDisabled="false" :userEmail="formData.email"
+                                    :mockTestStatus="formData.mock_test_status" @onStatusUpdate="fetchStudentDetail" />
+                            </div>
 
-        <!-- Slot Full / General Alert Modal -->
-        <CommonAlert :show="alertState.show" :title="alertState.title" :message="alertState.message"
-            :type="alertState.type" @close="alertState.show = false" />
+                            <!-- NFET Slot Booking Sidebar -->
+                            <div class="nfet-slot-sidebar bg-white rounded-4 shadow-sm border mb-4 overflow-hidden">
+                                <div class="d-flex justify-content-between align-items-center p-4"
+                                    @click="isOpenNfet = !isOpenNfet"
+                                    style="cursor: pointer; user-select: none; background-color: #CB9722; color: white;">
+                                    <h5 class="m-0 text-white fw-bold d-flex align-items-center"
+                                        style="font-size: 17px;">
+                                        <i class="ti ti-calendar-event me-2 fs-4"></i>NFET Slot Booking
+                                    </h5>
+                                    <i class="ti fs-5" :class="isOpenNfet ? 'ti-chevron-up' : 'ti-chevron-down'"></i>
+                                </div>
+
+                                <div v-show="isOpenNfet" class="nfet-slide-content p-4" style="position: relative;">
+                                    <div v-if="isProfileEmpty" class="disabled-overlay"
+                                        title="This section will be enabled after you complete your profile."></div>
+                                    <div :class="{ 'opacity-50 pointer-events-none': isProfileEmpty }">
+                                        <div
+                                            class="d-flex justify-content-between align-items-center mb-3 bg-light p-2 rounded">
+                                            <button
+                                                class="btn btn-sm btn-white border shadow-sm p-1 d-flex align-items-center justify-content-center"
+                                                style="width: 28px; height: 28px;" @click="prevMonth"><i
+                                                    class="ti ti-chevron-left"></i></button>
+                                            <span class="fw-bold text-dark" style="font-size: 14px;">{{
+                                                monthNames[currentMonth]
+                                            }}
+                                                {{ currentYear }}</span>
+                                            <button
+                                                class="btn btn-sm btn-white border shadow-sm p-1 d-flex align-items-center justify-content-center"
+                                                style="width: 28px; height: 28px;" @click="nextMonth"><i
+                                                    class="ti ti-chevron-right"></i></button>
+                                        </div>
+                                        <div class="calendar-grid">
+                                            <div class="calendar-day-header text-muted fw-semibold"
+                                                v-for="day in ['Su', 'Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa']" :key="day">{{
+                                                    day
+                                                }}
+                                            </div>
+                                            <div class="calendar-day" v-for="(day, idx) in calendarDays"
+                                                :key="'empty-' + idx" :class="{
+                                                    'empty': !day,
+                                                    'allowed': day && day.isAllowed,
+                                                    'disabled': day && !day.isAllowed && !day.isBlocked,
+                                                    'blocked': day && day.isBlocked,
+                                                    'selected': day && day.dateString === selectedDate,
+                                                    'is-current': day && day.dateString === bookingDetails.date,
+                                                    'cursor-not-allowed': bookingDetails.updateCount >= 2 && day && day.isAllowed
+                                                }"
+                                                :title="day && day.isBlocked ? 'fully booked' : (bookingDetails.updateCount >= 2 ? 'Update limit reached' : '')"
+                                                @click="bookingDetails.updateCount < 2 && selectDate(day)">
+                                                <span>{{ day ? day.day : '' }}</span>
+                                            </div>
+                                        </div>
+
+                                        <!-- Slots -->
+                                        <div class="slots-container" v-if="selectedDate">
+                                            <h6 class="mb-2 mt-2 fw-semibold text-dark" style="font-size: 14px;">Slots
+                                                for
+                                                {{
+                                                    formatDate(selectedDate) }}:</h6>
+                                            <div class="d-flex flex-wrap gap-2 mb-3">
+                                                <button v-for="slot in availableSlots" :key="slot.id"
+                                                    class="btn btn-sm flex-grow-1 position-relative" :class="[
+                                                        selectedSlot === slot.id ? 'btn-primary text-white custom-primary-bg' : 'btn-outline-secondary',
+                                                        (selectedDate === bookingDetails.date && slot.time === bookingDetails.time) ? 'btn-current-slot' : ''
+                                                    ]"
+                                                    @click="!slot.disabled && bookingDetails.updateCount < 2 && selectSlot(slot)"
+                                                    :disabled="slot.disabled || bookingDetails.updateCount >= 2"
+                                                    :title="bookingDetails.updateCount >= 2 ? 'Update limit reached' : (slot.disabled ? 'This slot is no longer available (8-hour restriction)' : '')"
+                                                    style="font-size: 12px; min-width: 45%; padding-top: 10px; padding-bottom: 10px;">
+                                                    {{ slot.time }}
+                                                    <span
+                                                        v-if="selectedDate === bookingDetails.date && slot.time === bookingDetails.time"
+                                                        class="badge bg-primary position-absolute top-0 start-50 translate-middle-x"
+                                                        style="font-size: 8px; transform: translate(-50%, -50%) !important; background-color: #872980 !important;">CURRENT</span>
+                                                </button>
+                                            </div>
+                                            <div v-if="availableSlots.length === 0" class="text-muted small mb-3">No
+                                                slots
+                                                available.
+                                            </div>
+
+                                            <div v-if="bookingDetails.updateCount <= 1"
+                                                class="d-inline-block w-100 mb-2">
+                                                <button
+                                                    class="btn btn-primary w-100 custom-primary-bg d-flex justify-content-center align-items-center gap-2"
+                                                    :class="{ 'btn-disabled-custom': isBookingSlot || isCurrentSlotInPast }"
+                                                    :disabled="isBookingSlot || isCurrentSlotInPast"
+                                                    style="pointer-events: auto;"
+                                                    @click="!isBookingSlot && !isCurrentSlotInPast && bookSlot()">
+                                                    <span v-if="isBookingSlot" class="spinner-border spinner-border-sm"
+                                                        role="status" aria-hidden="true"></span>
+
+                                                    <!-- state 1: Update Count == 0 -->
+                                                    <template v-if="bookingDetails.updateCount === 0">
+                                                        Book Slot
+                                                        <span class="custom-tooltip-wrapper d-inline-block ms-1"
+                                                            @click.stop>
+                                                            <i class="ti ti-info-circle" style="font-size: 16px;"></i>
+                                                            <div class="custom-tooltip-content"
+                                                                style="pointer-events: none;">
+                                                                Slot can be changed once, at least 8 hours before the
+                                                                scheduled
+                                                                time
+                                                            </div>
+                                                        </span>
+                                                    </template>
+
+                                                    <!-- state 2: Update Count === 1 -->
+                                                    <template v-else-if="bookingDetails.updateCount === 1">
+                                                        <div class="d-flex flex-column align-items-center"
+                                                            style="line-height: 1.2;">
+                                                            <span>Change Slot
+                                                                <span class="custom-tooltip-wrapper d-inline-block ms-1"
+                                                                    @click.stop>
+                                                                    <i class="ti ti-info-circle"
+                                                                        style="font-size: 16px;"></i>
+                                                                    <div class="custom-tooltip-content"
+                                                                        style="pointer-events: none; bottom: 120%;">
+                                                                        Slot can be changed once, at least 8 hours
+                                                                        before
+                                                                        the
+                                                                        scheduled time
+                                                                    </div>
+                                                                </span>
+                                                            </span>
+                                                            <small style="font-size: 0.75em;">(one time only)</small>
+                                                        </div>
+                                                    </template>
+                                                </button>
+                                            </div>
+
+                                        </div>
+                                        <p v-else
+                                            class="text-muted small text-center py-2 px-3 bg-light rounded border border-dashed mt-3">
+                                            Please select a highlighted date.
+                                        </p>
+
+                                        <!-- Action Buttons -->
+                                        <div class="mt-3">
+                                            <button
+                                                class="btn btn-outline-success w-100 d-flex justify-content-center align-items-center gap-2 mb-2"
+                                                @click="downloadAdmitCard"
+                                                :disabled="!bookingDetails.isBooked || isDownloadingAdmitCard">
+                                                <span v-if="isDownloadingAdmitCard"
+                                                    class="spinner-border spinner-border-sm" role="status"
+                                                    aria-hidden="true"></span>
+                                                <template v-else>Download Admit Card <i
+                                                        class="ti ti-download"></i></template>
+                                            </button>
+
+                                            <!-- Start Exam Button -->
+                                            <button
+                                                class="btn w-100 d-flex justify-content-center align-items-center gap-2"
+                                                :class="bookingDetails.examStatus ? 'btn-primary custom-primary-bg' : 'btn-secondary btn-disabled-custom'"
+                                                v-if="bookingDetails.isBooked" :disabled="isStartingExam"
+                                                @click="handleStartExamClick($event)">
+                                                <span v-if="isStartingExam" class="spinner-border spinner-border-sm"
+                                                    role="status" aria-hidden="true"></span>
+                                                <template v-else-if="bookingDetails.examUrl">
+                                                    Resume Exam
+                                                    <i class="ti ti-external-link"></i>
+                                                </template>
+                                                <template v-else>
+                                                    Start Exam
+                                                    <i class="ti ti-external-link"></i>
+                                                </template>
+                                                <span class="custom-tooltip-wrapper d-inline-block ms-1"
+                                                    @click.stop.prevent>
+                                                    <i class="ti ti-info-circle" style="font-size: 16px;"></i>
+                                                    <div class="custom-tooltip-content"
+                                                        style="pointer-events: none; bottom: 120%;">
+                                                        {{
+                                                            bookingDetails.examStatus
+                                                                ? 'The exam is enabled and ready to start'
+                                                                : 'Exam will be enabled 1 hour before the scheduled time.'
+                                                        }}
+                                                    </div>
+                                                </span>
+                                            </button>
+
+                                        </div>
+
+
+                                    </div> <!-- End Position-Relative -->
+                                </div> <!-- End v-show -->
+                            </div> <!-- End NFET Slot Sidebar -->
+                        </div> <!-- End Col-LG-4 -->
+                    </div> <!-- End Row -->
+                </div> <!-- End Container -->
+            </div> <!-- End Main Content Area -->
+
+            <!-- Slot Full / General Alert Modal -->
+            <CommonAlert :show="alertState.show" :title="alertState.title" :message="alertState.message"
+                :type="alertState.type" @close="alertState.show = false" />
 
 
 
-        <!-- Confirmation Modal -->
-        <div v-if="showConfirmModal" class="custom-modal-overlay">
-            <div class="custom-modal p-4 shadow-lg border-0">
-                <div class="text-center pb-3">
-                    <h5 class="mb-4 fw-bold" style="font-size: 20px; color: #1e1b4b;">Confirm Slot Change</h5>
+            <!-- Confirmation Modal -->
+            <div v-if="showConfirmModal" class="custom-modal-overlay">
+                <div class="custom-modal p-4 shadow-lg border-0">
+                    <div class="text-center pb-3">
+                        <h5 class="mb-4 fw-bold" style="font-size: 20px; color: #1e1b4b;">Confirm Slot Change</h5>
 
-                    <div class="slot-diff-card p-3 rounded mb-4 text-start border bg-light">
-                        <div class="mb-3">
-                            <label class="text-muted small d-block mb-1 text-uppercase fw-bold"
-                                style="letter-spacing: 0.5px;">Current Booked Slot</label>
-                            <div class="d-flex align-items-center gap-2">
-                                <i class="ti ti-calendar-check fs-5 text-muted"></i>
-                                <span class="fw-bold text-dark">{{ formatDate(bookingDetails.date) }} | {{
-                                    bookingDetails.time }}</span>
+                        <div class="slot-diff-card p-3 rounded mb-4 text-start border bg-light">
+                            <div class="mb-3">
+                                <label class="text-muted small d-block mb-1 text-uppercase fw-bold"
+                                    style="letter-spacing: 0.5px;">Current Booked Slot</label>
+                                <div class="d-flex align-items-center gap-2">
+                                    <i class="ti ti-calendar-check fs-5 text-muted"></i>
+                                    <span class="fw-bold text-dark">{{ formatDate(bookingDetails.date) }} | {{
+                                        bookingDetails.time }}</span>
+                                </div>
+                            </div>
+
+                            <div class="pt-3 border-top">
+                                <label class="text-muted small d-block mb-1 text-uppercase fw-bold"
+                                    style="letter-spacing: 0.5px;">New Requested Slot</label>
+                                <div class="d-flex align-items-center gap-2">
+                                    <i class="ti ti-calendar-plus fs-5 text-[#6D1E67]"></i>
+                                    <span class="fw-bold text-[#6D1E67]">{{ formatDate(selectedDate) }} | {{
+                                        getSelectedSlotTime() }}</span>
+                                </div>
                             </div>
                         </div>
 
-                        <div class="pt-3 border-top">
-                            <label class="text-muted small d-block mb-1 text-uppercase fw-bold"
-                                style="letter-spacing: 0.5px;">New Requested Slot</label>
-                            <div class="d-flex align-items-center gap-2">
-                                <i class="ti ti-calendar-plus fs-5 text-[#6D1E67]"></i>
-                                <span class="fw-bold text-[#6D1E67]">{{ formatDate(selectedDate) }} | {{
-                                    getSelectedSlotTime() }}</span>
-                            </div>
-                        </div>
+                        <h5 class="mb-0 text-dark" style="font-size: 15px;">Are you sure you want to change your exam
+                            slot?
+                        </h5>
                     </div>
 
-                    <h5 class="mb-0 text-dark" style="font-size: 15px;">Are you sure you want to change your exam slot?
-                    </h5>
-                </div>
-
-                <div class="d-flex justify-content-center gap-3 mt-4">
-                    <button class="btn btn-light fw-bold flex-grow-1 border"
-                        style="border-radius: 12px; padding: 14px; color: #64748b;"
-                        @click="handleConfirm(false)">Cancel</button>
-                    <button class="btn btn-primary custom-primary-bg fw-bold flex-grow-1 shadow-sm"
-                        style="border-radius: 12px; padding: 14px;" @click="handleConfirm(true)">Confirm</button>
+                    <div class="d-flex justify-content-center gap-3 mt-4">
+                        <button class="btn btn-light fw-bold flex-grow-1 border"
+                            style="border-radius: 12px; padding: 14px; color: #64748b;"
+                            @click="handleConfirm(false)">Cancel</button>
+                        <button class="btn btn-primary custom-primary-bg fw-bold flex-grow-1 shadow-sm"
+                            style="border-radius: 12px; padding: 14px;" @click="handleConfirm(true)">Confirm</button>
+                    </div>
                 </div>
             </div>
-        </div>
 
-        <Reattempt :formData="formData" :reattempt="reattempt" />
-        <FeeWaiverModal v-if="showFeeWaiverModal" :dossierId="formData.application_id" :userData="formData"
-            @close="showFeeWaiverModal = false" />
-        <LayoutMainFooter />
-        <LayoutCopyRight />
+            <Reattempt :formData="formData" :reattempt="reattempt" />
+            <FeeWaiverModal v-if="showFeeWaiverModal" :dossierId="formData.application_id" :userData="formData"
+                @close="showFeeWaiverModal = false" />
+            <LayoutMainFooter />
+            <LayoutCopyRight />
+
+        </template>
+
+        <div v-else style="min-height: 100vh; background: #F3F4F6;" />
     </div>
 </template>
 
@@ -653,6 +673,7 @@ const config = useRuntimeConfig();
 
 // Hydrate auth state (reads from localStorage) on mount
 const profileImage = ref<string | null>(null);
+const isAuthChecked = ref(false)
 const reattempt = ref<number>(0);
 const isProfileEmpty = ref(false);
 const resultStatus = ref(false);
@@ -1090,14 +1111,21 @@ const fetchStudentDetail = async () => {
         console.error("Error fetching student details:", err);
     }
 };
-
 onMounted(async () => {
+    const token = localStorage.getItem('gcc_access_token')
+    if (!token) {
+        window.location.replace('/login')
+        return
+    }
+
+    isAuthChecked.value = true
     initAuth()
 
     if (userId.value) {
         await fetchStudentDetail()
     }
 })
+
 
 // track which sections are currently expanded; start with the first one open
 const openSections = ref<Set<number>>(new Set([1]));
