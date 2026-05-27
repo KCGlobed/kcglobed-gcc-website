@@ -273,13 +273,13 @@ $radius: 14px;
 
 .login-root {
     font-family: 'DM Sans', sans-serif;
-    min-height: 85vh;
+    width: 100%;
     display: flex;
     align-items: center;
     justify-content: center;
-    background: $bg;
     position: relative;
     overflow: hidden;
+    padding: 40px 16px;
 }
 
 // -- Mesh background --

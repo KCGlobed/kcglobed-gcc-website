@@ -144,4 +144,9 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     }
   ]
 });
+// app.vue
+onMounted(() => {
+  const { init } = useAuth()
+  init()
+})
 </script>
