@@ -58,16 +58,20 @@ export default defineNuxtConfig({
       display: 'standalone',
       icons: [
         {
-          src: '/pwa_icon_192.jpg',
+          src: '/pwa_icon_192.png',
           sizes: '192x192',
-          type: 'image/jpg'
+          type: 'image/png'
         },
         {
-          src: '/pwa_icon_512.jpg',
+          src: '/pwa_icon_512.png',
           sizes: '512x512',
-          type: 'image/jpg'
+          type: 'image/png'
         }
       ]
+    },
+    devOptions: {
+      enabled: true,
+      navigateFallbackAllowlist: [/^\/$/]
     },
     // workbox: {
     //   globPatterns: ['**/*.{js,css,html,ico,png,svg}'],

@@ -22,10 +22,8 @@ export async function savePayment(data: any) {
     )
     RETURNING id
   `;
-  // console.log(data,'----Data----')
   const values = [
-    //  data.re_attempt_status,
-    false,
+    data.re_attempt_status ?? false,
     data.form_type ?? null,
     data.form_id ?? null,
     data.razorpay_order_id,
