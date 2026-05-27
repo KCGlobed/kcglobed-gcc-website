@@ -39,17 +39,15 @@
                                                 </div>
                                             </div>
                                             <div class="col-md-6">
-                                                <OtpVerification 
-                                                    v-model="form.mobile"
-                                                    v-model:verified="otpVerified"
-                                                    v-model:sent="otpSent"
-                                                    :error="errors.mobile"
-                                                    :show-otp="false"
-                                                    @error-clear="errors.mobile = ''"
-                                                />
+                                                <label class="form-label fw-bold small">Mobile Number*</label>
+                                                <input type="tel" class="form-control custom-input mb-2" v-model="form.mobile"
+                                                    placeholder="Enter mobile number" :class="{ 'is-invalid': errors.mobile }">
+                                                <div class="invalid-feedback" v-if="errors.mobile">{{ errors.mobile }}</div>
                                             </div>
                                         </div>
 
+                                        <!-- OTP verification input commented out -->
+                                        <!--
                                         <div v-if="otpSent && !otpVerified" class="mb-2">
                                             <OtpVerification 
                                                 v-model="form.mobile"
@@ -59,6 +57,7 @@
                                                 @error-clear="errors.mobile = ''"
                                             />
                                         </div>
+                                        -->
 
                                         <div class="row">
                                             <div class="col-md-6">
@@ -1536,12 +1535,14 @@ export default defineComponent({
                 errors.university = 'University is required';
                 isValid = false;
             }
+            /*
             if (!otpVerified.value) {
                 if (!otpSent.value) {
                     errors.mobile = 'Please click "Verify" to receive an OTP';
                 }
                 isValid = false;
             }
+            */
             if (isDownloaded.value && !form.consent) {
                 errors.consent = "You must agree to the Terms and Privacy Policy";
             }
