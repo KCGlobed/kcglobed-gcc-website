@@ -9,7 +9,7 @@
           :data-aos-delay="apply.dataDelay">
           <div class="apply-card">
             <div class="icon">
-              <img :src="apply.icon" alt="icon" />
+              <img :src="apply.icon" alt="icon" loading="lazy" decoding="async" />
             </div>
             <h3>{{ apply.title }}</h3>
 
@@ -30,7 +30,7 @@
       </div>
     </div>
     <div class="all-shapes">
-      <img src="~/assets/img/shapes/apply-shape1.png" class="apply-shape1" alt="image" />
+      <img src="~/assets/img/shapes/apply-shape1.png" class="apply-shape1" alt="image" loading="lazy" decoding="async" />
     </div>
   </div>
 </template>
@@ -59,7 +59,7 @@ export default defineComponent({
           shortDesc:
             "Already exempted for commerce graduates*",
           btnText: "Apply Now",
-          btnLink: "/admission-form",
+          btnLink: "/login",
           dataDelay: "200",
         },
         {
@@ -77,7 +77,7 @@ export default defineComponent({
             "Financial Management (FM)",
           ],
           btnText: "Apply Now",
-          btnLink: "/admission-form",
+          btnLink: "/login",
           dataDelay: "300",
         },
         {
@@ -92,7 +92,7 @@ export default defineComponent({
             "Advanced Financial Management (AFM)",
           ],
           btnText: "Apply Now",
-          btnLink: "/admission-form",
+          btnLink: "/login",
           dataDelay: "400",
         },
       ],

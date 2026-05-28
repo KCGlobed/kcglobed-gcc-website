@@ -69,14 +69,8 @@ export default defineComponent({
               academicLink: [
                 {
                   id: 1,
-                  text: "View Full Academic Calendar",
-                  link: "/academic-calendar",
-                  icon: "ti ti-arrow-narrow-right",
-                },
-                {
-                  id: 2,
                   text: "View All Recruitment Events",
-                  link: "/academic-calendar",
+                  link: "/myaccount",
                   icon: "ti ti-arrow-narrow-right",
                 },
               ],
@@ -94,7 +88,7 @@ export default defineComponent({
                 {
                   id: 2,
                   text: "Book A General Campus Tour",
-                  link: "/academic-calendar",
+                  link: "/myaccount",
                   icon: "ti ti-arrow-narrow-right",
                 },
               ],
@@ -131,14 +125,8 @@ export default defineComponent({
               academicLink: [
                 {
                   id: 1,
-                  text: "View Full Academic Calendar",
-                  link: "/academic-calendar",
-                  icon: "ti ti-arrow-narrow-right",
-                },
-                {
-                  id: 2,
                   text: "View All Recruitment Events",
-                  link: "/academic-calendar",
+                  link: "/myaccount",
                   icon: "ti ti-arrow-narrow-right",
                 },
               ],
@@ -156,7 +144,7 @@ export default defineComponent({
                 {
                   id: 2,
                   text: "Book A General Campus Tour",
-                  link: "/academic-calendar",
+                  link: "/myaccount",
                   icon: "ti ti-arrow-narrow-right",
                 },
               ],

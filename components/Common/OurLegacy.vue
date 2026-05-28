@@ -10,14 +10,14 @@
             <div class="row mb-5">
                 <div class="col-lg-6">
                     <div class="our-legacy-left">
-                        <img src="~/assets/img/books.png" class="leader-img" alt="Books" />
+                        <img src="~/assets/img/books.png" class="leader-img" alt="Books" loading="lazy" decoding="async" />
                     </div>
                 </div>
 
                 <div class="col-lg-6">
                     <div class="our-legacy-right">
                         <div class="kc-globed-logo">
-                            <img src="~/assets/img/logo_kcglobed.svg" alt="KC GlobEd" />
+                            <img src="~/assets/img/logo_kcglobed.svg" alt="KC GlobEd" loading="lazy" decoding="async" />
                         </div>
                         <p>
                             The KCG team is committed to cultivating high standards of professionalism in every learner,
@@ -31,17 +31,17 @@
             <div class="row  ptb-100">
                 <div class="col-lg-4">
                     <div class="our-legacy-left">
-                        <img src="~/assets/img/legacy/1.png" class="leader-img" alt="Books" />
+                        <img src="~/assets/img/legacy/1.png" class="leader-img" alt="Books" loading="lazy" decoding="async" />
                     </div>
                 </div>
                 <div class="col-lg-4">
                     <div class="our-legacy-left">
-                        <img src="~/assets/img/legacy/2.png" class="leader-img" alt="Books" />
+                        <img src="~/assets/img/legacy/2.png" class="leader-img" alt="Books" loading="lazy" decoding="async" />
                     </div>
                 </div>
                 <div class="col-lg-4">
                     <div class="our-legacy-left">
-                        <img src="~/assets/img/legacy/3.png" class="leader-img" alt="Books" />
+                        <img src="~/assets/img/legacy/3.png" class="leader-img" alt="Books" loading="lazy" decoding="async" />
                     </div>
                 </div>
 

@@ -12,7 +12,7 @@
                 <div v-for="(img, index) in images" :key="index" class="col-lg-4 col-md-6 col-sm-12">
                     <a :href="img.link" target="_blank">
                         <div class="image-box">
-                            <img :src="img.img" alt="Industry Mentor" class="img-fluid">
+                            <img :src="img.img" alt="Industry Mentor" class="img-fluid" loading="lazy" decoding="async">
                         </div>
                     </a>
                 </div>

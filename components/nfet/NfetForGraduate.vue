@@ -14,7 +14,7 @@
                 <div class="row">
                     <div class="col-12 col-md-4 ">
                         <div class="nfet-img">
-                            <img src="~/assets/img/nfet/1.jpg" alt="" srcset="">
+                            <img src="~/assets/img/nfet/1.jpg" alt="Accounting" srcset="" loading="lazy" decoding="async">
 
                         </div>
                         <div class="nfet-content">
@@ -29,7 +29,7 @@
                     </div>
                     <div class="col-12 col-md-4 ">
                         <div class="nfet-img">
-                            <img src="~/assets/img/nfet/2.jpg" alt="" srcset="">
+                            <img src="~/assets/img/nfet/2.jpg" alt="Teaching" srcset="" loading="lazy" decoding="async">
 
                         </div>
                         <div class="nfet-content">
@@ -44,7 +44,7 @@
                     </div>
                     <div class="col-12 col-md-4">
                         <div class="nfet-img">
-                            <img src="~/assets/img/nfet/3.jpg" alt="" srcset="">
+                            <img src="~/assets/img/nfet/3.jpg" alt="Dashboard" srcset="" loading="lazy" decoding="async">
 
                         </div>
                         <div class="nfet-content">

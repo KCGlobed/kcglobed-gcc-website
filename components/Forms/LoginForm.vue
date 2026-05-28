@@ -14,7 +14,7 @@
                 <div class="card-logo">
                     <div class="logo-mark">
 
-                        <img src="~/assets/Logo/Logo/purple_logo.jpeg" alt="" srcset="">
+                        <img src="~/assets/Logo/Logo/purple_logo.jpeg" alt="GCC School Logo" srcset="" loading="lazy" decoding="async">
                     </div>
                     <!-- <span class="logo-name">YourBrand</span> -->
                 </div>
@@ -273,13 +273,13 @@ $radius: 14px;
 
 .login-root {
     font-family: 'DM Sans', sans-serif;
-    min-height: 85vh;
+    width: 100%;
     display: flex;
     align-items: center;
     justify-content: center;
-    background: $bg;
     position: relative;
     overflow: hidden;
+    padding: 40px 16px;
 }
 
 // -- Mesh background --

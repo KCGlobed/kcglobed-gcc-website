@@ -264,7 +264,7 @@
         </div>
         <div class="col-lg-5" data-aos="fade-up" data-aos-delay="200">
           <div class="question-images reveal2">
-            <img src="~/assets/img/questions/question1.jpg" alt="image" />
+            <img src="~/assets/img/questions/question1.jpg" alt="image" loading="lazy" decoding="async" />
           </div>
         </div>
       </div>

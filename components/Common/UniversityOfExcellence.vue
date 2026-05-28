@@ -8,12 +8,12 @@
             <div class="row">
               <div class="col-lg-4 col-sm-4">
                 <div class="image">
-                  <img src="~/assets/img/enquirys/enquiry1.jpg" alt="image" />
+                  <img src="~/assets/img/enquirys/enquiry1.jpg" alt="image" loading="lazy" decoding="async" />
                 </div>
               </div>
               <div class="col-lg-8 col-sm-8">
                 <div class="image">
-                  <img src="~/assets/img/enquirys/enquiry2.jpg" alt="image" />
+                  <img src="~/assets/img/enquirys/enquiry2.jpg" alt="image" loading="lazy" decoding="async" />
                 </div>
               </div>
             </div>

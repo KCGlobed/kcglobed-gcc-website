@@ -4,7 +4,7 @@
       <div class="row align-items-center g-4">
         <div class="col-lg-7" data-aos="fade-up" data-aos-delay="200">
           <div class="admission-image reveal2">
-            <img src="~/assets/img/admission.jpg" alt="image" />
+            <img src="~/assets/img/admission.jpg" alt="image" loading="lazy" decoding="async" />
           </div>
         </div>
         <div class="col-lg-5" data-aos="fade-up" data-aos-delay="200">

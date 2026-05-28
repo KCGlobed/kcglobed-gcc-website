@@ -24,7 +24,7 @@
         <p>Free</p>
       </div>
     </div>
-    <NuxtLink to="/admission-form" class="default-btn facilities-small">
+    <NuxtLink to="/login" class="default-btn facilities-small">
       Apply To The Faculty Now
       <i class="ti ti-arrow-narrow-right"></i>
     </NuxtLink>

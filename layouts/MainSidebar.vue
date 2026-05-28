@@ -11,7 +11,7 @@
         <div class="join-luva-box">
           <h3>Join Tuva</h3>
           <p>Lorem ipsum dolor sit amet nepoli.</p>
-          <NuxtLink to="/admission-form" class="default-btn">
+          <NuxtLink to="/login" class="default-btn">
             Apply Now
             <i class="ti ti-arrow-narrow-right"></i>
           </NuxtLink>
@@ -21,12 +21,6 @@
           <ul class="directory-list">
             <li>
               <NuxtLink to="/blog">News Directory</NuxtLink>
-            </li>
-            <li>
-              <NuxtLink to="/academic-calendar">Academic Calendar</NuxtLink>
-            </li>
-            <li>
-              <NuxtLink to="/events">Events Directory</NuxtLink>
             </li>
           </ul>
         </div>

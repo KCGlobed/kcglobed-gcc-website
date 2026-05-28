@@ -4,7 +4,7 @@
       <div class="row align-items-center g-4">
         <div class="col-lg-6">
           <div class="international-support-image">
-            <img src="~/assets/img/informations/information3.jpg" alt="image" />
+            <img src="~/assets/img/informations/information3.jpg" alt="image" loading="lazy" decoding="async" />
             <div class="small-image">
               <img
                 src="~/assets/img/informations/information4.jpg"

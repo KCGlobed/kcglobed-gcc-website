@@ -18,7 +18,7 @@
                                     alt="GCC Learning Pathway" class="pathway-graphic">
                             </div>
                             <div class="mobileImageGraphImag">
-                                <img src="/img/mobilestair.svg" alt="GCC Learning Pathway" class="pathway-graphic">
+                                <img src="/img/mobilestair.svg" alt="GCC Learning Pathway" class="pathway-graphic" loading="lazy" decoding="async">
                             </div>
 
                         </div>

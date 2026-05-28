@@ -11,7 +11,7 @@
             data-aos="zoom-in-up"
             data-aos-delay="200"
           >
-            <img src="~/assets/img/blogs/blog1.jpg" alt="image" />
+            <img src="~/assets/img/blogs/blog1.jpg" alt="image" loading="lazy" decoding="async" />
             <div class="content">
               <span>Career</span>
               <h3>
@@ -26,7 +26,7 @@
             data-aos="zoom-in-up"
             data-aos-delay="500"
           >
-            <img src="~/assets/img/blogs/blog2.jpg" alt="image" />
+            <img src="~/assets/img/blogs/blog2.jpg" alt="image" loading="lazy" decoding="async" />
             <div class="content">
               <span>Community</span>
               <h3>
@@ -124,7 +124,7 @@
             <div class="blog-donate" data-aos="zoom-in-up" data-aos-delay="700">
               <div class="icon">
                 <div class="icon">
-                  <img src="~/assets/img/svgs/donate.svg" alt="image" />
+                  <img src="~/assets/img/svgs/donate.svg" alt="image" loading="lazy" decoding="async" />
                 </div>
               </div>
               <div class="content">

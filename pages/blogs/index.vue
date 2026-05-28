@@ -123,6 +123,72 @@ import { ref, computed, watch } from "vue";
 import BlogSearchBanner from "~/components/Blog/BlogSearchBanner.vue";
 import BlogCard from "~/components/Blog/BlogCard.vue";
 
+useHead({
+  title: "GCC School",
+  meta: [
+    { name: "description", content: "Stay updated with the GCC School blog. Read expert insights, career guidance, educational trends, and professional tips for accounting and finance students." },
+
+    // Open Graph
+    {
+      property: "og:type",
+      content: "website",
+    },
+    {
+      property: "og:title",
+      content: "Finance & Career Blogs | GCC School",
+    },
+    {
+      property: "og:description",
+      content:
+        "Read expert insights on finance careers, CA, CPA, accounting education, industry trends and professional growth.",
+    },
+    {
+      property: "og:url",
+      content: "https://www.gccschool.com/blogs",
+    },
+    {
+      property: "og:site_name",
+      content: "GCC School",
+    },
+    {
+      property: "og:image",
+      content:
+        "https://storage.googleapis.com/gcc_static_files_backend/static/images/GCC_OG_IMAGE.png",
+    },
+    {
+      property: "og:locale",
+      content: "en_IN",
+    },
+
+    // Twitter
+    {
+      name: "twitter:card",
+      content: "summary_large_image",
+    },
+    {
+      name: "twitter:title",
+      content: "Finance & Career Blogs | GCC School",
+    },
+    {
+      name: "twitter:description",
+      content:
+        "Read expert insights on finance careers, CA, CPA, accounting education, industry trends and professional growth.",
+    },
+    {
+      name: "twitter:image",
+      content:
+        "https://storage.googleapis.com/gcc_static_files_backend/static/images/GCC_OG_IMAGE.png",
+    },
+  ],
+
+  link: [
+    {
+      rel: "canonical",
+      href: "https://www.gccschool.com/blogs",
+    },
+  ]
+})
+
 const config = useRuntimeConfig();
 const apiBase = config.public.apiBase || '';
 

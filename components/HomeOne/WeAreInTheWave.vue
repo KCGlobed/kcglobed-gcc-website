@@ -36,12 +36,12 @@
             <div class="row">
               <div class="col-lg-6 col-md-6">
                 <div class="image reveal2">
-                  <img src="~/assets/img/services/service1.jpg" alt="image" />
+                  <img src="~/assets/img/services/service1.jpg" alt="image" loading="lazy" decoding="async" />
                 </div>
               </div>
               <div class="col-lg-6 col-md-6">
                 <div class="image style2 reveal2">
-                  <img src="~/assets/img/services/service2.jpg" alt="image" />
+                  <img src="~/assets/img/services/service2.jpg" alt="image" loading="lazy" decoding="async" />
                 </div>
               </div>
             </div>
@@ -49,7 +49,7 @@
               <div class="d-flex align-items-center justify-content-center">
                 <div class="icon">
                   <div class="icon style">
-                    <img src="~/assets/img/svgs/service.svg" alt="" />
+                    <img src="~/assets/img/svgs/service.svg" alt="" loading="lazy" decoding="async" />
                   </div>
                 </div>
                 <h2 class="counter">15</h2>

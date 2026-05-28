@@ -45,7 +45,7 @@
                             </div>
                         </div>
                         <div class="action-side">
-                            <NuxtLink to="/admissions" class="apply-btn">
+                            <NuxtLink to="/login" class="apply-btn">
                                 Apply Now
                             </NuxtLink>
                         </div>

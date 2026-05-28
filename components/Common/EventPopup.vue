@@ -11,7 +11,7 @@
                 </button>
 
                 <div class="popup-image">
-                    <img :src="eventImage" alt="Event" />
+                    <img :src="eventImage" alt="Event" loading="lazy" decoding="async" />
                 </div>
             </div>
         </div>

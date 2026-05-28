@@ -70,7 +70,7 @@
                 <li>Corporate and Business Law (LW)</li>
               </ul>
               <div class="all-shapes">
-                <img src="~/assets/img/shapes/administration-shape.png" class="administration-shape" alt="image" />
+                <img src="~/assets/img/shapes/administration-shape.png" class="administration-shape" alt="image" loading="lazy" decoding="async" />
               </div>
             </div>
           </div>
@@ -100,7 +100,7 @@
               <p>English, French</p>
             </div>
           </div>
-          <NuxtLink to="/admission-form" class="default-btn administration-small">
+          <NuxtLink to="/login" class="default-btn administration-small">
             Apply Today
             <i class="ti ti-arrow-narrow-right"></i>
           </NuxtLink>

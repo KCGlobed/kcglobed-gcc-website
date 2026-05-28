@@ -64,6 +64,64 @@
           </div>
         </div>
 
+        <!-- Parent/Guardian Details -->
+        <div class="col-lg-6">
+          <div class="input-box mb-0">
+            <label class="form-label fw-bold">Parent/Guardian Name <span v-if="!guardianKeyStatus">*</span></label>
+            <input type="text" class="form-control" placeholder="Parent/Guardian Name" v-model="formData.guardian_name"
+              @blur="validateField('guardian_name')" @input="validateField('guardian_name')"
+              :class="{ 'is-invalid': errors.guardian_name }" />
+            <div class="invalid-feedback" v-if="errors.guardian_name">{{ errors.guardian_name }}</div>
+          </div>
+        </div>
+
+        <div class="col-lg-6">
+          <div class="input-box mb-0">
+            <label class="form-label fw-bold">Relationship <span v-if="!guardianKeyStatus">*</span></label>
+            <select class="form-select" v-model="formData.guardian_dropdown" @change="onRelationshipChange"
+              :class="{ 'is-invalid': errors.guardian_dropdown }">
+              <option value="" disabled>--Select--</option>
+              <option value="Mother">Mother</option>
+              <option value="Father">Father</option>
+              <option value="Other">Other</option>
+            </select>
+            <div class="invalid-feedback" v-if="errors.guardian_dropdown">{{ errors.guardian_dropdown }}</div>
+          </div>
+        </div>
+
+        <!-- Dynamic Other Relationship Specification -->
+        <div class="col-lg-12" v-if="formData.guardian_dropdown === 'Other'">
+          <div class="input-box mb-0">
+            <label class="form-label fw-bold">Please specify relationship <span v-if="!guardianKeyStatus">*</span></label>
+            <input type="text" class="form-control" placeholder="Specify Relationship"
+              v-model="formData.guardian_other_reason" @blur="validateField('guardian_other_reason')"
+              @input="validateField('guardian_other_reason')"
+              :class="{ 'is-invalid': errors.guardian_other_reason }" />
+            <div class="invalid-feedback" v-if="errors.guardian_other_reason">{{ errors.guardian_other_reason }}
+            </div>
+          </div>
+        </div>
+
+        <div class="col-lg-6">
+          <div class="input-box mb-0">
+            <label class="form-label fw-bold">Parent/Guardian Phone Number <span v-if="!guardianKeyStatus">*</span></label>
+            <input type="tel" class="form-control" placeholder="Phone Number" v-model="formData.guardian_phone"
+              @blur="validateField('guardian_phone')" @input="validateField('guardian_phone')"
+              :class="{ 'is-invalid': errors.guardian_phone }" />
+            <div class="invalid-feedback" v-if="errors.guardian_phone">{{ errors.guardian_phone }}</div>
+          </div>
+        </div>
+
+        <div class="col-lg-6">
+          <div class="input-box mb-0">
+            <label class="form-label fw-bold">Parent/Guardian Email ID <span v-if="!guardianKeyStatus">*</span></label>
+            <input type="email" class="form-control" placeholder="Email ID" v-model="formData.guardian_email"
+              @blur="validateField('guardian_email')" @input="validateField('guardian_email')"
+              :class="{ 'is-invalid': errors.guardian_email }" />
+            <div class="invalid-feedback" v-if="errors.guardian_email">{{ errors.guardian_email }}</div>
+          </div>
+        </div>
+
         <!-- Personal Details -->
         <div class="col-lg-4">
           <div class="input-box mb-0">
@@ -151,6 +209,10 @@ export default {
     formData: {
       type: Object,
       required: true
+    },
+    guardianKeyStatus: {
+      type: Boolean,
+      default: false
     }
   },
   data() {
@@ -227,6 +289,51 @@ export default {
             error = "Invalid mobile number (10 digits)";
           }
           break;
+        case 'guardian_name':
+          if (!this.guardianKeyStatus) {
+            if (!this.formData.guardian_name) {
+              error = "Parent/Guardian Name is required";
+            } else if (!/^[A-Za-z ]+$/.test(this.formData.guardian_name)) {
+              error = "Only alphabets and spaces are allowed.";
+            }
+          } else if (this.formData.guardian_name && !/^[A-Za-z ]+$/.test(this.formData.guardian_name)) {
+            error = "Only alphabets and spaces are allowed.";
+          }
+          break;
+        case 'guardian_phone':
+          if (!this.guardianKeyStatus) {
+            if (!this.formData.guardian_phone) {
+              error = "Parent/Guardian Phone Number is required";
+            } else if (!isValidMobile(this.formData.guardian_phone)) {
+              error = "Invalid mobile number (10 digits)";
+            }
+          } else if (this.formData.guardian_phone && !isValidMobile(this.formData.guardian_phone)) {
+            error = "Invalid mobile number (10 digits)";
+          }
+          break;
+        case 'guardian_email':
+          if (!this.guardianKeyStatus) {
+            if (!this.formData.guardian_email) {
+              error = "Parent/Guardian Email ID is required";
+            } else if (!emailRegex.test(this.formData.guardian_email)) {
+              error = "Invalid email format";
+            }
+          } else if (this.formData.guardian_email && !emailRegex.test(this.formData.guardian_email)) {
+            error = "Invalid email format";
+          }
+          break;
+        case 'guardian_dropdown':
+          if (!this.guardianKeyStatus && !this.formData.guardian_dropdown) {
+            error = "Relationship is required";
+          }
+          break;
+        case 'guardian_other_reason':
+          if (this.formData.guardian_dropdown === 'Other') {
+            if (!this.guardianKeyStatus && !this.formData.guardian_other_reason) {
+              error = "Relationship specification is required";
+            }
+          }
+          break;
         case 'dob':
           if (!this.formData.dob) {
             error = "Date of Birth is required";
@@ -273,6 +380,13 @@ export default {
       }
       return !error;
     },
+    onRelationshipChange() {
+      if (this.formData.guardian_dropdown !== 'Other') {
+        this.formData.guardian_other_reason = "";
+        delete this.errors.guardian_other_reason;
+      }
+      this.validateField('guardian_dropdown');
+    },
     onStateChange() {
       this.formData.city = "";
     },
@@ -287,7 +401,8 @@ export default {
     validate() {
       const fields = [
         'first_name', 'last_name', 'email', 'mobile', 'father_name', 'father_mobile',
-        'dob', 'gender', 'state', 'city', 'pin_code', 'complete_address'
+        'dob', 'gender', 'state', 'city', 'pin_code', 'complete_address',
+        'guardian_name', 'guardian_phone', 'guardian_email', 'guardian_dropdown', 'guardian_other_reason'
       ];
       let isValid = true;
       fields.forEach(field => {

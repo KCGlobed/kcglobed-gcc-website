@@ -16,14 +16,14 @@
         </div>
         <div class="col-lg-5">
           <div class="graduate-program-button text-end">
-            <NuxtLink to="/admission-form" class="default-btn">See How To Apply
+            <NuxtLink to="/login" class="default-btn">See How To Apply
               <i class="ti ti-arrow-narrow-right"></i>
             </NuxtLink>
           </div>
         </div>
       </div>
       <div class="inner-graduate-program-image">
-        <img src="~/assets/img/programs/inner-program6.jpg" alt="image" />
+        <img src="~/assets/img/programs/inner-program6.jpg" alt="image" loading="lazy" decoding="async" />
       </div>
     </div>
   </div>

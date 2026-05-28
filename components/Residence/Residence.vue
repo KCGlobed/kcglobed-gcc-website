@@ -12,7 +12,7 @@
               </p>
             </div>
             <div class="image">
-              <img src="~/assets/img/enquirys/enquiry3.jpg" alt="image" />
+              <img src="~/assets/img/enquirys/enquiry3.jpg" alt="image" loading="lazy" decoding="async" />
             </div>
             <p>
               Living in a Tuva residence is perhaps the easiest way to begin
@@ -27,7 +27,7 @@
               study spaces for students.
             </p>
             <div class="residence-button">
-              <NuxtLink to="/admission-form" class="default-btn">
+              <NuxtLink to="/login" class="default-btn">
                 Apply To Residence
                 <i class="ti ti-arrow-narrow-right"></i>
               </NuxtLink>

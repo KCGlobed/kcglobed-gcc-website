@@ -29,7 +29,7 @@
         >
           <SwiperSlide v-for="image in historyImages" :key="image.id">
             <div class="history-widget">
-              <img :src="image.image" alt="image" />
+              <img :src="image.image" alt="image" loading="lazy" decoding="async" />
             </div>
           </SwiperSlide>
         </Swiper>
