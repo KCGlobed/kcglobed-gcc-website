@@ -45,7 +45,7 @@ const images = [
         const path = `../../assets/img/campus/campus_img${num}.jpg`;
         return {
             src: campusGlob[path]?.default || '',
-            scale: Number((1.4 + index * 0.1).toFixed(1)),
+            // scale: Number((1.4 + index * 0.1).toFixed(1)),
             alt: 'Campus'
         };
     })
