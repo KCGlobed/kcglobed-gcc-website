@@ -8,7 +8,7 @@
             <div class="row g-4 justify-content-center align-items-center">
                 <div v-for="(img, index) in images" :key="index" class="col-lg-2 col-md-4 col-6">
                     <div class="image-box">
-                        <img :src="img" alt="Think Tank Member" class="img-fluid">
+                        <img :src="img" alt="Think Tank Member" class="img-fluid" loading="lazy" decoding="async">
                     </div>
                 </div>
             </div>

@@ -9,7 +9,7 @@
             <div class="cards">
                 <div v-for="partner in partners" :key="partner.name" class="card">
                     <div class="logo-wrapper">
-                        <img :src="partner.logo" :alt="partner.name" class="logo" />
+                        <img :src="partner.logo" :alt="partner.name" class="logo" loading="lazy" decoding="async" />
                     </div>
                     <p class="description">{{ partner.description }}</p>
                 </div>

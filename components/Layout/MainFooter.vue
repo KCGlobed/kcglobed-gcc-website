@@ -17,9 +17,7 @@
                   <li>
                     <NuxtLink to="/nfet-exam">NFET Exam</NuxtLink>
                   </li>
-                  <!-- <li>
-                    <NuxtLink to="/admissions">Student Admission</NuxtLink>
-                  </li> -->
+
                   <li>
                     <NuxtLink to="/campus-life">Campus Life</NuxtLink>
                   </li>
@@ -100,28 +98,28 @@
                     <ul class="social-list">
                       <li>
                         <a href="https://www.facebook.com/share/187jgT5gev/" target="_blank" class="icon">
-                          <img src="~/assets/img/svgs/facebook.svg" alt="facebook" />
+                          <img src="~/assets/img/svgs/facebook.svg" alt="facebook" loading="lazy" decoding="async" />
                         </a>
                       </li>
                       <!-- <li>
                         <a href="https://x.com/gccschool2026" target="_blank" class="icon">
-                          <img src="~/assets/img/svgs/twitter.svg" alt="twitter" />
+                          <img src="~/assets/img/svgs/twitter.svg" alt="twitter" loading="lazy" decoding="async" />
                         </a>
                       </li> -->
                       <li>
                         <a href="https://www.instagram.com/gccschool?igsh=MXQxc2JhazAwcG55cQ==" target="_blank"
                           class="icon">
-                          <img src="~/assets/img/svgs/instagram.svg" alt="instagram" />
+                          <img src="~/assets/img/svgs/instagram.svg" alt="instagram" loading="lazy" decoding="async" />
                         </a>
                       </li>
                       <li>
                         <a href="https://www.linkedin.com/company/gccschool/" target="_blank" class="icon">
-                          <img src="~/assets/img/svgs/linkedin.svg" alt="linkedin" />
+                          <img src="~/assets/img/svgs/linkedin.svg" alt="linkedin" loading="lazy" decoding="async" />
                         </a>
                       </li>
                       <li>
                         <a href="https://www.youtube.com/@GCCSchool" target="_blank" class="icon">
-                          <img src="~/assets/img/svgs/youtube.svg" alt="youtube" />
+                          <img src="~/assets/img/svgs/youtube.svg" alt="youtube" loading="lazy" decoding="async" />
                         </a>
                       </li>
                     </ul>

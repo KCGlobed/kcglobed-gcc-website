@@ -38,7 +38,7 @@
             >
               <div class="image">
                 <NuxtLink to="/about-campus">
-                  <img :src="story.image" alt="" />
+                  <img :src="story.image" alt="" loading="lazy" decoding="async" />
                 </NuxtLink>
               </div>
               <div class="content">
@@ -61,7 +61,7 @@
               </div>
               <div class="image">
                 <NuxtLink to="/about-campus">
-                  <img :src="story.image" alt="" />
+                  <img :src="story.image" alt="" loading="lazy" decoding="async" />
                 </NuxtLink>
               </div>
             </div>

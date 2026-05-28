@@ -7,7 +7,7 @@
             <!-- British Council English Certification -->
             <div class="row g-4 align-items-center mb-5">
                 <div class="col-lg-6" data-aos="fade-up" data-aos-delay="200">
-                    <img src="~/assets/img/national/1.png" alt="British Council Certification" class="img-fluid">
+                    <img src="~/assets/img/national/1.png" alt="British Council Certification" class="img-fluid" loading="lazy" decoding="async">
                 </div>
                 <div class="col-lg-6" data-aos="zoom-in-up" data-aos-delay="200">
                     <div class="about-content">
@@ -28,7 +28,7 @@
             <!-- M.Sc. in Professional Accountancy -->
             <div class="row g-4 align-items-center mb-5">
                 <div class="col-lg-6 order-lg-2" data-aos="fade-up" data-aos-delay="200">
-                    <img src="~/assets/img/national/2.png" alt="University of London M.Sc." class="img-fluid">
+                    <img src="~/assets/img/national/2.png" alt="University of London M.Sc." class="img-fluid" loading="lazy" decoding="async">
                 </div>
                 <div class="col-lg-6 order-lg-1" data-aos="zoom-in-up" data-aos-delay="200">
                     <div class="about-content">
@@ -57,7 +57,7 @@
             <!-- PGCM – Public Accounting -->
             <div class="row g-4 align-items-center">
                 <div class="col-lg-6" data-aos="fade-up" data-aos-delay="200">
-                    <img src="~/assets/img/national/3.png" alt="AIMA PGCM Certification" class="img-fluid">
+                    <img src="~/assets/img/national/3.png" alt="AIMA PGCM Certification" class="img-fluid" loading="lazy" decoding="async">
                 </div>
                 <div class="col-lg-6" data-aos="zoom-in-up" data-aos-delay="200">
                     <div class="about-content">

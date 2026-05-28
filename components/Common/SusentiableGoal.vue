@@ -2,7 +2,7 @@
     <div class="sustainable-goals-wrapper">
         <!-- Yellow dots decoration - hidden on mobile -->
         <div class="d-none d-lg-flex align-items-center justify-content-start">
-            <img :src="yellowSquareDots" alt="" class="position-absolute dots-yellow" />
+            <img :src="yellowSquareDots" alt="Yellow Square Dots" class="position-absolute dots-yellow" loading="lazy" decoding="async" />
         </div>
 
         <!-- Main content -->
@@ -21,14 +21,14 @@
             <div class="goals-grid px-2 px-lg-4 mt-4 mt-lg-5 mb-4 mb-lg-5 mx-3 mx-lg-5">
                 <div v-for="(image, index) in goals" :key="index" class="goal-item"
                     :class="{ 'is-active': activeGoalIndexes.includes(index + 1) }">
-                    <img class="goal-image" :src="`${bucketURL}${image}`" :alt="`Goal ${index + 1}`" />
+                    <img class="goal-image" :src="`${bucketURL}${image}`" :alt="`Goal ${index + 1}`" loading="lazy" decoding="async" />
                 </div>
             </div>
         </div>
 
         <!-- Purple dots decoration - hidden on mobile -->
         <div class="d-none d-lg-flex align-items-center justify-content-end">
-            <img :src="purpleSquareDots" alt="" class="position-absolute dots-purple" />
+            <img :src="purpleSquareDots" alt="Purple Square Dots" class="position-absolute dots-purple" loading="lazy" decoding="async" />
         </div>
     </div>
 </template>
@@ -41,8 +41,8 @@ export default defineComponent({
     setup() {
         // Replace these with your actual image imports or paths
         const bucketURL = 'https://storage.googleapis.com/static_files_backend'; // Update with your actual bucket URL
-        const yellowSquareDots = '/assets/images/yellow_square_dots.svg';
-        const purpleSquareDots = '/assets/images/purple_square_dots.svg';
+        const yellowSquareDots = 'https://www.kcglobed.com/assets/yellow_squre_dots.svg';
+        const purpleSquareDots = 'https://www.kcglobed.com/assets/purple_squre_dots.svg';
 
         // Order according to UN SDGs: 1 to 17 + the SDG logo at the end
         const goals = [

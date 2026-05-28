@@ -40,7 +40,7 @@
                 <i class="ti ti-caret-right-filled"></i>
               </li>
               <li>
-                <NuxtLink to="/events">Upcoming Events</NuxtLink>
+                <NuxtLink to="/blog">Recent News</NuxtLink>
                 <i class="ti ti-caret-right-filled"></i>
               </li>
               <li>

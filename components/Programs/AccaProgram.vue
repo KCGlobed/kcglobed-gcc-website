@@ -12,7 +12,7 @@
                     <div class="acca-program-image">
                          <picture>
                             <source media="(max-width: 767px)" srcset="~/assets/img/programs/acca-mobile.png">
-                            <img src="~/assets/img/programs/acca1.png" alt="ACCA Program">
+                            <img src="~/assets/img/programs/acca1.png" alt="ACCA Program" loading="lazy" decoding="async">
                         </picture>
                     </div>
                     <p>

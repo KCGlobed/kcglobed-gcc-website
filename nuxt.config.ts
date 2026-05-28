@@ -5,27 +5,20 @@ export default defineNuxtConfig({
   app: {
     // baseURL: "/tuva/",
     head: {
+      htmlAttrs: {
+        lang: 'eng'
+      },
       meta: [
         { name: 'google-site-verification', content: 'O_n2cuv-YeR9IgQt1HCNWTCY7aIvfyJfpB59jnIEau0' }
-      ],
-      script: [
-        {
-          src: 'https://www.googletagmanager.com/gtag/js?id=G-B2ETHYM6MN',
-          async: true
-        },
-        {
-          innerHTML: `window.dataLayer = window.dataLayer || [];
-          function gtag(){dataLayer.push(arguments);}
-          gtag('js', new Date());
-          gtag('config', 'G-B2ETHYM6MN');`
-        }
       ],
       link: [
         {
           rel: 'icon',
           type: 'image/jpg',
-          href: '/favicon.jpg', // ya /favicon.ico
+          href: '/favicon.jpg',
         },
+        { rel: 'preconnect', href: 'https://fonts.googleapis.com' },
+        { rel: 'preconnect', href: 'https://fonts.gstatic.com', crossorigin: '' },
       ],
     },
     pageTransition: {
@@ -43,7 +36,19 @@ export default defineNuxtConfig({
     "/assets/scss/style.css",
     "/assets/scss/responsive.css",
   ],
-  modules: ["@bootstrap-vue-next/nuxt", "nuxt-swiper", "nuxt-aos", '@vite-pwa/nuxt'],
+  modules: ["@bootstrap-vue-next/nuxt", "nuxt-swiper", "nuxt-aos", '@vite-pwa/nuxt', '@nuxt/image'],
+  image: {
+    quality: 80,
+    format: ['webp', 'jpg'],
+    screens: {
+      xs: 320,
+      sm: 640,
+      md: 768,
+      lg: 1024,
+      xl: 1280,
+      xxl: 1536,
+    },
+  },
   pwa: {
     registerType: 'autoUpdate',
 
@@ -119,6 +124,12 @@ export default defineNuxtConfig({
     emailUser: process.env.EMAIL_HOST_USER,
     emailPassword: process.env.EMAIL_HOST_PASSWORD,
 
+    // ── SMS (WebInfosys) ──────────────────────────────────────────────────────
+    smsApiKey: '',
+    smsSenderId: '',
+    smsEntityId: '',
+    smsTemplateId: '',
+
     public: {
       paymentGateway: process.env.PAYMENT_GATEWAY || 'CASHFREE',
       paymentAmount: process.env.PAYMENT_AMOUNT || '2950',
@@ -136,10 +147,22 @@ export default defineNuxtConfig({
   },
   nitro: {
     preset: 'node-server',
-    compressPublicAssets: true,
+    compressPublicAssets: { gzip: true, brotli: true },
     output: {
       dir: "dist",
       serverDir: "dist/server",
+    },
+  },
+  vite: {
+    build: {
+      cssCodeSplit: true,
+      rollupOptions: {
+        output: {
+          manualChunks: {
+            'vendor-bootstrap': ['bootstrap'],
+          },
+        },
+      },
     },
   },
 });

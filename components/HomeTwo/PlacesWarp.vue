@@ -35,7 +35,7 @@
         >
           <SwiperSlide v-for="place in places" :key="place.id">
             <div class="places-widget">
-              <img :src="place.image" alt="image" />
+              <img :src="place.image" alt="image" loading="lazy" decoding="async" />
               <div class="content">
                 <h3>
                   <NuxtLink to="/about-campus">Student Reviews</NuxtLink>

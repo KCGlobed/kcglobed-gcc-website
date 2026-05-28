@@ -14,26 +14,26 @@
                         </div>
                         <div class="partner-row">
                             <div class="partner-logo">
-                                <img src="~/assets/img/companylogo/1.png" alt="KC Globed">
+                                <img src="~/assets/img/companylogo/1.png" alt="KC Globed" loading="lazy" decoding="async">
                             </div>
                             <div class="partner-info">Subject Matter <strong>Expert</strong></div>
                         </div>
                         <div class="partner-row">
                             <div class="partner-logo">
-                                <img src="~/assets/img/companylogo/2.png" alt="British Council">
+                                <img src="~/assets/img/companylogo/2.png" alt="British Council" loading="lazy" decoding="async">
                             </div>
                             <div class="partner-info"><strong>Global</strong> English Academy</div>
                         </div>
                         <div class="partner-row">
                             <div class="partner-logo">
-                                <img src="~/assets/img/companylogo/3.png" alt="AIMA">
+                                <img src="~/assets/img/companylogo/3.png" alt="AIMA" loading="lazy" decoding="async">
                             </div>
                             <div class="partner-info"><strong>AICTE</strong> Approved <strong>PGCM</strong> Certifying
                                 Body</div>
                         </div>
                         <div class="partner-row border-none">
                             <div class="partner-logo">
-                                <img src="~/assets/img/companylogo/4.png" alt="University of London">
+                                <img src="~/assets/img/companylogo/4.png" alt="University of London" loading="lazy" decoding="async">
                             </div>
                             <div class="partner-info"><strong>Conferring</strong> University</div>
                         </div>
@@ -46,13 +46,13 @@
                     <div class="partner-rows">
                         <div class="partner-row">
                             <div class="partner-logo">
-                                <img src="~/assets/img/companylogo/6.png" alt="Aon">
+                                <img src="~/assets/img/companylogo/6.png" alt="Aon" loading="lazy" decoding="async">
                             </div>
                             <div class="partner-info"><strong>Testing</strong> Partner</div>
                         </div>
                         <div class="partner-row border-none">
                             <div class="partner-logo">
-                                <img src="~/assets/img/companylogo/7.png" alt="meritto">
+                                <img src="~/assets/img/companylogo/7.png" alt="meritto" loading="lazy" decoding="async">
                             </div>
                             <div class="partner-info"><strong>Technical</strong> Support Partner</div>
                         </div>
@@ -64,16 +64,16 @@
                     <div class="group-header">FINANCING PARTNERS</div>
                     <div class="financing-logos">
                         <div class="fin-logo">
-                            <img src="~/assets/img/companylogo/8.png" alt="HDFC Credila">
+                            <img src="~/assets/img/companylogo/8.png" alt="HDFC Credila" loading="lazy" decoding="async">
                         </div>
                         <div class="fin-logo">
-                            <img src="~/assets/img/companylogo/9.png" alt="Bajaj Finserv">
+                            <img src="~/assets/img/companylogo/9.png" alt="Bajaj Finserv" loading="lazy" decoding="async">
                         </div>
                         <div class="fin-logo">
-                            <img src="~/assets/img/companylogo/10.png" alt="Yes Bank">
+                            <img src="~/assets/img/companylogo/10.png" alt="Yes Bank" loading="lazy" decoding="async">
                         </div>
                         <div class="fin-logo">
-                            <img src="~/assets/img/companylogo/11.png" alt="Avanse">
+                            <img src="~/assets/img/companylogo/11.png" alt="Avanse" loading="lazy" decoding="async">
                         </div>
                     </div>
                 </div>

@@ -5,8 +5,8 @@
   ]">
     <div class="container-fluid">
       <NuxtLink class="navbar-brand" to="/">
-        <img src="~/assets/img/logo-style3.png" class="navbar-logo style3-logo" alt="logo" />
-        <img src="~/assets/img/logo.png" class="sticky-logo" alt="logo" />
+        <img src="~/assets/img/logo-style3.png" class="navbar-logo style3-logo" alt="logo" loading="lazy" decoding="async" />
+        <img src="~/assets/img/logo.png" class="sticky-logo" alt="logo" loading="lazy" decoding="async" />
       </NuxtLink>
       <a class="navbar-toggler home1-one-toggler" @click="stateStoreInstance.onMobileNavbarShow">
         <span class="burger-menu">
@@ -19,27 +19,27 @@
         <ul class="social-list me-auto">
           <li>
             <a href="https://www.facebook.com/" target="_blank" class="icon">
-              <img src="~/assets/img/svgs/facebook.svg" alt="icon" />
+              <img src="~/assets/img/svgs/facebook.svg" alt="icon" loading="lazy" decoding="async" />
             </a>
           </li>
           <li>
             <a href="https://www.twitter.com/" target="_blank" class="icon">
-              <img src="~/assets/img/svgs/twitter.svg" alt="icon" />
+              <img src="~/assets/img/svgs/twitter.svg" alt="icon" loading="lazy" decoding="async" />
             </a>
           </li>
           <li>
             <a href="https://www.instagram.com/" target="_blank" class="icon">
-              <img src="~/assets/img/svgs/instagram.svg" alt="icon" />
+              <img src="~/assets/img/svgs/instagram.svg" alt="icon" loading="lazy" decoding="async" />
             </a>
           </li>
           <li>
             <a href="https://www.linkedin.com/" target="_blank" class="icon">
-              <img src="~/assets/img/svgs/linkedin.svg" alt="icon" />
+              <img src="~/assets/img/svgs/linkedin.svg" alt="icon" loading="lazy" decoding="async" />
             </a>
           </li>
           <li>
             <a href="https://www.youtube.com/" target="_blank" class="icon">
-              <img src="~/assets/img/svgs/youtube.svg" alt="icon" />
+              <img src="~/assets/img/svgs/youtube.svg" alt="icon" loading="lazy" decoding="async" />
             </a>
           </li>
         </ul>
@@ -139,43 +139,7 @@
                   </li>
                 </ul>
               </li>
-              <li class="nav-item">
-                <a href="javascript:void(0)" class="dropdown-toggle nav-link">
-                  Application Forms
-                </a>
-                <ul class="dropdown-menu">
-                  <li class="nav-item">
-                    <NuxtLink to="/admission-form" class="nav-link">
-                      Personal Information
-                    </NuxtLink>
-                  </li>
-                  <li class="nav-item">
-                    <NuxtLink to="/academic-information" class="nav-link">
-                      Academic Information
-                    </NuxtLink>
-                  </li>
-                  <li class="nav-item">
-                    <NuxtLink to="/english-proficiency" class="nav-link">
-                      English Proficiency
-                    </NuxtLink>
-                  </li>
-                  <li class="nav-item">
-                    <NuxtLink to="/program-choice" class="nav-link">
-                      Program Choice
-                    </NuxtLink>
-                  </li>
-                  <li class="nav-item">
-                    <NuxtLink to="/document-upload" class="nav-link">
-                      Document Upload
-                    </NuxtLink>
-                  </li>
-                  <li class="nav-item">
-                    <NuxtLink to="/submission" class="nav-link">
-                      Submission
-                    </NuxtLink>
-                  </li>
-                </ul>
-              </li>
+
               <li class="nav-item">
                 <a href="javascript:void(0)" class="dropdown-toggle nav-link">
                   Blogs
@@ -191,23 +155,7 @@
                   </li>
                 </ul>
               </li>
-              <li class="nav-item">
-                <a href="javascript:void(0)" class="dropdown-toggle nav-link">
-                  Events
-                </a>
-                <ul class="dropdown-menu">
-                  <li class="nav-item">
-                    <NuxtLink to="/events" class="nav-link">
-                      Our Events
-                    </NuxtLink>
-                  </li>
-                  <li class="nav-item">
-                    <NuxtLink to="/event-details" class="nav-link">
-                      Event Details
-                    </NuxtLink>
-                  </li>
-                </ul>
-              </li>
+
               <li class="nav-item">
                 <NuxtLink to="/faq" class="nav-link">FAQ</NuxtLink>
               </li>
@@ -224,21 +172,12 @@
                   <li class="nav-item">
                     <NuxtLink to="/login" class="nav-link">Login</NuxtLink>
                   </li>
-                  <li class="nav-item">
-                    <NuxtLink to="/register" class="nav-link">
-                      Register
-                    </NuxtLink>
-                  </li>
                 </ul>
               </li>
               <li class="nav-item">
                 <NuxtLink to="/alumni" class="nav-link">Alumni</NuxtLink>
               </li>
-              <li class="nav-item">
-                <NuxtLink to="/academic-calendar" class="nav-link">
-                  Academic Calendar
-                </NuxtLink>
-              </li>
+
               <li class="nav-item">
                 <NuxtLink to="/contact" class="nav-link">Contact Us</NuxtLink>
               </li>
@@ -405,14 +344,14 @@
             <div class="search-bar main-menu__search search-toggler" @click="stateStoreInstance.onChange"
               style="cursor: pointer">
               <div class="search-btn">
-                <img src="~/assets/img/svgs/search.svg" alt="image" />
+                <img src="~/assets/img/svgs/search.svg" alt="image" loading="lazy" decoding="async" />
               </div>
             </div>
           </div>
 
           <div class="option-item">
             <button class="btn side-bar-btn" type="button" @click="stateStoreInstance.onSidebarShow">
-              <img src="~/assets/img/svgs/menu.svg" alt="svg" />
+              <img src="~/assets/img/svgs/menu.svg" alt="svg" loading="lazy" decoding="async" />
             </button>
           </div>
         </div>

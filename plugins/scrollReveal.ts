@@ -1,5 +1,7 @@
 export default defineNuxtPlugin((nuxtApp) => {
   if (process.client) {
+    let ticking = false;
+
     const reveal = (className: string) => {
       const reveals = document.querySelectorAll(className);
       for (let i = 0; i < reveals.length; i++) {
@@ -12,9 +14,17 @@ export default defineNuxtPlugin((nuxtApp) => {
       }
     };
 
-    // Add event listeners for each reveal class
-    ["reveal", "reveal2", "reveal3", "reveal4"].forEach((className) => {
-      window.addEventListener("scroll", () => reveal(`.${className}`));
-    });
+    // Single throttled scroll handler using requestAnimationFrame
+    const onScroll = () => {
+      if (!ticking) {
+        window.requestAnimationFrame(() => {
+          ["reveal", "reveal2", "reveal3", "reveal4"].forEach((cn) => reveal(`.${cn}`));
+          ticking = false;
+        });
+        ticking = true;
+      }
+    };
+
+    window.addEventListener("scroll", onScroll, { passive: true });
   }
 });

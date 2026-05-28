@@ -43,7 +43,7 @@
               <div class="image">
                 <div class="image">
                   <NuxtLink to="/event-details">
-                    <img :src="event.image" alt="image" />
+                    <img :src="event.image" alt="image" loading="lazy" decoding="async" />
                   </NuxtLink>
                 </div>
               </div>

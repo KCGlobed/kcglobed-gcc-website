@@ -13,10 +13,10 @@
 
                     <!-- Image -->
                     <div class="image-wrapper">
-                        <img :src="item.image" />
+                        <img :src="item.image" :alt="item.alt" loading="lazy" decoding="async" />
 
                         <span v-if="item.tag" class="tag">
-                            <img :src="item.icon" alt="" />
+                            <img :src="item.icon" alt="" loading="lazy" decoding="async" />
                             {{ item.tag }}
                         </span>
                     </div>
@@ -26,7 +26,7 @@
                         <h4>{{ item.title }}</h4>
 
                         <div class="members">
-                            <img v-for="(m, idx) in item.members" :key="idx" :src="m" />
+                            <img v-for="(m, idx) in item.members" :key="idx" :src="m" alt="Club Member Avatar" loading="lazy" decoding="async" />
 
                             <div class="count-avatar">
                                 +{{ item.count }}
@@ -61,6 +61,7 @@ const clubs = [
     {
         title: "Finance & Accounts Club",
         image: img1,
+        alt: "Market Research",
         members: [avatar1, avatar2],
         count: 42,
         tag: "FEATURED",
@@ -69,6 +70,7 @@ const clubs = [
     {
         title: "Audit & Assurance Club",
         image: img2,
+        alt: "Market Research",
         members: [avatar3, avatar4],
         count: 32,
         tag: "TRENDING",
@@ -77,12 +79,14 @@ const clubs = [
     {
         title: "International Tax Club",
         image: img3,
+        alt: "Global Finance",
         members: [avatar5, avatar6],
         count: 28
     },
     {
         title: "GCC Corporate Club",
         image: img4,
+        alt: "Discussion",
         members: [avatar7, avatar8],
         count: 35
     }

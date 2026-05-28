@@ -18,7 +18,6 @@
                                 placeholder="Enter your full name">
                             <small class="text-danger" v-if="errors.name">{{ errors.name }}</small>
                         </div>
-
                         <div class="row">
                             <div class="col-md-6 mb-2">
                                 <label class="form-label fw-bold small">Email Address*</label>
@@ -33,8 +32,20 @@
                                     placeholder="Enter your phone number">
                                 <small class="text-danger" v-if="errors.phone">{{ errors.phone }}</small>
                             </div>
-
                         </div>
+
+                        <!-- OTP verification input commented out -->
+                        <!--
+                        <div v-if="otpSent && !otpVerified" class="mb-2">
+                            <OtpVerification 
+                                v-model="form.phone"
+                                v-model:verified="otpVerified"
+                                v-model:sent="otpSent"
+                                :show-phone="false"
+                                @error-clear="errors.phone = ''"
+                            />
+                        </div>
+                        -->
 
                         <div class="row">
                             <div class="col-md-6 mb-2">
@@ -273,20 +284,21 @@
         </Transition>
     </Teleport>
 </template>
-
 <script lang="ts">
 import { defineComponent, ref, reactive, nextTick, defineAsyncComponent, onMounted, onUnmounted, watch, computed } from "vue";
 import { isValidMobile } from "~/utils/validators";
 import stateCityData from "~/state_city.json";
 import universitiesList from "~/universities.json";
 import selectUniversityList from "~/select-university.json";
+import OtpVerification from './OtpVerification.vue';
 
 export default defineComponent({
     name: 'DossierModal',
     components: {
         PaymentStatusModal: defineAsyncComponent(() => import('~/components/Common/PaymentStatusModal.vue')),
         CommonAlert: defineAsyncComponent(() => import('~/components/Common/CommonAlert.vue')),
-        FeeWaiverModal: defineAsyncComponent(() => import('~/components/university-fee-wavier/FeeWaiverModal.vue'))
+        FeeWaiverModal: defineAsyncComponent(() => import('~/components/university-fee-wavier/FeeWaiverModal.vue')),
+        OtpVerification
     },
     props: {
         modalId: {
@@ -340,6 +352,10 @@ export default defineComponent({
         const referralApplied = ref(false);
         const isVerifyingReferral = ref(false);
         const showCelebrationPopup = ref(false);
+
+        // --- OTP Verification State ---
+        const otpSent = ref(false);
+        const otpVerified = ref(false);
 
         const getConfettiStyle = (n: number) => {
             const colors = ['#8A2BE2', '#A13E99', '#FFD700', '#FF6B6B', '#4ECDC4', '#45B7D1', '#96CEB4', '#FFEAA7', '#DDA0DD', '#98D8C8'];
@@ -408,6 +424,9 @@ export default defineComponent({
             notification.type = '';
             notification.message = '';
             referralApplied.value = false;
+            // Reset OTP state
+            otpSent.value = false;
+            otpVerified.value = false;
         };
 
         const showNotification = (type: 'success' | 'error', message: string) => {
@@ -588,6 +607,14 @@ export default defineComponent({
                 errors.university = 'University is required';
                 isValid = false;
             }
+            /*
+            if (!otpVerified.value) {
+                if (!otpSent.value) {
+                    errors.phone = 'Please click "Verify" to receive an OTP';
+                }
+                isValid = false;
+            }
+            */
             if ((props.mode === 'apply' || isDownloaded.value) && !form.isCommerceGraduate) {
                 errors.isCommerceGraduate = 'You must agree to the Terms and Privacy Policy';
                 isValid = false;
@@ -1210,7 +1237,10 @@ export default defineComponent({
             verifyAndApplyReferral,
             showCelebrationPopup,
             handleCelebrationCta,
-            getConfettiStyle
+            getConfettiStyle,
+            // OTP
+            otpSent,
+            otpVerified
         };
     }
 });

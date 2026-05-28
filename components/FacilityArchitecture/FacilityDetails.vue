@@ -33,7 +33,7 @@
         * Information only related to the National Call for Applications
       </p>
     </div>
-    <NuxtLink to="/admission-form" class="default-btn facilities-small">
+    <NuxtLink to="/login" class="default-btn facilities-small">
       Apply To The Faculty Now
       <i class="ti ti-arrow-narrow-right"></i>
     </NuxtLink>

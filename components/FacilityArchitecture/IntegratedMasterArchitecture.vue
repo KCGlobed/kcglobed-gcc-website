@@ -21,7 +21,7 @@
               </p>
             </div>
             <div class="image">
-              <img src="~/assets/img/abouts/inner-about14.jpg" alt="image" />
+              <img src="~/assets/img/abouts/inner-about14.jpg" alt="image" loading="lazy" decoding="async" />
             </div>
             <div class="content2">
               <h5>Job Opportunities</h5>

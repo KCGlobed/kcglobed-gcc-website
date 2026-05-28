@@ -256,7 +256,7 @@ export default defineComponent({
                             id: 3,
                             icon: "ti ti-ballpen",
                             title: "Apply Now",
-                            link: "/admission-form",
+                            link: "/login",
                         },
                     ],
                 }

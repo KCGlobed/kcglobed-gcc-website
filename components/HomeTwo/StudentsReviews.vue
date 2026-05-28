@@ -68,7 +68,7 @@
               </p>
               <ul class="review-details">
                 <li>
-                  <img :src="review.image" alt="image" />
+                  <img :src="review.image" alt="image" loading="lazy" decoding="async" />
                 </li>
                 <li>
                   <span>{{ review.name }}</span>

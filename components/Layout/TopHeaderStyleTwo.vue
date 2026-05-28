@@ -23,14 +23,9 @@
                 <li>
                   <NuxtLink to="/blog">Portal</NuxtLink>
                 </li>
-                <li>
-                  <NuxtLink to="/academic-calendar">Calendar</NuxtLink>
-                </li>
+
                 <li>
                   <NuxtLink to="/alumni">Alumni</NuxtLink>
-                </li>
-                <li>
-                  <NuxtLink to="/events">Events</NuxtLink>
                 </li>
               </ul>
               <ul class="header-account">
@@ -60,27 +55,27 @@
               <ul class="social-list">
                 <li>
                   <a href="https://www.facebook.com/" target="_blank" class="icon">
-                    <img src="~/assets/img/svgs/facebook.svg" alt="icon" />
+                    <img src="~/assets/img/svgs/facebook.svg" alt="icon" loading="lazy" decoding="async" />
                   </a>
                 </li>
                 <li>
                   <a href="https://www.twitter.com/" target="_blank" class="icon">
-                    <img src="~/assets/img/svgs/twitter.svg" alt="icon" />
+                    <img src="~/assets/img/svgs/twitter.svg" alt="icon" loading="lazy" decoding="async" />
                   </a>
                 </li>
                 <li>
                   <a href="https://www.instagram.com/" target="_blank" class="icon">
-                    <img src="~/assets/img/svgs/instagram.svg" alt="icon" />
+                    <img src="~/assets/img/svgs/instagram.svg" alt="icon" loading="lazy" decoding="async" />
                   </a>
                 </li>
                 <li>
                   <a href="https://www.linkedin.com/" target="_blank" class="icon">
-                    <img src="~/assets/img/svgs/linkedin.svg" alt="icon" />
+                    <img src="~/assets/img/svgs/linkedin.svg" alt="icon" loading="lazy" decoding="async" />
                   </a>
                 </li>
                 <li>
                   <a href="https://www.youtube.com/" target="_blank" class="icon">
-                    <img src="~/assets/img/svgs/youtube.svg" alt="icon" />
+                    <img src="~/assets/img/svgs/youtube.svg" alt="icon" loading="lazy" decoding="async" />
                   </a>
                 </li>
               </ul>
@@ -102,14 +97,9 @@
                 <li>
                   <NuxtLink to="/blog">Portal</NuxtLink>
                 </li>
-                <li>
-                  <NuxtLink to="/academic-calendar">Calendar</NuxtLink>
-                </li>
+
                 <li>
                   <NuxtLink to="/alumni">Alumni</NuxtLink>
-                </li>
-                <li>
-                  <NuxtLink to="/events">Events</NuxtLink>
                 </li>
               </ul>
               <ul class="header-account">

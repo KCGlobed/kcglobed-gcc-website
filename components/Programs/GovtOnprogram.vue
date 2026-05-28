@@ -11,7 +11,7 @@
                 <div v-for="(program, index) in programs" :key="index" class="col-lg-4 col-md-6 col-sm-12">
                     <div class="program-card">
                         <div class="card-image-box">
-                            <img :src="program.image" :alt="program.title" class="img-fluid">
+                            <img :src="program.image" :alt="program.title" class="img-fluid" loading="lazy" decoding="async">
                             <div class="image-overlay">
                                 <NuxtLink :to="program.link" target="_blank" class="btn-learn-more">
                                     Read More <i class="ti ti-arrow-right"></i>
