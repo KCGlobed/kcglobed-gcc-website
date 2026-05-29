@@ -42,31 +42,31 @@ const timeline = [
     {
         label: 'NFET Slot\nBooking',
         icon: icon2,
-        date: 'March 10 - May 31, 2026',
+        date: 'March 10 - June 15, 2026',
         color: 'linear-gradient(135deg, #5b21b6 0%, #7c3aed 100%)',
     },
     {
         label: 'Result Communication',
         icon: icon3,
-        date: 'Third week of May, 2026',
+        date: 'Second week of June, 2026',
         color: 'linear-gradient(135deg, #7c3aed 0%, #9333ea 100%)',
     },
-    {
-        label: 'Pre-assessment to Qualify (Ticket to DLF Cyber City, Gurugram)',
-        icon: icon4,
-        date: 'May - June 2026',
-        color: 'linear-gradient(135deg, #a21caf 0%, #c026d3 100%)',
-    },
+    // {
+    //     label: 'Pre-assessment to Qualify (Ticket to DLF Cyber City, Gurugram)',
+    //     icon: icon4,
+    //     date: 'May - June 2026',
+    //     color: 'linear-gradient(135deg, #a21caf 0%, #c026d3 100%)',
+    // },
     {
         label: 'Personal Interview Round',
         icon: icon5,
-        date: 'May 30 – June 20, 2026',
+        date: 'June 16 - June 25, 2026',
         color: 'linear-gradient(135deg, #7c3aed 0%, #9333ea 100%)',
     },
     {
-        label: 'Conditional Offer Letter & Appointment',
+        label: 'Conditional Offer Letter',
         icon: icon6,
-        date: 'June 05 - June 20, 2026',
+        date: 'June 16 - June 25, 2026',
         color: 'linear-gradient(135deg, #4c1d95 0%, #6d28d9 100%)',
     },
     {
@@ -158,7 +158,6 @@ const timeline = [
     text-transform: uppercase;
     letter-spacing: 0.2px;
     line-height: 1.4;
-    white-space: pre-line;
 }
 
 /* ===== Right Light Half ===== */

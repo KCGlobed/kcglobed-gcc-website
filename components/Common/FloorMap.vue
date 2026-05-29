@@ -11,7 +11,7 @@
 
             <!-- Track -->
             <div v-for="(img, i) in images" :key="i" class="card" :class="getClass(i)" @click="goTo(i)">
-                <img :src="img.src" :style="{ transform: `scale(${img.scale})` }" :alt="img.alt" loading="lazy" decoding="async" />
+                <img :src="img.src" :alt="img.alt" loading="lazy" decoding="async" />
             </div>
             <!-- Right Arrow -->
             <button class="nav-btn nav-right" @click="next" aria-label="Next">
@@ -37,9 +37,9 @@ import img3 from '../../assets/img/campus/image7.jpg';
 const campusGlob = import.meta.glob<{ default: string }>('../../assets/img/campus/campus_img*.jpg', { eager: true });
 
 const images = [
-    { src: img1, scale: 1.1, alt: 'Classroom' },
-    { src: img2, scale: 1.2, alt: 'Campus' },
-    { src: img3, scale: 1.3, alt: 'Campus' },
+    { src: img1, alt: 'Classroom' },
+    { src: img2, alt: 'Campus' },
+    { src: img3, alt: 'Campus' },
     ...Array.from({ length: 20 }, (_, index) => {
         const num = index + 1;
         const path = `../../assets/img/campus/campus_img${num}.jpg`;
