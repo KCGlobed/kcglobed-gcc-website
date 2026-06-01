@@ -771,17 +771,17 @@ const firstIncompleteSectionIndex = computed(() => {
 const showFeeWaiverModal = ref(false);
 
 const handleFinishProfile = () => {
-    showFeeWaiverModal.value = true;
-    const idx = firstIncompleteSectionIndex.value;
-    if (idx !== null) {
-        openSections.value.add(idx);
-        nextTick(() => {
-            const sections = document.querySelectorAll('.accordion-section');
-            if (sections[idx - 1]) {
-                sections[idx - 1].scrollIntoView({ behavior: 'smooth', block: 'center' });
-            }
-        });
-    }
+    // showFeeWaiverModal.value = true;
+    // const idx = firstIncompleteSectionIndex.value;
+    // if (idx !== null) {
+    //     openSections.value.add(idx);
+    //     nextTick(() => {
+    //         const sections = document.querySelectorAll('.accordion-section');
+    //         if (sections[idx - 1]) {
+    //             sections[idx - 1].scrollIntoView({ behavior: 'smooth', block: 'center' });
+    //         }
+    //     });
+    // }
 };
 
 const completionSteps = computed(() => {
