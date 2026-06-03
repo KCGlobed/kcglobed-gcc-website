@@ -296,6 +296,27 @@
                                     </label>
                                 </div>
 
+                                <!-- Draft Status Indicator -->
+                                <div class="d-flex align-items-center justify-content-center gap-2 mb-3"
+                                    style="min-height: 22px;">
+                                    <template v-if="draftStatus === 'saved'">
+                                        <i class="ti ti-cloud-check" style="color: #22c55e; font-size: 16px;"></i>
+                                        <span style="font-size: 12px; color: #22c55e; font-weight: 500;">
+                                            Draft saved
+                                        </span>
+                                        <span v-if="draftLastSaved"
+                                            style="font-size: 11px; color: #9ca3af;">
+                                            · {{ formatDraftTime(draftLastSaved) }}
+                                        </span>
+                                    </template>
+                                    <template v-else-if="draftStatus === 'error'">
+                                        <i class="ti ti-cloud-x" style="color: #f59e0b; font-size: 16px;"></i>
+                                        <span style="font-size: 12px; color: #f59e0b;">
+                                            Could not save draft locally
+                                        </span>
+                                    </template>
+                                </div>
+
                                 <div class="d-flex justify-content-center pt-2">
                                     <button class="pill-submit-btn" @click="handleFinalSubmit"
                                         :disabled="!formData.declaration || isSubmitting"
@@ -307,6 +328,7 @@
                                     </button>
                                 </div>
                             </div>
+
                         </div> <!-- End Left Column -->
 
                         <!-- Right Column (4 col) -->
@@ -681,6 +703,14 @@ const resumeKeyStatus = ref(false);
 const guardianKeyStatus = ref(false);
 const reportUrl = ref<string | null>(null);
 const studentResult = ref("");
+
+// ── Auto-Draft (browser-only, localStorage) ────────────────────────────────
+type DraftStatus = 'idle' | 'saved' | 'error';
+const draftStatus = ref<DraftStatus>('idle');
+const draftLastSaved = ref<Date | null>(null);
+let _draftTimer: ReturnType<typeof setTimeout> | null = null;
+const DRAFT_KEY = 'gcc_profile_draft';
+
 
 const isPreInterviewVisible = computed(() => {
     if (!studentResult.value) return false;
@@ -1130,6 +1160,24 @@ onMounted(async () => {
 
     if (userId.value) {
         await fetchStudentDetail()
+    }
+
+    // ── Restore draft for empty/new profiles ────────────────────────────────
+    // Only restore if the server returned no profile data (new applicant)
+    if (isProfileEmpty.value) {
+        try {
+            const saved = localStorage.getItem(DRAFT_KEY);
+            if (saved) {
+                const draft = JSON.parse(saved);
+                // Object.assign into reactive formData → v-model bindings
+                // automatically pre-fill all form input fields in the UI
+                Object.assign(formData, draft);
+                draftStatus.value = 'saved';
+                console.log('[DRAFT] Draft restored and pre-filled from localStorage');
+            }
+        } catch (e) {
+            console.warn('[DRAFT] Failed to restore draft:', e);
+        }
     }
 })
 
@@ -1650,6 +1698,39 @@ const section3Ref = ref<any>(null);
 const section4Ref = ref<any>(null);
 const section5Ref = ref<any>(null);
 
+
+// ── Draft: saveDraft + watcher MUST live after formData is declared ────────
+
+const saveDraft = () => {
+    // Extract only serialisable text fields — skip File objects and booleans
+    const { documents, existingDocuments, declaration, ...textFields } = formData;
+    try {
+        localStorage.setItem(DRAFT_KEY, JSON.stringify(textFields));
+        draftStatus.value = 'saved';
+        draftLastSaved.value = new Date();
+    } catch (e) {
+        console.warn('[DRAFT] localStorage save failed:', e);
+        draftStatus.value = 'error';
+    }
+};
+
+const formatDraftTime = (date: Date) => {
+    return date.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', second: '2-digit' });
+};
+
+// Debounced watcher — fires saveDraft() 1 second after last change
+watch(
+    () => {
+        const { documents, existingDocuments, declaration, ...text } = formData;
+        return text;
+    },
+    () => {
+        if (_draftTimer) clearTimeout(_draftTimer);
+        _draftTimer = setTimeout(saveDraft, 1000);
+    },
+    { deep: true }
+);
+
 const toggleSection = (index: number) => {
     // expand or collapse only the clicked section without closing others
     if (openSections.value.has(index)) {
@@ -1919,6 +2000,9 @@ const handleFinalSubmit = async () => {
         if (response.success || response.status === "200" || response.status === 200 ||
             response.message === "Message sent Successfully" || response.message?.toLowerCase().includes("success")) {
             console.log("[SUBMIT] 🎉 Profile updated successfully!");
+            // Clear the browser draft on successful submit — no longer needed
+            try { localStorage.removeItem(DRAFT_KEY); } catch { /* ignore */ }
+            draftStatus.value = 'idle';
             showAlert("Success", "Profile updated successfully!", "success");
             await fetchStudentDetail();
         } else {
