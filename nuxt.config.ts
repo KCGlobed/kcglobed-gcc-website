@@ -162,6 +162,19 @@ export default defineNuxtConfig({
       dir: "dist",
       serverDir: "dist/server",
     },
+    // Allow large file uploads through the profile proxy without body-size limits
+    routeRules: {
+      '/api/proxy-profile-update': {
+        // Disable automatic body parsing so the raw stream can be forwarded
+        // directly to Django. Nitro's default body parser would buffer the
+        // entire multipart body into memory — this bypasses it.
+        cache: false,
+      },
+    },
+    experimental: {
+      // Required to keep the async context alive during streaming proxy calls
+      asyncContext: true,
+    },
   },
   vite: {
     build: {
