@@ -296,6 +296,27 @@
                                     </label>
                                 </div>
 
+                                <!-- Draft Status Indicator -->
+                                <div class="d-flex align-items-center justify-content-center gap-2 mb-3"
+                                    style="min-height: 22px;">
+                                    <template v-if="draftStatus === 'saved'">
+                                        <i class="ti ti-cloud-check" style="color: #22c55e; font-size: 16px;"></i>
+                                        <span style="font-size: 12px; color: #22c55e; font-weight: 500;">
+                                            Draft saved
+                                        </span>
+                                        <span v-if="draftLastSaved"
+                                            style="font-size: 11px; color: #9ca3af;">
+                                            · {{ formatDraftTime(draftLastSaved) }}
+                                        </span>
+                                    </template>
+                                    <template v-else-if="draftStatus === 'error'">
+                                        <i class="ti ti-cloud-x" style="color: #f59e0b; font-size: 16px;"></i>
+                                        <span style="font-size: 12px; color: #f59e0b;">
+                                            Could not save draft locally
+                                        </span>
+                                    </template>
+                                </div>
+
                                 <div class="d-flex justify-content-center pt-2">
                                     <button class="pill-submit-btn" @click="handleFinalSubmit"
                                         :disabled="!formData.declaration || isSubmitting"
@@ -307,6 +328,7 @@
                                     </button>
                                 </div>
                             </div>
+
                         </div> <!-- End Left Column -->
 
                         <!-- Right Column (4 col) -->
@@ -682,6 +704,14 @@ const guardianKeyStatus = ref(false);
 const reportUrl = ref<string | null>(null);
 const studentResult = ref("");
 
+// ── Auto-Draft (browser-only, localStorage) ────────────────────────────────
+type DraftStatus = 'idle' | 'saved' | 'error';
+const draftStatus = ref<DraftStatus>('idle');
+const draftLastSaved = ref<Date | null>(null);
+let _draftTimer: ReturnType<typeof setTimeout> | null = null;
+const DRAFT_KEY = 'gcc_profile_draft';
+
+
 const isPreInterviewVisible = computed(() => {
     if (!studentResult.value) return false;
     const val = parseFloat(studentResult.value);
@@ -771,17 +801,17 @@ const firstIncompleteSectionIndex = computed(() => {
 const showFeeWaiverModal = ref(false);
 
 const handleFinishProfile = () => {
-    showFeeWaiverModal.value = true;
-    const idx = firstIncompleteSectionIndex.value;
-    if (idx !== null) {
-        openSections.value.add(idx);
-        nextTick(() => {
-            const sections = document.querySelectorAll('.accordion-section');
-            if (sections[idx - 1]) {
-                sections[idx - 1].scrollIntoView({ behavior: 'smooth', block: 'center' });
-            }
-        });
-    }
+    // showFeeWaiverModal.value = true;
+    // const idx = firstIncompleteSectionIndex.value;
+    // if (idx !== null) {
+    //     openSections.value.add(idx);
+    //     nextTick(() => {
+    //         const sections = document.querySelectorAll('.accordion-section');
+    //         if (sections[idx - 1]) {
+    //             sections[idx - 1].scrollIntoView({ behavior: 'smooth', block: 'center' });
+    //         }
+    //     });
+    // }
 };
 
 const completionSteps = computed(() => {
@@ -1130,6 +1160,24 @@ onMounted(async () => {
 
     if (userId.value) {
         await fetchStudentDetail()
+    }
+
+    // ── Restore draft for empty/new profiles ────────────────────────────────
+    // Only restore if the server returned no profile data (new applicant)
+    if (isProfileEmpty.value) {
+        try {
+            const saved = localStorage.getItem(DRAFT_KEY);
+            if (saved) {
+                const draft = JSON.parse(saved);
+                // Object.assign into reactive formData → v-model bindings
+                // automatically pre-fill all form input fields in the UI
+                Object.assign(formData, draft);
+                draftStatus.value = 'saved';
+                console.log('[DRAFT] Draft restored and pre-filled from localStorage');
+            }
+        } catch (e) {
+            console.warn('[DRAFT] Failed to restore draft:', e);
+        }
     }
 })
 
@@ -1650,6 +1698,39 @@ const section3Ref = ref<any>(null);
 const section4Ref = ref<any>(null);
 const section5Ref = ref<any>(null);
 
+
+// ── Draft: saveDraft + watcher MUST live after formData is declared ────────
+
+const saveDraft = () => {
+    // Extract only serialisable text fields — skip File objects and booleans
+    const { documents, existingDocuments, declaration, ...textFields } = formData;
+    try {
+        localStorage.setItem(DRAFT_KEY, JSON.stringify(textFields));
+        draftStatus.value = 'saved';
+        draftLastSaved.value = new Date();
+    } catch (e) {
+        console.warn('[DRAFT] localStorage save failed:', e);
+        draftStatus.value = 'error';
+    }
+};
+
+const formatDraftTime = (date: Date) => {
+    return date.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', second: '2-digit' });
+};
+
+// Debounced watcher — fires saveDraft() 1 second after last change
+watch(
+    () => {
+        const { documents, existingDocuments, declaration, ...text } = formData;
+        return text;
+    },
+    () => {
+        if (_draftTimer) clearTimeout(_draftTimer);
+        _draftTimer = setTimeout(saveDraft, 1000);
+    },
+    { deep: true }
+);
+
 const toggleSection = (index: number) => {
     // expand or collapse only the clicked section without closing others
     if (openSections.value.has(index)) {
@@ -1660,36 +1741,22 @@ const toggleSection = (index: number) => {
 };
 
 const handleFinalSubmit = async () => {
-    // Validate all sections before submission
-    if (section1Ref.value?.validate && !section1Ref.value.validate()) {
-        openSections.value.add(1);
-        section1Ref.value?.scrollToFirstError?.();
-        showAlert("Incomplete Information", "Please fill all required fields in the 'Pre Interview' section.", "warning");
-        return;
-    }
-    if (section2Ref.value?.validate && !section2Ref.value.validate()) {
-        openSections.value.add(2);
-        section2Ref.value?.scrollToFirstError?.();
-        showAlert("Incomplete Information", "Please fill all required fields in the 'Personal Information' section.", "warning");
-        return;
-    }
-    if (section3Ref.value?.validate && !section3Ref.value.validate()) {
-        openSections.value.add(3);
-        section3Ref.value?.scrollToFirstError?.();
-        showAlert("Incomplete Information", "Please fill all required fields in the 'Academic Information' section.", "warning");
-        return;
-    }
-    if (section4Ref.value?.validate && !section4Ref.value.validate()) {
-        openSections.value.add(4);
-        section4Ref.value?.scrollToFirstError?.();
-        showAlert("Incomplete Information", "Please fill all required fields in the 'Work Experience' section.", "warning");
-        return;
-    }
-    if (section5Ref.value?.validate && !section5Ref.value.validate()) {
-        openSections.value.add(5);
-        section5Ref.value?.scrollToFirstError?.();
-        showAlert("Incomplete Information", "Please fill all required fields in the 'Documents' section.", "warning");
-        return;
+    // ── 1. Section Validation ───────────────────────────────────────────────
+    const sections = [
+        { ref: section1Ref, id: 1, name: "Pre Interview" },
+        { ref: section2Ref, id: 2, name: "Personal Information" },
+        { ref: section3Ref, id: 3, name: "Academic Information" },
+        { ref: section4Ref, id: 4, name: "Work Experience" },
+        { ref: section5Ref, id: 5, name: "Documents" }
+    ];
+
+    for (const section of sections) {
+        if (section.ref.value?.validate && !section.ref.value.validate()) {
+            openSections.value.add(section.id);
+            section.ref.value?.scrollToFirstError?.();
+            showAlert("Incomplete Information", `Please fill all required fields in the '${section.name}' section.`, "warning");
+            return;
+        }
     }
 
     if (!formData.declaration) {
@@ -1697,12 +1764,46 @@ const handleFinalSubmit = async () => {
         return;
     }
 
+    // ── 2. Pre-check connectivity ───────────────────────────────────────────
+    if (typeof navigator !== 'undefined' && !navigator.onLine) {
+        showAlert("No Internet Connection", "Your device appears to be offline. Please check your internet connection and try again.", "error");
+        return;
+    }
+
     isSubmitting.value = true;
 
-    try {
-        const data = new FormData();
+    // ── PROXY: Call the Nuxt server-side proxy instead of Django directly.
+    // This avoids CORS, PWA service-worker interception, and mixed-content issues.
+    // The proxy forwards the request to Django server-to-server.
+    const apiUrl = '/api/proxy-profile-update';
+    const diagnostics = {
+        apiUrl,
+        userAgent: typeof navigator !== 'undefined' ? navigator.userAgent : 'SSR',
+        isOnline: typeof navigator !== 'undefined' ? navigator.onLine : true,
+        connectionType: (typeof navigator !== 'undefined' && (navigator as any).connection?.effectiveType) || 'unknown',
+        timestamp: new Date().toISOString(),
+    };
 
-        // 1. Core Profile Info
+    console.log("=== [SUBMIT] Starting profile submission ===");
+    console.log("[SUBMIT] API URL:", apiUrl);
+    console.log("[SUBMIT] Online:", diagnostics.isOnline, "| Connection:", diagnostics.connectionType);
+    console.log("[SUBMIT] UserAgent:", diagnostics.userAgent);
+
+    // Helper to send detailed logs to server
+    const sendErrorLog = async (extra: Record<string, any>) => {
+        try {
+            await $fetch('/api/log-client-error', {
+                method: 'POST',
+                body: { ...diagnostics, userInfo: { email: formData.email || 'Unknown', userId: String(userId.value || '') }, ...extra }
+            });
+        } catch (e) {
+            console.error("[SUBMIT] Failed to send error log to server:", e);
+        }
+    };
+
+    try {
+        // ── 3. Build FormData payload ───────────────────────────────────────
+        const data = new FormData();
         data.append('user', String(userId.value || ""));
         data.append('first_name', formData.first_name);
         data.append('last_name', formData.last_name);
@@ -1719,11 +1820,11 @@ const handleFinalSubmit = async () => {
         data.append('guardian_name', formData.guardian_name);
         data.append('guardian_phone', formData.guardian_phone);
         data.append('guardian_email', formData.guardian_email);
+
         const relationshipMap: any = { "Mother": 1, "Father": 2, "Other": 3 };
         data.append('guardian_dropdown', relationshipMap[formData.guardian_dropdown] || "");
         data.append('guardian_other_reason', formData.guardian_dropdown === 'Other' ? formData.guardian_other_reason : '');
 
-        // 2. Exact Integer Mappings
         const genderMap: any = { "Male": 1, "Female": 2, "Other": 3 };
         data.append('gender', genderMap[formData.gender] || 1);
 
@@ -1732,12 +1833,10 @@ const handleFinalSubmit = async () => {
         data.append('tenth_passing_percentage', formData.class10_score || "");
         data.append('tenth_score_type', formData.class10_type);
         data.append('tenth_medium', mediumMap[formData.class10_medium] || 1);
-
         data.append('twelveth_passing_year', formData.class12_year || "");
         data.append('twelveth_passing_percentage', formData.class12_score || "");
         data.append('twelveth_score_type', formData.class12_type);
         data.append('twelveth_medium', mediumMap[formData.class12_medium] || 1);
-
         data.append('medium_instruction', mediumMap[formData.ug_medium] || 1);
         data.append('other_instruction', formData.medium_other || "");
 
@@ -1755,42 +1854,34 @@ const handleFinalSubmit = async () => {
         const employementMap: any = { "Fresher": 1, "Experienced": 2 };
         data.append('employement_status', employementMap[formData.employment_status] || 1);
 
-        // 3. Work Experience (JSON stringified within FormData)
-        let experienceData: any[] = [];
-        if (formData.employment_status !== "Fresher") {
-            experienceData = formData.work_experience
-                .filter(job => job.org_name && job.org_name.trim())
-                .map(job => ({
-                    company_name: job.org_name,
-                    position: job.designation,
-                    area: job.functional_area || "",
-                    start_date: job.from,
-                    end_date: job.to || null
-                }));
-        }
+        const experienceData = formData.employment_status !== "Fresher"
+            ? formData.work_experience.filter((job: any) => job.org_name?.trim()).map((job: any) => ({
+                company_name: job.org_name, position: job.designation,
+                area: job.functional_area || "", start_date: job.from, end_date: job.to || null
+            })) : [];
         data.append('user_experience', JSON.stringify(experienceData));
 
-        // 4. Documents (BINARY FILES)
-        if (formData.documents.aadhaar instanceof File) {
-            data.append('aadhaar', formData.documents.aadhaar);
-        }
-        if (formData.documents.dob_proof instanceof File) {
-            data.append('dob_certificate', formData.documents.dob_proof);
-        }
-        if (formData.documents.photo instanceof File) {
-            data.append('photo', formData.documents.photo);
-        }
-        if (formData.documents.signature instanceof File) {
-            data.append('signature', formData.documents.signature);
-        }
-        if (formData.documents.resume instanceof File) {
-            data.append('resume', formData.documents.resume);
-        }
+        // ── 4. Append documents & measure total size ────────────────────────
+        let totalFileSize = 0;
+        const appendDoc = (fieldKey: string, apiKey: string) => {
+            const file = formData.documents[fieldKey];
+            if (file instanceof File) {
+                totalFileSize += file.size;
+                data.append(apiKey, file);
+                console.log(`[SUBMIT] File '${apiKey}': ${file.name} (${(file.size / 1024).toFixed(1)} KB, type: ${file.type})`);
+            }
+        };
+        appendDoc('aadhaar', 'aadhaar');
+        appendDoc('dob_proof', 'dob_certificate');
+        appendDoc('photo', 'photo');
+        appendDoc('signature', 'signature');
+        appendDoc('resume', 'resume');
+
         data.append('accounting_profession', formData.accounting_profession);
         data.append('additional_qualification', formData.additional_qualification);
         data.append('co_applicant_profession', String(formData.co_applicant_profession || ""));
 
-        const newDocKeys = [
+        const extraDocKeys = [
             'identity_proof', 'tenth_marksheet', 'twelth_marksheet',
             'graduation_first_marksheet', 'graduation_second_marksheet', 'graduation_third_marksheet',
             'graduation_forth_marksheet', 'graduation_fifth_marksheet', 'graduation_sixth_marksheet',
@@ -1799,93 +1890,167 @@ const handleFinalSubmit = async () => {
             'co_applicant_passport_size', 'co_applicant_income_tax_return', 'co_applicant_compute_income',
             'co_applicant_six_month_bank', 'co_applicant_agriculture_income'
         ];
+        extraDocKeys.forEach(key => appendDoc(key, key));
 
-        newDocKeys.forEach(key => {
-            if (formData.documents[key] instanceof File) {
-                data.append(key, formData.documents[key]);
-            }
-        });
+        console.log(`[SUBMIT] Total upload payload: ${(totalFileSize / 1024 / 1024).toFixed(2)} MB`);
 
+        // ── 5. Auth token check ─────────────────────────────────────────────
         const { getAccessToken } = useAuth();
         const token = getAccessToken();
-
-        console.log("--- FINAL PAYLOAD SENT TO BACKEND (BINARY FormData) ---");
-        for (const [key, value] of (data as any).entries()) {
-            if (value instanceof File) {
-                console.log(`${key}: [File] ${value.name} (${value.size} bytes)`);
-            } else {
-                console.log(`${key}: ${value}`);
-            }
+        if (!token) {
+            console.warn("[SUBMIT] ⚠️ No auth token found! Request will be unauthenticated → likely 401.");
+        } else {
+            console.log("[SUBMIT] Auth token present:", token.substring(0, 20) + "...");
         }
 
+        // ── 6. Send the request ─────────────────────────────────────────────
         const controller = new AbortController();
-        const timeoutId = setTimeout(() => controller.abort(), 120000); // 120s timeout
+        const TIMEOUT_MS = 180000; // 3 min for large file uploads
+        const timeoutId = setTimeout(() => {
+            console.warn(`[SUBMIT] Aborting after ${TIMEOUT_MS / 1000}s timeout`);
+            controller.abort();
+        }, TIMEOUT_MS);
 
-        console.log("--- STARTING SUBMISSION ---");
+        // Call same-origin Nuxt proxy — no CORS, no SW interception
+        console.log("[SUBMIT] Calling Nuxt proxy →", apiUrl);
+        let rawResponse: Response;
+
         try {
-            const rawResponse = await fetch(`${config.public.apiBase}/api/students/create-update-student-profile/`, {
+            rawResponse = await fetch(apiUrl, {
                 method: "POST",
                 body: data,
+                // Send auth token to the proxy; the proxy forwards it to Django
                 headers: token ? { 'Authorization': `Bearer ${token}` } : {},
                 signal: controller.signal
             });
             clearTimeout(timeoutId);
-
-            if (!rawResponse.ok) {
-                const errorText = await rawResponse.text();
-                console.error("Server error (non-ok):", rawResponse.status, errorText);
-                throw new Error(`Server returned ${rawResponse.status}: ${errorText || 'Unknown error'}`);
-            }
-
-            const response: any = await rawResponse.json();
-
-            if (response.success || response.status === "200" || response.status === 200 || response.message === "Message sent Successfully" || response.message?.toLowerCase().includes("success")) {
-                showAlert("Success", "Profile updated successfully!", "success");
-                // Refresh details to reflect any new image
-                await fetchStudentDetail();
-            } else {
-                console.error("Backend Error Response:", response);
-                showAlert("Failed to update profile", response.message || "Unknown error", "error");
-            }
+            console.log("[SUBMIT] Proxy response → HTTP", rawResponse.status, rawResponse.statusText);
         } catch (fetchErr: any) {
             clearTimeout(timeoutId);
-            if (fetchErr.name === 'AbortError') {
-                throw new Error("Submission timed out. This could be due to a slow internet connection or large file uploads. Please try again with a better connection.");
+            const errName: string = fetchErr?.name || 'UnknownError';
+            const errMsg: string = fetchErr?.message || String(fetchErr);
+
+            console.error("[SUBMIT] ❌ fetch() threw BEFORE receiving response");
+            console.error("[SUBMIT] Error name:", errName);
+            console.error("[SUBMIT] Error message:", errMsg);
+            console.error("[SUBMIT] Error stack:", fetchErr?.stack);
+            console.error("[SUBMIT] navigator.onLine:", typeof navigator !== 'undefined' ? navigator.onLine : 'N/A');
+
+            const isAbort = errName === 'AbortError';
+            const isNetwork = !isAbort && errName === 'TypeError' &&
+                (errMsg.includes('Failed to fetch') || errMsg.includes('NetworkError') ||
+                    errMsg.includes('Network request failed'));
+            const isCors = errMsg.toLowerCase().includes('cors') || errMsg.toLowerCase().includes('cross-origin');
+
+            await sendErrorLog({
+                context: 'handleFinalSubmit - fetch threw (no response received)',
+                errorMessage: errMsg, errorName: errName, errorData: errMsg,
+                errorStack: fetchErr?.stack || 'No stack',
+                isNetworkError: isNetwork, isCorsError: isCors, isTimeout: isAbort,
+                httpStatus: 0, totalFileSizeMB: (totalFileSize / 1024 / 1024).toFixed(2)
+            });
+
+            if (isAbort) {
+                throw new Error(`TIMEOUT: Submission timed out after ${TIMEOUT_MS / 1000} seconds. Your upload was ${(totalFileSize / 1024 / 1024).toFixed(1)} MB. Try with a faster connection or smaller files.`);
+            }
+            if (isNetwork) {
+                const swInstalled = typeof navigator !== 'undefined' && 'serviceWorker' in navigator;
+                throw new Error(`NETWORK_ERROR: Could not reach the server. ${swInstalled ? 'If you installed this app as a PWA, try opening it in a regular browser tab instead. ' : ''}Please check your internet connection and try again.`);
+            }
+            if (isCors) {
+                throw new Error(`CORS_ERROR: A browser security policy is blocking this request. Please clear your browser cache and cookies, then reload the page.`);
             }
             throw fetchErr;
         }
-    } catch (err: any) {
-        console.error("Submission error details:", err);
-        let errMsg = "An error occurred during submission.";
-        if (err.data) {
-            if (typeof err.data === 'object') {
-                const firstKey = Object.keys(err.data)[0];
-                if (Array.isArray(err.data[firstKey])) {
-                    errMsg = `${firstKey}: ${err.data[firstKey][0]}`;
-                } else {
-                    errMsg = err.data.message || JSON.stringify(err.data);
-                }
-            } else {
-                errMsg = err.data;
+
+        // ── 7. Handle non-2xx HTTP responses ───────────────────────────────
+        if (!rawResponse.ok) {
+            const httpStatus = rawResponse.status;
+            const errorText = await rawResponse.text().catch(() => '');
+            console.error(`[SUBMIT] Non-OK HTTP ${httpStatus}:`, errorText.substring(0, 300));
+
+            await sendErrorLog({
+                context: 'handleFinalSubmit - non-ok HTTP response',
+                errorMessage: `HTTP ${httpStatus}`, errorName: 'HttpError',
+                errorData: errorText.substring(0, 500), errorStack: 'N/A',
+                isNetworkError: false, isCorsError: false, isTimeout: false,
+                httpStatus, totalFileSizeMB: (totalFileSize / 1024 / 1024).toFixed(2)
+            });
+
+            if (httpStatus === 401 || httpStatus === 403) {
+                throw new Error(`AUTH_ERROR: Your session has expired. Please log out, log in again, and retry.`);
             }
+            if (httpStatus === 413) {
+                throw new Error(`FILE_TOO_LARGE: Your uploaded files are too large (${(totalFileSize / 1024 / 1024).toFixed(1)} MB total). Please reduce file sizes and try again.`);
+            }
+            if (httpStatus >= 500) {
+                throw new Error(`SERVER_ERROR: The server encountered an error (${httpStatus}). Please try again in a few minutes.`);
+            }
+            throw new Error(`Server returned ${httpStatus}: ${errorText.substring(0, 200) || 'Unknown error'}`);
         }
 
-        // Log client error to server
-        $fetch('/api/log-client-error', {
-            method: 'POST',
-            body: {
-                context: 'myaccount.vue - submitForm/handleProfileUpdate',
-                errorMessage: errMsg,
-                errorData: err?.data || err?.message || String(err),
-                userInfo: { email: formData.email || 'Unknown' }
-            }
-        }).catch(e => console.error("Failed to send log to server", e));
+        // ── 8. Parse JSON ───────────────────────────────────────────────────
+        const response: any = await rawResponse.json().catch((jsonErr: any) => {
+            console.error("[SUBMIT] JSON parse failed:", jsonErr?.message);
+            throw new Error(`JSON_PARSE_ERROR: Server responded but returned invalid data. Please try again.`);
+        });
 
-        showAlert("Submission Failed", errMsg, "error");
+        console.log("[SUBMIT] ✅ Response JSON:", JSON.stringify(response).substring(0, 400));
+
+        if (response.success || response.status === "200" || response.status === 200 ||
+            response.message === "Message sent Successfully" || response.message?.toLowerCase().includes("success")) {
+            console.log("[SUBMIT] 🎉 Profile updated successfully!");
+            // Clear the browser draft on successful submit — no longer needed
+            try { localStorage.removeItem(DRAFT_KEY); } catch { /* ignore */ }
+            draftStatus.value = 'idle';
+            showAlert("Success", "Profile updated successfully!", "success");
+            await fetchStudentDetail();
+        } else {
+            console.error("[SUBMIT] Backend returned failure:", response);
+            showAlert("Failed to update profile", response.message || "Unknown error from server.", "error");
+        }
+
+    } catch (err: any) {
+        console.error("[SUBMIT] ❌ Outer catch:", err?.name, err?.message);
+        const rawMsg: string = err?.message || String(err);
+        let alertTitle = "Submission Failed";
+        let userFacingMsg = "An unexpected error occurred. Please try again.";
+
+        if (rawMsg.startsWith("TIMEOUT:")) { alertTitle = "Upload Timed Out"; userFacingMsg = rawMsg.replace("TIMEOUT: ", ""); }
+        else if (rawMsg.startsWith("NETWORK_ERROR:")) { alertTitle = "Connection Error"; userFacingMsg = rawMsg.replace("NETWORK_ERROR: ", ""); }
+        else if (rawMsg.startsWith("CORS_ERROR:")) { alertTitle = "Browser Security Error"; userFacingMsg = rawMsg.replace("CORS_ERROR: ", ""); }
+        else if (rawMsg.startsWith("AUTH_ERROR:")) { alertTitle = "Session Expired"; userFacingMsg = rawMsg.replace("AUTH_ERROR: ", ""); }
+        else if (rawMsg.startsWith("FILE_TOO_LARGE:")) { alertTitle = "Files Too Large"; userFacingMsg = rawMsg.replace("FILE_TOO_LARGE: ", ""); }
+        else if (rawMsg.startsWith("SERVER_ERROR:")) { alertTitle = "Server Error"; userFacingMsg = rawMsg.replace("SERVER_ERROR: ", ""); }
+        else if (rawMsg.startsWith("JSON_PARSE_ERROR:")) { alertTitle = "Response Error"; userFacingMsg = rawMsg.replace("JSON_PARSE_ERROR: ", ""); }
+        else if (err?.data) {
+            if (typeof err.data === 'object') {
+                const firstKey = Object.keys(err.data)[0];
+                userFacingMsg = Array.isArray(err.data[firstKey])
+                    ? `${firstKey}: ${err.data[firstKey][0]}`
+                    : (err.data.message || JSON.stringify(err.data));
+            } else { userFacingMsg = err.data; }
+        } else if (rawMsg) { userFacingMsg = rawMsg; }
+
+        // Only log to server if not already logged in the inner catch
+        const alreadyLogged = ["TIMEOUT:", "NETWORK_ERROR:", "CORS_ERROR:", "AUTH_ERROR:", "FILE_TOO_LARGE:", "SERVER_ERROR:", "JSON_PARSE_ERROR:"]
+            .some(prefix => rawMsg.startsWith(prefix));
+        if (!alreadyLogged) {
+            await sendErrorLog({
+                context: 'handleFinalSubmit - outer catch (unexpected)',
+                errorMessage: userFacingMsg, errorName: err?.name || 'UnknownError',
+                errorData: err?.data || rawMsg, errorStack: err?.stack || 'No stack',
+                isNetworkError: false, isCorsError: false, isTimeout: false, httpStatus: 0
+            });
+        }
+
+        showAlert(alertTitle, userFacingMsg, "error");
     } finally {
         isSubmitting.value = false;
     }
 }
+
+
 
 
 const isDownloadingReport = ref(false);

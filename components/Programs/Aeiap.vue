@@ -36,7 +36,7 @@
                     <div class="flip-card-wrapper">
                         <div class="flip-card">
                             <div class="flip-card-front">
-                                <img src="https://storage.googleapis.com/gcc_prod_static_files_backend/static/images/British%20Council%20Logo.svg"
+                                <img src="https://www.gccschool.com/_nuxt/2.CtVezq0E.png"
                                     alt="British Council" class="flip-logo-img">
                                 <!-- <p class="flip-hint">Hover to explore</p> -->
                             </div>
