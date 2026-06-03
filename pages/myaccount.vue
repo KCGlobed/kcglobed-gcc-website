@@ -58,7 +58,7 @@
 
                                     <div class="application-id-badge mb-3 d-inline-block">
                                         <span v-if="formData?.application_id">Application ID: {{ formData.application_id
-                                            }}</span>
+                                        }}</span>
                                         <span v-else>- </span>
                                     </div>
 
@@ -433,7 +433,7 @@
                                                     class="ti ti-chevron-left"></i></button>
                                             <span class="fw-bold text-dark" style="font-size: 14px;">{{
                                                 monthNames[currentMonth]
-                                                }}
+                                            }}
                                                 {{ currentYear }}</span>
                                             <button
                                                 class="btn btn-sm btn-white border shadow-sm p-1 d-flex align-items-center justify-content-center"
@@ -659,7 +659,7 @@
 
         <div v-else style="min-height: 100vh; background: #F3F4F6;" />
     </div>
-    
+
 </template>
 
 <!-- ✅ PROTECTED ROUTE — redirects to /login if no valid token found -->
@@ -1161,16 +1161,87 @@ onMounted(async () => {
     const password = route.query.password as string
     const fromLanding = route.query.from_landing === 'true'
 
-    if (fromLanding) {
-        if (typeof window !== 'undefined') {
-            if ((window as any).fbq) {
-                (window as any).fbq('track', 'CompleteRegistration');
-                (window as any).fbq('track', 'Lead');
-            }
-            if ((window as any).clarity) {
-                (window as any).clarity('event', 'complete_registration');
-            }
-        }
+    if (fromLanding && typeof window !== 'undefined') {
+        // Inject all tracking scripts via useHead
+        useHead({
+            script: [
+                // Meta Pixel
+                {
+                    key: 'fbevents',
+                    innerHTML: `
+                        !function(f,b,e,v,n,t,s){
+                            if(f.fbq)return;
+                            n=f.fbq=function(){n.callMethod?n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+                            if(!f._fbq)f._fbq=n;
+                            n.push=n;n.loaded=!0;n.version='2.0';
+                            n.queue=[];t=b.createElement(e);t.async=!0;
+                            t.src=v;s=b.getElementsByTagName(e)[0];
+                            s.parentNode.insertBefore(t,s)
+                        }(window,document,'script','https://connect.facebook.net/en_US/fbevents.js');
+                        fbq('init', '1308129784468579');
+                        fbq('track', 'PageView');
+                        fbq('track', 'CompleteRegistration');
+                        fbq('track', 'Lead');
+                        fbq('track', 'Purchase', { value: 2950.00, currency: 'INR' });
+                    `,
+                    type: 'text/javascript'
+                },
+                // Google Analytics
+                {
+                    key: 'gtag-src',
+                    src: 'https://www.googletagmanager.com/gtag/js?id=G-B2ETHYM6MN',
+                    async: true
+                },
+                {
+                    key: 'gtag-init',
+                    innerHTML: `
+                        window.dataLayer = window.dataLayer || [];
+                        function gtag(){dataLayer.push(arguments);}
+                        gtag('js', new Date());
+                        gtag('config', 'G-B2ETHYM6MN');
+                    `,
+                    type: 'text/javascript'
+                },
+                // Google Tag Manager
+                {
+                    key: 'gtm',
+                    innerHTML: `
+                        (function(w,d,s,l,i){
+                            w[l]=w[l]||[];
+                            w[l].push({'gtm.start':new Date().getTime(),event:'gtm.js'});
+                            var f=d.getElementsByTagName(s)[0],
+                                j=d.createElement(s),
+                                dl=l!='dataLayer'?'&l='+l:'';
+                            j.async=true;
+                            j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl;
+                            f.parentNode.insertBefore(j,f);
+                        })(window,document,'script','dataLayer','GTM-5NVDGXLR');
+                    `,
+                    type: 'text/javascript'
+                },
+                // Microsoft Clarity
+                {
+                    key: 'clarity',
+                    innerHTML: `
+                        (function(c,l,a,r,i,t,y){
+                            c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+                            t=l.createElement(r);t.async=1;
+                            t.src="https://www.clarity.ms/tag/"+i;
+                            y=l.getElementsByTagName(r)[0];
+                            y.parentNode.insertBefore(t,y);
+                        })(window,document,"clarity","script","wtdnppatos");
+                    `,
+                    type: 'text/javascript'
+                }
+            ],
+            noscript: [
+                // Meta Pixel noscript fallback
+                {
+                    key: 'fb-noscript',
+                    innerHTML: `<img height="1" width="1" style="display:none" src="https://www.facebook.com/tr?id=1308129784468579&ev=PageView&noscript=1" />`
+                }
+            ]
+        })
     }
 
     let token = localStorage.getItem('gcc_access_token')
