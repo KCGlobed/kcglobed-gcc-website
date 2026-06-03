@@ -1,9 +1,14 @@
 <template>
     <div>
-        <!-- <LayoutTopHeader />
-        <LayoutMainNavbar /> -->
+        <div v-if="!isAuthChecked || isAutoLoggingIn"
+            class="d-flex align-items-center justify-content-center position-fixed top-0 start-0 w-100 h-100 bg-white"
+            style="z-index: 9999;">
+            <div class="spinner-border" style="width: 3rem; height: 3rem; color: #872980 !important;" role="status">
+                <span class="visually-hidden">Loading...</span>
+            </div>
+        </div>
         <LayoutProfileHeader />
-        <template v-if="isAuthChecked">
+        <template v-if="isAuthChecked && !isAutoLoggingIn">
             <!-- <CommonInnerPageBanner pageTitle="Profile" /> -->
             <!-- Banner Section -->
             <div class="profile-banner-section py-3 py-lg-4">
@@ -53,7 +58,7 @@
 
                                     <div class="application-id-badge mb-3 d-inline-block">
                                         <span v-if="formData?.application_id">Application ID: {{ formData.application_id
-                                        }}</span>
+                                            }}</span>
                                         <span v-else>- </span>
                                     </div>
 
@@ -178,7 +183,8 @@
                                         </div>
                                         <div class="accordion-body p-4 p-lg-5" v-show="isSectionOpen(2)">
                                             <fieldset :disabled="!isEditingSection[2]">
-                                                <PersonalInformation ref="section2Ref" :formData="formData" :guardianKeyStatus="guardianKeyStatus" />
+                                                <PersonalInformation ref="section2Ref" :formData="formData"
+                                                    :guardianKeyStatus="guardianKeyStatus" />
                                             </fieldset>
                                         </div>
                                     </div>
@@ -304,8 +310,7 @@
                                         <span style="font-size: 12px; color: #22c55e; font-weight: 500;">
                                             Draft saved
                                         </span>
-                                        <span v-if="draftLastSaved"
-                                            style="font-size: 11px; color: #9ca3af;">
+                                        <span v-if="draftLastSaved" style="font-size: 11px; color: #9ca3af;">
                                             · {{ formatDraftTime(draftLastSaved) }}
                                         </span>
                                     </template>
@@ -428,7 +433,7 @@
                                                     class="ti ti-chevron-left"></i></button>
                                             <span class="fw-bold text-dark" style="font-size: 14px;">{{
                                                 monthNames[currentMonth]
-                                            }}
+                                                }}
                                                 {{ currentYear }}</span>
                                             <button
                                                 class="btn btn-sm btn-white border shadow-sm p-1 d-flex align-items-center justify-content-center"
@@ -654,6 +659,7 @@
 
         <div v-else style="min-height: 100vh; background: #F3F4F6;" />
     </div>
+    
 </template>
 
 <!-- ✅ PROTECTED ROUTE — redirects to /login if no valid token found -->
@@ -696,6 +702,7 @@ const config = useRuntimeConfig();
 // Hydrate auth state (reads from localStorage) on mount
 const profileImage = ref<string | null>(null);
 const isAuthChecked = ref(false)
+const isAutoLoggingIn = ref(false)
 const reattempt = ref<number>(0);
 const isProfileEmpty = ref(false);
 const resultStatus = ref(false);
@@ -1149,12 +1156,70 @@ const fetchStudentDetail = async () => {
     }
 };
 onMounted(async () => {
-    const token = localStorage.getItem('gcc_access_token')
-    if (!token) {
-        window.location.replace('/login')
+    const route = useRoute()
+    const email = route.query.email as string
+    const password = route.query.password as string
+    const fromLanding = route.query.from_landing === 'true'
+
+    if (fromLanding) {
+        if (typeof window !== 'undefined') {
+            if ((window as any).fbq) {
+                (window as any).fbq('track', 'CompleteRegistration');
+                (window as any).fbq('track', 'Lead');
+            }
+            if ((window as any).clarity) {
+                (window as any).clarity('event', 'complete_registration');
+            }
+        }
+    }
+
+    let token = localStorage.getItem('gcc_access_token')
+
+    // Auto-login flow
+    if (!token && email && password) {
+        isAutoLoggingIn.value = true
+        try {
+            const response: any = await $fetch(
+                `${config.public.apiBase}/api/users/website_login/`,
+                {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: { email, password, role: 'student' },
+                }
+            )
+            if (response.data?.token) {
+                const { access, refresh } = response.data.token
+                const auth = useAuth()
+                auth.login({
+                    access,
+                    refresh,
+                    user_role: response.data.user_role ?? null,
+                    user_id: response.data.user_id ?? null
+                })
+                token = access
+            }
+        } catch (err) {
+            console.error('[AUTOLOGIN] Failed:', err)
+        } finally {
+            isAutoLoggingIn.value = false
+            const router = useRouter()
+            router.replace({ path: route.path, query: {} })
+        }
+    } else if (fromLanding || email || password) {
+        const router = useRouter()
+        router.replace({ path: route.path, query: {} })
+    }
+
+    // ✅ Final token check — redirect immediately if still no token
+    const hasToken = token && token !== 'undefined' && token !== 'null'
+    if (!hasToken) {
+        // Don't just return — actively navigate away
+        // isAuthChecked stays false → loader shows briefly then redirects
+        await navigateTo('/login', { replace: true })
         return
     }
 
+    // ✅ Only reach here with a valid token
     isAuthChecked.value = true
     initAuth()
 
@@ -1162,21 +1227,16 @@ onMounted(async () => {
         await fetchStudentDetail()
     }
 
-    // ── Restore draft for empty/new profiles ────────────────────────────────
-    // Only restore if the server returned no profile data (new applicant)
     if (isProfileEmpty.value) {
         try {
-            const saved = localStorage.getItem(DRAFT_KEY);
+            const saved = localStorage.getItem(DRAFT_KEY)
             if (saved) {
-                const draft = JSON.parse(saved);
-                // Object.assign into reactive formData → v-model bindings
-                // automatically pre-fill all form input fields in the UI
-                Object.assign(formData, draft);
-                draftStatus.value = 'saved';
-                console.log('[DRAFT] Draft restored and pre-filled from localStorage');
+                const draft = JSON.parse(saved)
+                Object.assign(formData, draft)
+                draftStatus.value = 'saved'
             }
         } catch (e) {
-            console.warn('[DRAFT] Failed to restore draft:', e);
+            console.warn('[DRAFT] Failed to restore draft:', e)
         }
     }
 })
@@ -1702,6 +1762,11 @@ const section5Ref = ref<any>(null);
 // ── Draft: saveDraft + watcher MUST live after formData is declared ────────
 
 const saveDraft = () => {
+    // Only save draft if user is logged in
+    const token = typeof window !== 'undefined' ? localStorage.getItem('gcc_access_token') : null;
+    if (!token || !userId.value) {
+        return;
+    }
     // Extract only serialisable text fields — skip File objects and booleans
     const { documents, existingDocuments, declaration, ...textFields } = formData;
     try {
@@ -1955,7 +2020,7 @@ const handleFinalSubmit = async () => {
             }
             if (isNetwork) {
                 const swInstalled = typeof navigator !== 'undefined' && 'serviceWorker' in navigator;
-                throw new Error(`NETWORK_ERROR: Could not reach the server. ${swInstalled ? 'If you installed this app as a PWA, try opening it in a regular browser tab instead. ' : ''}Please check your internet connection and try again.`);
+                throw new Error(`NETWORK_ERROR: Could not reach the server. Please check your internet connection and try again.`);
             }
             if (isCors) {
                 throw new Error(`CORS_ERROR: A browser security policy is blocking this request. Please clear your browser cache and cookies, then reload the page.`);

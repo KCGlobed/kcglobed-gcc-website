@@ -72,6 +72,7 @@ export function useAuth() {
             localStorage.removeItem(REFRESH_TOKEN_KEY)
             localStorage.removeItem(USER_ROLE_KEY)
             localStorage.removeItem(USER_ID_KEY)
+            localStorage.removeItem("gcc_profile_draft")
         }
         isAuthenticated.value = false
         userRole.value = null
