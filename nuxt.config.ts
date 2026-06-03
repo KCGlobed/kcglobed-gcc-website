@@ -78,23 +78,33 @@ export default defineNuxtConfig({
       enabled: true,
       navigateFallbackAllowlist: [/^\/$/]
     },
-    // workbox: {
-    //   globPatterns: ['**/*.{js,css,html,ico,png,svg}'],
-
-    //   runtimeCaching: [
-    //     {
-    //       urlPattern: /^https:\/\/your-api-domain\.com\/.*/i,
-    //       handler: 'NetworkFirst',
-    //       options: {
-    //         cacheName: 'api-cache',
-    //         expiration: {
-    //           maxEntries: 50,
-    //           maxAgeSeconds: 60 * 60 * 24 // 1 day
-    //         }
-    //       }
-    //     }
-    //   ]
-    // }
+    // CRITICAL FIX: Ensure the service worker NEVER intercepts API calls.
+    // A service worker intercepting fetch requests to the Django backend
+    // can cause "Failed to fetch" / CORS errors because the SW context
+    // does not have the same origin credentials or CORS handling as the browser.
+    workbox: {
+      // Do NOT pre-cache anything by default
+      globPatterns: [],
+      // All external API calls must go directly to the network - never through SW cache
+      runtimeCaching: [
+        {
+          // Match any request to the Django backend API
+          urlPattern: ({ url }: { url: URL }) =>
+            url.href.includes('run.app') ||
+            url.href.includes('gccwebsite') ||
+            url.href.includes('api/students') ||
+            url.href.includes('api/users'),
+          handler: 'NetworkOnly' as const,
+        },
+        {
+          // Also bypass the internal Nuxt server API routes
+          urlPattern: ({ url }: { url: URL }) => url.pathname.startsWith('/api/'),
+          handler: 'NetworkOnly' as const,
+        },
+      ],
+      // Increase max file size for documents/images uploaded by users
+      maximumFileSizeToCacheInBytes: 5 * 1024 * 1024, // 5 MB
+    },
   },
 
   runtimeConfig: {
