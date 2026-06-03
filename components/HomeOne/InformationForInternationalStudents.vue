@@ -18,18 +18,21 @@
                 <!-- <img src="../../assets/img/heros/panleIcon2.png" class="icon" loading="lazy" decoding="async" />
                 <p>Paid Internship</p>
                 <span>6 Months</span> -->
-                <img src="../../assets/img/common/adaptive.svg" alt="Adaptive Industry Learning" loading="lazy" decoding="async">
+                <img src="../../assets/img/common/adaptive.svg" alt="Adaptive Industry Learning" loading="lazy"
+                  decoding="async">
               </div>
               <div class="box">
                 <img src="/img/acca.svg" alt="acca" class="logo" loading="lazy" decoding="async" />
                 <span class="mt-1">UK ACCA <br> Integrated</span>
               </div>
               <div class="box">
-                <img src="../../assets/img/heros/panleIcon4.png" alt="british council" class="logo" loading="lazy" decoding="async" />
-                <span class="mt-2">Master in Corporate Communication</span>
+                <img src="../../assets/img/heros/panleIcon4.png" alt="british council" class="logo" loading="lazy"
+                  decoding="async" />
+                <span class="mt-2">Approved Partner</span>
               </div>
               <div class="box">
-                <img src="../../assets/img/heros/panleIcon5.png" alt="AIMA" class="logo" loading="lazy" decoding="async" />
+                <img src="../../assets/img/heros/panleIcon5.png" alt="AIMA" class="logo" loading="lazy"
+                  decoding="async" />
                 <span class="mt-2">AICTE Approved PGCM Certificate from AIMA</span>
               </div>
               <div class="box">
@@ -46,8 +49,9 @@
           <div class="video-box-wrapper">
             <div class="video-section shadow-lg">
               <div class="video-container">
-                <video ref="infoVideo" controls muted loop controlsList="nodownload" oncontextmenu="return false;" class="w-100 h-100" @play="isVideoPlaying = true"
-                  @pause="isVideoPlaying = false" style="object-fit: contain; background: #0b0b1a;">
+                <video ref="infoVideo" controls muted loop controlsList="nodownload" oncontextmenu="return false;"
+                  class="w-100 h-100" @play="isVideoPlaying = true" @pause="isVideoPlaying = false"
+                  style="object-fit: contain; background: #0b0b1a;">
                   <source
                     src="https://storage.googleapis.com/static_files_backend/media/images/Kamal%20Sir%20Video_1.mp4"
                     type="video/mp4">

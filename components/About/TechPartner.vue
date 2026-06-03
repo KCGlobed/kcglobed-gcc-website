@@ -22,7 +22,7 @@
                             <div class="partner-logo">
                                 <img src="~/assets/img/companylogo/2.png" alt="British Council" loading="lazy" decoding="async">
                             </div>
-                            <div class="partner-info"><strong>Global</strong> English Academy</div>
+                            <div class="partner-info"><strong>Approved Partner</strong></div>
                         </div>
                         <div class="partner-row">
                             <div class="partner-logo">
