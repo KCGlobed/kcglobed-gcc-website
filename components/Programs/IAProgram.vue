@@ -97,7 +97,7 @@ const trimesters = [
         label: 'Experiential Learning',
         months: 'OCT – DEC',
         year: '2026',
-        image: 'https://images.unsplash.com/photo-1506744038136-46273834b3fb?w=800&h=600&fit=crop',
+        image: 'https://www.gccschool.com/_nuxt/2.CtVezq0E.png',
         modules: [
             [
 
