@@ -1,99 +1,77 @@
-import { readMultipartFormData, getHeader, setResponseStatus } from 'h3';
+import { getHeader, setResponseStatus } from 'h3';
+import { Readable } from 'node:stream';
 
 export default defineEventHandler(async (event) => {
-    const config = useRuntimeConfig();
-    // Prefer the server-side env var directly so this works even if public config isn't populated
-    const apiBase = process.env.NUXT_PUBLIC_API_BASE || config.public?.apiBase;
+    const apiBase = process.env.NUXT_PUBLIC_API_BASE;
     const targetUrl = `${apiBase}/api/students/create-update-student-profile/`;
 
-    // Pass through the Authorization header from the browser request
+    // Pass headers through: Authorization + Content-Type (includes multipart boundary)
     const authHeader = getHeader(event, 'authorization');
+    const contentType = getHeader(event, 'content-type');
 
-    console.log('[PROXY] Received profile update request. Forwarding to:', targetUrl);
+    console.log('[PROXY] ▶ Streaming profile update to:', targetUrl);
+    console.log('[PROXY] Content-Type:', contentType);
     console.log('[PROXY] Auth header present:', !!authHeader);
 
     try {
-        // ── Parse the incoming multipart/form-data from browser ────────────
-        const parts = await readMultipartFormData(event);
+        // ── KEY FIX: Stream the raw body directly to Django ─────────────────
+        // Do NOT use readMultipartFormData() — that buffers the ENTIRE upload
+        // into Nuxt server memory, causing OOM crash on large file uploads.
+        // Instead, pipe the Node.js IncomingMessage stream as a Web ReadableStream
+        // so data flows through the proxy without ever being held in memory.
+        const bodyStream = Readable.toWeb(event.node.req) as ReadableStream;
 
-        if (!parts || parts.length === 0) {
-            console.error('[PROXY] No form data received');
-            setResponseStatus(event, 400);
-            return { success: false, message: 'No form data received by proxy' };
-        }
-
-        console.log('[PROXY] Received', parts.length, 'form fields/files');
-
-        // ── Reconstruct FormData to forward to Django ──────────────────────
-        const outgoing = new FormData();
-        let totalFileSize = 0;
-
-        for (const part of parts) {
-            if (!part.name) continue;
-
-            if (part.filename) {
-                // Binary file field
-                const blob = new Blob([new Uint8Array(part.data)], { type: part.type || 'application/octet-stream' });
-                outgoing.append(part.name, blob, part.filename);
-                totalFileSize += part.data.length;
-                console.log(`[PROXY] File field '${part.name}': ${part.filename} (${(part.data.length / 1024).toFixed(1)} KB, type: ${part.type})`);
-            } else {
-                // Text field
-                const value = part.data.toString('utf-8');
-                outgoing.append(part.name, value);
-                console.log(`[PROXY] Text field '${part.name}': ${value.substring(0, 80)}${value.length > 80 ? '...' : ''}`);
-            }
-        }
-
-        console.log(`[PROXY] Total file payload: ${(totalFileSize / 1024 / 1024).toFixed(2)} MB`);
-        console.log('[PROXY] Calling Django backend now...');
-
-        // ── Forward request to Django backend (server-to-server, no CORS) ──
         const djangoResponse = await fetch(targetUrl, {
             method: 'POST',
-            body: outgoing,
-            headers: authHeader ? { 'Authorization': authHeader } : {},
+            body: bodyStream,
+            headers: {
+                ...(contentType ? { 'Content-Type': contentType } : {}),
+                ...(authHeader ? { 'Authorization': authHeader } : {}),
+            },
+            // Required to allow a streaming (non-empty) request body
+            // @ts-ignore — 'duplex' is a valid fetch option in Node 18+ / undici
+            duplex: 'half',
         });
 
-        const responseText = await djangoResponse.text();
-        console.log('[PROXY] Django responded with HTTP', djangoResponse.status);
-        console.log('[PROXY] Response body (first 300 chars):', responseText.substring(0, 300));
+        const httpStatus = djangoResponse.status;
+        console.log('[PROXY] Django responded with HTTP', httpStatus);
 
-        // ── Parse and return JSON response ─────────────────────────────────
+        const responseText = await djangoResponse.text();
+        console.log('[PROXY] Response body (first 300):', responseText.substring(0, 300));
+
         let responseJson: any;
         try {
             responseJson = JSON.parse(responseText);
         } catch {
-            console.error('[PROXY] Django response was not valid JSON:', responseText.substring(0, 200));
+            console.error('[PROXY] Django response was not valid JSON');
             setResponseStatus(event, 502);
             return {
                 success: false,
-                message: `Backend returned non-JSON response (HTTP ${djangoResponse.status})`,
-                rawBody: responseText.substring(0, 300)
+                message: `Backend returned non-JSON response (HTTP ${httpStatus})`,
             };
         }
 
         if (!djangoResponse.ok) {
-            console.error(`[PROXY] Django returned non-OK status ${djangoResponse.status}`);
-            setResponseStatus(event, djangoResponse.status);
+            console.error(`[PROXY] Django non-OK: HTTP ${httpStatus}`);
+            setResponseStatus(event, httpStatus);
             return {
                 success: false,
-                status: djangoResponse.status,
-                message: responseJson?.message || responseJson?.detail || `Backend error ${djangoResponse.status}`,
-                ...responseJson
+                status: httpStatus,
+                message: responseJson?.message || responseJson?.detail || `Backend error ${httpStatus}`,
+                ...responseJson,
             };
         }
 
-        console.log('[PROXY] ✅ Profile update forwarded successfully');
+        console.log('[PROXY] ✅ Streamed successfully');
         return responseJson;
 
     } catch (err: any) {
-        console.error('[PROXY] ❌ Unexpected error in proxy:', err?.message);
-        console.error('[PROXY] Error stack:', err?.stack);
+        console.error('[PROXY] ❌ Proxy error:', err?.message);
+        console.error('[PROXY] Stack:', err?.stack);
         setResponseStatus(event, 500);
         return {
             success: false,
-            message: `Proxy error: ${err?.message || 'Unknown server-side error'}`
+            message: `Proxy error: ${err?.message || 'Unknown server error'}`,
         };
     }
 });
