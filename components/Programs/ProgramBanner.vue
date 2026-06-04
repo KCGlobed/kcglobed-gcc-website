@@ -23,7 +23,8 @@
 
                                             <input type="text" class="form-control custom-input mb-2" id="fullName" v-model="form.name"
                                                 placeholder="Enter your full name"
-                                                :class="{ 'is-invalid': errors.name }">
+                                                :class="{ 'is-invalid': errors.name }"
+                                                @input="form.name = form.name.replace(/[^a-zA-Z\s]/g, '')">
                                             <div class="invalid-feedback" v-if="errors.name">{{ errors.name }}</div>
                                         </div>
 
@@ -1514,6 +1515,8 @@ export default defineComponent({
 
             if (!form.name.trim()) {
                 errors.name = "Full name is required";
+            } else if (!/^[a-zA-Z\s]+$/.test(form.name)) {
+                errors.name = "Name should contain only letters and spaces";
             }
             if (!form.email.trim()) {
                 errors.email = "Email address is required";
