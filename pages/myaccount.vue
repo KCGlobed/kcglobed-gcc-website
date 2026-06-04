@@ -58,7 +58,7 @@
 
                                     <div class="application-id-badge mb-3 d-inline-block">
                                         <span v-if="formData?.application_id">Application ID: {{ formData.application_id
-                                        }}</span>
+                                            }}</span>
                                         <span v-else>- </span>
                                     </div>
 
@@ -433,7 +433,7 @@
                                                     class="ti ti-chevron-left"></i></button>
                                             <span class="fw-bold text-dark" style="font-size: 14px;">{{
                                                 monthNames[currentMonth]
-                                            }}
+                                                }}
                                                 {{ currentYear }}</span>
                                             <button
                                                 class="btn btn-sm btn-white border shadow-sm p-1 d-flex align-items-center justify-content-center"
