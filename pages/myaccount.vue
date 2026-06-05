@@ -58,7 +58,7 @@
 
                                     <div class="application-id-badge mb-3 d-inline-block">
                                         <span v-if="formData?.application_id">Application ID: {{ formData.application_id
-                                            }}</span>
+                                        }}</span>
                                         <span v-else>- </span>
                                     </div>
 
@@ -186,12 +186,18 @@
                                                 <PersonalInformation ref="section2Ref" :formData="formData"
                                                     :guardianKeyStatus="guardianKeyStatus" />
                                             </fieldset>
-                                            <div v-if="isEditingSection[2]" class="d-flex justify-content-end gap-3 mt-4 pt-3 border-top">
-                                                <button v-if="!isProfileEmpty" class="btn btn-outline-secondary px-4" style="border-radius: 50px; border-color: #9ca3af; color: #4b5563; font-weight: 600;" @click="handleCancelSection(2)">
+                                            <div v-if="isEditingSection[2]"
+                                                class="d-flex justify-content-end gap-3 mt-4 pt-3 border-top">
+                                                <button v-if="!isProfileEmpty" class="btn btn-outline-secondary px-4"
+                                                    style="border-radius: 50px; border-color: #9ca3af; color: #4b5563; font-weight: 600;"
+                                                    @click="handleCancelSection(2)">
                                                     Cancel
                                                 </button>
-                                                <button class="pill-submit-btn" style="padding: 10px 30px; box-shadow: none;" :disabled="isSavingSection[2]" @click="handleSaveSection(2)">
-                                                    <span v-if="isSavingSection[2]" class="spinner-border spinner-border-sm me-2"></span>
+                                                <button class="pill-submit-btn"
+                                                    style="padding: 10px 30px; box-shadow: none;"
+                                                    :disabled="isSavingSection[2]" @click="handleSaveSection(2)">
+                                                    <span v-if="isSavingSection[2]"
+                                                        class="spinner-border spinner-border-sm me-2"></span>
                                                     Save & Next
                                                 </button>
                                             </div>
@@ -226,12 +232,18 @@
                                             <fieldset :disabled="!isEditingSection[3]">
                                                 <AcademicInformation ref="section3Ref" :formData="formData" />
                                             </fieldset>
-                                            <div v-if="isEditingSection[3]" class="d-flex justify-content-end gap-3 mt-4 pt-3 border-top">
-                                                <button v-if="!isProfileEmpty" class="btn btn-outline-secondary px-4" style="border-radius: 50px; border-color: #9ca3af; color: #4b5563; font-weight: 600;" @click="handleCancelSection(3)">
+                                            <div v-if="isEditingSection[3]"
+                                                class="d-flex justify-content-end gap-3 mt-4 pt-3 border-top">
+                                                <button v-if="!isProfileEmpty" class="btn btn-outline-secondary px-4"
+                                                    style="border-radius: 50px; border-color: #9ca3af; color: #4b5563; font-weight: 600;"
+                                                    @click="handleCancelSection(3)">
                                                     Cancel
                                                 </button>
-                                                <button class="pill-submit-btn" style="padding: 10px 30px; box-shadow: none;" :disabled="isSavingSection[3]" @click="handleSaveSection(3)">
-                                                    <span v-if="isSavingSection[3]" class="spinner-border spinner-border-sm me-2"></span>
+                                                <button class="pill-submit-btn"
+                                                    style="padding: 10px 30px; box-shadow: none;"
+                                                    :disabled="isSavingSection[3]" @click="handleSaveSection(3)">
+                                                    <span v-if="isSavingSection[3]"
+                                                        class="spinner-border spinner-border-sm me-2"></span>
                                                     Save & Next
                                                 </button>
                                             </div>
@@ -266,12 +278,18 @@
                                                 <WorkExperienceDetails ref="section4Ref" :formData="formData"
                                                     :isDisabled="!isEditingSection[4]" />
                                             </fieldset>
-                                            <div v-if="isEditingSection[4]" class="d-flex justify-content-end gap-3 mt-4 pt-3 border-top">
-                                                <button v-if="!isProfileEmpty" class="btn btn-outline-secondary px-4" style="border-radius: 50px; border-color: #9ca3af; color: #4b5563; font-weight: 600;" @click="handleCancelSection(4)">
+                                            <div v-if="isEditingSection[4]"
+                                                class="d-flex justify-content-end gap-3 mt-4 pt-3 border-top">
+                                                <button v-if="!isProfileEmpty" class="btn btn-outline-secondary px-4"
+                                                    style="border-radius: 50px; border-color: #9ca3af; color: #4b5563; font-weight: 600;"
+                                                    @click="handleCancelSection(4)">
                                                     Cancel
                                                 </button>
-                                                <button class="pill-submit-btn" style="padding: 10px 30px; box-shadow: none;" :disabled="isSavingSection[4]" @click="handleSaveSection(4)">
-                                                    <span v-if="isSavingSection[4]" class="spinner-border spinner-border-sm me-2"></span>
+                                                <button class="pill-submit-btn"
+                                                    style="padding: 10px 30px; box-shadow: none;"
+                                                    :disabled="isSavingSection[4]" @click="handleSaveSection(4)">
+                                                    <span v-if="isSavingSection[4]"
+                                                        class="spinner-border spinner-border-sm me-2"></span>
                                                     Save & Next
                                                 </button>
                                             </div>
@@ -305,12 +323,18 @@
                                         <div class="accordion-body p-4 p-lg-5" v-show="isSectionOpen(5)">
                                             <DocumentUpload ref="section5Ref" :formData="formData"
                                                 :isDisabled="!isEditingSection[5]" :resumeKeyStatus="resumeKeyStatus" />
-                                            <div v-if="isEditingSection[5]" class="d-flex justify-content-end gap-3 mt-4 pt-3 border-top">
-                                                <button v-if="!isProfileEmpty" class="btn btn-outline-secondary px-4" style="border-radius: 50px; border-color: #9ca3af; color: #4b5563; font-weight: 600;" @click="handleCancelSection(5)">
+                                            <div v-if="isEditingSection[5]"
+                                                class="d-flex justify-content-end gap-3 mt-4 pt-3 border-top">
+                                                <button v-if="!isProfileEmpty" class="btn btn-outline-secondary px-4"
+                                                    style="border-radius: 50px; border-color: #9ca3af; color: #4b5563; font-weight: 600;"
+                                                    @click="handleCancelSection(5)">
                                                     Cancel
                                                 </button>
-                                                <button class="pill-submit-btn" style="padding: 10px 30px; box-shadow: none;" :disabled="isSavingSection[5]" @click="handleSaveSection(5)">
-                                                    <span v-if="isSavingSection[5]" class="spinner-border spinner-border-sm me-2"></span>
+                                                <button class="pill-submit-btn"
+                                                    style="padding: 10px 30px; box-shadow: none;"
+                                                    :disabled="isSavingSection[5]" @click="handleSaveSection(5)">
+                                                    <span v-if="isSavingSection[5]"
+                                                        class="spinner-border spinner-border-sm me-2"></span>
                                                     Save Documents
                                                 </button>
                                             </div>
@@ -322,7 +346,7 @@
                             </div> <!-- End pb-30 -->
 
                             <!-- Combined Declaration & Submit Card -->
-                            <div class="p-4 p-lg-5 bg-white rounded-4 shadow-sm mb-4" v-if="isAnySectionEditing">
+                            <div class="p-4 p-lg-5 bg-white rounded-4 shadow-sm mb-4" v-if="isAnySectionEditing || !isFinalSubmitted">
                                 <div class="d-flex align-items-start mb-4">
                                     <div class="form-check custom-declaration mt-1">
                                         <input class="form-check-input" type="checkbox" id="declaration"
@@ -469,7 +493,7 @@
                                                     class="ti ti-chevron-left"></i></button>
                                             <span class="fw-bold text-dark" style="font-size: 14px;">{{
                                                 monthNames[currentMonth]
-                                                }}
+                                            }}
                                                 {{ currentYear }}</span>
                                             <button
                                                 class="btn btn-sm btn-white border shadow-sm p-1 d-flex align-items-center justify-content-center"
@@ -745,7 +769,10 @@ const resultStatus = ref(false);
 const resumeKeyStatus = ref(false);
 const guardianKeyStatus = ref(false);
 const reportUrl = ref<string | null>(null);
+const isFinalSubmitted = ref(false);
 const studentResult = ref("");
+
+
 
 // ── Auto-Draft (browser-only, localStorage) ────────────────────────────────
 type DraftStatus = 'idle' | 'saved' | 'error';
@@ -765,7 +792,7 @@ const profileCompletion = computed(() => {
     let totalProgress = 0;
     const p = formData;
 
-    const sectionWeight = 25; // 4 sections: Personal, Academic, Work Experience, Documents Upload
+    const sectionWeight = 23.75; // 4 sections * 23.75% = 95%
 
     // 2. Personal Information (dynamically weighted) - 10 to 15 Fields
     const personalFields = [
@@ -831,6 +858,11 @@ const profileCompletion = computed(() => {
         return hasNew || hasExisting;
     }).length;
     totalProgress += (docCompleted / docFields.length) * sectionWeight;
+
+    // 6. Submit Declaration (fixed 5%)
+    if (p.declaration || isFinalSubmitted.value) {
+        totalProgress += 5;
+    }
 
     return Math.round(totalProgress);
 });
@@ -994,9 +1026,10 @@ const fetchStudentDetail = async () => {
 
         console.log("Profile Data Check:", response);
         console.log(response, '-----response')
-        
+
         let activeResponse = response;
         if (!response?.data || (Array.isArray(response.data) && response.data.length === 0)) {
+            isFinalSubmitted.value = false;
             try {
                 const apiBase = "http://192.168.1.6:8000";
                 const draftResponse: any = await $fetch(`${apiBase}/api/students/get-student-profile-draft/`, {
@@ -1009,6 +1042,8 @@ const fetchStudentDetail = async () => {
             } catch (err) {
                 console.error("Draft fallback error", err);
             }
+        } else {
+            isFinalSubmitted.value = true;
         }
 
         resultStatus.value = activeResponse?.data?.result_status === true;
@@ -1039,15 +1074,17 @@ const fetchStudentDetail = async () => {
             reattempt.value = d?.re_attempt_btn
             studentResult.value = d?.student_result ? String(d.student_result) : "";
             // Name splitting logic
-            formData.first_name = d.first_name || "";
-            formData.last_name = d.last_name || "";
+            const cleanStr = (val: any) => (!val || val === "null" || val === "undefined") ? "" : val;
 
-            formData.email = d.email || "";
-            formData.mobile = d.phone || d.phone1 || "";
-            formData.city = d.city || "";
-            formData.state = d.state || "";
-            formData.pin_code = d.pincode || "";
-            formData.dob = d.date_of_birth || d.dob || "";
+            formData.first_name = cleanStr(d.first_name);
+            formData.last_name = cleanStr(d.last_name);
+
+            formData.email = cleanStr(d.email);
+            formData.mobile = cleanStr(d.phone || d.phone1);
+            formData.city = cleanStr(d.city);
+            formData.state = cleanStr(d.state);
+            formData.pin_code = cleanStr(d.pincode);
+            formData.dob = cleanStr(d.date_of_birth || d.dob);
             formData.nationality = d.nationality || "Indian";
             formData.complete_address = d.address || "";
             formData.mock_test_status = d.mock_test_status ?? 0;
@@ -1365,7 +1402,11 @@ onMounted(async () => {
             const saved = localStorage.getItem(DRAFT_KEY)
             if (saved) {
                 const draft = JSON.parse(saved)
-                Object.assign(formData, draft)
+                for (const key in draft) {
+                    if (draft[key] !== null && draft[key] !== undefined && draft[key] !== "") {
+                        (formData as any)[key] = draft[key];
+                    }
+                }
                 draftStatus.value = 'saved'
             }
         } catch (e) {
@@ -1783,6 +1824,7 @@ const formData = reactive({
     fee_preference_agree: false,
     additional_qualification: "",
     co_applicant_profession: "",
+    declaration: false,
     documents: {
         aadhaar: null,
         dob_proof: null,
@@ -1836,8 +1878,7 @@ const formData = reactive({
         co_applicant_compute_income: null,
         co_applicant_six_month_bank: null,
         co_applicant_agriculture_income: null
-    } as Record<string, string | null>,
-    declaration: false
+    } as Record<string, string | null>
 });
 
 const isSubmitting = ref(false);
@@ -1946,92 +1987,101 @@ const buildPayloadForSection = (sectionIndex: number) => {
     const data = new FormData();
     data.append('user', String(userId.value || ""));
 
-    data.append('first_name', formData.first_name || "");
-    data.append('last_name', formData.last_name || "");
-    data.append('email', formData.email || "");
-    data.append('phone', formData.mobile || "");
-    data.append('state', formData.state || "");
-    data.append('city', formData.city || "");
-    data.append('contact_name', formData.father_name || "");
-    data.append('contact_phone', formData.father_mobile || "");
-    data.append('date_of_birth', formData.dob || "");
-    data.append('nationality', formData.nationality || "");
-    data.append('pincode', formData.pin_code || "");
-    data.append('address', formData.complete_address || "");
-    data.append('guardian_name', formData.guardian_name || "");
-    data.append('guardian_phone', formData.guardian_phone || "");
-    data.append('guardian_email', formData.guardian_email || "");
+    if (sectionIndex >= 2) {
+        data.append('first_name', formData.first_name || "");
+        data.append('last_name', formData.last_name || "");
+        data.append('email', formData.email || "");
+        data.append('phone', formData.mobile || "");
+        data.append('state', formData.state || "");
+        data.append('city', formData.city || "");
+        data.append('contact_name', formData.father_name || "");
+        data.append('contact_phone', formData.father_mobile || "");
+        data.append('date_of_birth', formData.dob || "");
+        data.append('nationality', formData.nationality || "");
+        data.append('pincode', formData.pin_code || "");
+        data.append('address', formData.complete_address || "");
+        data.append('guardian_name', formData.guardian_name || "");
+        data.append('guardian_phone', formData.guardian_phone || "");
+        data.append('guardian_email', formData.guardian_email || "");
 
-    const relationshipMap: any = { "Mother": 1, "Father": 2, "Other": 3 };
-    data.append('guardian_dropdown', relationshipMap[formData.guardian_dropdown] || "");
-    data.append('guardian_other_reason', formData.guardian_dropdown === 'Other' && formData.guardian_other_reason ? formData.guardian_other_reason : "");
+        const relationshipMap: any = { "Mother": 1, "Father": 2, "Other": 3 };
+        data.append('guardian_dropdown', relationshipMap[formData.guardian_dropdown] || "");
+        data.append('guardian_other_reason', formData.guardian_dropdown === 'Other' && formData.guardian_other_reason ? formData.guardian_other_reason : "");
 
-    const genderMap: any = { "Male": 1, "Female": 2, "Other": 3 };
-    data.append('gender', genderMap[formData.gender] || "");
-
-    const mediumMap: any = { "English": 1, "Hindi": 2, "Other": 3 };
-    data.append('tenth_passing_year', formData.class10_year || "");
-    data.append('tenth_passing_percentage', formData.class10_score || "");
-    data.append('tenth_score_type', formData.class10_type || "");
-    data.append('tenth_medium', mediumMap[formData.class10_medium] || "");
-    data.append('twelveth_passing_year', formData.class12_year || "");
-    data.append('twelveth_passing_percentage', formData.class12_score || "");
-    data.append('twelveth_score_type', formData.class12_type || "");
-    data.append('twelveth_medium', mediumMap[formData.class12_medium] || "");
-    data.append('medium_instruction', mediumMap[formData.ug_medium] || "");
-    data.append('other_instruction', formData.medium_other || "");
-
-    const pgStatusMap: any = { "1": 1, "2": 2 };
-    data.append('pg_status', pgStatusMap[formData.ug_status] || "");
-    data.append('pg_percentage', formData.ug_cgpa || "");
-    data.append('ug_score_type', formData.ug_type || "");
-    data.append('institution', formData.ug_institution || "");
-
-    const higherEdMap: any = { "Yes": 1, "No": 2 };
-    data.append('higher_education_status', higherEdMap[formData.pg_exists] || "");
-    data.append('higher_qualification', formData.pg_type === 'Other' ? (formData.pg_other || "") : (formData.pg_type || ""));
-    data.append('higher_qualification_institution', formData.pg_institution || "");
-
-    const employementMap: any = { "Fresher": 1, "Experienced": 2 };
-    data.append('employement_status', employementMap[formData.employment_status] || "");
-
-    const experienceData = formData.employment_status !== "Fresher" && formData.work_experience
-        ? formData.work_experience.filter((job: any) => job.org_name?.trim()).map((job: any) => ({
-            company_name: job.org_name, position: job.designation,
-            area: job.functional_area || "", start_date: job.from, end_date: job.to || null
-        })) : [];
-    if (experienceData.length > 0) {
-        data.append('user_experience', JSON.stringify(experienceData));
-    } else {
-        data.append('user_experience', "");
+        const genderMap: any = { "Male": 1, "Female": 2, "Other": 3 };
+        data.append('gender', genderMap[formData.gender] || "");
     }
 
-    data.append('accounting_profession', formData.accounting_profession || "");
-    data.append('additional_qualification', formData.additional_qualification || "");
-    data.append('co_applicant_profession', String(formData.co_applicant_profession || ""));
+    if (sectionIndex >= 3) {
+        const mediumMap: any = { "English": 1, "Hindi": 2, "Other": 3 };
+        data.append('tenth_passing_year', formData.class10_year || "");
+        data.append('tenth_passing_percentage', formData.class10_score || "");
+        data.append('tenth_score_type', formData.class10_type || "");
+        data.append('tenth_medium', mediumMap[formData.class10_medium] || "");
+        data.append('twelveth_passing_year', formData.class12_year || "");
+        data.append('twelveth_passing_percentage', formData.class12_score || "");
+        data.append('twelveth_score_type', formData.class12_type || "");
+        data.append('twelveth_medium', mediumMap[formData.class12_medium] || "");
+        data.append('medium_instruction', mediumMap[formData.ug_medium] || "");
+        data.append('other_instruction', formData.medium_other || "");
 
-    const appendDoc = (fieldKey: string, apiKey: string) => {
-        const file = formData.documents?.[fieldKey];
-        if (file instanceof File) {
-            data.append(apiKey, file);
-        }
-    };
-    appendDoc('aadhaar', 'aadhaar');
-    appendDoc('dob_proof', 'dob_certificate');
-    appendDoc('photo', 'photo');
-    appendDoc('signature', 'signature');
-    appendDoc('resume', 'resume');
+        const pgStatusMap: any = { "1": 1, "2": 2 };
+        data.append('pg_status', pgStatusMap[formData.ug_status] || "");
+        data.append('pg_percentage', formData.ug_cgpa || "");
+        data.append('ug_score_type', formData.ug_type || "");
+        data.append('institution', formData.ug_institution || "");
 
-    const extraDocKeys = [
-        'identity_proof', 'tenth_marksheet', 'twelth_marksheet',
-        'graduation_first_marksheet', 'graduation_second_marksheet', 'graduation_third_marksheet',
-        'graduation_forth_marksheet', 'graduation_fifth_marksheet', 'graduation_sixth_marksheet',
-        'additional_document', 'co_applicant_pan_card', 'co_applicant_aadhaar',
-        'co_applicant_sallary_slip', 'co_applicant_form16', 'co_applicant_employee_id_card',
-        'co_applicant_passport_size', 'co_applicant_income_tax_return', 'co_applicant_compute_income',
-        'co_applicant_six_month_bank', 'co_applicant_agriculture_income'
-    ];
-    extraDocKeys.forEach(key => appendDoc(key, key));
+        const higherEdMap: any = { "Yes": 1, "No": 2 };
+        data.append('higher_education_status', higherEdMap[formData.pg_exists] || "");
+        data.append('higher_qualification', formData.pg_type === 'Other' ? (formData.pg_other || "") : (formData.pg_type || ""));
+        data.append('higher_qualification_institution', formData.pg_institution || "");
+    }
+
+    if (sectionIndex >= 4) {
+        const employementMap: any = { "Fresher": 1, "Experienced": 2 };
+        data.append('employement_status', employementMap[formData.employment_status] || "");
+
+        const experienceData = formData.employment_status !== "Fresher" && formData.work_experience
+            ? formData.work_experience.filter((job: any) => job.org_name?.trim()).map((job: any) => ({
+                company_name: job.org_name, position: job.designation,
+                area: job.functional_area || "", start_date: job.from, end_date: job.to || null
+            })) : [];
+        if (experienceData.length > 0) {
+            data.append('user_experience', JSON.stringify(experienceData));
+        } 
+        // else {
+        //     data.append('user_experience', 'null');
+        // }
+    }
+
+    if (sectionIndex >= 5) {
+        data.append('accounting_profession', formData.accounting_profession || "");
+        data.append('additional_qualification', formData.additional_qualification || "");
+        data.append('co_applicant_profession', String(formData.co_applicant_profession || ""));
+
+        const appendDoc = (fieldKey: string, apiKey: string) => {
+            const file = formData.documents?.[fieldKey];
+            if (file instanceof File) {
+                data.append(apiKey, file);
+            }
+        };
+        appendDoc('aadhaar', 'aadhaar');
+        appendDoc('dob_proof', 'dob_certificate');
+        appendDoc('photo', 'photo');
+        appendDoc('signature', 'signature');
+        appendDoc('resume', 'resume');
+
+        const extraDocKeys = [
+            'identity_proof', 'tenth_marksheet', 'twelth_marksheet',
+            'graduation_first_marksheet', 'graduation_second_marksheet', 'graduation_third_marksheet',
+            'graduation_forth_marksheet', 'graduation_fifth_marksheet', 'graduation_sixth_marksheet',
+            'additional_document', 'co_applicant_pan_card', 'co_applicant_aadhaar',
+            'co_applicant_sallary_slip', 'co_applicant_form16', 'co_applicant_employee_id_card',
+            'co_applicant_passport_size', 'co_applicant_income_tax_return', 'co_applicant_compute_income',
+            'co_applicant_six_month_bank', 'co_applicant_agriculture_income'
+        ];
+        extraDocKeys.forEach(key => appendDoc(key, key));
+    }
 
     return data;
 };
@@ -2066,7 +2116,7 @@ const handleSaveSection = async (sectionIndex: number) => {
         const data = buildPayloadForSection(sectionIndex);
         const { getAccessToken } = useAuth();
         const token = getAccessToken();
-        const apiBase="http://192.168.1.6:8000"
+        const apiBase = "http://192.168.1.6:8000"
         const apiUrl = `${apiBase}/api/students/create-update-student-profile-draft/`
         // const apiUrl = '/api/proxy-profile-update';
 
@@ -2092,7 +2142,7 @@ const handleSaveSection = async (sectionIndex: number) => {
 
         if (response.success || response.status === "200" || response.status === 200 ||
             response.message === "Message sent Successfully" || response.message?.toLowerCase().includes("success")) {
-            
+
             showAlert("Success", `${sectionName} saved successfully!`, "success");
             isEditingSection[sectionIndex] = false;
             await fetchStudentDetail();
@@ -2187,15 +2237,32 @@ const handleFinalSubmit = async () => {
 
         // ── 4. Append documents & measure total size ────────────────────────
         let totalFileSize = 0;
-        Object.keys(formData.documents).forEach((key) => {
-            const file = formData.documents[key];
+        const appendDoc = (fieldKey: string, apiKey: string) => {
+            const file = (formData.documents as any)[fieldKey];
             if (file instanceof File) {
                 totalFileSize += file.size;
-                console.log(`[SUBMIT] File '${key}': ${file.name} (${(file.size / 1024).toFixed(1)} KB, type: ${file.type})`);
+                // Just in case it wasn't added by buildPayloadForSection, append it here
+                if (!data.has(apiKey)) {
+                    data.append(apiKey, file);
+                }
+                console.log(`[SUBMIT] File '${apiKey}': ${file.name} (${(file.size / 1024).toFixed(1)} KB, type: ${file.type})`);
             }
-        });
+        };
+
+        appendDoc('aadhaar', 'aadhaar');
+        appendDoc('dob_proof', 'dob_certificate');
+        appendDoc('photo', 'photo');
+        appendDoc('signature', 'signature');
+        appendDoc('resume', 'resume');
+
 
         console.log(`[SUBMIT] Total upload payload: ${(totalFileSize / 1024 / 1024).toFixed(2)} MB`);
+        
+        // Log the final payload keys to verify everything is attached
+        console.log("[SUBMIT] Payload keys being sent:");
+        for (let [key, value] of data.entries()) {
+            console.log(`  -> ${key}:`, value instanceof File ? `File (${value.name})` : value);
+        }
 
         // ── 5. Auth token check ─────────────────────────────────────────────
         const { getAccessToken } = useAuth();
