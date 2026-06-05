@@ -58,7 +58,7 @@
 
                                     <div class="application-id-badge mb-3 d-inline-block">
                                         <span v-if="formData?.application_id">Application ID: {{ formData.application_id
-                                        }}</span>
+                                            }}</span>
                                         <span v-else>- </span>
                                     </div>
 
@@ -346,7 +346,8 @@
                             </div> <!-- End pb-30 -->
 
                             <!-- Combined Declaration & Submit Card -->
-                            <div class="p-4 p-lg-5 bg-white rounded-4 shadow-sm mb-4" v-if="isAnySectionEditing || !isFinalSubmitted">
+                            <div class="p-4 p-lg-5 bg-white rounded-4 shadow-sm mb-4"
+                                v-if="isAnySectionEditing || !isFinalSubmitted">
                                 <div class="d-flex align-items-start mb-4">
                                     <div class="form-check custom-declaration mt-1">
                                         <input class="form-check-input" type="checkbox" id="declaration"
@@ -493,7 +494,7 @@
                                                     class="ti ti-chevron-left"></i></button>
                                             <span class="fw-bold text-dark" style="font-size: 14px;">{{
                                                 monthNames[currentMonth]
-                                            }}
+                                                }}
                                                 {{ currentYear }}</span>
                                             <button
                                                 class="btn btn-sm btn-white border shadow-sm p-1 d-flex align-items-center justify-content-center"
@@ -2048,7 +2049,7 @@ const buildPayloadForSection = (sectionIndex: number) => {
             })) : [];
         if (experienceData.length > 0) {
             data.append('user_experience', JSON.stringify(experienceData));
-        } 
+        }
         // else {
         //     data.append('user_experience', 'null');
         // }
@@ -2257,7 +2258,7 @@ const handleFinalSubmit = async () => {
 
 
         console.log(`[SUBMIT] Total upload payload: ${(totalFileSize / 1024 / 1024).toFixed(2)} MB`);
-        
+
         // Log the final payload keys to verify everything is attached
         console.log("[SUBMIT] Payload keys being sent:");
         for (let [key, value] of data.entries()) {
