@@ -157,6 +157,14 @@ export default {
   watch: {
     status(newVal) {
       this.formData.employment_status = newVal;
+    },
+    'formData.employment_status': {
+      handler(newVal) {
+        if (newVal && newVal !== this.status) {
+          this.status = newVal;
+        }
+      },
+      immediate: true
     }
   },
 
