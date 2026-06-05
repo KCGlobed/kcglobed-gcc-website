@@ -186,6 +186,15 @@
                                                 <PersonalInformation ref="section2Ref" :formData="formData"
                                                     :guardianKeyStatus="guardianKeyStatus" />
                                             </fieldset>
+                                            <div v-if="isEditingSection[2]" class="d-flex justify-content-end gap-3 mt-4 pt-3 border-top">
+                                                <button v-if="!isProfileEmpty" class="btn btn-outline-secondary px-4" style="border-radius: 50px; border-color: #9ca3af; color: #4b5563; font-weight: 600;" @click="handleCancelSection(2)">
+                                                    Cancel
+                                                </button>
+                                                <button class="pill-submit-btn" style="padding: 10px 30px; box-shadow: none;" :disabled="isSavingSection[2]" @click="handleSaveSection(2)">
+                                                    <span v-if="isSavingSection[2]" class="spinner-border spinner-border-sm me-2"></span>
+                                                    Save & Next
+                                                </button>
+                                            </div>
                                         </div>
                                     </div>
 
@@ -217,6 +226,15 @@
                                             <fieldset :disabled="!isEditingSection[3]">
                                                 <AcademicInformation ref="section3Ref" :formData="formData" />
                                             </fieldset>
+                                            <div v-if="isEditingSection[3]" class="d-flex justify-content-end gap-3 mt-4 pt-3 border-top">
+                                                <button v-if="!isProfileEmpty" class="btn btn-outline-secondary px-4" style="border-radius: 50px; border-color: #9ca3af; color: #4b5563; font-weight: 600;" @click="handleCancelSection(3)">
+                                                    Cancel
+                                                </button>
+                                                <button class="pill-submit-btn" style="padding: 10px 30px; box-shadow: none;" :disabled="isSavingSection[3]" @click="handleSaveSection(3)">
+                                                    <span v-if="isSavingSection[3]" class="spinner-border spinner-border-sm me-2"></span>
+                                                    Save & Next
+                                                </button>
+                                            </div>
                                         </div>
                                     </div>
 
@@ -248,6 +266,15 @@
                                                 <WorkExperienceDetails ref="section4Ref" :formData="formData"
                                                     :isDisabled="!isEditingSection[4]" />
                                             </fieldset>
+                                            <div v-if="isEditingSection[4]" class="d-flex justify-content-end gap-3 mt-4 pt-3 border-top">
+                                                <button v-if="!isProfileEmpty" class="btn btn-outline-secondary px-4" style="border-radius: 50px; border-color: #9ca3af; color: #4b5563; font-weight: 600;" @click="handleCancelSection(4)">
+                                                    Cancel
+                                                </button>
+                                                <button class="pill-submit-btn" style="padding: 10px 30px; box-shadow: none;" :disabled="isSavingSection[4]" @click="handleSaveSection(4)">
+                                                    <span v-if="isSavingSection[4]" class="spinner-border spinner-border-sm me-2"></span>
+                                                    Save & Next
+                                                </button>
+                                            </div>
                                         </div>
                                     </div>
 
@@ -278,6 +305,15 @@
                                         <div class="accordion-body p-4 p-lg-5" v-show="isSectionOpen(5)">
                                             <DocumentUpload ref="section5Ref" :formData="formData"
                                                 :isDisabled="!isEditingSection[5]" :resumeKeyStatus="resumeKeyStatus" />
+                                            <div v-if="isEditingSection[5]" class="d-flex justify-content-end gap-3 mt-4 pt-3 border-top">
+                                                <button v-if="!isProfileEmpty" class="btn btn-outline-secondary px-4" style="border-radius: 50px; border-color: #9ca3af; color: #4b5563; font-weight: 600;" @click="handleCancelSection(5)">
+                                                    Cancel
+                                                </button>
+                                                <button class="pill-submit-btn" style="padding: 10px 30px; box-shadow: none;" :disabled="isSavingSection[5]" @click="handleSaveSection(5)">
+                                                    <span v-if="isSavingSection[5]" class="spinner-border spinner-border-sm me-2"></span>
+                                                    Save Documents
+                                                </button>
+                                            </div>
                                             <!-- <div class="section-divider"></div> -->
                                             <!-- <PrePaymentDeclaration ref="section4bRef" :formData="formData" /> -->
                                         </div>
@@ -958,13 +994,30 @@ const fetchStudentDetail = async () => {
 
         console.log("Profile Data Check:", response);
         console.log(response, '-----response')
-        resultStatus.value = response?.data?.result_status === true;
-        resumeKeyStatus.value = response?.data?.resume_key_status === true || response?.data?.resume_key_status === "true" || response?.resume_key_status === true || response?.resume_key_status === "true";
-        guardianKeyStatus.value = response?.data?.guardian_key_status === true || response?.data?.guardian_key_status === "true" || response?.guardian_key_status === true || response?.guardian_key_status === "true";
-        reportUrl.value = response?.report_url || response?.data?.report_url || null;
+        
+        let activeResponse = response;
+        if (!response?.data || (Array.isArray(response.data) && response.data.length === 0)) {
+            try {
+                const apiBase = "http://192.168.1.6:8000";
+                const draftResponse: any = await $fetch(`${apiBase}/api/students/get-student-profile-draft/`, {
+                    headers: token ? { 'Authorization': `Bearer ${token}` } : {}
+                });
+                if (draftResponse?.data && (!Array.isArray(draftResponse.data) || draftResponse.data.length > 0)) {
+                    activeResponse = draftResponse;
+                    console.log("Fallback Profile Draft Check:", draftResponse);
+                }
+            } catch (err) {
+                console.error("Draft fallback error", err);
+            }
+        }
+
+        resultStatus.value = activeResponse?.data?.result_status === true;
+        resumeKeyStatus.value = activeResponse?.data?.resume_key_status === true || activeResponse?.data?.resume_key_status === "true" || activeResponse?.resume_key_status === true || activeResponse?.resume_key_status === "true";
+        guardianKeyStatus.value = activeResponse?.data?.guardian_key_status === true || activeResponse?.data?.guardian_key_status === "true" || activeResponse?.guardian_key_status === true || activeResponse?.guardian_key_status === "true";
+        reportUrl.value = activeResponse?.report_url || activeResponse?.data?.report_url || null;
 
         // If returned payload is explicitly an empty array or missing data
-        if (!response?.data || (Array.isArray(response.data) && response.data.length === 0)) {
+        if (!activeResponse?.data || (Array.isArray(activeResponse.data) && activeResponse.data.length === 0)) {
             isProfileEmpty.value = true;
             isEditingSection[1] = true;
             isEditingSection[2] = true;
@@ -981,8 +1034,8 @@ const fetchStudentDetail = async () => {
             isEditingSection[5] = false;
         }
 
-        if (response?.data && !Array.isArray(response.data)) {
-            const d = response.data;
+        if (activeResponse?.data && !Array.isArray(activeResponse.data)) {
+            const d = activeResponse.data;
             reattempt.value = d?.re_attempt_btn
             studentResult.value = d?.student_result ? String(d.student_result) : "";
             // Name splitting logic
@@ -1026,19 +1079,28 @@ const fetchStudentDetail = async () => {
             formData.pg_type = d.higher_qualification || "";
             formData.pg_institution = d.higher_qualification_institution || "";
 
-            const employementReverseMap: Record<number, string> = { 1: "Fresher", 2: "Experienced" };
-            formData.employment_status = employementReverseMap[d.employement_status] || "Fresher";
+            const employementReverseMap: Record<string, string> = { "1": "Fresher", "2": "Experienced" };
+            formData.employment_status = employementReverseMap[String(d.employement_status)] || "Fresher";
 
             // Work Experience
-            const expData = d.user_experience || d.student_experience;
+            let expData = d.user_experience || d.student_experience;
+            if (typeof expData === 'string' && expData !== "null" && expData.trim() !== "") {
+                try {
+                    expData = JSON.parse(expData);
+                } catch (e) {
+                    console.warn("Could not parse user_experience JSON", e);
+                    expData = [];
+                }
+            }
+
             if (expData && Array.isArray(expData) && expData.length > 0) {
                 formData.employment_status = "Experienced";
                 formData.work_experience = expData.map((job: any) => ({
-                    org_name: job.company_name,
-                    designation: job.position,
+                    org_name: job.company_name || "",
+                    designation: job.position || "",
                     functional_area: job.area || "",
-                    from: job.start_date,
-                    to: job.end_date
+                    from: job.start_date || "",
+                    to: job.end_date || ""
                 }));
             }
 
@@ -1876,6 +1938,188 @@ const toggleSection = (index: number) => {
     }
 };
 
+const isSavingSection = reactive<Record<number, boolean>>({
+    2: false, 3: false, 4: false, 5: false
+});
+
+const buildPayloadForSection = (sectionIndex: number) => {
+    const data = new FormData();
+    data.append('user', String(userId.value || ""));
+
+    data.append('first_name', formData.first_name || "");
+    data.append('last_name', formData.last_name || "");
+    data.append('email', formData.email || "");
+    data.append('phone', formData.mobile || "");
+    data.append('state', formData.state || "");
+    data.append('city', formData.city || "");
+    data.append('contact_name', formData.father_name || "");
+    data.append('contact_phone', formData.father_mobile || "");
+    data.append('date_of_birth', formData.dob || "");
+    data.append('nationality', formData.nationality || "");
+    data.append('pincode', formData.pin_code || "");
+    data.append('address', formData.complete_address || "");
+    data.append('guardian_name', formData.guardian_name || "");
+    data.append('guardian_phone', formData.guardian_phone || "");
+    data.append('guardian_email', formData.guardian_email || "");
+
+    const relationshipMap: any = { "Mother": 1, "Father": 2, "Other": 3 };
+    data.append('guardian_dropdown', relationshipMap[formData.guardian_dropdown] || "");
+    data.append('guardian_other_reason', formData.guardian_dropdown === 'Other' && formData.guardian_other_reason ? formData.guardian_other_reason : "");
+
+    const genderMap: any = { "Male": 1, "Female": 2, "Other": 3 };
+    data.append('gender', genderMap[formData.gender] || "");
+
+    const mediumMap: any = { "English": 1, "Hindi": 2, "Other": 3 };
+    data.append('tenth_passing_year', formData.class10_year || "");
+    data.append('tenth_passing_percentage', formData.class10_score || "");
+    data.append('tenth_score_type', formData.class10_type || "");
+    data.append('tenth_medium', mediumMap[formData.class10_medium] || "");
+    data.append('twelveth_passing_year', formData.class12_year || "");
+    data.append('twelveth_passing_percentage', formData.class12_score || "");
+    data.append('twelveth_score_type', formData.class12_type || "");
+    data.append('twelveth_medium', mediumMap[formData.class12_medium] || "");
+    data.append('medium_instruction', mediumMap[formData.ug_medium] || "");
+    data.append('other_instruction', formData.medium_other || "");
+
+    const pgStatusMap: any = { "1": 1, "2": 2 };
+    data.append('pg_status', pgStatusMap[formData.ug_status] || "");
+    data.append('pg_percentage', formData.ug_cgpa || "");
+    data.append('ug_score_type', formData.ug_type || "");
+    data.append('institution', formData.ug_institution || "");
+
+    const higherEdMap: any = { "Yes": 1, "No": 2 };
+    data.append('higher_education_status', higherEdMap[formData.pg_exists] || "");
+    data.append('higher_qualification', formData.pg_type === 'Other' ? (formData.pg_other || "") : (formData.pg_type || ""));
+    data.append('higher_qualification_institution', formData.pg_institution || "");
+
+    const employementMap: any = { "Fresher": 1, "Experienced": 2 };
+    data.append('employement_status', employementMap[formData.employment_status] || "");
+
+    const experienceData = formData.employment_status !== "Fresher" && formData.work_experience
+        ? formData.work_experience.filter((job: any) => job.org_name?.trim()).map((job: any) => ({
+            company_name: job.org_name, position: job.designation,
+            area: job.functional_area || "", start_date: job.from, end_date: job.to || null
+        })) : [];
+    if (experienceData.length > 0) {
+        data.append('user_experience', JSON.stringify(experienceData));
+    } else {
+        data.append('user_experience', "");
+    }
+
+    data.append('accounting_profession', formData.accounting_profession || "");
+    data.append('additional_qualification', formData.additional_qualification || "");
+    data.append('co_applicant_profession', String(formData.co_applicant_profession || ""));
+
+    const appendDoc = (fieldKey: string, apiKey: string) => {
+        const file = formData.documents?.[fieldKey];
+        if (file instanceof File) {
+            data.append(apiKey, file);
+        }
+    };
+    appendDoc('aadhaar', 'aadhaar');
+    appendDoc('dob_proof', 'dob_certificate');
+    appendDoc('photo', 'photo');
+    appendDoc('signature', 'signature');
+    appendDoc('resume', 'resume');
+
+    const extraDocKeys = [
+        'identity_proof', 'tenth_marksheet', 'twelth_marksheet',
+        'graduation_first_marksheet', 'graduation_second_marksheet', 'graduation_third_marksheet',
+        'graduation_forth_marksheet', 'graduation_fifth_marksheet', 'graduation_sixth_marksheet',
+        'additional_document', 'co_applicant_pan_card', 'co_applicant_aadhaar',
+        'co_applicant_sallary_slip', 'co_applicant_form16', 'co_applicant_employee_id_card',
+        'co_applicant_passport_size', 'co_applicant_income_tax_return', 'co_applicant_compute_income',
+        'co_applicant_six_month_bank', 'co_applicant_agriculture_income'
+    ];
+    extraDocKeys.forEach(key => appendDoc(key, key));
+
+    return data;
+};
+
+const handleCancelSection = async (sectionIndex: number) => {
+    isEditingSection[sectionIndex] = false;
+    await fetchStudentDetail();
+};
+
+const handleSaveSection = async (sectionIndex: number) => {
+    let currentSectionRef: any = null;
+    let sectionName = "";
+    if (sectionIndex === 2) { currentSectionRef = section2Ref; sectionName = "Personal Information"; }
+    else if (sectionIndex === 3) { currentSectionRef = section3Ref; sectionName = "Academic Information"; }
+    else if (sectionIndex === 4) { currentSectionRef = section4Ref; sectionName = "Work Experience"; }
+    else if (sectionIndex === 5) { currentSectionRef = section5Ref; sectionName = "Documents"; }
+
+    if (currentSectionRef && currentSectionRef.value?.validate && !currentSectionRef.value.validate()) {
+        currentSectionRef.value?.scrollToFirstError?.();
+        showAlert("Incomplete Information", `Please fill all required fields in the '${sectionName}' section.`, "warning");
+        return;
+    }
+
+    if (typeof navigator !== 'undefined' && !navigator.onLine) {
+        showAlert("No Internet Connection", "Your device appears to be offline. Please check your internet connection and try again.", "error");
+        return;
+    }
+
+    isSavingSection[sectionIndex] = true;
+
+    try {
+        const data = buildPayloadForSection(sectionIndex);
+        const { getAccessToken } = useAuth();
+        const token = getAccessToken();
+        const apiBase="http://192.168.1.6:8000"
+        const apiUrl = `${apiBase}/api/students/create-update-student-profile-draft/`
+        // const apiUrl = '/api/proxy-profile-update';
+
+        const controller = new AbortController();
+        const TIMEOUT_MS = sectionIndex === 5 ? 180000 : 30000;
+        const timeoutId = setTimeout(() => controller.abort(), TIMEOUT_MS);
+
+        const rawResponse = await fetch(apiUrl, {
+            method: "POST",
+            body: data,
+            headers: token ? { 'Authorization': `Bearer ${token}` } : {},
+            signal: controller.signal
+        });
+        clearTimeout(timeoutId);
+
+        if (!rawResponse.ok) {
+            const httpStatus = rawResponse.status;
+            const errorText = await rawResponse.text().catch(() => '');
+            throw new Error(`Server returned ${httpStatus}: ${errorText.substring(0, 200) || 'Unknown error'}`);
+        }
+
+        const response = await rawResponse.json();
+
+        if (response.success || response.status === "200" || response.status === 200 ||
+            response.message === "Message sent Successfully" || response.message?.toLowerCase().includes("success")) {
+            
+            showAlert("Success", `${sectionName} saved successfully!`, "success");
+            isEditingSection[sectionIndex] = false;
+            await fetchStudentDetail();
+
+            const nextSecIndex = sectionIndex + 1;
+            if (nextSecIndex <= 5) {
+                isEditingSection[nextSecIndex] = true;
+                openSections.value.add(nextSecIndex);
+                openSections.value.delete(sectionIndex);
+                nextTick(() => {
+                    const accordionSecs = document.querySelectorAll('.accordion-section');
+                    if (accordionSecs[nextSecIndex - 2]) {
+                        accordionSecs[nextSecIndex - 2].scrollIntoView({ behavior: 'smooth', block: 'center' });
+                    }
+                });
+            }
+        } else {
+            showAlert("Failed to save", response.message || "Unknown error from server.", "error");
+        }
+    } catch (err: any) {
+        console.error(`[SAVE SECTION ${sectionIndex}] Error:`, err);
+        showAlert("Save Failed", err.message || "An unexpected error occurred. Please try again.", "error");
+    } finally {
+        isSavingSection[sectionIndex] = false;
+    }
+};
+
 const handleFinalSubmit = async () => {
     // ── 1. Section Validation ───────────────────────────────────────────────
     const sections = [
@@ -1911,7 +2155,7 @@ const handleFinalSubmit = async () => {
     // ── PROXY: Call the Nuxt server-side proxy instead of Django directly.
     // This avoids CORS, PWA service-worker interception, and mixed-content issues.
     // The proxy forwards the request to Django server-to-server.
-    const apiUrl = '/api/proxy-profile-update';
+    const apiUrl = 'http://192.168.1.6:8000/api/students/create-update-student-profile/';
     const diagnostics = {
         apiUrl,
         userAgent: typeof navigator !== 'undefined' ? navigator.userAgent : 'SSR',
@@ -1939,94 +2183,17 @@ const handleFinalSubmit = async () => {
 
     try {
         // ── 3. Build FormData payload ───────────────────────────────────────
-        const data = new FormData();
-        data.append('user', String(userId.value || ""));
-        data.append('first_name', formData.first_name);
-        data.append('last_name', formData.last_name);
-        data.append('email', formData.email);
-        data.append('phone', formData.mobile);
-        data.append('state', formData.state);
-        data.append('city', formData.city);
-        data.append('contact_name', formData.father_name);
-        data.append('contact_phone', formData.father_mobile);
-        data.append('date_of_birth', formData.dob);
-        data.append('nationality', formData.nationality);
-        data.append('pincode', formData.pin_code);
-        data.append('address', formData.complete_address);
-        data.append('guardian_name', formData.guardian_name);
-        data.append('guardian_phone', formData.guardian_phone);
-        data.append('guardian_email', formData.guardian_email);
-
-        const relationshipMap: any = { "Mother": 1, "Father": 2, "Other": 3 };
-        data.append('guardian_dropdown', relationshipMap[formData.guardian_dropdown] || "");
-        data.append('guardian_other_reason', formData.guardian_dropdown === 'Other' ? formData.guardian_other_reason : '');
-
-        const genderMap: any = { "Male": 1, "Female": 2, "Other": 3 };
-        data.append('gender', genderMap[formData.gender] || 1);
-
-        const mediumMap: any = { "English": 1, "Hindi": 2, "Other": 3 };
-        data.append('tenth_passing_year', formData.class10_year || "");
-        data.append('tenth_passing_percentage', formData.class10_score || "");
-        data.append('tenth_score_type', formData.class10_type);
-        data.append('tenth_medium', mediumMap[formData.class10_medium] || 1);
-        data.append('twelveth_passing_year', formData.class12_year || "");
-        data.append('twelveth_passing_percentage', formData.class12_score || "");
-        data.append('twelveth_score_type', formData.class12_type);
-        data.append('twelveth_medium', mediumMap[formData.class12_medium] || 1);
-        data.append('medium_instruction', mediumMap[formData.ug_medium] || 1);
-        data.append('other_instruction', formData.medium_other || "");
-
-        const pgStatusMap: any = { "1": 1, "2": 2 };
-        data.append('pg_status', pgStatusMap[formData.ug_status] || 1);
-        data.append('pg_percentage', formData.ug_cgpa || "");
-        data.append('ug_score_type', formData.ug_type);
-        data.append('institution', formData.ug_institution || "");
-
-        const higherEdMap: any = { "Yes": 1, "No": 2 };
-        data.append('higher_education_status', higherEdMap[formData.pg_exists] || 2);
-        data.append('higher_qualification', formData.pg_type === 'Other' ? formData.pg_other : formData.pg_type);
-        data.append('higher_qualification_institution', formData.pg_institution || "");
-
-        const employementMap: any = { "Fresher": 1, "Experienced": 2 };
-        data.append('employement_status', employementMap[formData.employment_status] || 1);
-
-        const experienceData = formData.employment_status !== "Fresher"
-            ? formData.work_experience.filter((job: any) => job.org_name?.trim()).map((job: any) => ({
-                company_name: job.org_name, position: job.designation,
-                area: job.functional_area || "", start_date: job.from, end_date: job.to || null
-            })) : [];
-        data.append('user_experience', JSON.stringify(experienceData));
+        const data = buildPayloadForSection(5);
 
         // ── 4. Append documents & measure total size ────────────────────────
         let totalFileSize = 0;
-        const appendDoc = (fieldKey: string, apiKey: string) => {
-            const file = formData.documents[fieldKey];
+        Object.keys(formData.documents).forEach((key) => {
+            const file = formData.documents[key];
             if (file instanceof File) {
                 totalFileSize += file.size;
-                data.append(apiKey, file);
-                console.log(`[SUBMIT] File '${apiKey}': ${file.name} (${(file.size / 1024).toFixed(1)} KB, type: ${file.type})`);
+                console.log(`[SUBMIT] File '${key}': ${file.name} (${(file.size / 1024).toFixed(1)} KB, type: ${file.type})`);
             }
-        };
-        appendDoc('aadhaar', 'aadhaar');
-        appendDoc('dob_proof', 'dob_certificate');
-        appendDoc('photo', 'photo');
-        appendDoc('signature', 'signature');
-        appendDoc('resume', 'resume');
-
-        data.append('accounting_profession', formData.accounting_profession);
-        data.append('additional_qualification', formData.additional_qualification);
-        data.append('co_applicant_profession', String(formData.co_applicant_profession || ""));
-
-        const extraDocKeys = [
-            'identity_proof', 'tenth_marksheet', 'twelth_marksheet',
-            'graduation_first_marksheet', 'graduation_second_marksheet', 'graduation_third_marksheet',
-            'graduation_forth_marksheet', 'graduation_fifth_marksheet', 'graduation_sixth_marksheet',
-            'additional_document', 'co_applicant_pan_card', 'co_applicant_aadhaar',
-            'co_applicant_sallary_slip', 'co_applicant_form16', 'co_applicant_employee_id_card',
-            'co_applicant_passport_size', 'co_applicant_income_tax_return', 'co_applicant_compute_income',
-            'co_applicant_six_month_bank', 'co_applicant_agriculture_income'
-        ];
-        extraDocKeys.forEach(key => appendDoc(key, key));
+        });
 
         console.log(`[SUBMIT] Total upload payload: ${(totalFileSize / 1024 / 1024).toFixed(2)} MB`);
 
