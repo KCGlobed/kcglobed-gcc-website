@@ -1060,14 +1060,18 @@ const fetchStudentDetail = async () => {
         // If returned payload is explicitly an empty array or missing data
         if (!activeResponse?.data || (Array.isArray(activeResponse.data) && activeResponse.data.length === 0)) {
             isProfileEmpty.value = true;
+            console.warn("Profile is detected as EMPTY.");
+        } else {
+            isProfileEmpty.value = false;
+        }
+
+        if (!isFinalSubmitted.value) {
             isEditingSection[1] = true;
             isEditingSection[2] = true;
             isEditingSection[3] = true;
             isEditingSection[4] = true;
             isEditingSection[5] = true;
-            console.warn("Profile is detected as EMPTY. Disabling sections.");
         } else {
-            isProfileEmpty.value = false;
             isEditingSection[1] = false;
             isEditingSection[2] = false;
             isEditingSection[3] = false;
@@ -2054,10 +2058,9 @@ const buildPayloadForSection = (sectionIndex: number) => {
             })) : [];
         if (experienceData.length > 0) {
             data.append('user_experience', JSON.stringify(experienceData));
+        } else {
+            data.append('user_experience', JSON.stringify([]));
         }
-        // else {
-        //     data.append('user_experience', 'null');
-        // }
     }
 
     if (sectionIndex >= 5) {
@@ -2068,6 +2071,8 @@ const buildPayloadForSection = (sectionIndex: number) => {
         const appendDoc = (fieldKey: string, apiKey: string) => {
             const file = formData.documents?.[fieldKey];
             if (file instanceof File) {
+                data.append(apiKey, file);
+            } else if (file && typeof file === 'string' && file.trim() !== '') {
                 data.append(apiKey, file);
             }
         };
@@ -2150,7 +2155,6 @@ const handleSaveSection = async (sectionIndex: number) => {
             response.message === "Message sent Successfully" || response.message?.toLowerCase().includes("success")) {
 
             showAlert("Success", `${sectionName} saved successfully!`, "success");
-            isEditingSection[sectionIndex] = false;
             await fetchStudentDetail();
 
             const nextSecIndex = sectionIndex + 1;
