@@ -2155,6 +2155,9 @@ const handleSaveSection = async (sectionIndex: number) => {
             response.message === "Message sent Successfully" || response.message?.toLowerCase().includes("success")) {
 
             showAlert("Success", `${sectionName} saved successfully!`, "success");
+
+            // Silent final submission chaining
+            await handleFinalSubmit(true);
             await fetchStudentDetail();
 
             const nextSecIndex = sectionIndex + 1;
@@ -2180,7 +2183,7 @@ const handleSaveSection = async (sectionIndex: number) => {
     }
 };
 
-const handleFinalSubmit = async () => {
+const handleFinalSubmit = async (isSilent = false) => {
     // ── 1. Section Validation ───────────────────────────────────────────────
     const sections = [
         { ref: section1Ref, id: 1, name: "Pre Interview" },
@@ -2192,14 +2195,16 @@ const handleFinalSubmit = async () => {
 
     for (const section of sections) {
         if (section.ref.value?.validate && !section.ref.value.validate()) {
-            openSections.value.add(section.id);
-            section.ref.value?.scrollToFirstError?.();
-            showAlert("Incomplete Information", `Please fill all required fields in the '${section.name}' section.`, "warning");
+            if (!isSilent) {
+                openSections.value.add(section.id);
+                section.ref.value?.scrollToFirstError?.();
+                showAlert("Incomplete Information", `Please fill all required fields in the '${section.name}' section.`, "warning");
+            }
             return;
         }
     }
 
-    if (!formData.declaration) {
+    if (!formData.declaration && !isSilent) {
         showAlert("Declaration Required", "Please check the declaration before submitting.", "warning");
         return;
     }
@@ -2383,11 +2388,15 @@ const handleFinalSubmit = async () => {
             // Clear the browser draft on successful submit — no longer needed
             try { localStorage.removeItem(DRAFT_KEY); } catch { /* ignore */ }
             draftStatus.value = 'idle';
-            showAlert("Success", "Profile updated successfully!", "success");
+            if (!isSilent) {
+                showAlert("Success", "Profile updated successfully!", "success");
+            }
             await fetchStudentDetail();
         } else {
             console.error("[SUBMIT] Backend returned failure:", response);
-            showAlert("Failed to update profile", response.message || "Unknown error from server.", "error");
+            if (!isSilent) {
+                showAlert("Failed to update profile", response.message || "Unknown error from server.", "error");
+            }
         }
 
     } catch (err: any) {
@@ -2424,7 +2433,9 @@ const handleFinalSubmit = async () => {
             });
         }
 
-        showAlert(alertTitle, userFacingMsg, "error");
+        if (!isSilent) {
+            showAlert(alertTitle, userFacingMsg, "error");
+        }
     } finally {
         isSubmitting.value = false;
     }
