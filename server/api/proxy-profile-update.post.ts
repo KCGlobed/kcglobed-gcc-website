@@ -2,8 +2,11 @@ import { getHeader, setResponseStatus } from 'h3';
 import { Readable } from 'node:stream';
 
 export default defineEventHandler(async (event) => {
-    const apiBase = process.env.NUXT_PUBLIC_API_BASE;
-    const targetUrl = `${apiBase}/api/students/create-update-student-profile/`;
+    // const apiBase = process.env.NUXT_PUBLIC_API_BASE;
+    const apiBase="http://192.168.1.6:8000"
+    // const targetUrl = `${apiBase}/api/students/create-update-student-profile/`;
+    const targetUrl = `${apiBase}/api/students/create-update-student-profile-draft/`;
+
 
     // Pass headers through: Authorization + Content-Type (includes multipart boundary)
     const authHeader = getHeader(event, 'authorization');
@@ -20,7 +23,7 @@ export default defineEventHandler(async (event) => {
         // Instead, pipe the Node.js IncomingMessage stream as a Web ReadableStream
         // so data flows through the proxy without ever being held in memory.
         const bodyStream = Readable.toWeb(event.node.req) as ReadableStream;
-
+        console.log(targetUrl,'-----targetUrl-----')
         const djangoResponse = await fetch(targetUrl, {
             method: 'POST',
             body: bodyStream,
@@ -32,7 +35,7 @@ export default defineEventHandler(async (event) => {
             // @ts-ignore — 'duplex' is a valid fetch option in Node 18+ / undici
             duplex: 'half',
         });
-
+        console.log(djangoResponse,'------djangoResponse------')
         const httpStatus = djangoResponse.status;
         console.log('[PROXY] Django responded with HTTP', httpStatus);
 

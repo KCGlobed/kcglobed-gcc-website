@@ -40,7 +40,7 @@ export function useAuth() {
         user_id?: number | null
     }) {
         if (!import.meta.client) return
-
+        logout()
         localStorage.setItem(ACCESS_TOKEN_KEY, data.access)
         localStorage.setItem(REFRESH_TOKEN_KEY, data.refresh)
 
