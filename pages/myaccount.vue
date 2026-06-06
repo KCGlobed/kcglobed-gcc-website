@@ -1021,18 +1021,23 @@ const fetchStudentDetail = async () => {
     try {
         const { getAccessToken } = useAuth();
         const token = getAccessToken();
-        const response: any = await $fetch(`${config.public.apiBase}/api/students/get-student-profile/`, {
-            headers: token ? { 'Authorization': `Bearer ${token}` } : {}
-        });
-
-        console.log("Profile Data Check:", response);
-        console.log(response, '-----response')
+        let response: any = null;
+        
+        try {
+            response = await $fetch(`${config.public.apiBase}/api/students/get-student-profile/`, {
+                headers: token ? { 'Authorization': `Bearer ${token}` } : {}
+            });
+            console.log("Profile Data Check:", response);
+            console.log(response, '-----response')
+        } catch (e) {
+            console.warn("Main profile API failed (expected if profile is not created yet):", e);
+        }
 
         let activeResponse = response;
         if (!response?.data || (Array.isArray(response.data) && response.data.length === 0)) {
             isFinalSubmitted.value = false;
             try {
-                const apiBase = "http://192.168.1.6:8000";
+                const apiBase = config.public.apiBase;
                 const draftResponse: any = await $fetch(`${apiBase}/api/students/get-student-profile-draft/`, {
                     headers: token ? { 'Authorization': `Bearer ${token}` } : {}
                 });
@@ -2117,7 +2122,7 @@ const handleSaveSection = async (sectionIndex: number) => {
         const data = buildPayloadForSection(sectionIndex);
         const { getAccessToken } = useAuth();
         const token = getAccessToken();
-        const apiBase = "http://192.168.1.6:8000"
+        const apiBase = config.public.apiBase;
         const apiUrl = `${apiBase}/api/students/create-update-student-profile-draft/`
         // const apiUrl = '/api/proxy-profile-update';
 
@@ -2206,7 +2211,7 @@ const handleFinalSubmit = async () => {
     // ── PROXY: Call the Nuxt server-side proxy instead of Django directly.
     // This avoids CORS, PWA service-worker interception, and mixed-content issues.
     // The proxy forwards the request to Django server-to-server.
-    const apiUrl = 'http://192.168.1.6:8000/api/students/create-update-student-profile/';
+    const apiUrl = `${config.public.apiBase}/api/students/create-update-student-profile/`;
     const diagnostics = {
         apiUrl,
         userAgent: typeof navigator !== 'undefined' ? navigator.userAgent : 'SSR',
