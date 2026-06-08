@@ -384,7 +384,7 @@
                                 </div>
 
                                 <div class="d-flex justify-content-center pt-2">
-                                    <button class="pill-submit-btn" @click="handleFinalSubmit"
+                                    <button class="pill-submit-btn" @click="handleFinalSubmit(false)"
                                         :disabled="!formData.declaration || isSubmitting"
                                         :class="{ 'opacity-50 cursor-not-allowed': !formData.declaration || isSubmitting }">
                                         <span v-if="isSubmitting" class="spinner-border spinner-border-sm me-2"
@@ -2097,6 +2097,34 @@ const buildPayloadForSection = (sectionIndex: number) => {
     return data;
 };
 
+const saveSectionDraft = async (sectionIndex: number) => {
+    const data = buildPayloadForSection(sectionIndex);
+    const { getAccessToken } = useAuth();
+    const token = getAccessToken();
+    const apiBase = config.public.apiBase;
+    const apiUrl = `${apiBase}/api/students/create-update-student-profile-draft/`;
+
+    const controller = new AbortController();
+    const TIMEOUT_MS = sectionIndex === 5 ? 180000 : 30000;
+    const timeoutId = setTimeout(() => controller.abort(), TIMEOUT_MS);
+
+    const rawResponse = await fetch(apiUrl, {
+        method: "POST",
+        body: data,
+        headers: token ? { 'Authorization': `Bearer ${token}` } : {},
+        signal: controller.signal
+    });
+    clearTimeout(timeoutId);
+
+    if (!rawResponse.ok) {
+        const httpStatus = rawResponse.status;
+        const errorText = await rawResponse.text().catch(() => '');
+        throw new Error(`Server returned ${httpStatus}: ${errorText.substring(0, 200) || 'Unknown error'}`);
+    }
+
+    return await rawResponse.json();
+};
+
 const handleCancelSection = async (sectionIndex: number) => {
     isEditingSection[sectionIndex] = false;
     await fetchStudentDetail();
@@ -2116,6 +2144,19 @@ const handleSaveSection = async (sectionIndex: number) => {
         return;
     }
 
+    if (sectionIndex === 5) {
+        // Do not call draft API on Section 5 save.
+        // Collapse the documents section and scroll to the declaration/submit card.
+        openSections.value.delete(5);
+        nextTick(() => {
+            const declEl = document.querySelector('.custom-declaration');
+            if (declEl) {
+                declEl.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            }
+        });
+        return;
+    }
+
     if (typeof navigator !== 'undefined' && !navigator.onLine) {
         showAlert("No Internet Connection", "Your device appears to be offline. Please check your internet connection and try again.", "error");
         return;
@@ -2124,32 +2165,7 @@ const handleSaveSection = async (sectionIndex: number) => {
     isSavingSection[sectionIndex] = true;
 
     try {
-        const data = buildPayloadForSection(sectionIndex);
-        const { getAccessToken } = useAuth();
-        const token = getAccessToken();
-        const apiBase = config.public.apiBase;
-        const apiUrl = `${apiBase}/api/students/create-update-student-profile-draft/`
-        // const apiUrl = '/api/proxy-profile-update';
-
-        const controller = new AbortController();
-        const TIMEOUT_MS = sectionIndex === 5 ? 180000 : 30000;
-        const timeoutId = setTimeout(() => controller.abort(), TIMEOUT_MS);
-
-        const rawResponse = await fetch(apiUrl, {
-            method: "POST",
-            body: data,
-            headers: token ? { 'Authorization': `Bearer ${token}` } : {},
-            signal: controller.signal
-        });
-        clearTimeout(timeoutId);
-
-        if (!rawResponse.ok) {
-            const httpStatus = rawResponse.status;
-            const errorText = await rawResponse.text().catch(() => '');
-            throw new Error(`Server returned ${httpStatus}: ${errorText.substring(0, 200) || 'Unknown error'}`);
-        }
-
-        const response = await rawResponse.json();
+        const response = await saveSectionDraft(sectionIndex);
 
         if (response.success || response.status === "200" || response.status === 200 ||
             response.message === "Message sent Successfully" || response.message?.toLowerCase().includes("success")) {
@@ -2195,7 +2211,7 @@ const handleFinalSubmit = async (isSilent = false) => {
 
     for (const section of sections) {
         if (section.ref.value?.validate && !section.ref.value.validate()) {
-            if (!isSilent) {
+            if (isSilent !== true) {
                 openSections.value.add(section.id);
                 section.ref.value?.scrollToFirstError?.();
                 showAlert("Incomplete Information", `Please fill all required fields in the '${section.name}' section.`, "warning");
@@ -2204,7 +2220,7 @@ const handleFinalSubmit = async (isSilent = false) => {
         }
     }
 
-    if (!formData.declaration && !isSilent) {
+    if (!formData.declaration && isSilent !== true) {
         showAlert("Declaration Required", "Please check the declaration before submitting.", "warning");
         return;
     }
@@ -2216,6 +2232,20 @@ const handleFinalSubmit = async (isSilent = false) => {
     }
 
     isSubmitting.value = true;
+
+    // Save Section 5 draft first to ensure documents are stored in draft database before final submit
+    if (isSilent !== true) {
+        try {
+            console.log("[SUBMIT] Saving Section 5 draft before final submit...");
+            await saveSectionDraft(5);
+            console.log("[SUBMIT] Section 5 draft saved successfully.");
+        } catch (draftErr: any) {
+            console.error("[SUBMIT] Failed to save Section 5 draft before final submission:", draftErr);
+            isSubmitting.value = false;
+            showAlert("Submission Failed", draftErr.message || "Failed to save documents draft. Please try again.", "error");
+            return;
+        }
+    }
 
     // ── PROXY: Call the Nuxt server-side proxy instead of Django directly.
     // This avoids CORS, PWA service-worker interception, and mixed-content issues.
@@ -2388,13 +2418,13 @@ const handleFinalSubmit = async (isSilent = false) => {
             // Clear the browser draft on successful submit — no longer needed
             try { localStorage.removeItem(DRAFT_KEY); } catch { /* ignore */ }
             draftStatus.value = 'idle';
-            if (!isSilent) {
+            if (isSilent !== true) {
                 showAlert("Success", "Profile updated successfully!", "success");
             }
             await fetchStudentDetail();
         } else {
             console.error("[SUBMIT] Backend returned failure:", response);
-            if (!isSilent) {
+            if (isSilent !== true) {
                 showAlert("Failed to update profile", response.message || "Unknown error from server.", "error");
             }
         }
@@ -2433,7 +2463,7 @@ const handleFinalSubmit = async (isSilent = false) => {
             });
         }
 
-        if (!isSilent) {
+        if (isSilent !== true) {
             showAlert(alertTitle, userFacingMsg, "error");
         }
     } finally {
