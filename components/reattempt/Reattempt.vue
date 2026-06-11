@@ -120,6 +120,35 @@ const discountedPrice = computed(() => {
     return Math.round(amount - discount);
 });
 
+const reportClientError = async (context: string, err: any, extra: Record<string, any> = {}) => {
+    try {
+        const diagnostics = {
+            context,
+            errorMessage: err?.message || String(err),
+            errorName: err?.name || 'UnknownError',
+            errorData: typeof err?.data === 'object' ? JSON.stringify(err.data) : err?.data || String(err),
+            errorStack: err?.stack || 'No stack',
+            userAgent: typeof navigator !== 'undefined' ? navigator.userAgent : 'SSR',
+            isOnline: typeof navigator !== 'undefined' ? navigator.onLine : true,
+            connectionType: (typeof navigator !== 'undefined' && (navigator as any).connection?.effectiveType) || 'unknown',
+            timestamp: new Date().toISOString(),
+            ...extra
+        };
+
+        const { getAccessToken } = useAuth();
+        const token = getAccessToken();
+        const headers: Record<string, string> = token ? { 'Authorization': `Bearer ${token}` } : {};
+
+        await $fetch('/api/log-client-error', {
+            method: 'POST',
+            headers,
+            body: diagnostics
+        });
+    } catch (e) {
+        console.error("[REPORT ERROR] Failed to send error log to server:", e);
+    }
+};
+
 const callReattempt = async () => {
     try {
         const { getAccessToken } = useAuth();
@@ -133,8 +162,10 @@ const callReattempt = async () => {
             body: { status: true }
         });
         console.log(res, '---res---')
+        await reportClientError("Reattempt - callReattempt success", null, { errorName: 'SUCCESS', errorData: res, userInfo: { email: props.formData?.email || 'Unknown' } });
     } catch (error) {
         console.error("[REATTEMPT] callReattempt error:", error);
+        await reportClientError("Reattempt - callReattempt", error, { userInfo: { email: props.formData?.email || 'Unknown' } });
     }
 };
 
@@ -183,6 +214,8 @@ const initiatePayment = async () => {
 
         if (!res.success) throw new Error(res.message || "Payment initiation failed");
 
+        await reportClientError("Reattempt - initiatePayment success", null, { errorName: 'SUCCESS', errorData: { gateway: res.gateway, orderId: res.order_id || res.cf_order_id }, userInfo: { email: props.formData?.email || 'Unknown' } });
+
         if (res.gateway === 'razorpay') {
             await handleRazorpayPayment(res);
         } else {
@@ -196,6 +229,7 @@ const initiatePayment = async () => {
         alert.title = "Payment Failed";
         alert.message = err.message || "Something went wrong. Please try again.";
         alert.type = "error";
+        await reportClientError("Reattempt - initiatePayment", err, { userInfo: { email: props.formData?.email || 'Unknown' } });
     } finally {
         isProcessing.value = false;
     }
@@ -228,6 +262,7 @@ const onPaymentFailure = async (payload: any) => {
         });
     } catch (e) {
         console.error("[REATTEMPT] Failure report error:", e);
+        await reportClientError("Reattempt - onPaymentFailure", e, { payload, userInfo: { email: props.formData?.email || 'Unknown' } });
     }
 
     stopVerifying();
@@ -272,6 +307,7 @@ const handleRazorpayPayment = async (res: any) => {
                 await callReattempt(); // ✅ Correct — called after successful verification
                 stopVerifying();
                 onPaymentSuccess();
+                await reportClientError("Reattempt - Razorpay payment verification success", null, { errorName: 'SUCCESS', errorData: { order_id: response.razorpay_order_id, payment_id: response.razorpay_payment_id }, userInfo: { email: props.formData?.email || 'Unknown' } });
             } catch (e: any) {
                 stopVerifying();
                 showModal.value = false;
@@ -279,6 +315,7 @@ const handleRazorpayPayment = async (res: any) => {
                 alert.title = "Verification Failed";
                 alert.message = "Payment verification failed. Please contact support.";
                 alert.type = "error";
+                await reportClientError("Reattempt - handleRazorpayPayment verification", e, { response, userInfo: { email: props.formData?.email || 'Unknown' } });
             }
         },
         prefill: {
@@ -348,6 +385,7 @@ const handleCashfreePayment = async (res: any) => {
                 await callReattempt();
                 stopVerifying();
                 onPaymentSuccess();
+                await reportClientError("Reattempt - Cashfree payment verification success", null, { errorName: 'SUCCESS', errorData: { cf_order_id: res.cf_order_id }, userInfo: { email: props.formData?.email || 'Unknown' } });
             } catch (e: any) {
                 stopVerifying();
                 showModal.value = false;
@@ -355,6 +393,7 @@ const handleCashfreePayment = async (res: any) => {
                 alert.title = "Verification Failed";
                 alert.message = "Payment verification failed. Please contact support.";
                 alert.type = "error";
+                await reportClientError("Reattempt - handleCashfreePayment verification", e, { result, userInfo: { email: props.formData?.email || 'Unknown' } });
             }
         }
     }).catch(async (err: any) => {
@@ -363,15 +402,17 @@ const handleCashfreePayment = async (res: any) => {
             error_description: err?.message || "Payment cancelled",
             re_attempt_status: true
         });
+        await reportClientError("Reattempt - handleCashfreePayment checkout catch", err, { cf_order_id: res.cf_order_id, userInfo: { email: props.formData?.email || 'Unknown' } });
     });
 };
 
-const onPaymentSuccess = () => {
+const onPaymentSuccess = async () => {
     showModal.value = false;
     alert.show = true;
     alert.title = "Success!";
     alert.message = "Payment successful. You can now reattempt the exam.";
     alert.type = "success";
+    await reportClientError("Reattempt - onPaymentSuccess triggered", null, { errorName: 'SUCCESS', userInfo: { email: props.formData?.email || 'Unknown' } });
 
     setTimeout(() => { window.location.reload(); }, 2000);
 };
