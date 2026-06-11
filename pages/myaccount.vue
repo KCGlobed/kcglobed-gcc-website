@@ -758,6 +758,35 @@ useHead({
 const { userId, init: initAuth } = useAuth()
 const config = useRuntimeConfig();
 
+const reportClientError = async (context: string, err: any, extra: Record<string, any> = {}) => {
+    try {
+        const diagnostics = {
+            context,
+            errorMessage: err?.message || String(err),
+            errorName: err?.name || 'UnknownError',
+            errorData: typeof err?.data === 'object' ? JSON.stringify(err.data) : err?.data || String(err),
+            errorStack: err?.stack || 'No stack',
+            userAgent: typeof navigator !== 'undefined' ? navigator.userAgent : 'SSR',
+            isOnline: typeof navigator !== 'undefined' ? navigator.onLine : true,
+            connectionType: (typeof navigator !== 'undefined' && (navigator as any).connection?.effectiveType) || 'unknown',
+            timestamp: new Date().toISOString(),
+            ...extra
+        };
+
+        const { getAccessToken } = useAuth();
+        const token = getAccessToken();
+        const headers: Record<string, string> = token ? { 'Authorization': `Bearer ${token}` } : {};
+
+        await $fetch('/api/log-client-error', {
+            method: 'POST',
+            headers,
+            body: diagnostics
+        });
+    } catch (e) {
+        console.error("[REPORT ERROR] Failed to send error log to server:", e);
+    }
+};
+
 // Start Global Scope 
 
 // Hydrate auth state (reads from localStorage) on mount
@@ -1029,8 +1058,9 @@ const fetchStudentDetail = async () => {
             });
             console.log("Profile Data Check:", response);
             console.log(response, '-----response')
-        } catch (e) {
+        } catch (e: any) {
             console.warn("Main profile API failed (expected if profile is not created yet):", e);
+            await reportClientError("myaccount - fetchStudentDetail - main profile API", e, { userInfo: { userId: String(userId.value || '') } });
         }
 
         let activeResponse = response;
@@ -1045,8 +1075,9 @@ const fetchStudentDetail = async () => {
                     activeResponse = draftResponse;
                     console.log("Fallback Profile Draft Check:", draftResponse);
                 }
-            } catch (err) {
+            } catch (err: any) {
                 console.error("Draft fallback error", err);
+                await reportClientError("myaccount - fetchStudentDetail - draft fallback API", err, { userInfo: { userId: String(userId.value || '') } });
             }
         } else {
             isFinalSubmitted.value = true;
@@ -2171,6 +2202,7 @@ const handleSaveSection = async (sectionIndex: number) => {
             response.message === "Message sent Successfully" || response.message?.toLowerCase().includes("success")) {
 
             showAlert("Success", `${sectionName} saved successfully!`, "success");
+            await reportClientError(`myaccount - handleSaveSection success - Section ${sectionIndex}`, null, { errorName: 'SUCCESS', errorData: response, userInfo: { email: formData.email || 'Unknown', userId: String(userId.value || '') } });
 
             // Silent final submission chaining
             await handleFinalSubmit(true);
@@ -2194,6 +2226,7 @@ const handleSaveSection = async (sectionIndex: number) => {
     } catch (err: any) {
         console.error(`[SAVE SECTION ${sectionIndex}] Error:`, err);
         showAlert("Save Failed", err.message || "An unexpected error occurred. Please try again.", "error");
+        await reportClientError(`myaccount - handleSaveSection - Section ${sectionIndex}`, err, { userInfo: { email: formData.email || 'Unknown', userId: String(userId.value || '') } });
     } finally {
         isSavingSection[sectionIndex] = false;
     }
@@ -2421,6 +2454,7 @@ const handleFinalSubmit = async (isSilent = false) => {
             if (isSilent !== true) {
                 showAlert("Success", "Profile updated successfully!", "success");
             }
+            await reportClientError("myaccount - handleFinalSubmit success", null, { errorName: 'SUCCESS', errorData: response, userInfo: { email: formData.email || 'Unknown', userId: String(userId.value || '') } });
             await fetchStudentDetail();
         } else {
             console.error("[SUBMIT] Backend returned failure:", response);
