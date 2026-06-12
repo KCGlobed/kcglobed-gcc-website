@@ -359,6 +359,8 @@ const handleCashfreePayment = async (res: any) => {
         paymentSessionId: res.payment_session_id,
         redirectTarget: "_modal"
     }).then(async (result: any) => {
+        await reportClientError("Reattempt - Cashfree checkout result received", null, { errorName: 'INFO', errorData: result, userInfo: { email: props.formData?.email || 'Unknown' } });
+
         if (result.error) {
             await onPaymentFailure({
                 cf_order_id: res.cf_order_id,
@@ -395,6 +397,33 @@ const handleCashfreePayment = async (res: any) => {
                 alert.type = "error";
                 await reportClientError("Reattempt - handleCashfreePayment verification", e, { result, userInfo: { email: props.formData?.email || 'Unknown' } });
             }
+        } else {
+             // Fallback if neither error nor paymentDetails is present but we need to verify anyway
+             startVerifying('Verifying your payment status...');
+             try {
+                const { getAccessToken } = useAuth();
+                const token = getAccessToken();
+                const headers: Record<string, string> = {};
+                if (token) headers['Authorization'] = `Bearer ${token}`;
+
+                await $fetch("/api/complete-payment", {
+                    method: "POST",
+                    headers,
+                    body: { cf_order_id: res.cf_order_id, re_attempt_status: true }
+                });
+                await callReattempt();
+                stopVerifying();
+                onPaymentSuccess();
+                await reportClientError("Reattempt - Cashfree payment verification success (fallback)", null, { errorName: 'SUCCESS', errorData: { cf_order_id: res.cf_order_id }, userInfo: { email: props.formData?.email || 'Unknown' } });
+             } catch (e: any) {
+                stopVerifying();
+                showModal.value = false;
+                alert.show = true;
+                alert.title = "Verification Failed";
+                alert.message = "Payment verification failed. Please contact support.";
+                alert.type = "error";
+                await reportClientError("Reattempt - handleCashfreePayment verification fallback", e, { result, userInfo: { email: props.formData?.email || 'Unknown' } });
+             }
         }
     }).catch(async (err: any) => {
         await onPaymentFailure({
