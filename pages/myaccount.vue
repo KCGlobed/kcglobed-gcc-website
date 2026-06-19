@@ -98,9 +98,9 @@
                                     </div>
                                 </div>
 
-                                <!-- Right: Status Badge -->
+                                <!-- Right: Status Badges & Action Buttons -->
                                 <div class="profile-status-section d-none d-md-flex flex-column align-items-end position-absolute"
-                                    style="right: 40px; top: 40px; gap: 10px;">
+                                    style="right: 40px; top: 20px; gap: 10px; z-index: 5;">
                                     <div class="status-pill"
                                         :class="profileCompletion === 100 ? 'status-complete' : 'status-incomplete'">
                                         {{ profileCompletion === 100 ? 'Profile Complete' : 'Profile Incomplete' }}
@@ -111,12 +111,7 @@
                                         <span v-if="isProcessingSecurityDeposit" class="spinner-border spinner-border-sm me-2"></span>
                                         Security Deposit
                                     </button>
-                                </div>
-
-                                <!-- Bottom Right: Download Report Button (Desktop) -->
-                                <div v-if="resultStatus" class="d-none d-md-block position-absolute"
-                                    style="right: 40px; bottom: 40px;">
-                                    <button class="status-pill report-download-btn d-flex align-items-center gap-2"
+                                    <button v-if="resultStatus" class="status-pill report-download-btn d-flex align-items-center gap-2"
                                         @click="downloadReport" :disabled="isDownloadingReport">
                                         <span v-if="isDownloadingReport"
                                             class="spinner-border spinner-border-sm"></span>
