@@ -8,7 +8,7 @@
                 </div>
                 <div class="exam-window">
                     <p>Examination Window</p>
-                    <h2>March 10 - May 31 2026</h2>
+                    <h2>March 10 - June 27 2026</h2>
                     <p class="daily-slot">Daily Slots Available</p>
 
                     <p class="discription">Select your preferred date and time and take the first decisive step toward
@@ -103,7 +103,6 @@
 }
 
 .exam-window button {
-
     border-radius: 9999px;
     background: #3D2C5E;
     box-shadow: 0 4px 16px 0 rgba(0, 0, 0, 0.10);
