@@ -50,9 +50,17 @@
                                             'Applicant') +
                                             ' ' +
                                             (formData.last_name || '') }}</h2>
-                                        <div class="status-pill d-md-none d-inline-block mt-1 mb-2"
-                                            :class="profileCompletion === 100 ? 'status-complete' : 'status-incomplete'">
-                                            {{ profileCompletion === 100 ? 'Profile Complete' : 'Profile Incomplete' }}
+                                        <div class="d-md-none d-flex flex-column align-items-center gap-2 mt-2 mb-2">
+                                            <div class="status-pill"
+                                                :class="profileCompletion === 100 ? 'status-complete' : 'status-incomplete'">
+                                                {{ profileCompletion === 100 ? 'Profile Complete' : 'Profile Incomplete' }}
+                                            </div>
+                                            <button class="status-pill report-download-btn d-flex align-items-center justify-content-center"
+                                                style="background-color: #872980; color: white; border: none; outline: none; cursor: pointer;" 
+                                                @click="initiateSecurityDeposit" :disabled="isProcessingSecurityDeposit">
+                                                <span v-if="isProcessingSecurityDeposit" class="spinner-border spinner-border-sm me-2"></span>
+                                                Security Deposit
+                                            </button>
                                         </div>
                                     </div>
 
@@ -91,12 +99,18 @@
                                 </div>
 
                                 <!-- Right: Status Badge -->
-                                <div class="profile-status-section d-none d-md-block position-absolute"
-                                    style="right: 40px; top: 40px;">
+                                <div class="profile-status-section d-none d-md-flex flex-column align-items-end position-absolute"
+                                    style="right: 40px; top: 40px; gap: 10px;">
                                     <div class="status-pill"
                                         :class="profileCompletion === 100 ? 'status-complete' : 'status-incomplete'">
                                         {{ profileCompletion === 100 ? 'Profile Complete' : 'Profile Incomplete' }}
                                     </div>
+                                    <button class="status-pill report-download-btn d-flex align-items-center justify-content-center"
+                                        style="background-color: #872980; color: white; border: none; outline: none; cursor: pointer;" 
+                                        @click="initiateSecurityDeposit" :disabled="isProcessingSecurityDeposit">
+                                        <span v-if="isProcessingSecurityDeposit" class="spinner-border spinner-border-sm me-2"></span>
+                                        Security Deposit
+                                    </button>
                                 </div>
 
                                 <!-- Bottom Right: Download Report Button (Desktop) -->
@@ -802,9 +816,90 @@ const reportUrl = ref<string | null>(null);
 const isFinalSubmitted = ref(false);
 const studentResult = ref("");
 
+// Security Deposit Payment
+const isProcessingSecurityDeposit = ref(false);
 
+const loadCashfreeScript = () => new Promise((resolve) => {
+    if ((window as any).Cashfree) { resolve(true); return; }
+    const script = document.createElement("script");
+    script.src = "https://sdk.cashfree.com/js/v3/cashfree.js";
+    script.onload = () => resolve(true);
+    script.onerror = () => resolve(false);
+    document.body.appendChild(script);
+});
 
-// ── Auto-Draft (browser-only, localStorage) ────────────────────────────────
+const initiateSecurityDeposit = async () => {
+    isProcessingSecurityDeposit.value = true;
+    try {
+        const { getAccessToken } = useAuth();
+        const token = getAccessToken();
+        const headers: Record<string, string> = {};
+        if (token) headers['Authorization'] = `Bearer ${token}`;
+
+        const res: any = await $fetch("/api/start-payment", {
+            method: "POST",
+            headers,
+            body: {
+                user_id: userId.value,
+                name: `${formData.first_name || ''} ${formData.last_name || ''}`.trim() || 'Applicant',
+                email: formData.email,
+                mobile: formData.mobile,
+                city: formData.city,
+                state: formData.state,
+                payment_type: 'security_deposit',
+                commingAmount: 10000,
+                form_type: 2,
+                form_id: formData.id
+            }
+        });
+
+        if (!res.success) throw new Error(res.message || "Payment initiation failed");
+
+        await handleCashfreeSecurityDeposit(res);
+
+    } catch (err: any) {
+        console.error("Payment Error:", err);
+        showAlert("Payment Failed", err.message || "Something went wrong. Please try again.", "error");
+    } finally {
+        isProcessingSecurityDeposit.value = false;
+    }
+};
+
+const handleCashfreeSecurityDeposit = async (res: any) => {
+    const loaded = await loadCashfreeScript();
+    if (!loaded || !(window as any).Cashfree) throw new Error("Cashfree SDK failed to load");
+
+    const cfMode = res.environment === 'PRODUCTION' ? 'production' : 'sandbox';
+    const cashfree = (window as any).Cashfree({ mode: cfMode });
+
+    await cashfree.checkout({
+        paymentSessionId: res.payment_session_id,
+        redirectTarget: "_modal"
+    }).then(async (result: any) => {
+        if (result.error) {
+            showAlert("Payment Failed", result.error.message, "error");
+            return;
+        }
+        
+        try {
+            const { getAccessToken } = useAuth();
+            const token = getAccessToken();
+            const headers: Record<string, string> = {};
+            if (token) headers['Authorization'] = `Bearer ${token}`;
+
+            await $fetch("/api/complete-payment", {
+                method: "POST",
+                headers,
+                body: { cf_order_id: res.cf_order_id, re_attempt_status: false }
+            });
+            showAlert("Success", "Security Deposit Payment successful.", "success");
+        } catch (e: any) {
+            showAlert("Verification Failed", "Payment verification failed. Please contact support.", "error");
+        }
+    }).catch(async (err: any) => {
+        showAlert("Payment Cancelled", err?.message || "Payment cancelled", "error");
+    });
+};// ── Auto-Draft (browser-only, localStorage) ────────────────────────────────
 type DraftStatus = 'idle' | 'saved' | 'error';
 const draftStatus = ref<DraftStatus>('idle');
 const draftLastSaved = ref<Date | null>(null);
