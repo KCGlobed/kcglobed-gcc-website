@@ -37,20 +37,24 @@ export default defineEventHandler(async (event) => {
 
             const order = await razorpay.orders.create(orderOptions);
 
-            // Forward to Django backend if reattempt
-            if (payment_type === 'reattempt') {
+            // Forward to Django backend if reattempt or security_deposit
+            if (payment_type === 'reattempt' || payment_type === 'security_deposit') {
                 try {
                     const apiBase = process.env.NUXT_PUBLIC_API_BASE;
                     const authHeader = getHeader(event, 'authorization');
                     const headers: Record<string, string> = { 'Content-Type': 'application/json' };
                     if (authHeader) headers['Authorization'] = authHeader;
 
-                    await $fetch(`${apiBase}/api/students/create_student_payment/`, {
+                    const endpoint = payment_type === 'security_deposit' 
+                        ? '/api/students/create_student_profile_payment/' 
+                        : '/api/students/create_student_payment/';
+
+                const response=    await $fetch(`${apiBase}${endpoint}`, {
                         method: 'POST',
                         headers,
                         body: {
                             re_attempt_status: true,
-                            student_id: user_id || null,
+                            student_id: form_id,
                             form_type: form_type || 1,
                             form_id: form_id || null,
                             razorpay_order_id: order.id,
@@ -67,7 +71,7 @@ export default defineEventHandler(async (event) => {
                             source: source || 1
                         }
                     });
-                    console.log(`[PAYMENT][start] Razorpay reattempt payment created successfully on external API.`);
+                    console.log(`[PAYMENT][start] Razorpay reattempt payment created successfully on external API.`,response);
                 } catch (apiError: any) {
                     console.error(`[PAYMENT][start] Razorpay reattempt API call failed:`, apiError?.message || apiError);
                 }
@@ -126,21 +130,42 @@ export default defineEventHandler(async (event) => {
 
             const response = await cashfree.PGCreateOrder(orderRequest);
             const orderData = response.data;
-
-            // Forward to Django backend if reattempt
-            if (payment_type === 'reattempt') {
+            console.log(body,'----body')
+            // Forward to Django backend if reattempt or security_deposit
+            if (payment_type === 'reattempt' || payment_type === 'security_deposit') {
                 try {
                     const apiBase = process.env.NUXT_PUBLIC_API_BASE;
                     const authHeader = getHeader(event, 'authorization');
                     const headers: Record<string, string> = { 'Content-Type': 'application/json' };
                     if (authHeader) headers['Authorization'] = authHeader;
-
-                    await $fetch(`${apiBase}/api/students/create_student_payment/`, {
+                    console.log({
+                            re_attempt_status: true,
+                            student_id: form_id,
+                            form_type: form_type || 1,
+                            form_id: form_id || null,
+                            razorpay_order_id: orderData.order_id,
+                            razorpay_payment_id: 'N/A',
+                            razorpay_signature: 'N/A',
+                            amount,
+                            currency,
+                            status: 'initiated',
+                            response: JSON.stringify({
+                                source: "cashfree_start",
+                                name, email, mobile, state, city,
+                                timestamp: new Date().toISOString()
+                            }),
+                            source: source || 1
+                        }
+                    ,'--body')
+                    const endpoint = payment_type === 'security_deposit' 
+                        ? '/api/students/create_student_profile_payment/' 
+                        : '/api/students/create_student_payment/';
+                const response=    await $fetch(`${apiBase}${endpoint}`, {
                         method: 'POST',
                         headers,
                         body: {
                             re_attempt_status: true,
-                            student_id: user_id || null,
+                            student_id: form_id,
                             form_type: form_type || 1,
                             form_id: form_id || null,
                             razorpay_order_id: orderData.order_id,
@@ -157,7 +182,7 @@ export default defineEventHandler(async (event) => {
                             source: source || 1
                         }
                     });
-                    console.log(`[PAYMENT][start] Cashfree reattempt payment created successfully on external API.`);
+                    console.log(`[PAYMENT][start] Cashfree reattempt payment created successfully on external API.`,response);
                 } catch (apiError: any) {
                     console.error(`[PAYMENT][start] Cashfree reattempt API call failed:`, apiError?.message || apiError);
                 }

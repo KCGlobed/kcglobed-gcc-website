@@ -153,7 +153,7 @@ export default defineEventHandler(async (event) => {
     try {
         const paymentPayload = {
             re_attempt_status: reAttemptStatus,
-            student_id: userId,
+            student_id:formId,
             form_type: formType || 1,
             form_id: formId,
             razorpay_order_id: orderIdForDb,
@@ -176,15 +176,19 @@ export default defineEventHandler(async (event) => {
         };
 
         let paymentDbId = null;
-        if (reAttemptStatus) {
-            // ── Call external API if reattempt ────────────────────────────────────
+        if (reAttemptStatus || body.payment_type === 'security_deposit') {
+            // ── Call external API if reattempt or security_deposit ────────────────────────────────────
             try {
                 const apiBase = process.env.NUXT_PUBLIC_API_BASE;
                 const authHeader = getHeader(event, 'authorization');
                 const headers: Record<string, string> = { 'Content-Type': 'application/json' };
                 if (authHeader) headers['Authorization'] = authHeader;
 
-                await $fetch(`${apiBase}/api/students/create_student_payment/`, {
+                const endpoint = body.payment_type === 'security_deposit' 
+                    ? '/api/students/create_student_profile_payment/' 
+                    : '/api/students/create_student_payment/';
+
+                await $fetch(`${apiBase}${endpoint}`, {
                     method: 'POST',
                     headers,
                     body: paymentPayload
