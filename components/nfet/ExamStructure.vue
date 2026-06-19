@@ -72,7 +72,7 @@
                         </div>
                         <div class="info-block">
                             <h4>Results Declaration</h4>
-                            <p>NFET exam results will be announced on 3rd week of May 2026.</p>
+                            <p>NFET exam results will be announced on last week of June 2026.</p>
                         </div>
                     </div>
                 </div>
