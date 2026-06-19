@@ -105,12 +105,12 @@
                                         :class="profileCompletion === 100 ? 'status-complete' : 'status-incomplete'">
                                         {{ profileCompletion === 100 ? 'Profile Complete' : 'Profile Incomplete' }}
                                     </div>
-                                    <button class="status-pill report-download-btn d-flex align-items-center justify-content-center"
+                                    <!-- <button class="status-pill report-download-btn d-flex align-items-center justify-content-center"
                                         style="background-color: #872980; color: white; border: none; outline: none; cursor: pointer;" 
                                         @click="initiateSecurityDeposit" :disabled="isProcessingSecurityDeposit">
                                         <span v-if="isProcessingSecurityDeposit" class="spinner-border spinner-border-sm me-2"></span>
                                         Security Deposit
-                                    </button>
+                                    </button> -->
                                 </div>
 
                                 <!-- Bottom Right: Download Report Button (Desktop) -->
