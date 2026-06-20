@@ -85,7 +85,7 @@
                             <div class="icon-wrapper">
                                 <i class="ti ti-file-certificate"></i>
                             </div>
-                            <h4>Get the Conditional Offer Letter</h4>
+                            <h4>Get the Pre-Placement Offer Letter</h4>
                         </div>
                     </div>
                     <div class="timeline-marker">

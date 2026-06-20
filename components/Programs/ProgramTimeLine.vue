@@ -114,7 +114,7 @@
                         <div class="step-text-content">
                             <!-- <span class="step-number shadow-text">06</span> -->
                             <span class="step-number main-number">06</span>
-                            <h3 class="step-title">Conditional Offer & Acceptance </h3>
+                            <h3 class="step-title">Pre-Placement Offer & Acceptance </h3>
                             <p class="step-subtext date-text">( May 15 to June 15, 2026 )</p>
                         </div>
                     </div>

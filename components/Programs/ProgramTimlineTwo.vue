@@ -48,7 +48,7 @@ const timeline = [
     {
         label: 'Result Communication',
         icon: icon3,
-        date: 'Second week of June, 2026',
+        date: 'Last week of June, 2026',
         color: 'linear-gradient(135deg, #7c3aed 0%, #9333ea 100%)',
     },
     // {
@@ -60,13 +60,13 @@ const timeline = [
     {
         label: 'Personal Interview Round',
         icon: icon5,
-        date: 'June 16 - June 25, 2026',
+        date: '1st - 3rd July, 2026',
         color: 'linear-gradient(135deg, #7c3aed 0%, #9333ea 100%)',
     },
     {
-        label: 'Conditional Offer Letter',
+        label: 'Pre-Placement Offer Letter',
         icon: icon6,
-        date: 'June 16 - June 25, 2026',
+        date: '1st - 3rd July, 2026',
         color: 'linear-gradient(135deg, #4c1d95 0%, #6d28d9 100%)',
     },
     {
@@ -78,7 +78,7 @@ const timeline = [
     {
         label: 'Cohort Start',
         icon: icon8,
-        date: 'July 01, 2026',
+        date: '6th July, 2026',
         color: 'linear-gradient(135deg, #a21caf 0%, #c026d3 100%)',
     },
 ]

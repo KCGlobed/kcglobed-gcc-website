@@ -177,7 +177,7 @@ export default defineComponent({
         keywords: ["main", "homepage", "landing", "मुख्य पृष्ठ", "home", "India’s 1st AI-powered school", "1st AI-powered school", " At GCC School, you don’t just prepare for the corporate world — you enter it.Every session,project, and mentor experience mirrors the way top global firms actually operate.",
           "Build a Global Career in 12 Months",
           "In just 12 months, you’ll transform from graduate to global professional — ready to perform from day one.",
-          "Conditional offer letter",
+          "Pre-Placement Offer Letter",
           "6-month paid internship along with program",
           "ACCA classroom learning powered by KC GlobEd",
           "British Council - English For Work",
