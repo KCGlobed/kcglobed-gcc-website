@@ -38,7 +38,7 @@ const images = [
     },
     {
         img: expert9,
-        link: "https://www.linkedin.com/in/bhawna-goswami-b878862b8/"
+        link: ""
     },
     {
         img: expert3,
