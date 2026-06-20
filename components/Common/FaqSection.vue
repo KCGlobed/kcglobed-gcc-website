@@ -69,7 +69,7 @@ const faqs = [
     {
         category: 0,
         question: 'What does “Get Hired First, Then Trained” mean?',
-        answer: 'It means candidates first go through NFET and the selection process, and selected candidates receive a conditional offer letter before the 12-month training journey begins.'
+        answer: 'It means candidates first go through NFET and the selection process, and selected candidates receive a Pre-Placement Offer Letter before the 12-month training journey begins.'
     },
     {
         category: 0,
@@ -224,8 +224,8 @@ const faqs = [
     },
     {
         category: 3,
-        question: 'What does “selected candidates receive a conditional offer letter” mean?',
-        answer: 'It means after clearing the selection stages, candidates receive a conditional offer letter starting at ₹10 LPA before the 12-month training begins.'
+        question: 'What does “selected candidates receive a Pre-Placement Offer Letter” mean?',
+        answer: 'It means after clearing the selection stages, candidates receive a Pre-Placement Offer Letter starting at ₹10 LPA before the 12-month training begins.'
     },
     {
         category: 3,
@@ -265,7 +265,7 @@ const faqs = [
     {
         category: 3,
         question: 'What salary can I expect after an ACCA-linked pathway?',
-        answer: 'At GCC School, selected candidates receive conditional offers starting at ₹10 LPA, though final compensation depends on performance and selection outcomes.'
+        answer: 'At GCC School, selected candidates receive Pre-Placement Offer starting at ₹10 LPA, though final compensation depends on performance and selection outcomes.'
     },
 
     // Campus & Support

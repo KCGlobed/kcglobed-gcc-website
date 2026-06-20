@@ -71,7 +71,7 @@ const steps = [
         icon: '<i class="ti ti-users-group"></i>'
     },
     {
-        title: 'Get the Conditional Offer Letter',
+        title: 'Get the Pre-Placement Offer Letter',
         icon: '<i class="ti ti-file-certificate"></i>'
     },
     {

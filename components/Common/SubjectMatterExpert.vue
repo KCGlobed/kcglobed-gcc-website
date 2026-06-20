@@ -22,21 +22,22 @@
 </template>
 
 <script setup lang="ts">
-import expert1 from '@/assets/img/expert/expert11.png'
-import expert2 from '@/assets/img/expert/expert12.png'
+import expert1 from '@/assets/img/expert/nitish.png'
+import expert2 from '@/assets/img/expert/ankur.png'
 import expert3 from '@/assets/img/expert/expert13.png'
 import expert4 from '@/assets/img/expert/expert4.png'
 import expert5 from '@/assets/img/expert/expert5.png'
 import expert6 from '@/assets/img/expert/expert6.png'
 import expert7 from '@/assets/img/expert/expert17.png'
 import expert8 from '@/assets/img/expert/expert8.png'
+import expert9 from '@/assets/img/expert/manpreet.png'
 const images = [
     {
         img: expert1,
         link: "https://www.linkedin.com/in/cpa-nitish-khatri-045117b9/"
     },
     {
-        img: expert2,
+        img: expert9,
         link: "https://www.linkedin.com/in/bhawna-goswami-b878862b8/"
     },
     {
@@ -63,6 +64,10 @@ const images = [
         img: expert8,
         link: "https://www.linkedin.com/in/ca-ram-s-a5b560154/"
     },
+    {
+        img: expert2,
+        link: ""
+    }
 ]
 </script>
 
