@@ -730,6 +730,14 @@
         <div v-else style="min-height: 100vh; background: #F3F4F6;" />
     </div>
 
+    <!-- Aria Chatbot — fixed overlay -->
+    <GccChatbot
+        :form-data="formData"
+        :user-id="String(userId || '')"
+        :auth-token="chatbotToken"
+        @patch="(key, val) => { (formData as any)[key] = val; }"
+    />
+
 </template>
 
 <!-- ✅ PROTECTED ROUTE — redirects to /login if no valid token found -->
@@ -744,6 +752,7 @@ import StudentKits from "../components/StudentKits/StudentKits.vue";
 import Reattempt from "../components/reattempt/Reattempt.vue";
 import heroBg from "@/assets/img/heros/hero_bg.svg";
 import FeeWaiverModal from "../components/university-fee-wavier/FeeWaiverModal.vue";
+import GccChatbot from "../components/GccChatbot/GccChatbot.vue";
 // import PrePaymentDeclaration from "../components/PrePaymentDeclaration/PrePaymentDeclaration.vue";
 import { staticSlots, allowedDates, blockedDates } from "../utils/constants";
 import { isValidMobile, isValidPincode } from "../utils/validators";
@@ -764,8 +773,11 @@ useHead({
 });
 
 // Read the authenticated user's ID from the auth composable (set at login)
-const { userId, init: initAuth } = useAuth()
+const { userId, init: initAuth, getAccessToken } = useAuth()
 const config = useRuntimeConfig();
+// Live auth token for chatbot server calls
+const chatbotToken = computed(() => getAccessToken() || '');
+
 const reportClientError = async (context: string, err: any, extra: Record<string, any> = {}) => {
     try {
         const diagnostics = {
