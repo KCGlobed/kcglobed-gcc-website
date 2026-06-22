@@ -25,10 +25,10 @@
       <div class="gcc-progress">
         <div class="gcc-progress__labels">
           <span>Profile completion</span>
-          <span class="gcc-progress__pct">{{ progressValue }}%</span>
+          <span class="gcc-progress__pct">{{ completionPercentage || 0 }}%</span>
         </div>
         <div class="gcc-progress__track">
-          <div class="gcc-progress__fill" :style="{ width: progressValue + '%' }"></div>
+          <div class="gcc-progress__fill" :style="{ width: (completionPercentage || 0) + '%' }"></div>
         </div>
       </div>
 
@@ -79,6 +79,7 @@
           </div>
 
           <!-- Done card -->
+          <!-- Done card -->
           <div v-else-if="msg.type === 'done'" class="gcc-done-card">
             <div class="gcc-done-card__icon">
               <svg viewBox="0 0 24 24">
@@ -86,11 +87,18 @@
               </svg>
             </div>
             <div class="gcc-done-card__title">Profile 100% complete! 🎉</div>
-            <div class="gcc-done-card__sub">Your GCC application is fully filled. You can now book your NFET slot or review &amp; submit.</div>
+            <div class="gcc-done-card__sub">Your GCC application is fully filled. You can now review &amp; submit or manage your NFET slot.</div>
             <div class="gcc-done-card__actions">
-              <button class="gcc-done-card__cta gcc-done-card__cta--slot" :disabled="isBookingSlot" @click="startSlotBooking">
-                📅 Book NFET Slot
+              <button 
+                v-if="(formData.slot_update_count || 0) < 2"
+                class="gcc-done-card__cta gcc-done-card__cta--slot" 
+                :disabled="isBookingSlot" 
+                @click="startSlotBooking"
+              >
+                📅 {{ formData.slot_date ? 'Update NFET Slot' : 'Book NFET Slot' }}
               </button>
+              <div v-else class="gcc-done-card__limit">Slot update limit reached.</div>
+              
               <button class="gcc-done-card__cta gcc-done-card__cta--review" @click="scrollToForm">
                 Review &amp; Submit →
               </button>
@@ -141,15 +149,16 @@ import { ref, computed, nextTick, watch, onMounted } from 'vue';
 import { staticSlots, allowedDates } from '~/utils/constants';
 import smallLogo from '@/assets/small_logo.svg';
 
-// ── Props ──────────────────────────────────────────────────────────────────
 const props = defineProps<{
   formData: Record<string, any>;
   userId: string | number;
   authToken?: string;
+  completionPercentage?: number;
 }>();
 
 const emit = defineEmits<{
   (e: 'patch', key: string, value: any): void;
+  (e: 'refresh'): void;
 }>();
 
 // ── UI State ───────────────────────────────────────────────────────────────
@@ -313,10 +322,80 @@ function UPLOAD(question: string, key: string, docType: string, btnLabel: string
   });
 }
 
+function DECLARATION_STEP(): (() => void)[] {
+  return [
+    DIVIDER('Final Step — Declaration'),
+    () => withTyping(700, () => {
+      addMsg('bot', 'Almost there! Please agree to the declaration to submit your profile.');
+      addMsg('choices', '', {
+        options: [{ label: 'I agree & Submit Profile', value: 'yes' }],
+        chosen: null,
+      });
+      choiceCallbacks.push(async (val: string) => {
+        emit('patch', 'declaration', true);
+        isSubmitting.value = true;
+        
+        push(
+          SAY('Submitting your profile...', 500),
+          () => {
+            (async () => {
+              try {
+                const config = useRuntimeConfig();
+                const apiBase = config.public.apiBase || '';
+                const authHeader = props.authToken ? `Bearer ${props.authToken}` : '';
+                
+                const fd = new FormData();
+                fd.append('user', String(props.userId));
+                fd.append('declaration', 'true');
+
+                const res = await fetch(`${apiBase}/api/students/create-update-student-profile/`, {
+                  method: 'POST',
+                  headers: authHeader ? { Authorization: authHeader } : {},
+                  body: fd
+                });
+
+                isSubmitting.value = false;
+                if (res.ok) {
+                  emit('refresh');
+                  push(
+                    SAY('All done! Your profile is 100% complete. 🎉', 600),
+                    () => { logEvent('chatbot_done'); next(); },
+                    DONE_STEP()()
+                  );
+                } else {
+                  push(
+                    SAY('Submission failed. Please check your form details and try again.', 500),
+                    ...DECLARATION_STEP()
+                  );
+                }
+              } catch (e) {
+                isSubmitting.value = false;
+                push(
+                  SAY('Submission failed due to a network error. Please try again.', 500),
+                  ...DECLARATION_STEP()
+                );
+              }
+              next();
+            })();
+          }
+        );
+        RESUME();
+      });
+      PAUSE();
+    })
+  ];
+}
+
 function DONE_STEP() {
   return () => {
     progressValue.value = 100;
     addMsg('done', '');
+    
+    // If they already have a slot, show it
+    if (isFilled(props.formData.slot_date) && isFilled(props.formData.slot_time)) {
+      addMsg('slot_confirmed', '', { date: props.formData.slot_date, time: props.formData.slot_time });
+    }
+
     disableInput();
     // Reset the queue runner so startSlotBooking() can push and process steps
     next();
@@ -398,20 +477,29 @@ async function handleFileUpload(msgIdx: number, msg: any, event: Event) {
   addMsg('user', `📎 ${file.name}`);
 
   const authHeader = props.authToken ? `Bearer ${props.authToken}` : '';
+  const config = useRuntimeConfig();
+  const apiBase = config.public.apiBase || '';
+  const apiUrl = `${apiBase}/api/students/create-update-student-profile-draft/`;
 
   try {
     await logEvent('doc_upload_start', undefined, msg.docType, { filename: file.name, size: file.size });
 
-    const fd = new FormData();
-    fd.append('student_id', String(props.userId));
-    fd.append('doc_type', msg.docType);
-    fd.append('file', file, file.name);
+    // Map docType to the correct API key expected by the draft endpoint (mirrors myaccount.vue)
+    const apiKey = msg.docType === 'dob_proof' ? 'dob_certificate' : msg.docType;
 
-    const res = await $fetch('/api/chatbot-upload-doc', {
+    const fd = new FormData();
+    fd.append('user', String(props.userId));
+    fd.append(apiKey, file, file.name);
+
+    const res = await fetch(apiUrl, {
       method: 'POST',
       headers: authHeader ? { Authorization: authHeader } : {},
       body: fd,
     });
+
+    if (!res.ok) {
+      throw new Error(`Upload failed with status ${res.status}`);
+    }
 
     messages.value[msgIdx].uploaded = true;
     emit('patch', msg.key, file);
@@ -435,7 +523,7 @@ async function handleFileUpload(msgIdx: number, msg: any, event: Event) {
 const VALIDATORS: Record<string, (v: string) => boolean> = {
   any: v => v.trim().length > 0,
   name: v => v.trim().length >= 2,
-  date: v => /^\d{2}-\d{2}-\d{4}$/.test(v.trim()),
+  date: v => /^(\d{2}[\-\/]\d{2}[\-\/]\d{4})$|^(\d{4}[\-\/]\d{2}[\-\/]\d{2})$/.test(v.trim()),
   phone: v => /^[6-9]\d{9}$/.test(v.replace(/\D/g, '')),
   email: v => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v.trim()),
   pin: v => /^\d{6}$/.test(v.trim()),
@@ -490,37 +578,109 @@ async function handleTextSubmit() {
   const fieldAF = awaitField;
   awaitField = null;
 
+  // Format date to YYYY-MM-DD for backend and native date input compatibility
+  let transformedVal = val;
+  if (validate === 'date') {
+    const parts = val.split(/[\/\-]/);
+    if (parts.length === 3) {
+      if (parts[2].length === 4) { // DD-MM-YYYY or DD/MM/YYYY
+        transformedVal = `${parts[2]}-${parts[1].padStart(2, '0')}-${parts[0].padStart(2, '0')}`;
+      } else if (parts[0].length === 4) { // YYYY-MM-DD
+        transformedVal = `${parts[0]}-${parts[1].padStart(2, '0')}-${parts[2].padStart(2, '0')}`;
+      }
+    }
+  }
+
   // Emit patch to parent
-  emit('patch', key, val);
+  emit('patch', key, transformedVal);
 
   // Call API field-by-field
   try {
-    await saveField(section, key, apiKey, val);
+    await saveField(section, key, apiKey, transformedVal);
   } catch (_) { /* already logged in saveField */ }
 
   withTyping(400, () => { RESUME(); });
 }
 
-// ── Server helpers ─────────────────────────────────────────────────────────
-async function saveField(section: string, key: string, apiKey: string, value: any, apiValue?: any) {
+// ── Draft field-key map (matches buildPayloadForSection in myaccount.vue exactly) ──
+const DRAFT_FIELD_MAP: Record<string, { apiKey: string; transform?: (v: any) => any }> = {
+  // Personal
+  first_name:       { apiKey: 'first_name' },
+  last_name:        { apiKey: 'last_name' },
+  email:            { apiKey: 'email' },
+  mobile:           { apiKey: 'phone' },
+  state:            { apiKey: 'state' },
+  city:             { apiKey: 'city' },
+  pin_code:         { apiKey: 'pincode' },
+  complete_address: { apiKey: 'address' },
+  dob:              { apiKey: 'date_of_birth' },
+  nationality:      { apiKey: 'nationality' },
+  gender:           { apiKey: 'gender', transform: (v: string) => ({ Male: 1, Female: 2, Other: 3 }[v] ?? '') },
+  // Guardian
+  father_name:      { apiKey: 'contact_name' },
+  father_mobile:    { apiKey: 'contact_phone' },
+  guardian_name:    { apiKey: 'guardian_name' },
+  guardian_phone:   { apiKey: 'guardian_phone' },
+  guardian_email:   { apiKey: 'guardian_email' },
+  guardian_dropdown:{ apiKey: 'guardian_dropdown', transform: (v: string) => ({ Mother: 1, Father: 2, Other: 3 }[v] ?? '') },
+  guardian_other_reason:{ apiKey: 'guardian_other_reason' },
+  // Academic
+  class10_year:     { apiKey: 'tenth_passing_year' },
+  class10_score:    { apiKey: 'tenth_passing_percentage' },
+  class10_type:     { apiKey: 'tenth_score_type' },
+  class10_medium:   { apiKey: 'tenth_medium', transform: (v: string) => ({ English: 1, Hindi: 2, Other: 3 }[v] ?? '') },
+  class12_year:     { apiKey: 'twelveth_passing_year' },
+  class12_score:    { apiKey: 'twelveth_passing_percentage' },
+  class12_type:     { apiKey: 'twelveth_score_type' },
+  class12_medium:   { apiKey: 'twelveth_medium', transform: (v: string) => ({ English: 1, Hindi: 2, Other: 3 }[v] ?? '') },
+  ug_cgpa:          { apiKey: 'pg_percentage' },
+  ug_institution:   { apiKey: 'institution' },
+  ug_type:          { apiKey: 'ug_score_type' },
+  ug_status:        { apiKey: 'pg_status', transform: (v: string) => ({ '1': 1, '2': 2 }[v] ?? '') },
+  ug_medium:        { apiKey: 'medium_instruction', transform: (v: string) => ({ English: 1, Hindi: 2, Other: 3 }[v] ?? '') },
+  pg_exists:        { apiKey: 'higher_education_status', transform: (v: string) => ({ Yes: 1, No: 2 }[v] ?? '') },
+  pg_type:          { apiKey: 'higher_qualification' },
+  pg_other:         { apiKey: 'pg_other' },
+  pg_institution:   { apiKey: 'higher_qualification_institution' },
+  // Work
+  employment_status:{ apiKey: 'employement_status', transform: (v: string) => ({ Fresher: 1, Experienced: 2 }[v] ?? '') },
+};
+
+async function saveField(section: string, key: string, _legacyApiKey: string, value: any, _legacyApiValue?: any) {
+  const mapping = DRAFT_FIELD_MAP[key];
+  if (!mapping) {
+    console.warn(`[CHATBOT][field_save] no mapping for field=${key}, skipping`);
+    return;
+  }
+
   const authHeader = props.authToken ? `Bearer ${props.authToken}` : '';
+  const cfg = useRuntimeConfig();
+  const apiBase = cfg.public.apiBase || '';
+  const resolvedValue = mapping.transform ? mapping.transform(value) : value;
+
+  const fd = new FormData();
+  fd.append('user', String(props.userId));
+  fd.append(mapping.apiKey, String(resolvedValue ?? ''));
+
+  console.log(`[CHATBOT][field_save] section=${section} field=${key} api_key=${mapping.apiKey} value="${resolvedValue}" student=${props.userId}`);
+
   try {
-    await $fetch('/api/chatbot-save-field', {
+    const res = await fetch(`${apiBase}/api/students/create-update-student-profile-draft/`, {
       method: 'POST',
       headers: authHeader ? { Authorization: authHeader } : {},
-      body: {
-        student_id: String(props.userId),
-        field: key,
-        value,
-        section,
-        api_key: apiKey,
-        api_value: apiValue !== undefined ? apiValue : value,
-      },
+      body: fd,
     });
+    if (!res.ok) {
+      const errText = await res.text().catch(() => '');
+      console.error(`[CHATBOT][field_save] FAILED field=${key} status=${res.status}: ${errText.substring(0, 200)}`);
+    } else {
+      console.log(`[CHATBOT][field_save] SUCCESS field=${key}`);
+    }
   } catch (err: any) {
-    console.error(`[CHATBOT] saveField failed field=${key}`, err?.message);
+    console.error(`[CHATBOT][field_save] ERROR field=${key}:`, err?.message);
   }
 }
+
 
 async function logEvent(event: string, section?: string, field?: string, extra?: Record<string, any>) {
   try {
@@ -655,7 +815,7 @@ function section1(): (() => void)[] {
     DIVIDER('Section 1 of 4 — Personal information'),
   ];
 
-  // last_name — skip if filled
+  // last_name
   if (isFilled(fd.last_name)) {
     steps.push(SKIP('last name', fd.last_name));
   } else {
@@ -663,6 +823,116 @@ function section1(): (() => void)[] {
       () => `Great! What is your last name, ${fd.first_name || ''}?`,
       'last_name', 'last_name', 'personal', 'name', 'e.g. Sharma'
     ));
+  }
+
+  // email
+  if (isFilled(fd.email)) {
+    steps.push(SKIP('email', fd.email));
+  } else {
+    steps.push(ASK('Your email address?', 'email', 'email', 'personal', 'email', 'e.g. name@email.com'));
+  }
+
+  // mobile
+  if (isFilled(fd.mobile)) {
+    steps.push(SKIP('mobile number', fd.mobile));
+  } else {
+    steps.push(ASK('Your mobile number?', 'mobile', 'phone', 'personal', 'phone', 'e.g. 9876543210'));
+  }
+
+  // father_name (Emergency Contact Name)
+  if (isFilled(fd.father_name)) {
+    steps.push(SKIP('emergency contact name', fd.father_name));
+  } else {
+    steps.push(ASK('Emergency contact name?', 'father_name', 'contact_name', 'personal', 'name', 'e.g. Anil Sharma'));
+  }
+
+  // father_mobile (Emergency Contact Number)
+  if (isFilled(fd.father_mobile)) {
+    steps.push(SKIP('emergency contact number', fd.father_mobile));
+  } else {
+    steps.push(ASK('Emergency contact number?', 'father_mobile', 'contact_phone', 'personal', 'phone', 'e.g. 9876543210'));
+  }
+
+  steps.push(
+    PROGRESS(25),
+    SAY('Personal details saved! You\'re 25% done. 🎉', 500),
+    () => { logEvent('section_complete', 'personal'); next(); },
+    ...section2()
+  );
+  return steps;
+}
+
+// ── Section 2: Guardian ────────────────────────────────────────────────────
+function section2(): (() => void)[] {
+  const fd = props.formData;
+  const steps: (() => void)[] = [
+    DIVIDER('Section 2 of 4 — Guardian / Contact'),
+  ];
+
+  // guardian_name
+  if (isFilled(fd.guardian_name)) {
+    steps.push(SKIP('guardian name', fd.guardian_name));
+  } else {
+    steps.push(ASK('Parent/Guardian\'s full name?', 'guardian_name', 'guardian_name', 'guardian', 'name', 'e.g. Sunita Sharma'));
+  }
+
+  // guardian_dropdown
+  if (isFilled(fd.guardian_dropdown)) {
+    steps.push(SKIP('relationship', fd.guardian_dropdown));
+    if (fd.guardian_dropdown === 'Other') {
+      if (isFilled(fd.guardian_other_reason)) {
+        steps.push(SKIP('specify relationship', fd.guardian_other_reason));
+      } else {
+        steps.push(ASK('Please specify relationship', 'guardian_other_reason', 'guardian_other_reason', 'guardian', 'text', 'e.g. Uncle'));
+      }
+    }
+    steps.push(...section1_part2());
+  } else {
+    steps.push(
+      () => withTyping(700, () => {
+        addMsg('bot', 'What is your relationship with them?');
+        addMsg('choices', '', {
+          options: [{ label: 'Mother', value: 'Mother' }, { label: 'Father', value: 'Father' }, { label: 'Other', value: 'Other' }],
+          chosen: null,
+        });
+        const relMap: Record<string, number> = { Mother: 1, Father: 2, Other: 3 };
+        choiceCallbacks.push(async (val: string) => {
+          emit('patch', 'guardian_dropdown', val);
+          await saveField('guardian', 'guardian_dropdown', 'guardian_dropdown', val, relMap[val] || '');
+          if (val === 'Other') {
+            push(
+              ASK('Please specify relationship', 'guardian_other_reason', 'guardian_other_reason', 'guardian', 'text', 'e.g. Uncle'),
+              ...section1_part2()
+            );
+          } else {
+            push(...section1_part2());
+          }
+          RESUME();
+        });
+        PAUSE();
+      })
+    );
+  }
+
+  return steps;
+}
+
+function section1_part2(): (() => void)[] {
+  const fd = props.formData;
+  const steps: (() => void)[] = [];
+
+  // guardian_phone
+  if (isFilled(fd.guardian_phone)) {
+    steps.push(SKIP('guardian\'s phone', fd.guardian_phone));
+  } else {
+    steps.push(ASK('Parent/Guardian\'s phone number?', 'guardian_phone', 'guardian_phone', 'guardian', 'phone', 'e.g. 9876543210'));
+  }
+
+  // guardian_email
+  if (isFilled(fd.guardian_email)) {
+    steps.push(SKIP('guardian\'s email', fd.guardian_email));
+  } else {
+    steps.push(ASK('Parent/Guardian\'s email address?', 'guardian_email', 'guardian_email', 'guardian', 'email', 'e.g. parent@email.com'));
   }
 
   // dob
@@ -694,31 +964,18 @@ function section1(): (() => void)[] {
     );
   }
 
-  // mobile
-  if (isFilled(fd.mobile)) {
-    steps.push(SKIP('mobile number', fd.mobile));
-  } else {
-    steps.push(ASK('Your mobile number?', 'mobile', 'phone', 'personal', 'phone', 'e.g. 9876543210'));
-  }
-
-  // email
-  if (isFilled(fd.email)) {
-    steps.push(SKIP('email', fd.email));
-  } else {
-    steps.push(ASK('Your email address?', 'email', 'email', 'personal', 'email', 'e.g. name@email.com'));
-  }
-
-  // city & state
-  if (isFilled(fd.city)) {
-    steps.push(SKIP('city', fd.city));
-  } else {
-    steps.push(ASK('Which city do you live in?', 'city', 'city', 'personal', 'text', 'e.g. Lucknow'));
-  }
-
+  // state
   if (isFilled(fd.state)) {
     steps.push(SKIP('state', fd.state));
   } else {
-    steps.push(ASK('Which state?', 'state', 'state', 'personal', 'text', 'e.g. Uttar Pradesh'));
+    steps.push(ASK('Which state do you live in?', 'state', 'state', 'personal', 'text', 'e.g. Uttar Pradesh'));
+  }
+
+  // city
+  if (isFilled(fd.city)) {
+    steps.push(SKIP('city', fd.city));
+  } else {
+    steps.push(ASK('Which city?', 'city', 'city', 'personal', 'text', 'e.g. Lucknow'));
   }
 
   // pin_code
@@ -736,87 +993,16 @@ function section1(): (() => void)[] {
   }
 
   steps.push(
-    PROGRESS(25),
-    SAY('Personal details saved! You\'re 25% done. 🎉', 500),
-    () => { logEvent('section_complete', 'personal'); next(); },
-    ...section2()
-  );
-  return steps;
-}
-
-// ── Section 2: Guardian ────────────────────────────────────────────────────
-function section2(): (() => void)[] {
-  const fd = props.formData;
-  const steps: (() => void)[] = [
-    DIVIDER('Section 2 of 4 — Guardian / Contact'),
-  ];
-
-  // father_name
-  if (isFilled(fd.father_name)) {
-    steps.push(SKIP('parent/guardian name', fd.father_name));
-  } else {
-    steps.push(ASK('Your parent or guardian\'s full name?', 'father_name', 'contact_name', 'guardian', 'name', 'e.g. Rajesh Sharma'));
-  }
-
-  // father_mobile
-  if (isFilled(fd.father_mobile)) {
-    steps.push(SKIP('parent\'s mobile', fd.father_mobile));
-  } else {
-    steps.push(ASK('Their mobile number?', 'father_mobile', 'contact_phone', 'guardian', 'phone', 'e.g. 9876543210'));
-  }
-
-  // guardian_dropdown
-  if (isFilled(fd.guardian_dropdown)) {
-    steps.push(SKIP('relationship', fd.guardian_dropdown));
-  } else {
-    steps.push(
-      () => withTyping(700, () => {
-        addMsg('bot', 'What is your relationship with them?');
-        addMsg('choices', '', {
-          options: [{ label: 'Mother', value: 'Mother' }, { label: 'Father', value: 'Father' }, { label: 'Other', value: 'Other' }],
-          chosen: null,
-        });
-        const relMap: Record<string, number> = { Mother: 1, Father: 2, Other: 3 };
-        choiceCallbacks.push(async (val: string) => {
-          emit('patch', 'guardian_dropdown', val);
-          await saveField('guardian', 'guardian_dropdown', 'guardian_dropdown', val, relMap[val] || '');
-          RESUME();
-        });
-        PAUSE();
-      })
-    );
-  }
-
-  // guardian_name
-  if (isFilled(fd.guardian_name)) {
-    steps.push(SKIP('guardian name', fd.guardian_name));
-  } else {
-    steps.push(ASK('Guardian\'s full name (if different)?', 'guardian_name', 'guardian_name', 'guardian', 'name', 'e.g. Sunita Sharma'));
-  }
-
-  // guardian_phone
-  if (isFilled(fd.guardian_phone)) {
-    steps.push(SKIP('guardian\'s phone', fd.guardian_phone));
-  } else {
-    steps.push(ASK('Guardian\'s phone number?', 'guardian_phone', 'guardian_phone', 'guardian', 'phone', 'e.g. 9876543210'));
-  }
-
-  // guardian_email
-  if (isFilled(fd.guardian_email)) {
-    steps.push(SKIP('guardian\'s email', fd.guardian_email));
-  } else {
-    steps.push(ASK('Guardian\'s email address?', 'guardian_email', 'guardian_email', 'guardian', 'email', 'e.g. parent@email.com'));
-  }
-
-  steps.push(
     PROGRESS(40),
-    SAY('Guardian details saved! You\'re 40% done. 🎉', 500),
-    () => { logEvent('section_complete', 'guardian'); next(); },
+    SAY('Personal details saved! You\'re 40% done. 🎉', 500),
+    () => { logEvent('section_complete', 'personal'); next(); },
     ...section3()
   );
   return steps;
 }
 
+// ── Section 2 is now merged into Section 1 ──
+// section2() logic has been moved up to section1_part2() to match exact flow.
 // ── Section 3: Academic ────────────────────────────────────────────────────
 function section3(): (() => void)[] {
   const fd = props.formData;
@@ -944,10 +1130,28 @@ function section3(): (() => void)[] {
     );
   }
 
+  if (!isFilled(fd.ug_type)) {
+    steps.push(
+      () => withTyping(700, () => {
+        addMsg('bot', 'Score type for your UG degree?');
+        addMsg('choices', '', {
+          options: [{ label: 'Percentage' }, { label: 'CGPA' }],
+          chosen: null,
+        });
+        choiceCallbacks.push(async (val: string) => {
+          emit('patch', 'ug_type', val);
+          await saveField('academic', 'ug_type', 'ug_score_type', val);
+          RESUME();
+        });
+        PAUSE();
+      })
+    );
+  }
+
   if (isFilled(fd.ug_cgpa)) {
     steps.push(SKIP('UG score', fd.ug_cgpa));
   } else {
-    steps.push(ASK('Your UG score? (% or CGPA)', 'ug_cgpa', 'pg_percentage', 'academic', 'score', 'e.g. 72 or 7.2'));
+    steps.push(ASK('Your UG score?', 'ug_cgpa', 'pg_percentage', 'academic', 'score', 'e.g. 72 or 7.2'));
   }
 
   if (isFilled(fd.ug_institution)) {
@@ -978,7 +1182,7 @@ function section3(): (() => void)[] {
   if (!isFilled(fd.pg_exists)) {
     steps.push(
       () => withTyping(700, () => {
-        addMsg('bot', 'Do you have any additional qualification beyond UG? (M.Com, MBA, CA etc.)');
+        addMsg('bot', 'Do you have any higher qualification? (M.Com, MBA, etc.)');
         addMsg('choices', '', {
           options: [{ label: 'Yes', value: 'Yes' }, { label: 'No', value: 'No' }],
           chosen: null,
@@ -988,11 +1192,7 @@ function section3(): (() => void)[] {
           emit('patch', 'pg_exists', val);
           await saveField('academic', 'pg_exists', 'higher_education_status', val, heMap[val] || '');
           if (val === 'Yes') {
-            push(
-              ASK('Please mention the qualification name.', 'pg_type', 'higher_qualification', 'academic', 'text', 'e.g. M.Com, MBA Finance'),
-              ASK('Institution name for that qualification?', 'pg_institution', 'higher_qualification_institution', 'academic', 'text', 'e.g. Amity University'),
-              ...academicDone()
-            );
+            push(...pgDetails());
           } else {
             push(...academicDone());
           }
@@ -1002,9 +1202,58 @@ function section3(): (() => void)[] {
       })
     );
   } else {
-    steps.push(...academicDone());
+    if (fd.pg_exists === 'Yes') {
+      steps.push(...pgDetails());
+    } else {
+      steps.push(...academicDone());
+    }
   }
 
+  return steps;
+}
+
+function pgDetails(): (() => void)[] {
+  const fd = props.formData;
+  const steps: (() => void)[] = [];
+
+  if (!isFilled(fd.pg_type)) {
+    steps.push(
+      () => withTyping(700, () => {
+        addMsg('bot', 'Select qualification');
+        addMsg('choices', '', {
+          options: [{ label: 'M.Com' }, { label: 'M.B.A' }, { label: 'Other' }],
+          chosen: null,
+        });
+        choiceCallbacks.push(async (val: string) => {
+          emit('patch', 'pg_type', val);
+          await saveField('academic', 'pg_type', 'higher_qualification', val);
+          if (val === 'Other') {
+            push(
+              ASK('Please specify', 'pg_other', 'pg_other', 'academic', 'text', 'e.g. CA'),
+              ASK('Institution name?', 'pg_institution', 'higher_qualification_institution', 'academic', 'text', 'e.g. Amity University'),
+              ...academicDone()
+            );
+          } else {
+            push(
+              ASK('Institution name?', 'pg_institution', 'higher_qualification_institution', 'academic', 'text', 'e.g. Amity University'),
+              ...academicDone()
+            );
+          }
+          RESUME();
+        });
+        PAUSE();
+      })
+    );
+  } else {
+    if (fd.pg_type === 'Other' && !isFilled(fd.pg_other)) {
+      steps.push(ASK('Please specify', 'pg_other', 'pg_other', 'academic', 'text', 'e.g. CA'));
+    }
+    if (!isFilled(fd.pg_institution)) {
+      steps.push(ASK('Institution name?', 'pg_institution', 'higher_qualification_institution', 'academic', 'text', 'e.g. Amity University'));
+    }
+    steps.push(...academicDone());
+  }
+  
   return steps;
 }
 
@@ -1020,28 +1269,46 @@ function academicDone(): (() => void)[] {
 // ── Section 4: Work ────────────────────────────────────────────────────────
 function section4(): (() => void)[] {
   const fd = props.formData;
-  return [
+  const steps: (() => void)[] = [
     DIVIDER('Section 4 of 4 — Work experience'),
-    () => withTyping(700, () => {
-      addMsg('bot', 'Are you a fresher or do you have work experience?');
-      addMsg('choices', '', {
-        options: [{ label: 'Fresher', value: '1' }, { label: 'I have work experience', value: '2' }],
-        chosen: null,
-      });
-      choiceCallbacks.push(async (val: string, label: string) => {
-        const empLabel = val === '1' ? 'Fresher' : 'Experienced';
-        emit('patch', 'employment_status', empLabel);
-        await saveField('work', 'employment_status', 'employement_status', empLabel, parseInt(val));
-        if (val === '2') {
-          push(...workDetails(), ...workDone());
-        } else {
-          push(...workDone());
-        }
-        RESUME();
-      });
-      PAUSE();
-    })
   ];
+
+  const exp = fd.work_experience?.[0] || {};
+  const hasExpData = isFilled(exp.org_name) || isFilled(exp.designation) || isFilled(exp.functional_area) || isFilled(exp.from);
+
+  // If they explicitly selected Experienced, or actually filled in experience data
+  if (fd.employment_status === 'Experienced' || hasExpData) {
+    steps.push(SKIP('employment status', 'Experienced'));
+    steps.push(...workDetails(), ...workDone());
+  } else if (fd.employment_status === 'Fresher') {
+    steps.push(SKIP('employment status', 'Fresher'));
+    steps.push(...workDone());
+  } else {
+    // If they are "Fresher" (which is the default) or unset, we ask them to explicitly confirm
+    steps.push(
+      () => withTyping(700, () => {
+        addMsg('bot', 'Are you a fresher or do you have work experience?');
+        addMsg('choices', '', {
+          options: [{ label: 'Fresher', value: '1' }, { label: 'I have work experience', value: '2' }],
+          chosen: null,
+        });
+        choiceCallbacks.push(async (val: string, label: string) => {
+          const empLabel = val === '1' ? 'Fresher' : 'Experienced';
+          emit('patch', 'employment_status', empLabel);
+          await saveField('work', 'employment_status', 'employement_status', empLabel, parseInt(val));
+          if (val === '2') {
+            push(...workDetails(), ...workDone());
+          } else {
+            push(...workDone());
+          }
+          RESUME();
+        });
+        PAUSE();
+      })
+    );
+  }
+
+  return steps;
 }
 
 function workDetails(): (() => void)[] {
@@ -1070,7 +1337,7 @@ function workDetails(): (() => void)[] {
   if (isFilled(exp.from)) {
     steps.push(SKIP('start date', exp.from));
   } else {
-    steps.push(ASK('When did you start? (DD-MM-YYYY or Month Year)', 'work_from', 'user_experience', 'work', 'any', 'e.g. January 2023'));
+    steps.push(ASK('When did you start? (DD-MM-YYYY)', 'work_from', 'user_experience', 'work', 'date', 'e.g. 15-01-2023'));
   }
 
   return steps;
@@ -1126,10 +1393,8 @@ function section5(): (() => void)[] {
 
   steps.push(
     PROGRESS(100),
-    SAY(`All done! Your profile is 100% complete. 🎉`, 600),
     () => { logEvent('section_complete', 'documents'); next(); },
-    () => { logEvent('chatbot_done'); next(); },
-    DONE_STEP()
+    ...DECLARATION_STEP()
   );
   return steps;
 }
@@ -1626,6 +1891,14 @@ onMounted(() => {
   flex-direction: column;
   gap: 8px;
   margin-top: 12px;
+}
+
+.gcc-done-card__limit {
+  font-size: 11.5px;
+  color: #3B6D11;
+  opacity: 0.8;
+  font-style: italic;
+  margin-bottom: 2px;
 }
 
 .gcc-done-card__cta {

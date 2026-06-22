@@ -735,7 +735,9 @@
         :form-data="formData"
         :user-id="String(userId || '')"
         :auth-token="chatbotToken"
+        :completion-percentage="Math.round(profileCompletion)"
         @patch="(key, val) => { (formData as any)[key] = val; }"
+        @refresh="fetchStudentDetail"
     />
 
 </template>
@@ -1364,6 +1366,11 @@ const fetchStudentDetail = async () => {
                 bookingDetails.time = d.slot_time;
                 bookingDetails.updateCount = d.slot_update_count || 0;
                 selectedDate.value = d.slot_date;
+                
+                // Add to formData for chatbot
+                formData.slot_date = d.slot_date;
+                formData.slot_time = d.slot_time;
+                formData.slot_update_count = d.slot_update_count || 0;
 
                 availableSlots.value = staticSlots.map((timeStr: string, index: number) => ({
                     id: index + 1,
@@ -1972,6 +1979,9 @@ const formData = reactive({
     guardian_email: "",
     guardian_dropdown: "",
     guardian_other_reason: "",
+    slot_date: "",
+    slot_time: "",
+    slot_update_count: 0,
     class10_year: "",
     class10_type: "Percentage",
     class10_score: "",
@@ -2640,9 +2650,6 @@ const handleFinalSubmit = async (isSilent = false) => {
         isSubmitting.value = false;
     }
 }
-
-
-
 
 const isDownloadingReport = ref(false);
 const downloadReport = async () => {
