@@ -8,9 +8,9 @@
 
             </div>
 
-            <div class="row g-4 ae-cards-grid">
+            <div class="row g-3 ae-cards-grid">
                 <!-- Card 1: ACCA -->
-                <div class="col-lg-4 col-md-6">
+                <div class="col-lg-3 col-md-6">
                     <div class="flip-card-wrapper">
                         <div class="flip-card">
                             <!-- Front Side: Logo -->
@@ -32,7 +32,7 @@
                 </div>
 
                 <!-- Card 2: British Council -->
-                <div class="col-lg-4 col-md-6">
+                <div class="col-lg-3 col-md-6">
                     <div class="flip-card-wrapper">
                         <div class="flip-card">
                             <div class="flip-card-front">
@@ -101,7 +101,7 @@
                 </div>
 
                 <!-- Card 3: PGCM -->
-                <div class="col-lg-4 col-md-6">
+                <div class="col-lg-3 col-md-6">
                     <div class="flip-card-wrapper">
                         <div class="flip-card">
                             <div class="flip-card-front">
@@ -132,7 +132,7 @@
                 </div>
 
                 <!-- Card 4: AI & Analytics -->
-                <div class="col-lg-4 col-md-6">
+                <div class="col-lg-3 col-md-6">
                     <div class="flip-card-wrapper">
                         <div class="flip-card">
                             <div class="flip-card-front">
@@ -180,13 +180,12 @@
                 </div>
 
                 <!-- Card 5: Practical Experience -->
-                <div class="col-lg-4 col-md-6">
+                <!-- <div class="col-lg-4 col-md-6">
                     <div class="flip-card-wrapper">
                         <div class="flip-card">
                             <div class="flip-card-front flip-card-front--purple">
                                 <img src="https://storage.googleapis.com/static_files_backend/media/images/Background%2BBorder.png"
                                     alt="Star Logo" class="flip-logo-img ">
-                                <!-- <p class="flip-hint flip-hint--white">Hover to explore</p> -->
                             </div>
                             <div class="flip-card-back flip-card-back--purple">
                                 <h3 class="card-title-back card-title-back--white">Practical Experience</h3>
@@ -200,17 +199,16 @@
                             </div>
                         </div>
                     </div>
-                </div>
+                </div> -->
 
                 <!-- Card 6: M.Sc. Professional Accountancy -->
-                <div class="col-lg-4 col-md-6">
+                <!-- <div class="col-lg-4 col-md-6">
                     <div class="flip-card-wrapper">
                         <div class="flip-card">
                             <div class="flip-card-front">
                                 <div class="optional-badge">Optional</div>
                                 <img src="https://storage.googleapis.com/gcc_prod_static_files_backend/static/images/University%20Logo.svg"
                                     alt="UoL" class="flip-logo-img rounded">
-                                <!-- <p class="flip-hint">Hover to explore</p> -->
                             </div>
                             <div class="flip-card-back">
                                 <div class="optional-badge optional-badge--back">Optional</div>
@@ -240,7 +238,7 @@
                             </div>
                         </div>
                     </div>
-                </div>
+                </div> -->
             </div>
         </div>
     </section>
