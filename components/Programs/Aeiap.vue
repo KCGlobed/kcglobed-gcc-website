@@ -2,8 +2,9 @@
     <section class="aeiap-area ptb-100 bg-F8F8F9">
         <div class="container">
             <div class="section-title text-center mb-50">
-                <h2 class="title">AI ENABLED INTERNATIONAL ACCOUNTING PROFESSIONAL PROGRAM
-                    <span class="highlight"> (AEIAP) WITH PAID INTERNSHIP</span>
+                <h2 class="title" style="font-size: 31px;">AI ENABLED INTERNATIONAL ACCOUNTING PROFESSIONAL PROGRAM
+                    (AEIAP)
+                    <!-- <span class="highlight"> </span> -->
                 </h2>
 
             </div>
@@ -36,8 +37,8 @@
                     <div class="flip-card-wrapper">
                         <div class="flip-card">
                             <div class="flip-card-front">
-                                <img src="https://www.gccschool.com/_nuxt/2.CtVezq0E.png"
-                                    alt="British Council" class="flip-logo-img">
+                                <img src="https://www.gccschool.com/_nuxt/2.CtVezq0E.png" alt="British Council"
+                                    class="flip-logo-img">
                                 <!-- <p class="flip-hint">Hover to explore</p> -->
                             </div>
                             <div class="flip-card-back">
