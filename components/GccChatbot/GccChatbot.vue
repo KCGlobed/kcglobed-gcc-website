@@ -3,10 +3,7 @@
     <!-- FAB Button -->
     <button v-if="!isOpen" class="gcc-fab" :class="{ 'gcc-fab--pulse': hasPendingFields }"
       aria-label="Open Aria — Profile Assistant" @click="openWidget">
-      <svg viewBox="0 0 24 24">
-        <path
-          d="M12 2a2 2 0 012 2c0 .74-.4 1.38-1 1.73V7h1a7 7 0 017 7H4a7 7 0 017-7h1V5.73A2 2 0 0112 2M9 9H7v2h2V9m6 0h-2v2h2V9M4 14h16v2a8 8 0 01-8 8 8 8 0 01-8-8v-2z" />
-      </svg>
+      <img :src="smallLogo" alt="Aria" class="gcc-fab__logo" />
       <span v-if="hasPendingFields" class="gcc-fab__badge">!</span>
     </button>
 
@@ -15,13 +12,10 @@
       <!-- Header -->
       <div class="gcc-ch">
         <div class="gcc-ch__ava">
-          <svg viewBox="0 0 24 24">
-            <path
-              d="M12 2a2 2 0 012 2c0 .74-.4 1.38-1 1.73V7h1a7 7 0 017 7H4a7 7 0 017-7h1V5.73A2 2 0 0112 2M9 9H7v2h2V9m6 0h-2v2h2V9M4 14h16v2a8 8 0 01-8 8 8 8 0 01-8-8v-2z" />
-          </svg>
+          <img :src="smallLogo" alt="Aria" class="gcc-ch__ava-img" />
         </div>
         <div class="gcc-ch__info">
-          <div class="gcc-ch__name">Aria — GCC School</div>
+          <div class="gcc-ch__name">GCC School</div>
           <div class="gcc-ch__status"><span class="gcc-ch__dot"></span>Profile assistant · Online</div>
         </div>
         <button class="gcc-ch__close" aria-label="Close" @click="closeWidget">&#x2715;</button>
@@ -50,19 +44,13 @@
 
           <!-- Bot message -->
           <div v-else-if="msg.type === 'bot'" class="gcc-mr">
-            <div class="gcc-mava"><svg viewBox="0 0 24 24">
-                <path
-                  d="M12 2a2 2 0 012 2c0 .74-.4 1.38-1 1.73V7h1a7 7 0 017 7H4a7 7 0 017-7h1V5.73A2 2 0 0112 2M9 9H7v2h2V9m6 0h-2v2h2V9M4 14h16v2a8 8 0 01-8 8 8 8 0 01-8-8v-2z" />
-              </svg></div>
+            <div class="gcc-mava"><img :src="smallLogo" alt="Aria" class="gcc-mava__img" /></div>
             <div class="gcc-bub gcc-bub--bot" v-html="msg.text"></div>
           </div>
 
           <!-- Error message -->
           <div v-else-if="msg.type === 'error'" class="gcc-mr">
-            <div class="gcc-mava gcc-mava--err"><svg viewBox="0 0 24 24">
-                <path
-                  d="M12 2a2 2 0 012 2c0 .74-.4 1.38-1 1.73V7h1a7 7 0 017 7H4a7 7 0 017-7h1V5.73A2 2 0 0112 2M9 9H7v2h2V9m6 0h-2v2h2V9M4 14h16v2a8 8 0 01-8 8 8 8 0 01-8-8v-2z" />
-              </svg></div>
+            <div class="gcc-mava gcc-mava--err"><img :src="smallLogo" alt="Aria" class="gcc-mava__img" /></div>
             <div class="gcc-bub gcc-bub--err">{{ msg.text }}</div>
           </div>
 
@@ -98,17 +86,34 @@
               </svg>
             </div>
             <div class="gcc-done-card__title">Profile 100% complete! 🎉</div>
-            <div class="gcc-done-card__sub">Your GCC application is fully filled. Review your details and submit.</div>
-            <button class="gcc-done-card__cta" @click="scrollToForm">Review & Submit →</button>
+            <div class="gcc-done-card__sub">Your GCC application is fully filled. You can now book your NFET slot or review &amp; submit.</div>
+            <div class="gcc-done-card__actions">
+              <button class="gcc-done-card__cta gcc-done-card__cta--slot" :disabled="isBookingSlot" @click="startSlotBooking">
+                📅 Book NFET Slot
+              </button>
+              <button class="gcc-done-card__cta gcc-done-card__cta--review" @click="scrollToForm">
+                Review &amp; Submit →
+              </button>
+            </div>
+          </div>
+
+          <!-- Slot confirmed card -->
+          <div v-else-if="msg.type === 'slot_confirmed'" class="gcc-slot-card">
+            <div class="gcc-slot-card__icon">
+              <svg viewBox="0 0 24 24">
+                <path d="M19 4h-1V2h-2v2H8V2H6v2H5c-1.11 0-2 .89-2 2v14a2 2 0 002 2h14a2 2 0 002-2V6a2 2 0 00-2-2zm0 16H5V10h14v10zm0-12H5V6h14v2zM7 12h5v5H7z" />
+              </svg>
+            </div>
+            <div class="gcc-slot-card__title">✅ Slot Confirmed!</div>
+            <div class="gcc-slot-card__row"><strong>Date:</strong> {{ formatDate(msg.date) }}</div>
+            <div class="gcc-slot-card__row"><strong>Time:</strong> {{ msg.time }}</div>
+            <button class="gcc-slot-card__cta" @click="scrollToForm">Go to Dashboard →</button>
           </div>
         </template>
 
         <!-- Typing indicator -->
         <div v-if="isTyping" class="gcc-mr">
-          <div class="gcc-mava"><svg viewBox="0 0 24 24">
-              <path
-                d="M12 2a2 2 0 012 2c0 .74-.4 1.38-1 1.73V7h1a7 7 0 017 7H4a7 7 0 017-7h1V5.73A2 2 0 0112 2M9 9H7v2h2V9m6 0h-2v2h2V9M4 14h16v2a8 8 0 01-8 8 8 8 0 01-8-8v-2z" />
-            </svg></div>
+          <div class="gcc-mava"><img :src="smallLogo" alt="Aria" class="gcc-mava__img" /></div>
           <div class="gcc-typing-bub">
             <div class="gcc-td"></div>
             <div class="gcc-td"></div>
@@ -133,6 +138,8 @@
 
 <script setup lang="ts">
 import { ref, computed, nextTick, watch, onMounted } from 'vue';
+import { staticSlots, allowedDates } from '~/utils/constants';
+import smallLogo from '@/assets/small_logo.svg';
 
 // ── Props ──────────────────────────────────────────────────────────────────
 const props = defineProps<{
@@ -158,6 +165,9 @@ const inputValue = ref('');
 const inputPlaceholder = ref('Type your reply...');
 const progressValue = ref(0);
 const isUploading = ref(false);
+const isBookingSlot = ref(false);
+const slotBooked = ref(false);
+
 
 // ── Step Queue ─────────────────────────────────────────────────────────────
 const Q: (() => void)[] = [];
@@ -308,7 +318,64 @@ function DONE_STEP() {
     progressValue.value = 100;
     addMsg('done', '');
     disableInput();
+    // Reset the queue runner so startSlotBooking() can push and process steps
+    next();
   };
+}
+
+
+// ── Slot booking helpers ──────────────────────────────────────────────────────
+function getUpcomingDates(count = 7): string[] {
+  const today = new Date();
+  today.setHours(0, 0, 0, 0);
+  const bufferMs = 48 * 60 * 60 * 1000;
+  return [...new Set(allowedDates)]
+    .filter(d => new Date(d).getTime() - today.getTime() >= bufferMs)
+    .sort()
+    .slice(0, count);
+}
+
+function formatDate(dateStr: string): string {
+  return new Date(dateStr).toLocaleDateString('en-IN', {
+    weekday: 'short', day: 'numeric', month: 'short', year: 'numeric'
+  });
+}
+
+async function chatbotBookSlot(date: string, time: string) {
+  isBookingSlot.value = true;
+  const authHeader = props.authToken ? `Bearer ${props.authToken}` : '';
+  const config = useRuntimeConfig();
+  const apiBase = config.public.apiBase || '';
+  try {
+    await logEvent('slot_booking_start', undefined, undefined, { date, time });
+    // Same API and payload as myaccount.vue bookSlot()
+    const response = await fetch(`${apiBase}/api/students/student-slot-upload/`, {
+      method: 'PATCH',
+      headers: {
+        'Content-Type': 'application/json',
+        ...(authHeader ? { Authorization: authHeader } : {}),
+      },
+      body: JSON.stringify({ slot_date: date, slot_time: time }),
+    });
+    if (response.ok) {
+      slotBooked.value = true;
+      await logEvent('slot_booking_success', undefined, undefined, { date, time });
+      withTyping(500, () => {
+        addMsg('bot', `🎉 Slot booked successfully!`);
+        addMsg('slot_confirmed', '', { date, time });
+      });
+    } else {
+      const err = await response.json().catch(() => ({}));
+      throw new Error(err.message || err.detail || 'Booking failed');
+    }
+  } catch (err: any) {
+    await logEvent('slot_booking_error', undefined, undefined, { error: err?.message, date, time });
+    withTyping(400, () => {
+      addMsg('error', `Slot booking failed: ${err?.message || 'Please try again.'}`);
+    });
+  } finally {
+    isBookingSlot.value = false;
+  }
 }
 
 // ── File upload trigger ────────────────────────────────────────────────────
@@ -483,6 +550,68 @@ function closeWidget() {
 function scrollToForm() {
   closeWidget();
   document.querySelector('[data-section="declaration"]')?.scrollIntoView({ behavior: 'smooth' });
+}
+
+// ── Start slot booking flow inside chatbot ───────────────────────────────────
+function startSlotBooking() {
+  const dates = getUpcomingDates(7);
+  if (dates.length === 0) {
+    push(SAY('No upcoming dates are available right now. Please book from your dashboard.', 500));
+    return;
+  }
+  push(
+    SAY('Great! Let\'s book your NFET slot. 📅', 500),
+    // Step 1: pick date
+    () => withTyping(700, () => {
+      addMsg('bot', 'Choose a date:');
+      addMsg('choices', '', {
+        options: dates.map(d => ({ label: formatDate(d), value: d })),
+        chosen: null,
+      });
+      choiceCallbacks.push((dateVal: string) => {
+        // Step 2: pick time slot
+        push(
+          () => withTyping(700, () => {
+            addMsg('bot', `Choose a time slot for <strong>${formatDate(dateVal)}</strong>:`);
+            addMsg('choices', '', {
+              options: staticSlots.map(t => ({ label: t, value: t })),
+              chosen: null,
+            });
+            choiceCallbacks.push((timeVal: string) => {
+              // Step 3: confirm
+              push(
+                () => withTyping(600, () => {
+                  addMsg('bot',
+                    `Confirm your slot:<br><strong>${formatDate(dateVal)}</strong> &nbsp;|&nbsp; <strong>${timeVal}</strong>`);
+                  addMsg('choices', '', {
+                    options: [
+                      { label: '✅ Yes, Book it!' },
+                      { label: '🔄 Choose different slot' },
+                    ],
+                    chosen: null,
+                  });
+                  choiceCallbacks.push((confirm: string) => {
+                    if (confirm === '✅ Yes, Book it!') {
+                      push(() => { chatbotBookSlot(dateVal, timeVal); next(); });
+                    } else {
+                      // restart slot booking
+                      push(() => { startSlotBooking(); next(); });
+                    }
+                    RESUME();
+                  });
+                  PAUSE();
+                })
+              );
+              RESUME();
+            });
+            PAUSE();
+          })
+        );
+        RESUME();
+      });
+      PAUSE();
+    })
+  );
 }
 
 // ── Pre-fill check helper ──────────────────────────────────────────────────
@@ -1046,10 +1175,11 @@ onMounted(() => {
   box-shadow: 0 6px 24px rgba(135, 41, 128, 0.65);
 }
 
-.gcc-fab svg {
-  width: 26px;
-  height: 26px;
-  fill: #fff;
+.gcc-fab__logo {
+  width: 30px;
+  height: 30px;
+  object-fit: contain;
+  border-radius: 4px;
 }
 
 .gcc-fab__badge {
@@ -1126,18 +1256,21 @@ onMounted(() => {
   width: 36px;
   height: 36px;
   border-radius: 50%;
-  background: #872980;
-  border: 2px solid rgba(255, 255, 255, 0.25);
+  background: #fff;
+  border: 2px solid rgba(255, 255, 255, 0.4);
   display: flex;
   align-items: center;
   justify-content: center;
   flex-shrink: 0;
+  overflow: hidden;
+  
 }
 
-.gcc-ch__ava svg {
-  width: 18px;
-  height: 18px;
-  fill: #fff;
+.gcc-ch__ava-img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  border-radius: 50%;
 }
 
 .gcc-ch__info {
@@ -1256,25 +1389,30 @@ onMounted(() => {
 }
 
 .gcc-mava {
-  width: 26px;
-  height: 26px;
+  width: 28px;
+  height: 28px;
   border-radius: 50%;
-  background: #872980;
+  background: #fff;
+  border: 1.5px solid rgba(135, 41, 128, 0.25);
   display: flex;
   align-items: center;
   justify-content: center;
   flex-shrink: 0;
   margin-bottom: 2px;
+  overflow: hidden;
+  padding: 2px;
 }
 
-.gcc-mava svg {
-  width: 13px;
-  height: 13px;
-  fill: #fff;
+.gcc-mava__img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  border-radius: 50%;
 }
 
 .gcc-mava--err {
-  background: #993C1D;
+  background: #fff;
+  border-color: rgba(153, 60, 29, 0.25);
 }
 
 .gcc-bub {
@@ -1480,13 +1618,98 @@ onMounted(() => {
   font-size: 12.5px;
   color: #3B6D11;
   line-height: 1.55;
+  margin-bottom: 4px;
+}
+
+.gcc-done-card__actions {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-top: 12px;
 }
 
 .gcc-done-card__cta {
   display: block;
-  margin-top: 12px;
   padding: 11px 20px;
-  background: #3B6D11;
+  border-radius: 20px;
+  font-size: 13px;
+  font-weight: 600;
+  border: none;
+  cursor: pointer;
+  font-family: inherit;
+  width: 100%;
+  transition: all 0.15s;
+}
+
+.gcc-done-card__cta--slot {
+  background: #872980;
+  color: #fff;
+}
+
+.gcc-done-card__cta--slot:hover {
+  background: #5e1f5a;
+}
+
+.gcc-done-card__cta--slot:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.gcc-done-card__cta--review {
+  background: transparent;
+  color: #3B6D11;
+  border: 1.5px solid #3B6D11;
+}
+
+.gcc-done-card__cta--review:hover {
+  background: #d8eec4;
+}
+
+/* ── Slot Confirmed Card ──────────────────────────────────────────────── */
+.gcc-slot-card {
+  background: #f0eafa;
+  border: 1px solid #c45fbc;
+  border-radius: 16px;
+  padding: 16px;
+  text-align: center;
+  margin: 4px 0;
+}
+
+.gcc-slot-card__icon {
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  background: #872980;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 10px;
+}
+
+.gcc-slot-card__icon svg {
+  width: 22px;
+  height: 22px;
+  fill: #fff;
+}
+
+.gcc-slot-card__title {
+  font-size: 14px;
+  font-weight: 700;
+  color: #5e1f5a;
+  margin-bottom: 10px;
+}
+
+.gcc-slot-card__row {
+  font-size: 13px;
+  color: #3d1440;
+  margin-bottom: 4px;
+}
+
+.gcc-slot-card__cta {
+  display: block;
+  margin-top: 12px;
+  padding: 10px 20px;
+  background: #872980;
   color: #fff;
   border-radius: 20px;
   font-size: 13px;
@@ -1498,9 +1721,11 @@ onMounted(() => {
   transition: background 0.15s;
 }
 
-.gcc-done-card__cta:hover {
-  background: #27500A;
+.gcc-slot-card__cta:hover {
+  background: #5e1f5a;
 }
+
+
 
 /* ── Input Bar ────────────────────────────────────────────────────────── */
 .gcc-ci {
