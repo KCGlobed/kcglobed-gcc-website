@@ -2,7 +2,8 @@
     <section class="aeiap-area ptb-100 bg-F8F8F9">
         <div class="container">
             <div class="section-title text-center mb-50">
-                <h2 class="title" style="font-size: 31px;">AI ENABLED INTERNATIONAL ACCOUNTING PROFESSIONAL PROGRAM (AEIAP)
+                <h2 class="title" style="font-size: 31px;">AI ENABLED INTERNATIONAL ACCOUNTING PROFESSIONAL PROGRAM
+                    (AEIAP)
                     <!-- <span class="highlight"> </span> -->
                 </h2>
 
