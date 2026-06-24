@@ -1276,11 +1276,11 @@ const fetchStudentDetail = async () => {
 
             // Mappings for Choices with robust helper functions supporting strings, numbers, and case-insensitivity
             const mapGender = (val: any): string => {
-                if (!val) return "";
+                if (val === undefined || val === null || val === "") return "";
                 const strVal = String(val).trim().toLowerCase();
-                if (strVal === "1" || strVal === "male") return "Male";
-                if (strVal === "2" || strVal === "female") return "Female";
-                if (strVal === "3" || strVal === "other") return "Other";
+                if (strVal === "0" || strVal === "male") return "Male";
+                if (strVal === "1" || strVal === "female") return "Female";
+                if (strVal === "2" || strVal === "other") return "Other";
                 return "";
             };
             formData.gender = mapGender(d.gender);
