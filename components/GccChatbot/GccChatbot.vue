@@ -159,6 +159,7 @@ const props = defineProps<{
 const emit = defineEmits<{
   (e: 'patch', key: string, value: any): void;
   (e: 'refresh'): void;
+  (e: 'bot-submit', callback: (success: boolean) => void): void;
 }>();
 
 // ── UI State ───────────────────────────────────────────────────────────────
@@ -326,57 +327,33 @@ function DECLARATION_STEP(): (() => void)[] {
   return [
     DIVIDER('Final Step — Declaration'),
     () => withTyping(700, () => {
-      addMsg('bot', 'Almost there! Please agree to the declaration to submit your profile.');
+      addMsg('bot', 'Almost there! Please agree to the following declaration to submit your profile:<br/><br/><i>"I declare that all the information and documents submitted by me are true to the best of my knowledge. I agree that in case any information or document found fake/forged/false submitted by me, then my candidature may cancel at any stage of course."</i>');
       addMsg('choices', '', {
         options: [{ label: 'I agree & Submit Profile', value: 'yes' }],
         chosen: null,
       });
       choiceCallbacks.push(async (val: string) => {
         emit('patch', 'declaration', true);
-        isSubmitting.value = true;
         
         push(
           SAY('Submitting your profile...', 500),
           () => {
-            (async () => {
-              try {
-                const config = useRuntimeConfig();
-                const apiBase = config.public.apiBase || '';
-                const authHeader = props.authToken ? `Bearer ${props.authToken}` : '';
-                
-                const fd = new FormData();
-                fd.append('user', String(props.userId));
-                fd.append('declaration', 'true');
-
-                const res = await fetch(`${apiBase}/api/students/create-update-student-profile/`, {
-                  method: 'POST',
-                  headers: authHeader ? { Authorization: authHeader } : {},
-                  body: fd
+                emit('bot-submit', (success: boolean) => {
+                  if (success) {
+                    emit('refresh');
+                    push(
+                      SAY('All done! Your profile is 100% complete. 🎉', 600),
+                      () => { logEvent('chatbot_done'); next(); },
+                      DONE_STEP()
+                    );
+                  } else {
+                    push(
+                      SAY('Submission failed. Please check your form details and try again.', 500),
+                      ...DECLARATION_STEP()
+                    );
+                  }
+                  next();
                 });
-
-                isSubmitting.value = false;
-                if (res.ok) {
-                  emit('refresh');
-                  push(
-                    SAY('All done! Your profile is 100% complete. 🎉', 600),
-                    () => { logEvent('chatbot_done'); next(); },
-                    DONE_STEP()()
-                  );
-                } else {
-                  push(
-                    SAY('Submission failed. Please check your form details and try again.', 500),
-                    ...DECLARATION_STEP()
-                  );
-                }
-              } catch (e) {
-                isSubmitting.value = false;
-                push(
-                  SAY('Submission failed due to a network error. Please try again.', 500),
-                  ...DECLARATION_STEP()
-                );
-              }
-              next();
-            })();
           }
         );
         RESUME();
@@ -615,7 +592,7 @@ const DRAFT_FIELD_MAP: Record<string, { apiKey: string; transform?: (v: any) => 
   complete_address: { apiKey: 'address' },
   dob:              { apiKey: 'date_of_birth' },
   nationality:      { apiKey: 'nationality' },
-  gender:           { apiKey: 'gender', transform: (v: string) => ({ Male: 1, Female: 2, Other: 3 }[v] ?? '') },
+  gender:           { apiKey: 'gender', transform: (v: string) => ({ Male: 0, Female: 1, Other: 2 }[v] ?? '') },
   // Guardian
   father_name:      { apiKey: 'contact_name' },
   father_mobile:    { apiKey: 'contact_phone' },
@@ -953,10 +930,10 @@ function section1_part2(): (() => void)[] {
           options: [{ label: 'Male', value: 'Male' }, { label: 'Female', value: 'Female' }, { label: 'Other', value: 'Other' }],
           chosen: null,
         });
-        const genderMap: Record<string, number> = { Male: 1, Female: 2, Other: 3 };
+        const genderMap: Record<string, number> = { Male: 0, Female: 1, Other: 2 };
         choiceCallbacks.push(async (val: string) => {
           emit('patch', 'gender', val);
-          await saveField('personal', 'gender', 'gender', val, genderMap[val] || '');
+          await saveField('personal', 'gender', 'gender', val, genderMap[val] !== undefined ? genderMap[val] : '');
           RESUME();
         });
         PAUSE();

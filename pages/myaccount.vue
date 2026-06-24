@@ -738,6 +738,7 @@
         :completion-percentage="Math.round(profileCompletion)"
         @patch="(key, val) => { (formData as any)[key] = val; }"
         @refresh="fetchStudentDetail"
+        @bot-submit="handleBotSubmit"
     />
 
 </template>
@@ -1266,35 +1267,68 @@ const fetchStudentDetail = async () => {
             formData.mock_test_status = d.mock_test_status ?? 0;
             formData.interview_detail = d.interview_detail || [];
 
-            // Mappings for Choices
-            const genderReverseMap: Record<number, string> = { 1: "Male", 2: "Female", 3: "Other" };
-            formData.gender = genderReverseMap[d.gender] || "";
+            // Mappings for Choices with robust helper functions supporting strings, numbers, and case-insensitivity
+            const mapGender = (val: any): string => {
+                if (!val) return "";
+                const strVal = String(val).trim().toLowerCase();
+                if (strVal === "1" || strVal === "male") return "Male";
+                if (strVal === "2" || strVal === "female") return "Female";
+                if (strVal === "3" || strVal === "other") return "Other";
+                return "";
+            };
+            formData.gender = mapGender(d.gender);
 
             formData.class10_year = d.tenth_passing_year || "";
             formData.class10_score = d.tenth_passing_percentage || "";
-            const mediumReverseMap: Record<number, string> = { 1: "English", 2: "Hindi", 3: "Other" };
+            
+            const mapMedium = (val: any): string => {
+                if (!val) return "English";
+                const strVal = String(val).trim().toLowerCase();
+                if (strVal === "1" || strVal === "english") return "English";
+                if (strVal === "2" || strVal === "hindi") return "Hindi";
+                if (strVal === "3" || strVal === "other") return "Other";
+                return "English";
+            };
             formData.class10_type = d.tenth_score_type || "Percentage";
-            formData.class10_medium = mediumReverseMap[d.tenth_medium] || "English";
+            formData.class10_medium = mapMedium(d.tenth_medium);
 
             formData.class12_year = d.twelveth_passing_year || "";
             formData.class12_score = d.twelveth_passing_percentage || "";
             formData.class12_type = d.twelveth_score_type || "Percentage";
-            formData.class12_medium = mediumReverseMap[d.twelveth_medium] || "English";
+            formData.class12_medium = mapMedium(d.twelveth_medium);
 
-            const pgStatusReverseMap: Record<number, string> = { 1: "1", 2: "2" };
-            formData.ug_status = pgStatusReverseMap[d.pg_status] || "1";
+            const mapUgStatus = (val: any): string => {
+                if (!val) return "1";
+                const strVal = String(val).trim().toLowerCase();
+                if (strVal === "1" || strVal === "completed" || strVal === "passed") return "1";
+                if (strVal === "2" || strVal === "pursuing") return "2";
+                return String(val);
+            };
+            formData.ug_status = mapUgStatus(d.pg_status);
             formData.ug_cgpa = d.pg_percentage || "";
             formData.ug_type = d.ug_score_type || "CGPA";
-            formData.ug_medium = mediumReverseMap[d.medium_instruction] || "English";
+            formData.ug_medium = mapMedium(d.medium_instruction);
             formData.ug_institution = d.institution || "";
 
-            const higherEdReverseMap: Record<number, string> = { 1: "Yes", 2: "No" };
-            formData.pg_exists = higherEdReverseMap[d.higher_education_status] || "No";
+            const mapHigherEd = (val: any): string => {
+                if (!val) return "No";
+                const strVal = String(val).trim().toLowerCase();
+                if (strVal === "1" || strVal === "yes") return "Yes";
+                if (strVal === "2" || strVal === "no") return "No";
+                return "No";
+            };
+            formData.pg_exists = mapHigherEd(d.higher_education_status);
             formData.pg_type = d.higher_qualification || "";
             formData.pg_institution = d.higher_qualification_institution || "";
 
-            const employementReverseMap: Record<string, string> = { "1": "Fresher", "2": "Experienced" };
-            formData.employment_status = employementReverseMap[String(d.employement_status)] || "Fresher";
+            const mapEmploymentStatus = (val: any): string => {
+                if (!val) return "Fresher";
+                const strVal = String(val).trim().toLowerCase();
+                if (strVal === "1" || strVal === "fresher") return "Fresher";
+                if (strVal === "2" || strVal === "experienced") return "Experienced";
+                return "Fresher";
+            };
+            formData.employment_status = mapEmploymentStatus(d.employement_status);
 
             // Work Experience
             let expData = d.user_experience || d.student_experience;
@@ -1323,8 +1357,16 @@ const fetchStudentDetail = async () => {
             formData.guardian_name = d.guardian_name || "";
             formData.guardian_phone = d.guardian_phone || "";
             formData.guardian_email = d.guardian_email || "";
-            const relationshipReverseMap: Record<number, string> = { 1: "Mother", 2: "Father", 3: "Other" };
-            formData.guardian_dropdown = relationshipReverseMap[d.guardian_dropdown] || "";
+            
+            const mapRelationship = (val: any): string => {
+                if (!val) return "";
+                const strVal = String(val).trim().toLowerCase();
+                if (strVal === "1" || strVal === "mother") return "Mother";
+                if (strVal === "2" || strVal === "father") return "Father";
+                if (strVal === "3" || strVal === "other") return "Other";
+                return "";
+            };
+            formData.guardian_dropdown = mapRelationship(d.guardian_dropdown);
             formData.guardian_other_reason = d.guardian_other_reason || "";
 
             formData.accounting_profession = d.accounting_profession ? String(d.accounting_profession) : "";
@@ -2171,6 +2213,7 @@ const isSavingSection = reactive<Record<number, boolean>>({
 });
 
 const buildPayloadForSection = (sectionIndex: number) => {
+    console.log(`[SUBMIT] buildPayloadForSection(${sectionIndex}) started...`);
     const data = new FormData();
     data.append('user', String(userId.value || ""));
 
@@ -2195,8 +2238,8 @@ const buildPayloadForSection = (sectionIndex: number) => {
         data.append('guardian_dropdown', relationshipMap[formData.guardian_dropdown] || "");
         data.append('guardian_other_reason', formData.guardian_dropdown === 'Other' && formData.guardian_other_reason ? formData.guardian_other_reason : "");
 
-        const genderMap: any = { "Male": 1, "Female": 2, "Other": 3 };
-        data.append('gender', genderMap[formData.gender] || "");
+        const genderMap: any = { "Male": 0, "Female": 1, "Other": 2 };
+        data.append('gender', formData.gender && genderMap[formData.gender] !== undefined ? String(genderMap[formData.gender]) : "");
     }
 
     if (sectionIndex >= 3) {
@@ -2378,7 +2421,19 @@ const handleSaveSection = async (sectionIndex: number) => {
     }
 };
 
-const handleFinalSubmit = async (isSilent = false) => {
+const handleBotSubmit = async (callback: (success: boolean) => void) => {
+    console.log("[BOT SUBMIT] handleBotSubmit triggered!");
+    formData.declaration = true;
+    try {
+        const success = await handleFinalSubmit(true, true);
+        callback(success);
+    } catch (e) {
+        console.error("[BOT SUBMIT] Error:", e);
+        callback(false);
+    }
+};
+
+const handleFinalSubmit = async (isSilent = false, isBot = false): Promise<boolean> => {
     // ── 1. Section Validation ───────────────────────────────────────────────
     const sections = [
         { ref: section1Ref, id: 1, name: "Pre Interview" },
@@ -2388,26 +2443,30 @@ const handleFinalSubmit = async (isSilent = false) => {
         { ref: section5Ref, id: 5, name: "Documents" }
     ];
 
-    for (const section of sections) {
-        if (section.ref.value?.validate && !section.ref.value.validate()) {
-            if (isSilent !== true) {
-                openSections.value.add(section.id);
-                section.ref.value?.scrollToFirstError?.();
-                showAlert("Incomplete Information", `Please fill all required fields in the '${section.name}' section.`, "warning");
+    if (!isBot) {
+        for (const section of sections) {
+            if (section.ref.value?.validate && !section.ref.value.validate()) {
+                console.warn(`[SUBMIT] Validation failed at section: ${section.name}`);
+                if (isSilent !== true) {
+                    openSections.value.add(section.id);
+                    section.ref.value?.scrollToFirstError?.();
+                    showAlert("Incomplete Information", `Please fill all required fields in the '${section.name}' section.`, "warning");
+                }
+                return false;
             }
-            return;
         }
     }
 
     if (!formData.declaration && isSilent !== true) {
         showAlert("Declaration Required", "Please check the declaration before submitting.", "warning");
-        return;
+        return false;
     }
 
     // ── 2. Pre-check connectivity ───────────────────────────────────────────
+    console.log("[SUBMIT] Passed validation checks. Checking connectivity...");
     if (typeof navigator !== 'undefined' && !navigator.onLine) {
         showAlert("No Internet Connection", "Your device appears to be offline. Please check your internet connection and try again.", "error");
-        return;
+        return false;
     }
 
     isSubmitting.value = true;
@@ -2421,15 +2480,20 @@ const handleFinalSubmit = async (isSilent = false) => {
         } catch (draftErr: any) {
             console.error("[SUBMIT] Failed to save Section 5 draft before final submission:", draftErr);
             isSubmitting.value = false;
-            showAlert("Submission Failed", draftErr.message || "Failed to save documents draft. Please try again.", "error");
-            return;
+            if (!isSilent) showAlert("Submission Failed", draftErr.message || "Failed to save documents draft. Please try again.", "error");
+            return false;
         }
+    } else {
+        console.log("[SUBMIT] Bypassing Section 5 draft save (isSilent=true)");
     }
 
     // ── PROXY: Call the Nuxt server-side proxy instead of Django directly.
     // This avoids CORS, PWA service-worker interception, and mixed-content issues.
     // The proxy forwards the request to Django server-to-server.
-    const apiUrl = `${config.public.apiBase}/api/students/create-update-student-profile/`;
+    let apiUrl = `${config.public.apiBase}/api/students/create-update-student-profile/`;
+    if (isBot) {
+        apiUrl = `${config.public.apiBase}/api/students/create-student-profile-bot/`;
+    }
     const diagnostics = {
         apiUrl,
         userAgent: typeof navigator !== 'undefined' ? navigator.userAgent : 'SSR',
@@ -2455,39 +2519,8 @@ const handleFinalSubmit = async (isSilent = false) => {
         }
     };
 
+    let totalFileSize = 0;
     try {
-        // ── 3. Build FormData payload ───────────────────────────────────────
-        const data = buildPayloadForSection(5);
-
-        // ── 4. Append documents & measure total size ────────────────────────
-        let totalFileSize = 0;
-        const appendDoc = (fieldKey: string, apiKey: string) => {
-            const file = (formData.documents as any)[fieldKey];
-            if (file instanceof File) {
-                totalFileSize += file.size;
-                // Just in case it wasn't added by buildPayloadForSection, append it here
-                if (!data.has(apiKey)) {
-                    data.append(apiKey, file);
-                }
-                console.log(`[SUBMIT] File '${apiKey}': ${file.name} (${(file.size / 1024).toFixed(1)} KB, type: ${file.type})`);
-            }
-        };
-
-        appendDoc('aadhaar', 'aadhaar');
-        appendDoc('dob_proof', 'dob_certificate');
-        appendDoc('photo', 'photo');
-        appendDoc('signature', 'signature');
-        appendDoc('resume', 'resume');
-
-
-        console.log(`[SUBMIT] Total upload payload: ${(totalFileSize / 1024 / 1024).toFixed(2)} MB`);
-
-        // Log the final payload keys to verify everything is attached
-        console.log("[SUBMIT] Payload keys being sent:");
-        for (let [key, value] of data.entries()) {
-            console.log(`  -> ${key}:`, value instanceof File ? `File (${value.name})` : value);
-        }
-
         // ── 5. Auth token check ─────────────────────────────────────────────
         const { getAccessToken } = useAuth();
         const token = getAccessToken();
@@ -2495,6 +2528,49 @@ const handleFinalSubmit = async (isSilent = false) => {
             console.warn("[SUBMIT] ⚠️ No auth token found! Request will be unauthenticated → likely 401.");
         } else {
             console.log("[SUBMIT] Auth token present:", token.substring(0, 20) + "...");
+        }
+
+        let bodyPayload: any;
+        let requestHeaders: Record<string, string> = token ? { 'Authorization': `Bearer ${token}` } : {};
+
+        if (isBot) {
+            console.log("[SUBMIT] Chatbot submit mode - sending ONLY token in body payload");
+            requestHeaders['Content-Type'] = 'application/json';
+            bodyPayload = JSON.stringify({ token: token });
+        } else {
+            // ── 3. Build FormData payload ───────────────────────────────────────
+            const data = buildPayloadForSection(5);
+            if (formData.declaration) {
+                data.append('declaration', 'true');
+            }
+
+            // ── 4. Append documents & measure total size ────────────────────────
+            const appendDoc = (fieldKey: string, apiKey: string) => {
+                const file = (formData.documents as any)[fieldKey];
+                if (file instanceof File) {
+                    totalFileSize += file.size;
+                    // Just in case it wasn't added by buildPayloadForSection, append it here
+                    if (!data.has(apiKey)) {
+                        data.append(apiKey, file);
+                    }
+                    console.log(`[SUBMIT] File '${apiKey}': ${file.name} (${(file.size / 1024).toFixed(1)} KB, type: ${file.type})`);
+                }
+            };
+
+            appendDoc('aadhaar', 'aadhaar');
+            appendDoc('dob_proof', 'dob_certificate');
+            appendDoc('photo', 'photo');
+            appendDoc('signature', 'signature');
+            appendDoc('resume', 'resume');
+
+            console.log(`[SUBMIT] Total upload payload: ${(totalFileSize / 1024 / 1024).toFixed(2)} MB`);
+
+            // Log the final payload keys to verify everything is attached
+            console.log("[SUBMIT] Payload keys being sent:");
+            for (let [key, value] of data.entries()) {
+                console.log(`  -> ${key}:`, value instanceof File ? `File (${value.name})` : value);
+            }
+            bodyPayload = data;
         }
 
         // ── 6. Send the request ─────────────────────────────────────────────
@@ -2512,9 +2588,8 @@ const handleFinalSubmit = async (isSilent = false) => {
         try {
             rawResponse = await fetch(apiUrl, {
                 method: "POST",
-                body: data,
-                // Send auth token to the proxy; the proxy forwards it to Django
-                headers: token ? { 'Authorization': `Bearer ${token}` } : {},
+                body: bodyPayload,
+                headers: requestHeaders,
                 signal: controller.signal
             });
             clearTimeout(timeoutId);
@@ -2545,42 +2620,36 @@ const handleFinalSubmit = async (isSilent = false) => {
             });
 
             if (isAbort) {
-                throw new Error(`TIMEOUT: Submission timed out after ${TIMEOUT_MS / 1000} seconds. Your upload was ${(totalFileSize / 1024 / 1024).toFixed(1)} MB. Try with a faster connection or smaller files.`);
+                if (isSilent !== true) showAlert("Timeout", `Submission timed out after ${TIMEOUT_MS / 1000} seconds. Your upload was ${(totalFileSize / 1024 / 1024).toFixed(1)} MB. Try with a faster connection or smaller files.`, "error");
+                return false;
             }
             if (isNetwork) {
-                const swInstalled = typeof navigator !== 'undefined' && 'serviceWorker' in navigator;
-                throw new Error(`NETWORK_ERROR: Could not reach the server. Please check your internet connection and try again.`);
+                if (isSilent !== true) showAlert("Network Error", "Failed to connect to the server. Please check your internet connection and try again.", "error");
+                return false;
             }
             if (isCors) {
-                throw new Error(`CORS_ERROR: A browser security policy is blocking this request. Please clear your browser cache and cookies, then reload the page.`);
+                if (isSilent !== true) showAlert("Connection Error", "A cross-origin request error occurred. Please contact support if this persists.", "error");
+                return false;
             }
             throw fetchErr;
         }
 
         // ── 7. Handle non-2xx HTTP responses ───────────────────────────────
         if (!rawResponse.ok) {
-            const httpStatus = rawResponse.status;
-            const errorText = await rawResponse.text().catch(() => '');
-            console.error(`[SUBMIT] Non-OK HTTP ${httpStatus}:`, errorText.substring(0, 300));
+            let errorMsg = "Something went wrong. Please try again.";
+            try {
+                const errData = await rawResponse.json();
+                errorMsg = errData.message || errData.error || errorMsg;
+            } catch (_) { }
 
             await sendErrorLog({
                 context: 'handleFinalSubmit - non-ok HTTP response',
-                errorMessage: `HTTP ${httpStatus}`, errorName: 'HttpError',
-                errorData: errorText.substring(0, 500), errorStack: 'N/A',
-                isNetworkError: false, isCorsError: false, isTimeout: false,
-                httpStatus, totalFileSizeMB: (totalFileSize / 1024 / 1024).toFixed(2)
+                httpStatus: rawResponse.status,
+                errorMessage: errorMsg
             });
 
-            if (httpStatus === 401 || httpStatus === 403) {
-                throw new Error(`AUTH_ERROR: Your session has expired. Please log out, log in again, and retry.`);
-            }
-            if (httpStatus === 413) {
-                throw new Error(`FILE_TOO_LARGE: Your uploaded files are too large (${(totalFileSize / 1024 / 1024).toFixed(1)} MB total). Please reduce file sizes and try again.`);
-            }
-            if (httpStatus >= 500) {
-                throw new Error(`SERVER_ERROR: The server encountered an error (${httpStatus}). Please try again in a few minutes.`);
-            }
-            throw new Error(`Server returned ${httpStatus}: ${errorText.substring(0, 200) || 'Unknown error'}`);
+            if (isSilent !== true) showAlert("Submission Failed", errorMsg, "error");
+            return false;
         }
 
         // ── 8. Parse JSON ───────────────────────────────────────────────────
@@ -2602,6 +2671,7 @@ const handleFinalSubmit = async (isSilent = false) => {
             }
             await reportClientError("myaccount - handleFinalSubmit success", null, { errorName: 'SUCCESS', errorData: response, userInfo: { email: formData.email || 'Unknown', userId: String(userId.value || '') } });
             await fetchStudentDetail();
+            return true;
         } else {
             console.error("[SUBMIT] Backend returned failure:", response);
             if (isSilent !== true) {
@@ -2646,9 +2716,13 @@ const handleFinalSubmit = async (isSilent = false) => {
         if (isSilent !== true) {
             showAlert(alertTitle, userFacingMsg, "error");
         }
+        return false;
     } finally {
         isSubmitting.value = false;
     }
+    
+    // Fallback return if it didn't return early
+    return false;
 }
 
 const isDownloadingReport = ref(false);
