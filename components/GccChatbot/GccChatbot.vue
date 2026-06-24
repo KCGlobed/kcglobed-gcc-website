@@ -419,6 +419,7 @@ async function chatbotBookSlot(date: string, time: string) {
       withTyping(500, () => {
         addMsg('bot', `🎉 Slot booked successfully!`);
         addMsg('slot_confirmed', '', { date, time });
+        emit('refresh');
       });
     } else {
       const err = await response.json().catch(() => ({}));
@@ -505,7 +506,7 @@ const VALIDATORS: Record<string, (v: string) => boolean> = {
   email: v => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v.trim()),
   pin: v => /^\d{6}$/.test(v.trim()),
   year: v => /^\d{4}$/.test(v.trim()) && +v >= 1990 && +v <= 2026,
-  score: v => { const n = parseFloat(v); return !isNaN(n) && n > 0 && n <= 100; },
+  score: v => { const n = parseFloat(v); return !isNaN(n) && n >= 0 && n <= 100; },
   text: v => v.trim().length >= 2,
 };
 
@@ -526,7 +527,33 @@ async function handleTextSubmit() {
   if (!val) return;
 
   const { key, apiKey, section, validate } = awaitField;
-  const ok = (VALIDATORS[validate] || VALIDATORS.any)(val);
+  let ok = (VALIDATORS[validate] || VALIDATORS.any)(val);
+  let customErr = '';
+
+  if (ok && key === 'class12_year') {
+    const year10 = parseInt(props.formData.class10_year);
+    const year12 = parseInt(val);
+    if (year10 && year12 - year10 < 2) {
+      ok = false;
+      customErr = 'Minimum 2-year gap required between 10th and 12th.';
+    } else if (year10 && year12 <= year10) {
+      ok = false;
+      customErr = 'Class 12 must be after Class 10.';
+    }
+  }
+
+  if (ok && (key === 'class10_score' || key === 'class12_score' || key === 'ug_cgpa')) {
+     const scoreTypeKey = key === 'ug_cgpa' ? 'ug_type' : key.replace('_score', '_type');
+     const typeVal = props.formData[scoreTypeKey as keyof typeof props.formData];
+     const n = parseFloat(val);
+     if (typeVal === 'CGPA' && n > 10) {
+        ok = false;
+        customErr = 'CGPA cannot exceed 10.00.';
+     } else if (typeVal === 'Percentage' && n > 100) {
+        ok = false;
+        customErr = 'Percentage cannot exceed 100.';
+     }
+  }
 
   addMsg('user', val);
   inputValue.value = '';
@@ -544,7 +571,7 @@ async function handleTextSubmit() {
       });
     } else {
       withTyping(500, () => {
-        addMsg('error', VERR[validate] || 'Could you check that and try again?');
+        addMsg('error', customErr || VERR[validate] || 'Could you check that and try again?');
         enableInput(inputPlaceholder.value);
       });
     }
@@ -1092,7 +1119,7 @@ function section3(): (() => void)[] {
   if (!isFilled(fd.ug_status)) {
     steps.push(
       () => withTyping(700, () => {
-        addMsg('bot', 'Your undergraduate degree — completed or still pursuing?');
+        addMsg('bot', 'Your undergraduate degree (B.Com/Hons) — completed or still pursuing?');
         addMsg('choices', '', {
           options: [{ label: 'Completed', value: '1' }, { label: 'Still Pursuing', value: '2' }],
           chosen: null,
