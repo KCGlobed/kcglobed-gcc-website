@@ -293,11 +293,11 @@ export default {
           if (!this.guardianKeyStatus) {
             if (!this.formData.guardian_name) {
               error = "Parent/Guardian Name is required";
-            } else if (!/^[A-Za-z ]+$/.test(this.formData.guardian_name)) {
-              error = "Only alphabets and spaces are allowed.";
+            } else if (!/^[A-Za-z .\(\)]+$/.test(this.formData.guardian_name)) {
+              error = "Only alphabets, spaces, dots, and parentheses are allowed.";
             }
-          } else if (this.formData.guardian_name && !/^[A-Za-z ]+$/.test(this.formData.guardian_name)) {
-            error = "Only alphabets and spaces are allowed.";
+          } else if (this.formData.guardian_name && !/^[A-Za-z .\(\)]+$/.test(this.formData.guardian_name)) {
+            error = "Only alphabets, spaces, dots, and parentheses are allowed.";
           }
           break;
         case 'guardian_phone':
