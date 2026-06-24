@@ -53,12 +53,16 @@
                                         <div class="d-md-none d-flex flex-column align-items-center gap-2 mt-2 mb-2">
                                             <div class="status-pill"
                                                 :class="profileCompletion === 100 ? 'status-complete' : 'status-incomplete'">
-                                                {{ profileCompletion === 100 ? 'Profile Complete' : 'Profile Incomplete' }}
+                                                {{ profileCompletion === 100 ? 'Profile Complete' : 'Profile Incomplete'
+                                                }}
                                             </div>
-                                            <button v-if="formData?.interview_detail?.[0]?.package_status === true" class="status-pill report-download-btn d-flex align-items-center justify-content-center"
-                                                style="background-color: #872980; color: white; border: none; outline: none; cursor: pointer;" 
-                                                @click="initiateSecurityDeposit" :disabled="isProcessingSecurityDeposit">
-                                                <span v-if="isProcessingSecurityDeposit" class="spinner-border spinner-border-sm me-2"></span>
+                                            <button v-if="formData?.interview_detail?.[0]?.package_status === true"
+                                                class="status-pill report-download-btn d-flex align-items-center justify-content-center"
+                                                style="background-color: #872980; color: white; border: none; outline: none; cursor: pointer;"
+                                                @click="initiateSecurityDeposit"
+                                                :disabled="isProcessingSecurityDeposit">
+                                                <span v-if="isProcessingSecurityDeposit"
+                                                    class="spinner-border spinner-border-sm me-2"></span>
                                                 Security Deposit
                                             </button>
                                         </div>
@@ -66,7 +70,7 @@
 
                                     <div class="application-id-badge mb-3 d-inline-block">
                                         <span v-if="formData?.application_id">Application ID: {{ formData.application_id
-                                            }}</span>
+                                        }}</span>
                                         <span v-else>- </span>
                                     </div>
 
@@ -105,13 +109,16 @@
                                         :class="profileCompletion === 100 ? 'status-complete' : 'status-incomplete'">
                                         {{ profileCompletion === 100 ? 'Profile Complete' : 'Profile Incomplete' }}
                                     </div>
-                                    <button v-if="formData?.interview_detail?.[0]?.package_status === true" class="status-pill report-download-btn d-flex align-items-center justify-content-center"
-                                        style="background-color: #872980; color: white; border: none; outline: none; cursor: pointer;" 
+                                    <button v-if="formData?.interview_detail?.[0]?.package_status === true"
+                                        class="status-pill report-download-btn d-flex align-items-center justify-content-center"
+                                        style="background-color: #872980; color: white; border: none; outline: none; cursor: pointer;"
                                         @click="initiateSecurityDeposit" :disabled="isProcessingSecurityDeposit">
-                                        <span v-if="isProcessingSecurityDeposit" class="spinner-border spinner-border-sm me-2"></span>
+                                        <span v-if="isProcessingSecurityDeposit"
+                                            class="spinner-border spinner-border-sm me-2"></span>
                                         Security Deposit
                                     </button>
-                                    <button v-if="resultStatus" class="status-pill report-download-btn d-flex align-items-center gap-2"
+                                    <button v-if="resultStatus"
+                                        class="status-pill report-download-btn d-flex align-items-center gap-2"
                                         @click="downloadReport" :disabled="isDownloadingReport">
                                         <span v-if="isDownloadingReport"
                                             class="spinner-border spinner-border-sm"></span>
@@ -503,7 +510,7 @@
                                                     class="ti ti-chevron-left"></i></button>
                                             <span class="fw-bold text-dark" style="font-size: 14px;">{{
                                                 monthNames[currentMonth]
-                                                }}
+                                            }}
                                                 {{ currentYear }}</span>
                                             <button
                                                 class="btn btn-sm btn-white border shadow-sm p-1 d-flex align-items-center justify-content-center"
@@ -859,7 +866,7 @@ const initiateSecurityDeposit = async () => {
                 state: formData.state,
                 payment_type: 'security_deposit',
                 student_id: String(formData.id || ''),
-                commingAmount: 10000,
+                commingAmount: 11800,
                 form_type: 2,
                 form_id: formData.id
             }
@@ -907,7 +914,7 @@ const handleCashfreeSecurityDeposit = async (res: any) => {
             showAlert("Payment Failed", result.error.message, "error");
             return;
         }
-        
+
         try {
             const { getAccessToken } = useAuth();
             const token = getAccessToken();
@@ -1188,7 +1195,7 @@ const fetchStudentDetail = async () => {
         const { getAccessToken } = useAuth();
         const token = getAccessToken();
         let response: any = null;
-        
+
         try {
             response = await $fetch(`${config.public.apiBase}/api/students/get-student-profile/`, {
                 headers: token ? { 'Authorization': `Bearer ${token}` } : {}
@@ -1252,7 +1259,7 @@ const fetchStudentDetail = async () => {
             studentResult.value = d?.student_result ? String(d.student_result) : "";
             // Name splitting logic
             const cleanStr = (val: any) => (!val || val === "null" || val === "undefined") ? "" : val;
-          
+
             formData.id = d.id || "";
             formData.first_name = cleanStr(d.first_name);
             formData.last_name = cleanStr(d.last_name);
@@ -1269,11 +1276,11 @@ const fetchStudentDetail = async () => {
 
             // Mappings for Choices with robust helper functions supporting strings, numbers, and case-insensitivity
             const mapGender = (val: any): string => {
-                if (!val) return "";
+                if (val === undefined || val === null || val === "") return "";
                 const strVal = String(val).trim().toLowerCase();
-                if (strVal === "1" || strVal === "male") return "Male";
-                if (strVal === "2" || strVal === "female") return "Female";
-                if (strVal === "3" || strVal === "other") return "Other";
+                if (strVal === "0" || strVal === "male") return "Male";
+                if (strVal === "1" || strVal === "female") return "Female";
+                if (strVal === "2" || strVal === "other") return "Other";
                 return "";
             };
             formData.gender = mapGender(d.gender);
