@@ -75,8 +75,7 @@ export default defineNuxtConfig({
       ]
     },
     devOptions: {
-      enabled: true,
-      navigateFallbackAllowlist: [/^\/$/]
+      enabled: false,
     },
     // CRITICAL FIX: Ensure the service worker NEVER intercepts API calls.
     // A service worker intercepting fetch requests to the Django backend
