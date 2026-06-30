@@ -126,14 +126,14 @@
                                         Download Scorecard
                                     </button>
                                     <!-- Start Exam Button in Banner -->
-                                    <button 
+                                    <!-- <button 
                                         class="status-pill report-download-btn d-flex align-items-center gap-2"
                                         style="background: linear-gradient(135deg, #7c3aed, #6d28d9); color: white; border: none; cursor: pointer;"
                                         @click="navigateTo('/exam')"
                                         title="Click to start your exam">
                                         <i class="ti ti-pencil-check fs-5"></i>
                                         Start Exam
-                                    </button>
+                                    </button> -->
                                 </div>
 
                             </div>
