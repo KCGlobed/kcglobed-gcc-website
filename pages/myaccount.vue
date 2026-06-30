@@ -117,7 +117,7 @@
                                             class="spinner-border spinner-border-sm me-2"></span>
                                         Security Deposit
                                     </button>
-                                     <button v-if="resultStatus"
+                                    <button v-if="resultStatus"
                                         class="status-pill report-download-btn d-flex align-items-center gap-2"
                                         @click="downloadReport" :disabled="isDownloadingReport">
                                         <span v-if="isDownloadingReport"
@@ -497,7 +497,7 @@
                             </div>
 
                             <!-- NFET Slot Booking Sidebar -->
-                            <div class="nfet-slot-sidebar bg-white rounded-4 shadow-sm border mb-4 overflow-hidden">
+                            <!-- <div class="nfet-slot-sidebar bg-white rounded-4 shadow-sm border mb-4 overflow-hidden">
                                 <div class="d-flex justify-content-between align-items-center p-4"
                                     @click="isOpenNfet = !isOpenNfet"
                                     style="cursor: pointer; user-select: none; background-color: #CB9722; color: white;">
@@ -549,7 +549,6 @@
                                             </div>
                                         </div>
 
-                                        <!-- Slots -->
                                         <div class="slots-container" v-if="selectedDate">
                                             <h6 class="mb-2 mt-2 fw-semibold text-dark" style="font-size: 14px;">Slots
                                                 for
@@ -588,7 +587,6 @@
                                                     <span v-if="isBookingSlot" class="spinner-border spinner-border-sm"
                                                         role="status" aria-hidden="true"></span>
 
-                                                    <!-- state 1: Update Count == 0 -->
                                                     <template v-if="bookingDetails.updateCount === 0">
                                                         Book Slot
                                                         <span class="custom-tooltip-wrapper d-inline-block ms-1"
@@ -603,7 +601,6 @@
                                                         </span>
                                                     </template>
 
-                                                    <!-- state 2: Update Count === 1 -->
                                                     <template v-else-if="bookingDetails.updateCount === 1">
                                                         <div class="d-flex flex-column align-items-center"
                                                             style="line-height: 1.2;">
@@ -633,7 +630,6 @@
                                             Please select a highlighted date.
                                         </p>
 
-                                        <!-- Action Buttons -->
                                         <div class="mt-3">
                                             <button
                                                 class="btn btn-outline-success w-100 d-flex justify-content-center align-items-center gap-2 mb-2"
@@ -646,7 +642,6 @@
                                                         class="ti ti-download"></i></template>
                                             </button>
 
-                                            <!-- Start Exam Button -->
                                             <button
                                                 class="btn w-100 d-flex justify-content-center align-items-center gap-2"
                                                 :class="bookingDetails.examStatus ? 'btn-primary custom-primary-bg' : 'btn-secondary btn-disabled-custom'"
@@ -679,9 +674,134 @@
                                         </div>
 
 
-                                    </div> <!-- End Position-Relative -->
-                                </div> <!-- End v-show -->
-                            </div> <!-- End NFET Slot Sidebar -->
+                                    </div> 
+                                    
+                                </div> 
+                            </div> -->
+
+                            <div class="nfet-slot-sidebar bg-white rounded-4 shadow-sm border mb-4 overflow-hidden">
+                                <div class="d-flex justify-content-between align-items-center p-4"
+                                    @click="isOpenNfet = !isOpenNfet"
+                                    style="cursor:pointer;user-select:none;background:#CB9722;color:#fff;">
+
+                                    <h5 class="m-0 fw-bold text-white d-flex align-items-center">
+                                        <i class="ti ti-calendar-event me-2 fs-4"></i>
+                                        Book Your Interview Slot
+                                    </h5>
+
+                                    <i class="ti fs-5" :class="isOpenNfet ? 'ti-chevron-up' : 'ti-chevron-down'">
+                                    </i>
+                                </div>
+
+                                <div v-show="isOpenNfet" class="nfet-slide-content p-4 position-relative">
+
+                                    <div v-if="isProfileEmpty" class="disabled-overlay">
+                                    </div>
+
+                                    <div :class="{ 'opacity-50 pointer-events-none': isProfileEmpty }">
+
+                                        <!-- Calendar -->
+
+                                        <div class="calendar-container">
+
+                                            <div class="calendar-header">
+
+                                                <button class="cal-nav-btn" @click="prevMonth">
+
+                                                    <i class="ti ti-chevron-left"></i>
+
+                                                </button>
+
+                                                <h4>
+                                                    {{ monthNames[currentMonth] }}
+                                                    {{ currentYear }}
+                                                </h4>
+
+                                                <button class="cal-nav-btn" @click="nextMonth">
+
+                                                    <i class="ti ti-chevron-right"></i>
+
+                                                </button>
+
+                                            </div>
+
+                                            <div class="calendar-weekdays">
+
+                                                <div>Sun</div>
+                                                <div>Mon</div>
+                                                <div>Tue</div>
+                                                <div>Wed</div>
+                                                <div>Thu</div>
+                                                <div>Fri</div>
+                                                <div style="color:#dc2626">Sat</div>
+
+                                            </div>
+
+                                            <div class="calendar-days">
+
+                                                <div v-for="(day, idx) in calendarDays" :key="idx" class="cal-day-cell"
+                                                    :class="{
+                                                        empty: !day,
+                                                        available: day && day.isAllowed,
+                                                        unavailable: day && !day.isAllowed && !day.isBlocked,
+                                                        blocked: day && day.isBlocked,
+                                                        selected: day && day.dateString === selectedDate,
+                                                        'is-current': day && day.dateString === bookingDetails.date,
+                                                        'cursor-not-allowed': bookingDetails.updateCount >= 2 && day && day.isAllowed
+                                                    }" @click="bookingDetails.updateCount < 2 && selectDate(day)">
+
+                                                    <template v-if="day">
+
+                                                        <span>{{ day.day }}</span>
+
+                                                        <span v-if="day.isAllowed" class="cal-slots">
+
+                                                            Available
+
+                                                        </span>
+
+                                                        <span v-if="day.isBlocked" class="cal-slots">
+
+                                                            Full
+
+                                                        </span>
+
+                                                    </template>
+
+                                                </div>
+
+                                            </div>
+
+                                        </div>
+
+                                        <!-- KEEP EVERYTHING BELOW EXACTLY AS IT IS -->
+
+                                        <div class="slots-container" v-if="selectedDate">
+
+                                            <!-- paste your existing slots code here -->
+
+                                        </div>
+
+                                        <p v-else
+                                            class="text-muted small text-center py-2 px-3 bg-light rounded border border-dashed mt-3">
+
+                                            Please select a highlighted date.
+
+                                        </p>
+
+                                        <div class="mt-3">
+
+                                            <!-- Keep Download Admit Card button -->
+
+                                            <!-- Keep Start / Resume Exam button -->
+
+                                        </div>
+
+                                    </div>
+
+                                </div>
+
+                            </div>
                         </div> <!-- End Col-LG-4 -->
                     </div> <!-- End Row -->
                 </div> <!-- End Container -->
@@ -748,15 +868,9 @@
     </div>
 
     <!-- Aria Chatbot — fixed overlay -->
-    <GccChatbot
-        :form-data="formData"
-        :user-id="String(userId || '')"
-        :auth-token="chatbotToken"
-        :completion-percentage="Math.round(profileCompletion)"
-        @patch="(key, val) => { (formData as any)[key] = val; }"
-        @refresh="fetchStudentDetail"
-        @bot-submit="handleBotSubmit"
-    />
+    <GccChatbot :form-data="formData" :user-id="String(userId || '')" :auth-token="chatbotToken"
+        :completion-percentage="Math.round(profileCompletion)" @patch="(key, val) => { (formData as any)[key] = val; }"
+        @refresh="fetchStudentDetail" @bot-submit="handleBotSubmit" />
 
 </template>
 
@@ -1297,7 +1411,7 @@ const fetchStudentDetail = async () => {
 
             formData.class10_year = d.tenth_passing_year || "";
             formData.class10_score = d.tenth_passing_percentage || "";
-            
+
             const mapMedium = (val: any): string => {
                 if (!val) return "English";
                 const strVal = String(val).trim().toLowerCase();
@@ -1374,7 +1488,7 @@ const fetchStudentDetail = async () => {
             formData.guardian_name = d.guardian_name || "";
             formData.guardian_phone = d.guardian_phone || "";
             formData.guardian_email = d.guardian_email || "";
-            
+
             const mapRelationship = (val: any): string => {
                 if (!val) return "";
                 const strVal = String(val).trim().toLowerCase();
@@ -1425,7 +1539,7 @@ const fetchStudentDetail = async () => {
                 bookingDetails.time = d.slot_time;
                 bookingDetails.updateCount = d.slot_update_count || 0;
                 selectedDate.value = d.slot_date;
-                
+
                 // Add to formData for chatbot
                 formData.slot_date = d.slot_date;
                 formData.slot_time = d.slot_time;
@@ -2737,7 +2851,7 @@ const handleFinalSubmit = async (isSilent = false, isBot = false): Promise<boole
     } finally {
         isSubmitting.value = false;
     }
-    
+
     // Fallback return if it didn't return early
     return false;
 }
@@ -3566,5 +3680,223 @@ const downloadReport = async () => {
         border-radius: 50px;
         white-space: nowrap;
     }
+}
+
+/* ===========================
+   NFET Calendar
+=========================== */
+
+.calendar-container {
+    background: #faf8fd;
+    border: 1px solid #e8ddf2;
+    border-radius: 18px;
+    padding: 18px;
+    margin-bottom: 18px;
+}
+
+/* ===========================
+   Header
+=========================== */
+
+.calendar-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 18px;
+}
+
+.calendar-header h4 {
+    margin: 0;
+    font-size: 17px;
+    font-weight: 700;
+    color: #51157C;
+}
+
+/* ===========================
+   Navigation Buttons
+=========================== */
+
+.cal-nav-btn {
+    width: 36px;
+    height: 36px;
+    border: none;
+    border-radius: 50%;
+    background: #51157C;
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: .25s;
+}
+
+.cal-nav-btn:hover {
+    background: #F1A63E;
+    color: #51157C;
+    transform: scale(1.08);
+}
+
+/* ===========================
+   Weekdays
+=========================== */
+
+.calendar-weekdays {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 6px;
+    margin-bottom: 10px;
+}
+
+.calendar-weekdays div {
+    text-align: center;
+    font-size: 11px;
+    font-weight: 700;
+    color: #6b7280;
+    text-transform: uppercase;
+}
+
+/* ===========================
+   Days
+=========================== */
+
+.calendar-days {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 8px;
+}
+
+/* ===========================
+   Day Cell
+=========================== */
+
+.cal-day-cell {
+    aspect-ratio: 1;
+    background: white;
+    border-radius: 10px;
+    border: 1px solid #ede9f5;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    transition: all .25s ease;
+    font-size: 14px;
+    font-weight: 700;
+    color: #2d2d2d;
+    min-height: 48px;
+}
+
+.cal-day-cell:hover:not(.empty):not(.unavailable) {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 18px rgba(81, 21, 124, .12);
+}
+
+/* ===========================
+   Available
+=========================== */
+
+.cal-day-cell.available {
+    background: #f0fdf4;
+    border: 1px solid #86efac;
+}
+
+.cal-day-cell.available:hover {
+    border-color: #16a34a;
+}
+
+/* ===========================
+   Blocked
+=========================== */
+
+.cal-day-cell.blocked {
+    background: #fef2f2;
+    border-color: #fca5a5;
+    color: #dc2626;
+}
+
+/* ===========================
+   Disabled
+=========================== */
+
+.cal-day-cell.unavailable {
+    background: #f5f5f5;
+    color: #b0b0b0;
+    cursor: not-allowed;
+}
+
+/* ===========================
+   Selected
+=========================== */
+
+.cal-day-cell.selected {
+    background: #51157C !important;
+    color: white !important;
+    border-color: #51157C;
+    transform: scale(1.05);
+    box-shadow: 0 8px 20px rgba(81, 21, 124, .25);
+}
+
+/* ===========================
+   Current Booked
+=========================== */
+
+.cal-day-cell.is-current {
+    outline: 2px solid #F1A63E;
+    outline-offset: 2px;
+}
+
+/* ===========================
+   Empty Cells
+=========================== */
+
+.cal-day-cell.empty {
+    background: transparent;
+    border: none;
+    cursor: default;
+    box-shadow: none;
+}
+
+/* ===========================
+   Slot Text
+=========================== */
+
+.cal-slots {
+    font-size: 8px;
+    font-weight: 600;
+    margin-top: 3px;
+    color: #16a34a;
+}
+
+.cal-day-cell.blocked .cal-slots {
+    color: #dc2626;
+}
+
+.cal-day-cell.selected .cal-slots {
+    color: #F1A63E;
+}
+
+/* ===========================
+   Responsive
+=========================== */
+
+@media (max-width:768px) {
+
+    .calendar-container {
+        padding: 14px;
+    }
+
+    .calendar-header h4 {
+        font-size: 15px;
+    }
+
+    .cal-day-cell {
+        min-height: 42px;
+        font-size: 13px;
+    }
+
+    .cal-slots {
+        font-size: 7px;
+    }
+
 }
 </style>
