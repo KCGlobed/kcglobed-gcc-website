@@ -147,7 +147,7 @@
                 <div class="container-lg border-0">
                     <div class="row g-4">
                         <!-- Left Column (8 col) -->
-                        <div class="col-lg-8">
+                        <div class="col-lg-8 order-2 order-lg-1">
 
                             <!-- 4 Accordion Sections -->
                             <div class="pb-30">
@@ -423,8 +423,168 @@
 
                         </div> <!-- End Left Column -->
 
+
+
                         <!-- Right Column (4 col) -->
-                        <div class="col-lg-4">
+                        <div class="col-lg-4 order-1 order-lg-2">
+
+                            <div class="nfet-slot-sidebar bg-white rounded-4 shadow-sm border mb-4 overflow-hidden"
+                                style="border-radius: 24px !important;">
+                                <div class="d-flex justify-content-between align-items-center p-4 slot-booking-header"
+                                    @click="isOpenNfet = !isOpenNfet"
+                                    style="cursor: pointer; user-select: none; background-color: #4C1D95; color: white; position: relative;">
+                                    <div class="w-100 text-center">
+                                        <span class="d-block text-warning fw-bold text-uppercase"
+                                            style="font-size: 18x; padding-top: 4px; letter-spacing: 1.5px; color: #FBBF24 !important;">SELECT
+                                            INTERVIEW SLOT</span>
+                                        <h4 class="m-0 text-white fw-bold mt-1" style="font-size: 22px;">Book Your Slot
+                                        </h4>
+                                    </div>
+
+                                </div>
+
+                                <div v-show="isOpenNfet" class="nfet-slide-content" style="position: relative;">
+                                    <div>
+
+                                        <!-- Calendar Inner Card Wrapper -->
+                                        <div class="calendar-card-container p-3 mb-4"
+                                            style="background-color: #F1EDF7; ">
+                                            <!-- Navigation Header -->
+                                            <div class="d-flex justify-content-between align-items-center mb-4">
+                                                <button
+                                                    class="btn btn-sm text-white d-flex align-items-center justify-content-center"
+                                                    style="width: 32px; height: 32px; border-radius: 50%; background-color: #4C1D95; border: none; padding: 0;"
+                                                    @click="prevMonth"><i class="ti ti-chevron-left"></i></button>
+                                                <span class="fw-bold" style="font-size: 18px; color: #4C1D95;">{{
+                                                    monthNames[currentMonth]
+                                                }}
+                                                    {{ currentYear }}</span>
+                                                <button
+                                                    class="btn btn-sm text-white d-flex align-items-center justify-content-center"
+                                                    style="width: 32px; height: 32px; border-radius: 50%; background-color: #4C1D95; border: none; padding: 0;"
+                                                    @click="nextMonth"><i class="ti ti-chevron-right"></i></button>
+                                            </div>
+
+                                            <!-- Weekday Headers -->
+                                            <div class="calendar-grid-weekdays mb-2"
+                                                style="display: grid; grid-template-columns: repeat(7, 1fr); gap: 8px; text-align: center;">
+                                                <div v-for="day in ['MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT', 'SUN']"
+                                                    :key="day" :style="{
+                                                        fontSize: '11px',
+                                                        fontWeight: '700',
+                                                        color: (day === 'SAT' || day === 'SUN') ? '#EF4444' : '#6B7280',
+                                                        textTransform: 'uppercase'
+                                                    }">
+                                                    {{ day }}
+                                                </div>
+                                            </div>
+
+                                            <!-- Days Grid -->
+                                            <div class="calendar-grid-days"
+                                                style="display: grid; grid-template-columns: repeat(7, 1fr); gap: 8px;">
+                                                <div class="calendar-day-cell" v-for="(day, idx) in calendarDays"
+                                                    :key="day ? 'day-' + day.dateString : 'empty-' + idx" :class="{
+                                                        'empty': !day,
+                                                        'allowed': day && day.isAllowed,
+                                                        'disabled': day && !day.isAllowed && !day.isBlocked,
+                                                        'blocked': day && day.isBlocked,
+                                                        'selected': day && day.dateString === selectedDate,
+                                                        'is-current': day && day.dateString === bookingDetails.date,
+                                                        'cursor-not-allowed': bookingDetails.updateCount >= 2 && day && day.isAllowed
+                                                    }"
+                                                    :title="day && day.isBlocked ? 'fully booked' : (bookingDetails.updateCount >= 2 ? 'Update limit reached' : '')"
+                                                    @click="day && bookingDetails.updateCount < 2 && selectDate(day)">
+
+                                                    <span class="day-number">{{ day ? day.day : '' }}</span>
+                                                    <span class="slots-indicator" v-if="day">
+                                                        <span v-if="day.isBlocked"
+                                                            style="color: #EF4444; font-size: 8px; font-weight: 600;">Blocked</span>
+                                                        <span v-else-if="day.isAllowed"
+                                                            style="color: #22C55E; font-size: 8px; font-weight: 700;">
+                                                            {{ getSlotsCountForDate(day.dateString) }} Slots Left
+                                                        </span>
+                                                        <span v-else style="color: #9CA3AF; font-size: 10px;">-</span>
+                                                    </span>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <!-- Guidance Banner -->
+                                        <div class="calendar-info-banner p-3 mb-4 mx-4 d-flex align-items-center"
+                                            style="background-color: #F3EFF7; border-left: 4px solid #4C1D95; border-radius: 8px;">
+                                            <span
+                                                style="color: #4C1D95; font-weight: 600; font-size: 12px; text-align: center; width: 100%;">
+                                                Please select an available slot (green) in the calendar.
+                                            </span>
+                                        </div>
+
+                                        <div class="slots-container" style="padding: 0 8px 12px;">
+                                             <!-- Confirmation Checkbox Container -->
+                                             <div class="position-relative mb-4 mt-3" style="padding-left: 12px; display: flex; align-items: center;">
+                                                 <input class="form-check-input" type="checkbox" id="confirmSlotBooking" v-model="isConfirmChecked"
+                                                     style="
+                                                         width: 22px;
+                                                         height: 22px;
+                                                         cursor: pointer;
+                                                         /* border: 2px solid #4C1D95; */
+                                                         border-radius: 6px;
+                                                         accent-color: #4C1D95;
+                                                         position: absolute;
+                                                         left: 0;
+                                                         top: 50%;
+                                                         transform: translateY(-50%);
+                                                         z-index: 10;
+                                                         /* background-color: #ffffff; */
+                                                         margin: 0;
+                                                     " />
+
+                                                 <label for="confirmSlotBooking" class="m-0 text-start flex-grow-1"
+                                                     style="
+                                                         /* background: #F8F5FC;
+                                                         border: 1px solid #E4D8F5; */
+                                                         border-radius: 16px;
+                                                         padding: 14px 14px 14px 28px;
+                                                         cursor: pointer;
+                                                         user-select: none;
+                                                         display: block;
+                                                     ">
+                                                     <p class="text-dark mb-2 animate-fade-in" style="font-size: 11px; font-weight: 500; line-height: 1.4; color: #374151 !important;">
+                                                         I will bring all required physical documents (10th & 12th marksheets, degree, Aadhaar, PAN & resume) to the Hiring Drive.
+                                                     </p>
+                                                     <p class="text-dark mb-0 animate-fade-in" style="font-size: 11px; font-weight: 500; line-height: 1.4; color: #374151 !important;">
+                                                         I accept the Terms & Conditions by submitting this form.
+                                                     </p>
+                                                 </label>
+                                             </div> 
+
+                                            <!-- Book Slot Button -->
+                                            <button class="btn w-100" :disabled="!isConfirmChecked" @click="bookSlot"
+                                                style="
+                                                height:52px;
+                                                border:none;
+                                                border-radius:14px;
+                                                background:#4C1D95;
+                                                color:#fff;
+                                                font-size:16px;
+                                                font-weight:700;
+                                                transition:all .25s ease;
+                                                box-shadow:0 8px 20px rgba(76,29,149,.25);
+                                            " :style="{
+                                                opacity: isConfirmChecked ? '1' : '.55',
+                                                cursor: isConfirmChecked ? 'pointer' : 'not-allowed'
+                                            }">
+
+                                                Book Slot &rarr;
+
+                                            </button>
+
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+
+
                             <!-- Profile Completeness Sidebar Card -->
                             <div class="profile-completeness-card mb-4 overflow-hidden rounded-4 shadow-sm bg-white">
                                 <!-- Dark Header Section -->
@@ -679,129 +839,6 @@
                                 </div> 
                             </div> -->
 
-                            <div class="nfet-slot-sidebar bg-white rounded-4 shadow-sm border mb-4 overflow-hidden">
-                                <div class="d-flex justify-content-between align-items-center p-4"
-                                    @click="isOpenNfet = !isOpenNfet"
-                                    style="cursor:pointer;user-select:none;background:#CB9722;color:#fff;">
-
-                                    <h5 class="m-0 fw-bold text-white d-flex align-items-center">
-                                        <i class="ti ti-calendar-event me-2 fs-4"></i>
-                                        Book Your Interview Slot
-                                    </h5>
-
-                                    <i class="ti fs-5" :class="isOpenNfet ? 'ti-chevron-up' : 'ti-chevron-down'">
-                                    </i>
-                                </div>
-
-                                <div v-show="isOpenNfet" class="nfet-slide-content p-4 position-relative">
-
-                                    <div v-if="isProfileEmpty" class="disabled-overlay">
-                                    </div>
-
-                                    <div :class="{ 'opacity-50 pointer-events-none': isProfileEmpty }">
-
-                                        <!-- Calendar -->
-
-                                        <div class="calendar-container">
-
-                                            <div class="calendar-header">
-
-                                                <button class="cal-nav-btn" @click="prevMonth">
-
-                                                    <i class="ti ti-chevron-left"></i>
-
-                                                </button>
-
-                                                <h4>
-                                                    {{ monthNames[currentMonth] }}
-                                                    {{ currentYear }}
-                                                </h4>
-
-                                                <button class="cal-nav-btn" @click="nextMonth">
-
-                                                    <i class="ti ti-chevron-right"></i>
-
-                                                </button>
-
-                                            </div>
-
-                                            <div class="calendar-weekdays">
-
-                                                <div>Sun</div>
-                                                <div>Mon</div>
-                                                <div>Tue</div>
-                                                <div>Wed</div>
-                                                <div>Thu</div>
-                                                <div>Fri</div>
-                                                <div style="color:#dc2626">Sat</div>
-
-                                            </div>
-
-                                            <div class="calendar-days">
-
-                                                <div v-for="(day, idx) in calendarDays" :key="idx" class="cal-day-cell"
-                                                    :class="{
-                                                        empty: !day,
-                                                        available: day && day.isAllowed,
-                                                        unavailable: day && !day.isAllowed && !day.isBlocked,
-                                                        blocked: day && day.isBlocked,
-                                                        selected: day && day.dateString === selectedDate,
-                                                        'is-current': day && day.dateString === bookingDetails.date,
-                                                        'cursor-not-allowed': bookingDetails.updateCount >= 2 && day && day.isAllowed
-                                                    }" @click="bookingDetails.updateCount < 2 && selectDate(day)">
-
-                                                    <template v-if="day">
-
-                                                        <span>{{ day.day }}</span>
-
-                                                        <span v-if="day.isAllowed" class="cal-slots">
-
-                                                            Available
-
-                                                        </span>
-
-                                                        <span v-if="day.isBlocked" class="cal-slots">
-
-                                                            Full
-
-                                                        </span>
-
-                                                    </template>
-
-                                                </div>
-
-                                            </div>
-
-                                        </div>
-
-                                        <!-- KEEP EVERYTHING BELOW EXACTLY AS IT IS -->
-
-                                        <div class="slots-container" v-if="selectedDate">
-
-                                            <!-- paste your existing slots code here -->
-
-                                        </div>
-
-                                        <p v-else
-                                            class="text-muted small text-center py-2 px-3 bg-light rounded border border-dashed mt-3">
-
-                                            Please select a highlighted date.
-
-                                        </p>
-
-                                        <div class="mt-3">
-
-                                            <!-- Keep Download Admit Card button -->
-
-                                            <!-- Keep Start / Resume Exam button -->
-
-                                        </div>
-
-                                    </div>
-
-                                </div>
-
-                            </div>
                         </div> <!-- End Col-LG-4 -->
                     </div> <!-- End Row -->
                 </div> <!-- End Container -->
@@ -1397,6 +1434,7 @@ const fetchStudentDetail = async () => {
             formData.complete_address = d.address || "";
             formData.mock_test_status = d.mock_test_status ?? 0;
             formData.interview_detail = d.interview_detail || [];
+            formData.interview_slots_detail = d.interview_slots_detail || [];
 
             // Mappings for Choices with robust helper functions supporting strings, numbers, and case-insensitivity
             const mapGender = (val: any): string => {
@@ -1573,6 +1611,10 @@ const fetchStudentDetail = async () => {
             });
             if (detailRes.success && detailRes.data) {
                 profileImage.value = detailRes.data.image || detailRes.data.photo || profileImage.value;
+                formData.interview_slots_detail = detailRes.data.interview_slots_detail || [];
+                if (detailRes.data.interview_detail) {
+                    formData.interview_detail = detailRes.data.interview_detail;
+                }
 
                 // Fallback for empty core fields
                 if (!formData.first_name) {
@@ -1814,7 +1856,8 @@ const daysInMonth = computed(() => {
     return new Date(currentYear.value, currentMonth.value + 1, 0).getDate();
 });
 const firstDayOfMonth = computed(() => {
-    return new Date(currentYear.value, currentMonth.value, 1).getDay();
+    const day = new Date(currentYear.value, currentMonth.value, 1).getDay();
+    return day === 0 ? 6 : day - 1;
 });
 
 const isSlotValid = (dateStr: string, timeStr: string) => {
@@ -1877,6 +1920,7 @@ const calendarDays = computed(() => {
 const selectedDate = ref('');
 const selectedSlot = ref<number | string>('');
 const availableSlots = ref<any[]>([]);
+const isConfirmChecked = ref(false);
 
 const selectDate = (day: any) => {
     if (!day) return;
@@ -1887,6 +1931,7 @@ const selectDate = (day: any) => {
     if (!day.isAllowed) return;
     selectedDate.value = day.dateString;
     selectedSlot.value = ''; // reset slot on date change
+    isConfirmChecked.value = false;
 
     availableSlots.value = staticSlots.map((timeStr: string, index: number) => ({
         id: index + 1,
@@ -1897,6 +1942,7 @@ const selectDate = (day: any) => {
 
 const selectSlot = (slot: any) => {
     selectedSlot.value = slot.id;
+    isConfirmChecked.value = false;
 };
 
 const showConfirmModal = ref(false);
@@ -2028,13 +2074,12 @@ const bookSlot = async () => {
         const token = getAccessToken();
 
         const payload = {
-            slot_date: selectedDate.value,
-            slot_time: String(slotObj.time)
+            interview_date: selectedDate.value
         };
 
         // Note: Using a standard fetch for easier blob handling
-        const response = await fetch(`${config.public.apiBase}/api/students/student-slot-upload/`, {
-            method: "PATCH",
+        const response = await fetch(`${config.public.apiBase}/api/students/create-student-account-interview-slot/`, {
+            method: "POST",
             body: JSON.stringify(payload),
             headers: {
                 'Content-Type': 'application/json',
@@ -2049,15 +2094,15 @@ const bookSlot = async () => {
             const wasAlreadyBooked = bookingDetails.isBooked;
 
             bookingDetails.isBooked = true;
-            bookingDetails.date = payload.slot_date;
-            bookingDetails.time = payload.slot_time;
+            bookingDetails.date = payload.interview_date;
+            bookingDetails.time = slotObj ? String(slotObj.time) : "";
             bookingDetails.admitCardUrl = reportUrl;
             showAdmitCardButton.value = true;
 
             if (wasAlreadyBooked) {
                 showAlert("Success", "Change request submitted successfully!", "success");
             } else {
-                showAlert("Success", "Slot booked successfully! You can now download your admit card.", "success");
+                showAlert("Success", "Slot booked successfully!", "success");
             }
         } else {
             const errorData = await response.json().catch(() => ({}));
@@ -2125,9 +2170,20 @@ const formatDate = (dateStr: string) => {
 };
 
 const getSelectedSlotTime = () => {
-    if (!selectedSlot.value) return "";
     const slotObj = availableSlots.value.find((s: any) => s.id === selectedSlot.value);
     return slotObj ? slotObj.time : "";
+};
+
+const getSlotsCountForDate = (dateString: string) => {
+    if (!dateString || !formData.interview_slots_detail) return 30;
+    const parts = dateString.split('-');
+    if (parts.length !== 3) return 30;
+    const formattedDate = `${parts[2]}-${parts[1]}-${parts[0]}`;
+    const found = formData.interview_slots_detail.find((item: any) => item.date === formattedDate);
+    if (found) {
+        return Math.max(0, 30 - (found.count || 0));
+    }
+    return 30;
 };
 
 const formData = reactive({
@@ -2185,6 +2241,7 @@ const formData = reactive({
     co_applicant_profession: "",
     declaration: false,
     interview_detail: [] as any[],
+    interview_slots_detail: [] as any[],
     documents: {
         aadhaar: null,
         dob_proof: null,
@@ -3682,158 +3739,204 @@ const downloadReport = async () => {
     }
 }
 
-/* ===========================
-   NFET Calendar
-=========================== */
+/* =======================================
+   NFET Calendar Premium Refined Styles
+   ======================================= */
 
-.calendar-container {
-    background: #faf8fd;
-    border: 1px solid #e8ddf2;
-    border-radius: 18px;
-    padding: 18px;
-    margin-bottom: 18px;
+.slot-booking-header {
+    background-color: #4C1D95 !important;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1) !important;
 }
 
-/* ===========================
-   Header
-=========================== */
-
-.calendar-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 18px;
+.btn-close-custom:hover {
+    background: rgba(255, 255, 255, 0.25) !important;
 }
 
-.calendar-header h4 {
-    margin: 0;
-    font-size: 17px;
-    font-weight: 700;
-    color: #51157C;
+.calendar-card-container {
+    background-color: #F1EDF7 !important;
+    /* border-radius: 20px !important; */
+    padding: 20px !important;
 }
 
-/* ===========================
-   Navigation Buttons
-=========================== */
-
-.cal-nav-btn {
-    width: 36px;
-    height: 36px;
-    border: none;
-    border-radius: 50%;
-    background: #51157C;
-    color: white;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
-    transition: .25s;
-}
-
-.cal-nav-btn:hover {
-    background: #F1A63E;
-    color: #51157C;
-    transform: scale(1.08);
-}
-
-/* ===========================
-   Weekdays
-=========================== */
-
-.calendar-weekdays {
-    display: grid;
-    grid-template-columns: repeat(7, 1fr);
-    gap: 6px;
-    margin-bottom: 10px;
-}
-
-.calendar-weekdays div {
-    text-align: center;
-    font-size: 11px;
-    font-weight: 700;
-    color: #6b7280;
-    text-transform: uppercase;
-}
-
-/* ===========================
-   Days
-=========================== */
-
-.calendar-days {
+.calendar-grid-weekdays {
     display: grid;
     grid-template-columns: repeat(7, 1fr);
     gap: 8px;
+    text-align: center;
 }
 
-/* ===========================
-   Day Cell
-=========================== */
+.calendar-grid-weekdays div {
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+}
 
-.cal-day-cell {
-    aspect-ratio: 1;
-    background: white;
-    border-radius: 10px;
-    border: 1px solid #ede9f5;
+.calendar-grid-days {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 8px;
+    margin-top: 8px;
+}
+
+.calendar-day-cell {
+    /* aspect-ratio: 1; */
+    background: #EAE5F2;
+    border-radius: 12px;
     display: flex;
     flex-direction: column;
-    justify-content: center;
     align-items: center;
-    cursor: pointer;
-    transition: all .25s ease;
+    justify-content: center;
+    cursor: default;
+    padding: 6px 2px;
+    border: 1px solid transparent;
+    transition: all 0.2s ease;
+    user-select: none;
+}
+
+.calendar-day-cell .day-number {
     font-size: 14px;
     font-weight: 700;
-    color: #2d2d2d;
-    min-height: 48px;
+    color: #9CA3AF;
 }
 
-.cal-day-cell:hover:not(.empty):not(.unavailable) {
+.calendar-day-cell .slots-indicator {
+    font-size: 8px;
+    font-weight: 500;
+    color: #9CA3AF;
+    margin-top: 2px;
+}
+
+/* Empty Cell */
+.calendar-day-cell.empty {
+    background: transparent !important;
+    border-color: transparent !important;
+    cursor: default;
+}
+
+/* Disabled/Unavailable Cell */
+.calendar-day-cell.disabled {
+    background: #EAE5F2 !important;
+}
+
+.calendar-day-cell.disabled .day-number,
+.calendar-day-cell.disabled .slots-indicator {
+    color: #9CA3AF !important;
+}
+
+/* Blocked Cell */
+.calendar-day-cell.blocked {
+    background: #FEF2F2 !important;
+    border-color: #FCA5A5 !important;
+}
+
+.calendar-day-cell.blocked .day-number {
+    color: #EF4444 !important;
+}
+
+.calendar-day-cell.blocked .slots-indicator {
+    color: #EF4444 !important;
+}
+
+/* Allowed/Available Cell */
+.calendar-day-cell.allowed {
+    background: #FFFFFF !important;
+    border: 1px solid #10B981 !important;
+    cursor: pointer;
+}
+
+.calendar-day-cell.allowed:hover {
     transform: translateY(-2px);
-    box-shadow: 0 8px 18px rgba(81, 21, 124, .12);
+    box-shadow: 0 4px 10px rgba(16, 185, 129, 0.15);
 }
 
-/* ===========================
-   Available
-=========================== */
-
-.cal-day-cell.available {
-    background: #f0fdf4;
-    border: 1px solid #86efac;
+.calendar-day-cell.allowed .day-number {
+    color: #1F2937 !important;
 }
 
-.cal-day-cell.available:hover {
-    border-color: #16a34a;
+.calendar-day-cell.allowed .slots-indicator {
+    color: #10B981 !important;
+    font-weight: 700;
 }
 
-/* ===========================
-   Blocked
-=========================== */
-
-.cal-day-cell.blocked {
-    background: #fef2f2;
-    border-color: #fca5a5;
-    color: #dc2626;
+/* Current Booked Cell */
+.calendar-day-cell.is-current {
+    background: #FFFFFF !important;
+    border: 2px solid #4C1D95 !important;
 }
 
-/* ===========================
-   Disabled
-=========================== */
+.calendar-day-cell.is-current .day-number {
+    color: #4C1D95 !important;
+}
 
-.cal-day-cell.unavailable {
-    background: #f5f5f5;
-    color: #b0b0b0;
+.calendar-day-cell.is-current .slots-indicator {
+    color: #4C1D95 !important;
+}
+
+/* Selected Cell */
+.calendar-day-cell.selected {
+    background: #4C1D95 !important;
+    border-color: #4C1D95 !important;
+    color: #FFFFFF !important;
+    transform: scale(1.05);
+    box-shadow: 0 8px 20px rgba(81, 21, 124, .25);
+}
+
+.calendar-day-cell.selected .day-number {
+    color: #FFFFFF !important;
+}
+
+.calendar-day-cell.selected .slots-indicator {
+    color: #FBBF24 !important;
+    font-weight: 700;
+}
+
+/* Banner */
+.calendar-info-banner {
+    background-color: #F3EFF7 !important;
+    border-left: 4px solid #4C1D95 !important;
+    border-radius: 8px !important;
+}
+
+/* Book Slot Button */
+.btn-book-slot-orange {
+    background-color: #F59E0B !important;
+    border-color: #F59E0B !important;
+    color: #4C1D95 !important;
+    font-weight: 700 !important;
+    border-radius: 12px !important;
+    padding: 14px 20px !important;
+    font-size: 16px !important;
+    transition: all 0.2s ease !important;
+}
+
+.btn-book-slot-orange:hover:not(:disabled) {
+    background-color: #D97706 !important;
+    border-color: #D97706 !important;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(217, 119, 6, 0.2);
+}
+
+.btn-book-slot-orange:disabled {
+    opacity: 0.6;
     cursor: not-allowed;
 }
 
-/* ===========================
-   Selected
-=========================== */
+@media (max-width: 768px) {
+    .calendar-card-container {
+        padding: 12px !important;
+    }
 
-.cal-day-cell.selected {
-    background: #51157C !important;
-    color: white !important;
-    border-color: #51157C;
-    transform: scale(1.05);
-    box-shadow: 0 8px 20px rgba(81, 21, 124, .25);
+    .calendar-day-cell {
+        padding: 4px 1px;
+    }
+
+    .calendar-day-cell .day-number {
+        font-size: 12px;
+    }
+
+    .calendar-day-cell .slots-indicator {
+        font-size: 7px;
+    }
 }
 
 /* ===========================
