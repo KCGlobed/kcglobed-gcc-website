@@ -1788,13 +1788,16 @@ const calendarDays = computed(() => {
         // Calculate if it satisfies the buffer constraint (midnight to midnight)
         const [year, month, dayVal] = dateString.split('-');
         const slotDateTime = new Date(parseInt(year), parseInt(month) - 1, parseInt(dayVal), 0, 0, 0);
+        const dayOfWeek = slotDateTime.getDay();
+        const isWeekend = dayOfWeek === 0 || dayOfWeek === 6; // Sunday is 0, Saturday is 6
+
         const todayDateTime = new Date();
         todayDateTime.setHours(0, 0, 0, 0);
         const diffHours = (slotDateTime.getTime() - todayDateTime.getTime()) / (1000 * 60 * 60);
         const satisfiesBuffer = diffHours >= bufferHours.value;
 
-        // Allowed only if slot is not booked, it's in the API response, booked count < 30, and >= today, and satisfies buffer
-        const isAllowed = !bookingDetails.isBooked && !!slotDetail && dateString >= todayStr && (count < 30) && satisfiesBuffer;
+        // Allowed only if slot is not booked, it's in the API response, booked count < 30, and >= today, satisfies buffer, and is not Saturday/Sunday
+        const isAllowed = !bookingDetails.isBooked && !!slotDetail && dateString >= todayStr && (count < 30) && satisfiesBuffer && !isWeekend;
 
         // Blocked if it's in the API response but booked count >= 30
         const isBlocked = !!slotDetail && (count >= 30);
@@ -1908,13 +1911,19 @@ const isStartingExam = ref(false);
 const bookSlot = async () => {
     if (!selectedDate.value) return;
 
-    // Time difference check
+    // Weekend check & Time difference check
     try {
         const slotDateStr = selectedDate.value;
         const [year, month, day] = slotDateStr.split('-');
 
         // We assume 00:00:00 for the date of the interview
         const slotDateTime = new Date(parseInt(year), parseInt(month) - 1, parseInt(day), 0, 0, 0);
+
+        const dayOfWeek = slotDateTime.getDay();
+        if (dayOfWeek === 0 || dayOfWeek === 6) {
+            showAlert("Invalid Date Selected", "Slots cannot be booked on Saturdays or Sundays. Please select a weekday.", "warning");
+            return;
+        }
 
         const todayDateTime = new Date();
         todayDateTime.setHours(0, 0, 0, 0);
