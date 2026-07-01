@@ -491,8 +491,7 @@
                                                         'selected': day && day.dateString === selectedDate,
                                                         'is-current': day && day.dateString === bookingDetails.date,
                                                         'cursor-not-allowed': false
-                                                    }"
-                                                    :title="day && day.isBlocked ? 'fully booked' : ''"
+                                                    }" :title="day && day.isBlocked ? 'fully booked' : ''"
                                                     @click="day && selectDate(day)">
 
                                                     <span class="day-number">{{ day ? day.day : '' }}</span>
@@ -510,7 +509,8 @@
                                         </div>
 
                                         <!-- Booked Slot Confirmation Message -->
-                                        <div v-if="bookingDetails.isBooked" class="alert alert-success text-center py-3 px-4 mx-4 mb-4"
+                                        <div v-if="bookingDetails.isBooked"
+                                            class="alert alert-success text-center py-3 px-4 mx-4 mb-4"
                                             style="background-color: #ECFDF5; border: 1px solid #A7F3D0; border-radius: 12px; color: #065F46; font-size: 13px; font-weight: 600; line-height: 1.5;">
                                             <i class="ti ti-circle-check-filled me-2" style="font-size: 16px;"></i>
                                             Your slot has been booked on {{ formatDate(bookingDetails.date) }}.
@@ -527,10 +527,11 @@
                                             </div>
 
                                             <div class="slots-container" style="padding: 0 8px 12px;">
-                                                 <!-- Confirmation Checkbox Container -->
-                                                 <div class="position-relative mb-4 mt-3" style="padding-left: 12px; display: flex; align-items: center;">
-                                                     <input class="form-check-input" type="checkbox" id="confirmSlotBooking" v-model="isConfirmChecked"
-                                                         style="
+                                                <!-- Confirmation Checkbox Container -->
+                                                <div class="position-relative mb-4 mt-3"
+                                                    style="padding-left: 12px; display: flex; align-items: center;">
+                                                    <input class="form-check-input" type="checkbox"
+                                                        id="confirmSlotBooking" v-model="isConfirmChecked" style="
                                                              width: 22px;
                                                              height: 22px;
                                                              cursor: pointer;
@@ -546,8 +547,8 @@
                                                              margin: 0;
                                                          " />
 
-                                                     <label for="confirmSlotBooking" class="m-0 text-start flex-grow-1"
-                                                         style="
+                                                    <label for="confirmSlotBooking" class="m-0 text-start flex-grow-1"
+                                                        style="
                                                              /* background: #F8F5FC;
                                                              border: 1px solid #E4D8F5; */
                                                              border-radius: 16px;
@@ -556,17 +557,23 @@
                                                              user-select: none;
                                                              display: block;
                                                          ">
-                                                         <p class="text-dark mb-2 animate-fade-in" style="font-size: 11px; font-weight: 500; line-height: 1.4; color: #374151 !important;">
-                                                             I will bring all required physical documents (10th & 12th marksheets, degree, Aadhaar, PAN & resume) to the Hiring Drive.
-                                                         </p>
-                                                         <p class="text-dark mb-0 animate-fade-in" style="font-size: 11px; font-weight: 500; line-height: 1.4; color: #374151 !important;">
-                                                             I accept the Terms & Conditions by submitting this form.
-                                                         </p>
-                                                     </label>
-                                                 </div> 
+                                                        <p class="text-dark mb-2 animate-fade-in"
+                                                            style="font-size: 11px; font-weight: 500; line-height: 1.4; color: #374151 !important;">
+                                                            I will bring all required physical documents (10th & 12th
+                                                            marksheets, degree, Aadhaar, PAN & resume) to the Hiring
+                                                            Drive.
+                                                        </p>
+                                                        <p class="text-dark mb-0 animate-fade-in"
+                                                            style="font-size: 11px; font-weight: 500; line-height: 1.4; color: #374151 !important;">
+                                                            I accept the Terms & Conditions by submitting this form.
+                                                        </p>
+                                                    </label>
+                                                </div>
 
                                                 <!-- Book Slot Button -->
-                                                <button class="btn w-100 d-flex justify-content-center align-items-center gap-2" :disabled="!isConfirmChecked || isBookingSlot" @click="bookSlot"
+                                                <button
+                                                    class="btn w-100 d-flex justify-content-center align-items-center gap-2"
+                                                    :disabled="!isConfirmChecked || isBookingSlot" @click="bookSlot"
                                                     style="
                                                     height:52px;
                                                     border:none;
@@ -582,7 +589,8 @@
                                                     cursor: (isConfirmChecked && !isBookingSlot) ? 'pointer' : 'not-allowed'
                                                 }">
 
-                                                    <span v-if="isBookingSlot" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+                                                    <span v-if="isBookingSlot" class="spinner-border spinner-border-sm"
+                                                        role="status" aria-hidden="true"></span>
                                                     <span v-if="isBookingSlot">Booking...</span>
                                                     <span v-else>Book Slot &rarr;</span>
 
@@ -1337,37 +1345,37 @@ const bookingDetails = reactive({
 
 const showAdmitCardButton = ref(false);
 
-// const isCurrentSlotInPast = computed(() => {
-//     if (!bookingDetails.date) return false;
-//     try {
-//         if (!bookingDetails.time) {
-//             const [year, month, day] = bookingDetails.date.split('-');
-//             const slotDateTime = new Date(parseInt(year), parseInt(month) - 1, parseInt(day), 0, 0, 0);
-//             const todayDateTime = new Date();
-//             todayDateTime.setHours(0, 0, 0, 0);
-//             return slotDateTime < todayDateTime;
-//         }
+const isCurrentSlotInPast = computed(() => {
+    if (!bookingDetails.date) return false;
+    try {
+        if (!bookingDetails.time) {
+            const [year, month, day] = bookingDetails.date.split('-');
+            const slotDateTime = new Date(parseInt(year), parseInt(month) - 1, parseInt(day), 0, 0, 0);
+            const todayDateTime = new Date();
+            todayDateTime.setHours(0, 0, 0, 0);
+            return slotDateTime < todayDateTime;
+        }
 
-//         const startTimeStr = bookingDetails.time.split('-')[0].trim();
-//         const match = startTimeStr.match(/(\d+):(\d+)\s*(AM|PM)/i);
-//         if (match) {
-//             let hourVal = parseInt(match[1], 10);
-//             const minVal = parseInt(match[2], 10);
-//             const ampm = match[3];
+        const startTimeStr = bookingDetails.time.split('-')[0].trim();
+        const match = startTimeStr.match(/(\d+):(\d+)\s*(AM|PM)/i);
+        if (match) {
+            let hourVal = parseInt(match[1], 10);
+            const minVal = parseInt(match[2], 10);
+            const ampm = match[3];
 
-//             if (ampm.toUpperCase() === 'PM' && hourVal < 12) hourVal += 12;
-//             if (ampm.toUpperCase() === 'AM' && hourVal === 12) hourVal = 0;
+            if (ampm.toUpperCase() === 'PM' && hourVal < 12) hourVal += 12;
+            if (ampm.toUpperCase() === 'AM' && hourVal === 12) hourVal = 0;
 
-//             const [year, month, day] = bookingDetails.date.split('-');
-//             const slotDateTime = new Date(parseInt(year), parseInt(month) - 1, parseInt(day), hourVal, minVal, 0);
+            const [year, month, day] = bookingDetails.date.split('-');
+            const slotDateTime = new Date(parseInt(year), parseInt(month) - 1, parseInt(day), hourVal, minVal, 0);
 
-//             return slotDateTime < new Date();
-//         }
-//     } catch (err) {
-//         console.error("Error validating current slot time", err);
-//     }
-//     return false;
-// });
+            return slotDateTime < new Date();
+        }
+    } catch (err) {
+        console.error("Error validating current slot time", err);
+    }
+    return false;
+});
 
 const fetchStudentDetail = async () => {
     if (!userId.value) return;
@@ -1968,7 +1976,7 @@ const calendarDays = computed(() => {
 
         // Allowed only if slot is not booked, it's in the API response, booked count < 30, and >= today, and satisfies buffer
         const isAllowed = !bookingDetails.isBooked && !!slotDetail && dateString >= todayStr && (count < 30) && satisfiesBuffer;
-        
+
         // Blocked if it's in the API response but booked count >= 30
         const isBlocked = !!slotDetail && (count >= 30);
 
