@@ -491,8 +491,7 @@
                                                         'selected': day && day.dateString === selectedDate,
                                                         'is-current': day && day.dateString === bookingDetails.date,
                                                         'cursor-not-allowed': false
-                                                    }"
-                                                    :title="day && day.isBlocked ? 'fully booked' : ''"
+                                                    }" :title="day && day.isBlocked ? 'fully booked' : ''"
                                                     @click="day && selectDate(day)">
 
                                                     <span class="day-number">{{ day ? day.day : '' }}</span>
@@ -510,7 +509,8 @@
                                         </div>
 
                                         <!-- Booked Slot Confirmation Message -->
-                                        <div v-if="bookingDetails.isBooked" class="alert alert-success text-center py-3 px-4 mx-4 mb-4"
+                                        <div v-if="bookingDetails.isBooked"
+                                            class="alert alert-success text-center py-3 px-4 mx-4 mb-4"
                                             style="background-color: #ECFDF5; border: 1px solid #A7F3D0; border-radius: 12px; color: #065F46; font-size: 13px; font-weight: 600; line-height: 1.5;">
                                             <i class="ti ti-circle-check-filled me-2" style="font-size: 16px;"></i>
                                             Your slot has been booked on {{ formatDate(bookingDetails.date) }}.
@@ -527,10 +527,11 @@
                                             </div>
 
                                             <div class="slots-container" style="padding: 0 8px 12px;">
-                                                 <!-- Confirmation Checkbox Container -->
-                                                 <div class="position-relative mb-4 mt-3" style="padding-left: 12px; display: flex; align-items: center;">
-                                                     <input class="form-check-input" type="checkbox" id="confirmSlotBooking" v-model="isConfirmChecked"
-                                                         style="
+                                                <!-- Confirmation Checkbox Container -->
+                                                <div class="position-relative mb-4 mt-3"
+                                                    style="padding-left: 12px; display: flex; align-items: center;">
+                                                    <input class="form-check-input" type="checkbox"
+                                                        id="confirmSlotBooking" v-model="isConfirmChecked" style="
                                                              width: 22px;
                                                              height: 22px;
                                                              cursor: pointer;
@@ -546,8 +547,8 @@
                                                              margin: 0;
                                                          " />
 
-                                                     <label for="confirmSlotBooking" class="m-0 text-start flex-grow-1"
-                                                         style="
+                                                    <label for="confirmSlotBooking" class="m-0 text-start flex-grow-1"
+                                                        style="
                                                              /* background: #F8F5FC;
                                                              border: 1px solid #E4D8F5; */
                                                              border-radius: 16px;
@@ -556,17 +557,23 @@
                                                              user-select: none;
                                                              display: block;
                                                          ">
-                                                         <p class="text-dark mb-2 animate-fade-in" style="font-size: 11px; font-weight: 500; line-height: 1.4; color: #374151 !important;">
-                                                             I will bring all required physical documents (10th & 12th marksheets, degree, Aadhaar, PAN & resume) to the Hiring Drive.
-                                                         </p>
-                                                         <p class="text-dark mb-0 animate-fade-in" style="font-size: 11px; font-weight: 500; line-height: 1.4; color: #374151 !important;">
-                                                             I accept the Terms & Conditions by submitting this form.
-                                                         </p>
-                                                     </label>
-                                                 </div> 
+                                                        <p class="text-dark mb-2 animate-fade-in"
+                                                            style="font-size: 11px; font-weight: 500; line-height: 1.4; color: #374151 !important;">
+                                                            I will bring all required physical documents (10th & 12th
+                                                            marksheets, degree, Aadhaar, PAN & resume) to the Hiring
+                                                            Drive.
+                                                        </p>
+                                                        <p class="text-dark mb-0 animate-fade-in"
+                                                            style="font-size: 11px; font-weight: 500; line-height: 1.4; color: #374151 !important;">
+                                                            I accept the Terms & Conditions by submitting this form.
+                                                        </p>
+                                                    </label>
+                                                </div>
 
                                                 <!-- Book Slot Button -->
-                                                <button class="btn w-100 d-flex justify-content-center align-items-center gap-2" :disabled="!isConfirmChecked || isBookingSlot" @click="bookSlot"
+                                                <button
+                                                    class="btn w-100 d-flex justify-content-center align-items-center gap-2"
+                                                    :disabled="!isConfirmChecked || isBookingSlot" @click="bookSlot"
                                                     style="
                                                     height:52px;
                                                     border:none;
@@ -582,7 +589,8 @@
                                                     cursor: (isConfirmChecked && !isBookingSlot) ? 'pointer' : 'not-allowed'
                                                 }">
 
-                                                    <span v-if="isBookingSlot" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+                                                    <span v-if="isBookingSlot" class="spinner-border spinner-border-sm"
+                                                        role="status" aria-hidden="true"></span>
                                                     <span v-if="isBookingSlot">Booking...</span>
                                                     <span v-else>Book Slot &rarr;</span>
 
@@ -666,189 +674,6 @@
                                 <StudentKits :isDisabled="false" :userEmail="formData.email"
                                     :mockTestStatus="formData.mock_test_status" @onStatusUpdate="fetchStudentDetail" />
                             </div>
-
-                            <!-- NFET Slot Booking Sidebar -->
-                            <!-- <div class="nfet-slot-sidebar bg-white rounded-4 shadow-sm border mb-4 overflow-hidden">
-                                <div class="d-flex justify-content-between align-items-center p-4"
-                                    @click="isOpenNfet = !isOpenNfet"
-                                    style="cursor: pointer; user-select: none; background-color: #CB9722; color: white;">
-                                    <h5 class="m-0 text-white fw-bold d-flex align-items-center"
-                                        style="font-size: 17px;">
-                                        <i class="ti ti-calendar-event me-2 fs-4"></i>NFET Slot Booking
-                                    </h5>
-                                    <i class="ti fs-5" :class="isOpenNfet ? 'ti-chevron-up' : 'ti-chevron-down'"></i>
-                                </div>
-
-                                <div v-show="isOpenNfet" class="nfet-slide-content p-4" style="position: relative;">
-                                    <div v-if="isProfileEmpty" class="disabled-overlay"
-                                        title="This section will be enabled after you complete your profile."></div>
-                                    <div :class="{ 'opacity-50 pointer-events-none': isProfileEmpty }">
-                                        <div
-                                            class="d-flex justify-content-between align-items-center mb-3 bg-light p-2 rounded">
-                                            <button
-                                                class="btn btn-sm btn-white border shadow-sm p-1 d-flex align-items-center justify-content-center"
-                                                style="width: 28px; height: 28px;" @click="prevMonth"><i
-                                                    class="ti ti-chevron-left"></i></button>
-                                            <span class="fw-bold text-dark" style="font-size: 14px;">{{
-                                                monthNames[currentMonth]
-                                            }}
-                                                {{ currentYear }}</span>
-                                            <button
-                                                class="btn btn-sm btn-white border shadow-sm p-1 d-flex align-items-center justify-content-center"
-                                                style="width: 28px; height: 28px;" @click="nextMonth"><i
-                                                    class="ti ti-chevron-right"></i></button>
-                                        </div>
-                                        <div class="calendar-grid">
-                                            <div class="calendar-day-header text-muted fw-semibold"
-                                                v-for="day in ['Su', 'Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa']" :key="day">{{
-                                                    day
-                                                }}
-                                            </div>
-                                            <div class="calendar-day" v-for="(day, idx) in calendarDays"
-                                                :key="'empty-' + idx" :class="{
-                                                    'empty': !day,
-                                                    'allowed': day && day.isAllowed,
-                                                    'disabled': day && !day.isAllowed && !day.isBlocked,
-                                                    'blocked': day && day.isBlocked,
-                                                    'selected': day && day.dateString === selectedDate,
-                                                    'is-current': day && day.dateString === bookingDetails.date,
-                                                    'cursor-not-allowed': bookingDetails.updateCount >= 2 && day && day.isAllowed
-                                                }"
-                                                :title="day && day.isBlocked ? 'fully booked' : (bookingDetails.updateCount >= 2 ? 'Update limit reached' : '')"
-                                                @click="bookingDetails.updateCount < 2 && selectDate(day)">
-                                                <span>{{ day ? day.day : '' }}</span>
-                                            </div>
-                                        </div>
-
-                                        <div class="slots-container" v-if="selectedDate">
-                                            <h6 class="mb-2 mt-2 fw-semibold text-dark" style="font-size: 14px;">Slots
-                                                for
-                                                {{
-                                                    formatDate(selectedDate) }}:</h6>
-                                            <div class="d-flex flex-wrap gap-2 mb-3">
-                                                <button v-for="slot in availableSlots" :key="slot.id"
-                                                    class="btn btn-sm flex-grow-1 position-relative" :class="[
-                                                        selectedSlot === slot.id ? 'btn-primary text-white custom-primary-bg' : 'btn-outline-secondary',
-                                                        (selectedDate === bookingDetails.date && slot.time === bookingDetails.time) ? 'btn-current-slot' : ''
-                                                    ]"
-                                                    @click="!slot.disabled && bookingDetails.updateCount < 2 && selectSlot(slot)"
-                                                    :disabled="slot.disabled || bookingDetails.updateCount >= 2"
-                                                    :title="bookingDetails.updateCount >= 2 ? 'Update limit reached' : (slot.disabled ? 'This slot is no longer available (8-hour restriction)' : '')"
-                                                    style="font-size: 12px; min-width: 45%; padding-top: 10px; padding-bottom: 10px;">
-                                                    {{ slot.time }}
-                                                    <span
-                                                        v-if="selectedDate === bookingDetails.date && slot.time === bookingDetails.time"
-                                                        class="badge bg-primary position-absolute top-0 start-50 translate-middle-x"
-                                                        style="font-size: 8px; transform: translate(-50%, -50%) !important; background-color: #872980 !important;">CURRENT</span>
-                                                </button>
-                                            </div>
-                                            <div v-if="availableSlots.length === 0" class="text-muted small mb-3">No
-                                                slots
-                                                available.
-                                            </div>
-
-                                            <div v-if="bookingDetails.updateCount <= 1"
-                                                class="d-inline-block w-100 mb-2">
-                                                <button
-                                                    class="btn btn-primary w-100 custom-primary-bg d-flex justify-content-center align-items-center gap-2"
-                                                    :class="{ 'btn-disabled-custom': isBookingSlot || isCurrentSlotInPast }"
-                                                    :disabled="isBookingSlot || isCurrentSlotInPast"
-                                                    style="pointer-events: auto;"
-                                                    @click="!isBookingSlot && !isCurrentSlotInPast && bookSlot()">
-                                                    <span v-if="isBookingSlot" class="spinner-border spinner-border-sm"
-                                                        role="status" aria-hidden="true"></span>
-
-                                                    <template v-if="bookingDetails.updateCount === 0">
-                                                        Book Slot
-                                                        <span class="custom-tooltip-wrapper d-inline-block ms-1"
-                                                            @click.stop>
-                                                            <i class="ti ti-info-circle" style="font-size: 16px;"></i>
-                                                            <div class="custom-tooltip-content"
-                                                                style="pointer-events: none;">
-                                                                Slot can be changed once, at least {{ bufferHours }} hours before the
-                                                                scheduled
-                                                                date
-                                                            </div>
-                                                        </span>
-                                                    </template>
-
-                                                    <template v-else-if="bookingDetails.updateCount === 1">
-                                                        <div class="d-flex flex-column align-items-center"
-                                                            style="line-height: 1.2;">
-                                                            <span>Change Slot
-                                                                <span class="custom-tooltip-wrapper d-inline-block ms-1"
-                                                                    @click.stop>
-                                                                    <i class="ti ti-info-circle"
-                                                                        style="font-size: 16px;"></i>
-                                                                    <div class="custom-tooltip-content"
-                                                                        style="pointer-events: none; bottom: 120%;">
-                                                                        Slot can be changed once, at least {{ bufferHours }} hours
-                                                                        before
-                                                                        the
-                                                                        scheduled date
-                                                                    </div>
-                                                                </span>
-                                                            </span>
-                                                            <small style="font-size: 0.75em;">(one time only)</small>
-                                                        </div>
-                                                    </template>
-                                                </button>
-                                            </div>
-
-                                        </div>
-                                        <p v-else
-                                            class="text-muted small text-center py-2 px-3 bg-light rounded border border-dashed mt-3">
-                                            Please select a highlighted date.
-                                        </p>
-
-                                        <div class="mt-3">
-                                            <button
-                                                class="btn btn-outline-success w-100 d-flex justify-content-center align-items-center gap-2 mb-2"
-                                                @click="downloadAdmitCard"
-                                                :disabled="!bookingDetails.isBooked || isDownloadingAdmitCard">
-                                                <span v-if="isDownloadingAdmitCard"
-                                                    class="spinner-border spinner-border-sm" role="status"
-                                                    aria-hidden="true"></span>
-                                                <template v-else>Download Admit Card <i
-                                                        class="ti ti-download"></i></template>
-                                            </button>
-
-                                            <button
-                                                class="btn w-100 d-flex justify-content-center align-items-center gap-2"
-                                                :class="bookingDetails.examStatus ? 'btn-primary custom-primary-bg' : 'btn-secondary btn-disabled-custom'"
-                                                v-if="bookingDetails.isBooked" :disabled="isStartingExam"
-                                                @click="handleStartExamClick($event)">
-                                                <span v-if="isStartingExam" class="spinner-border spinner-border-sm"
-                                                    role="status" aria-hidden="true"></span>
-                                                <template v-else-if="bookingDetails.examUrl">
-                                                    Resume Exam
-                                                    <i class="ti ti-external-link"></i>
-                                                </template>
-                                                <template v-else>
-                                                    Start Exam
-                                                    <i class="ti ti-external-link"></i>
-                                                </template>
-                                                <span class="custom-tooltip-wrapper d-inline-block ms-1"
-                                                    @click.stop.prevent>
-                                                    <i class="ti ti-info-circle" style="font-size: 16px;"></i>
-                                                    <div class="custom-tooltip-content"
-                                                        style="pointer-events: none; bottom: 120%;">
-                                                        {{
-                                                            bookingDetails.examStatus
-                                                                ? 'The exam is enabled and ready to start'
-                                                                : 'Exam will be enabled 1 hour before the scheduled time.'
-                                                        }}
-                                                    </div>
-                                                </span>
-                                            </button>
-
-                                        </div>
-
-
-                                    </div> 
-                                    
-                                </div> 
-                            </div> -->
 
                         </div> <!-- End Col-LG-4 -->
                     </div> <!-- End Row -->
@@ -1337,37 +1162,37 @@ const bookingDetails = reactive({
 
 const showAdmitCardButton = ref(false);
 
-// const isCurrentSlotInPast = computed(() => {
-//     if (!bookingDetails.date) return false;
-//     try {
-//         if (!bookingDetails.time) {
-//             const [year, month, day] = bookingDetails.date.split('-');
-//             const slotDateTime = new Date(parseInt(year), parseInt(month) - 1, parseInt(day), 0, 0, 0);
-//             const todayDateTime = new Date();
-//             todayDateTime.setHours(0, 0, 0, 0);
-//             return slotDateTime < todayDateTime;
-//         }
+const isCurrentSlotInPast = computed(() => {
+    if (!bookingDetails.date) return false;
+    try {
+        if (!bookingDetails.time) {
+            const [year, month, day] = bookingDetails.date.split('-');
+            const slotDateTime = new Date(parseInt(year), parseInt(month) - 1, parseInt(day), 0, 0, 0);
+            const todayDateTime = new Date();
+            todayDateTime.setHours(0, 0, 0, 0);
+            return slotDateTime < todayDateTime;
+        }
 
-//         const startTimeStr = bookingDetails.time.split('-')[0].trim();
-//         const match = startTimeStr.match(/(\d+):(\d+)\s*(AM|PM)/i);
-//         if (match) {
-//             let hourVal = parseInt(match[1], 10);
-//             const minVal = parseInt(match[2], 10);
-//             const ampm = match[3];
+        const startTimeStr = bookingDetails.time.split('-')[0].trim();
+        const match = startTimeStr.match(/(\d+):(\d+)\s*(AM|PM)/i);
+        if (match) {
+            let hourVal = parseInt(match[1], 10);
+            const minVal = parseInt(match[2], 10);
+            const ampm = match[3];
 
-//             if (ampm.toUpperCase() === 'PM' && hourVal < 12) hourVal += 12;
-//             if (ampm.toUpperCase() === 'AM' && hourVal === 12) hourVal = 0;
+            if (ampm.toUpperCase() === 'PM' && hourVal < 12) hourVal += 12;
+            if (ampm.toUpperCase() === 'AM' && hourVal === 12) hourVal = 0;
 
-//             const [year, month, day] = bookingDetails.date.split('-');
-//             const slotDateTime = new Date(parseInt(year), parseInt(month) - 1, parseInt(day), hourVal, minVal, 0);
+            const [year, month, day] = bookingDetails.date.split('-');
+            const slotDateTime = new Date(parseInt(year), parseInt(month) - 1, parseInt(day), hourVal, minVal, 0);
 
-//             return slotDateTime < new Date();
-//         }
-//     } catch (err) {
-//         console.error("Error validating current slot time", err);
-//     }
-//     return false;
-// });
+            return slotDateTime < new Date();
+        }
+    } catch (err) {
+        console.error("Error validating current slot time", err);
+    }
+    return false;
+});
 
 const fetchStudentDetail = async () => {
     if (!userId.value) return;
@@ -1651,7 +1476,9 @@ const fetchStudentDetail = async () => {
             });
             if (detailRes.success && detailRes.data) {
                 profileImage.value = detailRes.data.image || detailRes.data.photo || profileImage.value;
-                formData.interview_slots_detail = detailRes.data.interview_slots_detail || [];
+                if (detailRes.data.interview_slots_detail) {
+                    formData.interview_slots_detail = detailRes.data.interview_slots_detail;
+                }
                 if (detailRes.data.interview_detail) {
                     formData.interview_detail = detailRes.data.interview_detail;
                 }
@@ -1968,7 +1795,7 @@ const calendarDays = computed(() => {
 
         // Allowed only if slot is not booked, it's in the API response, booked count < 30, and >= today, and satisfies buffer
         const isAllowed = !bookingDetails.isBooked && !!slotDetail && dateString >= todayStr && (count < 30) && satisfiesBuffer;
-        
+
         // Blocked if it's in the API response but booked count >= 30
         const isBlocked = !!slotDetail && (count >= 30);
 
