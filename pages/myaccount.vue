@@ -70,7 +70,7 @@
 
                                     <div class="application-id-badge mb-3 d-inline-block">
                                         <span v-if="formData?.application_id">Application ID: {{ formData.application_id
-                                        }}</span>
+                                            }}</span>
                                         <span v-else>- </span>
                                     </div>
 
@@ -457,7 +457,7 @@
                                                     @click="prevMonth"><i class="ti ti-chevron-left"></i></button>
                                                 <span class="fw-bold" style="font-size: 18px; color: #4C1D95;">{{
                                                     monthNames[currentMonth]
-                                                }}
+                                                    }}
                                                     {{ currentYear }}</span>
                                                 <button
                                                     class="btn btn-sm text-white d-flex align-items-center justify-content-center"
@@ -500,9 +500,8 @@
                                                         <span v-if="day.isBlocked"
                                                             style="color: #EF4444; font-size: 8px; font-weight: 600;">Blocked</span>
                                                         <span v-else-if="day.isAllowed"
-                                                            style="color: #22C55E; font-size: 8px; font-weight: 700;">
-                                                            {{ getSlotsCountForDate(day.dateString) }} Slots Left
-                                                        </span>
+                                                            style="color: #22C55E; font-size: 8px; font-weight: 700;">9
+                                                            Slots Left</span>
                                                         <span v-else style="color: #9CA3AF; font-size: 10px;">-</span>
                                                     </span>
                                                 </div>
@@ -519,10 +518,11 @@
                                         </div>
 
                                         <div class="slots-container" style="padding: 0 8px 12px;">
-                                             <!-- Confirmation Checkbox Container -->
-                                             <div class="position-relative mb-4 mt-3" style="padding-left: 12px; display: flex; align-items: center;">
-                                                 <input class="form-check-input" type="checkbox" id="confirmSlotBooking" v-model="isConfirmChecked"
-                                                     style="
+                                            <!-- Confirmation Checkbox Container -->
+                                            <div class="position-relative mb-4 mt-3"
+                                                style="padding-left: 12px; display: flex; align-items: center;">
+                                                <input class="form-check-input" type="checkbox" id="confirmSlotBooking"
+                                                    v-model="isConfirmChecked" style="
                                                          width: 22px;
                                                          height: 22px;
                                                          cursor: pointer;
@@ -538,8 +538,8 @@
                                                          margin: 0;
                                                      " />
 
-                                                 <label for="confirmSlotBooking" class="m-0 text-start flex-grow-1"
-                                                     style="
+                                                <label for="confirmSlotBooking" class="m-0 text-start flex-grow-1"
+                                                    style="
                                                          /* background: #F8F5FC;
                                                          border: 1px solid #E4D8F5; */
                                                          border-radius: 16px;
@@ -548,14 +548,18 @@
                                                          user-select: none;
                                                          display: block;
                                                      ">
-                                                     <p class="text-dark mb-2 animate-fade-in" style="font-size: 11px; font-weight: 500; line-height: 1.4; color: #374151 !important;">
-                                                         I will bring all required physical documents (10th & 12th marksheets, degree, Aadhaar, PAN & resume) to the Hiring Drive.
-                                                     </p>
-                                                     <p class="text-dark mb-0 animate-fade-in" style="font-size: 11px; font-weight: 500; line-height: 1.4; color: #374151 !important;">
-                                                         I accept the Terms & Conditions by submitting this form.
-                                                     </p>
-                                                 </label>
-                                             </div> 
+                                                    <p class="text-dark mb-2 animate-fade-in"
+                                                        style="font-size: 11px; font-weight: 500; line-height: 1.4; color: #374151 !important;">
+                                                        I will bring all required physical documents (10th & 12th
+                                                        marksheets, degree, Aadhaar,
+                                                        PAN & resume) to the Hiring Drive.
+                                                    </p>
+                                                    <p class="text-dark mb-0 animate-fade-in"
+                                                        style="font-size: 11px; font-weight: 500; line-height: 1.4; color: #374151 !important;">
+                                                        I accept the Terms & Conditions by submitting this form.
+                                                    </p>
+                                                </label>
+                                            </div>
 
                                             <!-- Book Slot Button -->
                                             <button class="btn w-100" :disabled="!isConfirmChecked" @click="bookSlot"
@@ -1434,7 +1438,6 @@ const fetchStudentDetail = async () => {
             formData.complete_address = d.address || "";
             formData.mock_test_status = d.mock_test_status ?? 0;
             formData.interview_detail = d.interview_detail || [];
-            formData.interview_slots_detail = d.interview_slots_detail || [];
 
             // Mappings for Choices with robust helper functions supporting strings, numbers, and case-insensitivity
             const mapGender = (val: any): string => {
@@ -1611,10 +1614,6 @@ const fetchStudentDetail = async () => {
             });
             if (detailRes.success && detailRes.data) {
                 profileImage.value = detailRes.data.image || detailRes.data.photo || profileImage.value;
-                formData.interview_slots_detail = detailRes.data.interview_slots_detail || [];
-                if (detailRes.data.interview_detail) {
-                    formData.interview_detail = detailRes.data.interview_detail;
-                }
 
                 // Fallback for empty core fields
                 if (!formData.first_name) {
@@ -2074,12 +2073,13 @@ const bookSlot = async () => {
         const token = getAccessToken();
 
         const payload = {
-            interview_date: selectedDate.value
+            slot_date: selectedDate.value,
+            slot_time: String(slotObj.time)
         };
 
         // Note: Using a standard fetch for easier blob handling
-        const response = await fetch(`${config.public.apiBase}/api/students/create-student-account-interview-slot/`, {
-            method: "POST",
+        const response = await fetch(`${config.public.apiBase}/api/students/student-slot-upload/`, {
+            method: "PATCH",
             body: JSON.stringify(payload),
             headers: {
                 'Content-Type': 'application/json',
@@ -2094,15 +2094,15 @@ const bookSlot = async () => {
             const wasAlreadyBooked = bookingDetails.isBooked;
 
             bookingDetails.isBooked = true;
-            bookingDetails.date = payload.interview_date;
-            bookingDetails.time = slotObj ? String(slotObj.time) : "";
+            bookingDetails.date = payload.slot_date;
+            bookingDetails.time = payload.slot_time;
             bookingDetails.admitCardUrl = reportUrl;
             showAdmitCardButton.value = true;
 
             if (wasAlreadyBooked) {
                 showAlert("Success", "Change request submitted successfully!", "success");
             } else {
-                showAlert("Success", "Slot booked successfully!", "success");
+                showAlert("Success", "Slot booked successfully! You can now download your admit card.", "success");
             }
         } else {
             const errorData = await response.json().catch(() => ({}));
@@ -2170,20 +2170,9 @@ const formatDate = (dateStr: string) => {
 };
 
 const getSelectedSlotTime = () => {
+    if (!selectedSlot.value) return "";
     const slotObj = availableSlots.value.find((s: any) => s.id === selectedSlot.value);
     return slotObj ? slotObj.time : "";
-};
-
-const getSlotsCountForDate = (dateString: string) => {
-    if (!dateString || !formData.interview_slots_detail) return 30;
-    const parts = dateString.split('-');
-    if (parts.length !== 3) return 30;
-    const formattedDate = `${parts[2]}-${parts[1]}-${parts[0]}`;
-    const found = formData.interview_slots_detail.find((item: any) => item.date === formattedDate);
-    if (found) {
-        return Math.max(0, 30 - (found.count || 0));
-    }
-    return 30;
 };
 
 const formData = reactive({
