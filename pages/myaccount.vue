@@ -70,7 +70,7 @@
 
                                     <div class="application-id-badge mb-3 d-inline-block">
                                         <span v-if="formData?.application_id">Application ID: {{ formData.application_id
-                                            }}</span>
+                                        }}</span>
                                         <span v-else>- </span>
                                     </div>
 
@@ -457,7 +457,7 @@
                                                     @click="prevMonth"><i class="ti ti-chevron-left"></i></button>
                                                 <span class="fw-bold" style="font-size: 18px; color: #4C1D95;">{{
                                                     monthNames[currentMonth]
-                                                    }}
+                                                }}
                                                     {{ currentYear }}</span>
                                                 <button
                                                     class="btn btn-sm text-white d-flex align-items-center justify-content-center"
@@ -500,89 +500,96 @@
                                                         <span v-if="day.isBlocked"
                                                             style="color: #EF4444; font-size: 8px; font-weight: 600;">Blocked</span>
                                                         <span v-else-if="day.isAllowed"
-                                                            style="color: #22C55E; font-size: 8px; font-weight: 700;">9
-                                                            Slots Left</span>
+                                                            style="color: #22C55E; font-size: 8px; font-weight: 700;">
+                                                            {{ getSlotsCountForDate(day.dateString) }} Slots Left
+                                                        </span>
                                                         <span v-else style="color: #9CA3AF; font-size: 10px;">-</span>
                                                     </span>
                                                 </div>
                                             </div>
                                         </div>
 
-                                        <!-- Guidance Banner -->
-                                        <div class="calendar-info-banner p-3 mb-4 mx-4 d-flex align-items-center"
-                                            style="background-color: #F3EFF7; border-left: 4px solid #4C1D95; border-radius: 8px;">
-                                            <span
-                                                style="color: #4C1D95; font-weight: 600; font-size: 12px; text-align: center; width: 100%;">
-                                                Please select an available slot (green) in the calendar.
-                                            </span>
+                                        <!-- Booked Slot Confirmation Message -->
+                                        <div v-if="bookingDetails.isBooked" class="alert alert-success text-center py-3 px-4 mx-4 mb-4"
+                                            style="background-color: #ECFDF5; border: 1px solid #A7F3D0; border-radius: 12px; color: #065F46; font-size: 13px; font-weight: 600; line-height: 1.5;">
+                                            <i class="ti ti-circle-check-filled me-2" style="font-size: 16px;"></i>
+                                            Your slot has been booked on {{ formatDate(bookingDetails.date) }}.
                                         </div>
 
-                                        <div class="slots-container" style="padding: 0 8px 12px;">
-                                            <!-- Confirmation Checkbox Container -->
-                                            <div class="position-relative mb-4 mt-3"
-                                                style="padding-left: 12px; display: flex; align-items: center;">
-                                                <input class="form-check-input" type="checkbox" id="confirmSlotBooking"
-                                                    v-model="isConfirmChecked" style="
-                                                         width: 22px;
-                                                         height: 22px;
-                                                         cursor: pointer;
-                                                         /* border: 2px solid #4C1D95; */
-                                                         border-radius: 6px;
-                                                         accent-color: #4C1D95;
-                                                         position: absolute;
-                                                         left: 0;
-                                                         top: 50%;
-                                                         transform: translateY(-50%);
-                                                         z-index: 10;
-                                                         /* background-color: #ffffff; */
-                                                         margin: 0;
-                                                     " />
-
-                                                <label for="confirmSlotBooking" class="m-0 text-start flex-grow-1"
-                                                    style="
-                                                         /* background: #F8F5FC;
-                                                         border: 1px solid #E4D8F5; */
-                                                         border-radius: 16px;
-                                                         padding: 14px 14px 14px 28px;
-                                                         cursor: pointer;
-                                                         user-select: none;
-                                                         display: block;
-                                                     ">
-                                                    <p class="text-dark mb-2 animate-fade-in"
-                                                        style="font-size: 11px; font-weight: 500; line-height: 1.4; color: #374151 !important;">
-                                                        I will bring all required physical documents (10th & 12th
-                                                        marksheets, degree, Aadhaar,
-                                                        PAN & resume) to the Hiring Drive.
-                                                    </p>
-                                                    <p class="text-dark mb-0 animate-fade-in"
-                                                        style="font-size: 11px; font-weight: 500; line-height: 1.4; color: #374151 !important;">
-                                                        I accept the Terms & Conditions by submitting this form.
-                                                    </p>
-                                                </label>
+                                        <template v-else>
+                                            <!-- Guidance Banner -->
+                                            <div class="calendar-info-banner p-3 mb-4 mx-4 d-flex align-items-center"
+                                                style="background-color: #F3EFF7; border-left: 4px solid #4C1D95; border-radius: 8px;">
+                                                <span
+                                                    style="color: #4C1D95; font-weight: 600; font-size: 12px; text-align: center; width: 100%;">
+                                                    Please select an available slot (green) in the calendar.
+                                                </span>
                                             </div>
 
-                                            <!-- Book Slot Button -->
-                                            <button class="btn w-100" :disabled="!isConfirmChecked" @click="bookSlot"
-                                                style="
-                                                height:52px;
-                                                border:none;
-                                                border-radius:14px;
-                                                background:#4C1D95;
-                                                color:#fff;
-                                                font-size:16px;
-                                                font-weight:700;
-                                                transition:all .25s ease;
-                                                box-shadow:0 8px 20px rgba(76,29,149,.25);
-                                            " :style="{
-                                                opacity: isConfirmChecked ? '1' : '.55',
-                                                cursor: isConfirmChecked ? 'pointer' : 'not-allowed'
-                                            }">
+                                            <div class="slots-container" style="padding: 0 8px 12px;">
+                                                 <!-- Confirmation Checkbox Container -->
+                                                 <div class="position-relative mb-4 mt-3" style="padding-left: 12px; display: flex; align-items: center;">
+                                                     <input class="form-check-input" type="checkbox" id="confirmSlotBooking" v-model="isConfirmChecked"
+                                                         style="
+                                                             width: 22px;
+                                                             height: 22px;
+                                                             cursor: pointer;
+                                                             /* border: 2px solid #4C1D95; */
+                                                             border-radius: 6px;
+                                                             accent-color: #4C1D95;
+                                                             position: absolute;
+                                                             left: 0;
+                                                             top: 50%;
+                                                             transform: translateY(-50%);
+                                                             z-index: 10;
+                                                             /* background-color: #ffffff; */
+                                                             margin: 0;
+                                                         " />
 
-                                                Book Slot &rarr;
+                                                     <label for="confirmSlotBooking" class="m-0 text-start flex-grow-1"
+                                                         style="
+                                                             /* background: #F8F5FC;
+                                                             border: 1px solid #E4D8F5; */
+                                                             border-radius: 16px;
+                                                             padding: 14px 14px 14px 28px;
+                                                             cursor: pointer;
+                                                             user-select: none;
+                                                             display: block;
+                                                         ">
+                                                         <p class="text-dark mb-2 animate-fade-in" style="font-size: 11px; font-weight: 500; line-height: 1.4; color: #374151 !important;">
+                                                             I will bring all required physical documents (10th & 12th marksheets, degree, Aadhaar, PAN & resume) to the Hiring Drive.
+                                                         </p>
+                                                         <p class="text-dark mb-0 animate-fade-in" style="font-size: 11px; font-weight: 500; line-height: 1.4; color: #374151 !important;">
+                                                             I accept the Terms & Conditions by submitting this form.
+                                                         </p>
+                                                     </label>
+                                                 </div> 
 
-                                            </button>
+                                                <!-- Book Slot Button -->
+                                                <button class="btn w-100 d-flex justify-content-center align-items-center gap-2" :disabled="!isConfirmChecked || isBookingSlot" @click="bookSlot"
+                                                    style="
+                                                    height:52px;
+                                                    border:none;
+                                                    border-radius:14px;
+                                                    background:#4C1D95;
+                                                    color:#fff;
+                                                    font-size:16px;
+                                                    font-weight:700;
+                                                    transition:all .25s ease;
+                                                    box-shadow:0 8px 20px rgba(76,29,149,.25);
+                                                " :style="{
+                                                    opacity: (isConfirmChecked && !isBookingSlot) ? '1' : '.55',
+                                                    cursor: (isConfirmChecked && !isBookingSlot) ? 'pointer' : 'not-allowed'
+                                                }">
 
-                                        </div>
+                                                    <span v-if="isBookingSlot" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+                                                    <span v-if="isBookingSlot">Booking...</span>
+                                                    <span v-else>Book Slot &rarr;</span>
+
+                                                </button>
+
+                                            </div>
+                                        </template>
                                     </div>
 
                                 </div>
@@ -758,9 +765,9 @@
                                                             <i class="ti ti-info-circle" style="font-size: 16px;"></i>
                                                             <div class="custom-tooltip-content"
                                                                 style="pointer-events: none;">
-                                                                Slot can be changed once, at least 8 hours before the
+                                                                Slot can be changed once, at least {{ bufferHours }} hours before the
                                                                 scheduled
-                                                                time
+                                                                date
                                                             </div>
                                                         </span>
                                                     </template>
@@ -775,10 +782,10 @@
                                                                         style="font-size: 16px;"></i>
                                                                     <div class="custom-tooltip-content"
                                                                         style="pointer-events: none; bottom: 120%;">
-                                                                        Slot can be changed once, at least 8 hours
+                                                                        Slot can be changed once, at least {{ bufferHours }} hours
                                                                         before
                                                                         the
-                                                                        scheduled time
+                                                                        scheduled date
                                                                     </div>
                                                                 </span>
                                                             </span>
@@ -950,6 +957,7 @@ useHead({
 // Read the authenticated user's ID from the auth composable (set at login)
 const { userId, init: initAuth, getAccessToken } = useAuth()
 const config = useRuntimeConfig();
+const bufferHours = computed(() => Number(config.public.nfetSlotBufferHours) || 48);
 // Live auth token for chatbot server calls
 const chatbotToken = computed(() => getAccessToken() || '');
 
@@ -1206,11 +1214,11 @@ const profileCompletion = computed(() => {
     return Math.round(totalProgress);
 });
 
-const firstIncompleteSectionIndex = computed(() => {
-    const steps = completionSteps.value;
-    const index = steps.findIndex(step => step.visible !== false && !step.done);
-    return index !== -1 ? index + 2 : null;
-});
+// const firstIncompleteSectionIndex = computed(() => {
+//     const steps = completionSteps.value;
+//     const index = steps.findIndex(step => step.visible !== false && !step.done);
+//     return index !== -1 ? index + 2 : null;
+// });
 
 const showFeeWaiverModal = ref(false);
 
@@ -1329,29 +1337,37 @@ const bookingDetails = reactive({
 
 const showAdmitCardButton = ref(false);
 
-const isCurrentSlotInPast = computed(() => {
-    if (!bookingDetails.date || !bookingDetails.time) return false;
-    try {
-        const startTimeStr = bookingDetails.time.split('-')[0].trim();
-        const match = startTimeStr.match(/(\d+):(\d+)\s*(AM|PM)/i);
-        if (match) {
-            let hourVal = parseInt(match[1], 10);
-            const minVal = parseInt(match[2], 10);
-            const ampm = match[3];
+// const isCurrentSlotInPast = computed(() => {
+//     if (!bookingDetails.date) return false;
+//     try {
+//         if (!bookingDetails.time) {
+//             const [year, month, day] = bookingDetails.date.split('-');
+//             const slotDateTime = new Date(parseInt(year), parseInt(month) - 1, parseInt(day), 0, 0, 0);
+//             const todayDateTime = new Date();
+//             todayDateTime.setHours(0, 0, 0, 0);
+//             return slotDateTime < todayDateTime;
+//         }
 
-            if (ampm.toUpperCase() === 'PM' && hourVal < 12) hourVal += 12;
-            if (ampm.toUpperCase() === 'AM' && hourVal === 12) hourVal = 0;
+//         const startTimeStr = bookingDetails.time.split('-')[0].trim();
+//         const match = startTimeStr.match(/(\d+):(\d+)\s*(AM|PM)/i);
+//         if (match) {
+//             let hourVal = parseInt(match[1], 10);
+//             const minVal = parseInt(match[2], 10);
+//             const ampm = match[3];
 
-            const [year, month, day] = bookingDetails.date.split('-');
-            const slotDateTime = new Date(parseInt(year), parseInt(month) - 1, parseInt(day), hourVal, minVal, 0);
+//             if (ampm.toUpperCase() === 'PM' && hourVal < 12) hourVal += 12;
+//             if (ampm.toUpperCase() === 'AM' && hourVal === 12) hourVal = 0;
 
-            return slotDateTime < new Date();
-        }
-    } catch (err) {
-        console.error("Error validating current slot time", err);
-    }
-    return false;
-});
+//             const [year, month, day] = bookingDetails.date.split('-');
+//             const slotDateTime = new Date(parseInt(year), parseInt(month) - 1, parseInt(day), hourVal, minVal, 0);
+
+//             return slotDateTime < new Date();
+//         }
+//     } catch (err) {
+//         console.error("Error validating current slot time", err);
+//     }
+//     return false;
+// });
 
 const fetchStudentDetail = async () => {
     if (!userId.value) return;
@@ -1438,6 +1454,7 @@ const fetchStudentDetail = async () => {
             formData.complete_address = d.address || "";
             formData.mock_test_status = d.mock_test_status ?? 0;
             formData.interview_detail = d.interview_detail || [];
+            formData.interview_slots_detail = d.interview_slots_detail || [];
 
             // Mappings for Choices with robust helper functions supporting strings, numbers, and case-insensitivity
             const mapGender = (val: any): string => {
@@ -1574,26 +1591,46 @@ const fetchStudentDetail = async () => {
             };
 
             // Booking Details check
+            let isBooked = false;
+            let bookedDate = "";
+            let bookedTime = "";
+            let updateCount = d.slot_update_count || 0;
+
             if (d.slot_date && d.slot_time) {
+                isBooked = true;
+                bookedDate = d.slot_date;
+                bookedTime = d.slot_time;
+            } else if (d.interview_detail && d.interview_detail.length > 0) {
+                const activeInterview = d.interview_detail.find((item: any) => item.interview_date);
+                if (activeInterview) {
+                    isBooked = true;
+                    bookedDate = activeInterview.interview_date;
+                    bookedTime = "";
+                }
+            }
+
+            if (isBooked) {
                 bookingDetails.isBooked = true;
-                bookingDetails.date = d.slot_date;
-                bookingDetails.time = d.slot_time;
-                bookingDetails.updateCount = d.slot_update_count || 0;
-                selectedDate.value = d.slot_date;
+                bookingDetails.date = bookedDate;
+                bookingDetails.time = bookedTime;
+                bookingDetails.updateCount = updateCount;
+                selectedDate.value = bookedDate;
 
                 // Add to formData for chatbot
-                formData.slot_date = d.slot_date;
-                formData.slot_time = d.slot_time;
-                formData.slot_update_count = d.slot_update_count || 0;
+                formData.slot_date = bookedDate;
+                formData.slot_time = bookedTime;
+                formData.slot_update_count = updateCount;
 
                 availableSlots.value = staticSlots.map((timeStr: string, index: number) => ({
                     id: index + 1,
                     time: timeStr
                 }));
 
-                const matchingSlot = staticSlots.find(s => s === d.slot_time);
-                if (matchingSlot) {
-                    selectedSlot.value = staticSlots.indexOf(matchingSlot) + 1;
+                if (bookedTime) {
+                    const matchingSlot = staticSlots.find(s => s === bookedTime);
+                    if (matchingSlot) {
+                        selectedSlot.value = staticSlots.indexOf(matchingSlot) + 1;
+                    }
                 }
 
                 // Always show admit card button if slot is already booked
@@ -1614,6 +1651,22 @@ const fetchStudentDetail = async () => {
             });
             if (detailRes.success && detailRes.data) {
                 profileImage.value = detailRes.data.image || detailRes.data.photo || profileImage.value;
+                formData.interview_slots_detail = detailRes.data.interview_slots_detail || [];
+                if (detailRes.data.interview_detail) {
+                    formData.interview_detail = detailRes.data.interview_detail;
+                }
+
+                // Check if interview is booked via detailRes.data.interview_detail
+                if (detailRes.data.interview_detail && detailRes.data.interview_detail.length > 0) {
+                    const activeInterview = detailRes.data.interview_detail.find((item: any) => item.interview_date);
+                    if (activeInterview) {
+                        bookingDetails.isBooked = true;
+                        bookingDetails.date = activeInterview.interview_date;
+                        bookingDetails.time = "";
+                        selectedDate.value = activeInterview.interview_date;
+                        showAdmitCardButton.value = true;
+                    }
+                }
 
                 // Fallback for empty core fields
                 if (!formData.first_name) {
@@ -1905,8 +1958,16 @@ const calendarDays = computed(() => {
 
         const count = Number(slotDetail?.count || 0);
 
-        // Allowed only if it's in the API response, booked count < 30, and >= today
-        const isAllowed = !!slotDetail && dateString >= todayStr && (count < 30);
+        // Calculate if it satisfies the buffer constraint (midnight to midnight)
+        const [year, month, dayVal] = dateString.split('-');
+        const slotDateTime = new Date(parseInt(year), parseInt(month) - 1, parseInt(dayVal), 0, 0, 0);
+        const todayDateTime = new Date();
+        todayDateTime.setHours(0, 0, 0, 0);
+        const diffHours = (slotDateTime.getTime() - todayDateTime.getTime()) / (1000 * 60 * 60);
+        const satisfiesBuffer = diffHours >= bufferHours.value;
+
+        // Allowed only if slot is not booked, it's in the API response, booked count < 30, and >= today, and satisfies buffer
+        const isAllowed = !bookingDetails.isBooked && !!slotDetail && dateString >= todayStr && (count < 30) && satisfiesBuffer;
         
         // Blocked if it's in the API response but booked count >= 30
         const isBlocked = !!slotDetail && (count >= 30);
@@ -1979,43 +2040,43 @@ const isBookingSlot = ref(false);
 const isStartingExam = ref(false);
 
 
-const handleStartExamClick = async (event: MouseEvent) => {
-    event.preventDefault();
-    if (!bookingDetails.examStatus || isStartingExam.value) return;
+// const handleStartExamClick = async (event: MouseEvent) => {
+//     event.preventDefault();
+//     if (!bookingDetails.examStatus || isStartingExam.value) return;
 
-    isStartingExam.value = true;
-    try {
-        await fetchStudentDetail();
-        let targetUrl = bookingDetails.examUrl;
+//     isStartingExam.value = true;
+//     try {
+//         await fetchStudentDetail();
+//         let targetUrl = bookingDetails.examUrl;
 
-        if (!targetUrl) {
-            const { getAccessToken } = useAuth();
-            const token = getAccessToken();
-            const response: any = await $fetch(`${config.public.apiBase}/api/students/schedule-assessment/`, {
-                method: "POST",
-                body: {
-                    email: formData.application_id || formData.email,
-                    first_name: formData.first_name,
-                    last_name: formData.last_name
-                },
-                headers: token ? { 'Authorization': `Bearer ${token}` } : {}
-            });
+//         if (!targetUrl) {
+//             const { getAccessToken } = useAuth();
+//             const token = getAccessToken();
+//             const response: any = await $fetch(`${config.public.apiBase}/api/students/schedule-assessment/`, {
+//                 method: "POST",
+//                 body: {
+//                     email: formData.application_id || formData.email,
+//                     first_name: formData.first_name,
+//                     last_name: formData.last_name
+//                 },
+//                 headers: token ? { 'Authorization': `Bearer ${token}` } : {}
+//             });
 
-            if (response && response.data && response.data.assessmentlink) {
-                targetUrl = response.data.assessmentlink;
-            }
-        }
+//             if (response && response.data && response.data.assessmentlink) {
+//                 targetUrl = response.data.assessmentlink;
+//             }
+//         }
 
-        if (targetUrl) {
-            window.open(targetUrl, '_blank');
-            bookingDetails.examUrl = targetUrl;
-        }
-    } catch (err) {
-        console.error("Failed to start exam:", err);
-    } finally {
-        isStartingExam.value = false;
-    }
-};
+//         if (targetUrl) {
+//             window.open(targetUrl, '_blank');
+//             bookingDetails.examUrl = targetUrl;
+//         }
+//     } catch (err) {
+//         console.error("Failed to start exam:", err);
+//     } finally {
+//         isStartingExam.value = false;
+//     }
+// };
 
 const bookSlot = async () => {
     if (!selectedDate.value) return;
@@ -2028,13 +2089,12 @@ const bookSlot = async () => {
         // We assume 00:00:00 for the date of the interview
         const slotDateTime = new Date(parseInt(year), parseInt(month) - 1, parseInt(day), 0, 0, 0);
 
-        const now = new Date();
-        const diffHours = (slotDateTime.getTime() - now.getTime()) / (1000 * 60 * 60);
+        const todayDateTime = new Date();
+        todayDateTime.setHours(0, 0, 0, 0);
+        const diffHours = (slotDateTime.getTime() - todayDateTime.getTime()) / (1000 * 60 * 60);
 
-        const bufferHours = Number(config.public.nfetSlotBufferHours) || 48;
-
-        if (diffHours < bufferHours) {
-            showAlert("", `Slots can only be booked or changed at least ${bufferHours} hours before the scheduled date.`, "warning");
+        if (diffHours < bufferHours.value) {
+            showAlert("", `Slots can only be booked or changed at least ${bufferHours.value} hours before the scheduled date.`, "warning");
             return;
         }
     } catch (err) {
@@ -2058,13 +2118,12 @@ const bookSlot = async () => {
         const token = getAccessToken();
 
         const payload = {
-            slot_date: selectedDate.value,
-            slot_time: String(slotObj.time)
+            interview_date: selectedDate.value
         };
 
         // Note: Using a standard fetch for easier blob handling
-        const response = await fetch(`${config.public.apiBase}/api/students/student-slot-upload/`, {
-            method: "PATCH",
+        const response = await fetch(`${config.public.apiBase}/api/students/create-student-account-interview-slot/`, {
+            method: "POST",
             body: JSON.stringify(payload),
             headers: {
                 'Content-Type': 'application/json',
@@ -2087,7 +2146,7 @@ const bookSlot = async () => {
             if (wasAlreadyBooked) {
                 showAlert("Success", "Change request submitted successfully!", "success");
             } else {
-                showAlert("Success", "Slot booked successfully! You can now download your admit card.", "success");
+                showAlert("Success", "Slot booked successfully!", "success");
             }
         } else {
             const errorData = await response.json().catch(() => ({}));
@@ -2104,49 +2163,49 @@ const bookSlot = async () => {
 
 const isDownloadingAdmitCard = ref(false);
 
-const downloadAdmitCard = async () => {
-    isDownloadingAdmitCard.value = true;
-    try {
-        const { getAccessToken } = useAuth();
-        const token = getAccessToken();
-        const response = await fetch(`${config.public.apiBase}/api/students/student-admit-card-download/`, {
-            method: "GET",
-            headers: {
-                'Content-Type': 'application/json',
-                ...(token ? { 'Authorization': `Bearer ${token}` } : {})
-            }
-        });
+// const downloadAdmitCard = async () => {
+//     isDownloadingAdmitCard.value = true;
+//     try {
+//         const { getAccessToken } = useAuth();
+//         const token = getAccessToken();
+//         const response = await fetch(`${config.public.apiBase}/api/students/student-admit-card-download/`, {
+//             method: "GET",
+//             headers: {
+//                 'Content-Type': 'application/json',
+//                 ...(token ? { 'Authorization': `Bearer ${token}` } : {})
+//             }
+//         });
 
-        if (response.ok) {
-            const result = await response.json();
-            const reportUrl = result.data?.report_url || result.report_url;
-            if (reportUrl) {
-                // If it's a blob URL, download it, else open the external URL
-                if (reportUrl.startsWith('blob:') || reportUrl.includes('fslfdlfj')) {
-                    const link = document.createElement('a');
-                    link.href = reportUrl;
-                    link.setAttribute('download', `NFET_Admit_Card_${bookingDetails.date}.pdf`);
-                    document.body.appendChild(link);
-                    link.click();
-                    document.body.removeChild(link);
-                } else {
-                    // It's a standard URL, open in new tab
-                    window.open(reportUrl, '_blank');
-                }
-            } else {
-                showAlert("Error", "No admit card URL found in the response.", "error");
-            }
-        } else {
-            const errorData = await response.json().catch(() => ({}));
-            throw new Error(errorData.message || "Failed to download admit card");
-        }
-    } catch (err: any) {
-        console.error("Failed to download admit card:", err);
-        showAlert("Download Failed", err.message || "Failed to download admit card. Please try again.", "error");
-    } finally {
-        isDownloadingAdmitCard.value = false;
-    }
-};
+//         if (response.ok) {
+//             const result = await response.json();
+//             const reportUrl = result.data?.report_url || result.report_url;
+//             if (reportUrl) {
+//                 // If it's a blob URL, download it, else open the external URL
+//                 if (reportUrl.startsWith('blob:') || reportUrl.includes('fslfdlfj')) {
+//                     const link = document.createElement('a');
+//                     link.href = reportUrl;
+//                     link.setAttribute('download', `NFET_Admit_Card_${bookingDetails.date}.pdf`);
+//                     document.body.appendChild(link);
+//                     link.click();
+//                     document.body.removeChild(link);
+//                 } else {
+//                     // It's a standard URL, open in new tab
+//                     window.open(reportUrl, '_blank');
+//                 }
+//             } else {
+//                 showAlert("Error", "No admit card URL found in the response.", "error");
+//             }
+//         } else {
+//             const errorData = await response.json().catch(() => ({}));
+//             throw new Error(errorData.message || "Failed to download admit card");
+//         }
+//     } catch (err: any) {
+//         console.error("Failed to download admit card:", err);
+//         showAlert("Download Failed", err.message || "Failed to download admit card. Please try again.", "error");
+//     } finally {
+//         isDownloadingAdmitCard.value = false;
+//     }
+// };
 
 const formatDate = (dateStr: string) => {
     if (!dateStr) return '';
@@ -2155,7 +2214,6 @@ const formatDate = (dateStr: string) => {
 };
 
 const getSelectedSlotTime = () => {
-    if (!selectedSlot.value) return "";
     const slotObj = availableSlots.value.find((s: any) => s.id === selectedSlot.value);
     return slotObj ? slotObj.time : "";
 };
