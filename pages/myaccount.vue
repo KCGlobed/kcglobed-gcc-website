@@ -490,10 +490,10 @@
                                                         'blocked': day && day.isBlocked,
                                                         'selected': day && day.dateString === selectedDate,
                                                         'is-current': day && day.dateString === bookingDetails.date,
-                                                        'cursor-not-allowed': bookingDetails.updateCount >= 2 && day && day.isAllowed
+                                                        'cursor-not-allowed': false
                                                     }"
-                                                    :title="day && day.isBlocked ? 'fully booked' : (bookingDetails.updateCount >= 2 ? 'Update limit reached' : '')"
-                                                    @click="day && bookingDetails.updateCount < 2 && selectDate(day)">
+                                                    :title="day && day.isBlocked ? 'fully booked' : ''"
+                                                    @click="day && selectDate(day)">
 
                                                     <span class="day-number">{{ day ? day.day : '' }}</span>
                                                     <span class="slots-indicator" v-if="day">
@@ -1898,18 +1898,23 @@ const calendarDays = computed(() => {
     for (let i = 1; i <= daysInMonth.value; i++) {
         const dateString = `${currentYear.value}-${String(currentMonth.value + 1).padStart(2, '0')}-${String(i).padStart(2, '0')}`;
 
-        // Allowed only if it's in the allowedDates list AND is today or in the future
-        // AND at least one slot is valid (>= 8 hours)
-        const isAllowed = allowedDates.includes(dateString) &&
-            dateString >= todayStr &&
-            staticSlots.some((timeStr: string) => isSlotValid(dateString, timeStr));
+        // Convert YYYY-MM-DD to DD-MM-YYYY for API comparison
+        const parts = dateString.split('-');
+        const formattedDate = `${parts[2]}-${parts[1]}-${parts[0]}`;
+        const slotDetail = formData.interview_slots_detail?.find((item: any) => item.date === formattedDate);
 
-        const isBlocked = blockedDates.includes(dateString);
+        const count = Number(slotDetail?.count || 0);
+
+        // Allowed only if it's in the API response, booked count < 30, and >= today
+        const isAllowed = !!slotDetail && dateString >= todayStr && (count < 30);
+        
+        // Blocked if it's in the API response but booked count >= 30
+        const isBlocked = !!slotDetail && (count >= 30);
 
         days.push({
             day: i,
             dateString,
-            isAllowed: isAllowed && !isBlocked,
+            isAllowed,
             isBlocked
         });
     }
@@ -1929,14 +1934,8 @@ const selectDate = (day: any) => {
     }
     if (!day.isAllowed) return;
     selectedDate.value = day.dateString;
-    selectedSlot.value = ''; // reset slot on date change
+    selectedSlot.value = 'dummy'; // bypass validation
     isConfirmChecked.value = false;
-
-    availableSlots.value = staticSlots.map((timeStr: string, index: number) => ({
-        id: index + 1,
-        time: timeStr,
-        disabled: !isSlotValid(day.dateString, timeStr)
-    }));
 };
 
 const selectSlot = (slot: any) => {
@@ -2019,45 +2018,31 @@ const handleStartExamClick = async (event: MouseEvent) => {
 };
 
 const bookSlot = async () => {
-    if (!selectedDate.value || !selectedSlot.value) return;
-
-    const slotObj = availableSlots.value.find((s: any) => s.id === selectedSlot.value);
-    if (!slotObj) return;
+    if (!selectedDate.value) return;
 
     // Time difference check
     try {
         const slotDateStr = selectedDate.value;
-        const slotTimeStr = String(slotObj.time);
-        const startTimeStr = slotTimeStr.split('-')[0].trim();
-        const match = startTimeStr.match(/(\d+):(\d+)\s*(AM|PM)/i);
+        const [year, month, day] = slotDateStr.split('-');
 
-        if (match) {
-            let hourVal = parseInt(match[1], 10);
-            const minVal = parseInt(match[2], 10);
-            const ampm = match[3];
+        // We assume 00:00:00 for the date of the interview
+        const slotDateTime = new Date(parseInt(year), parseInt(month) - 1, parseInt(day), 0, 0, 0);
 
-            if (ampm.toUpperCase() === 'PM' && hourVal < 12) hourVal += 12;
-            if (ampm.toUpperCase() === 'AM' && hourVal === 12) hourVal = 0;
+        const now = new Date();
+        const diffHours = (slotDateTime.getTime() - now.getTime()) / (1000 * 60 * 60);
 
-            const [year, month, day] = slotDateStr.split('-');
-            const slotDateTime = new Date(parseInt(year), parseInt(month) - 1, parseInt(day), hourVal, minVal, 0);
+        const bufferHours = Number(config.public.nfetSlotBufferHours) || 48;
 
-            const now = new Date();
-            const diffHours = (slotDateTime.getTime() - now.getTime()) / (1000 * 60 * 60);
-
-            const bufferHours = Number(config.public.nfetSlotBufferHours) || 48;
-
-            if (diffHours < bufferHours) {
-                showAlert("", `Slots can only be booked or changed at least ${bufferHours} hours before the scheduled time.`, "warning");
-                return;
-            }
+        if (diffHours < bufferHours) {
+            showAlert("", `Slots can only be booked or changed at least ${bufferHours} hours before the scheduled date.`, "warning");
+            return;
         }
     } catch (err) {
         console.error("Error calculating time difference", err);
     }
 
     // New validation: Check if user is trying to book the very same slot they already have
-    if (bookingDetails.isBooked && bookingDetails.date === selectedDate.value && bookingDetails.time === String(slotObj.time)) {
+    if (bookingDetails.isBooked && bookingDetails.date === selectedDate.value) {
         showAlert("Same Slot Selected", "You’ve selected the same slot that you already booked. Please choose a different slot to update.", "info");
         return;
     }
@@ -2094,8 +2079,8 @@ const bookSlot = async () => {
             const wasAlreadyBooked = bookingDetails.isBooked;
 
             bookingDetails.isBooked = true;
-            bookingDetails.date = payload.slot_date;
-            bookingDetails.time = payload.slot_time;
+            bookingDetails.date = payload.interview_date;
+            bookingDetails.time = ""; // reset time since it's not applicable anymore
             bookingDetails.admitCardUrl = reportUrl;
             showAdmitCardButton.value = true;
 
@@ -2173,6 +2158,18 @@ const getSelectedSlotTime = () => {
     if (!selectedSlot.value) return "";
     const slotObj = availableSlots.value.find((s: any) => s.id === selectedSlot.value);
     return slotObj ? slotObj.time : "";
+};
+
+const getSlotsCountForDate = (dateString: string) => {
+    if (!dateString || !formData.interview_slots_detail) return 0;
+    const parts = dateString.split('-');
+    if (parts.length !== 3) return 0;
+    const formattedDate = `${parts[2]}-${parts[1]}-${parts[0]}`;
+    const found = formData.interview_slots_detail.find((item: any) => item.date === formattedDate);
+    if (found) {
+        return Math.max(0, 30 - (found.count || 0));
+    }
+    return 0;
 };
 
 const formData = reactive({
