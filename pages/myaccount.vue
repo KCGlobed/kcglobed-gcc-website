@@ -117,7 +117,7 @@
                                             class="spinner-border spinner-border-sm me-2"></span>
                                         Security Deposit
                                     </button>
-                                     <button v-if="resultStatus"
+                                    <button v-if="resultStatus"
                                         class="status-pill report-download-btn d-flex align-items-center gap-2"
                                         @click="downloadReport" :disabled="isDownloadingReport">
                                         <span v-if="isDownloadingReport"
@@ -147,7 +147,7 @@
                 <div class="container-lg border-0">
                     <div class="row g-4">
                         <!-- Left Column (8 col) -->
-                        <div class="col-lg-8">
+                        <div class="col-lg-8 order-2 order-lg-1">
 
                             <!-- 4 Accordion Sections -->
                             <div class="pb-30">
@@ -423,8 +423,179 @@
 
                         </div> <!-- End Left Column -->
 
+
+
                         <!-- Right Column (4 col) -->
-                        <div class="col-lg-4">
+                        <div class="col-lg-4 order-1 order-lg-2">
+
+                            <div class="nfet-slot-sidebar bg-white rounded-4 shadow-sm border mb-4 overflow-hidden"
+                                style="border-radius: 24px !important;">
+                                <div class="d-flex justify-content-between align-items-center p-4 slot-booking-header"
+                                    @click="isOpenNfet = !isOpenNfet"
+                                    style="cursor: pointer; user-select: none; background-color: #4C1D95; color: white; position: relative;">
+                                    <div class="w-100 text-center">
+                                        <span class="d-block text-warning fw-bold text-uppercase"
+                                            style="font-size: 18x; padding-top: 4px; letter-spacing: 1.5px; color: #FBBF24 !important;">SELECT
+                                            INTERVIEW SLOT</span>
+                                        <h4 class="m-0 text-white fw-bold mt-1" style="font-size: 22px;">Book Your Slot
+                                        </h4>
+                                    </div>
+
+                                </div>
+
+                                <div v-show="isOpenNfet" class="nfet-slide-content" style="position: relative;">
+                                    <div>
+
+                                        <!-- Calendar Inner Card Wrapper -->
+                                        <div class="calendar-card-container p-3 mb-4"
+                                            style="background-color: #F1EDF7; ">
+                                            <!-- Navigation Header -->
+                                            <div class="d-flex justify-content-between align-items-center mb-4">
+                                                <button
+                                                    class="btn btn-sm text-white d-flex align-items-center justify-content-center"
+                                                    style="width: 32px; height: 32px; border-radius: 50%; background-color: #4C1D95; border: none; padding: 0;"
+                                                    @click="prevMonth"><i class="ti ti-chevron-left"></i></button>
+                                                <span class="fw-bold" style="font-size: 18px; color: #4C1D95;">{{
+                                                    monthNames[currentMonth]
+                                                }}
+                                                    {{ currentYear }}</span>
+                                                <button
+                                                    class="btn btn-sm text-white d-flex align-items-center justify-content-center"
+                                                    style="width: 32px; height: 32px; border-radius: 50%; background-color: #4C1D95; border: none; padding: 0;"
+                                                    @click="nextMonth"><i class="ti ti-chevron-right"></i></button>
+                                            </div>
+
+                                            <!-- Weekday Headers -->
+                                            <div class="calendar-grid-weekdays mb-2"
+                                                style="display: grid; grid-template-columns: repeat(7, 1fr); gap: 8px; text-align: center;">
+                                                <div v-for="day in ['MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT', 'SUN']"
+                                                    :key="day" :style="{
+                                                        fontSize: '11px',
+                                                        fontWeight: '700',
+                                                        color: (day === 'SAT' || day === 'SUN') ? '#EF4444' : '#6B7280',
+                                                        textTransform: 'uppercase'
+                                                    }">
+                                                    {{ day }}
+                                                </div>
+                                            </div>
+
+                                            <!-- Days Grid -->
+                                            <div class="calendar-grid-days"
+                                                style="display: grid; grid-template-columns: repeat(7, 1fr); gap: 8px;">
+                                                <div class="calendar-day-cell" v-for="(day, idx) in calendarDays"
+                                                    :key="day ? 'day-' + day.dateString : 'empty-' + idx" :class="{
+                                                        'empty': !day,
+                                                        'allowed': day && day.isAllowed,
+                                                        'disabled': day && !day.isAllowed && !day.isBlocked,
+                                                        'blocked': day && day.isBlocked,
+                                                        'selected': day && day.dateString === selectedDate,
+                                                        'is-current': day && day.dateString === bookingDetails.date,
+                                                        'cursor-not-allowed': false
+                                                    }"
+                                                    :title="day && day.isBlocked ? 'fully booked' : ''"
+                                                    @click="day && selectDate(day)">
+
+                                                    <span class="day-number">{{ day ? day.day : '' }}</span>
+                                                    <span class="slots-indicator" v-if="day">
+                                                        <span v-if="day.isBlocked"
+                                                            style="color: #EF4444; font-size: 8px; font-weight: 600;">Blocked</span>
+                                                        <span v-else-if="day.isAllowed"
+                                                            style="color: #22C55E; font-size: 8px; font-weight: 700;">
+                                                            {{ getSlotsCountForDate(day.dateString) }} Slots Left
+                                                        </span>
+                                                        <span v-else style="color: #9CA3AF; font-size: 10px;">-</span>
+                                                    </span>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <!-- Booked Slot Confirmation Message -->
+                                        <div v-if="bookingDetails.isBooked" class="alert alert-success text-center py-3 px-4 mx-4 mb-4"
+                                            style="background-color: #ECFDF5; border: 1px solid #A7F3D0; border-radius: 12px; color: #065F46; font-size: 13px; font-weight: 600; line-height: 1.5;">
+                                            <i class="ti ti-circle-check-filled me-2" style="font-size: 16px;"></i>
+                                            Your slot has been booked on {{ formatDate(bookingDetails.date) }}.
+                                        </div>
+
+                                        <template v-else>
+                                            <!-- Guidance Banner -->
+                                            <div class="calendar-info-banner p-3 mb-4 mx-4 d-flex align-items-center"
+                                                style="background-color: #F3EFF7; border-left: 4px solid #4C1D95; border-radius: 8px;">
+                                                <span
+                                                    style="color: #4C1D95; font-weight: 600; font-size: 12px; text-align: center; width: 100%;">
+                                                    Please select an available slot (green) in the calendar.
+                                                </span>
+                                            </div>
+
+                                            <div class="slots-container" style="padding: 0 8px 12px;">
+                                                 <!-- Confirmation Checkbox Container -->
+                                                 <div class="position-relative mb-4 mt-3" style="padding-left: 12px; display: flex; align-items: center;">
+                                                     <input class="form-check-input" type="checkbox" id="confirmSlotBooking" v-model="isConfirmChecked"
+                                                         style="
+                                                             width: 22px;
+                                                             height: 22px;
+                                                             cursor: pointer;
+                                                             /* border: 2px solid #4C1D95; */
+                                                             border-radius: 6px;
+                                                             accent-color: #4C1D95;
+                                                             position: absolute;
+                                                             left: 0;
+                                                             top: 50%;
+                                                             transform: translateY(-50%);
+                                                             z-index: 10;
+                                                             /* background-color: #ffffff; */
+                                                             margin: 0;
+                                                         " />
+
+                                                     <label for="confirmSlotBooking" class="m-0 text-start flex-grow-1"
+                                                         style="
+                                                             /* background: #F8F5FC;
+                                                             border: 1px solid #E4D8F5; */
+                                                             border-radius: 16px;
+                                                             padding: 14px 14px 14px 28px;
+                                                             cursor: pointer;
+                                                             user-select: none;
+                                                             display: block;
+                                                         ">
+                                                         <p class="text-dark mb-2 animate-fade-in" style="font-size: 11px; font-weight: 500; line-height: 1.4; color: #374151 !important;">
+                                                             I will bring all required physical documents (10th & 12th marksheets, degree, Aadhaar, PAN & resume) to the Hiring Drive.
+                                                         </p>
+                                                         <p class="text-dark mb-0 animate-fade-in" style="font-size: 11px; font-weight: 500; line-height: 1.4; color: #374151 !important;">
+                                                             I accept the Terms & Conditions by submitting this form.
+                                                         </p>
+                                                     </label>
+                                                 </div> 
+
+                                                <!-- Book Slot Button -->
+                                                <button class="btn w-100 d-flex justify-content-center align-items-center gap-2" :disabled="!isConfirmChecked || isBookingSlot" @click="bookSlot"
+                                                    style="
+                                                    height:52px;
+                                                    border:none;
+                                                    border-radius:14px;
+                                                    background:#4C1D95;
+                                                    color:#fff;
+                                                    font-size:16px;
+                                                    font-weight:700;
+                                                    transition:all .25s ease;
+                                                    box-shadow:0 8px 20px rgba(76,29,149,.25);
+                                                " :style="{
+                                                    opacity: (isConfirmChecked && !isBookingSlot) ? '1' : '.55',
+                                                    cursor: (isConfirmChecked && !isBookingSlot) ? 'pointer' : 'not-allowed'
+                                                }">
+
+                                                    <span v-if="isBookingSlot" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+                                                    <span v-if="isBookingSlot">Booking...</span>
+                                                    <span v-else>Book Slot &rarr;</span>
+
+                                                </button>
+
+                                            </div>
+                                        </template>
+                                    </div>
+
+                                </div>
+                            </div>
+
+
                             <!-- Profile Completeness Sidebar Card -->
                             <div class="profile-completeness-card mb-4 overflow-hidden rounded-4 shadow-sm bg-white">
                                 <!-- Dark Header Section -->
@@ -497,7 +668,7 @@
                             </div>
 
                             <!-- NFET Slot Booking Sidebar -->
-                            <div class="nfet-slot-sidebar bg-white rounded-4 shadow-sm border mb-4 overflow-hidden">
+                            <!-- <div class="nfet-slot-sidebar bg-white rounded-4 shadow-sm border mb-4 overflow-hidden">
                                 <div class="d-flex justify-content-between align-items-center p-4"
                                     @click="isOpenNfet = !isOpenNfet"
                                     style="cursor: pointer; user-select: none; background-color: #CB9722; color: white;">
@@ -549,7 +720,6 @@
                                             </div>
                                         </div>
 
-                                        <!-- Slots -->
                                         <div class="slots-container" v-if="selectedDate">
                                             <h6 class="mb-2 mt-2 fw-semibold text-dark" style="font-size: 14px;">Slots
                                                 for
@@ -588,7 +758,6 @@
                                                     <span v-if="isBookingSlot" class="spinner-border spinner-border-sm"
                                                         role="status" aria-hidden="true"></span>
 
-                                                    <!-- state 1: Update Count == 0 -->
                                                     <template v-if="bookingDetails.updateCount === 0">
                                                         Book Slot
                                                         <span class="custom-tooltip-wrapper d-inline-block ms-1"
@@ -596,14 +765,13 @@
                                                             <i class="ti ti-info-circle" style="font-size: 16px;"></i>
                                                             <div class="custom-tooltip-content"
                                                                 style="pointer-events: none;">
-                                                                Slot can be changed once, at least 8 hours before the
+                                                                Slot can be changed once, at least {{ bufferHours }} hours before the
                                                                 scheduled
-                                                                time
+                                                                date
                                                             </div>
                                                         </span>
                                                     </template>
 
-                                                    <!-- state 2: Update Count === 1 -->
                                                     <template v-else-if="bookingDetails.updateCount === 1">
                                                         <div class="d-flex flex-column align-items-center"
                                                             style="line-height: 1.2;">
@@ -614,10 +782,10 @@
                                                                         style="font-size: 16px;"></i>
                                                                     <div class="custom-tooltip-content"
                                                                         style="pointer-events: none; bottom: 120%;">
-                                                                        Slot can be changed once, at least 8 hours
+                                                                        Slot can be changed once, at least {{ bufferHours }} hours
                                                                         before
                                                                         the
-                                                                        scheduled time
+                                                                        scheduled date
                                                                     </div>
                                                                 </span>
                                                             </span>
@@ -633,7 +801,6 @@
                                             Please select a highlighted date.
                                         </p>
 
-                                        <!-- Action Buttons -->
                                         <div class="mt-3">
                                             <button
                                                 class="btn btn-outline-success w-100 d-flex justify-content-center align-items-center gap-2 mb-2"
@@ -646,7 +813,6 @@
                                                         class="ti ti-download"></i></template>
                                             </button>
 
-                                            <!-- Start Exam Button -->
                                             <button
                                                 class="btn w-100 d-flex justify-content-center align-items-center gap-2"
                                                 :class="bookingDetails.examStatus ? 'btn-primary custom-primary-bg' : 'btn-secondary btn-disabled-custom'"
@@ -679,9 +845,11 @@
                                         </div>
 
 
-                                    </div> <!-- End Position-Relative -->
-                                </div> <!-- End v-show -->
-                            </div> <!-- End NFET Slot Sidebar -->
+                                    </div> 
+                                    
+                                </div> 
+                            </div> -->
+
                         </div> <!-- End Col-LG-4 -->
                     </div> <!-- End Row -->
                 </div> <!-- End Container -->
@@ -748,15 +916,9 @@
     </div>
 
     <!-- Aria Chatbot — fixed overlay -->
-    <GccChatbot
-        :form-data="formData"
-        :user-id="String(userId || '')"
-        :auth-token="chatbotToken"
-        :completion-percentage="Math.round(profileCompletion)"
-        @patch="(key, val) => { (formData as any)[key] = val; }"
-        @refresh="fetchStudentDetail"
-        @bot-submit="handleBotSubmit"
-    />
+    <GccChatbot :form-data="formData" :user-id="String(userId || '')" :auth-token="chatbotToken"
+        :completion-percentage="Math.round(profileCompletion)" @patch="(key, val) => { (formData as any)[key] = val; }"
+        @refresh="fetchStudentDetail" @bot-submit="handleBotSubmit" />
 
 </template>
 
@@ -795,6 +957,7 @@ useHead({
 // Read the authenticated user's ID from the auth composable (set at login)
 const { userId, init: initAuth, getAccessToken } = useAuth()
 const config = useRuntimeConfig();
+const bufferHours = computed(() => Number(config.public.nfetSlotBufferHours) || 48);
 // Live auth token for chatbot server calls
 const chatbotToken = computed(() => getAccessToken() || '');
 
@@ -1051,11 +1214,11 @@ const profileCompletion = computed(() => {
     return Math.round(totalProgress);
 });
 
-const firstIncompleteSectionIndex = computed(() => {
-    const steps = completionSteps.value;
-    const index = steps.findIndex(step => step.visible !== false && !step.done);
-    return index !== -1 ? index + 2 : null;
-});
+// const firstIncompleteSectionIndex = computed(() => {
+//     const steps = completionSteps.value;
+//     const index = steps.findIndex(step => step.visible !== false && !step.done);
+//     return index !== -1 ? index + 2 : null;
+// });
 
 const showFeeWaiverModal = ref(false);
 
@@ -1174,29 +1337,37 @@ const bookingDetails = reactive({
 
 const showAdmitCardButton = ref(false);
 
-const isCurrentSlotInPast = computed(() => {
-    if (!bookingDetails.date || !bookingDetails.time) return false;
-    try {
-        const startTimeStr = bookingDetails.time.split('-')[0].trim();
-        const match = startTimeStr.match(/(\d+):(\d+)\s*(AM|PM)/i);
-        if (match) {
-            let hourVal = parseInt(match[1], 10);
-            const minVal = parseInt(match[2], 10);
-            const ampm = match[3];
+// const isCurrentSlotInPast = computed(() => {
+//     if (!bookingDetails.date) return false;
+//     try {
+//         if (!bookingDetails.time) {
+//             const [year, month, day] = bookingDetails.date.split('-');
+//             const slotDateTime = new Date(parseInt(year), parseInt(month) - 1, parseInt(day), 0, 0, 0);
+//             const todayDateTime = new Date();
+//             todayDateTime.setHours(0, 0, 0, 0);
+//             return slotDateTime < todayDateTime;
+//         }
 
-            if (ampm.toUpperCase() === 'PM' && hourVal < 12) hourVal += 12;
-            if (ampm.toUpperCase() === 'AM' && hourVal === 12) hourVal = 0;
+//         const startTimeStr = bookingDetails.time.split('-')[0].trim();
+//         const match = startTimeStr.match(/(\d+):(\d+)\s*(AM|PM)/i);
+//         if (match) {
+//             let hourVal = parseInt(match[1], 10);
+//             const minVal = parseInt(match[2], 10);
+//             const ampm = match[3];
 
-            const [year, month, day] = bookingDetails.date.split('-');
-            const slotDateTime = new Date(parseInt(year), parseInt(month) - 1, parseInt(day), hourVal, minVal, 0);
+//             if (ampm.toUpperCase() === 'PM' && hourVal < 12) hourVal += 12;
+//             if (ampm.toUpperCase() === 'AM' && hourVal === 12) hourVal = 0;
 
-            return slotDateTime < new Date();
-        }
-    } catch (err) {
-        console.error("Error validating current slot time", err);
-    }
-    return false;
-});
+//             const [year, month, day] = bookingDetails.date.split('-');
+//             const slotDateTime = new Date(parseInt(year), parseInt(month) - 1, parseInt(day), hourVal, minVal, 0);
+
+//             return slotDateTime < new Date();
+//         }
+//     } catch (err) {
+//         console.error("Error validating current slot time", err);
+//     }
+//     return false;
+// });
 
 const fetchStudentDetail = async () => {
     if (!userId.value) return;
@@ -1283,6 +1454,7 @@ const fetchStudentDetail = async () => {
             formData.complete_address = d.address || "";
             formData.mock_test_status = d.mock_test_status ?? 0;
             formData.interview_detail = d.interview_detail || [];
+            formData.interview_slots_detail = d.interview_slots_detail || [];
 
             // Mappings for Choices with robust helper functions supporting strings, numbers, and case-insensitivity
             const mapGender = (val: any): string => {
@@ -1297,7 +1469,7 @@ const fetchStudentDetail = async () => {
 
             formData.class10_year = d.tenth_passing_year || "";
             formData.class10_score = d.tenth_passing_percentage || "";
-            
+
             const mapMedium = (val: any): string => {
                 if (!val) return "English";
                 const strVal = String(val).trim().toLowerCase();
@@ -1374,7 +1546,7 @@ const fetchStudentDetail = async () => {
             formData.guardian_name = d.guardian_name || "";
             formData.guardian_phone = d.guardian_phone || "";
             formData.guardian_email = d.guardian_email || "";
-            
+
             const mapRelationship = (val: any): string => {
                 if (!val) return "";
                 const strVal = String(val).trim().toLowerCase();
@@ -1419,26 +1591,46 @@ const fetchStudentDetail = async () => {
             };
 
             // Booking Details check
+            let isBooked = false;
+            let bookedDate = "";
+            let bookedTime = "";
+            let updateCount = d.slot_update_count || 0;
+
             if (d.slot_date && d.slot_time) {
+                isBooked = true;
+                bookedDate = d.slot_date;
+                bookedTime = d.slot_time;
+            } else if (d.interview_detail && d.interview_detail.length > 0) {
+                const activeInterview = d.interview_detail.find((item: any) => item.interview_date);
+                if (activeInterview) {
+                    isBooked = true;
+                    bookedDate = activeInterview.interview_date;
+                    bookedTime = "";
+                }
+            }
+
+            if (isBooked) {
                 bookingDetails.isBooked = true;
-                bookingDetails.date = d.slot_date;
-                bookingDetails.time = d.slot_time;
-                bookingDetails.updateCount = d.slot_update_count || 0;
-                selectedDate.value = d.slot_date;
-                
+                bookingDetails.date = bookedDate;
+                bookingDetails.time = bookedTime;
+                bookingDetails.updateCount = updateCount;
+                selectedDate.value = bookedDate;
+
                 // Add to formData for chatbot
-                formData.slot_date = d.slot_date;
-                formData.slot_time = d.slot_time;
-                formData.slot_update_count = d.slot_update_count || 0;
+                formData.slot_date = bookedDate;
+                formData.slot_time = bookedTime;
+                formData.slot_update_count = updateCount;
 
                 availableSlots.value = staticSlots.map((timeStr: string, index: number) => ({
                     id: index + 1,
                     time: timeStr
                 }));
 
-                const matchingSlot = staticSlots.find(s => s === d.slot_time);
-                if (matchingSlot) {
-                    selectedSlot.value = staticSlots.indexOf(matchingSlot) + 1;
+                if (bookedTime) {
+                    const matchingSlot = staticSlots.find(s => s === bookedTime);
+                    if (matchingSlot) {
+                        selectedSlot.value = staticSlots.indexOf(matchingSlot) + 1;
+                    }
                 }
 
                 // Always show admit card button if slot is already booked
@@ -1459,6 +1651,22 @@ const fetchStudentDetail = async () => {
             });
             if (detailRes.success && detailRes.data) {
                 profileImage.value = detailRes.data.image || detailRes.data.photo || profileImage.value;
+                formData.interview_slots_detail = detailRes.data.interview_slots_detail || [];
+                if (detailRes.data.interview_detail) {
+                    formData.interview_detail = detailRes.data.interview_detail;
+                }
+
+                // Check if interview is booked via detailRes.data.interview_detail
+                if (detailRes.data.interview_detail && detailRes.data.interview_detail.length > 0) {
+                    const activeInterview = detailRes.data.interview_detail.find((item: any) => item.interview_date);
+                    if (activeInterview) {
+                        bookingDetails.isBooked = true;
+                        bookingDetails.date = activeInterview.interview_date;
+                        bookingDetails.time = "";
+                        selectedDate.value = activeInterview.interview_date;
+                        showAdmitCardButton.value = true;
+                    }
+                }
 
                 // Fallback for empty core fields
                 if (!formData.first_name) {
@@ -1700,7 +1908,8 @@ const daysInMonth = computed(() => {
     return new Date(currentYear.value, currentMonth.value + 1, 0).getDate();
 });
 const firstDayOfMonth = computed(() => {
-    return new Date(currentYear.value, currentMonth.value, 1).getDay();
+    const day = new Date(currentYear.value, currentMonth.value, 1).getDay();
+    return day === 0 ? 6 : day - 1;
 });
 
 const isSlotValid = (dateStr: string, timeStr: string) => {
@@ -1742,18 +1951,31 @@ const calendarDays = computed(() => {
     for (let i = 1; i <= daysInMonth.value; i++) {
         const dateString = `${currentYear.value}-${String(currentMonth.value + 1).padStart(2, '0')}-${String(i).padStart(2, '0')}`;
 
-        // Allowed only if it's in the allowedDates list AND is today or in the future
-        // AND at least one slot is valid (>= 8 hours)
-        const isAllowed = allowedDates.includes(dateString) &&
-            dateString >= todayStr &&
-            staticSlots.some((timeStr: string) => isSlotValid(dateString, timeStr));
+        // Convert YYYY-MM-DD to DD-MM-YYYY for API comparison
+        const parts = dateString.split('-');
+        const formattedDate = `${parts[2]}-${parts[1]}-${parts[0]}`;
+        const slotDetail = formData.interview_slots_detail?.find((item: any) => item.date === formattedDate);
 
-        const isBlocked = blockedDates.includes(dateString);
+        const count = Number(slotDetail?.count || 0);
+
+        // Calculate if it satisfies the buffer constraint (midnight to midnight)
+        const [year, month, dayVal] = dateString.split('-');
+        const slotDateTime = new Date(parseInt(year), parseInt(month) - 1, parseInt(dayVal), 0, 0, 0);
+        const todayDateTime = new Date();
+        todayDateTime.setHours(0, 0, 0, 0);
+        const diffHours = (slotDateTime.getTime() - todayDateTime.getTime()) / (1000 * 60 * 60);
+        const satisfiesBuffer = diffHours >= bufferHours.value;
+
+        // Allowed only if slot is not booked, it's in the API response, booked count < 30, and >= today, and satisfies buffer
+        const isAllowed = !bookingDetails.isBooked && !!slotDetail && dateString >= todayStr && (count < 30) && satisfiesBuffer;
+        
+        // Blocked if it's in the API response but booked count >= 30
+        const isBlocked = !!slotDetail && (count >= 30);
 
         days.push({
             day: i,
             dateString,
-            isAllowed: isAllowed && !isBlocked,
+            isAllowed,
             isBlocked
         });
     }
@@ -1763,6 +1985,7 @@ const calendarDays = computed(() => {
 const selectedDate = ref('');
 const selectedSlot = ref<number | string>('');
 const availableSlots = ref<any[]>([]);
+const isConfirmChecked = ref(false);
 
 const selectDate = (day: any) => {
     if (!day) return;
@@ -1772,17 +1995,13 @@ const selectDate = (day: any) => {
     }
     if (!day.isAllowed) return;
     selectedDate.value = day.dateString;
-    selectedSlot.value = ''; // reset slot on date change
-
-    availableSlots.value = staticSlots.map((timeStr: string, index: number) => ({
-        id: index + 1,
-        time: timeStr,
-        disabled: !isSlotValid(day.dateString, timeStr)
-    }));
+    selectedSlot.value = 'dummy'; // bypass validation
+    isConfirmChecked.value = false;
 };
 
 const selectSlot = (slot: any) => {
     selectedSlot.value = slot.id;
+    isConfirmChecked.value = false;
 };
 
 const showConfirmModal = ref(false);
@@ -1821,84 +2040,69 @@ const isBookingSlot = ref(false);
 const isStartingExam = ref(false);
 
 
-const handleStartExamClick = async (event: MouseEvent) => {
-    event.preventDefault();
-    if (!bookingDetails.examStatus || isStartingExam.value) return;
+// const handleStartExamClick = async (event: MouseEvent) => {
+//     event.preventDefault();
+//     if (!bookingDetails.examStatus || isStartingExam.value) return;
 
-    isStartingExam.value = true;
-    try {
-        await fetchStudentDetail();
-        let targetUrl = bookingDetails.examUrl;
+//     isStartingExam.value = true;
+//     try {
+//         await fetchStudentDetail();
+//         let targetUrl = bookingDetails.examUrl;
 
-        if (!targetUrl) {
-            const { getAccessToken } = useAuth();
-            const token = getAccessToken();
-            const response: any = await $fetch(`${config.public.apiBase}/api/students/schedule-assessment/`, {
-                method: "POST",
-                body: {
-                    email: formData.application_id || formData.email,
-                    first_name: formData.first_name,
-                    last_name: formData.last_name
-                },
-                headers: token ? { 'Authorization': `Bearer ${token}` } : {}
-            });
+//         if (!targetUrl) {
+//             const { getAccessToken } = useAuth();
+//             const token = getAccessToken();
+//             const response: any = await $fetch(`${config.public.apiBase}/api/students/schedule-assessment/`, {
+//                 method: "POST",
+//                 body: {
+//                     email: formData.application_id || formData.email,
+//                     first_name: formData.first_name,
+//                     last_name: formData.last_name
+//                 },
+//                 headers: token ? { 'Authorization': `Bearer ${token}` } : {}
+//             });
 
-            if (response && response.data && response.data.assessmentlink) {
-                targetUrl = response.data.assessmentlink;
-            }
-        }
+//             if (response && response.data && response.data.assessmentlink) {
+//                 targetUrl = response.data.assessmentlink;
+//             }
+//         }
 
-        if (targetUrl) {
-            window.open(targetUrl, '_blank');
-            bookingDetails.examUrl = targetUrl;
-        }
-    } catch (err) {
-        console.error("Failed to start exam:", err);
-    } finally {
-        isStartingExam.value = false;
-    }
-};
+//         if (targetUrl) {
+//             window.open(targetUrl, '_blank');
+//             bookingDetails.examUrl = targetUrl;
+//         }
+//     } catch (err) {
+//         console.error("Failed to start exam:", err);
+//     } finally {
+//         isStartingExam.value = false;
+//     }
+// };
 
 const bookSlot = async () => {
-    if (!selectedDate.value || !selectedSlot.value) return;
-
-    const slotObj = availableSlots.value.find((s: any) => s.id === selectedSlot.value);
-    if (!slotObj) return;
+    if (!selectedDate.value) return;
 
     // Time difference check
     try {
         const slotDateStr = selectedDate.value;
-        const slotTimeStr = String(slotObj.time);
-        const startTimeStr = slotTimeStr.split('-')[0].trim();
-        const match = startTimeStr.match(/(\d+):(\d+)\s*(AM|PM)/i);
+        const [year, month, day] = slotDateStr.split('-');
 
-        if (match) {
-            let hourVal = parseInt(match[1], 10);
-            const minVal = parseInt(match[2], 10);
-            const ampm = match[3];
+        // We assume 00:00:00 for the date of the interview
+        const slotDateTime = new Date(parseInt(year), parseInt(month) - 1, parseInt(day), 0, 0, 0);
 
-            if (ampm.toUpperCase() === 'PM' && hourVal < 12) hourVal += 12;
-            if (ampm.toUpperCase() === 'AM' && hourVal === 12) hourVal = 0;
+        const todayDateTime = new Date();
+        todayDateTime.setHours(0, 0, 0, 0);
+        const diffHours = (slotDateTime.getTime() - todayDateTime.getTime()) / (1000 * 60 * 60);
 
-            const [year, month, day] = slotDateStr.split('-');
-            const slotDateTime = new Date(parseInt(year), parseInt(month) - 1, parseInt(day), hourVal, minVal, 0);
-
-            const now = new Date();
-            const diffHours = (slotDateTime.getTime() - now.getTime()) / (1000 * 60 * 60);
-
-            const bufferHours = Number(config.public.nfetSlotBufferHours) || 48;
-
-            if (diffHours < bufferHours) {
-                showAlert("", `Slots can only be booked or changed at least ${bufferHours} hours before the scheduled time.`, "warning");
-                return;
-            }
+        if (diffHours < bufferHours.value) {
+            showAlert("", `Slots can only be booked or changed at least ${bufferHours.value} hours before the scheduled date.`, "warning");
+            return;
         }
     } catch (err) {
         console.error("Error calculating time difference", err);
     }
 
     // New validation: Check if user is trying to book the very same slot they already have
-    if (bookingDetails.isBooked && bookingDetails.date === selectedDate.value && bookingDetails.time === String(slotObj.time)) {
+    if (bookingDetails.isBooked && bookingDetails.date === selectedDate.value) {
         showAlert("Same Slot Selected", "You’ve selected the same slot that you already booked. Please choose a different slot to update.", "info");
         return;
     }
@@ -1914,13 +2118,12 @@ const bookSlot = async () => {
         const token = getAccessToken();
 
         const payload = {
-            slot_date: selectedDate.value,
-            slot_time: String(slotObj.time)
+            interview_date: selectedDate.value
         };
 
         // Note: Using a standard fetch for easier blob handling
-        const response = await fetch(`${config.public.apiBase}/api/students/student-slot-upload/`, {
-            method: "PATCH",
+        const response = await fetch(`${config.public.apiBase}/api/students/create-student-account-interview-slot/`, {
+            method: "POST",
             body: JSON.stringify(payload),
             headers: {
                 'Content-Type': 'application/json',
@@ -1935,15 +2138,15 @@ const bookSlot = async () => {
             const wasAlreadyBooked = bookingDetails.isBooked;
 
             bookingDetails.isBooked = true;
-            bookingDetails.date = payload.slot_date;
-            bookingDetails.time = payload.slot_time;
+            bookingDetails.date = payload.interview_date;
+            bookingDetails.time = ""; // reset time since it's not applicable anymore
             bookingDetails.admitCardUrl = reportUrl;
             showAdmitCardButton.value = true;
 
             if (wasAlreadyBooked) {
                 showAlert("Success", "Change request submitted successfully!", "success");
             } else {
-                showAlert("Success", "Slot booked successfully! You can now download your admit card.", "success");
+                showAlert("Success", "Slot booked successfully!", "success");
             }
         } else {
             const errorData = await response.json().catch(() => ({}));
@@ -1960,49 +2163,49 @@ const bookSlot = async () => {
 
 const isDownloadingAdmitCard = ref(false);
 
-const downloadAdmitCard = async () => {
-    isDownloadingAdmitCard.value = true;
-    try {
-        const { getAccessToken } = useAuth();
-        const token = getAccessToken();
-        const response = await fetch(`${config.public.apiBase}/api/students/student-admit-card-download/`, {
-            method: "GET",
-            headers: {
-                'Content-Type': 'application/json',
-                ...(token ? { 'Authorization': `Bearer ${token}` } : {})
-            }
-        });
+// const downloadAdmitCard = async () => {
+//     isDownloadingAdmitCard.value = true;
+//     try {
+//         const { getAccessToken } = useAuth();
+//         const token = getAccessToken();
+//         const response = await fetch(`${config.public.apiBase}/api/students/student-admit-card-download/`, {
+//             method: "GET",
+//             headers: {
+//                 'Content-Type': 'application/json',
+//                 ...(token ? { 'Authorization': `Bearer ${token}` } : {})
+//             }
+//         });
 
-        if (response.ok) {
-            const result = await response.json();
-            const reportUrl = result.data?.report_url || result.report_url;
-            if (reportUrl) {
-                // If it's a blob URL, download it, else open the external URL
-                if (reportUrl.startsWith('blob:') || reportUrl.includes('fslfdlfj')) {
-                    const link = document.createElement('a');
-                    link.href = reportUrl;
-                    link.setAttribute('download', `NFET_Admit_Card_${bookingDetails.date}.pdf`);
-                    document.body.appendChild(link);
-                    link.click();
-                    document.body.removeChild(link);
-                } else {
-                    // It's a standard URL, open in new tab
-                    window.open(reportUrl, '_blank');
-                }
-            } else {
-                showAlert("Error", "No admit card URL found in the response.", "error");
-            }
-        } else {
-            const errorData = await response.json().catch(() => ({}));
-            throw new Error(errorData.message || "Failed to download admit card");
-        }
-    } catch (err: any) {
-        console.error("Failed to download admit card:", err);
-        showAlert("Download Failed", err.message || "Failed to download admit card. Please try again.", "error");
-    } finally {
-        isDownloadingAdmitCard.value = false;
-    }
-};
+//         if (response.ok) {
+//             const result = await response.json();
+//             const reportUrl = result.data?.report_url || result.report_url;
+//             if (reportUrl) {
+//                 // If it's a blob URL, download it, else open the external URL
+//                 if (reportUrl.startsWith('blob:') || reportUrl.includes('fslfdlfj')) {
+//                     const link = document.createElement('a');
+//                     link.href = reportUrl;
+//                     link.setAttribute('download', `NFET_Admit_Card_${bookingDetails.date}.pdf`);
+//                     document.body.appendChild(link);
+//                     link.click();
+//                     document.body.removeChild(link);
+//                 } else {
+//                     // It's a standard URL, open in new tab
+//                     window.open(reportUrl, '_blank');
+//                 }
+//             } else {
+//                 showAlert("Error", "No admit card URL found in the response.", "error");
+//             }
+//         } else {
+//             const errorData = await response.json().catch(() => ({}));
+//             throw new Error(errorData.message || "Failed to download admit card");
+//         }
+//     } catch (err: any) {
+//         console.error("Failed to download admit card:", err);
+//         showAlert("Download Failed", err.message || "Failed to download admit card. Please try again.", "error");
+//     } finally {
+//         isDownloadingAdmitCard.value = false;
+//     }
+// };
 
 const formatDate = (dateStr: string) => {
     if (!dateStr) return '';
@@ -2011,9 +2214,20 @@ const formatDate = (dateStr: string) => {
 };
 
 const getSelectedSlotTime = () => {
-    if (!selectedSlot.value) return "";
     const slotObj = availableSlots.value.find((s: any) => s.id === selectedSlot.value);
     return slotObj ? slotObj.time : "";
+};
+
+const getSlotsCountForDate = (dateString: string) => {
+    if (!dateString || !formData.interview_slots_detail) return 0;
+    const parts = dateString.split('-');
+    if (parts.length !== 3) return 0;
+    const formattedDate = `${parts[2]}-${parts[1]}-${parts[0]}`;
+    const found = formData.interview_slots_detail.find((item: any) => item.date === formattedDate);
+    if (found) {
+        return Math.max(0, 30 - (found.count || 0));
+    }
+    return 0;
 };
 
 const formData = reactive({
@@ -2071,6 +2285,7 @@ const formData = reactive({
     co_applicant_profession: "",
     declaration: false,
     interview_detail: [] as any[],
+    interview_slots_detail: [] as any[],
     documents: {
         aadhaar: null,
         dob_proof: null,
@@ -2737,7 +2952,7 @@ const handleFinalSubmit = async (isSilent = false, isBot = false): Promise<boole
     } finally {
         isSubmitting.value = false;
     }
-    
+
     // Fallback return if it didn't return early
     return false;
 }
@@ -3566,5 +3781,269 @@ const downloadReport = async () => {
         border-radius: 50px;
         white-space: nowrap;
     }
+}
+
+/* =======================================
+   NFET Calendar Premium Refined Styles
+   ======================================= */
+
+.slot-booking-header {
+    background-color: #4C1D95 !important;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1) !important;
+}
+
+.btn-close-custom:hover {
+    background: rgba(255, 255, 255, 0.25) !important;
+}
+
+.calendar-card-container {
+    background-color: #F1EDF7 !important;
+    /* border-radius: 20px !important; */
+    padding: 20px !important;
+}
+
+.calendar-grid-weekdays {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 8px;
+    text-align: center;
+}
+
+.calendar-grid-weekdays div {
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+}
+
+.calendar-grid-days {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 8px;
+    margin-top: 8px;
+}
+
+.calendar-day-cell {
+    /* aspect-ratio: 1; */
+    background: #EAE5F2;
+    border-radius: 12px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    cursor: default;
+    padding: 6px 2px;
+    border: 1px solid transparent;
+    transition: all 0.2s ease;
+    user-select: none;
+}
+
+.calendar-day-cell .day-number {
+    font-size: 14px;
+    font-weight: 700;
+    color: #9CA3AF;
+}
+
+.calendar-day-cell .slots-indicator {
+    font-size: 8px;
+    font-weight: 500;
+    color: #9CA3AF;
+    margin-top: 2px;
+}
+
+/* Empty Cell */
+.calendar-day-cell.empty {
+    background: transparent !important;
+    border-color: transparent !important;
+    cursor: default;
+}
+
+/* Disabled/Unavailable Cell */
+.calendar-day-cell.disabled {
+    background: #EAE5F2 !important;
+}
+
+.calendar-day-cell.disabled .day-number,
+.calendar-day-cell.disabled .slots-indicator {
+    color: #9CA3AF !important;
+}
+
+/* Blocked Cell */
+.calendar-day-cell.blocked {
+    background: #FEF2F2 !important;
+    border-color: #FCA5A5 !important;
+}
+
+.calendar-day-cell.blocked .day-number {
+    color: #EF4444 !important;
+}
+
+.calendar-day-cell.blocked .slots-indicator {
+    color: #EF4444 !important;
+}
+
+/* Allowed/Available Cell */
+.calendar-day-cell.allowed {
+    background: #FFFFFF !important;
+    border: 1px solid #10B981 !important;
+    cursor: pointer;
+}
+
+.calendar-day-cell.allowed:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 10px rgba(16, 185, 129, 0.15);
+}
+
+.calendar-day-cell.allowed .day-number {
+    color: #1F2937 !important;
+}
+
+.calendar-day-cell.allowed .slots-indicator {
+    color: #10B981 !important;
+    font-weight: 700;
+}
+
+/* Current Booked Cell */
+.calendar-day-cell.is-current {
+    background: #FFFFFF !important;
+    border: 2px solid #4C1D95 !important;
+}
+
+.calendar-day-cell.is-current .day-number {
+    color: #4C1D95 !important;
+}
+
+.calendar-day-cell.is-current .slots-indicator {
+    color: #4C1D95 !important;
+}
+
+/* Selected Cell */
+.calendar-day-cell.selected {
+    background: #4C1D95 !important;
+    border-color: #4C1D95 !important;
+    color: #FFFFFF !important;
+    transform: scale(1.05);
+    box-shadow: 0 8px 20px rgba(81, 21, 124, .25);
+}
+
+.calendar-day-cell.selected .day-number {
+    color: #FFFFFF !important;
+}
+
+.calendar-day-cell.selected .slots-indicator {
+    color: #FBBF24 !important;
+    font-weight: 700;
+}
+
+/* Banner */
+.calendar-info-banner {
+    background-color: #F3EFF7 !important;
+    border-left: 4px solid #4C1D95 !important;
+    border-radius: 8px !important;
+}
+
+/* Book Slot Button */
+.btn-book-slot-orange {
+    background-color: #F59E0B !important;
+    border-color: #F59E0B !important;
+    color: #4C1D95 !important;
+    font-weight: 700 !important;
+    border-radius: 12px !important;
+    padding: 14px 20px !important;
+    font-size: 16px !important;
+    transition: all 0.2s ease !important;
+}
+
+.btn-book-slot-orange:hover:not(:disabled) {
+    background-color: #D97706 !important;
+    border-color: #D97706 !important;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(217, 119, 6, 0.2);
+}
+
+.btn-book-slot-orange:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+@media (max-width: 768px) {
+    .calendar-card-container {
+        padding: 12px !important;
+    }
+
+    .calendar-day-cell {
+        padding: 4px 1px;
+    }
+
+    .calendar-day-cell .day-number {
+        font-size: 12px;
+    }
+
+    .calendar-day-cell .slots-indicator {
+        font-size: 7px;
+    }
+}
+
+/* ===========================
+   Current Booked
+=========================== */
+
+.cal-day-cell.is-current {
+    outline: 2px solid #F1A63E;
+    outline-offset: 2px;
+}
+
+/* ===========================
+   Empty Cells
+=========================== */
+
+.cal-day-cell.empty {
+    background: transparent;
+    border: none;
+    cursor: default;
+    box-shadow: none;
+}
+
+/* ===========================
+   Slot Text
+=========================== */
+
+.cal-slots {
+    font-size: 8px;
+    font-weight: 600;
+    margin-top: 3px;
+    color: #16a34a;
+}
+
+.cal-day-cell.blocked .cal-slots {
+    color: #dc2626;
+}
+
+.cal-day-cell.selected .cal-slots {
+    color: #F1A63E;
+}
+
+/* ===========================
+   Responsive
+=========================== */
+
+@media (max-width:768px) {
+
+    .calendar-container {
+        padding: 14px;
+    }
+
+    .calendar-header h4 {
+        font-size: 15px;
+    }
+
+    .cal-day-cell {
+        min-height: 42px;
+        font-size: 13px;
+    }
+
+    .cal-slots {
+        font-size: 7px;
+    }
+
 }
 </style>

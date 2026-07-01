@@ -1413,9 +1413,9 @@ watch(isOpen, (val) => {
 
 onMounted(() => {
   // Auto-open after 3 seconds if profile is incomplete
-  if (hasPendingFields.value) {
-    setTimeout(() => { isOpen.value = true; }, 3000);
-  }
+  // if (hasPendingFields.value) {
+  //   setTimeout(() => { isOpen.value = true; }, 3000);
+  // }
 });
 </script>
 
