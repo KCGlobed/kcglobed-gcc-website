@@ -535,7 +535,7 @@
                                                              width: 22px;
                                                              height: 22px;
                                                              cursor: pointer;
-                                                             /* border: 2px solid #4C1D95; */
+                                                             border: 1px solid black;
                                                              border-radius: 6px;
                                                              accent-color: #4C1D95;
                                                              position: absolute;
@@ -549,8 +549,8 @@
 
                                                     <label for="confirmSlotBooking" class="m-0 text-start flex-grow-1"
                                                         style="
-                                                             /* background: #F8F5FC;
-                                                             border: 1px solid #E4D8F5; */
+                                                             /* background: #F8F5FC; */
+                                                             /* border: 1px solid #E4D8F5; */
                                                              border-radius: 16px;
                                                              padding: 14px 14px 14px 28px;
                                                              cursor: pointer;
