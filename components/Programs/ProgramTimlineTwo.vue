@@ -36,7 +36,7 @@ const timeline = [
     {
         label: 'NFET\nEnrollment',
         icon: icon1,
-        date: 'Feb 25 Onwards',
+        date: 'Feb 25 onwards',
         color: 'linear-gradient(135deg, #4c1d95 0%, #6d28d9 100%)',
     },
     {
@@ -48,7 +48,7 @@ const timeline = [
     {
         label: 'Result Communication',
         icon: icon3,
-        date: 'Last week of June, 2026',
+        date: 'Last week of June 2026',
         color: 'linear-gradient(135deg, #7c3aed 0%, #9333ea 100%)',
     },
     // {
@@ -60,13 +60,13 @@ const timeline = [
     {
         label: 'Personal Interview Round',
         icon: icon5,
-        date: '1st - 3rd July, 2026',
+        date: '1st - 3rd July 2026',
         color: 'linear-gradient(135deg, #7c3aed 0%, #9333ea 100%)',
     },
     {
         label: 'Pre-Placement Offer Letter',
         icon: icon6,
-        date: '1st - 3rd July, 2026',
+        date: '1st - 3rd July 2026',
         color: 'linear-gradient(135deg, #4c1d95 0%, #6d28d9 100%)',
     },
     {
