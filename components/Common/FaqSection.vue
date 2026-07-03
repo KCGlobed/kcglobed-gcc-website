@@ -109,7 +109,7 @@ const faqs = [
     {
         category: 0,
         question: 'What is the First GCC Talent Cohort?',
-        answer: 'It refers to the first intake of selected candidates entering GCC School through NFET and the subsequent selection stages for the 2026 cohort.'
+        answer: 'It refers to the first intake of selected candidates entering GCC School through NFET and the subsequent selection stages for the July 2026 cohort.'
     },
 
     // NFET & Admissions
@@ -146,7 +146,7 @@ const faqs = [
     {
         category: 1,
         question: 'What is the NFET timeline for the 2026 cohort?',
-        answer: 'NFET enrollment starts Feb 25, slot booking Mar 10 - May 15, interviews late May to June, admission confirmation June 25, and cohort start July 1, 2026.'
+        answer: 'NFET enrollment starts Feb 25, slot booking Mar 10 - June 27, interviews 1st - 3rd July, admission confirmation June 25, and cohort start July 6, 2026.'
     },
     {
         category: 1,
