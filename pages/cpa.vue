@@ -3,28 +3,24 @@
     <LayoutTopHeader />
     <LayoutMainNavbar />
     <!-- <CommonCommingSoon /> -->
-    <ProgramsProgramBanner />
+    <CpasCpaBanner />
     <ProgramsGovtOnprogram />
 
     <ProgramsAIProgram />
-    <ProgramsAeiap />
-    <ProgramsIAProgram />
+    <CpasCpaAeiap />
+    <!-- <ProgramsIAProgram /> -->
+    <CpasIACpa />
 
-    <ProgramsAccaProgram />
-    <ProgramsAccQualification />
+    <!-- <ProgramsAccaProgram /> -->
+    <CpasAccaCpa />
+    <!-- <ProgramsAccQualification /> -->
+    <CpaAccQualification/>
 
-    <!-- <HomeThreeAboutUniversity />
-
-    <HomeThreeGraduatePrograms />
-
-
-    <Events />
-    <HomeTwoApplyUniversityInEasySteps />
-    <NationalExecusive /> -->
     <ProgramsProgramTimlineTwo />
 
     <!-- <ProgramsProgramTimeLine /> -->
-    <ProgramsTeeeProgram />
+    <!-- <ProgramsTeeeProgram /> -->
+    <CpasTeeCpa />
     <ProgramsLmsProgram />
 
 
@@ -34,6 +30,9 @@
 </template>
 
 <script setup lang="ts">
+import CpaAccQualification from '~/components/Cpas/CpaAccQualification.vue';
+
+
 // import { defineComponent } from "vue";
 
 // export default defineComponent({});
@@ -41,7 +40,7 @@ useHead({
   title: "GCC School | Programs",
   meta: [
     { name: "description", content: "Advance your career with GCC School's professional programs. Explore specialized courses designed to equip graduates with industry-ready skills and global recognition." },
-     // Open Graph
+    // Open Graph
     {
       property: "og:type",
       content: "website",

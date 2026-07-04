@@ -2,16 +2,20 @@
   <div>
     <LayoutTopHeader />
     <LayoutMainNavbar />
-    <!-- <CommonCommingSoon /> -->
-    <ProgramsProgramBanner />
+
+     <EAsEaBanner />
     <ProgramsGovtOnprogram />
 
     <ProgramsAIProgram />
-    <ProgramsAeiap />
-    <ProgramsIAProgram />
+    <!-- <ProgramsAeiap /> -->
+     <EAsEAaeiap />
+    <!-- <ProgramsIAProgram /> -->
+    <EAIAProgram />
 
-    <ProgramsAccaProgram />
-    <ProgramsAccQualification />
+    <!-- <ProgramsAccaProgram /> -->
+     <EAsEAAccaProgram />
+    <!-- <ProgramsAccQualification /> -->
+     <EAaccQualification />
 
     <!-- <HomeThreeAboutUniversity />
 
@@ -24,7 +28,8 @@
     <ProgramsProgramTimlineTwo />
 
     <!-- <ProgramsProgramTimeLine /> -->
-    <ProgramsTeeeProgram />
+    <!-- <ProgramsTeeeProgram /> -->
+     <EABooks />
     <ProgramsLmsProgram />
 
 
@@ -34,6 +39,10 @@
 </template>
 
 <script setup lang="ts">
+import EAaccQualification from '~/components/EAs/EAaccQualification.vue';
+import EABooks from '~/components/EAs/EABooks.vue';
+import EAIAProgram from '~/components/EAs/EAIAProgram.vue';
+
 // import { defineComponent } from "vue";
 
 // export default defineComponent({});
