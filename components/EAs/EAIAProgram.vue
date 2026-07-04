@@ -5,8 +5,8 @@
                 <h2 class="title">I-Gen Pathway for <span class="highlight">New Tomorrow</span></h2>
             </div>
         </div>
-        <div class="container">
-            <div class="max-1000-container mx-auto bg-white shadow-lg overflow-hidden rounded-12 border">
+        <div class="inner-container">
+            <div class="max-1000-container mx-auto bg-white shadow-lg overflow-hidden border">
                 <!-- Custom Grid Table Layout -->
                 <div class="program-table">
                     <!-- Header -->
@@ -17,7 +17,7 @@
                         <div class="header-program bg-brand-dark text-white font-bold text-center py-3 flex-grow-1">
                             AI-Enabled US Taxation Professional (AEUTP) Program with US Enrolled Agent
                         </div>
-                        <div class="header-empty bg-white hidden-md-down"></div>
+                        <div class=" bg-brand-dark hidden-md-down"></div>
                     </div>
 
                     <!-- Body Grid -->
@@ -28,9 +28,10 @@
                                 <!-- Row 1 -->
                                 <div class="table-row">
                                     <div class="row-duration bg-brand-accent text-white font-bold text-center py-4">
-                                        <span class="writing-vertical whitespace-nowrap text-sm uppercase">6 WEEKS</span>
+                                        <span class="writing-vertical whitespace-nowrap text-sm uppercase">6
+                                            WEEKS</span>
                                     </div>
-                                    <div class="row-content bg-white p-4">
+                                    <div style="background-color: #d3e3f0;" class="row-content bg-[#197290] p-4">
                                         <div class="row w-100 align-items-center">
                                             <div class="col-md-6 mb-3 mb-md-0">
                                                 <ul class="list-unstyled mb-0 module-list">
@@ -58,9 +59,10 @@
                                 <!-- Row 2 -->
                                 <div class="table-row border-top">
                                     <div class="row-duration bg-brand-dark text-white font-bold text-center py-4">
-                                        <span class="writing-vertical whitespace-nowrap text-sm uppercase">6 WEEKS</span>
+                                        <span class="writing-vertical whitespace-nowrap text-sm uppercase">6
+                                            WEEKS</span>
                                     </div>
-                                    <div class="row-content bg-white p-4">
+                                    <div style="background-color: #d3e3f0;" class="row-content  p-4">
                                         <div class="row w-100 align-items-center">
                                             <div class="col-md-6 mb-3 mb-md-0">
                                                 <ul class="list-unstyled mb-0 module-list">
@@ -88,15 +90,17 @@
                                 <!-- Row 3 -->
                                 <div class="table-row border-top">
                                     <div class="row-duration bg-brand-accent text-white font-bold text-center py-4">
-                                        <span class="writing-vertical whitespace-nowrap text-sm uppercase">6 WEEKS</span>
+                                        <span class="writing-vertical whitespace-nowrap text-sm uppercase">6
+                                            WEEKS</span>
                                     </div>
-                                    <div class="row-content bg-white p-4">
+                                    <div style="background-color: #d3e3f0;" class="row-content p-4">
                                         <div class="row w-100 align-items-center">
                                             <div class="col-md-6 mb-3 mb-md-0">
                                                 <ul class="list-unstyled mb-0 module-list">
                                                     <li class="d-flex align-items-center font-bold">
                                                         <span class="bullet-point me-2 text-black">•</span>
-                                                        <span class="text-gray-900">Representation Practices & Procedures</span>
+                                                        <span class="text-gray-900">Representation Practices &
+                                                            Procedures</span>
                                                     </li>
                                                 </ul>
                                             </div>
@@ -118,7 +122,8 @@
                             </div>
 
                             <!-- Right Spanned Column -->
-                            <div class="table-spanned-col bg-white d-flex align-items-center justify-content-center p-4 text-center">
+                            <div style="background-color: #d3e3f0; border:2px solid #888; "
+                                class="table-spanned-col  d-flex align-items-center justify-content-center p-4 text-center">
                                 <div class="spanned-text font-bold">
                                     <div class="british-council text-brand-dark mb-1">British Council -</div>
                                     <div class="english-work text-brand-dark mb-3">English For Work</div>
@@ -140,7 +145,16 @@
 
 <style scoped>
 .ia-program-area {
+    width: 100%;
     background-color: #f3f4f6;
+}
+
+.inner-container {
+    /* width: 95%; */
+    width: 1000px;
+    margin: 0 auto;
+    padding-left: 15px;
+    padding-right: 15px;
 }
 
 .section-title {
@@ -267,11 +281,13 @@
     flex-grow: 1;
     display: flex;
     flex-direction: column;
+    
 }
 
 .table-row {
     display: flex;
     flex-direction: row;
+    border-bottom: 2px solid #e9e9e9;
 }
 
 .row-duration {
@@ -328,6 +344,7 @@
     .header-empty {
         width: 180px;
     }
+
     .table-spanned-col {
         width: 180px;
     }
