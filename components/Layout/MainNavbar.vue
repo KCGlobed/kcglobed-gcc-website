@@ -23,10 +23,26 @@
             </NuxtLink>
           </li>
           <li class="nav-item">
-            <NuxtLink to="/programs" class="nav-link">
-              Program
-            </NuxtLink>
-
+            <a href="javascript:void(0)" class="dropdown-toggle nav-link">
+              Programs
+            </a>
+            <ul class="dropdown-menu">
+              <li class="nav-item">
+                <NuxtLink to="/programs" class="nav-link">
+                  AEIAP
+                </NuxtLink>
+              </li>
+              <li class="nav-item">
+                <NuxtLink to="/cpa" class="nav-link">
+                  AEUTP
+                </NuxtLink>
+              </li>
+              <li class="nav-item">
+                <NuxtLink to="/ea" class="nav-link">
+                  AEUAP
+                </NuxtLink>
+              </li>
+            </ul>
           </li>
           <li class="nav-item">
             <NuxtLink to="/nfet-exam" class="nav-link">
@@ -342,6 +358,14 @@ export default defineComponent({
 
 .navbar .navbar-nav .nav-item .nav-link {
   color: #fff;
+}
+
+.navbar .navbar-nav .nav-item .nav-link:not(.dropdown-toggle):hover,
+.navbar .navbar-nav .nav-item .nav-link:not(.dropdown-toggle).active,
+.navbar .navbar-nav .nav-item .nav-link:not(.dropdown-toggle).router-link-active {
+  background-color: #8321A5 !important;
+  color: #fff !important;
+  border-radius: 5px;
 }
 
 @media (min-width: 992px) and (max-width: 1200px) {
