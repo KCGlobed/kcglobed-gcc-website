@@ -32,11 +32,11 @@
             </NuxtLink>
             <NuxtLink to="/cpa" class="nav-item sub-item" @click="handleClick">
               <span class="dot"></span>
-              <span>AEUTP</span>
+              <span>AEUAP</span>
             </NuxtLink>
             <NuxtLink to="/ea" class="nav-item sub-item" @click="handleClick">
               <span class="dot"></span>
-              <span>AEUAP</span>
+              <span>AEUTP</span>
             </NuxtLink>
           </div>
         </div>

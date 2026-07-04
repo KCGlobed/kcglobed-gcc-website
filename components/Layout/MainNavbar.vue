@@ -27,19 +27,19 @@
               Programs
             </a>
             <ul class="dropdown-menu">
-              <li class="nav-item">
+              <li class="nav-item child">
                 <NuxtLink to="/programs" class="nav-link">
                   AEIAP
                 </NuxtLink>
               </li>
-              <li class="nav-item">
+              <li class="nav-item child">
                 <NuxtLink to="/cpa" class="nav-link">
-                  AEUTP
+                  AEUAP
                 </NuxtLink>
               </li>
-              <li class="nav-item">
+              <li class="nav-item child">
                 <NuxtLink to="/ea" class="nav-link">
-                  AEUAP
+                  AEUTP
                 </NuxtLink>
               </li>
             </ul>
@@ -360,12 +360,17 @@ export default defineComponent({
   color: #fff;
 }
 
-.navbar .navbar-nav .nav-item .nav-link:not(.dropdown-toggle):hover,
 .navbar .navbar-nav .nav-item .nav-link:not(.dropdown-toggle).active,
 .navbar .navbar-nav .nav-item .nav-link:not(.dropdown-toggle).router-link-active {
-  background-color: #8321A5 !important;
   color: #fff !important;
   border-radius: 5px;
+}
+.navbar .navbar-nav .child .nav-link:not(.dropdown-toggle).router-link-active{
+    background-color: #8321A5 !important;
+}
+
+.navbar .navbar-nav .nav-item .nav-link:not(.dropdown-toggle):hover {
+  color: #8321A5 !important;
 }
 
 @media (min-width: 992px) and (max-width: 1200px) {
