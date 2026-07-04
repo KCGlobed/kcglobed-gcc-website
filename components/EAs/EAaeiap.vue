@@ -15,7 +15,7 @@
                         <div class="flip-card">
                             <!-- Front Side: Logo -->
                             <div class="flip-card-front">
-                                <img style="background-color: #32a5e3; padding: 15px;" src="../../assets/img/IRS-Logo.svg"
+                                <img style="padding: 15px;" src="../../assets/img/IRS_logo.png"
                                     alt="ACCA" class="flip-logo-img">
                                 <!-- <p class="flip-hint">Hover to explore</p> -->
                             </div>

@@ -15,18 +15,15 @@
                         <div class="flip-card">
                             <!-- Front Side: Logo -->
                             <div class="flip-card-front">
-                                <img src="https://storage.googleapis.com/static_files_backend/media/images/image%2062.png"
-                                    alt="ACCA" class="flip-logo-img">
+                                <img src="../../assets/img/AICPA_logo.png" alt="ACCA" class="flip-logo-img">
                                 <!-- <p class="flip-hint">Hover to explore</p> -->
                             </div>
                             <!-- Back Side: Content -->
                             <div class="flip-card-back">
-                                <h3 class="card-title-back">ACCA Qualification</h3>
+                                <h3 class="card-title-back">US Certified Public Accountant</h3>
                                 <p class="card-desc-back">The US Certified Public Accountant (US CPA) is a globally
-                                    recognized accounting
-                                    qualification that equips professionals with expertise in accounting, auditing,
-                                    taxation,
-                                    financial reporting, and business regulations
+                                    recognized accounting qualification that equips professionals with expertise in
+                                    accounting, auditing, taxation, financial reporting, and business regulations
                                 </p>
                             </div>
                         </div>
