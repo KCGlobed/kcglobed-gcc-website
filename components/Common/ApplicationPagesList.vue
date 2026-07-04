@@ -19,7 +19,7 @@
 <style scoped>
 .personal-info-tab .about-pages-list li a.invalid {
   color: #ff4d4f !important;
-  font-weight: 600;
+  font-weight: 600; 
 }
 </style>
 <script>
