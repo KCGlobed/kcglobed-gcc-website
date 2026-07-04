@@ -1262,7 +1262,6 @@ export default defineComponent({
             form.consent = false;
             searchQuery.value = '';
             showUniDropdown.value = false;
-            isDownloaded.value = false;
             citiesList.value = [];
             errors.name = "";
             errors.mobile = "";
@@ -1288,47 +1287,9 @@ export default defineComponent({
             citiesList.value = [...cities].sort((a, b) => a.localeCompare(b));
         });
 
-        const validateEmailObj = (email: string) => {
-            return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
-        };
-
-        const lastAbandonmentData = ref('');
-
         // --- OTP Verification State ---
         const otpSent = ref(false);
         const otpVerified = ref(false);
-
-        const triggerAbandonment = async () => {
-            if (form.name && form.email && form.mobile && validateEmailObj(form.email) && isValidMobile(form.mobile)) {
-                // Prevent duplicate calls
-                const currentData = `${form.name}-${form.email}-${form.mobile}`;
-                if (lastAbandonmentData.value === currentData) return;
-                lastAbandonmentData.value = currentData;
-
-                const config = useRuntimeConfig();
-                try {
-                    await $fetch(`${config.public.apiBase}/api/career/createabondantform`, {
-                        method: 'POST',
-                        body: {
-                            full_name: form.name,
-                            email: form.email,
-                            phone: form.mobile,
-                            source: 16,
-                            source_form: 3,
-                            utm_source: utm_source.value,
-                            utm_medium: utm_medium.value,
-                            utm_campaign: utm_campaign.value,
-                        }
-                    });
-                } catch (err) {
-                    console.error('[Abandonment] Error:', err);
-                }
-            }
-        };
-
-        watch([() => form.name, () => form.email, () => form.mobile], () => {
-            triggerAbandonment();
-        });
 
         onMounted(() => {
             // Populate states from local JSON and sort alphabetically
@@ -1397,28 +1358,6 @@ export default defineComponent({
             try {
                 const config = useRuntimeConfig();
 
-                // ── Pre-Dossier Email Validation ──
-                try {
-                    const checkRes: any = await $fetch(
-                        `${config.public.apiBase}/api/users/check_email/`,
-                        {
-                            method: 'POST',
-                            headers: { 'Content-Type': 'application/json' },
-                            body: { email: form.email },
-                        }
-                    );
-
-                    if (checkRes.data?.isExist) {
-                        // We DON'T block download here anymore, just like DossierModal
-                        console.log("Email already exists, but allowing brochure download.");
-                    }
-                } catch (checkErr: any) {
-                    if (checkErr.status !== 404) {
-                        console.error('[CheckEmail - ProgramBanner] Error:', checkErr);
-                        // We still continue to brochure creation even if validation fails?
-                        // Actually, let's just log it and proceed to let them download.
-                    }
-                }
 
                 const payload: any = {
                     full_name: form.name,
@@ -1444,22 +1383,6 @@ export default defineComponent({
                     formId.value = response.data.id;
                     const fileName = fileUrl.split('/').pop() || 'Brochure.pdf';
 
-                    $fetch("/api/save-lead", {
-                        method: "POST",
-                        body: {
-                            name: form.name,
-                            email: form.email,
-                            mobile: form.mobile,
-                            state: form.state,
-                            city: form.city,
-                            form_type: 2,
-                            form_id: formId.value,
-                            action: 'download_brochure_clicked',
-                            utm_source: utm_source.value,
-                            utm_medium: utm_medium.value,
-                            utm_campaign: utm_campaign.value
-                        }
-                    }).catch(() => { });
 
                     // Download the file
                     window.location.href = `/api/download?url=${encodeURIComponent(fileUrl)}&filename=${encodeURIComponent(fileName)}`;
@@ -1476,17 +1399,7 @@ export default defineComponent({
             }
         };
 
-        // ── CASHFREE: Load JS SDK ─────────────────────────────────────────────────
-        const loadCashfreeScript = () => {
-            return new Promise((resolve) => {
-                if ((window as any).Cashfree) { resolve(true); return; }
-                const script = document.createElement("script");
-                script.src = "https://sdk.cashfree.com/js/v3/cashfree.js";
-                script.onload = () => resolve(true);
-                script.onerror = () => resolve(false);
-                document.body.appendChild(script);
-            });
-        };
+   
 
 
 
