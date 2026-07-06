@@ -48,6 +48,8 @@ body {
   line-height: 1.7;
   padding: 0;
   margin: 0;
+  width: 100%;
+  overflow-x: hidden;
 }
 
 .h1,
@@ -10592,5 +10594,13 @@ All Key Style
 
   to {
     transform: rotate(360deg);
+  }
+}
+
+@media (max-width: 767px) {
+  [data-aos] {
+    opacity: 1 !important;
+    transform: none !important;
+    transition: none !important;
   }
 }
