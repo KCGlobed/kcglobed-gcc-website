@@ -1075,7 +1075,7 @@ export default defineComponent({
             state: "",
             city: "",
             university: "",
-            consent: false
+            consent: false,
         });
 
         const route = useRoute();
@@ -1113,6 +1113,7 @@ export default defineComponent({
             state: "",
             city: "",
             consent: "",
+            referral_code: "",
             university: ""
         });
 
@@ -1232,6 +1233,7 @@ export default defineComponent({
             errors.state = "";
             errors.city = "";
             errors.consent = "";
+            errors.university = "";
             errors.referral_code = "";
 
             if (!form.name.trim()) {
