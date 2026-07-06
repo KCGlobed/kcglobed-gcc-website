@@ -28,7 +28,7 @@
                                 <span>{{ trimester.label }}</span>
                                 <span>{{ trimester.name }}</span>
                             </div>
-                            <div class="plus-circle">+</div>
+                            <!-- <div class="plus-circle">+</div> -->
                         </div>
 
                         <!-- Desktop Vertical Label -->
