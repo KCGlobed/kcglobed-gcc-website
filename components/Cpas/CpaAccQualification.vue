@@ -1,4 +1,3 @@
-
 <template>
     <section class="cpa-exam-section">
         <div class="container">
@@ -493,7 +492,7 @@
     margin-bottom: 13px;
 }
 
-.exam-row > span:last-child {
+.exam-row>span:last-child {
     white-space: nowrap;
     text-align: right;
 }
@@ -523,7 +522,6 @@
     color: #ffffff;
     border-radius: 20px;
     padding: 7px 4px;
-
     text-align: center;
     font-size: 10.5px;
     font-weight: 700;
@@ -577,13 +575,10 @@
     left: 50%;
     top: -13px;
     transform: translateX(-50%);
-
     background: #87358c;
     color: #ffffff;
-
     border-radius: 20px;
     padding: 5px 12px;
-
     font-size: 10px;
     font-weight: 700;
     white-space: nowrap;
@@ -650,10 +645,8 @@
     left: 10%;
     right: 10%;
     bottom: -29px;
-
     display: grid;
     grid-template-columns: 1fr 1fr 1.65fr 1.55fr;
-
     background: #87358c;
     border-radius: 35px;
     overflow: hidden;
@@ -730,6 +723,7 @@
 
     .container {
         padding: 0 10px;
+        padding-bottom: 100px;
     }
 
     .exam-group {
@@ -769,11 +763,16 @@
         text-align: center;
     }
 
+    .process-wrapper {
+        margin: 30px 0 50px;
+
+        /* remove extra bottom space used for absolute flow */
+        padding: 40px 20px 20px;
+    }
+
     .process-flow {
-        left: 5%;
-        right: 5%;
-        bottom: -100px;
-        grid-template-columns: 1fr 1fr;
+        border-radius: 10px;
+        bottom: -130px;
     }
 
     .flow-item {
@@ -782,4 +781,4 @@
         padding: 5px;
     }
 }
-</style> 
+</style>

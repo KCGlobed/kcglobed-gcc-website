@@ -9,7 +9,7 @@
             <div class="max-1000-container mx-auto bg-white shadow-lg overflow-hidden rounded-12 border">
                 <header class="ia-header bg-brand-dark text-white d-flex flex-column flex-md-row">
                     <div
-                        class="trimester-label bg-brand-accent p-4 d-flex align-items-center justify-content-center justify-content-md-start font-bold text-lg border-bottom border-md-bottom-0 border-md-end border-white-10">
+                        class="trimester-label bg-brand-accent p-4 d-none d-md-flex align-items-center justify-content-center justify-content-md-start font-bold text-lg border-bottom border-md-bottom-0 border-md-end border-white-10">
                         Trimester
                     </div>
                     <div
@@ -22,10 +22,13 @@
                     <div v-for="(trimester, index) in trimesters" :key="index"
                         class="trimester-row d-flex flex-column flex-md-row group border-top border-gray-100">
 
-                        <!-- Mobile Label -->
-                        <div
-                            class="d-md-none bg-brand-accent text-white px-4 py-2 font-bold text-sm tracking-wider uppercase">
-                            {{ trimester.label }}
+                        <!-- Mobile Header Bar -->
+                        <div class="mobile-trimester-header d-flex d-md-none bg-brand-accent text-white px-4 py-3 align-items-center justify-content-between font-bold text-sm">
+                            <div class="d-flex align-items-center gap-3">
+                                <span>{{ trimester.label }}</span>
+                                <span>{{ trimester.name }}</span>
+                            </div>
+                            <div class="plus-circle">+</div>
                         </div>
 
                         <!-- Desktop Vertical Label -->
@@ -37,7 +40,7 @@
                         </div>
 
                         <!-- Image & Date info -->
-                        <div class="trimester-image-box position-relative overflow-hidden shrink-0">
+                        <div class="trimester-image-box position-relative overflow-hidden shrink-0 d-none d-md-block">
                             <div class="image-overlay position-absolute inset-0 bg-black-40 z-10"></div>
                             <img :src="trimester.image" :alt="trimester.name"
                                 class="w-100 h-100 object-cover transition-transform">
@@ -195,6 +198,18 @@ const trimesters = [
 
 .bg-brand-dark {
     background-color: #380b40;
+}
+
+.plus-circle {
+    width: 24px;
+    height: 24px;
+    border: 2px solid white;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 14px;
+    line-height: 1;
 }
 
 .bg-brand-accent {

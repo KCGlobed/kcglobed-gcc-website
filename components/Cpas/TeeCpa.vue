@@ -9,26 +9,18 @@
             </div>
 
             <!-- Hero Mockup Section -->
-            <!-- Books Section -->
-            <div class="books-section mb-60">
-                <div class="books-grid">
+            <div class="row">
+                <div class="col-12">
+                    <div class="hero-mockup-wrapper mb-60">
+                        <div class="mockup-container position-relative mx-auto">
 
-                    <div v-for="(book, index) in books" :key="index" class="book-card">
-                        <div class="book-image-box">
-                            <img :src="book.image" :alt="book.title" loading="lazy" decoding="async" />
-                        </div>
-
-                        <div class="book-info">
-                            <h3 class="book-title">
-                                {{ book.title }}
-                            </h3>
-
-                            <p class="book-subtitle">
-                                {{ book.subtitle }}
-                            </p>
+                            <!-- Main Image container -->
+                            <div class="image-frame">
+                                <img src="../../assets/img/books/Cpa-book.png"
+                                    alt="LMS Dashboard Mockup" class="img-fluid rounded-15">
+                            </div>
                         </div>
                     </div>
-
                 </div>
             </div>
 
@@ -60,48 +52,6 @@
 </template>
 
 <script setup lang="ts">
-
-import cpaAud from "@/assets/img/books/CPA_AUD.jpg";
-import cpaBar from "@/assets/img/books/CPA_BAR.jpg";
-import cpaFar from "@/assets/img/books/CPA_FAR.jpg";
-import cpaIsc from "@/assets/img/books/CPA_ISC.jpg";
-import cpaReg from "@/assets/img/books/CPA_REG.jpg";
-import cpaTcp from "@/assets/img/books/CPA_TCP.jpg";
-
-const books = [
-    {
-        title: "CPA AUD",
-        subtitle: "CPA & CA KAMAL CHHABRA",
-        image: cpaAud
-    },
-    {
-        title: "CPA FAR",
-        subtitle: "CPA & CA KAMAL CHHABRA",
-        image: cpaFar
-    },
-    {
-        title: "CPA REG",
-        subtitle: "CPA & CA KAMAL CHHABRA",
-        image: cpaReg
-    },
-    {
-        title: "CPA BAR",
-        subtitle: "CPA & CA KAMAL CHHABRA",
-        image: cpaBar
-    },
-    {
-        title: "CPA ISC",
-        subtitle: "CPA & CA KAMAL CHHABRA",
-        image: cpaIsc
-    },
-    {
-        title: "CPA TCP",
-        subtitle: "CPA & CA KAMAL CHHABRA",
-        image: cpaTcp
-    }
-];
-
-
 const steps = [
     {
         number: "01",
@@ -140,7 +90,6 @@ const steps = [
         colorClass: "blue-step"
     }
 ];
-
 </script>
 
 <style scoped>
@@ -186,9 +135,17 @@ const steps = [
     /* Limit width within col-12 for better presentation */
 }
 
-.image-frame img {
+.image-frame {
+    display: flex;
+    justify-content: center;
+    align-items: center;
     width: 100%;
-    height: auto;
+    height: 100%;
+}
+
+.image-frame img {
+    width: 80%;
+    /* height: 50%; */
     display: block;
     box-shadow: 0 20px 50px rgba(0, 0, 0, 0.1);
     border-radius: 20px;
@@ -442,167 +399,6 @@ const steps = [
         left: 0 !important;
         top: 0 !important;
         bottom: 0 !important;
-    }
-}
-
-/* =====================================
-   CPA BOOKS SECTION
-===================================== */
-
-.books-section {
-    width: 100%;
-    margin: 40px auto 60px;
-}
-
-.books-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    column-gap: 80px;
-    row-gap: 45px;
-}
-
-
-/* Individual Book Card */
-
-.book-card {
-    width: 100%;
-    text-align: center;
-}
-
-
-/* Image Box */
-
-.book-image-box {
-    width: 100%;
-    height: 330px;
-
-    background: linear-gradient(135deg,
-            #f5f5f5 0%,
-            #eceeef 100%);
-
-    border-radius: 16px;
-
-    display: flex;
-    align-items: center;
-    justify-content: center;
-
-    overflow: hidden;
-}
-
-
-/* Book Image */
-
-.book-image-box img {
-    width: 100%;
-    height: 100%;
-
-    object-fit: cover;
-    object-position: center;
-
-    display: block;
-
-    transition: transform 0.35s ease;
-}
-
-
-/* Optional subtle hover */
-
-.book-card:hover .book-image-box img {
-    transform: scale(1.03);
-}
-
-
-/* Book Information */
-
-.book-info {
-    padding-top: 20px;
-}
-
-
-/* Book Title */
-
-.book-title {
-    color: #27364d;
-
-    font-size: 25px;
-    line-height: 1.2;
-    font-weight: 700;
-
-    margin: 0 0 10px;
-
-    text-transform: uppercase;
-}
-
-
-/* Subtitle */
-
-.book-subtitle {
-    color: #9b9b9b;
-
-    font-size: 14px;
-    line-height: 1.4;
-    font-weight: 400;
-
-    margin: 0;
-
-    text-transform: uppercase;
-    letter-spacing: 0.2px;
-}
-
-
-/* =====================================
-   TABLET
-===================================== */
-
-@media (max-width: 991px) {
-
-    .books-grid {
-        grid-template-columns: repeat(2, 1fr);
-        column-gap: 35px;
-        row-gap: 40px;
-    }
-
-    .book-image-box {
-        height: 300px;
-    }
-
-    .book-title {
-        font-size: 23px;
-    }
-}
-
-
-/* =====================================
-   MOBILE
-===================================== */
-
-@media (max-width: 575px) {
-
-    .books-section {
-        margin: 20px auto 40px;
-    }
-
-    .books-grid {
-        grid-template-columns: 1fr;
-        row-gap: 35px;
-    }
-
-    .book-image-box {
-        height: auto;
-        aspect-ratio: 1 / 1;
-    }
-
-    .book-info {
-        padding-top: 15px;
-    }
-
-    .book-title {
-        font-size: 22px;
-        margin-bottom: 7px;
-    }
-
-    .book-subtitle {
-        font-size: 13px;
     }
 }
 </style>

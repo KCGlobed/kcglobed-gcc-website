@@ -8,6 +8,7 @@
 
     <ProgramsAIProgram />
     <ProgramsAeiap />
+    <CareerPath />
     <ProgramsIAProgram />
 
     <ProgramsAccaProgram />
@@ -35,7 +36,7 @@
 
 <script setup lang="ts">
 // import { defineComponent } from "vue";
-
+import CareerPath from '~/components/EAs/CareerPath.vue';
 // export default defineComponent({});
 useHead({
   title: "GCC School | Programs",
