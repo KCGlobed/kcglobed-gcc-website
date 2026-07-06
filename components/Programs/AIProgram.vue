@@ -18,6 +18,7 @@
                     </div>
                 </div>
             </div>
+            <span class="source-content">Source: naukri.com</span>
         </div>
     </div>
 </template>
@@ -74,6 +75,15 @@ export default {
 
 .highlight {
     color: #F1A63E;
+}
+
+.source-content {
+    display: flex;
+    justify-content: flex-end;
+    margin-right: 150px;
+    font-size: 14px;
+    font-weight: 600;
+    color: #555;
 }
 
 .sub-title {
@@ -231,6 +241,10 @@ export default {
 
     .title::after {
         margin: 8px auto 0;
+    }
+
+    .source-content {
+        justify-content: flex-start;
     }
 
     .sub-title {

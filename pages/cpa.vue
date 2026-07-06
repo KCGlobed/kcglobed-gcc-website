@@ -8,6 +8,7 @@
 
     <ProgramsAIProgram />
     <CpasCpaAeiap />
+     <CareerPath />
     <!-- <ProgramsIAProgram /> -->
     <CpasIACpa />
 
@@ -31,6 +32,7 @@
 
 <script setup lang="ts">
 import CpaAccQualification from '~/components/Cpas/CpaAccQualification.vue';
+import CareerPath from '~/components/EAs/CareerPath.vue';
 
 
 // import { defineComponent } from "vue";
