@@ -4,7 +4,7 @@
 
             <!-- Heading -->
             <div class="career-path-heading">
-                <h2>
+                <h2 class="title">
                     CAREER GROWTH - <span class="highlight">PATH</span>
                 </h2>
             </div>
@@ -48,13 +48,24 @@
 
 .career-path-heading {
     text-align: center;
-    margin-bottom: 45px;
+    /* margin-bottom: 45px; */
 }
+
 
 .career-path-heading h2 {
     font-size: 38px;
     line-height: 1.15;
     font-weight: 600;
+}
+
+.title::after {
+    content: "";
+    display: block;
+    width: 70px;
+    height: 4px;
+    background: #F1A63E;
+    margin: 15px auto 0;
+    border-radius: 10px;
 }
 
 .career-path-heading h2 span {
