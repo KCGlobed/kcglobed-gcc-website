@@ -265,4 +265,12 @@ export default {
         text-align: center;
     }
 }
+
+@media screen and (max-width: 300px) {
+
+    .domains-grid {
+        grid-template-columns: repeat(1, 1fr);
+
+    }
+}
 </style>

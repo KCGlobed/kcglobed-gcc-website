@@ -419,4 +419,202 @@
         display: flex !important;
     }
 }
+
+/* ================================
+   RESPONSIVE TABLE CSS
+================================ */
+
+/* Tablet */
+@media (max-width: 1024px) {
+    .inner-container {
+        width: 100%;
+        max-width: 1000px;
+        padding-left: 20px;
+        padding-right: 20px;
+    }
+
+    .table-spanned-col {
+        width: 180px;
+    }
+
+    .header-program {
+        font-size: 16px;
+    }
+
+    .module-list {
+        font-size: 14px;
+    }
+}
+
+
+/* Mobile */
+@media (max-width: 767px) {
+    .ia-program-area {
+        padding: 40px 0;
+    }
+
+    .inner-container {
+        width: 100%;
+        padding-left: 12px;
+        padding-right: 12px;
+    }
+
+    .section-title {
+        margin-bottom: 25px;
+        padding: 0 15px;
+    }
+
+    .title {
+        font-size: 22px;
+        line-height: 1.4;
+        margin-bottom: 15px;
+    }
+
+    /* Header */
+    .program-table-header {
+        display: block !important;
+    }
+
+    .header-duration,
+    .hidden-md-down,
+    .header-empty {
+        display: none !important;
+    }
+
+    .header-program {
+        width: 100%;
+        padding: 15px 12px !important;
+        font-size: 14px;
+        line-height: 1.5;
+    }
+
+    /* Stack right column below rows */
+    .table-main-wrapper {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .table-rows-container {
+        width: 100%;
+    }
+
+    /*
+      Keep Duration + Content side by side.
+      This looks more like a table than stacking
+      the duration above every row.
+    */
+    .table-row {
+        display: flex;
+        flex-direction: row;
+        width: 100%;
+    }
+
+    .row-duration {
+        width: 55px;
+        min-width: 55px;
+        min-height: 150px;
+        padding: 10px 5px !important;
+    }
+
+    .row-duration .writing-vertical {
+        writing-mode: vertical-rl;
+        text-orientation: mixed;
+        transform: rotate(180deg);
+        font-size: 12px;
+    }
+
+    .row-content {
+        width: calc(100% - 55px);
+        padding: 16px 12px !important;
+        border-left: 1px solid #e5e7eb;
+    }
+
+    /* Force Bootstrap columns to stack */
+    .row-content .row {
+        margin: 0;
+    }
+
+    .row-content .col-md-6 {
+        width: 100%;
+        padding-left: 0;
+        padding-right: 0;
+        margin-bottom: 10px;
+    }
+
+    .row-content .col-md-6:last-child {
+        margin-bottom: 0;
+    }
+
+    .module-list {
+        font-size: 14px;
+    }
+
+    .module-list li {
+        line-height: 1.5;
+    }
+
+    .bullet-point {
+        font-size: 18px;
+        flex-shrink: 0;
+    }
+
+    /* British Council section */
+    .table-spanned-col {
+        width: 100%;
+        min-height: auto;
+        padding: 25px 15px !important;
+        border-left: none !important;
+        border-top: 2px solid #888 !important;
+    }
+
+    .british-council,
+    .english-work {
+        font-size: 15px;
+    }
+
+    .weeks-info {
+        font-size: 18px;
+    }
+}
+
+
+/* Very Small Mobile */
+@media (max-width: 400px) {
+    .inner-container {
+        padding-left: 8px;
+        padding-right: 8px;
+    }
+
+    .title {
+        font-size: 19px;
+        line-height: 1.4;
+    }
+
+    .header-program {
+        font-size: 13px;
+        padding: 12px 8px !important;
+    }
+
+    .row-duration {
+        width: 45px;
+        min-width: 45px;
+    }
+
+    .row-content {
+        width: calc(100% - 45px);
+        padding: 14px 10px !important;
+    }
+
+    .module-list {
+        font-size: 13px;
+    }
+
+    .row-duration .writing-vertical {
+        font-size: 11px;
+    }
+
+    .table-spanned-col {
+        padding: 20px 10px !important;
+    }
+}
 </style>
