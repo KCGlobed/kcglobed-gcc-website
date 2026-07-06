@@ -256,7 +256,7 @@
 
     .cpa-intro-section {
         padding: 25px 0;
-        padding-bottom: 1000px;
+        /* padding-bottom: 1000px; */
     }
 
     .process-flow {
