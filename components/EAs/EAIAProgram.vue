@@ -6,7 +6,18 @@
             </div>
         </div>
         <div class="inner-container">
-            <img src="../../assets/img/EA-img/EA-table.png" alt="">
+            <!-- Book Cards Section -->
+            <div class="row g-4 mb-40">
+                <div class="col-12">
+                    <picture class="responsive-banner">
+                        <!-- Mobile: 767px and below -->
+                        <source media="(max-width: 767px)" :srcset="EAmobile" />
+
+                        <!-- Desktop: above 767px -->
+                        <img :src="EAdesktop" alt="TEEE Tailored Education" class="teee-banner-image" />
+                    </picture>
+                </div>
+            </div>
 
         </div>
     </div>
@@ -14,6 +25,8 @@
 
 <script setup>
 // No reactive data needed for this static design
+import EAmobile from '../../assets/img/EA-img/EA-table-mobile.png';
+import EAdesktop from '../../assets/img/EA-img/EA-table.png';
 </script>
 
 <style scoped>
@@ -154,7 +167,7 @@
     flex-grow: 1;
     display: flex;
     flex-direction: column;
-    
+
 }
 
 .table-row {
@@ -489,5 +502,17 @@
     .table-spanned-col {
         padding: 20px 10px !important;
     }
+}
+
+.responsive-banner {
+    display: block;
+    width: 100%;
+}
+
+.teee-banner-image {
+    display: block;
+    width: 100%;
+    height: auto;
+    object-fit: contain;
 }
 </style>
