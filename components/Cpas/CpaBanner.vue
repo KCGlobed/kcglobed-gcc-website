@@ -167,21 +167,18 @@
         @close="showFeeWaiverModal = false" />
 
     <!-- 🎉 Referral Success Celebration Popup -->
-    <Teleport to="body">
+    <!-- <Teleport to="body">
         <Transition name="celebration-fade">
             <div v-if="showCelebrationPopup" class="celebration-overlay" @click.self="showCelebrationPopup = false">
                 <div class="celebration-card">
-                    <!-- Confetti particles -->
                     <div class="confetti-container">
                         <span v-for="n in 40" :key="n" class="confetti-particle" :style="getConfettiStyle(n)"></span>
                     </div>
 
-                    <!-- Close Button -->
                     <button class="celebration-close" @click="showCelebrationPopup = false">
                         <i class="ti ti-x"></i>
                     </button>
 
-                    <!-- Content -->
                     <div class="celebration-content">
                         <div class="celebration-emoji">🎉</div>
                         <h2 class="celebration-title">Congratulations!</h2>
@@ -195,7 +192,6 @@
 
                             <p>Your <strong>NFET login credentials and exam details</strong> have been sent to your
                                 registered <strong>Email ID.</strong></p>
-                            <!-- <p class="text-sm-muted">Please check your Inbox/Spam folder along with WhatsApp/SMS for further instructions.</p> -->
 
                             <div class="celebration-divider"></div>
 
@@ -219,7 +215,7 @@
                 </div>
             </div>
         </Transition>
-    </Teleport>
+    </Teleport> -->
 </template>
 
 <style scoped>
@@ -1399,6 +1395,7 @@ export default defineComponent({
             nameInput,
             focusInput,
             form,
+            formId,
             errors,
             states,
             citiesList,
