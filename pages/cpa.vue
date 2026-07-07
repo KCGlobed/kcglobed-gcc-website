@@ -2,25 +2,22 @@
   <div>
     <LayoutTopHeader />
     <LayoutMainNavbar />
-    <!-- <CommonCommingSoon /> -->
+    
     <CpasCpaBanner />
     <ProgramsGovtOnprogram />
 
     <ProgramsAIProgram />
     <CpasCpaAeiap />
      <CareerPath />
-    <!-- <ProgramsIAProgram /> -->
+
     <CpasIACpa />
 
-    <!-- <ProgramsAccaProgram /> -->
     <CpasAccaCpa />
-    <!-- <ProgramsAccQualification /> -->
+
     <CpaAccQualification/>
 
-    <!-- <ProgramsProgramTimlineTwo /> -->
     <CpasCpaTimelIne/>
-    <!-- <ProgramsProgramTimeLine /> -->
-    <!-- <ProgramsTeeeProgram /> -->
+
     <CpasTeeCpa />
     <ProgramsLmsProgram />
 
@@ -33,7 +30,6 @@
 <script setup lang="ts">
 import CpaAccQualification from '~/components/Cpas/CpaAccQualification.vue';
 import CareerPath from '~/components/EAs/CareerPath.vue';
-
 
 // import { defineComponent } from "vue";
 
