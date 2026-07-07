@@ -133,6 +133,10 @@ export default defineNuxtConfig({
     emailUser: process.env.EMAIL_HOST_USER,
     emailPassword: process.env.EMAIL_HOST_PASSWORD,
 
+    // ── PDF ──────────────────────────────────────────────────────
+    cpaPdfUrl: process.env.CPA_PDF_URL,
+    eaPdfUrl: process.env.EA_PDF_URL,
+
     // ── SMS (WebInfosys) ──────────────────────────────────────────────────────
     smsApiKey: '',
     smsSenderId: '',
@@ -147,6 +151,8 @@ export default defineNuxtConfig({
       nfetDates: process.env.NUXT_PUBLIC_NFET_DATES || '',
       nfetSlots: process.env.NUXT_PUBLIC_NFET_SLOTS || '',
       nfetSlotBufferHours: process.env.NUXT_PUBLIC_NFET_SLOT_BUFFER_HOURS || '48',
+      eaPdfUrl: process.env.EA_PDF_URL || '',
+      cpaPdfUrl: process.env.CPA_PDF_URL || '',
     }
   },
   plugins: ["~/plugins/scrollReveal.ts"],

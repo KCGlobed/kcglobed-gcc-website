@@ -21,8 +21,8 @@
                                         <label for="fullName" class="form-label fw-bold small">Full Name*</label>
                                         <div class="">
 
-                                            <input type="text" class="form-control custom-input mb-2" id="fullName"
-                                                v-model="form.name" placeholder="Enter your full name"
+                                            <input type="text" ref="nameInput" class="form-control custom-input mb-2"
+                                                id="fullName" v-model="form.name" placeholder="Enter your full name"
                                                 :class="{ 'is-invalid': errors.name }"
                                                 @input="form.name = form.name.replace(/[^a-zA-Z\s]/g, '')">
                                             <div class="invalid-feedback" v-if="errors.name">{{ errors.name }}</div>
@@ -146,45 +146,8 @@
                                     </form>
                                 </div>
                             </div>
-                            <div class="col-lg-6 col-md-12">
-                                <div class="program-info-section h-100 d-flex flex-column">
-                                    <div class="program-header-text">
-                                        <h1 class="program-title">
-                                            AI-Enabled US Accounting Professional (AEUAP) Program
-                                        </h1>
-                                        <p class="program-subtitle">
-                                            A High-Impact Finance Career Program For GCC Industry
-                                        </p>
-                                    </div>
-
-                                    <div class="video-section">
-                                        <div class="video-wrapper">
-                                            <template v-if="!banner.showVideo">
-                                                <img src="https://storage.googleapis.com/static_files_backend/media/images/nitish%20sir%20thmbnl_.jpg"
-                                                    alt="Program Video" class="video-thumbnail">
-                                                <!-- <div class="video-badge-4k">
-                                                    4k
-                                                </div> -->
-                                                <div class="video-play-overlay" @click="banner.showVideo = true">
-                                                    <div class="play-icon">
-                                                        <i class="ti ti-player-play-filled"></i>
-                                                    </div>
-                                                </div>
-                                                <!-- <div class="video-caption">
-                                                    <p class="speaker-name">GCC SCHOOL</p>
-                                                    <p class="speaker-quote">LMS TUTORIAL & OVERVIEW</p>
-                                                </div> -->
-                                            </template>
-                                            <video v-else controls autoplay controlsList="nodownload"
-                                                oncontextmenu="return false;" class="video-element w-100 h-100">
-                                                <source
-                                                    src="https://storage.googleapis.com/gcc_static_files_backend/static/videos/Nitis%20Sir%20Website%20Video._final_gcc.mp4"
-                                                    type="video/mp4">
-                                                Your browser does not support the video tag.
-                                            </video>
-                                        </div>
-                                    </div>
-                                </div>
+                            <div class="col-lg-6 col-md-12 banner" @click="focusInput">
+                                <img :src="HeroBanner" alt="hero-image" style="width: 80%;">
                             </div>
                         </div>
 
@@ -283,6 +246,13 @@
 .hero-slider-warp .container-fluid {
     position: relative;
     z-index: 2;
+}
+
+.banner {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
 }
 
 /* Form Card Styling */
@@ -1089,6 +1059,9 @@ import stateCityData from "~/state_city.json";
 import universitiesList from "~/universities.json";
 import selectUniversityList from "~/select-university.json";
 import OtpVerification from '../Common/OtpVerification.vue';
+import HeroBanner from '../../assets/img/CPA-img/hero_cpa.png';
+
+
 
 import image1 from "../../assets/img/heros/hero_bg.svg";
 import gccPdf from "../../assets/gcc.pdf";
@@ -1117,6 +1090,24 @@ export default defineComponent({
             message: '',
             type: 'error' as 'error' | 'success'
         });
+
+        const nameInput = ref<HTMLInputElement | null>(null);
+
+        const focusInput = (event?: Event) => {
+            if (event?.currentTarget) {
+                const container = (event.currentTarget as HTMLElement).closest('.hero-slider-warp');
+                const input = container?.querySelector('#fullName') as HTMLInputElement | null;
+                if (input) {
+                    input.focus();
+                    return;
+                }
+            }
+            if (Array.isArray(nameInput.value)) {
+                (nameInput.value[0] as HTMLInputElement | null)?.focus();
+            } else {
+                nameInput.value?.focus();
+            }
+        };
 
         const showAlert = (title: string, message: string, type: 'error' | 'success' = 'error') => {
             alertPopup.title = title;
@@ -1349,6 +1340,7 @@ export default defineComponent({
             return isValid && Object.values(errors).every(error => error === "");
         };
 
+
         const submitForm = async () => {
             if (!validateForm()) return;
 
@@ -1378,14 +1370,16 @@ export default defineComponent({
                     body: payload
                 });
 
-                if (response.success && response.data?.url) {
-                    const fileUrl = response.data.url;
-                    formId.value = response.data.id;
-                    const fileName = fileUrl.split('/').pop() || 'Brochure.pdf';
+                if (response.success) {
+                    const link = document.createElement("a");
 
+                    link.href = config.public.cpaPdfUrl;
+                    link.target = "_blank";
+                    link.download = "CPA Dossier.pdf";
 
-                    // Download the file
-                    window.location.href = `/api/download?url=${encodeURIComponent(fileUrl)}&filename=${encodeURIComponent(fileName)}`;
+                    document.body.appendChild(link);
+                    link.click();
+                    document.body.removeChild(link);
                     showNotification('success', 'Brochure downloaded successfully!');
                 } else {
                     showNotification('error', response.message || "Something went wrong. Please try again.");
@@ -1399,11 +1393,11 @@ export default defineComponent({
             }
         };
 
-   
-
-
 
         return {
+            HeroBanner,
+            nameInput,
+            focusInput,
             form,
             errors,
             states,
