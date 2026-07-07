@@ -33,9 +33,6 @@
 </script>
 
 <style scoped>
-.content-color {
-    color: #7A1C62;
-}
 
 .ia-program-area {
     background-color: #f3f4f6;
