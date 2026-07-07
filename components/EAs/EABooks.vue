@@ -9,39 +9,8 @@
             </div>
 
             <!-- Book Cards Section -->
-            <div class="row g-4 mb-40">
-                <!-- Book 1 -->
-                <div class="col-lg-4 col-md-6 mb-30" data-aos="fade-up">
-                    <div class="book-card">
-                        <div class="book-image-wrapper">
-                            <img src="../../assets/img/books/EA1.png" alt="EA Part 1" class="img-fluid">
-                        </div>
-                        <h3 class="book-title">Enrolled Agent Part 1</h3>
-                        <p class="book-subtitle">Individual Taxation</p>
-                    </div>
-                </div>
-
-                <!-- Book 2 -->
-                <div class="col-lg-4 col-md-6 mb-30" data-aos="fade-up" data-aos-delay="100">
-                    <div class="book-card">
-                        <div class="book-image-wrapper">
-                            <img src="~/assets/img/books/EA2.png" alt="EA Part 2" class="img-fluid">
-                        </div>
-                        <h3 class="book-title">Enrolled Agent Part 2</h3>
-                        <p class="book-subtitle">Business Taxation</p>
-                    </div>
-                </div>
-
-                <!-- Book 3 -->
-                <div class="col-lg-4 col-md-6 mb-30" data-aos="fade-up" data-aos-delay="200">
-                    <div class="book-card">
-                        <div class="book-image-wrapper">
-                            <img src="~/assets/img/books/EA3.png" alt="EA Part 3" class="img-fluid">
-                        </div>
-                        <h3 class="book-title">Enrolled Agent Part 3</h3>
-                        <p class="book-subtitle">Representation, Practices & Procedures</p>
-                    </div>
-                </div>
+            <div class="row g-4 justify-content-center mb-30">
+                <img src="../../assets/img/books/EA-book.png" alt="books" style="width: 80%; border-radius: 40px; ">
             </div>
 
             <!-- Steps Grid -->
