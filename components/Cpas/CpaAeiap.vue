@@ -16,7 +16,7 @@
                         <div class="flip-card">
                             <!-- Front Side: Logo -->
                             <div class="flip-card-front">
-                                <img src="../../assets/img/AICPA_logo.png" alt="ACCA" class="flip-logo-img">
+                                <img src="../../assets/img/AICPA_logo.png" alt="AICPA" class="flip-logo-img">
                                 <!-- <p class="flip-hint">Hover to explore</p> -->
                             </div>
                             <!-- Back Side: Content -->
@@ -112,7 +112,7 @@
                             <div class="flip-card-back">
                                 <h3 class="card-title-back">PGCM – Public Accounting</h3>
                                 <p class="card-desc-back">A Post Graduate Certificate in Management (AIMA,
-                                    AICTE-approved) awarded alongside ACCA.</p>
+                                    AICTE-approved) awarded alongside US CPA .</p>
                                 <div class="key-benefit-box">
                                     <h4 class="benefit-title">
                                         <svg width="16" height="16" viewBox="0 0 24 24" fill="none"
@@ -123,7 +123,7 @@
                                         </svg>
                                         Key Benefit
                                     </h4>
-                                    <p class="benefit-text">100% course module mapped with ACCA papers, enabling
+                                    <p class="benefit-text">100% course module mapped with US CPA  papers, enabling
                                         seamless certification with no additional academic load.</p>
                                 </div>
                             </div>
