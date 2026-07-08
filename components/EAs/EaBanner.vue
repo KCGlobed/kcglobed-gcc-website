@@ -1342,7 +1342,7 @@ export default defineComponent({
                 if (response.success) {
                     const fileUrl = response.data.url;
                     formId.value = response.data.id;
-                    const fileName = fileUrl.split('/').pop() || 'EA Dossier.pdf';
+                    const fileName = fileUrl.split('/').pop() || 'EA Brochure.pdf';
 
                     window.location.href = `/api/download?url=${encodeURIComponent(fileUrl)}&filename=${encodeURIComponent(fileName)}`;
                     showNotification('success', 'Brochure downloaded successfully!');
