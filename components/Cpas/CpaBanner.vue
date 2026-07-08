@@ -1055,7 +1055,7 @@ import stateCityData from "~/state_city.json";
 import universitiesList from "~/universities.json";
 import selectUniversityList from "~/select-university.json";
 import OtpVerification from '../Common/OtpVerification.vue';
-import HeroBanner from '../../assets/img/CPA-img/hero_cpa.png';
+import HeroBanner from '../../assets/img/CPA-img/CPA hero.png';
 
 
 

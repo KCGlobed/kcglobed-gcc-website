@@ -1048,7 +1048,7 @@ import stateCityData from "~/state_city.json";
 import universitiesList from "~/universities.json";
 import selectUniversityList from "~/select-university.json";
 import OtpVerification from '../Common/OtpVerification.vue';
-import HeroBanner from '../../assets/img/EA-img/hero_ea.png';
+import HeroBanner from '../../assets/img/EA-img/EA hero.png';
 
 import image1 from "../../assets/img/heros/hero_bg.svg";
 import gccPdf from "../../assets/gcc.pdf";

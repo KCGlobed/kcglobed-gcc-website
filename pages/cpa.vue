@@ -6,7 +6,7 @@
     <CpasCpaBanner />
     <ProgramsGovtOnprogram />
 
-    <ProgramsAIProgram />
+    <AICpa />
     <CpasCpaAeiap />
      <CareerPath />
 
@@ -28,6 +28,7 @@
 </template>
 
 <script setup lang="ts">
+import AICpa from '~/components/Cpas/AICpa.vue';
 import CpaAccQualification from '~/components/Cpas/CpaAccQualification.vue';
 import CareerPath from '~/components/EAs/CareerPath.vue';
 
