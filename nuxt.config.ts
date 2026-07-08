@@ -134,7 +134,7 @@ export default defineNuxtConfig({
     emailPassword: process.env.EMAIL_HOST_PASSWORD,
 
     // ── PDF ──────────────────────────────────────────────────────
-    cpaPdfUrl: process.env.NUXT_PUBLIC_CPA_PDF_URL || process.env.CPA_PDF_URL || 'https://storage.googleapis.com/gcc_static_files_backend/static/files/GCC%20SCHOOL%20Dossier.pdf',
+    cpaPdfUrl: process.env.NUXT_PUBLIC_CPA_PDF_URL || process.env.CPA_PDF_URL || 'https://storage.googleapis.com/gcc_static_files_backend/static/files/CPA-STUDENT-BROCHURE.pdf',
     eaPdfUrl: process.env.NUXT_PUBLIC_EA_PDF_URL || process.env.EA_PDF_URL || 'https://storage.googleapis.com/gcc_static_files_backend/static/files/GCC%20SCHOOL%20Dossier.pdf',
 
     // ── SMS (WebInfosys) ──────────────────────────────────────────────────────
@@ -152,7 +152,7 @@ export default defineNuxtConfig({
       nfetSlots: process.env.NUXT_PUBLIC_NFET_SLOTS || '',
       nfetSlotBufferHours: process.env.NUXT_PUBLIC_NFET_SLOT_BUFFER_HOURS || '48',
       eaPdfUrl: process.env.NUXT_PUBLIC_EA_PDF_URL || process.env.EA_PDF_URL || 'https://storage.googleapis.com/gcc_static_files_backend/static/files/GCC%20SCHOOL%20Dossier.pdf',
-      cpaPdfUrl: process.env.NUXT_PUBLIC_CPA_PDF_URL || process.env.CPA_PDF_URL || 'https://storage.googleapis.com/gcc_static_files_backend/static/files/GCC%20SCHOOL%20Dossier.pdf',
+      cpaPdfUrl: process.env.NUXT_PUBLIC_CPA_PDF_URL || process.env.CPA_PDF_URL || 'https://storage.googleapis.com/gcc_static_files_backend/static/files/CPA-STUDENT-BROCHURE.pdf',
     }
   },
   plugins: ["~/plugins/scrollReveal.ts"],
