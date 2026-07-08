@@ -1340,16 +1340,17 @@ export default defineComponent({
                 });
 
                 if (response.success) {
+                    window.location.href = `/api/download?url=${encodeURIComponent(config.public.eaPdfUrl)}&filename=${encodeURIComponent('EA Dossier.pdf')}`;
 
-                    const link = document.createElement("a");
+                    // const link = document.createElement("a");
 
-                    link.href = config.public.eaPdfUrl;
-                    link.target = "_blank";
-                    link.download = "EA Dossier.pdf";
+                    // link.href = config.public.eaPdfUrl;
+                    // link.target = "_blank";
+                    // link.download = "EA Dossier.pdf";
 
-                    document.body.appendChild(link);
-                    link.click();
-                    document.body.removeChild(link);
+                    // document.body.appendChild(link);
+                    // link.click();
+                    // document.body.removeChild(link);
                     showNotification('success', 'Brochure downloaded successfully!');
                 } else {
                     showNotification('error', response.message || "Something went wrong. Please try again.");
