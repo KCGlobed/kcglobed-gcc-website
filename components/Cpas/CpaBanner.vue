@@ -1367,16 +1367,11 @@ export default defineComponent({
                 });
 
                 if (response.success) {
-                    window.location.href = `/api/download?url=${encodeURIComponent(config.public.cpaPdfUrl)}&filename=${encodeURIComponent('CPA Dossier.pdf')}`;
-                    // const link = document.createElement("a");
+                    const fileUrl = response.data.url;
+                    formId.value = response.data.id;
+                    const fileName = fileUrl.split('/').pop() || 'CPA Dossier.pdf';
 
-                    // link.href = config.public.cpaPdfUrl;
-                    // link.target = "_blank";
-                    // link.download = "CPA Dossier.pdf";
-
-                    // document.body.appendChild(link);
-                    // link.click();
-                    // document.body.removeChild(link);
+                    window.location.href = `/api/download?url=${encodeURIComponent(fileUrl)}&filename=${encodeURIComponent(fileName)}`;
                     showNotification('success', 'Brochure downloaded successfully!');
                 } else {
                     showNotification('error', response.message || "Something went wrong. Please try again.");
