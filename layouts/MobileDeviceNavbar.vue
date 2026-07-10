@@ -26,15 +26,15 @@
             <i :class="showProgramsDropdown ? 'ti ti-chevron-up' : 'ti ti-chevron-down'" style="margin-left: auto;"></i>
           </a>
           <div v-show="showProgramsDropdown" class="mobile-submenu">
-            <NuxtLink to="/programs" class="nav-item sub-item" @click="handleClick">
+            <NuxtLink to="/programs/acca" class="nav-item sub-item" @click="handleClick">
               <span class="dot"></span>
               <span>AEIAP</span>
             </NuxtLink>
-            <NuxtLink to="/cpa" class="nav-item sub-item" @click="handleClick">
+            <NuxtLink to="/programs/cpa" class="nav-item sub-item" @click="handleClick">
               <span class="dot"></span>
               <span>AEUAP</span>
             </NuxtLink>
-            <NuxtLink to="/ea" class="nav-item sub-item" @click="handleClick">
+            <NuxtLink to="/programs/ea" class="nav-item sub-item" @click="handleClick">
               <span class="dot"></span>
               <span>AEUTP</span>
             </NuxtLink>

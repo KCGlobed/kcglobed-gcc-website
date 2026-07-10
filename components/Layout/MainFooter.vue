@@ -2,7 +2,30 @@
   <div class="footer-warp ptb-80">
     <div class="container">
       <div class="row g-4">
-        <div class="col-lg-8 col-sm-12">
+        <!-- Programs Widget -->
+        <div class="col-lg-3 col-sm-12">
+          <div class="footer-widget">
+            <h3>Programs</h3>
+            <ul class="footer-list">
+              <li>
+                <NuxtLink to="/programs/acca">AEIAP – International Accounting</NuxtLink>
+              </li>
+              <li>
+                <NuxtLink to="/programs/cpa">AEUAP – US Accounting</NuxtLink>
+              </li>
+              <li>
+                <NuxtLink to="/programs/ea">AEUTP – US Taxation</NuxtLink>
+              </li>
+              
+              <li>
+                <NuxtLink to="/nfet-exam">NFET</NuxtLink>
+              </li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- Quick Links Widget -->
+        <div class="col-lg-5 col-sm-12">
           <div class="footer-widget">
             <h3>Quick Links</h3>
             <div class="row">
@@ -12,21 +35,11 @@
                     <NuxtLink to="/">Home</NuxtLink>
                   </li>
                   <li>
-                    <NuxtLink to="/programs">Program</NuxtLink>
-                  </li>
-                  <li>
-                    <NuxtLink to="/nfet-exam">NFET Exam</NuxtLink>
-                  </li>
-
-                  <li>
                     <NuxtLink to="/campus-life">Campus Life</NuxtLink>
                   </li>
                   <li>
                     <NuxtLink to="/about-overview">About Us</NuxtLink>
                   </li>
-                  <!-- <li>
-                    <NuxtLink to="/contact-us">Contact Us</NuxtLink>
-                  </li> -->
                   <li><a href="https://www.kcglobed.com/" target="_blank">KC GlobEd</a></li>
                   <li>
                     <NuxtLink to="/campus-ceo/student">Ambassador</NuxtLink>
@@ -203,7 +216,7 @@ export default {
 <style scoped>
 .footer-links-grid {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(2, 1fr);
   gap: 10px;
   padding-left: 0;
   list-style: none;
