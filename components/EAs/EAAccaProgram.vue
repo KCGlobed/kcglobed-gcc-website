@@ -40,9 +40,9 @@
 .ea-subtitle {
     text-align: center;
     font-size: clamp(24px, 4vw, 36px);
-    font-weight: 800;
+    /* font-weight: 800; */
     color: #0d0d25;
-    margin-bottom: 20px;
+    /* margin-bottom: 20px; */
     text-transform: uppercase;
     line-height: 1.2;
     max-width: 900px;
