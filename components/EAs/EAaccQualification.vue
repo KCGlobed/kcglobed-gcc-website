@@ -1,5 +1,5 @@
 <template>
-    <section class="cpa-exam-section ptb-100">
+    <section class="cpa-exam-section">
         <div class="container">
 
             <div class="exam-group">
