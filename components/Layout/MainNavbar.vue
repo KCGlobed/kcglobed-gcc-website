@@ -27,18 +27,18 @@
               Programs
             </a>
             <ul class="dropdown-menu">
-              <li class="nav-item child">
-                <NuxtLink to="/programs" class="nav-link">
+              <li class="nav-item">
+                <NuxtLink to="/programs/acca" class="nav-link">
                   AEIAP
                 </NuxtLink>
               </li>
-              <li class="nav-item child">
-                <NuxtLink to="/cpa" class="nav-link">
+              <li class="nav-item">
+                <NuxtLink to="/programs/cpa" class="nav-link">
                   AEUAP
                 </NuxtLink>
               </li>
-              <li class="nav-item child">
-                <NuxtLink to="/ea" class="nav-link">
+              <li class="nav-item">
+                <NuxtLink to="/programs/ea" class="nav-link">
                   AEUTP
                 </NuxtLink>
               </li>

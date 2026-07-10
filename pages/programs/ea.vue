@@ -6,7 +6,7 @@
      <EAsEaBanner />
     <ProgramsGovtOnprogram />
 
-    <ProgramsAIProgram />
+    <!-- <ProgramsAIProgram /> -->
     
     <!-- <ProgramsAeiap /> -->
      <EAsEAaeiap />
@@ -28,7 +28,8 @@
     <Events />
     <HomeTwoApplyUniversityInEasySteps />
     <NationalExecusive /> -->
-    <ProgramsProgramTimlineTwo />
+    <!-- <ProgramsProgramTimlineTwo /> -->
+     <EATimeLine/>
 
     <!-- <ProgramsProgramTimeLine /> -->
     <!-- <ProgramsTeeeProgram /> -->
@@ -46,6 +47,7 @@ import EAaccQualification from '~/components/EAs/EAaccQualification.vue';
 import CareerPath from '~/components/EAs/CareerPath.vue';
 import EABooks from '~/components/EAs/EABooks.vue';
 import EAIAProgram from '~/components/EAs/EAIAProgram.vue';
+import EATimeLine from '~/components/EAs/EATimeLine.vue';
 
 // import { defineComponent } from "vue";
 
