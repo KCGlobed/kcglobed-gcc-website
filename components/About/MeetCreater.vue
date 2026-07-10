@@ -39,11 +39,11 @@
 
 
             <!-- Director Card -->
-            <div class="row justify-content-end mt-md-5 mt-2 pt-4">
+            <!-- <div class="row justify-content-end mt-md-5 mt-2 pt-4">
                 <div class="col-lg-10">
                     <div class="card director-card border-0">
                         <div class="row align-items-center g-0 flex-md-row-reverse">
-                            <!-- Image -->
+                        
                             <div class="col-md-4 position-relative text-end">
                                 <div class="profile-img-wrapper right">
                                     <img src="~/assets/img/abouts/mana.png" class="profile-img director-img" loading="lazy" decoding="async" />
@@ -55,7 +55,6 @@
                                 </div>
                             </div>
 
-                            <!-- Content -->
                             <div class="col-md-8 text-white p-4 p-md-5 ">
                                 <h2 class="fw-bold mb-3 ">
                                     Meet the <br class="d-md-none" /> Executive Director
@@ -75,7 +74,7 @@
                         </div>
                     </div>
                 </div>
-            </div>
+            </div> -->
 
         </div>
     </section>

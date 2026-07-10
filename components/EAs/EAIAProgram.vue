@@ -6,141 +6,27 @@
             </div>
         </div>
         <div class="inner-container">
-            <div class="max-1000-container mx-auto bg-white shadow-lg overflow-hidden border">
-                <!-- Custom Grid Table Layout -->
-                <div class="program-table">
-                    <!-- Header -->
-                    <div class="program-table-header d-flex">
-                        <div class="header-duration bg-brand-accent text-white font-bold text-center py-3">
-                            Duration
-                        </div>
-                        <div class="header-program bg-brand-dark text-white font-bold text-center py-3 flex-grow-1">
-                            AI-Enabled US Taxation Professional (AEUTP) Program with US Enrolled Agent
-                        </div>
-                        <div class=" bg-brand-dark hidden-md-down"></div>
-                    </div>
+            <!-- Book Cards Section -->
+            <div class="row g-4 mb-40">
+                <div class="col-12">
+                    <picture class="responsive-banner">
+                        <!-- Mobile: 767px and below -->
+                        <source media="(max-width: 767px)" :srcset="EAmobile" />
 
-                    <!-- Body Grid -->
-                    <div class="program-table-body">
-                        <div class="table-main-wrapper">
-                            <!-- Left and Middle (3 rows) -->
-                            <div class="table-rows-container">
-                                <!-- Row 1 -->
-                                <div class="table-row">
-                                    <div class="row-duration bg-brand-accent text-white font-bold text-center py-4">
-                                        <span class="writing-vertical whitespace-nowrap text-sm uppercase">6
-                                            WEEKS</span>
-                                    </div>
-                                    <div style="background-color: #d3e3f0;" class="row-content bg-[#197290] p-4">
-                                        <div class="row w-100 align-items-center">
-                                            <div class="col-md-6 mb-3 mb-md-0">
-                                                <ul class="list-unstyled mb-0 module-list">
-                                                    <li class="d-flex align-items-center font-bold">
-                                                        <span class="bullet-point me-2 text-black">•</span>
-                                                        <span class="text-gray-900">Individual Taxation</span>
-                                                    </li>
-                                                </ul>
-                                            </div>
-                                            <div class="col-md-6">
-                                                <ul class="list-unstyled mb-0 module-list">
-                                                    <li class="d-flex align-items-start mb-2">
-                                                        <span class="bullet-point me-2 text-black">•</span>
-                                                        <span class="text-gray-900">MS Office</span>
-                                                    </li>
-                                                    <li class="d-flex align-items-start">
-                                                        <span class="bullet-point me-2 text-black">•</span>
-                                                        <span class="text-gray-900">Advanced Excel</span>
-                                                    </li>
-                                                </ul>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <!-- Row 2 -->
-                                <div class="table-row border-top">
-                                    <div class="row-duration bg-brand-dark text-white font-bold text-center py-4">
-                                        <span class="writing-vertical whitespace-nowrap text-sm uppercase">6
-                                            WEEKS</span>
-                                    </div>
-                                    <div style="background-color: #d3e3f0;" class="row-content  p-4">
-                                        <div class="row w-100 align-items-center">
-                                            <div class="col-md-6 mb-3 mb-md-0">
-                                                <ul class="list-unstyled mb-0 module-list">
-                                                    <li class="d-flex align-items-center font-bold">
-                                                        <span class="bullet-point me-2 text-black">•</span>
-                                                        <span class="text-gray-900">Business Taxation</span>
-                                                    </li>
-                                                </ul>
-                                            </div>
-                                            <div class="col-md-6">
-                                                <ul class="list-unstyled mb-0 module-list">
-                                                    <li class="d-flex align-items-start mb-2">
-                                                        <span class="bullet-point me-2 text-black">•</span>
-                                                        <span class="text-gray-900">Data Analytics</span>
-                                                    </li>
-                                                    <li class="d-flex align-items-start">
-                                                        <span class="bullet-point me-2 text-black">•</span>
-                                                        <span class="text-gray-900">Power - BI</span>
-                                                    </li>
-                                                </ul>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <!-- Row 3 -->
-                                <div class="table-row border-top">
-                                    <div class="row-duration bg-brand-accent text-white font-bold text-center py-4">
-                                        <span class="writing-vertical whitespace-nowrap text-sm uppercase">6
-                                            WEEKS</span>
-                                    </div>
-                                    <div style="background-color: #d3e3f0;" class="row-content p-4">
-                                        <div class="row w-100 align-items-center">
-                                            <div class="col-md-6 mb-3 mb-md-0">
-                                                <ul class="list-unstyled mb-0 module-list">
-                                                    <li class="d-flex align-items-center font-bold">
-                                                        <span class="bullet-point me-2 text-black">•</span>
-                                                        <span class="text-gray-900">Representation Practices &
-                                                            Procedures</span>
-                                                    </li>
-                                                </ul>
-                                            </div>
-                                            <div class="col-md-6">
-                                                <ul class="list-unstyled mb-0 module-list">
-                                                    <li class="d-flex align-items-start mb-2">
-                                                        <span class="bullet-point me-2 text-black">•</span>
-                                                        <span class="text-gray-900">AI for Tax Professionals</span>
-                                                    </li>
-                                                    <li class="d-flex align-items-start">
-                                                        <span class="bullet-point me-2 text-black">•</span>
-                                                        <span class="text-gray-900">CCH Tax Software</span>
-                                                    </li>
-                                                </ul>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <!-- Right Spanned Column -->
-                            <div style="background-color: #d3e3f0; border:2px solid #888; "
-                                class="table-spanned-col  d-flex align-items-center justify-content-center p-4 text-center">
-                                <div class="spanned-text font-bold">
-                                    <div class="british-council text-brand-dark mb-1">British Council -</div>
-                                    <div class="english-work text-brand-dark mb-3">English For Work</div>
-                                    <div class="weeks-info text-brand-accent text-lg mb-1">18 Weeks</div>
-                                    <div class="credit-info text-muted small">(18 Credit)</div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                        <!-- Desktop: above 767px -->
+                        <img :src="EAdesktop" alt="TEEE Tailored Education" class="teee-banner-image" />
+                    </picture>
                 </div>
             </div>
+
         </div>
     </div>
 </template>
 
 <script setup>
 // No reactive data needed for this static design
+import EAmobile from '../../assets/img/EA-img/EA-table-mobile.png';
+import EAdesktop from '../../assets/img/EA-img/EA-table.png';
 </script>
 
 <style scoped>
@@ -281,7 +167,7 @@
     flex-grow: 1;
     display: flex;
     flex-direction: column;
-    
+
 }
 
 .table-row {
@@ -616,5 +502,17 @@
     .table-spanned-col {
         padding: 20px 10px !important;
     }
+}
+
+.responsive-banner {
+    display: block;
+    width: 100%;
+}
+
+.teee-banner-image {
+    display: block;
+    width: 100%;
+    height: auto;
+    object-fit: contain;
 }
 </style>

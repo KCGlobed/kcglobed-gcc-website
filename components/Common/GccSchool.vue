@@ -139,4 +139,12 @@
         margin: 0 auto;
     }
 }
+
+/* Mobile specific */
+@media (max-width: 480px) {
+    .section-header .title {
+        font-size: 20px;
+        font-weight: 700;
+    }
+}
 </style>

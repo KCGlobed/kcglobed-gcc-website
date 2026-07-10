@@ -10,7 +10,8 @@
                 <div v-for="(domain, index) in domains" :key="index"
                     :class="['domain-card', domain.color, { 'centered-card': domain.centered }]">
                     <div class="domain-icon">
-                        <i :class="domain.icon"></i>
+                        <img v-if="domain.iconPath" :src="domain.iconPath" class="custom-svg-icon" alt="icon" />
+                        <i v-else :class="domain.icon"></i>
                     </div>
                     <div class="card-footer-text">
                         <h4 class="domain-title" v-html="domain.title"></h4>
@@ -24,6 +25,8 @@
 </template>
 
 <script>
+import usTaxationIcon from "~/assets/icon/us_taxation_icon.svg";
+
 export default {
     name: "AIProgram",
     data() {
@@ -31,10 +34,10 @@ export default {
             domains: [
                 { title: 'Audit &<br>Assurance', icon: 'ti ti-shield-check', subtitle: "110K+Jobs Available", color: 'blue' },
                 { title: 'Accounting<br>Advisory', icon: 'ti ti-building-bank', subtitle: "235K+ Jobs Available", color: 'magenta' },
-                { title: 'Risk<br>Management', icon: 'ti ti-shield', subtitle: "37K+Jobs Available", color: 'purple' },
+                { title: 'US<br>Taxation', icon: 'ti ti-shield', iconPath: usTaxationIcon, subtitle: "50K+Jobs Available", color: 'purple' },
                 { title: 'Financial<br>Accounting &<br>Reporting', icon: 'ti ti-file-text', subtitle: "269K+ Jobs Available", color: 'magenta' },
                 { title: 'Management<br>Accounting', icon: 'ti ti-user-cog', subtitle: "224K+ Jobs Available", color: 'purple' },
-                { title: 'FP&A', icon: 'ti ti-chart-arrows', subtitle: "77K+ Jobs Available", color: 'blue' },
+                { title: 'Risk<br>Management', icon: 'ti ti-shield', subtitle: "37K+Jobs Available", color: 'blue' },
                 { title: 'CFO<br>Advisory', icon: 'ti ti-user-search', subtitle: "20K + Jobs Available ", color: 'blue' },
                 { title: 'Transaction<br>Advisory', icon: 'ti ti-coins', subtitle: "11K+ Jobs Available", color: 'magenta' },
                 { title: 'Corporate<br>Governance &<br>Compliance', icon: 'ti ti-gavel', subtitle: "165K+ Jobs Available", color: 'purple' },
@@ -171,6 +174,12 @@ export default {
 
 .domain-icon i {
     font-size: 28px;
+}
+
+.custom-svg-icon {
+    width: 79px;
+    height: 79px;
+    object-fit: contain;
 }
 
 /* Color icons based on card background */

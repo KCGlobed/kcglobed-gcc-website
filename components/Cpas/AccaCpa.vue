@@ -6,8 +6,7 @@
             <div class="cpa-heading-wrapper">
                 <h2 class="cpa-main-heading">
                     US CPA - THE GLOBAL PASSPORT TO
-                    <br />
-                    ACCOUNTING &amp; FINANCE CAREERS
+                    ACCOUNTING &amp; <span class="highlight">FINANCE CAREERS</span>
                 </h2>
 
                 <div class="heading-line"></div>
@@ -34,8 +33,9 @@
                 <!-- Right Image -->
                 <div class="cpa-info-image">
                     <div class="card-image-side">
-                    <img src="../../assets/img/aicpa_building.jpg" alt="AICPA Building" loading="lazy" decoding="async">
-                </div>
+                        <img src="../../assets/img/aicpa_building.jpg" alt="AICPA Building" loading="lazy"
+                            decoding="async">
+                    </div>
                 </div>
 
             </div>
@@ -75,31 +75,32 @@
 }
 
 .cpa-main-heading {
-    color: #57006b;
-
-    font-size: 38px;
-    line-height: 1.05;
-    font-weight: 800;
-
+    color: #0d0d25;
+    font-size: 32px;
+    line-height: 1.12;
+    font-weight: 700;
     text-transform: uppercase;
-
-    margin: 0;
+    max-width: 1000px;
+    width: 100%;
+    margin: 0 auto;
     padding: 0;
-
-    letter-spacing: 0.3px;
+    text-align: center;
+    letter-spacing: 0;
 }
 
 
 /* Yellow underline */
 
 .heading-line {
-    width: 85%;
+    width: 20%;
     max-width: 930px;
-    height: 7px;
-
+    height: 4px;
     background-color: #e5ad00;
+    margin: 12px auto 0;
+}
 
-    margin-top: 10px;
+.highlight {
+    color: #F1A63E;
 }
 
 
@@ -110,10 +111,8 @@
 .cpa-info-banner {
     width: 100%;
     min-height: 250px;
-
     display: grid;
     grid-template-columns: 65.5% 34.5%;
-
     overflow: hidden;
 }
 
@@ -123,12 +122,10 @@
 ================================= */
 
 .cpa-info-content {
-    background: linear-gradient(
-        90deg,
-        #753278 0%,
-        #783478 50%,
-        #743174 100%
-    );
+    background: linear-gradient(90deg,
+            #753278 0%,
+            #783478 50%,
+            #743174 100%);
 
     padding: 10px 14px 18px;
 
@@ -259,6 +256,11 @@
 
     .cpa-intro-section {
         padding: 25px 0;
+        /* padding-bottom: 1000px; */
+    }
+
+    .process-flow {
+        bottom: -141px;
     }
 
     .cpa-heading-wrapper {
@@ -302,6 +304,8 @@
     .cpa-info-image {
         height: 230px;
     }
+
+    
 }
 
 

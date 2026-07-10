@@ -6,9 +6,11 @@
      <EAsEaBanner />
     <ProgramsGovtOnprogram />
 
-    <ProgramsAIProgram />
+    <!-- <ProgramsAIProgram /> -->
+    
     <!-- <ProgramsAeiap /> -->
      <EAsEAaeiap />
+     <CareerPath />
     <!-- <ProgramsIAProgram /> -->
     <EAIAProgram />
 
@@ -16,6 +18,7 @@
      <EAsEAAccaProgram />
     <!-- <ProgramsAccQualification /> -->
      <EAaccQualification />
+     
 
     <!-- <HomeThreeAboutUniversity />
 
@@ -40,6 +43,7 @@
 
 <script setup lang="ts">
 import EAaccQualification from '~/components/EAs/EAaccQualification.vue';
+import CareerPath from '~/components/EAs/CareerPath.vue';
 import EABooks from '~/components/EAs/EABooks.vue';
 import EAIAProgram from '~/components/EAs/EAIAProgram.vue';
 

@@ -21,8 +21,8 @@
                                         <label for="fullName" class="form-label fw-bold small">Full Name*</label>
                                         <div class="">
 
-                                            <input type="text" class="form-control custom-input mb-2" id="fullName" v-model="form.name"
-                                                placeholder="Enter your full name"
+                                            <input ref="nameInput" type="text" class="form-control custom-input mb-2"
+                                                id="fullName" v-model="form.name" placeholder="Enter your full name"
                                                 :class="{ 'is-invalid': errors.name }"
                                                 @input="form.name = form.name.replace(/[^a-zA-Z\s]/g, '')">
                                             <div class="invalid-feedback" v-if="errors.name">{{ errors.name }}</div>
@@ -30,10 +30,12 @@
 
                                         <div class="row">
                                             <div class="col-md-6">
-                                                <label for="emailAddress" class="form-label fw-bold small">Email Address*</label>
+                                                <label for="emailAddress" class="form-label fw-bold small">Email
+                                                    Address*</label>
                                                 <div class="">
-                                                    <input type="email" class="form-control custom-input mb-2" id="emailAddress"
-                                                        v-model="form.email" placeholder="Enter your email address"
+                                                    <input type="email" class="form-control custom-input mb-2"
+                                                        id="emailAddress" v-model="form.email"
+                                                        placeholder="Enter your email address"
                                                         :class="{ 'is-invalid': errors.email }">
                                                     <div class="invalid-feedback" v-if="errors.email">{{ errors.email }}
                                                     </div>
@@ -41,9 +43,11 @@
                                             </div>
                                             <div class="col-md-6">
                                                 <label class="form-label fw-bold small">Mobile Number*</label>
-                                                <input type="tel" class="form-control custom-input mb-2" v-model="form.mobile"
-                                                    placeholder="Enter mobile number" :class="{ 'is-invalid': errors.mobile }">
-                                                <div class="invalid-feedback" v-if="errors.mobile">{{ errors.mobile }}</div>
+                                                <input type="tel" class="form-control custom-input mb-2"
+                                                    v-model="form.mobile" placeholder="Enter mobile number"
+                                                    :class="{ 'is-invalid': errors.mobile }">
+                                                <div class="invalid-feedback" v-if="errors.mobile">{{ errors.mobile }}
+                                                </div>
                                             </div>
                                         </div>
 
@@ -64,8 +68,9 @@
                                             <div class="col-md-6">
                                                 <label for="state" class="form-label fw-bold small">State/UT*</label>
                                                 <div class="">
-                                                    <select class="form-select custom-input mb-2" id="state" v-model="form.state"
-                                                        @change="onStateChange" :class="{ 'is-invalid': errors.state }">
+                                                    <select class="form-select custom-input mb-2" id="state"
+                                                        v-model="form.state" @change="onStateChange"
+                                                        :class="{ 'is-invalid': errors.state }">
                                                         <option value="" disabled>Select State</option>
                                                         <option v-for="state in states" :key="state" :value="state">{{
                                                             state }}</option>
@@ -78,8 +83,8 @@
                                             <div class="col-md-6">
                                                 <label for="city" class="form-label fw-bold small">City*</label>
                                                 <div class="">
-                                                    <select class="form-select custom-input mb-2" id="city" v-model="form.city"
-                                                        :class="{ 'is-invalid': errors.city }">
+                                                    <select class="form-select custom-input mb-2" id="city"
+                                                        v-model="form.city" :class="{ 'is-invalid': errors.city }">
                                                         <option value="" disabled>Select City</option>
                                                         <option v-for="city in citiesList" :key="city" :value="city">{{
                                                             city }}</option>
@@ -139,45 +144,8 @@
                                     </form>
                                 </div>
                             </div>
-                            <div class="col-lg-6 col-md-12">
-                                <div class="program-info-section h-100 d-flex flex-column">
-                                    <div class="program-header-text">
-                                        <h1 class="program-title">
-                                            AI- Enabled US Tax Professional (AEUTP) Program
-                                        </h1>
-                                        <p class="program-subtitle">
-                                            A High-Impact Finance Career Program For GCC Industry
-                                        </p>
-                                    </div>
-
-                                    <div class="video-section">
-                                        <div class="video-wrapper">
-                                            <template v-if="!banner.showVideo">
-                                                <img src="https://storage.googleapis.com/static_files_backend/media/images/nitish%20sir%20thmbnl_.jpg"
-                                                    alt="Program Video" class="video-thumbnail">
-                                                <!-- <div class="video-badge-4k">
-                                                    4k
-                                                </div> -->
-                                                <div class="video-play-overlay" @click="banner.showVideo = true">
-                                                    <div class="play-icon">
-                                                        <i class="ti ti-player-play-filled"></i>
-                                                    </div>
-                                                </div>
-                                                <!-- <div class="video-caption">
-                                                    <p class="speaker-name">GCC SCHOOL</p>
-                                                    <p class="speaker-quote">LMS TUTORIAL & OVERVIEW</p>
-                                                </div> -->
-                                            </template>
-                                            <video v-else controls autoplay controlsList="nodownload"
-                                                oncontextmenu="return false;" class="video-element w-100 h-100">
-                                                <source
-                                                    src="https://storage.googleapis.com/gcc_static_files_backend/static/videos/Nitis%20Sir%20Website%20Video._final_gcc.mp4"
-                                                    type="video/mp4">
-                                                Your browser does not support the video tag.
-                                            </video>
-                                        </div>
-                                    </div>
-                                </div>
+                            <div class="col-lg-6 col-md-12 banner" @click="focusInput">
+                                <img :src="HeroBanner" alt="hero-image" style="width: 80%;">
                             </div>
                         </div>
 
@@ -197,41 +165,42 @@
         @close="showFeeWaiverModal = false" />
 
     <!-- 🎉 Referral Success Celebration Popup -->
-    <Teleport to="body">
+    <!-- <Teleport to="body">
         <Transition name="celebration-fade">
             <div v-if="showCelebrationPopup" class="celebration-overlay" @click.self="showCelebrationPopup = false">
                 <div class="celebration-card">
-                    <!-- Confetti particles -->
                     <div class="confetti-container">
                         <span v-for="n in 40" :key="n" class="confetti-particle" :style="getConfettiStyle(n)"></span>
                     </div>
 
-                    <!-- Close Button -->
                     <button class="celebration-close" @click="showCelebrationPopup = false">
                         <i class="ti ti-x"></i>
                     </button>
 
-                    <!-- Content -->
                     <div class="celebration-content">
                         <div class="celebration-emoji">🎉</div>
                         <h2 class="celebration-title">Congratulations!</h2>
 
                         <div class="celebration-body">
-                            <p>Your referral coupon has been applied successfully and your <strong>application fee has been waived off.</strong></p>
+                            <p>Your referral coupon has been applied successfully and your <strong>application fee has
+                                    been waived off.</strong></p>
 
                             <div class="celebration-divider"></div>
 
-                            <p>Your <strong>NFET login credentials and exam details</strong> have been sent to your registered <strong>Email ID.</strong></p>
-                            <!-- <p class="text-sm-muted">Please check your Inbox/Spam folder along with WhatsApp/SMS for further instructions.</p> -->
+                            <p>Your <strong>NFET login credentials and exam details</strong> have been sent to your
+                                registered <strong>Email ID.</strong></p>
 
                             <div class="celebration-divider"></div>
 
-                            <p class="celebration-referral-note">✨ You can also <strong>refer your friends</strong> and earn cashback rewards.</p>
-                            <p class="text-sm-muted">Your unique referral code will be shared with you via Email, SMS, and WhatsApp shortly.</p>
+                            <p class="celebration-referral-note">✨ You can also <strong>refer your friends</strong> and
+                                earn cashback rewards.</p>
+                            <p class="text-sm-muted">Your unique referral code will be shared with you via Email, SMS,
+                                and WhatsApp shortly.</p>
 
                             <div class="celebration-divider"></div>
 
-                            <p class="celebration-welcome">🏫 Welcome to <strong>GCC School</strong> — Your Gateway to Global Finance Careers.</p>
+                            <p class="celebration-welcome">🏫 Welcome to <strong>GCC School</strong> — Your Gateway to
+                                Global Finance Careers.</p>
                         </div>
 
                         <button class="celebration-cta" @click="handleCelebrationCta">
@@ -241,7 +210,7 @@
                 </div>
             </div>
         </Transition>
-    </Teleport>
+    </Teleport> -->
 </template>
 
 <style scoped>
@@ -263,7 +232,12 @@
     padding-top: 220px;
 }
 
-
+.banner {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+}
 
 .hero-slider-warp .container-fluid {
     position: relative;
@@ -736,7 +710,8 @@
     transition: opacity 0.3s, visibility 0.3s;
     pointer-events: none;
     font-weight: normal;
-    text-transform: none; /* Reset uppercase styling if any parent has it */
+    text-transform: none;
+    /* Reset uppercase styling if any parent has it */
 }
 
 .custom-tooltip-content::after {
@@ -816,8 +791,15 @@
 }
 
 @keyframes badge-pop {
-    0% { transform: scale(0.5); opacity: 0; }
-    100% { transform: scale(1); opacity: 1; }
+    0% {
+        transform: scale(0.5);
+        opacity: 0;
+    }
+
+    100% {
+        transform: scale(1);
+        opacity: 1;
+    }
 }
 
 .referral-success-msg {
@@ -828,8 +810,15 @@
 }
 
 @keyframes fadeInUp {
-    from { opacity: 0; transform: translateY(6px); }
-    to { opacity: 1; transform: translateY(0); }
+    from {
+        opacity: 0;
+        transform: translateY(6px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
 
 /* ─── Celebration Overlay ──────────────────────────────────────────────── */
@@ -857,13 +846,22 @@
 }
 
 @keyframes card-bounce-in {
-    0% { transform: scale(0.6) translateY(40px); opacity: 0; }
-    100% { transform: scale(1) translateY(0); opacity: 1; }
+    0% {
+        transform: scale(0.6) translateY(40px);
+        opacity: 0;
+    }
+
+    100% {
+        transform: scale(1) translateY(0);
+        opacity: 1;
+    }
 }
 
 .confetti-container {
     position: absolute;
-    top: 0; left: 0; right: 0;
+    top: 0;
+    left: 0;
+    right: 0;
     height: 140px;
     overflow: hidden;
     pointer-events: none;
@@ -878,9 +876,19 @@
 }
 
 @keyframes confetti-fall {
-    0% { transform: translateY(-20px) rotate(0deg); opacity: 1; }
-    80% { opacity: 1; }
-    100% { transform: translateY(160px) rotate(540deg); opacity: 0; }
+    0% {
+        transform: translateY(-20px) rotate(0deg);
+        opacity: 1;
+    }
+
+    80% {
+        opacity: 1;
+    }
+
+    100% {
+        transform: translateY(160px) rotate(540deg);
+        opacity: 0;
+    }
 }
 
 .celebration-close {
@@ -888,7 +896,7 @@
     top: 14px;
     right: 14px;
     z-index: 10;
-    background: rgba(0,0,0,0.08);
+    background: rgba(0, 0, 0, 0.08);
     border: none;
     border-radius: 50%;
     width: 34px;
@@ -903,7 +911,7 @@
 }
 
 .celebration-close:hover {
-    background: rgba(0,0,0,0.15);
+    background: rgba(0, 0, 0, 0.15);
     transform: rotate(90deg);
 }
 
@@ -921,9 +929,17 @@
 }
 
 @keyframes emoji-bounce {
-    0% { transform: scale(0) rotate(-30deg); }
-    60% { transform: scale(1.25) rotate(10deg); }
-    100% { transform: scale(1) rotate(0deg); }
+    0% {
+        transform: scale(0) rotate(-30deg);
+    }
+
+    60% {
+        transform: scale(1.25) rotate(10deg);
+    }
+
+    100% {
+        transform: scale(1) rotate(0deg);
+    }
 }
 
 .celebration-title {
@@ -1004,6 +1020,7 @@
 .celebration-fade-leave-active {
     transition: opacity 0.35s ease;
 }
+
 .celebration-fade-enter-from,
 .celebration-fade-leave-to {
     opacity: 0;
@@ -1013,9 +1030,11 @@
     .celebration-content {
         padding: 44px 22px 28px;
     }
+
     .celebration-title {
         font-size: 1.5rem;
     }
+
     .celebration-emoji {
         font-size: 52px;
     }
@@ -1029,6 +1048,7 @@ import stateCityData from "~/state_city.json";
 import universitiesList from "~/universities.json";
 import selectUniversityList from "~/select-university.json";
 import OtpVerification from '../Common/OtpVerification.vue';
+import HeroBanner from '../../assets/img/EA-img/EA hero.png';
 
 import image1 from "../../assets/img/heros/hero_bg.svg";
 import gccPdf from "../../assets/gcc.pdf";
@@ -1064,8 +1084,23 @@ export default defineComponent({
             alertPopup.show = true;
         };
 
+        const nameInput = ref<HTMLInputElement | null>(null);
 
-
+        const focusInput = (event?: Event) => {
+            if (event?.currentTarget) {
+                const container = (event.currentTarget as HTMLElement).closest('.hero-slider-warp');
+                const input = container?.querySelector('#fullName') as HTMLInputElement | null;
+                if (input) {
+                    input.focus();
+                    return;
+                }
+            }
+            if (Array.isArray(nameInput.value)) {
+                (nameInput.value[0] as HTMLInputElement | null)?.focus();
+            } else {
+                nameInput.value?.focus();
+            }
+        };
 
 
         const form = reactive({
@@ -1162,7 +1197,7 @@ export default defineComponent({
             notification.message = message;
         };
 
-    
+
 
         const handleClickOutside = (event: MouseEvent) => {
             const target = event.target as HTMLElement;
@@ -1273,6 +1308,8 @@ export default defineComponent({
             return isValid && Object.values(errors).every(error => error === "");
         };
 
+
+
         const submitForm = async () => {
             if (!validateForm()) return;
 
@@ -1282,7 +1319,7 @@ export default defineComponent({
             try {
                 const config = useRuntimeConfig();
 
-                
+
                 const payload: any = {
                     full_name: form.name,
                     email: form.email,
@@ -1302,14 +1339,11 @@ export default defineComponent({
                     body: payload
                 });
 
-                if (response.success && response.data?.url) {
+                if (response.success) {
                     const fileUrl = response.data.url;
                     formId.value = response.data.id;
-                    const fileName = fileUrl.split('/').pop() || 'Brochure.pdf';
+                    const fileName = fileUrl.split('/').pop() || 'EA Brochure.pdf';
 
-
-
-                    // Download the file
                     window.location.href = `/api/download?url=${encodeURIComponent(fileUrl)}&filename=${encodeURIComponent(fileName)}`;
                     showNotification('success', 'Brochure downloaded successfully!');
                 } else {
@@ -1317,7 +1351,7 @@ export default defineComponent({
                 }
             } catch (error: any) {
                 console.error("Submission Error:", error);
-                $fetch('/api/log-client-error', { method: 'POST', body: { context: 'ProgramBanner - submitForm', errorMessage: error?.data?.message || error?.message || 'Server error', errorData: error?.data || error?.message || String(error), userInfo: { email: form.email, phone: form.mobile, name: form.name } } }).catch(() => {});
+                $fetch('/api/log-client-error', { method: 'POST', body: { context: 'ProgramBanner - submitForm', errorMessage: error?.data?.message || error?.message || 'Server error', errorData: error?.data || error?.message || String(error), userInfo: { email: form.email, phone: form.mobile, name: form.name } } }).catch(() => { });
                 showNotification('error', error.data?.message || "Server error. Please try again later.");
             } finally {
                 isSubmitting.value = false;
@@ -1327,6 +1361,9 @@ export default defineComponent({
 
 
         return {
+            HeroBanner,
+            nameInput,
+            focusInput,
             form,
             errors,
             states,
