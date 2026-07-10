@@ -18,10 +18,11 @@
                                     </div>
 
                                     <form @submit.prevent="submitForm" class="registration-form">
+                                        
                                         <label for="fullName" class="form-label fw-bold small">Full Name*</label>
                                         <div class="">
 
-                                            <input ref="nameInput" type="text" class="form-control custom-input mb-2"
+                                            <input type="text" class="form-control custom-input mb-2"
                                                 id="fullName" v-model="form.name" placeholder="Enter your full name"
                                                 :class="{ 'is-invalid': errors.name }"
                                                 @input="form.name = form.name.replace(/[^a-zA-Z\s]/g, '')">
@@ -144,7 +145,7 @@
                                     </form>
                                 </div>
                             </div>
-                            <div class="col-lg-6 col-md-12 banner" @click="focusInput">
+                            <div class="col-lg-6 col-md-12 banner">
                                 <img :src="HeroBanner" alt="hero-image" style="width: 80%;">
                             </div>
                         </div>
@@ -236,7 +237,6 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    cursor: pointer;
 }
 
 .hero-slider-warp .container-fluid {
@@ -1084,24 +1084,6 @@ export default defineComponent({
             alertPopup.show = true;
         };
 
-        const nameInput = ref<HTMLInputElement | null>(null);
-
-        const focusInput = (event?: Event) => {
-            if (event?.currentTarget) {
-                const container = (event.currentTarget as HTMLElement).closest('.hero-slider-warp');
-                const input = container?.querySelector('#fullName') as HTMLInputElement | null;
-                if (input) {
-                    input.focus();
-                    return;
-                }
-            }
-            if (Array.isArray(nameInput.value)) {
-                (nameInput.value[0] as HTMLInputElement | null)?.focus();
-            } else {
-                nameInput.value?.focus();
-            }
-        };
-
 
         const form = reactive({
             name: "",
@@ -1362,8 +1344,6 @@ export default defineComponent({
 
         return {
             HeroBanner,
-            nameInput,
-            focusInput,
             form,
             errors,
             states,
