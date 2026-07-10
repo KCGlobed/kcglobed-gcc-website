@@ -4,10 +4,13 @@
             <div class="ea-intro-content max-900 mx-auto" data-aos="fade-up">
                 <h3 class="ea-title">ENROLLED AGENT</h3>
                 <h1 class="ea-subtitle">
-                    Unlock boundless opportunities in tax preparation br and representation with the best Enrolled Agent course.
+                    Unlock boundless opportunities in tax preparation br and representation with the best Enrolled Agent
+                    course.
                 </h1>
                 <p class="ea-description">
-                    Step aboard a journey of expertise with the US Enrolled Agent (EA) certification, endorsed by the Internal Revenue Service (IRS). Elevate your skills in tax planning, compliance, and representation to navigate complex tax landscapes with confidence
+                    Step aboard a journey of expertise with the US Enrolled Agent (EA) certification, endorsed by the
+                    Internal Revenue Service (IRS). Elevate your skills in tax planning, compliance, and representation
+                    to navigate complex tax landscapes with confidence
                 </p>
             </div>
         </div>
@@ -17,8 +20,8 @@
 
 <style scoped>
 .ea-intro-area {
-    padding-top: 80px;
-    padding-bottom: 80px;
+    /* padding-top: 80px; */
+    /* padding-bottom: 80px; */
 }
 
 .max-900 {
@@ -31,7 +34,7 @@
     text-align: center;
     font-size: 32px;
     font-weight: 700;
-    color: #B48629; 
+    color: #B48629;
     text-transform: uppercase;
     letter-spacing: 0.03em;
     margin-bottom: 15px;
@@ -63,7 +66,7 @@
     .ea-title {
         font-size: 28px;
     }
-    
+
     .ea-subtitle {
         font-size: 30px;
     }
