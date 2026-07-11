@@ -2,7 +2,7 @@
     <div class="growth-trend-section ptb-100">
         <div class="container">
             <!-- Section Header -->
-            <div class="section-header text-center  mb-3" data-aos="fade-up">
+            <div class="section-header text-center  mb-3">
                 <h2 class="title">THE STRATEGIC RISE & GROWTH TRAJECTORY OF <span class="highlight"> GLOBAL CAPABILITY
                         CENTERS (GCC) </span>
                 </h2>

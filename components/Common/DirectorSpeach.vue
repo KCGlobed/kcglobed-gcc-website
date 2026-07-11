@@ -3,7 +3,7 @@
         <div class="container">
             <div class="row align-items-center">
                 <div class="col-lg-6 col-md-12">
-                    <div class="ed-message-content pe-lg-5" data-aos="fade-right">
+                    <div class="ed-message-content pe-lg-5" >
                         <!-- <div class="section-tag mb-3">
                             <span class="badge">Message from ED Desk</span>
                         </div> -->
@@ -41,7 +41,7 @@
                 </div>
 
                 <div class="col-lg-6 col-md-12 mt-5 mt-lg-0">
-                    <div class="video-box-wrapper" data-aos="fade-left">
+                    <div class="video-box-wrapper" >
                         <div class="video-preview-box shadow-lg" @click="playVideo">
                             <template v-if="!isPlaying">
                                 <img src="https://storage.googleapis.com/gcc_static_files_backend/static/images/manna%20sir%20thmbnl.jpg"

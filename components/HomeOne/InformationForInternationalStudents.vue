@@ -45,7 +45,7 @@
         </div>
       </div>
       <div class="row justify-content-center g-4">
-        <div class="col-lg-8" data-aos="zoom-in-up" data-aos-delay="200">
+        <div class="col-lg-8">
           <div class="video-box-wrapper">
             <div class="video-section shadow-lg">
               <div class="video-container">

@@ -2,9 +2,10 @@
     <div class="trust-ecosystem-section">
         <div class="container">
             <div class="header-logo d-flex justify-content-center align-items-center mb-3">
-                <img src="@/assets/img/common/logo_kcglobed.svg" alt="Logo" class="header-logo" loading="lazy" decoding="async">
+                <img src="@/assets/img/common/logo_kcglobed.svg" alt="Logo" class="header-logo" loading="lazy"
+                    decoding="async">
             </div>
-            <div class="header-v2 mb-3" data-aos="fade-up">
+            <div class="header-v2 mb-3">
 
 
                 <div class="">
@@ -14,7 +15,7 @@
 
             </div>
 
-            <div class="trust-grid " data-aos="zoom-in">
+            <div class="trust-grid ">
                 <div v-for="(item, index) in ecosystemData" :key="index" :class="['trust-card', `color-${index + 1}`]">
                     <div class="card-content">
                         <h3 v-if="item.number" class="number text-white">{{ item.number }}</h3>
@@ -32,20 +33,19 @@
     <div class="trus-eco-sy">
         <div class="container">
             <div class="row">
-                <div class="header-v2  " data-aos="fade-up">
+                <div class="header-v2  >
                     <div class="">
-                        <h2 class="title">TRUSTED <span class="highlight">ECO SYSTEM</span></h2>
+                        <h2 class=" title">TRUSTED <span class="highlight">ECO SYSTEM</span></h2>
 
-                    </div>
-
-                </div>
-                <div class="organistion-grid" data-aos="zoom-in">
-                    <div v-for="(item, index) in ecosystemImages" :key="index" class="org-card">
-                        <img :src="item.image" alt="Organization Logo" class="org-logo" loading="lazy" decoding="async">
-                    </div>
                 </div>
 
             </div>
+            <div class="organistion-grid">
+                <div v-for="(item, index) in ecosystemImages" :key="index" class="org-card">
+                    <img :src="item.image" alt="Organization Logo" class="org-logo" loading="lazy" decoding="async">
+                </div>
+            </div>
+
         </div>
     </div>
 
