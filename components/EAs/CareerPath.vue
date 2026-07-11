@@ -30,7 +30,7 @@
 ================================= */
 
 .career-path-section {
-    background-color: #f0f0f0;
+    /* background-color: #f0f0f0; */
     padding: 65px 0 0;
 }
 

@@ -50,6 +50,8 @@ export default defineNuxtConfig({
     },
   },
   pwa: {
+    injectRegister: false,
+    selfDestroying: true,
     registerType: 'autoUpdate',
 
     manifest: {

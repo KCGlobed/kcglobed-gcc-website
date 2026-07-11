@@ -1,6 +1,6 @@
 <template>
   <div class="hero-warp hero-section">
-    <Swiper :loop="true" :effect="'fade'" :speed="2000" :pagination="{
+    <Swiper :loop="banners.length > 1" effect="slide" :speed="2000" :pagination="{
       el: '.swiper-pagination2',
       clickable: true,
     }" :modules="[SwiperEffectFade, SwiperPagination]" class="hero-slider">
@@ -47,8 +47,7 @@
                   </button> -->
                 </div>
               </div>
-
-              <!-- Right Card -->
+               <!-- Right Card -->
               <div class="col-lg-6">
                 <div class="journey-card">
                   <div class="row">
@@ -86,7 +85,7 @@
                               Program</small>
                           </div>
                         </div>
-
+                   
                         <div class="d-flex gap-2 mb-3 align-items-start  card-feature">
                           <div class="feature-icon">
                             <img src="../../assets/img/heros/heroSec3.png" />
