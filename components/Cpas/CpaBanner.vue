@@ -1057,8 +1057,6 @@ import selectUniversityList from "~/select-university.json";
 import OtpVerification from '../Common/OtpVerification.vue';
 import HeroBanner from '../../assets/img/CPA-img/CPA hero.png';
 
-
-
 import image1 from "../../assets/img/heros/hero_bg.svg";
 import gccPdf from "../../assets/gcc.pdf";
 
