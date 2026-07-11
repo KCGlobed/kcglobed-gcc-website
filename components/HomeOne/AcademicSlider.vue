@@ -4,7 +4,7 @@
       :slidesPerView="1"
       :spaceBetween="20"
       :rewind="true"
-      :loop="true"
+      :loop="options.length > 1"
       :speed="1400"
       :pagination="{
         el: '.swiper-pagination2',
