@@ -1,6 +1,6 @@
 <template>
     <div class="hero-warp">
-        <Swiper :loop="true" :effect="'fade'" :speed="2000" :pagination="{
+        <Swiper :loop="banners.length > 1" :effect="'fade'" :speed="2000" :pagination="{
             el: '.swiper-pagination2',
             clickable: true,
         }" :modules="[SwiperEffectFade, SwiperPagination]" class="hero-slider">
