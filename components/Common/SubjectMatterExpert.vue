@@ -8,11 +8,12 @@
                     shaping the future of education and professional excellence.</p> -->
             </div>
 
-            <div class="row g-4 justify-content-center align-items-center">
-                <div v-for="(item, index) in images" :key="index" class="col-lg-3 col-md-4 ">
+            <div class="experts-card">
+                <div v-for="(item, index) in images" :key="index">
                     <a :href="item.link" target="_blank">
                         <div class="image-box">
-                            <img :src="item.img" alt="Subject Matter Expert" class="img-fluid" loading="lazy" decoding="async">
+                            <img :src="item.img" alt="Subject Matter Expert" class="img-fluid" loading="lazy"
+                                decoding="async">
                         </div>
                     </a>
                 </div>
@@ -130,6 +131,13 @@ const images = [
     transition: all 0.3s ease;
 }
 
+.experts-card {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+}
+
+
 @media (max-width: 1200px) {
     .think-tank-area {
         padding: 80px 0;
@@ -141,6 +149,10 @@ const images = [
 }
 
 @media (max-width: 991px) {
+    .experts-card {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
     .think-tank-area {
         padding: 60px 0;
     }
@@ -164,6 +176,10 @@ const images = [
         width: 50px;
         height: 3px;
         margin-top: 10px;
+    }
+
+    .experts-card {
+        grid-template-columns: 1fr;
     }
 
     .image-box {

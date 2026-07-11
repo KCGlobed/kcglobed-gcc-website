@@ -3,12 +3,12 @@
         <div class="container">
             <div class="content-wrapper">
                 <!-- Title Section -->
-                <div class="title-box" data-aos="fade-right">
+                <div class="title-box">
                     <h2>NFET EXAM <span class="highlight">ELIGIBILITY</span></h2>
                 </div>
 
                 <!-- Criteria Grid -->
-                <div class="criteria-container" data-aos="fade-left">
+                <div class="criteria-container">
                     <div class="criteria-grid">
                         <div class="criteria-item">
                             <div class="icon-box">

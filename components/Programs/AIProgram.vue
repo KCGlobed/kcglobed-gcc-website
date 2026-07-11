@@ -14,7 +14,7 @@
                     </div>
                     <div class="card-footer-text">
                         <h4 class="domain-title" v-html="domain.title"></h4>
-                        <p class="domain-subtitle">{{ domain.subtitle }}</p>
+                        <p class="domain-subtitle">({{ domain.subtitle }})</p>
                     </div>
                 </div>
             </div>

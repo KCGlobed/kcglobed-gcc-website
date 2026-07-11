@@ -2,7 +2,7 @@
     <div class="pathway-success-section">
         <div class="container">
             <!-- Header -->
-            <div class="section-header text-center mb-60" data-aos="fade-up">
+            <div class="section-header text-center mb-60">
                 <h2 class="title">PATHWAY TO <span class="highlight">YOUR SUCCESS</span></h2>
                 <!-- <p class="subtitle max-800 mx-auto">
                     Your journey from preparation to professional excellence. Follow these steps to secure your future
@@ -17,7 +17,7 @@
 
                 <!-- Step 1: Entrance Milestone -->
                 <div class="timeline-row">
-                    <div class="timeline-content text-end" data-aos="fade-right">
+                    <div class="timeline-content text-end">
                         <div class="content-text">
                             <h3>Entrance Milestone</h3>
                             <p>The first step towards your dream career begins with formal qualification.</p>
@@ -26,7 +26,7 @@
                     <div class="timeline-marker">
                         <div class="marker-circle color-1">1</div>
                     </div>
-                    <div class="timeline-content text-start" data-aos="fade-left">
+                    <div class="timeline-content text-start">
                         <div class="feature-card color-1-bg">
                             <div class="icon-wrapper">
                                 <i class="ti ti-checklist"></i>
@@ -38,7 +38,7 @@
 
                 <!-- Step 2: Corporate Gateway -->
                 <div class="timeline-row reverse">
-                    <div class="timeline-content text-end" data-aos="fade-right">
+                    <div class="timeline-content text-end">
                         <div class="feature-card color-2-bg">
                             <div class="icon-wrapper">
                                 <i class="ti ti-ticket"></i>
@@ -49,7 +49,7 @@
                     <div class="timeline-marker">
                         <div class="marker-circle color-2">2</div>
                     </div>
-                    <div class="timeline-content text-start" data-aos="fade-left">
+                    <div class="timeline-content text-start">
                         <div class="content-text">
                             <h3>Corporate Gateway</h3>
                             <p>Secure your pass to India's most prestigious business district.</p>
@@ -59,7 +59,7 @@
 
                 <!-- Step 3: Selection Phase -->
                 <div class="timeline-row">
-                    <div class="timeline-content text-end" data-aos="fade-right">
+                    <div class="timeline-content text-end">
                         <div class="content-text">
                             <h3>Selection Phase</h3>
                             <p>Showcase your skills to top-tier recruiters and industry leaders.</p>
@@ -68,7 +68,7 @@
                     <div class="timeline-marker">
                         <div class="marker-circle color-3">3</div>
                     </div>
-                    <div class="timeline-content text-start" data-aos="fade-left">
+                    <div class="timeline-content text-start">
                         <div class="feature-card color-3-bg">
                             <div class="icon-wrapper">
                                 <i class="ti ti-users"></i>
@@ -80,7 +80,7 @@
 
                 <!-- Step 4: Confirmation -->
                 <div class="timeline-row reverse">
-                    <div class="timeline-content text-end" data-aos="fade-right">
+                    <div class="timeline-content text-end">
                         <div class="feature-card color-4-bg">
                             <div class="icon-wrapper">
                                 <i class="ti ti-file-certificate"></i>
@@ -91,7 +91,7 @@
                     <div class="timeline-marker">
                         <div class="marker-circle color-4">4</div>
                     </div>
-                    <div class="timeline-content text-start" data-aos="fade-left">
+                    <div class="timeline-content text-start">
                         <div class="content-text">
                             <h3>Confirmation</h3>
                             <p>Validate your hard work with a formal intent of employment.</p>
@@ -101,7 +101,7 @@
 
                 <!-- Step 5: Career Launch -->
                 <div class="timeline-row">
-                    <div class="timeline-content text-end" data-aos="fade-right">
+                    <div class="timeline-content text-end">
                         <div class="content-text">
                             <h3>Career Launch</h3>
                             <p>Bridge the gap between academia and the real world.</p>
@@ -110,7 +110,7 @@
                     <div class="timeline-marker">
                         <div class="marker-circle color-5">5</div>
                     </div>
-                    <div class="timeline-content text-start" data-aos="fade-left">
+                    <div class="timeline-content text-start">
                         <div class="feature-card color-5-bg">
                             <div class="icon-wrapper">
                                 <i class="ti ti-school"></i>
