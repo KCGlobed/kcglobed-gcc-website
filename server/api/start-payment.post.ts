@@ -14,7 +14,7 @@ export default defineEventHandler(async (event) => {
     console.log(`Timestamp: ${new Date().toISOString()}`);
     console.log(`=================================================\n`);
 
-    let amount = Number(commingAmount || config.paymentAmount || 1758);
+    let amount = Number(commingAmount || config.paymentAmount || 1250);
     const currency = 'INR';
     console.log(amount, '-----amount')
     // Apply dynamic discount for reattempts
