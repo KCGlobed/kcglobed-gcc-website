@@ -68,53 +68,84 @@
                             </div>
                         </div>
 
-                        <div class="mb-2 position-relative">
-                            <label class="form-label fw-bold small">Institution/University*</label>
-                            <div class="searchable-select">
-                                <input type="text" class="form-control custom-input" v-model="searchQuery"
-                                    placeholder="Search University..." autocomplete="off"
-                                    @focus="showUniDropdown = true" @input="showUniDropdown = true">
-                                <div v-if="showUniDropdown && filteredUniversities.length > 0"
-                                    class="dropdown-list shadow-sm">
-                                    <div v-for="uni in filteredUniversities" :key="uni.id" class="dropdown-item"
-                                        @click="selectUni(uni)">
-                                        {{ uni.name }}
+                        <div class="row">
+                            <div class="col-md-6 mb-2 position-relative">
+                                <label class="form-label fw-bold small">Institution/University*</label>
+                                <div class="searchable-select uni-select">
+                                    <input type="text" class="form-control custom-input" v-model="searchQuery"
+                                        placeholder="Search University..." autocomplete="off"
+                                        @focus="showUniDropdown = true" @input="showUniDropdown = true">
+                                    <div v-if="showUniDropdown && filteredUniversities.length > 0"
+                                        class="dropdown-list shadow-sm">
+                                        <div v-for="uni in filteredUniversities" :key="uni.id" class="dropdown-item"
+                                            @click="selectUni(uni)">
+                                            {{ uni.name }}
+                                        </div>
                                     </div>
                                 </div>
+                                <small class="text-danger" v-if="errors.university">{{ errors.university }}</small>
                             </div>
-                            <small class="text-danger" v-if="errors.university">{{ errors.university }}</small>
+
+                            <div class="col-md-6 mb-2">
+                                <label class="form-label fw-bold small d-flex align-items-center gap-1">
+                                    Referral Code <span class="text-muted fw-normal">(Optional)</span>
+                                    <span class="custom-tooltip-wrapper ms-1">
+                                        <i class="ti ti-info-circle text-muted" style="font-size: 16px;"></i>
+                                        <span class="custom-tooltip-content">
+                                            Enter a referral code to avail special discounts or offers on your
+                                            application.
+                                        </span>
+                                    </span>
+                                </label>
+                                <div class="referral-input-group">
+                                    <input v-model="form.referral_code" type="text"
+                                        class="form-control custom-input referral-field"
+                                        placeholder="Enter referral code"
+                                        :class="{ 'referral-verified': referralApplied, 'is-invalid': errors.referral_code }"
+                                        :readonly="referralApplied"
+                                        @input="referralApplied = false; errors.referral_code = ''">
+                                    <button v-if="!referralApplied" type="button" class="btn-apply-coupon"
+                                        :disabled="isVerifyingReferral || !form.referral_code.trim()"
+                                        @click="verifyAndApplyReferral">
+                                        <span v-if="isVerifyingReferral"
+                                            class="spinner-border spinner-border-sm"></span>
+                                        <span v-else>Apply</span>
+                                    </button>
+                                    <div v-else class="referral-applied-badge">
+                                        <i class="ti ti-check"></i> Applied
+                                    </div>
+                                </div>
+                                <small class="text-danger" v-if="errors.referral_code">{{ errors.referral_code
+                                }}</small>
+                            </div>
                         </div>
 
-                        <div class="mb-3">
-                            <label class="form-label fw-bold small d-flex align-items-center gap-1">
-                                Referral Code <span class="text-muted fw-normal">(Optional)</span>
-                                <span class="custom-tooltip-wrapper ms-1">
-                                    <i class="ti ti-info-circle text-muted" style="font-size: 16px;"></i>
-                                    <span class="custom-tooltip-content">
-                                        Enter a referral code to avail special discounts or offers on your application.
-                                    </span>
-                                </span>
-                            </label>
-                            <div class="referral-input-group">
-                                <input v-model="form.referral_code" type="text" class="form-control custom-input referral-field"
-                                    placeholder="Enter referral code"
-                                    :class="{ 'referral-verified': referralApplied, 'is-invalid': errors.referral_code }"
-                                    :readonly="referralApplied"
-                                    @input="referralApplied = false; errors.referral_code = ''">
-                                <button
-                                    v-if="!referralApplied"
-                                    type="button"
-                                    class="btn-apply-coupon"
-                                    :disabled="isVerifyingReferral || !form.referral_code.trim()"
-                                    @click="verifyAndApplyReferral">
-                                    <span v-if="isVerifyingReferral" class="spinner-border spinner-border-sm"></span>
-                                    <span v-else>Apply</span>
-                                </button>
-                                <div v-else class="referral-applied-badge">
-                                    <i class="ti ti-check"></i> Applied
+                        <div class="row">
+                            <div class="col-md-6 mb-2 position-relative">
+                                <label class="form-label fw-bold small">Program*</label>
+                                <div class="searchable-select program-select">
+                                    <input type="text" class="form-control custom-input" v-model="searchQueryProgram"
+                                        placeholder="Select Program..." autocomplete="off"
+                                        @focus="showProgramDropdown = true" @input="showProgramDropdown = true">
+                                    <div v-if="showProgramDropdown && filteredPrograms.length > 0"
+                                        class="dropdown-list shadow-sm">
+                                        <div v-for="prog in filteredPrograms" :key="prog" class="dropdown-item"
+                                            @click="selectProgram(prog)">
+                                            {{ prog }}
+                                        </div>
+                                    </div>
                                 </div>
+                                <small class="text-danger" v-if="errors.program">{{ errors.program }}</small>
                             </div>
-                            <small class="text-danger" v-if="errors.referral_code">{{ errors.referral_code }}</small>
+
+                            <div class="col-md-6 mb-2">
+                                <label class="form-label fw-bold small">Referred By</label>
+                                <input v-model="form.reffered_by" type="text" class="form-control custom-input"
+                                    placeholder="Enter referrer's name">
+                                <small class="text-danger" v-if="errors.reffered_by">
+                                    {{ errors.reffered_by }}
+                                </small>
+                            </div>
                         </div>
 
                         <!-- Apply mode: single PAY NOW submit button -->
@@ -259,21 +290,29 @@
                         <h2 class="celebration-title">Congratulations!</h2>
 
                         <div class="celebration-body">
-                            <p>Your referral coupon has been applied successfully and your <strong>application fee has been waived off.</strong></p>
+                            <p>Your referral coupon has been applied successfully and your <strong>application fee has
+                                    been
+                                    waived off.</strong></p>
 
                             <div class="celebration-divider"></div>
 
-                            <p>Your <strong>NFET login credentials and exam details</strong> have been sent to your registered <strong>Email ID.</strong></p>
+                            <p>Your <strong>NFET login credentials and exam details</strong> have been sent to your
+                                registered <strong>Email ID.</strong></p>
                             <!-- <p class="text-sm-muted">Please check your Inbox/Spam folder along with WhatsApp/SMS for further instructions.</p> -->
 
                             <div class="celebration-divider"></div>
 
-                            <p class="celebration-referral-note">✨ You can also <strong>refer your friends</strong> and earn cashback rewards.</p>
-                            <p class="text-sm-muted">Your unique referral code will be shared with you via Email, SMS, and WhatsApp shortly.</p>
+                            <p class="celebration-referral-note">✨ You can also <strong>refer your friends</strong> and
+                                earn
+                                cashback rewards.</p>
+                            <p class="text-sm-muted">Your unique referral code will be shared with you via Email, SMS,
+                                and
+                                WhatsApp shortly.</p>
 
                             <div class="celebration-divider"></div>
 
-                            <p class="celebration-welcome">🏫 Welcome to <strong>GCC School</strong> — Your Gateway to Global Finance Careers.</p>
+                            <p class="celebration-welcome">🏫 Welcome to <strong>GCC School</strong> — Your Gateway to
+                                Global Finance Careers.</p>
                         </div>
 
                         <button class="celebration-cta" @click="handleCelebrationCta">
@@ -327,6 +366,8 @@ export default defineComponent({
         const showFeeWaiverModal = ref(false);
         const searchQuery = ref("");
         const showUniDropdown = ref(false);
+        const searchQueryProgram = ref("");
+        const showProgramDropdown = ref(false);
         const formId = ref<number | null>(null);
         const closeModalBtn = ref<HTMLButtonElement | null>(null);
         const notification = reactive({ type: '', message: '' });
@@ -409,6 +450,8 @@ export default defineComponent({
             form.city = '';
             form.university = '';
             form.referral_code = '';
+            form.program = null as number | null;
+            form.reffered_by = '';
             form.isCommerceGraduate = false;
             citiesList.value = [];
             errors.name = '';
@@ -417,11 +460,14 @@ export default defineComponent({
             errors.state = '';
             errors.city = '';
             errors.university = '';
+            errors.program = '';
             errors.isCommerceGraduate = '';
             errors.referral_code = '';
             isDownloaded.value = false;
             searchQuery.value = '';
             showUniDropdown.value = false;
+            searchQueryProgram.value = '';
+            showProgramDropdown.value = false;
             notification.type = '';
             notification.message = '';
             referralApplied.value = false;
@@ -466,6 +512,8 @@ export default defineComponent({
             state: '',
             city: '',
             university: '',
+            program: null as number | null,
+            reffered_by: '',
             isCommerceGraduate: false,
             referral_code: ''
         });
@@ -482,6 +530,8 @@ export default defineComponent({
             state: '',
             city: '',
             university: '',
+            program: '',
+            reffered_by: '',
             isCommerceGraduate: '',
             referral_code: ''
         });
@@ -508,11 +558,42 @@ export default defineComponent({
             showUniDropdown.value = false;
         };
 
+        const filteredPrograms = computed(() => {
+            const query = searchQueryProgram.value.trim().toLowerCase();
+            if (!query) return ['CPA', 'EA'];
+            return ['CPA', 'EA'].filter(p => p.toLowerCase().includes(query));
+        });
+
+        const selectProgram = (prog: string) => {
+            form.program = prog === "CPA" ? 1 : 2;
+            searchQueryProgram.value = prog;
+            showProgramDropdown.value = false;
+        };
+
+        watch(searchQueryProgram, (newVal) => {
+            const value = newVal.trim().toUpperCase();
+
+            if (!value) {
+                form.program = null;
+            } else if (value === "CPA") {
+                form.program = 1;
+            } else if (value === "EA") {
+                form.program = 2;
+            } else {
+                form.program = null as number | null;
+            }
+        });
+
         // Close dropdown when clicking outside
         const handleClickOutside = (event: MouseEvent) => {
             const target = event.target as HTMLElement;
-            if (!target.closest('.searchable-select')) {
+            const uniSelect = target.closest('.uni-select');
+            const progSelect = target.closest('.program-select');
+            if (!uniSelect) {
                 showUniDropdown.value = false;
+            }
+            if (!progSelect) {
+                showProgramDropdown.value = false;
             }
         };
 
@@ -576,6 +657,8 @@ export default defineComponent({
             errors.phone = '';
             errors.state = '';
             errors.city = '';
+            errors.program = '';
+            errors.reffered_by = '';
             errors.referral_code = '';
 
             if (!form.name.trim()) {
@@ -609,6 +692,14 @@ export default defineComponent({
             }
             if (!form.university) {
                 errors.university = 'University is required';
+                isValid = false;
+            }
+            if (!form.program) {
+                errors.program = 'Program is required';
+                isValid = false;
+            }
+            if (!form.reffered_by.trim()) {
+                errors.reffered_by = 'Referred By is required';
                 isValid = false;
             }
             /*
@@ -668,6 +759,8 @@ export default defineComponent({
                     state: form.state,
                     city: form.city,
                     university: form.university,
+                    program: form.program,
+                    reffered_by: form.reffered_by,
                     source: 1,
                     source_form: props.mode === 'apply' ? 1 : 2,
                     utm_source: utm_source.value,
@@ -724,17 +817,19 @@ export default defineComponent({
                     $fetch("/api/save-lead", {
                         method: "POST",
                         body: {
-                             name: form.name,
-                             email: form.email,
-                             mobile: form.phone,
-                             state: form.state,
-                             city: form.city,
-                             form_type: 2,
-                             form_id: formId.value,
-                             action: props.mode === 'apply' ? 'pay_now_clicked' : 'download_dossier_clicked',
-                             utm_source: utm_source.value,
-                             utm_medium: utm_medium.value,
-                             utm_campaign: utm_campaign.value,
+                            name: form.name,
+                            email: form.email,
+                            mobile: form.phone,
+                            state: form.state,
+                            city: form.city,
+                            program: form.program,
+                            reffered_by: form.reffered_by,
+                            form_type: 2,
+                            form_id: formId.value,
+                            action: props.mode === 'apply' ? 'pay_now_clicked' : 'download_dossier_clicked',
+                            utm_source: utm_source.value,
+                            utm_medium: utm_medium.value,
+                            utm_campaign: utm_campaign.value,
                         }
                     }).catch(() => { /* silent — never block user flow */ });
 
@@ -742,7 +837,7 @@ export default defineComponent({
                     if (referralVerified) {
                         // Create account first in the background while keeping the modal's loading spinner visible
                         await postPaymentSuccess('REFERRAL_CODE');
-                        
+
                         if (props.mode !== 'apply') {
                             window.location.href = `/api/download?url=${encodeURIComponent(fileUrl)}&filename=${encodeURIComponent(fileName)}`;
                         }
@@ -1220,6 +1315,10 @@ export default defineComponent({
             showUniDropdown,
             filteredUniversities,
             selectUni,
+            searchQueryProgram,
+            showProgramDropdown,
+            filteredPrograms,
+            selectProgram,
             onStateChange,
             isSubmitting,
             isDownloaded,
@@ -1312,8 +1411,15 @@ export default defineComponent({
 }
 
 @keyframes badge-pop {
-    0% { transform: scale(0.5); opacity: 0; }
-    100% { transform: scale(1); opacity: 1; }
+    0% {
+        transform: scale(0.5);
+        opacity: 0;
+    }
+
+    100% {
+        transform: scale(1);
+        opacity: 1;
+    }
 }
 
 .referral-success-msg {
@@ -1324,8 +1430,15 @@ export default defineComponent({
 }
 
 @keyframes fadeInUp {
-    from { opacity: 0; transform: translateY(6px); }
-    to { opacity: 1; transform: translateY(0); }
+    from {
+        opacity: 0;
+        transform: translateY(6px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
 
 /* ─── Celebration Overlay ──────────────────────────────────────────────── */
@@ -1353,14 +1466,23 @@ export default defineComponent({
 }
 
 @keyframes card-bounce-in {
-    0% { transform: scale(0.6) translateY(40px); opacity: 0; }
-    100% { transform: scale(1) translateY(0); opacity: 1; }
+    0% {
+        transform: scale(0.6) translateY(40px);
+        opacity: 0;
+    }
+
+    100% {
+        transform: scale(1) translateY(0);
+        opacity: 1;
+    }
 }
 
 /* Confetti Container */
 .confetti-container {
     position: absolute;
-    top: 0; left: 0; right: 0;
+    top: 0;
+    left: 0;
+    right: 0;
     height: 140px;
     overflow: hidden;
     pointer-events: none;
@@ -1375,9 +1497,19 @@ export default defineComponent({
 }
 
 @keyframes confetti-fall {
-    0% { transform: translateY(-20px) rotate(0deg); opacity: 1; }
-    80% { opacity: 1; }
-    100% { transform: translateY(160px) rotate(540deg); opacity: 0; }
+    0% {
+        transform: translateY(-20px) rotate(0deg);
+        opacity: 1;
+    }
+
+    80% {
+        opacity: 1;
+    }
+
+    100% {
+        transform: translateY(160px) rotate(540deg);
+        opacity: 0;
+    }
 }
 
 .celebration-close {
@@ -1385,7 +1517,7 @@ export default defineComponent({
     top: 14px;
     right: 14px;
     z-index: 10;
-    background: rgba(0,0,0,0.08);
+    background: rgba(0, 0, 0, 0.08);
     border: none;
     border-radius: 50%;
     width: 34px;
@@ -1400,7 +1532,7 @@ export default defineComponent({
 }
 
 .celebration-close:hover {
-    background: rgba(0,0,0,0.15);
+    background: rgba(0, 0, 0, 0.15);
     transform: rotate(90deg);
 }
 
@@ -1418,9 +1550,17 @@ export default defineComponent({
 }
 
 @keyframes emoji-bounce {
-    0% { transform: scale(0) rotate(-30deg); }
-    60% { transform: scale(1.25) rotate(10deg); }
-    100% { transform: scale(1) rotate(0deg); }
+    0% {
+        transform: scale(0) rotate(-30deg);
+    }
+
+    60% {
+        transform: scale(1.25) rotate(10deg);
+    }
+
+    100% {
+        transform: scale(1) rotate(0deg);
+    }
 }
 
 .celebration-title {
@@ -1501,6 +1641,7 @@ export default defineComponent({
 .celebration-fade-leave-active {
     transition: opacity 0.35s ease;
 }
+
 .celebration-fade-enter-from,
 .celebration-fade-leave-to {
     opacity: 0;
@@ -1510,9 +1651,11 @@ export default defineComponent({
     .celebration-content {
         padding: 44px 22px 28px;
     }
+
     .celebration-title {
         font-size: 1.5rem;
     }
+
     .celebration-emoji {
         font-size: 52px;
     }
