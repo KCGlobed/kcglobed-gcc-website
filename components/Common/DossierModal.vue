@@ -560,12 +560,12 @@ export default defineComponent({
 
         const filteredPrograms = computed(() => {
             const query = searchQueryProgram.value.trim().toLowerCase();
-            if (!query) return ['CPA', 'EA'];
-            return ['CPA', 'EA'].filter(p => p.toLowerCase().includes(query));
+            if (!query) return ['AEUAP', 'AEUTP'];
+            return ['AEUAP', 'AEUTP'].filter(p => p.toLowerCase().includes(query));
         });
 
         const selectProgram = (prog: string) => {
-            form.program = prog === "CPA" ? 1 : 2;
+            form.program = prog === "AEUAP" ? 1 : 2;
             searchQueryProgram.value = prog;
             showProgramDropdown.value = false;
         };
@@ -575,9 +575,9 @@ export default defineComponent({
 
             if (!value) {
                 form.program = null;
-            } else if (value === "CPA") {
+            } else if (value === "AEUAP") {
                 form.program = 1;
-            } else if (value === "EA") {
+            } else if (value === "AEUTP") {
                 form.program = 2;
             } else {
                 form.program = null as number | null;
