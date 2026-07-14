@@ -614,7 +614,7 @@
 
   .hero-description {
     font-size: 14px;
-    margin-bottom: 24px;
+    margin-bottom: 23px;
   }
 
   .hero-slider-warp {
