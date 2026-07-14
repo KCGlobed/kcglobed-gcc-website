@@ -81,7 +81,7 @@
         padding-top: 50px;
         padding-bottom: 50px;
     }
-
+     
     .ea-title {
         font-size: 24px;
         margin-bottom: 10px;
