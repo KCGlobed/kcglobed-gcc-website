@@ -19,10 +19,27 @@
           <img src="~/assets/img/mobileHeader/Icon(1).png" alt="Home" class="nav-icon" />
           <span>Home</span>
         </NuxtLink>
-        <NuxtLink to="/programs" class="nav-item" @click="handleClick">
-          <img src="~/assets/img/mobileHeader/Icon(2).png" alt="Program" class="nav-icon" />
-          <span>Program</span>
-        </NuxtLink>
+        <div class="nav-item-dropdown">
+          <a class="nav-item" @click="showProgramsDropdown = !showProgramsDropdown" style="cursor: pointer;">
+            <img src="~/assets/img/mobileHeader/Icon(2).png" alt="Programs" class="nav-icon" />
+            <span>Programs</span>
+            <i :class="showProgramsDropdown ? 'ti ti-chevron-up' : 'ti ti-chevron-down'" style="margin-left: auto;"></i>
+          </a>
+          <div v-show="showProgramsDropdown" class="mobile-submenu">
+            <NuxtLink to="/programs/acca" class="nav-item sub-item" @click="handleClick">
+              <span class="dot"></span>
+              <span>AEIAP</span>
+            </NuxtLink>
+            <NuxtLink to="/programs/cpa" class="nav-item sub-item" @click="handleClick">
+              <span class="dot"></span>
+              <span>AEUAP</span>
+            </NuxtLink>
+            <NuxtLink to="/programs/ea" class="nav-item sub-item" @click="handleClick">
+              <span class="dot"></span>
+              <span>AEUTP</span>
+            </NuxtLink>
+          </div>
+        </div>
         <NuxtLink to="/nfet-exam" class="nav-item" @click="handleClick">
           <img src="~/assets/img/mobileHeader/Icon(3).png" alt="NFET Exam" class="nav-icon" />
           <span>NFET Exam</span>
@@ -84,6 +101,7 @@ export default defineComponent({
   setup() {
     const stateStoreInstance = stateStore;
     const isClosing = ref(false);
+    const showProgramsDropdown = ref(false);
     const { isAuthenticated, logout, init } = useAuth()
 
     onMounted(() => {
@@ -126,7 +144,8 @@ export default defineComponent({
       closeNavbar,
       openApplyModal,
       isAuthenticated,
-      handleLogout
+      handleLogout,
+      showProgramsDropdown
     };
   },
 });
@@ -209,6 +228,49 @@ export default defineComponent({
   font-weight: 500;
   border-radius: 10px;
   transition: all 0.2s ease;
+}
+
+.nav-item-dropdown {
+  display: flex;
+  flex-direction: column;
+}
+
+.mobile-submenu {
+  background: rgba(0, 0, 0, 0.15);
+  border-radius: 8px;
+  margin: 4px 10px 10px 10px;
+  padding: 8px 0;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.sub-item {
+  padding: 10px 20px 10px 45px;
+  font-size: 15px;
+  font-weight: 400;
+  border-radius: 0;
+  background: transparent !important;
+}
+
+.sub-item .dot {
+  width: 6px;
+  height: 6px;
+  background-color: #fff;
+  border-radius: 50%;
+  margin-right: 12px;
+  opacity: 0.7;
+}
+
+.sub-item:hover .dot {
+  opacity: 1;
+  background-color: #AB7E1A;
+}
+
+.sub-item.active .dot,
+.sub-item.router-link-exact-active .dot {
+  background-color: #AB7E1A;
+  opacity: 1;
 }
 
 .apply-now-btn {

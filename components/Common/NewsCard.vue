@@ -1,7 +1,7 @@
 <template>
     <div class="news-area">
         <div class="container">
-            <div class="section-header text-center" data-aos="fade-up">
+            <div class="section-header text-center">
                 <h2 class="section-title">AS FEATURED IN <span class="highlight">LEADING MEDIA</span></h2>
             </div>
 

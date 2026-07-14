@@ -1,7 +1,7 @@
 <template>
     <div class="gcc-school-section">
         <div class="container text-center">
-            <div class="section-header mb-60" data-aos="fade-up">
+            <div class="section-header mb-60">
                 <h2 class="title">AT <span class="highlight">GCC SCHOOL</span>
                     We prepare finance leaders to achieve the next elevation - for their organisations and for
                     themselves
@@ -12,17 +12,17 @@
             </div>
             <div class="gcc-school-content">
                 <div class="row g-4 justify-content-center">
-                    <div class="col-lg-4 col-md-6 col-12" data-aos="fade-up" data-aos-delay="100">
+                    <div class="col-lg-4 col-md-6 col-12"  >
                         <div class="gcc-image-box">
                             <img src="../../assets/img/heros/3.svg" class="img-fluid" alt="GCC School Feature 1" loading="lazy" decoding="async" />
                         </div>
                     </div>
-                    <div class="col-lg-4 col-md-6 col-12" data-aos="fade-up" data-aos-delay="200">
+                    <div class="col-lg-4 col-md-6 col-12">
                         <div class="gcc-image-box">
                             <img src="../../assets/img/heros/1.svg" class="img-fluid" alt="GCC School Feature 2" loading="lazy" decoding="async" />
                         </div>
                     </div>
-                    <div class="col-lg-4 col-md-6 col-12" data-aos="fade-up" data-aos-delay="300">
+                    <div class="col-lg-4 col-md-6 col-12">
                         <div class="gcc-image-box">
                             <img src="../../assets/img/heros/4.svg" class="img-fluid" alt="GCC School Feature 3" loading="lazy" decoding="async" />
                         </div>
@@ -137,6 +137,14 @@
     .gcc-image-box {
         max-width: 400px;
         margin: 0 auto;
+    }
+}
+
+/* Mobile specific */
+@media (max-width: 480px) {
+    .section-header .title {
+        font-size: 20px;
+        font-weight: 700;
     }
 }
 </style>

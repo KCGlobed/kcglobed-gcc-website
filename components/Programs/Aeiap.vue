@@ -608,4 +608,138 @@
         height: 280px;
     }
 }
+
+@media (max-width: 767px) {
+    .aeiap-area {
+        padding-top: 40px;
+        padding-bottom: 40px;
+    }
+
+    .title {
+        font-size: 24px !important;
+    }
+
+    .section-title {
+        margin-bottom: 30px;
+    }
+
+    .sub-title {
+        font-size: 14px;
+    }
+
+    /* =========================
+       SINGLE CARD CONTAINER
+    ========================== */
+
+    .flip-card-wrapper {
+        height: auto;
+        perspective: none;
+
+        background: #ffffff;
+        border: 1px solid #f0f0f0;
+        border-radius: 12px;
+        overflow: hidden;
+
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.07);
+    }
+
+    /* Disable flip animation on mobile */
+
+    .flip-card {
+        position: relative;
+        width: 100%;
+        height: auto;
+
+        transform: none !important;
+        transition: none;
+
+        display: flex;
+        flex-direction: column;
+
+        cursor: default;
+    }
+
+    .flip-card-wrapper:hover .flip-card {
+        transform: none !important;
+    }
+
+    /* =========================
+       IMAGE SECTION
+    ========================== */
+
+    .flip-card-front {
+        position: relative;
+        inset: auto;
+
+        width: 100%;
+        height: 150px;
+        min-height: 150px;
+
+        padding: 20px;
+
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        background: #ffffff;
+
+        border: none;
+        border-radius: 0;
+        box-shadow: none;
+
+        overflow: hidden;
+
+        backface-visibility: visible;
+        -webkit-backface-visibility: visible;
+    }
+
+    .flip-logo-img {
+        width: auto;
+        height: 100px;
+        max-width: 180px;
+
+        object-fit: contain;
+        margin: 0;
+    }
+
+    /* =========================
+       CONTENT SECTION
+    ========================== */
+
+    .flip-card-back {
+        position: relative;
+        inset: auto;
+
+        width: 100%;
+        height: auto;
+        min-height: auto;
+
+        transform: none !important;
+
+        padding: 10px 20px 22px;
+
+        background: #ffffff;
+
+        border: none;
+        border-radius: 0;
+        box-shadow: none;
+
+        overflow: visible;
+
+        backface-visibility: visible;
+        -webkit-backface-visibility: visible;
+
+        align-items: flex-start;
+        justify-content: flex-start;
+    }
+
+    .card-title-back {
+        font-size: 17px;
+    }
+
+    .card-desc-back {
+        font-size: 14px;
+        line-height: 1.6;
+    }
+}
 </style>

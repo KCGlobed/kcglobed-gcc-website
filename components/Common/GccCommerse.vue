@@ -2,7 +2,7 @@
     <div class="gcc-commerce-section ptb-100">
         <div class="container">
             <!-- Section Header -->
-            <div class="section-header" data-aos="fade-up">
+            <div class="section-header">
                 <h2 class="section-title">
 
                     WORLD'S FIRST SCHOOL, BUILT BY GCC LEADERS TO SHAPE<br /> <span class="highlight">THE NATION'S

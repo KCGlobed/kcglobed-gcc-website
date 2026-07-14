@@ -1,7 +1,7 @@
 <template>
     <section class="faq-section ptb-100">
         <div class="container">
-            <div class="section-title text-center mb-50" data-aos="fade-up">
+            <div class="section-title text-center mb-50">
                 <span class="subtitle">Got Questions?</span>
                 <h2>Frequently Asked <span class="highlight">Questions</span></h2>
                 <p>Everything you need to know about GCC School, NFET, and your future career in Global Capability Centres.
@@ -11,7 +11,7 @@
             <div class="faq-container">
                 <div class="row">
                     <!-- Categories -->
-                    <div class="col-lg-4" data-aos="fade-right">
+                    <div class="col-lg-4">
                         <div class="faq-categories">
                             <button v-for="(category, index) in categories" :key="index"
                                 :class="['category-btn', { active: activeCategory === index }]"
@@ -23,7 +23,7 @@
                     </div>
 
                     <!-- Questions -->
-                    <div class="col-lg-8" data-aos="fade-left">
+                    <div class="col-lg-8">
                         <div class="faq-accordion">
                             <div v-for="(item, idx) in filteredFaqs" :key="idx"
                                 :class="['accordion-item', { active: openIndex === idx }]">
@@ -349,16 +349,6 @@ const accordionStyle = (index: number) => {
     overflow: hidden;
 }
 
-.faq-section::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(180deg, rgba(255,255,255,1) 0%, rgba(255,255,255,0) 20%, rgba(255,255,255,0) 80%, rgba(255,255,255,1) 100%);
-    pointer-events: none;
-}
 
 .subtitle {
     display: inline-block;

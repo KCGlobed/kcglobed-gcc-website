@@ -14,10 +14,11 @@
                     </div>
                     <div class="card-footer-text">
                         <h4 class="domain-title" v-html="domain.title"></h4>
-                        <p class="domain-subtitle">{{ domain.subtitle }}</p>
+                        <p class="domain-subtitle">({{ domain.subtitle }})</p>
                     </div>
                 </div>
             </div>
+            <span class="source-content">Source: naukri.com</span>
         </div>
     </div>
 </template>
@@ -74,6 +75,15 @@ export default {
 
 .highlight {
     color: #F1A63E;
+}
+
+.source-content {
+    display: flex;
+    justify-content: flex-end;
+    margin-right: 150px;
+    font-size: 14px;
+    font-weight: 600;
+    color: #555;
 }
 
 .sub-title {
@@ -233,6 +243,10 @@ export default {
         margin: 8px auto 0;
     }
 
+    .source-content {
+        justify-content: flex-start;
+    }
+
     .sub-title {
         font-size: 14px;
     }
@@ -263,6 +277,14 @@ export default {
 
     .learning-platform {
         text-align: center;
+    }
+}
+
+@media screen and (max-width: 300px) {
+
+    .domains-grid {
+        grid-template-columns: repeat(1, 1fr);
+
     }
 }
 </style>

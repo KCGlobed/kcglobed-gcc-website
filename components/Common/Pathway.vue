@@ -3,14 +3,14 @@
         <div class="container">
             <div class="row">
                 <div class="col-12">
-                    <div class="section-header text-center mb-60" data-aos="fade-up">
+                    <div class="section-header text-center mb-60" >
 
                         <h2 class="title">GCC <span class="highlight">EXPERIENTIAL LEARNING PATHWAY</span></h2>
 
                     </div>
                 </div>
 
-                <div class="col-lg-10 offset-lg-1" data-aos="zoom-in">
+                <div class="col-lg-10 offset-lg-1">
                     <div class="pathway-visual-container">
                         <div class="image-wrapper">
                             <div class="WebImageGraphImag">
