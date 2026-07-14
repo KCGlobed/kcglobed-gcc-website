@@ -558,7 +558,7 @@ export default defineComponent({
 
         const filteredUniversities = computed(() => {
             const query = searchQuery.value.trim().toLowerCase();
-            if (universityList.value.length === 0 && query) {
+            if (universityList.value.length === 0) {
                 loadUniversities();
             }
             if (!query) return universityList.value;
@@ -1326,6 +1326,7 @@ export default defineComponent({
             showUniDropdown,
             filteredUniversities,
             selectUni,
+            loadUniversities,
             searchQueryProgram,
             showProgramDropdown,
             filteredPrograms,
