@@ -365,8 +365,9 @@ export default defineComponent({
   color: #fff !important;
   border-radius: 5px;
 }
-.navbar .navbar-nav .child .nav-link:not(.dropdown-toggle).router-link-active{
-    background-color: #8321A5 !important;
+
+.navbar .navbar-nav .child .nav-link:not(.dropdown-toggle).router-link-active {
+  background-color: #8321A5 !important;
 }
 
 .navbar .navbar-nav .nav-item .nav-link:not(.dropdown-toggle):hover {
