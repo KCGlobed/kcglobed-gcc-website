@@ -7,13 +7,13 @@
       <NuxtLink class="navbar-brand" to="/">
         <img src="~/assets/Logo/Logo/GCC-School-Logo-White.jpeg" alt="Logo" style="height: 75px;" />
       </NuxtLink>
-      <a class="navbar-toggler home1-one-toggler" @click="stateStoreInstance.onMobileNavbarShow">
+      <button class="navbar-toggler home1-one-toggler" type="button" @click.prevent="stateStoreInstance.onMobileNavbarShow" @touchend.prevent="stateStoreInstance.onMobileNavbarShow" style="background: none; border: none; padding: 0; outline: none; box-shadow: none;">
         <span class="burger-menu">
           <span class="top-bar"></span>
           <span class="middle-bar"></span>
           <span class="bottom-bar"></span>
         </span>
-      </a>
+      </button>
       <div class="collapse navbar-collapse">
         <ul class="navbar-nav ms-auto">
 
