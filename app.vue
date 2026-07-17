@@ -85,7 +85,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
           "availableLanguage": ["en", "Hindi"]
         },
         "sameAs": [
-          "https://www.facebook.com/share/187jgT5gev/",
+          "https://www.facebook.com/share/187jgT5gev/", 
           "https://x.com/gccschool2026",
           "https://www.instagram.com/gccschool?igsh=MXQxc2JhazAwcG55cQ==",
           "https://www.youtube.com/@GCCSchool",

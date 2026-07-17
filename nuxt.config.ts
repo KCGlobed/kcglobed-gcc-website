@@ -124,6 +124,7 @@ export default defineNuxtConfig({
     // Set to 'SANDBOX' for test, 'PRODUCTION' for live
     cashfreeEnvironment: process.env.CASHFREE_ENVIRONMENT || 'PRODUCTION',
     cashfreePaymentAmount: process.env.CASHFREE_PAYMENT_AMOUNT || '1475',
+    cashfreeWebhookSecret: process.env.CASHFREE_WEBHOOK_SECRET || '',
     reattemptDiscountPercentage: process.env.REATTEMPT_DISCOUNT_PERCENTAGE || '20',
 
     // ── Payment Gateway Selector ──────────────────────────────────────────────
