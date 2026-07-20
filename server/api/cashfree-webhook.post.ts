@@ -59,26 +59,26 @@ export default defineEventHandler(async (event) => {
         return { success: false, message: "Invalid JSON" };
     }
 
-    const eventType: string   = payload?.type || "";
-    const data                = payload?.data || {};
-    const orderData           = data?.order || {};
-    const paymentData         = data?.payment || {};
-    const customerData        = data?.customer_details || {};
-    const orderTags           = orderData?.order_tags || {};
+    const eventType: string = payload?.type || "";
+    const data = payload?.data || {};
+    const orderData = data?.order || {};
+    const paymentData = data?.payment || {};
+    const customerData = data?.customer_details || {};
+    const orderTags = orderData?.order_tags || {};
 
-    const cfOrderId: string   = orderData?.order_id || "";
+    const cfOrderId: string = orderData?.order_id || "";
     const cfPaymentId: string = String(paymentData?.cf_payment_id || "N/A");
-    const paymentStatus       = paymentData?.payment_status || "";
-    const amount: number      = Number(paymentData?.payment_amount || orderData?.order_amount || 0);
-    const currency: string    = orderData?.order_currency || "INR";
-    const formType            = orderTags?.form_type || null;
-    const formId              = orderTags?.form_id   || null;
-    const source              = orderTags?.source ? parseInt(String(orderTags.source)) : 1;
-    const city                = orderTags?.city  || "";
-    const state               = orderTags?.state || "";
-    const userName            = customerData?.customer_name  || "";
-    const userEmail           = customerData?.customer_email || "";
-    const userMobile          = customerData?.customer_phone || "";
+    const paymentStatus = paymentData?.payment_status || "";
+    const amount: number = Number(paymentData?.payment_amount || orderData?.order_amount || 0);
+    const currency: string = orderData?.order_currency || "INR";
+    const formType = orderTags?.form_type || null;
+    const formId = orderTags?.form_id || null;
+    const source = orderTags?.source ? parseInt(String(orderTags.source)) : 1;
+    const city = orderTags?.city || "";
+    const state = orderTags?.state || "";
+    const userName = customerData?.customer_name || "";
+    const userEmail = customerData?.customer_email || "";
+    const userMobile = customerData?.customer_phone || "";
 
     console.log(`\n====== [WEBHOOK][cashfree] ======`);
     console.log(`Event    : ${eventType}`);
@@ -151,7 +151,7 @@ export default defineEventHandler(async (event) => {
         // Always return 200 to stop Cashfree retry loop
         return { success: true };
 
-    // ── 5. PAYMENT_FAILED ─────────────────────────────────────────────────────
+        // ── 5. PAYMENT_FAILED ─────────────────────────────────────────────────────
     } else if (eventType === "PAYMENT_FAILED" || paymentStatus === "FAILED") {
         console.log(`[WEBHOOK][cashfree] ❌ PAYMENT_FAILED for order: ${cfOrderId}`);
 
@@ -184,12 +184,12 @@ export default defineEventHandler(async (event) => {
 
         return { success: true };
 
-    // ── 6. PAYMENT_USER_DROPPED ───────────────────────────────────────────────
+        // ── 6. PAYMENT_USER_DROPPED ───────────────────────────────────────────────
     } else if (eventType === "PAYMENT_USER_DROPPED") {
         console.log(`[WEBHOOK][cashfree] 🚶 USER_DROPPED for order: ${cfOrderId}`);
         return { success: true };
 
-    // ── 7. Everything else — acknowledge and ignore ───────────────────────────
+        // ── 7. Everything else — acknowledge and ignore ───────────────────────────
     } else {
         console.log(`[WEBHOOK][cashfree] Unhandled event type: ${eventType}`);
         return { success: true };
