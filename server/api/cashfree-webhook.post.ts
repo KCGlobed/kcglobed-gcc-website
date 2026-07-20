@@ -20,14 +20,16 @@ export default defineEventHandler(async (event) => {
     const config = useRuntimeConfig(event);
 
     // ── 1. Read RAW body (required for HMAC verification) ────────────────────
-    const rawBody = await readRawBody(event);
+    // Always use the raw request body (the exact, unmodified payload)
+    const rawBodyBuffer = await readRawBody(event);
+    const rawBody = rawBodyBuffer ? rawBodyBuffer.toString() : "";
+    
     if (!rawBody) {
         console.warn("[WEBHOOK][cashfree] Empty body received");
         return { success: false };
     }
 
     // ── 2. Verify Cashfree webhook signature ──────────────────────────────────
-    // NEVER skip this — without it anyone can fake a payment success.
     const webhookSecret = config.cashfreeWebhookSecret || process.env.CASHFREE_WEBHOOK_SECRET || "";
     if (!webhookSecret) {
         console.error("[WEBHOOK][cashfree] ❌ CASHFREE_WEBHOOK_SECRET is not set!");
@@ -37,15 +39,14 @@ export default defineEventHandler(async (event) => {
     const timestamp = getHeader(event, "x-webhook-timestamp") || "";
     const receivedSig = getHeader(event, "x-webhook-signature") || "";
 
-    // Cashfree signature algorithm: HMAC-SHA256(timestamp + rawBody, secret) → base64
+    // Generate HMAC-SHA256 hash using the secret key, timestamp and raw request body
     const expectedSig = crypto
         .createHmac("sha256", webhookSecret)
         .update(timestamp + rawBody)
         .digest("base64");
 
-    if (receivedSig !== expectedSig) {
+    if (expectedSig !== receivedSig) {
         console.error("[WEBHOOK][cashfree] ⚠️  Signature mismatch — possible spoofing attempt!");
-        // Return 200 so Cashfree does not keep retrying (but do NOT process it)
         return { success: false, message: "Signature verification failed" };
     }
 
