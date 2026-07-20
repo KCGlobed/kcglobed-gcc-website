@@ -423,6 +423,7 @@ Navbar Warp  Style
 
 .navbar.sticky .navbar-toggler .burger-menu {
   cursor: pointer;
+  pointer-events: none;
 }
 
 .navbar.sticky .navbar-toggler .burger-menu span {
@@ -463,6 +464,7 @@ Navbar Warp  Style
 
 .navbar .navbar-toggler .burger-menu {
   cursor: pointer;
+  pointer-events: none;
 }
 
 .navbar .navbar-toggler .burger-menu span {
