@@ -20,6 +20,7 @@ export default defineEventHandler(async (event) => {
     let userId: string | null = null;
     let formType: string | null = null;
     let formId: string | null = null;
+    let dossierFormId: string | null = body.dossier_form_id || body.form_id || null;
     let userName = '';
     let userEmail = '';
     let userMobile = '';
@@ -156,6 +157,7 @@ export default defineEventHandler(async (event) => {
             student_id:formId,
             form_type: formType || 1,
             form_id: formId,
+            dossier_form_id: dossierFormId || formId,
             razorpay_order_id: orderIdForDb,
             razorpay_payment_id: actualPaymentId,
             razorpay_signature: `${activeGateway.toLowerCase()}_verified`,
@@ -174,7 +176,7 @@ export default defineEventHandler(async (event) => {
             source: source || 1,
             fee_waiver_category: feeWaiverCategory
         };
-
+        console.log(paymentPayload,'------vishalllllll')
         let paymentDbId = null;
         if (reAttemptStatus || body.payment_type === 'security_deposit') {
             // ── Call external API if reattempt or security_deposit ────────────────────────────────────
@@ -198,8 +200,24 @@ export default defineEventHandler(async (event) => {
                 console.error(`[PAYMENT][complete] Reattempt API call failed:`, apiError?.message || apiError);
             }
         } else {
-            // Only save to local DB if not reattempt
-            paymentDbId = await savePayment(paymentPayload);
+            // Send to Django backend which will handle duplicate checking internally
+            const apiBase = process.env.NUXT_PUBLIC_API_BASE;
+            try {
+                const authHeader = getHeader(event, 'authorization');
+                const headers: Record<string, string> = { 'Content-Type': 'application/json' };
+                if (authHeader) headers['Authorization'] = authHeader;
+
+                await $fetch(`${apiBase}/api/students/webhook_create_payment/`, {
+                    method: 'POST',
+                    headers,
+                    body: paymentPayload
+                });
+                console.log(`[PAYMENT][complete] ✅ Sent to external API webhook_create_payment. Order: ${orderIdForDb}`);
+                paymentDbId = "external_" + orderIdForDb; // Dummy ID since we don't have local DB ID
+            } catch (apiError: any) {
+                console.log(apiError,'-----vishallllllfff',paymentPayload)
+                console.error(`[PAYMENT][complete] External API save failed:`, apiError?.message || apiError);
+            }
         }
 
         // ── Step 3: Send Confirmation Email ─────────────────────────────────────

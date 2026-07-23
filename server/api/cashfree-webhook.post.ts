@@ -13,6 +13,27 @@
 //   every successful payment is captured even if the browser fails.
 // ──────────────────────────────────────────────────────────────────────────────
 
+
+// {{GCC_Base_url}}/api/students/webhook_create_payment/
+// {
+//     "razorpay_order_id": "Vslqwertyuioi",
+//     "razorpay_payment_id": "wertyuiopi",
+//     "razorpay_signature": "qwerty uiopoiu ytrewq",
+//     "amount": 20.0,
+//     "currency": "INR",
+//     "status": "success",
+//     "response": {
+//         "city": "Noida",
+//         "name": "Atul Tevatia",
+//         "email": "atul.tevatia@kcglobed.com",
+//         "state": "Uttar Pradesh",
+//         "mobile": "8979221212",
+//         "gateway": "cashfree",
+//         "order_id": "cf_170528_1774940319358",
+//         "payment_id": "5114926747419"
+//     }
+// }
+
 import crypto from "crypto";
 import { savePayment } from "../services/payment.service";
 
@@ -23,7 +44,7 @@ export default defineEventHandler(async (event) => {
     // Always use the raw request body (the exact, unmodified payload)
     const rawBodyBuffer = await readRawBody(event);
     const rawBody = rawBodyBuffer ? rawBodyBuffer.toString() : "";
-    
+
     if (!rawBody) {
         console.warn("[WEBHOOK][cashfree] Empty body received");
         return { success: false };
@@ -108,6 +129,7 @@ export default defineEventHandler(async (event) => {
             student_id: formId,
             form_type: formType || 1,
             form_id: formId,
+            dossier_form_id: formId,
             razorpay_order_id: cfOrderId,
             razorpay_payment_id: cfPaymentId,
             razorpay_signature: "cashfree_webhook_verified",
@@ -127,21 +149,33 @@ export default defineEventHandler(async (event) => {
             source: source || 1,
             fee_waiver_category: feeWaiverCategory
         };
-
+        console.log(`[WEBHOOK][cashfree] ✅ Payment payload: ${JSON.stringify(paymentPayload)}`);
         try {
             const isReattempt = orderTags?.payment_type === "reattempt";
 
             if (isReattempt) {
                 const apiBase = process.env.NUXT_PUBLIC_API_BASE;
-                await $fetch(`${apiBase}/api/students/create_student_payment/`, {
+                await $fetch(`${apiBase}/api/students/webhook_create_payment/`, {
                     method: "POST",
                     headers: { "Content-Type": "application/json" },
                     body: paymentPayload
                 });
                 console.log(`[WEBHOOK][cashfree] ✅ Reattempt saved to external API: ${cfOrderId}`);
             } else {
-                const savedId = await savePayment(paymentPayload);
-                console.log(`[WEBHOOK][cashfree] ✅ Saved to DB. ID: ${savedId} | Order: ${cfOrderId}`);
+                const apiBase = process.env.NUXT_PUBLIC_API_BASE;
+                
+                // Send fresh payment to Django backend (which handles duplicate checking)
+                try {
+                    await $fetch(`${apiBase}/api/students/webhook_create_payment/`, {
+                        method: "POST",
+                        headers: { "Content-Type": "application/json" },
+                        body: paymentPayload
+                    });
+                    console.log(`[WEBHOOK][cashfree] ✅ Sent to external API webhook_create_payment. Order: ${cfOrderId}`);
+                } catch (apiError: any) {
+                    console.error(`[WEBHOOK][cashfree] ⚠️ External API webhook_create_payment failed: ${apiError?.message}`);
+                }
+
             }
         } catch (err: any) {
             console.error(`[WEBHOOK][cashfree] ❌ Save failed for order: ${cfOrderId} — ${err?.message}`);
