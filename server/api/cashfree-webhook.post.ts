@@ -94,7 +94,7 @@ export default defineEventHandler(async (event) => {
         console.log(`[WEBHOOK][cashfree] 💰 Processing success for order: ${cfOrderId}`);
 
         // Mirror fee-waiver logic from complete-payment.post.ts
-        const baseAmount = Number(config.paymentAmount || 1475);
+        const baseAmount = Number(config.paymentAmount || 2950);
         let feeWaiverCategory = "No Waiver";
         if (amount === 1 || amount === 0 || amount === 2) {
             feeWaiverCategory = "Free of cost (FOC)";
