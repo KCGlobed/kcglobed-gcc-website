@@ -13,7 +13,7 @@
                             <div class="col-lg-6 col-md-12 mb-4 mb-lg-0">
                                 <div class="program-hero-card h-100">
                                     <div class="card-header">
-                                        <h2>Download Brochure</h2>
+                                        <h2>Apply Now</h2>
                                         <p>Enter your details to receive the brochure instantly</p>
                                     </div>
 
@@ -118,13 +118,13 @@
                                             </small>
                                         </div>
 
-                                        <!-- Step 1: Download Now button -->
+                                        <!-- Step 1: Register Now button -->
                                         <div>
                                             <button type="submit" class="btn btn-primary w-100 register-btn"
                                                 :disabled="isSubmitting">
                                                 <span v-if="isSubmitting"
                                                     class="spinner-border spinner-border-sm me-2"></span>
-                                                {{ isSubmitting ? 'Processing...' : 'DOWNLOAD NOW' }}
+                                                {{ isSubmitting ? 'Processing...' : 'Register' }}
                                             </button>
                                             <p class="form-footer-text text-center mt-3 mb-0">
                                                 By submitting, you agree to our <NuxtLink to="/terms-conditions">Terms
@@ -1146,7 +1146,7 @@ export default defineComponent({
                 description: "At GCC School, students don't wait for placements. They start with them. Learning is structured around real roles, real work, and real responsibility because capability is built on execution.",
                 btnText: "Apply Now",
                 btnLink: "/about-overview",
-                btnTextTwo: "Download Brochure",
+                btnTextTwo: "Apply Now",
                 btnLinkTwo: gccPdf,
                 updateTitle: "View all latest news updates of Tuva",
                 updateLink: "/blog",
@@ -1327,7 +1327,7 @@ export default defineComponent({
                     const fileName = fileUrl.split('/').pop() || 'EA Brochure.pdf';
 
                     window.location.href = `/api/download?url=${encodeURIComponent(fileUrl)}&filename=${encodeURIComponent(fileName)}`;
-                    showNotification('success', 'Brochure downloaded successfully!');
+                    showNotification('success', 'Registered successfully!');
                 } else {
                     showNotification('error', response.message || "Something went wrong. Please try again.");
                 }

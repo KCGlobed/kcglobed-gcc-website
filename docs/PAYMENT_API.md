@@ -28,7 +28,7 @@ This document describes the payment API endpoints for the KCGlobed GCC Website u
   "gateway": "cashfree",
   "cf_order_id": "cf_123_1711888492",
   "payment_session_id": "session_...",
-  "amount": 2950,
+  "amount": 1475,
   "currency": "INR",
   "environment": "SANDBOX"
 }

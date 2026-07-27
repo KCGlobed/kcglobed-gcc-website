@@ -1522,7 +1522,7 @@ onMounted(async () => {
                         fbq('track', 'PageView');
                         fbq('track', 'CompleteRegistration');
                         fbq('track', 'Lead');
-                        fbq('track', 'Purchase', { value: 2950.00, currency: 'INR' });
+                        fbq('track', 'Purchase', { value: 1475.00, currency: 'INR' });
                     `,
                     type: 'text/javascript'
                 },
