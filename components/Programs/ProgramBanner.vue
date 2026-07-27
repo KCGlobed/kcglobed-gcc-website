@@ -152,7 +152,6 @@
                                                 errors.referral_code }}</small>
                                         </div>
 
-
                                         <!-- Step 1: Register button -->
                                         <div v-if="!isDownloaded">
                                             <button type="submit" class="btn btn-primary w-100 register-btn"
