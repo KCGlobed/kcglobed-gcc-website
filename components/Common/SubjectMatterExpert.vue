@@ -71,7 +71,7 @@ const images = [
         link: ""
     },{
         img: expert10,
-        link: ""
+        link: "https://www.linkedin.com/in/kamakshi-chopra-83b3b082"
     }
 ]
 </script>
