@@ -7,7 +7,7 @@
             <h5>Contact Information</h5>
             <div class="contact-item">
               <span>Phone No:</span>
-              <a href="tel:9773576111">+918796880189</a>
+              <a href="tel:8796880189">+918796880189</a>
             </div>
             <div class="contact-item">
               <span>Email:</span>
