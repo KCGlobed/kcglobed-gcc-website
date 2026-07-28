@@ -231,7 +231,7 @@ Please try again here: <a href="https://www.gccschool.com/">https://www.gccschoo
   <p>
     Warm regards,<br>
     <strong>Team GCC School</strong><br>
-    +919773576111<br>
+    +918796880189<br>
     <a href="https://www.gccschool.com/">https://www.gccschool.com/</a>
   </p>
 </div>

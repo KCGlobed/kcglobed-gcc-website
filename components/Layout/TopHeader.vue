@@ -11,7 +11,7 @@
               </li>
               <li class="contact-item">
                 <i class="ti ti-phone-call"></i>
-                <a href="tel:9773576111">+919773576111</a>
+                <a href="tel:9773576111">+918796880189</a>
               </li>
               <li>
                 <NuxtLink to="https://kcglobed.com/" target="_blank">KC GlobEd</NuxtLink>
