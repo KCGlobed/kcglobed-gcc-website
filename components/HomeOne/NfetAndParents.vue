@@ -1,0 +1,422 @@
+<template>
+  <div class="nfet-and-parents-container">
+    <!-- Section 1: NFET Gateway (Dark Background) -->
+    <div class="nfet-gateway-section">
+      <div class="container">
+        <!-- Top Row (Info & CTA Buttons) -->
+        <div class="row align-items-center justify-content-between g-4">
+          <!-- Left Col: Title & Badges -->
+          <div class="col-lg-8 col-12 text-start">
+            <span class="eyebrow gold-text">NFET · THE GATEWAY TO GCC SCHOOL</span>
+            <h2 class="section-title text-white mt-2 mb-4">One Exam Opens Every Door.</h2>
+
+            <!-- Badges Row -->
+            <div class="d-flex flex-wrap gap-4" style="margin-bottom: 35px;">
+              <span v-for="(badge, index) in nfetBadges" :key="index" class="nfet-badge-pill">
+                {{ badge }}
+              </span>
+            </div>
+          </div>
+
+          <!-- Right Col: CTA Actions -->
+          <div class="col-lg-4 col-12 d-flex justify-content-lg-end justify-content-start gap-3 mt-lg-0 mt-4">
+            <button class="btn btn-nfet-apply" data-bs-toggle="modal" data-bs-target="#enquiryModal">
+              Apply For NFET <i class="ti ti-arrow-right ms-1"></i>
+            </button>
+            <button class="btn btn-nfet-download">
+              Download NFET Pack
+            </button>
+          </div>
+        </div>
+
+        <!-- Bottom Row (Step Strip) -->
+        <div class="step-strip-wrapper mt-50 mb-20">
+          <div class="step-strip-row">
+            <div v-for="(step, index) in steps" :key="index" :class="['step-item', step.class]">
+              <span class="step-num">{{ step.num }}</span>
+              <span class="step-label">{{ step.label }}</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Section 2: For Parents (Light Lavender Background) -->
+    <div class="for-parents-section">
+      <div class="container">
+        <div class="row g-5 align-items-stretch">
+          <!-- Left Column: Copy & CTAs -->
+          <div class="col-lg-5 col-12 d-flex flex-column justify-content-between text-start">
+            <div>
+              <span class="eyebrow purple-text">FOR PARENTS</span>
+              <h2 class="section-title mt-2">For Parents Making A<br class="d-none d-md-block" /> Serious Decision.</h2>
+              <p class="section-desc mt-3">
+                A finance career is a big investment of money, time and hope, and you deserve clarity before you commit.
+                We would rather you decide with full information than under pressure.
+              </p>
+            </div>
+            <div class="d-flex flex-wrap gap-3 mt-4">
+              <button class="btn btn-parent-download">
+                Download The Parent Guide
+              </button>
+              <button class="btn btn-parent-consult" data-bs-toggle="modal" data-bs-target="#enquiryModal">
+                Talk To A Counsellor
+              </button>
+            </div>
+          </div>
+
+          <!-- Right Column: 2x2 Grid & Helpdesk -->
+          <div class="col-lg-7 col-12 d-flex flex-column gap-4 justify-content-between">
+            <!-- 2x2 Grid -->
+            <div class="parents-grid">
+              <div v-for="(card, index) in parentCards" :key="index" class="parent-card text-start">
+                <h4 class="card-title-text">{{ card.title }}</h4>
+                <p class="card-desc-text mt-2 mb-0">{{ card.desc }}</p>
+              </div>
+            </div>
+
+            <!-- Bottom Helpdesk bar -->
+            <div class="helpdesk-bar d-flex justify-content-between align-items-center flex-wrap g-3">
+              <div class="text-start">
+                <h5 class="helpdesk-title m-0">A Dedicated Parent Helpdesk</h5>
+                <p class="helpdesk-subtitle m-0 mt-1">Your questions, answered directly.</p>
+              </div>
+              <div class="helpdesk-phone">
+                +91 87968 80189
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</template>
+
+<script setup lang="ts">
+const nfetBadges = [
+  "60 MCQs",
+  "90 MINUTES",
+  "NO NEGATIVE MARKING",
+  "ONLINE · AI + HUMAN PROCTORED",
+  "ENGLISH"
+]
+
+const steps = [
+  { num: "STEP 01", label: "Clear NFET", class: "step-active" },
+  { num: "STEP 02", label: "Get invited to the hiring drive", class: "step-purple-dark" },
+  { num: "STEP 03", label: "Interview with global companies", class: "step-purple-medium" },
+  { num: "STEP 04", label: "Get pre-placement offer", class: "step-purple-dark" },
+  { num: "STEP 05", label: "Secure admission", class: "step-purple-light" },
+  { num: "STEP 06", label: "Join the cohort", class: "step-purple-black" }
+]
+
+const parentCards = [
+  {
+    title: "Transparency On Fees",
+    desc: "Full fee structure, milestones and financing, explained openly before admission."
+  },
+  {
+    title: "A Real Process",
+    desc: "Merit-based selection through NFET, not vague promises."
+  },
+  {
+    title: "A Campus You Can Visit",
+    desc: "See it, walk it, meet the team in person."
+  },
+  {
+    title: "Support That Stays",
+    desc: "Academic help, counselling and career guidance throughout."
+  }
+]
+</script>
+
+<style scoped>
+.nfet-and-parents-container {
+  width: 100%;
+}
+
+/* Common Text Elements */
+.eyebrow {
+  font-weight: 700;
+  font-size: 13px;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  display: block;
+}
+
+.gold-text {
+  color: #FFAF3D ;
+}
+
+.purple-text {
+  color: #6B1B75;
+}
+
+.section-title {
+  font-size: 40px;
+  font-weight: 800;
+  line-height: 1.2;
+  text-align: left;
+}
+
+.section-desc {
+  font-size: 15px;
+  color: #666666;
+  line-height: 1.6;
+}
+
+/* SECTION 1: NFET Gateway (Dark Background) */
+.nfet-gateway-section {
+  background-color: #120921;
+  /* Rich dark violet/black */
+  padding: 80px 0;
+}
+
+.nfet-badge-pill {
+  background-color: #4E1853;
+  /* Muted plum purple */
+  color: #ffffff;
+  font-size: 11px;
+  font-weight: 700;
+  padding: 6px 16px;
+  border-radius: 50px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+/* CTA Buttons */
+.btn-nfet-apply {
+  background-color: #FFAF3D !important;
+  color: #000000 !important;
+  font-weight: 700;
+  font-size: 14px;
+  border-radius: 6px;
+  padding: 10px 24px;
+  border: none;
+  transition: all 0.3s ease;
+  white-space: nowrap;
+}
+
+.btn-nfet-apply:hover {
+  background-color: #E5A93C !important;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 15px rgba(254, 175, 61, 0.3);
+}
+
+.btn-nfet-download {
+  background-color: transparent !important;
+  color: white !important;
+  background-color: #4E1853  !important;
+  border: 1.5px solid #4E1853 !important;
+  font-weight: 700;
+  font-size: 14px;
+  border-radius: 6px;
+  padding: 10px 24px;
+  transition: all 0.3s ease;
+  white-space: nowrap;
+}
+
+.btn-nfet-download:hover {
+  background-color: rgba(255, 255, 255, 0.05) !important;
+  transform: translateY(-2px);
+}
+
+/* Step Strip layout */
+.step-strip-wrapper {
+  width: 100%;
+}
+
+.step-strip-row {
+  display: flex;
+  width: 100%;
+  /* border-radius: 8px; */
+  overflow: hidden;
+}
+
+.step-item {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  padding: 18px 20px;
+  text-align: left;
+  transition: all 0.3s ease;
+}
+
+.step-num {
+  font-size: 11px;
+  font-weight: 800;
+  color: #f0df22 ;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+
+.step-label {
+  font-size: 13px;
+  font-weight: 600;
+  color: #ffffff;
+  margin-top: 4px;
+  line-height: 1.3;
+}
+
+/* Step BG colors */
+.step-active {
+  background-color: #7B6F2C;
+  /* Gold/Olive Active */
+}
+
+.step-active .step-num {
+  color: rgba(255, 255, 255, 0.8);
+}
+
+.step-purple-dark {
+  background-color: #2E1B51;
+}
+
+.step-purple-medium {
+  background-color: #411D6B;
+}
+
+.step-purple-light {
+  background-color: #441460;
+}
+
+.step-purple-black {
+  background-color: #1D052B;
+}
+
+/* SECTION 2: Parents Section */
+.for-parents-section {
+  background-color: #ECE7F2;
+  /* Soft lavender/gray background */
+  padding: 80px 0;
+}
+
+.btn-parent-download {
+  background-color: #4A154B !important;
+  color: #ffffff !important;
+  font-weight: 700;
+  font-size: 14px;
+  border-radius: 6px;
+  padding: 10px 24px;
+  border: none;
+  transition: all 0.3s ease;
+}
+
+.btn-parent-download:hover {
+  background-color: #320d33 !important;
+  transform: translateY(-2px);
+}
+
+.btn-parent-consult {
+  background-color: transparent !important;
+  color: #4A154B !important;
+  border: 1.5px solid rgba(74, 21, 75, 0.2) !important;
+  font-weight: 700;
+  font-size: 14px;
+  border-radius: 6px;
+  padding: 10px 24px;
+  transition: all 0.3s ease;
+}
+
+.btn-parent-consult:hover {
+  background-color: rgba(74, 21, 75, 0.05) !important;
+  transform: translateY(-2px);
+}
+
+/* Parents Grid */
+.parents-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 20px;
+}
+
+.parent-card {
+  background-color: #ffffff;
+  border-radius: 12px;
+  padding: 24px;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.02);
+}
+
+.card-title-text {
+  font-size: 16px;
+  font-weight: 700;
+  color: #130922;
+}
+
+.card-desc-text {
+  font-size: 13px;
+  color: #555555;
+  line-height: 1.5;
+}
+
+/* Helpdesk bar */
+.helpdesk-bar {
+  background-color: #130922;
+  /* Dark Navy-Charcoal */
+  border-radius: 12px;
+  padding: 20px 32px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+}
+
+.helpdesk-title {
+  color: #ffffff;
+  font-size: 14px;
+  font-weight: 700;
+}
+
+.helpdesk-subtitle {
+  color: rgba(255, 255, 255, 0.7);
+  font-size: 12px;
+}
+
+.helpdesk-phone {
+  color: #FFAF3D;
+  /* Yellow Gold */
+  font-size: 22px;
+  font-weight: 800;
+}
+
+/* Responsive Styles */
+@media (max-width: 1199px) {
+  .section-title {
+    font-size: 34px;
+  }
+}
+
+@media (max-width: 991px) {
+
+  .nfet-gateway-section,
+  .for-parents-section {
+    padding: 60px 0;
+  }
+
+  .step-strip-row {
+    flex-wrap: wrap;
+  }
+
+  .step-item {
+    flex: 0 0 50%;
+  }
+}
+
+@media (max-width: 575px) {
+  .section-title {
+    font-size: 26px;
+  }
+
+  .step-item {
+    flex: 0 0 100%;
+  }
+
+  .parents-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .helpdesk-bar {
+    padding: 16px 20px;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 15px;
+  }
+}
+</style>

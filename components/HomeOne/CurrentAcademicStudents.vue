@@ -1,60 +1,111 @@
 <template>
-  <div class="comparison-warp ptb-100">
-    <div class="container">
-      <div class="section-title text-center">
-        <!-- Kept the section title as per previous premium design -->
-        <h2 class="title">TRADITIONAL PATHWAY VS <span class="highlight">GCC School JOURNEY</span></h2>
-        <p>See why GCC School Journey is most suited for professional world of new tomorrow.</p>
+  <div class="comparison-and-faculty-wrapper">
+    <div class="comparison-warp ptb-100">
+      <div class="container">
+        <div class="section-title text-center">
+          <!-- Kept the section title as per previous premium design -->
+          <h2 class="title">TRADITIONAL PATHWAY VS <span>GCC School JOURNEY</span></h2>
+          <p>See why GCC School Journey is most suited for professional world of new tomorrow.</p>
+        </div>
+
+        <div class="table-responsive">
+          <table class="table comparison-table">
+            <thead>
+              <tr>
+                <th scope="col" class="feature-col-header">KEY FEATURES</th>
+                <th scope="col" class="text-center traditional-header">TRADITIONAL PATHWAY</th>
+                <th scope="col" class="text-center gcc-header">
+                  <!-- Setup placeholder for logo if needed, or just text/logo image provided in design -->
+                  <div class="d-flex align-items-center justify-content-center gap-2">
+                    <!-- Assuming logo asset usage, using text for now if asset path not confirmed, or basic icon -->
+
+                    GCC SCHOOL JOURNEY
+                  </div>
+                </th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr v-for="(item, index) in comparisonData" :key="index" :class="index % 2 === 0 ? 'even-row' : 'odd-row'">
+                <td class="feature-name" v-html="item.feature"></td>
+                <td class="text-center traditional-cell">
+                  <span v-if="item.traditional" class="icon-check-green">
+                    <i class="ti ti-circle-check"></i>
+                  </span>
+                  <span v-else class="icon-cross-red">
+                    <i class="ti ti-circle-x"></i>
+                  </span>
+                </td>
+                <td class="text-center gcc-cell">
+                  <span v-if="item.gcc" class="icon-check-gold">
+                    <i class="ti ti-circle-check"></i>
+                  </span>
+                  <span v-else class="icon-cross-red">
+                    <i class="ti ti-circle-x"></i>
+                  </span>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div>
+
+        </div>
       </div>
+    </div>
 
-      <div class="table-responsive">
-        <table class="table comparison-table">
-          <thead>
-            <tr>
-              <th scope="col" class="feature-col-header">KEY FEATURES</th>
-              <th scope="col" class="text-center traditional-header">TRADITIONAL PATHWAY</th>
-              <th scope="col" class="text-center gcc-header">
-                <!-- Setup placeholder for logo if needed, or just text/logo image provided in design -->
-                <div class="d-flex align-items-center justify-content-center gap-2">
-                  <!-- Assuming logo asset usage, using text for now if asset path not confirmed, or basic icon -->
+    <!-- Faculty & Mentors Section -->
+    <div class="faculty-mentors-area ptb-100">
+      <div class="container">
+        <div class="row align-items-center">
+          <!-- Left Info Block -->
+          <div class="col-lg-5 col-12 mb-lg-0 mb-5">
+            <div class="faculty-info text-start">
+              <span class="gold-tag">FACULTY & MENTORS</span>
+              <h2 class="faculty-heading mt-2">Taught By People Who<br class="d-none d-md-block" /> Have Done The Work.</h2>
+              <p class="faculty-desc mt-3">
+                Practising CPAs, Chartered Accountants and Enrolled Agents, not just lecturers. You learn how the work is really done, from people who have done it at a high level.
+              </p>
+              <NuxtLink to="/thinktank" class="btn btn-purple-meet mt-4">
+                Meet The Faculty <i class="ti ti-arrow-right ms-2"></i>
+              </NuxtLink>
+            </div>
+          </div>
 
-                  GCC SCHOOL JOURNEY
+          <!-- Right Cards Block -->
+          <div class="col-lg-7 col-12">
+            <div class="d-flex flex-md-row flex-column gap-4 justify-content-lg-end justify-content-center">
+              <!-- Card 1: Nitish Khatri -->
+              <div class="relative">
+                <div class="card-right">
+                  <img :src="nitishImage" alt="CPA Nitish Khatri" class="faculty-img" loading="lazy" decoding="async" />
                 </div>
-              </th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr v-for="(item, index) in comparisonData" :key="index" :class="index % 2 === 0 ? 'even-row' : 'odd-row'">
-              <td class="feature-name" v-html="item.feature"></td>
-              <td class="text-center traditional-cell">
-                <span v-if="item.traditional" class="icon-check-green">
-                  <i class="ti ti-circle-check"></i>
-                </span>
-                <span v-else class="icon-cross-red">
-                  <i class="ti ti-circle-x"></i>
-                </span>
-              </td>
-              <td class="text-center gcc-cell">
-                <span v-if="item.gcc" class="icon-check-gold">
-                  <i class="ti ti-circle-check"></i>
-                </span>
-                <span v-else class="icon-cross-red">
-                  <i class="ti ti-circle-x"></i>
-                </span>
-              </td>
-            </tr>
-          </tbody>
-        </table>
+              </div>
+
+              <!-- Card 2: Ankur Sharma -->
+              <div class="relative">
+                <div class="card-right">
+                  <img :src="ankurImage" alt="CA Ankur Sharma" class="faculty-img" loading="lazy" decoding="async" />
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   </div>
 </template>
 
 <script>
+import nitish from '@/assets/img/expert/nitish.png'
+import ankur from '@/assets/img/expert/ankur.png'
+
 export default {
   name: "CurrentAcademicStudents",
   data() {
     return {
+      nitishImage: nitish,
+      ankurImage: ankur,
       comparisonData: [
         { feature: "<strong>Globally Recognised</strong> Academic Credentials", traditional: true, gcc: true },
         { feature: "<strong>Strong</strong> Theoretical Foundation", traditional: true, gcc: true },
@@ -74,7 +125,7 @@ export default {
 
 <style scoped>
 .comparison-warp {
-  background-color: #EEECF4;
+  background-color: #eceef4;
 }
 
 .table-responsive {
@@ -358,5 +409,115 @@ tr:last-child .gcc-cell {
     width: 500px;
   }
 
+}
+
+/* Faculty & Mentors Section Styles */
+.faculty-mentors-area {
+  background-color: #EEECF4;
+  padding: 80px 0;
+  border-top: 1px solid #ECECF0;
+}
+
+.gold-tag {
+  color: #D5861B;
+  font-weight: 700;
+  font-size: 21px;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  display: block;
+}
+
+.faculty-heading {
+  font-size: 42px;
+  font-weight: 800;
+  color: #130922;
+  line-height: 1.25;
+}
+
+.faculty-desc {
+  font-size: 19px;
+  color: #555555;
+  line-height: 1.6;
+}
+
+.btn-purple-meet {
+  background-color: #4A154B !important;
+  color: #ffffff !important;
+  font-weight: 700;
+  font-size: 14px;
+  padding: 10px 24px;
+  border-radius: 6px;
+  display: inline-flex;
+  align-items: center;
+  text-decoration: none;
+  transition: all 0.3s ease;
+}
+
+.btn-purple-meet:hover {
+  background-color: #320d33 !important;
+  transform: translateY(-2px);
+}
+
+.faculty-card {
+  background: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.05);
+  padding: 24px 20px 0 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  height: 210px;
+  width: 330px;
+  position: relative;
+  overflow: hidden;
+}
+
+.exp-badge {
+  position: absolute;
+  top: 0;
+  right: 20px;
+  background-color: #FFAF3D;
+  color: #35083D;
+  font-size: 10px;
+  font-weight: 800;
+  padding: 6px 8px;
+  width: 34px;
+  text-align: center;
+  line-height: 1.2;
+  border-bottom-left-radius: 4px;
+  border-bottom-right-radius: 4px;
+}
+
+.faculty-name {
+  font-size: 16px;
+  font-weight: 700;
+  color: #130922;
+  margin-bottom: 4px;
+}
+
+.faculty-title {
+  font-size: 12px;
+  color: #6B1B75;
+  font-weight: 600;
+}
+
+.faculty-img {
+  height: 170px;
+  width: auto;
+  object-fit: contain;
+  align-self: flex-end;
+  margin-bottom: 0;
+}
+
+@media (max-width: 767px) {
+  .faculty-card {
+    margin: 0 auto;
+  }
+}
+
+@media (max-width: 575px) {
+  .faculty-heading {
+    font-size: 30px;
+  }
 }
 </style>

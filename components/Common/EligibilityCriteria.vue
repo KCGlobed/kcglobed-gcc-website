@@ -4,7 +4,7 @@
             <div class="content-wrapper">
                 <!-- Title Section -->
                 <div class="title-box">
-                    <h2>NFET EXAM <span class="highlight">ELIGIBILITY</span></h2>
+                    <h2>NFET EXAM <span>ELIGIBILITY</span></h2>
                 </div>
 
                 <!-- Criteria Grid -->
@@ -12,25 +12,25 @@
                     <div class="criteria-grid">
                         <div class="criteria-item">
                             <div class="icon-box">
-                                <i class="ti ti-circle-check-filled"></i>
+                                <!-- <i class="ti ti-circle-check-filled"></i> -->
                             </div>
                             <span>B.Com (First Division From UGC Approved University)</span>
                         </div>
                         <div class="criteria-item">
                             <div class="icon-box">
-                                <i class="ti ti-circle-check-filled"></i>
+                                <!-- <i class="ti ti-circle-check-filled"></i> -->
                             </div>
                             <span>B.Com + M.Com / MBA / PG (First Division)</span>
                         </div>
                         <div class="criteria-item">
                             <div class="icon-box">
-                                <i class="ti ti-circle-check-filled"></i>
+                                <!-- <i class="ti ti-circle-check-filled"></i> -->
                             </div>
                             <span>Indian Citizen</span>
                         </div>
                         <div class="criteria-item">
                             <div class="icon-box">
-                                <i class="ti ti-circle-check-filled"></i>
+                                <!-- <i class="ti ti-circle-check-filled"></i> -->
                             </div>
                             <span>Born on or after January 1, 1996</span>
                         </div>

@@ -2,7 +2,7 @@
     <div class="gcc-school-section">
         <div class="container text-center">
             <div class="section-header mb-60">
-                <h2 class="title">AT <span class="highlight">GCC SCHOOL</span>
+                <h2 class="title">AT <span>GCC SCHOOL</span>
                     We prepare finance leaders to achieve the next elevation - for their organisations and for
                     themselves
                 </h2>
@@ -40,13 +40,13 @@
 .gcc-school-section {
     padding: 80px 0;
     /* Increased padding for premium look */
-    background-color: #f9fafb;
+    background-color: #ececeddf;
     overflow: hidden;
 }
 
 .section-header .title {
     font-size: clamp(24px, 4vw, 36px);
-    font-weight: 800;
+    font-weight: 500;
     color: #0d0d25;
     margin-bottom: 20px;
     text-transform: uppercase;

@@ -340,7 +340,7 @@ const accordionStyle = (index: number) => {
 
 <style scoped>
 .faq-section {
-    background: #f8faff;
+    background: #ececec;
     background-image: radial-gradient(#F1A63E 0.5px, transparent 0.5px);
     background-size: 30px 30px;
     background-color: #fcfdfe;

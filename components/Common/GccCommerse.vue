@@ -5,7 +5,7 @@
             <div class="section-header">
                 <h2 class="section-title">
 
-                    WORLD'S FIRST SCHOOL, BUILT BY GCC LEADERS TO SHAPE<br /> <span class="highlight">THE NATION'S
+                    WORLD'S FIRST SCHOOL, BUILT BY GCC LEADERS TO SHAPE<br /> <span>THE NATION'S
                         FUTURE GCC
                         TALENT</span>
                 </h2>

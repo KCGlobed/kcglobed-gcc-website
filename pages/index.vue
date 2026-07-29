@@ -4,9 +4,11 @@
     <LayoutMainNavbar />
     <HomeOneMainBanner />
     <HomeOneInformationForInternationalStudents />
+    <HomeGovtProgram />
     <CommonPathwayYourSuccess />
     <CommonEligibilityCriteria />
-    <HomeOneFutureStudents />
+    <HomeOneProgramsAndOutcomes />
+    <!-- <HomeOneFutureStudents /> -->
     <CommonGccSchool />
     <CommonDirectorSpeach />
     <CommonGccCommerse />
@@ -14,11 +16,15 @@
     <CommonPathway />
     <HomeOneCurrentAcademicStudents />
     <CommonThinkTank />
-    <CommonSubjectMatterExpert />
     <CommonIndustryMentor />
+    <HomeOneNfetAndParents />
     <CommonFunFact />
     <CommonNewsCard />
+    <CommonPowerHouse />
+    <HomeOneSpotlightSection />
+    <HomeOneStudentParentVideoSection />
     <CommonTrustecoSystem />
+    <HomeOneResourcesAndNews />
     <CommonFaqSection />
     <CommonCampus />
     <LayoutMainFooter />
@@ -30,6 +36,13 @@
 </template>
 
 <script setup lang="ts">
+import HomeGovtProgram from '~/components/HomeOne/HomeGovtProgram.vue';
+import HomeOneProgramsAndOutcomes from '~/components/HomeOne/ProgramsAndOutcomes.vue';
+import HomeOneNfetAndParents from '~/components/HomeOne/NfetAndParents.vue';
+import HomeOneSpotlightSection from '~/components/HomeOne/SpotlightSection.vue';
+import HomeOneStudentParentVideoSection from '~/components/HomeOne/StudentParentVideoSection.vue';
+import HomeOneResourcesAndNews from '~/components/HomeOne/ResourcesAndNews.vue';
+import EligibilityCriteria from '~/components/Common/EligibilityCriteria.vue';
 
 useHead({
   title: "GCC School: Get Hired First, Then Trained",
