@@ -475,14 +475,14 @@ Navbar Warp  Style
   background: #fff;
 }
 
-.navbar .navbar-nav {
+/* .navbar .navbar-nav {
   margin-right: 50px;
-}
+} */
 
 .navbar .navbar-nav .nav-item {
   position: relative;
-  margin-left: 20px;
-  margin-right: 20px;
+  /* margin-left: 20px;
+  margin-right: 20px; */
 }
 
 .navbar .navbar-nav .nav-item .nav-link {

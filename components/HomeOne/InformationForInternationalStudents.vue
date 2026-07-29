@@ -1,83 +1,95 @@
 <template>
-  <div class="information-warp pb-50">
-    <div class="container">
-      <div class="row">
-        <div class="col-md-12">
-
-          <div class="panelBox">
-            <div class="title-strip">
-              <h3>CUSTOMIZED FOR GCCs TALENT REQUIREMENTS</h3>
-            </div>
-            <div class="boxes-container">
-              <div class="box">
-                <img src="../../assets/img/heros/panleIcon1.png" class="icon" loading="lazy" decoding="async" />
-                <p>Hired First</p>
-                <span>Then Trained</span>
-              </div>
-              <div class="box">
-                <!-- <img src="../../assets/img/heros/panleIcon2.png" class="icon" loading="lazy" decoding="async" />
-                <p>Paid Internship</p>
-                <span>6 Months</span> -->
-                <img src="../../assets/img/common/adaptive.svg" alt="Adaptive Industry Learning" loading="lazy"
-                  decoding="async">
-              </div>
-              <div class="box">
-                <img src="/img/acca.svg" alt="acca" class="logo" loading="lazy" decoding="async" />
-                <span class="mt-1">UK ACCA <br> Integrated</span>
-              </div>
-              <div class="box">
-                <img src="../../assets/img/heros/panleIcon4.png" alt="british council" class="logo" loading="lazy"
-                  decoding="async" />
-                <span class="mt-2">Approved Partner</span>
-              </div>
-              <div class="box">
-                <img src="../../assets/img/heros/panleIcon5.png" alt="AIMA" class="logo" loading="lazy"
-                  decoding="async" />
-                <span class="mt-2">AICTE Approved PGCM Certificate from AIMA</span>
-              </div>
-              <div class="box">
-                <img src="../../assets/img/heros/panleIcon6.png" class="icon" loading="lazy" decoding="async" />
-                <p>AI First</p>
-                <span>Integrated Curriculum</span>
-              </div>
-            </div>
-          </div>
+  <div class="information-warp pb-50 ">
+    <!-- Accreditations / Logos Strip (Full-width flat bar) -->
+    <div class="panelBox">
+      <div class="boxes-container">
+        <!-- AICPA -->
+        <div class="box">
+          <img src="../../assets/img/AICPA_logo.png" alt="AICPA Logo" loading="lazy" decoding="async" />
+          <span>US CPA Pathway</span>
+        </div>
+        <!-- ACCA -->
+        <div class="box">
+          <img src="../../assets/newimages/red-acca-logo.svg" alt="ACCA Logo"
+            loading="lazy" decoding="async" />
+          <span>ACCA</span>
+        </div>
+        <!-- IRS -->
+        <div class="box">
+          <img src="../../assets/img/IRS_logo.png" alt="IRS Logo" loading="lazy" decoding="async" />
+          <span>US Enrolled Agent</span>
+        </div>
+        <!-- British Council -->
+        <div class="box">
+          <img src="../../assets/img/heros/panleIcon4.png" alt="British Council Logo" loading="lazy" decoding="async" />
+        </div>
+        <!-- AIMA -->
+        <div class="box">
+          <img src="../../assets/img/heros/panleIcon5.png" alt="AIMA Logo" loading="lazy" decoding="async" />
+          <span>AICTE-Approved PGCM</span>
+        </div>
+        <!-- KC GlobEd -->
+        <div class="box">
+          <img src="../../assets/img/logo_kcglobed.svg" alt="KC GlobEd Logo" loading="lazy" decoding="async" />
+          <span>Backed by KC GlobEd - 30+ Years</span>
+        </div>
+        <!-- University of London -->
+        <div class="box">
+          <img src="../../assets/img/companylogo/4.png" alt="University of London Logo" loading="lazy"
+            decoding="async" />
+          <span>University of London MSc (Optional)</span>
         </div>
       </div>
-      <div class="row justify-content-center g-4">
-        <div class="col-lg-8">
+    </div>
+
+    <!-- Main Content Block (Introducing the Hire-First Model & Video Card) -->
+    <div class="container-fluid px-lg-5 px-md-4 px-3 mt-5">
+      <div class="row align-items-center justify-content-between g-5 content-row" style="background: #f8f6ff;">
+        <!-- Left Column: Content -->
+        <div class="col-lg-6 text-start">
+          <span class="hire-badge-title">INTRODUCING THE HIRE-FIRST MODEL</span>
+          <h2 class="hire-main-title mt-3">
+            Disrupting The Traditional, Ordinary, Conventional, Normal Education System.
+          </h2>
+          <div class="d-flex gap-3 flex-wrap mt-4">
+            <button class="btn btn-purple px-4 py-3" data-bs-toggle="modal" data-bs-target="#applyNowModal">
+              Explore The Model &rarr;
+            </button>
+            <button class="btn btn-outline-purple px-4 py-3" @click="toggleEligibilityModal">
+              View Career Paths
+            </button>
+          </div>
+        </div>
+
+        <!-- Right Column: Video Box -->
+        <div class="col-lg-6">
           <div class="video-box-wrapper">
             <div class="video-section shadow-lg">
               <div class="video-container">
                 <video ref="infoVideo" controls muted loop controlsList="nodownload" oncontextmenu="return false;"
                   class="w-100 h-100" @play="isVideoPlaying = true" @pause="isVideoPlaying = false"
-                  style="object-fit: contain; background: #0b0b1a;">
+                  style="object-fit: cover; background: #0b0b1a;">
                   <source
                     src="https://storage.googleapis.com/static_files_backend/media/images/Kamal%20Sir%20Video_1.mp4"
                     type="video/mp4">
                   Your browser does not support the video tag.
                 </video>
+
                 <!-- Custom Play Overlay (visible before play) -->
-                <div v-if="!isVideoPlaying" class="play-overlay" @click="playVideo">
-                  <div class="play-btn-circle">
+                <div v-if="!isVideoPlaying" class="play-overlay d-flex align-items-center px-lg-4 px-3"
+                  @click="playVideo">
+                  <div class="play-btn-circle me-lg-4 me-3">
                     <i class="ti ti-player-play-filled"></i>
                   </div>
-                  <!-- <div class="play-text">Experience Our Platform</div> -->
                 </div>
+
                 <!-- Thumbnail Mask (visible before play) -->
                 <img v-if="!isVideoPlaying"
                   src="https://storage.googleapis.com/static_files_backend/media/images/kamal%20sir%20thnml%202.jpg"
                   class="video-poster-img" @click="playVideo" alt="Thumbnail">
               </div>
-              <!-- <div class="video-badge-new">
-                <img src="~/assets/Logo/Logo/GCC-School-Logo-White.png" alt="GCC Logo" loading="lazy" decoding="async" />
-                <div class="badge-content">
-                  <span class="badge-tag">AI-Enabled</span>
-                  <span class="badge-title">LMS Tutorial</span>
-                </div>
-              </div> -->
             </div>
-            <!-- Decorative elements -->
+            <!-- Decorative shapes -->
             <div class="decor-shape shape-1"></div>
             <div class="decor-shape shape-2"></div>
             <div class="decor-shape shape-3"></div>
@@ -124,154 +136,126 @@ export default {
 </script>
 
 <style scoped>
-/* Video Section Styles */
 .information-warp {
   position: relative;
-  padding-top: 180px;
+  padding-top: 0;
+  background-color: #F7F7F8 !important;
+  margin-bottom: 25px;
 }
-
 
 .pb-50 {
   padding-bottom: 50px;
 }
 
-
+/* Accreditations Panel Box (Flat full-width layout) */
 .panelBox {
-  display: flex;
-  flex-direction: column;
-  background-color: white;
-  box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
-  border-radius: 10px;
-  position: absolute;
-  top: -30px;
-  transform: translateX(-50%);
-  left: 50%;
-  z-index: 100;
-  width: 95%;
-  max-width: 1240px;
-  overflow: hidden;
-}
-
-.title-strip {
-  background: linear-gradient(135deg, #38003C 0%, #6B1B75 100%);
-  padding: 15px 30px;
-  text-align: center;
-}
-
-.title-strip h3 {
-  color: white;
-  font-size: 18px;
-  font-weight: 700;
-  margin: 0;
-  /* text-transform: uppercase; */
-  letter-spacing: 0.5px;
+  background-color: #ffffff;
+  border-bottom: 1px solid #eaeaea;
+  border-top: 1px solid #eaeaea;
+  width: 100%;
+  z-index: 10;
 }
 
 .boxes-container {
   display: flex;
-  padding: 30px;
-  padding-left: 60px;
-  gap: 30px;
-  line-height: 15px;
+  justify-content: space-between;
+  align-items: center;
+  padding: 25px 40px;
+  background: #ffffff;
+  /* max-width: 1300px; */
+  margin: 0 auto;
+  width: 100%;
 }
 
-@media (max-width: 1200px) {
-  .title-strip h3 {
-    font-size: 16px;
-  }
-
-  .boxes-container {
-    padding-left: 30px;
-    gap: 15px;
-    padding-bottom: 20px;
-  }
-
-  .panelBox .box p {
-    font-size: 18px;
-    line-height: 24px;
-  }
-}
-
-@media (max-width: 991px) {
-  .panelBox {
-    position: relative;
-    top: 0;
-    left: 0;
-    transform: none;
-    margin: -100px auto 40px;
-    width: 100%;
-  }
-
-  .title-strip {
-    padding: 12px 20px;
-  }
-
-  .title-strip h3 {
-    font-size: 14px;
-  }
-
-  .boxes-container {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    padding: 20px;
-  }
-}
-
-@media (max-width: 767px) {
-  .title-strip h3 {
-    font-size: 12px;
-  }
-
-  .boxes-container {
-    grid-template-columns: repeat(2, 1fr);
-    padding: 15px;
-  }
-}
-
-.panelBox .box {
+.boxes-container .box {
   flex: 1;
-  width: 150px;
   display: flex;
   flex-direction: column;
-
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  border-right: 1px solid #E5E5E5;
+  padding: 0 12px;
+  min-height: 80px;
 }
 
-.panelBox .box .logo {
-  width: 100px;
+.boxes-container .box:last-child {
+  border-right: none;
 }
 
-.panelBox .box .icon {
-  width: 25px;
-  height: 25px;
+.boxes-container .box img {
+  max-height: 40px;
+  max-width: 100%;
+  object-fit: contain;
 }
 
-.panelBox .box p {
-  font-size: 22px;
-  font-weight: bold;
-  color: #38003C;
-  margin-bottom: 0;
-  line-height: 32px;
+.boxes-container .box span {
+  font-size: 10px;
+  font-weight: 700;
+  color: #777777;
+  text-transform: uppercase;
+  margin-top: 8px;
+  line-height: 1.2;
 }
 
-
-
-.panelBox .box span {
-  font-size: 11px;
-
+/* Content block styles */
+.hire-badge-title {
+  color: #D98E23;
+  font-size: 14px;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
 }
 
+.hire-main-title {
+  font-size: 56px;
+  font-weight: 600;
+  line-height: 1.25;
+  color: #130922;
+}
+
+.btn-purple {
+  background-color: #4A154B !important;
+  color: #FFFFFF !important;
+  font-weight: 700;
+  border-radius: 6px;
+  transition: all 0.3s ease;
+  border: none;
+  font-size: 15px;
+}
+
+.btn-purple:hover {
+  background-color: #320d33 !important;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 15px rgba(74, 21, 75, 0.3);
+}
+
+.btn-outline-purple {
+  background-color: #ffffff !important;
+  color: #4A154B !important;
+  border: 1.5px solid #4A154B !important;
+  font-weight: 700;
+  border-radius: 6px;
+  transition: all 0.3s ease;
+  font-size: 15px;
+}
+
+.btn-outline-purple:hover {
+  background-color: rgba(74, 21, 75, 0.05) !important;
+  transform: translateY(-2px);
+}
 
 /* Video Section Styles */
 .video-box-wrapper {
   position: relative;
-  padding: 30px;
+  padding: 20px;
   z-index: 1;
 }
 
 .video-section {
   position: relative;
   width: 100%;
-  border-radius: 30px;
+  border-radius: 20px;
   overflow: hidden;
   background: #000;
   z-index: 2;
@@ -279,17 +263,15 @@ export default {
 }
 
 .video-section:hover {
-  transform: translateY(-5px);
+  transform: translateY(-4px);
 }
 
 .video-container {
   position: relative;
   width: 100%;
   padding-bottom: 56.25%;
-  /* 16:9 Aspect Ratio */
+  /* 16:9 */
   background: #0b0b1a;
-  /* Darker background for contained media */
-  box-shadow: inset 0 0 50px rgba(0, 0, 0, 0.5);
 }
 
 .video-container video {
@@ -298,8 +280,7 @@ export default {
   left: 0;
   width: 100%;
   height: 100%;
-  object-fit: contain;
-  /* Ensure full video is visible */
+  object-fit: cover;
   z-index: 1;
 }
 
@@ -309,46 +290,45 @@ export default {
   left: 0;
   width: 100%;
   height: 100%;
-  object-fit: contain;
-  /* Ensure full thumbnail is visible */
-  background: transparent;
+  object-fit: cover;
   z-index: 3;
   cursor: pointer;
-  transition: all 0.5s cubic-bezier(0.165, 0.84, 0.44, 1);
+  transition: all 0.5s ease;
 }
 
 .video-section:hover .video-poster-img {
-  transform: scale(1.05);
+  transform: scale(1.03);
 }
 
-.play-overlay {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  background: rgba(13, 13, 37, 0.3);
-  z-index: 4;
-  cursor: pointer;
+  .play-overlay {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: rgba(0, 0, 0, 0.45);
+    z-index: 4;
+    cursor: pointer;
+  }
+
+
+.play-overlay:hover {
+  background: rgba(0, 0, 0, 0.55);
 }
 
 .play-btn-circle {
-  width: 90px;
-  height: 90px;
+  width: 60px;
+  height: 60px;
   background: #A13E99;
   border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
   color: white;
-  font-size: 32px;
-  box-shadow: 0 0 0 0 rgba(161, 62, 153, 0.4);
-  animation: pulse-play 2s infinite;
+  font-size: 20px;
+  box-shadow: 0 4px 15px rgba(161, 62, 153, 0.4);
   transition: all 0.3s ease;
+  flex-shrink: 0;
 }
 
 .play-overlay:hover .play-btn-circle {
@@ -356,77 +336,31 @@ export default {
   background: #C436BE;
 }
 
-.play-text {
+.video-overlay-text {
+  flex: 1;
+}
+
+.purple-badge {
+  background: #6B1B75;
   color: white;
-  margin-top: 20px;
+  font-size: 11px;
   font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 2px;
-  font-size: 14px;
-  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+  padding: 4px 12px;
+  border-radius: 4px;
+  display: inline-block;
 }
 
-@keyframes pulse-play {
-  0% {
-    transform: scale(0.95);
-    box-shadow: 0 0 0 0 rgba(161, 62, 153, 0.7);
-  }
-
-  70% {
-    transform: scale(1);
-    box-shadow: 0 0 0 20px rgba(161, 62, 153, 0);
-  }
-
-  100% {
-    transform: scale(0.95);
-    box-shadow: 0 0 0 0 rgba(161, 62, 153, 0);
-  }
-}
-
-/* Video Badge New */
-.video-badge-new {
-  position: absolute;
-  bottom: 30px;
-  left: 30px;
-  background: rgba(255, 255, 255, 0.1);
-  backdrop-filter: blur(15px);
-  padding: 12px 25px;
-  border-radius: 20px;
-  border: 1px solid rgba(255, 255, 255, 0.2);
-  display: flex;
-  align-items: center;
-  gap: 15px;
-  z-index: 5;
-  transition: all 0.3s ease;
-}
-
-.video-badge-new:hover {
-  background: rgba(255, 255, 255, 0.2);
-  transform: scale(1.05);
-}
-
-.video-badge-new img {
-  width: 50px;
-  height: auto;
-}
-
-.badge-content {
-  display: flex;
-  flex-direction: column;
-}
-
-.badge-tag {
-  font-size: 10px;
-  color: #FFC065;
+.overlay-speaker-name {
+  font-size: 18px;
   font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 1px;
+  color: #FFFFFF;
 }
 
-.badge-title {
-  font-size: 16px;
-  color: white;
-  font-weight: 600;
+.overlay-speaker-title {
+  font-size: 12px;
+  color: rgba(255, 255, 255, 0.8);
+  margin-bottom: 0px;
+  font-weight: 500;
 }
 
 /* Decorative Shapes */
@@ -462,93 +396,92 @@ export default {
 }
 
 /* Responsive Design */
+@media (max-width: 1199px) {
+  .hire-main-title {
+    font-size: 34px;
+  }
+}
+
 @media (max-width: 991px) {
-  .video-section {
-    border-radius: 20px;
+  .boxes-container {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
+    padding: 20px;
   }
 
-  .play-btn-circle {
-    width: 70px;
-    height: 70px;
-    font-size: 24px;
+  .boxes-container .box {
+    border-right: none;
+    border-bottom: 1px solid #E5E5E5;
+    padding-bottom: 15px;
+    width: auto;
+    min-height: unset;
   }
 
-  .video-badge-new {
-    bottom: 20px;
-    left: 20px;
-    padding: 10px 15px;
+  .boxes-container .box:nth-child(4),
+  .boxes-container .box:nth-child(7),
+  .boxes-container .box:last-child {
+    border-bottom: none;
   }
 
-  .video-badge-new img {
-    width: 40px;
+  .content-row {
+    margin-top: 20px !important;
   }
 }
 
 @media (max-width: 767px) {
-  .video-box-wrapper {
-    padding: 15px;
+  .boxes-container {
+    grid-template-columns: repeat(3, 1fr);
   }
 
-  .play-text {
-    font-size: 12px;
+  .boxes-container .box:nth-child(4) {
+    border-bottom: 1px solid #E5E5E5;
   }
 
-  .badge-title {
-    font-size: 14px;
+  .hire-main-title {
+    font-size: 28px;
+  }
+
+  .play-btn-circle {
+    width: 50px;
+    height: 50px;
+    font-size: 16px;
+  }
+
+  .overlay-speaker-name {
+    font-size: 15px;
+  }
+
+  .purple-badge {
+    font-size: 10px;
+    padding: 2px 8px;
   }
 }
 
-
-@media (max-width: 565px) {
-  .information-warp {
-    padding-top: 20px;
-  }
-
-  .timeline-container {
-    margin: 30px auto 0;
-  }
-
-  .panelBox {
-    transform: none;
-    position: inherit;
-    margin-bottom: 20px;
-    margin-top: 10px;
-  }
-
-  .title-strip {
-    padding: 10px 15px;
-  }
-
-  .title-strip h3 {
-    font-size: 11px;
-    letter-spacing: 0.3px;
-  }
-
+@media (max-width: 575px) {
   .boxes-container {
-    display: grid;
-    padding: 20px;
+    grid-template-columns: repeat(2, 1fr);
+    padding: 15px;
     gap: 15px;
-    grid-template-columns: 1fr 1fr;
   }
 
-  .panelBox .box {
-    padding: 10px;
+  .boxes-container .box {
+    border-bottom: 1px solid #E5E5E5;
+    padding-bottom: 10px;
   }
 
-  .shape-1 {
+  .boxes-container .box:nth-last-child(-n+2) {
+    border-bottom: none;
+  }
+
+  .btn-purple,
+  .btn-outline-purple {
+    width: 100%;
+    text-align: center;
+  }
+
+  .decor-shape {
     display: none;
-  }
-
-  .shape-2 {
-    display: none;
-  }
-
-  .shape-3 {
-    display: none;
-  }
-
-  .pb-50 {
-    padding-bottom: 20px;
   }
 }
 </style>

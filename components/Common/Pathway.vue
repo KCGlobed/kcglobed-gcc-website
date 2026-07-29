@@ -5,7 +5,7 @@
                 <div class="col-12">
                     <div class="section-header text-center mb-60" >
 
-                        <h2 class="title">GCC <span class="highlight">EXPERIENTIAL LEARNING PATHWAY</span></h2>
+                        <h2 class="title">GCC <span>EXPERIENTIAL LEARNING PATHWAY</span></h2>
 
                     </div>
                 </div>
@@ -62,7 +62,7 @@
 
 .title {
     font-size: 32px;
-    font-weight: 800;
+    font-weight: 700;
     color: #0d0d25;
     margin-bottom: 0;
     line-height: 1.2;

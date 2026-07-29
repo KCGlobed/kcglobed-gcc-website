@@ -8,113 +8,80 @@
         <div class="hero-slider-warp" :style="{
           'background-image': `url(${banner.image})`,
         }">
-          <div class="container-fluid">
-            <div class="row align-items-center">
+          <div class="container-fluid hero-container px-lg-5 px-md-4 px-3">
+            <!-- Top Content (Main Hero Area) -->
+            <div class="row align-items-end justify-content-between main-hero-row">
               <!-- Left Content -->
-              <div class="col-lg-6">
+              <div class="col-lg-7 text-start mb-lg-0 mb-4">
                 <span class="hero-badge">
-                  <!-- <span class="badge-dot"></span> -->
-                  <span class="blinking-text">{{ banner.subTitle }}</span>
+                  <span>INDIA'S FIRST SCHOOL FOR COMMERCE GRADUATES</span>
                 </span>
 
                 <h1 class="hero-title mt-3">
-                  India's 1st School<br />
-                  for Commerce Graduates
-                  <br />
-
+                  India’s 1st School<br />
+                  For Commerce &<br />
+                  Management Graduates
                 </h1>
-                <p class="hero-subtitle-first">
-                  Powered by Industry Titans,<br />
-                  Defined by Performance
-                </p>
 
-                <p class="hero-subtitle">
+                <p class="hero-subtitle mt-3">
+                  Powered by Industry titans, Defined by Performance
+                </p>
+                <p class="hero-description">
                   At GCC School, you get hired first, then trained.
-
                 </p>
 
-                <!-- <p class="hero-description">
-                  Don't just prepare for the corporate world — you enter it. Every session, project,
-                  and mentor experience mirrors the way top global firms actually operate.
-                </p> -->
-
-                <div class="d-flex gap-3 flex-wrap">
-                  <button class="btn btn-primary px-4 py-3" data-bs-toggle="modal" data-bs-target="#applyNowModal">
-                    {{ banner.btnText }}
+                <div class="d-flex gap-3 flex-wrap mt-4">
+                  <button class="btn btn-apply px-4 py-3" data-bs-toggle="modal" data-bs-target="#applyNowModal">
+                    Apply for NFET
                   </button>
-                  <!-- <button class="btn btn-light px-4 py-3" data-bs-toggle="modal" data-bs-target="#enquiryModal">
-                    {{ banner.btnTextTwo }}
-                  </button> -->
+                  <button class="btn btn-explore px-4 py-3" data-bs-toggle="modal" data-bs-target="#enquiryModal">
+                    Explore Programs
+                  </button>
                 </div>
               </div>
-               <!-- Right Card -->
-              <div class="col-lg-6">
-                <div class="journey-card">
-                  <div class="row">
-                    <!-- Left side - Content -->
-                    <div class="col-md-7">
-                      <h2 class="card-title mb-4">
 
-                        <span class="text-gradient">
-                          Start Your Journey With GCC School
-                        </span>
-                        <br />
-                        For A Unique 12 Months AI-Enabled International Accounting Professionals (AEIAP) Program
-                      </h2>
-
-                      <!-- <p class="text-muted small mb-4">For A Unique 12 Months Professional Program</p> -->
-
-                      <!-- <div class="mb-4">
-                        <div class="d-flex gap-2 mb-3 align-items-start card-feature">
-                          <div class="feature-icon">
-                            <img src="../../assets/img/heros/heroSec1.png" />
-                          </div>
-                          <div>
-                            <div class="fw-bold small">12 Month Program</div>
-                            <small class="text-muted-small">Intensive professional fast track</small>
-                          </div>
-                        </div>
-
-                        <div class="d-flex gap-2 mb-3 align-items-start  card-feature">
-                          <div class="feature-icon">
-                            <img src="../../assets/img/heros/heroSec2.png" />
-                          </div>
-                          <div>
-                            <div class="fw-bold small">AEIAP </div>
-                            <small class="text-muted-small">AI-Enabled International Accounting Certification
-                              Program</small>
-                          </div>
-                        </div>
-                   
-                        <div class="d-flex gap-2 mb-3 align-items-start  card-feature">
-                          <div class="feature-icon">
-                            <img src="../../assets/img/heros/heroSec3.png" />
-                          </div>
-                          <div>
-                            <div class="fw-bold small">GCC Talent Ready</div>
-                            <small class="text-muted-small">Industry proven global requirements</small>
-                          </div>
-                        </div>
-                      </div> -->
-
-                      <button class="btn btn-gradient w-100 mb-2" data-bs-toggle="modal" data-bs-target="#dossierModal">
-                        Download Dossier <img src="../../assets/img/heros/heroSec5.png" />
-                      </button>
-
-                      <!-- <p class="text-center text-muted small">Join to transform your career</p> -->
-                    </div>
-
-                    <!-- Right side - Profile Image -->
-                    <div class="col-5 rightSideBox">
-                      <div class="profile-badge">
-                        <img src="../../assets/img/heros/heroSec4.png" />
-                        <div>
-                          <div class="fw-bold small">Global Recognition</div>
-                          <small class="text-muted">Certified AI-Accountant</small>
-                        </div>
-                      </div>
-                    </div>
+              <!-- Right Card -->
+              <div class="col-lg-4 d-flex justify-content-lg-end justify-content-center">
+                <div class="cohort-card">
+                  <div class="cohort-card-content">
+                    <div class="cohort-label">NOVEMBER 2026 COHORT</div>
+                    <div class="cohort-seats">120 SEATS - ONE EXAM</div>
+                    <div class="cohort-location">DLF CYBER CITY, GURUGRAM</div>
                   </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Stats Row at the bottom of the hero -->
+            <div class="row stats-row g-3 row-cols-2 row-cols-md-3 row-cols-lg-5">
+              <div class="col stats-col">
+                <div class="stat-box">
+                  <div class="stat-number">₹10 LPA</div>
+                  <div class="stat-label">Pre-placement offer*</div>
+                </div>
+              </div>
+              <div class="col stats-col">
+                <div class="stat-box">
+                  <div class="stat-number">2,100+</div>
+                  <div class="stat-label">GCCs in India</div>
+                </div>
+              </div>
+              <div class="col stats-col">
+                <div class="stat-box">
+                  <div class="stat-number">26 Lc+</div>
+                  <div class="stat-label">Employees Currently Working in India</div>
+                </div>
+              </div>
+              <div class="col stats-col">
+                <div class="stat-box">
+                  <div class="stat-number">$105B</div>
+                  <div class="stat-label">sector expected by 2030</div>
+                </div>
+              </div>
+              <div class="col stats-col">
+                <div class="stat-box">
+                  <div class="stat-number">120</div>
+                  <div class="stat-label">Seats Only</div>
                 </div>
               </div>
             </div>
@@ -352,102 +319,192 @@
   line-height: 44px;
 }
 
-.rightSideBox {
-  background-image: url("../../assets/img/heros/student_hero.png");
-  background-size: cover;
-  background-position: center;
-  border-radius: 0px;
-  display: grid;
-  place-content: center;
-}
-
-.card-feature {
-  background-color: #F8F4FB;
-  border: 1px solid #DDA1FF;
-  border-radius: 10px;
-  padding: 10px;
-  line-height: 18px;
-  align-items: center;
-}
-
-.text-muted-small {
-  font-size: 12px !important;
-}
-
 .hero-slider-warp {
-  min-height: 100vh;
+  min-height: 90vh;
   display: flex;
-  align-items: center;
-  background-size: cover;
+  align-items: flex-end;
+  background-size: contain;
+  background-repeat: no-repeat;
   background-position: center;
-  padding: 80px 0;
-  /* background-image: url("~/assets/img/heros/mobileBanner.svg") !important; */
+  background-position: center;
+  padding-bottom: 140px;
+  padding-top: 237px;
+  /* padding: 170px 0 60px 0; */
 }
 
+.hero-container {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
 
+.main-hero-row {
+  width: 100%;
+}
 
-/* Left Content */
+/* Badge styling */
 .hero-badge {
   display: inline-flex;
   align-items: center;
-  gap: 8px;
-  padding: 6px 14px;
+  padding: 8px 18px;
   border-radius: 50px;
-  border: 2.286px solid #D98E23;
-  background: #FFAF3D;
-  color: #000;
-  font-size: 20px;
+  border: 1.5px solid #E5A93C;
+  background: #FFFFFF;
+  color: #D98E23;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.8px;
+  margin-bottom: 15px;
+  text-transform: uppercase;
+}
+
+/* Title styling */
+.hero-title {
+  font-size: 54px;
+  line-height: 1.15;
+  font-weight: 800;
+  color: #FFFFFF;
+}
+
+/* Subtitle styling */
+.hero-subtitle {
+  font-size: 22px;
+  font-weight: 500;
+  color: rgba(255, 255, 255, 0.85);
+  margin-top: 10px;
+}
+
+/* Description styling */
+.hero-description {
+  font-size: 18px;
   font-weight: 600;
-  margin-top: 60px;
+  color: #FFFFFF;
+  margin-top: 8px;
   margin-bottom: 20px;
 }
 
-.badge-dot {
-  width: 8px;
-  height: 8px;
-  background-color: #facc15;
-  border-radius: 50%;
-}
-
-.hero-title {
-  font-size: 44px;
-  line-height: 1.2;
+/* CTA buttons */
+.btn-apply {
+  background: #FFAF3D !important;
+  color: #000000 !important;
   font-weight: 700;
-  color: white;
+  border: none;
+  border-radius: 6px;
+  transition: all 0.3s ease;
+  min-width: 160px;
+  font-size: 15px;
 }
 
-.hero-subtitle-first {
-  font-size: 34px;
-  line-height: 1.3;
-  font-weight: 400;
-  color: white;
-  font-family: Inter;
-  margin-bottom: 15px;
+.btn-apply:hover {
+  background: #E5A93C !important;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 15px rgba(254, 175, 61, 0.3);
 }
 
-.hero-subtitle {
-  font-size: 24px;
+.btn-explore {
+  background: rgba(26, 12, 47, 0.9) !important;
+  color: #FFFFFF !important;
   font-weight: 600;
-  color: #FFC065;
-  ;
-  margin-top: 20px;
-  font-style: normal;
-  line-height: 33.321px;
-  margin-bottom: 30px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 6px;
+  transition: all 0.3s ease;
+  min-width: 160px;
+  font-size: 15px;
 }
 
-.hero-description {
-  font-size: 16px;
-  line-height: 1.6;
-  color: rgba(255, 255, 255, 0.9);
-  margin: 16px 0 32px;
+.btn-explore:hover {
+  background: rgba(40, 18, 70, 0.9) !important;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
+}
+
+/* Cohort Card styling */
+.cohort-card {
+  background: #FFFFFF;
+  border-radius: 8px;
+  padding: 16px 20px;
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+  display: inline-flex;
+  align-items: center;
+  position: relative;
+  overflow: hidden;
+  border-right: 6px solid #FFAF3D;
+  text-align: center;
+  max-width: 300px;
+  width: 100%;
+}
+
+.cohort-card-content {
+  width: 100%;
+}
+
+.cohort-label {
+  font-size: 11px;
+  font-weight: 700;
+  color: #A13E99;
+  letter-spacing: 0.5px;
+  margin-bottom: 6px;
+}
+
+.cohort-seats {
+  font-size: 14px;
+  font-weight: 800;
+  color: #111111;
+  margin-bottom: 4px;
+}
+
+.cohort-location {
+  font-size: 11px;
+  font-weight: 600;
+  color: #555555;
+}
+
+/* Stats Section styling */
+.stats-row {
+  width: 100%;
+  margin-top: 50px;
+}
+
+.stat-box {
+  background: rgb(0 0 0 / 85%);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 8px;
+  padding: 16px 12px;
+  text-align: center;
+  height: 100%;
+  transition: all 0.3s ease;
+}
+
+/* .stat-box:hover {
+  transform: translateY(-4px);
+  border-color: rgba(255, 255, 255, 0.3);
+  background: rgba(10, 10, 10, 0.6);
+} */
+
+.stat-number {
+  font-size: 24px;
+  font-weight: 800;
+  color: #FFFFFF;
+  margin-bottom: 5px;
+  line-height: 1.2;
+}
+
+.stat-label {
+  font-size: 12px;
+  font-weight: 500;
+  color: rgba(255, 255, 255, 0.7);
+  line-height: 1.4;
 }
 
 .btn-primary {
   background: #A13E99 !important;
   border: none;
   font-weight: 600;
-  width: 250px
+  width: 250px;
 }
 
 .btn-primary:hover {
@@ -455,211 +512,92 @@
   box-shadow: 0 8px 20px rgba(139, 61, 255, 0.4);
 }
 
-.btn-light:hover {
-  transform: translateY(-2px);
-}
-
-/* Right Card */
-.journey-card {
-  background: linear-gradient(135deg, #f8f5ff, #fff);
-  border-radius: 24px;
-  padding: 40px;
-  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
-  position: relative;
-  margin-top: 80px;
-  max-width: 642px;
-}
-
-.card-title {
-  color: #111827;
-  font-size: 28px;
-  font-style: normal;
-  font-weight: 600;
-  line-height: 40px;
-  /* 146.875% */
-  letter-spacing: -0.96px;
-}
-
-.text-gradient {
-  color: #862E84;
-  font-weight: 800;
-}
-
-.feature-icon {
-  width: 48px;
-  height: 48px;
-  background: #fce8b4;
-  border-radius: 12px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-shrink: 0;
-  align-self: center;
-}
-
-.feature-icon img {
-  width: 24px;
-  height: 24px;
-}
-
-.btn-gradient {
-  background: #A13E99;
-  color: white;
-  border: none;
-  font-weight: 600;
-  padding: 16px;
-  border-radius: 12px;
-}
-
-.btn-gradient:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 8px 20px rgba(168, 85, 247, 0.4);
-  color: white;
-}
-
-/* Profile Section - Fixed Size */
-.profile-img {
-  width: 100%;
-  max-width: 280px;
-  height: 100%;
-  object-fit: cover;
-  border-radius: 16px;
-  display: block;
-  margin: 0 auto;
-}
-
-.profile-badge {
-  display: inline-flex;
-  background: white;
-  padding: 10px 14px;
-  border-radius: 12px;
-  opacity: 0.9;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 10px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-  margin-bottom: 50px;
-}
-
-.badge-check {
-  width: 28px;
-  height: 28px;
-  background: #10b981;
-  color: white;
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 14px;
-  flex-shrink: 0;
-}
-
-@keyframes blink {
-
-  0%,
-  100% {
-    opacity: 1;
+/* Responsive adjustments */
+@media (max-width: 1199px) {
+  .hero-title {
+    font-size: 52px;
   }
-
-  50% {
-    /* opacity: 0.3; */
-    color: #FFAF3D;
-  }
-}
-
-
-.blinking-text {
-  animation: blink 2s ease-in-out infinite;
 }
 
 @media (max-width: 991px) {
+  .hero-slider-warp {
+    padding: 100px 0 60px 0;
+    min-height: auto;
+  }
+
   .hero-title {
-    font-size: 36px;
+    font-size: 44px;
   }
 
   .hero-subtitle {
     font-size: 20px;
   }
 
-  .journey-card {
-    margin-top: 40px;
-    padding: 30px;
+  .hero-description {
+    font-size: 18px;
   }
 
-  .hero-slider-warp {
-    padding: 60px 0;
+  .cohort-card {
+    max-width: 280px;
   }
 }
 
 @media (max-width: 767px) {
-  .hero-badge {
-    margin: 0px;
+  .hero-slider-warp {
+    padding: 80px 0 40px 0;
   }
 
-  .hero-subtitle-first {
-    font-size: 24px;
-    margin-bottom: 0px;
+  .hero-badge {
+    font-size: 11px;
+    padding: 6px 14px;
+    margin-bottom: 20px;
   }
 
   .hero-title {
-    font-size: 28px;
+    font-size: 34px;
   }
 
   .hero-subtitle {
-    font-size: 15px;
-    margin-top: 10px;
-    margin-bottom: 25px;
+    font-size: 18px;
   }
 
   .hero-description {
-    font-size: 14px;
-    margin-bottom: 24px;
+    font-size: 16px;
+    margin-bottom: 20px;
   }
 
-  .hero-slider-warp {
-    padding: 40px 0;
-    min-height: auto;
+  .cohort-card {
+    margin: 20px auto 0;
   }
 
-  .journey-card {
-    padding: 20px;
+  .stat-number {
+    font-size: 22px;
+  }
+
+  .stat-label {
+    font-size: 11px;
+  }
+
+  .stats-row {
     margin-top: 30px;
-  }
-
-  .card-title {
-    font-size: 20px;
-    line-height: 30px;
-  }
-
-  .btn-primary {
-    padding: 10px 20px !important;
-    font-size: 14px;
   }
 }
 
 @media (max-width: 580px) {
-  .rightSideBox {
-    display: none;
-  }
 
   /* Ensure form inputs in modal display correctly on small screens */
   .modal-body {
     padding: 1rem;
   }
 
-  .hero-slider-warp {
-
-    display: flex;
-    align-items: center;
-    background-size: cover;
-    background-position: center;
-    padding: 40px 0;
-    background-image: url("~/assets/img/heros/mobileBanner.svg") !important;
+  .btn-apply,
+  .btn-explore {
+    width: 100%;
+    min-width: unset;
   }
 
-  .btn-primary {
-    width: 100%;
+  .hero-slider-warp {
+    background-image: url("~/assets/img/heros/mobileBanner.svg") !important;
   }
 }
 </style>
@@ -667,7 +605,9 @@
 <script lang="ts">
 import { defineComponent } from "vue";
 
-import image1 from "../../assets/img/heros/hero_bg.svg";
+// import image1 from "../../assets/img/heros/hero_bg.svg";
+import image1 from "../../assets/newimages/banner.jpg";
+
 import image2 from "../../assets/img/heros/hero2.jpg";
 import gccPdf from "../../assets/gcc.pdf";
 import universities from "../../assets/universities.json";

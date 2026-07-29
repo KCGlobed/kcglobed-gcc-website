@@ -3,124 +3,15 @@
         <div class="container">
             <!-- Header -->
             <div class="section-header text-center mb-60">
-                <h2 class="title">PATHWAY TO <span class="highlight">YOUR SUCCESS</span></h2>
+                <h2 class="title">PATHWAY TO <span>YOUR SUCCESS</span></h2>
                 <!-- <p class="subtitle max-800 mx-auto">
                     Your journey from preparation to professional excellence. Follow these steps to secure your future
                     at
                     the heart of the corporate world.
                 </p> -->
+                <img src="../../assets/newimages/successPath.png" alt="">
             </div>
 
-            <div class="timeline-container">
-                <!-- Center Line -->
-                <div class="timeline-line"></div>
-
-                <!-- Step 1: Entrance Milestone -->
-                <div class="timeline-row">
-                    <div class="timeline-content text-end">
-                        <div class="content-text">
-                            <h3>Entrance Milestone</h3>
-                            <p>The first step towards your dream career begins with formal qualification.</p>
-                        </div>
-                    </div>
-                    <div class="timeline-marker">
-                        <div class="marker-circle color-1">1</div>
-                    </div>
-                    <div class="timeline-content text-start">
-                        <div class="feature-card color-1-bg">
-                            <div class="icon-wrapper">
-                                <i class="ti ti-checklist"></i>
-                            </div>
-                            <h4>Qualify NFET Entrance Exam</h4>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Step 2: Corporate Gateway -->
-                <div class="timeline-row reverse">
-                    <div class="timeline-content text-end">
-                        <div class="feature-card color-2-bg">
-                            <div class="icon-wrapper">
-                                <i class="ti ti-ticket"></i>
-                            </div>
-                            <h4>Get The Ticket To DLF Cyber City,Gurugram</h4>
-                        </div>
-                    </div>
-                    <div class="timeline-marker">
-                        <div class="marker-circle color-2">2</div>
-                    </div>
-                    <div class="timeline-content text-start">
-                        <div class="content-text">
-                            <h3>Corporate Gateway</h3>
-                            <p>Secure your pass to India's most prestigious business district.</p>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Step 3: Selection Phase -->
-                <div class="timeline-row">
-                    <div class="timeline-content text-end">
-                        <div class="content-text">
-                            <h3>Selection Phase</h3>
-                            <p>Showcase your skills to top-tier recruiters and industry leaders.</p>
-                        </div>
-                    </div>
-                    <div class="timeline-marker">
-                        <div class="marker-circle color-3">3</div>
-                    </div>
-                    <div class="timeline-content text-start">
-                        <div class="feature-card color-3-bg">
-                            <div class="icon-wrapper">
-                                <i class="ti ti-users"></i>
-                            </div>
-                            <h4>Be Part of Hiring Drive</h4>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Step 4: Confirmation -->
-                <div class="timeline-row reverse">
-                    <div class="timeline-content text-end">
-                        <div class="feature-card color-4-bg">
-                            <div class="icon-wrapper">
-                                <i class="ti ti-file-certificate"></i>
-                            </div>
-                            <h4>Get the Pre-Placement Offer Letter</h4>
-                        </div>
-                    </div>
-                    <div class="timeline-marker">
-                        <div class="marker-circle color-4">4</div>
-                    </div>
-                    <div class="timeline-content text-start">
-                        <div class="content-text">
-                            <h3>Confirmation</h3>
-                            <p>Validate your hard work with a formal intent of employment.</p>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Step 5: Career Launch -->
-                <div class="timeline-row">
-                    <div class="timeline-content text-end">
-                        <div class="content-text">
-                            <h3>Career Launch</h3>
-                            <p>Bridge the gap between academia and the real world.</p>
-                        </div>
-                    </div>
-                    <div class="timeline-marker">
-                        <div class="marker-circle color-5">5</div>
-                    </div>
-                    <div class="timeline-content text-start">
-                        <div class="feature-card color-5-bg">
-                            <div class="icon-wrapper">
-                                <i class="ti ti-school"></i>
-                            </div>
-                            <h4>Start Your Experiential Learning</h4>
-                        </div>
-                    </div>
-                </div>
-
-            </div>
         </div>
     </div>
 </template>
@@ -132,8 +23,9 @@
 <style scoped>
 .pathway-success-section {
     padding: 25px 0;
-    background-color: #ffffff;
+    background-color: #eeeeee;
     overflow: hidden;
+    margin-bottom: 50px;
 }
 
 /* Header Styles */
@@ -141,7 +33,7 @@
     font-size: 32px;
     font-weight: 700;
     color: #0d0d25;
-    margin-bottom: 25px;
+    margin-bottom: 50px;
     text-transform: uppercase;
     line-height: 1.3;
 }

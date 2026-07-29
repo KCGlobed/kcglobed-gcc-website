@@ -52,7 +52,7 @@
 
 <style scoped>
 .growth-trend-section {
-    background: #ffffff;
+    background: #e3e3e3;
     position: relative;
     overflow: hidden;
 
