@@ -48,7 +48,7 @@
     font-family: 'Inter', sans-serif;
     font-style: normal;
     font-weight: 700;
-    font-size: 35px;
+    font-size: 36px;
     /* line-height: 58px; */
     /* display: flex; */
     /* align-items: center; */

@@ -66,12 +66,14 @@
 }
 
 .title-box h2 {
-    font-size: 32px;
+    font-family: 'Inter', sans-serif;
+    font-style: normal;
     font-weight: 700;
+    font-size: 36px;
+    line-height: 58px;
+    letter-spacing: -0.02em;
     color: #ffffff;
     margin: 0;
-    text-transform: uppercase;
-    line-height: 1.2;
 }
 
 .highlight {

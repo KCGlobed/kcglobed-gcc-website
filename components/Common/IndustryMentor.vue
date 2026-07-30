@@ -56,7 +56,6 @@
 </template>
 
 <script setup lang="ts">
-import classroomImg from '@/assets/img/campus/image5.png'
 import industryMentor1 from '@/assets/img/industoryMentorTwo/1.png'
 import industryMentor2 from '@/assets/img/industoryMentorTwo/2.png'
 import industryMentor3 from '@/assets/img/industoryMentorTwo/3.png'

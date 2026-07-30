@@ -153,9 +153,13 @@ const parentCards = [
 }
 
 .section-title {
-  font-size: 40px;
-  font-weight: 800;
-  line-height: 1.2;
+  font-family: 'Inter', sans-serif;
+  font-style: normal;
+  font-weight: 700;
+  font-size: 36px;
+  line-height: 58px;
+  letter-spacing: -0.02em;
+  color: #181225;
   text-align: left;
 }
 

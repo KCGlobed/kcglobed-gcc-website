@@ -178,6 +178,7 @@ const outcomeTags = [
 /* Container Layout */
 .programs-and-outcomes-container {
   width: 100%;
+  background-color: white;
 }
 
 /* Common Header Styles */
@@ -195,19 +196,22 @@ const outcomeTags = [
 }
 
 .section-title {
-  font-size: 40px;
-  font-weight: 800;
-  color: #130922;
-  line-height: 1.2;
+  font-family: 'Inter', sans-serif;
+  font-style: normal;
+  font-weight: 700;
+  font-size: 36px;
+  line-height: 58px;
+  letter-spacing: -0.02em;
+  color: #181225;
   display: flex;
   text-align: left;
 }
 
 /* SECTION 1: Programs Section */
 .programs-section {
-  background-color: #F0EDE6; /* Warm light beige/sand */
+  background-color: #F0EDE6; 
   padding: 80px 0;
-  margin: 55px 196px;
+  /* margin: 55px 196px; */
 }
 
 .program-card {
@@ -320,7 +324,7 @@ const outcomeTags = [
 .outcomes-section {
   background-color: #E6DFEC; /* Warm lavender background */
   padding: 80px 0;
-  margin: 55px 196px;
+  /* margin: 55px 196px; */
 }
 
 .outcome-tag {

@@ -143,11 +143,14 @@ export default {
 }
 
 .title {
-  font-size: 32px;
+  font-family: 'Inter', sans-serif;
+  font-style: normal;
   font-weight: 700;
-  color: #0d0d25;
+  font-size: 36px;
+  line-height: 58px;
+  letter-spacing: -0.02em;
+  color: #181225;
   margin-bottom: 20px;
-  text-transform: uppercase;
 }
 
 .highlight {

@@ -185,7 +185,7 @@
               <input v-model="form.graduationProgramOther" class="form-control" placeholder="Please specify">
               <label>Please specify your graduation program</label>
               <small class="text-danger" v-if="errors.graduationProgramOther">{{ errors.graduationProgramOther
-                }}</small>
+              }}</small>
             </div>
 
             <!-- Graduation Status -->
@@ -323,12 +323,13 @@
   min-height: 80vh;
   display: flex;
   align-items: flex-end;
-  background-size: cover;
+  background-size: contain;
   background-repeat: no-repeat;
   background-position: center;
   background-position: center;
-  padding-bottom: 140px;
+  padding-bottom: 30px;
   padding-top: 237px;
+  background-position: center bottom;
   /* background-size: 100%; */
   /* padding: 170px 0 60px 0; */
 }

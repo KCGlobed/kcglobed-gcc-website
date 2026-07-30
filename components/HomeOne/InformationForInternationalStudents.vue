@@ -207,10 +207,13 @@ export default {
 }
 
 .hire-main-title {
-  font-size: 56px;
-  font-weight: 600;
-  line-height: 1.25;
-  color: #130922;
+  font-family: 'Inter', sans-serif;
+  font-style: normal;
+  font-weight: 700;
+  font-size: 36px;
+  line-height: 58px;
+  letter-spacing: -0.02em;
+  color: #181225;
 }
 
 .btn-purple {
