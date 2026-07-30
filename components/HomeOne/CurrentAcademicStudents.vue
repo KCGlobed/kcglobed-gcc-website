@@ -66,7 +66,7 @@
               <p class="faculty-desc mt-3">
                 Practising CPAs, Chartered Accountants and Enrolled Agents, not just lecturers. You learn how the work is really done, from people who have done it at a high level.
               </p>
-              <NuxtLink to="/thinktank" class="btn btn-purple-meet mt-4">
+              <NuxtLink to="/thinktank" style="background-color: #51157C;color: white;" class="btn mt-4">
                 Meet The Faculty <i class="ti ti-arrow-right ms-2"></i>
               </NuxtLink>
             </div>
@@ -74,20 +74,11 @@
 
           <!-- Right Cards Block -->
           <div class="col-lg-7 col-12">
-            <div class="d-flex flex-md-row flex-column gap-4 justify-content-lg-end justify-content-center">
+            <div class="d-flex flex-md-row flex-column -gap-8 justify-content-lg-end justify-content-center">
               <!-- Card 1: Nitish Khatri -->
-              <div class="relative">
-                <div class="card-right">
                   <img :src="nitishImage" alt="CPA Nitish Khatri" class="faculty-img" loading="lazy" decoding="async" />
-                </div>
-              </div>
-
               <!-- Card 2: Ankur Sharma -->
-              <div class="relative">
-                <div class="card-right">
                   <img :src="ankurImage" alt="CA Ankur Sharma" class="faculty-img" loading="lazy" decoding="async" />
-                </div>
-              </div>
             </div>
           </div>
         </div>
@@ -95,6 +86,7 @@
     </div>
   </div>
 </template>
+
 
 <script>
 import nitish from '@/assets/img/expert/nitish.png'
@@ -502,7 +494,7 @@ tr:last-child .gcc-cell {
 }
 
 .faculty-img {
-  height: 170px;
+  height: 200px;
   width: auto;
   object-fit: contain;
   align-self: flex-end;

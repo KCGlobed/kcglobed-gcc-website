@@ -189,7 +189,7 @@ const outcomeTags = [
 .section-tag {
   color: #D5861B;
   font-weight: 700;
-  font-size: 13px;
+  font-size: 24px;
   letter-spacing: 1.5px;
   text-transform: uppercase;
 }
@@ -294,12 +294,13 @@ const outcomeTags = [
 
 .btn-view {
   background-color: #ffffff;
-  color: #35083D !important;
+  color: #862E84 !important;
   font-weight: 700;
   font-size: 13px;
-  border-radius: 50px;
-  padding: 8px 20px;
+  border-radius: 5px;
+  padding: 5px 15px;
   text-decoration: none;
+  border-color: #862E84;
   display: inline-flex;
   align-items: center;
   transition: background-color 0.2s ease, transform 0.2s ease;
@@ -323,7 +324,7 @@ const outcomeTags = [
 }
 
 .outcome-tag {
-  background-color: #4A154B; /* Muted deep purple */
+  background-color: #51157C; /* Muted deep purple */
   color: #ffffff;
   font-size: 13px;
   font-weight: 600;

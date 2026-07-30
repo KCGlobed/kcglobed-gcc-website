@@ -4,7 +4,7 @@
             <div class="row">
                 <div class="header-v2 mb-3">
                     <div>
-                        <h2 class="title">TRUSTED <span class="highlight">ECO SYSTEM</span></h2>
+                        <h2 class="title">TRUSTED ECO SYSTEM</h2>
                     </div>
                 </div>
                 <div class="organistion-grid">
@@ -41,7 +41,7 @@ const ecosystemImages = [
 <style scoped>
 .trus-eco-sy {
     padding: 50px 0;
-    background-color: #f9fafb;
+    background-color: rgba(229, 218, 236, 0.41);
 }
 
 /* Header Styling */

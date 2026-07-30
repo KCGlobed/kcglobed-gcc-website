@@ -246,10 +246,16 @@ p {
   text-align: center;
 
   h2 {
-    font-family: Alfa Slab One;
-    font-size: 32px;
-    letter-spacing: 1.28px;
-    font-weight: 400;
+    font-family: 'Inter', sans-serif;
+    font-style: normal;
+    font-weight: 700;
+    font-size: 46px;
+    line-height: 58px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    letter-spacing: -0.02em;
+    color: #181225;
     margin-bottom: 0;
   }
 }

@@ -107,7 +107,7 @@ const announcements = [
 }
 
 .arrow-link {
-  color: #4A154B !important;
+  color: #862E84 !important;
   font-weight: 700;
   font-size: 14px;
   display: inline-flex;
@@ -153,7 +153,7 @@ const announcements = [
 .card-tag {
   font-size: 9px;
   font-weight: 800;
-  color: #EF4444; /* soft brand red */
+  color: #E75D60; /* soft brand red */
   letter-spacing: 1px;
 }
 
@@ -188,8 +188,8 @@ const announcements = [
 }
 
 .announcement-badge {
-  background-color: #FEF3C7; /* warm light gold/yellow */
-  color: #D97706; /* dark gold/yellow */
+  background-color: #E9C77D; /* warm light gold/yellow */
+  color: #51157C; /* dark gold/yellow */
   font-size: 9px;
   font-weight: 800;
   padding: 3px 8px;

@@ -7,7 +7,7 @@
             </div>
             <div class="header-v2 mb-3">
                 <div>
-                    <h2 class="title">THE POWERHOUSE BEHIND <span class="highlight">GCC SCHOOL</span></h2>
+                    <h2 class="title">THE POWERHOUSE BEHIND GCC SCHOOL</h2>
                 </div>
             </div>
 

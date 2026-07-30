@@ -102,12 +102,12 @@ const nfetBadges = [
 ]
 
 const steps = [
-  { num: "STEP 01", label: "Clear NFET", class: "step-active" },
-  { num: "STEP 02", label: "Get invited to the hiring drive", class: "step-purple-dark" },
-  { num: "STEP 03", label: "Interview with global companies", class: "step-purple-medium" },
-  { num: "STEP 04", label: "Get pre-placement offer", class: "step-purple-dark" },
-  { num: "STEP 05", label: "Secure admission", class: "step-purple-light" },
-  { num: "STEP 06", label: "Join the cohort", class: "step-purple-black" }
+  { num: "STEP 01", label: "Clear NFET", class: "step-1" },
+  { num: "STEP 02", label: "Get invited to the hiring drive", class: "step-2" },
+  { num: "STEP 03", label: "Interview with global companies", class: "step-3" },
+  { num: "STEP 04", label: "Get pre-placement offer", class: "step-4" },
+  { num: "STEP 05", label: "Secure admission", class: "step-5" },
+  { num: "STEP 06", label: "Join the cohort", class: "step-6" }
 ]
 
 const parentCards = [
@@ -173,7 +173,7 @@ const parentCards = [
 }
 
 .nfet-badge-pill {
-  background-color: #4E1853;
+  background-color: #51157C;
   /* Muted plum purple */
   color: #ffffff;
   font-size: 11px;
@@ -204,10 +204,9 @@ const parentCards = [
 }
 
 .btn-nfet-download {
-  background-color: transparent !important;
   color: white !important;
-  background-color: #4E1853  !important;
-  border: 1.5px solid #4E1853 !important;
+  background-color: #300241 !important;
+  border: 0.5px solid gray !important;
   font-weight: 700;
   font-size: 14px;
   border-radius: 6px;
@@ -259,29 +258,33 @@ const parentCards = [
 }
 
 /* Step BG colors */
-.step-active {
-  background-color: #7B6F2C;
-  /* Gold/Olive Active */
+.step-1 {
+  background-color: #7F6410;
+  box-shadow: inset 0 4px 0 0 #F1A63E;
 }
 
-.step-active .step-num {
+.step-1 .step-num {
   color: rgba(255, 255, 255, 0.8);
 }
 
-.step-purple-dark {
-  background-color: #2E1B51;
+.step-2 {
+  background-color: #362663;
 }
 
-.step-purple-medium {
-  background-color: #411D6B;
+.step-3 {
+  background-color: #48287B;
 }
 
-.step-purple-light {
-  background-color: #441460;
+.step-4 {
+  background-color: #492466;
 }
 
-.step-purple-black {
-  background-color: #1D052B;
+.step-5 {
+  background-color: #441D52;
+}
+
+.step-6 {
+  background-color: #460947;
 }
 
 /* SECTION 2: Parents Section */
@@ -292,7 +295,7 @@ const parentCards = [
 }
 
 .btn-parent-download {
-  background-color: #4A154B !important;
+  background-color: #51157C !important;
   color: #ffffff !important;
   font-weight: 700;
   font-size: 14px;
@@ -310,7 +313,7 @@ const parentCards = [
 .btn-parent-consult {
   background-color: transparent !important;
   color: #4A154B !important;
-  border: 1.5px solid rgba(74, 21, 75, 0.2) !important;
+  border: 1.5px solid #DDD1EA!important;
   font-weight: 700;
   font-size: 14px;
   border-radius: 6px;
@@ -338,14 +341,14 @@ const parentCards = [
 }
 
 .card-title-text {
-  font-size: 16px;
-  font-weight: 700;
+  font-size: 14px;
+  font-weight: 500;
   color: #130922;
 }
 
 .card-desc-text {
   font-size: 13px;
-  color: #555555;
+  color: #51157C;
   line-height: 1.5;
 }
 

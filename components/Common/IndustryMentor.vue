@@ -3,7 +3,7 @@
     <div class="think-tank-area ptb-100">
       <div class="container">
         <div class="section-title text-center mb-50">
-          <h2 class="title">OUR DISTINGUISHED INDUSTRY <span class="highlight">MENTORS</span></h2>
+          <h2 class="title">OUR DISTINGUISHED INDUSTRY MENTORS</h2>
           <!-- <p class="max-600 mx-auto">Our Industry Mentors are seasoned professionals who provide invaluable
               guidance and real-world insights to bridge the gap between academia and industry.</p> -->
         </div>

@@ -99,7 +99,7 @@
     width: 100%;
     display: flex;
     justify-content: center;
-    background: #ffffff;
+    /* background: #ffffff; */
     border-radius: 30px;
     padding: 10px;
     transition: transform 0.3s ease;

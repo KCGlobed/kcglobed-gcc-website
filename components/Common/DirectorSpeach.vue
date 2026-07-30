@@ -7,7 +7,7 @@
                         <!-- <div class="section-tag mb-3">
                             <span class="badge">Message from ED Desk</span>
                         </div> -->
-                        <h2 class="title mb-4">A Commitment to <span class="highlight">Excellence</span></h2>
+                        <h2 class="title mb-4">A Commitment to Excellence</h2>
                         <div class="message-text">
                             <p>
                                 The NFET Entrance Exam marks an important milestone for commerce students to discover
@@ -28,9 +28,8 @@
                         </div> -->
 
                         <div class="signature mt-5">
-                            <h5 class="mb-0">Prof. (Dr.) Manpreet Singh Manna</h5>
-                            <span>Executive Director, <strong>GCC School</strong><br />Former Director,
-                                <strong>AICTE</strong></span>
+                            <h5 class="mb-0">CPA Nitish Khatri</h5>
+                            <span>VP <strong>KC Globed</strong></span>
 
                         </div>
 
@@ -44,7 +43,7 @@
                     <div class="video-box-wrapper" >
                         <div class="video-preview-box shadow-lg" @click="playVideo">
                             <template v-if="!isPlaying">
-                                <img src="https://storage.googleapis.com/gcc_static_files_backend/static/images/manna%20sir%20thmbnl.jpg"
+                                <img src="https://storage.googleapis.com/static_files_backend/media/images/nitish%20sir%20thmbnl_.jpg"
                                     alt="ED Message Video Preview" class="preview-img">
                                 <div class="play-btn-wrap">
                                     <div class="play-btn">
@@ -54,7 +53,7 @@
                             </template>
                             <video v-else controls autoplay controlsList="nodownload" oncontextmenu="return false;" class="video-player">
                                 <source
-                                    src="https://storage.googleapis.com/gcc_static_files_backend/static/videos/MANNA%20SIR%20WEBSITE_FINAL%20100.mp4"
+                                    src="https://storage.googleapis.com/gcc_static_files_backend/static/videos/Nitis%20Sir%20Website%20Video._final_gcc.mp4"
                                     type="video/mp4">
                                 Your browser does not support the video tag.
                             </video>
@@ -81,9 +80,10 @@ const playVideo = () => {
 
 <style scoped>
 .ed-message-area {
-    background-color: #ffffff;
+    background-color: #F3EBEB;
     position: relative;
     overflow: hidden;
+    margin-top: 40px;
 }
 
 .section-tag .badge {
