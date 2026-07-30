@@ -34,7 +34,7 @@
                   <button class="btn btn-apply px-4 py-3" data-bs-toggle="modal" data-bs-target="#applyNowModal">
                     Apply for NFET
                   </button>
-                  <button class="btn btn-explore px-4 py-3" data-bs-toggle="modal" data-bs-target="#enquiryModal">
+                  <button class="btn btn-explore px-4 py-3">
                     Explore Programs
                   </button>
                 </div>

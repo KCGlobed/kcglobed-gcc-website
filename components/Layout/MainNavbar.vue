@@ -49,7 +49,7 @@
 
           <!-- For Parents Link (styled purple) -->
           <li class="nav-item">
-            <NuxtLink to="/campus-life" class="nav-link parents-nav-link">
+            <NuxtLink class="nav-link parents-nav-link">
               For Parents
             </NuxtLink>
           </li>
@@ -63,7 +63,7 @@
 
           <!-- Menu Button (rounded outlined pill with hamburger icon) -->
           <li class="nav-item px-1">
-            <button class="btn btn-navbar-menu d-flex align-items-center gap-2" type="button" @click="stateStoreInstance.onMobileNavbarShow">
+            <button class="btn btn-navbar-menu d-flex align-items-center gap-2" type="button">
               <i class="ti ti-menu hamburger-icon"></i>
               <span>Menu</span>
             </button>
