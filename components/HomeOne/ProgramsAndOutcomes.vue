@@ -392,6 +392,9 @@ const outcomeTags = [
 }
 
 @media (max-width: 991px) {
+  .section-tag {
+    font-size: 10px;
+  }
   .programs-section, .outcomes-section {
     padding: 60px 0;
   }
@@ -401,9 +404,16 @@ const outcomeTags = [
   }
 }
 
+@media (max-width: 767px) {
+  .outcome-tag {
+    font-size: 10px;
+  }
+}
+
 @media (max-width: 575px) {
   .section-title {
-    font-size: 26px;
+    font-size: 24px;
+    line-height: 37px;
   }
   
   .ecosystem-grid {

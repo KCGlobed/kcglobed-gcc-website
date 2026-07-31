@@ -8,13 +8,26 @@
           <p class="section-lead">Hear directly from the people whose Shape Industry</p>
         </div>
 
-        <div class="video-grid">
+        <div class="video-grid" ref="videoGridRef" @scroll="handleScroll">
           <div v-for="(reelId, index) in reelIds" :key="index" class="video-card fade-up">
             <div class="video-thumb">
               <iframe :src="`https://www.instagram.com/reel/${reelId}/embed/?hidecaption=true`" width="100%"
                 height="100%" frameborder="0" scrolling="no" allowtransparency="true"></iframe>
+              <!-- Overlay to absorb touch events for smooth swiping on mobile, opens the reel in a new tab when tapped -->
+              <a :href="`https://www.instagram.com/reel/${reelId}/`" target="_blank" class="video-overlay" aria-label="Watch Reel on Instagram"></a>
             </div>
           </div>
+        </div>
+        <div class="slider-dots">
+          <span 
+            v-for="(reelId, index) in reelIds" 
+            :key="index" 
+            class="dot" 
+            :class="{ active: index === activeIndex }"
+            @click="scrollToCard(index)"
+            role="button"
+            :aria-label="`Go to slide ${index + 1}`"
+          ></span>
         </div>
       </div>
     </section>
@@ -22,6 +35,8 @@
 </template>
 
 <script setup lang="ts">
+import { ref } from 'vue';
+
 const reelIds = [
   'DZQO4pNBcBg',
   'DYXdh98OZxo',
@@ -29,6 +44,44 @@ const reelIds = [
   'DYNNiqtut3a',
   'DaPPmbsJxAl'
 ];
+
+const videoGridRef = ref<HTMLElement | null>(null);
+const activeIndex = ref(0);
+
+const handleScroll = (event: Event) => {
+  const container = event.target as HTMLElement;
+  if (!container) return;
+
+  const containerCenter = container.getBoundingClientRect().left + container.clientWidth / 2;
+  const cards = container.querySelectorAll('.video-card');
+
+  let closestIndex = 0;
+  let minDiff = Infinity;
+
+  cards.forEach((card, index) => {
+    const cardRect = card.getBoundingClientRect();
+    const cardCenter = cardRect.left + cardRect.width / 2;
+    const diff = Math.abs(cardCenter - containerCenter);
+    if (diff < minDiff) {
+      minDiff = diff;
+      closestIndex = index;
+    }
+  });
+
+  activeIndex.value = closestIndex;
+};
+
+const scrollToCard = (index: number) => {
+  if (!videoGridRef.value) return;
+  const cards = videoGridRef.value.querySelectorAll('.video-card');
+  if (cards[index]) {
+    cards[index].scrollIntoView({
+      behavior: 'smooth',
+      block: 'nearest',
+      inline: 'center'
+    });
+  }
+};
 </script>
 
 <style scoped>
@@ -72,6 +125,10 @@ const reelIds = [
 .section-head {
   margin-bottom: 44px;
   text-align: center;
+}
+
+.slider-dots {
+  display: none;
 }
 
 .section-title {
@@ -127,8 +184,7 @@ const reelIds = [
   overflow: hidden;
   background: #111;
   width: 100%;
-  height: 380px;
-  /* Approximate height for the video part */
+  aspect-ratio: 9 / 16;
 }
 
 .video-thumb iframe {
@@ -143,6 +199,18 @@ const reelIds = [
   left: 0;
 }
 
+.video-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 2;
+  background: transparent;
+  display: none;
+  cursor: pointer;
+}
+
 @media (max-width: 1199px) {
   .video-card {
     flex: 0 1 calc(33.333% - 20px);
@@ -155,7 +223,8 @@ const reelIds = [
     flex-wrap: nowrap;
     overflow-x: auto;
     gap: 16px;
-    padding-bottom: 15px;
+    padding: 15px 30px;
+    margin: 32px -30px 0;
     scroll-snap-type: x mandatory;
     -webkit-overflow-scrolling: touch;
 
@@ -169,17 +238,36 @@ const reelIds = [
   }
 
   .video-card {
-    flex: 0 0 85%;
-    max-width: 85%;
-    min-width: 85%;
+    flex: 0 0 82%;
+    max-width: 82%;
+    min-width: 82%;
     scroll-snap-align: center;
   }
-}
 
-@media (max-width: 575px) {
-  .video-card {
-    flex: 0 1 100%;
-    max-width: 100%;
+  .video-overlay {
+    display: block;
+  }
+
+  .slider-dots {
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+    margin-top: 18px;
+  }
+
+  .dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: #cfcfcf;
+    transition: 0.3s;
+    cursor: pointer;
+  }
+
+  .dot.active {
+    width: 22px;
+    border-radius: 20px;
+    background: #51157C;
   }
 }
 </style>

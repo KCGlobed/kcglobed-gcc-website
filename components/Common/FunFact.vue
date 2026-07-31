@@ -261,4 +261,28 @@ export default defineComponent({
 .marquee-wrapper:hover .marquee-row {
     animation-play-state: paused;
 }
+
+@media (max-width: 746px) {
+    .fun-fact-card {
+        width: 150px;
+        height: 80px;
+        background-color: #fff;
+        padding: 20px;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.03);
+        border-radius: 20px;
+        border: 1px solid #f1f5f9;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: all 0.3s ease;
+    }
+
+    .fun-fact-card .icon img {
+        max-width: 100px;
+        max-height: 45px;
+        width: auto;
+        height: auto;
+        object-fit: contain;
+    }
+}
 </style>

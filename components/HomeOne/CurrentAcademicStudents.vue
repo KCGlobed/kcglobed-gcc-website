@@ -74,11 +74,32 @@
 
           <!-- Right Cards Block -->
           <div class="col-lg-7 col-12">
-            <div class="d-flex flex-md-row flex-column justify-content-center">
-              <!-- Card 1: Nitish Khatri -->
-                  <img :src="nitishImage" alt="CPA Nitish Khatri" class="faculty-img" loading="lazy" decoding="async" />
-              <!-- Card 2: Ankur Sharma -->
-                  <img :src="ankurImage" alt="CA Ankur Sharma" class="faculty-img" loading="lazy" decoding="async" />
+            <div class="faculty-carousel-container">
+              <div class="faculty-scroll-wrapper" ref="facultyScrollRef" @scroll="checkScroll">
+                <div v-for="(faculty, index) in facultyMembers" :key="index" class="faculty-card-item">
+                  <img :src="faculty.image" :alt="faculty.alt" class="faculty-img" loading="lazy" decoding="async" @load="checkScroll" />
+                </div>
+              </div>
+              
+              <!-- Left Scroll Button -->
+              <button 
+                v-show="showLeftArrow" 
+                class="scroll-btn left-btn" 
+                @click="scroll('left')" 
+                aria-label="Scroll Left"
+              >
+                <i class="ti ti-chevron-left"></i>
+              </button>
+
+              <!-- Right Scroll Button -->
+              <button 
+                v-show="showRightArrow" 
+                class="scroll-btn right-btn" 
+                @click="scroll('right')" 
+                aria-label="Scroll Right"
+              >
+                <i class="ti ti-chevron-right"></i>
+              </button>
             </div>
           </div>
         </div>
@@ -98,6 +119,20 @@ export default {
     return {
       nitishImage: nitish,
       ankurImage: ankur,
+      showLeftArrow: false,
+      showRightArrow: true,
+      facultyMembers: [
+        { image: nitish, alt: "CPA Nitish Khatri" },
+        { image: ankur, alt: "CA Ankur Sharma" },
+        { image: nitish, alt: "CPA Nitish Khatri" },
+        { image: ankur, alt: "CA Ankur Sharma" },
+        { image: nitish, alt: "CPA Nitish Khatri" },
+        { image: ankur, alt: "CA Ankur Sharma" },
+        { image: nitish, alt: "CPA Nitish Khatri" },
+        { image: ankur, alt: "CA Ankur Sharma" },
+        { image: nitish, alt: "CPA Nitish Khatri" },
+        { image: ankur, alt: "CA Ankur Sharma" },
+      ],
       comparisonData: [
         { feature: "<strong>Globally Recognised</strong> Academic Credentials", traditional: true, gcc: true },
         { feature: "<strong>Strong</strong> Theoretical Foundation", traditional: true, gcc: true },
@@ -112,6 +147,41 @@ export default {
       ],
     };
   },
+  methods: {
+    scroll(direction) {
+      const container = this.$refs.facultyScrollRef;
+      if (!container) return;
+
+      // Scroll by 266px on mobile (width 250px + 16px gap), 350px on desktop
+      const isMobile = window.innerWidth <= 767;
+      const cardWidth = isMobile ? 266 : 350; 
+      const scrollAmount = direction === 'left' ? -cardWidth : cardWidth;
+      
+      container.scrollBy({
+        left: scrollAmount,
+        behavior: 'smooth'
+      });
+    },
+    checkScroll() {
+      const container = this.$refs.facultyScrollRef;
+      if (!container) return;
+      
+      this.showLeftArrow = container.scrollLeft > 10;
+      
+      const maxScroll = container.scrollWidth - container.clientWidth;
+      if (maxScroll <= 0) {
+        // Default to showing the right arrow initially if we have more than 2 items
+        this.showRightArrow = this.facultyMembers.length > 2;
+      } else {
+        this.showRightArrow = container.scrollLeft < maxScroll - 10;
+      }
+    }
+  },
+  mounted() {
+    setTimeout(() => {
+      this.checkScroll();
+    }, 500);
+  }
 };
 </script>
 
@@ -508,11 +578,115 @@ tr:last-child .gcc-cell {
   .faculty-card {
     margin: 0 auto;
   }
+
+  .faculty-scroll-wrapper {
+    display: flex !important;
+    flex-flow: column wrap !important;
+    height: 510px !important; /* height to fit 2 rows of 230px cards + 12px vertical gap + padding */
+    gap: 12px 16px !important; /* row-gap: 12px, column-gap: 16px */
+    overflow-x: auto !important;
+    scroll-snap-type: x mandatory !important;
+    padding: 15px 30px !important;
+    margin: 0 -30px !important;
+    align-content: flex-start !important;
+    justify-content: center !important; /* Centers the 2 rows vertically to keep gaps uniform */
+  }
+
+  .faculty-card-item {
+    height: 230px !important; /* reduced card height on mobile */
+    flex: 0 0 auto !important;
+    width: 250px !important; /* reduced card width on mobile */
+    scroll-snap-align: center !important;
+  }
+  
+  .faculty-img {
+    height: 100% !important;
+    width: 100% !important;
+    object-fit: contain !important;
+  }
+
+  .left-btn {
+    left: -10px !important;
+  }
+  
+  .right-btn {
+    right: -10px !important;
+  }
 }
 
 @media (max-width: 575px) {
   .faculty-heading {
     font-size: 30px;
+  }
+}
+
+.faculty-carousel-container {
+  position: relative;
+  width: 100%;
+}
+
+.faculty-scroll-wrapper {
+  display: flex;
+  flex-direction: row;
+  overflow-x: auto;
+  gap: 20px;
+  scroll-behavior: smooth;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+  padding: 10px 0;
+}
+
+.faculty-scroll-wrapper::-webkit-scrollbar {
+  display: none;
+}
+
+.faculty-card-item {
+  flex: 0 0 auto;
+  display: flex;
+  align-items: flex-end;
+}
+
+.scroll-btn {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background-color: #ffffff;
+  color: #130922;
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 16px;
+  cursor: pointer;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  z-index: 10;
+  transition: all 0.3s ease;
+}
+
+.scroll-btn:hover {
+  background-color: #f8f9fa;
+  transform: translateY(-50%) scale(1.05);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.12);
+}
+
+.left-btn {
+  left: -22px;
+}
+
+.right-btn {
+  right: -22px;
+}
+
+@media (max-width: 991px) {
+  .left-btn {
+    left: -10px;
+  }
+  
+  .right-btn {
+    right: -10px;
   }
 }
 </style>

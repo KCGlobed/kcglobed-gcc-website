@@ -6,13 +6,13 @@
     }" :modules="[SwiperEffectFade, SwiperPagination]" class="hero-slider">
       <SwiperSlide v-for="banner in banners" :key="banner.id">
         <div class="hero-slider-warp" :style="{
-          'background-image': `url(${banner.image})`,
+          '--banner-img': `url(${banner.image})`,
         }">
           <div class="container-fluid hero-container px-lg-5 px-md-4 px-3">
             <!-- Top Content (Main Hero Area) -->
             <div class="row align-items-end justify-content-between main-hero-row">
               <!-- Left Content -->
-              <div class="col-lg-7 text-start mb-lg-0 mb-4">
+              <div class="col-lg-7 text-start mb-lg-0 mb-4 heading">
                 <span class="hero-badge">
                   <span>INDIA'S FIRST SCHOOL FOR COMMERCE GRADUATES</span>
                 </span>
@@ -53,7 +53,7 @@
             </div>
 
             <!-- Stats Row at the bottom of the hero -->
-            <div class="row stats-row g-3 row-cols-2 row-cols-md-3 row-cols-lg-5">
+            <div class="row stats-row row-cols-2 row-cols-md-3 row-cols-lg-5">
               <div class="col stats-col">
                 <div class="stat-box">
                   <div class="stat-number">₹10 LPA</div>
@@ -330,8 +330,6 @@
   padding-bottom: 30px;
   padding-top: 237px;
   background-position: center bottom;
-  /* background-size: 100%; */
-  /* padding: 170px 0 60px 0; */
 }
 
 .hero-container {
@@ -467,6 +465,7 @@
 .stats-row {
   width: 100%;
   margin-top: 50px;
+  gap: 3
 }
 
 .stat-box {
@@ -546,42 +545,126 @@
 
 @media (max-width: 767px) {
   .hero-slider-warp {
-    padding: 80px 0 40px 0;
+    background-image: linear-gradient(to bottom,
+        rgba(15, 6, 26, 0.95) 0%,
+        rgba(15, 6, 26, 0.45) 45%,
+        rgba(15, 6, 26, 0.95) 100%), var(--banner-img) !important;
+    background-size: cover !important;
+    background-position: center !important;
+    background-repeat: no-repeat !important;
+    padding-top: 40px !important;
+    padding-bottom: 24px !important;
+    /* min-height: 100vh !important; */
+    display: flex !important;
+    align-items: flex-end !important;
+  }
+
+  .heading {
+    margin-bottom: 0px;
+  }
+
+  .hero-container {
+    height: auto !important;
+    min-height: 100% !important;
+    justify-content: center !important;
+    align-items: center;
+    gap: 0px !important;
+    padding-left: 16px !important;
+    padding-right: 16px !important;
   }
 
   .hero-badge {
-    font-size: 11px;
-    padding: 6px 14px;
-    margin-bottom: 20px;
+    font-size: 11px !important;
+    padding: 6px 12px !important;
+    letter-spacing: 0.5px !important;
+    margin-bottom: 12px !important;
+    border-radius: 20px !important;
   }
 
   .hero-title {
-    font-size: 34px;
+    font-size: 36px !important;
+    line-height: 1.15 !important;
+    font-weight: 700 !important;
+    letter-spacing: -0.03em !important;
   }
 
   .hero-subtitle {
-    font-size: 18px;
+    font-size: 16px !important;
+    font-weight: 500 !important;
+    color: rgba(255, 255, 255, 0.75) !important;
+    margin-top: 8px !important;
+    line-height: 1.3 !important;
   }
 
   .hero-description {
-    font-size: 16px;
-    margin-bottom: 20px;
+    font-size: 16px !important;
+    font-weight: 600 !important;
+    color: #FFFFFF !important;
+    margin-top: 10px !important;
+    margin-bottom: 24px !important;
+    line-height: 1.3 !important;
   }
 
   .cohort-card {
-    margin: 20px auto 0;
+    display: none !important;
   }
 
-  .stat-number {
-    font-size: 22px;
+  .d-flex.gap-3.flex-wrap.mt-4 {
+    flex-wrap: nowrap !important;
+    gap: 12px !important;
   }
 
-  .stat-label {
-    font-size: 11px;
+  .btn-apply,
+  .btn-explore {
+    flex: 1 !important;
+    min-width: 0 !important;
+    padding: 12px 10px !important;
+    font-size: 13px !important;
+    white-space: nowrap !important;
+    height: 48px !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    border-radius: 6px !important;
+    width: auto !important;
+  }
+
+  .btn-explore {
+    background: #1D0B2E !important;
+    border: 1px solid #3c1c5a !important;
+    color: #FFFFFF !important;
   }
 
   .stats-row {
-    margin-top: 30px;
+    display: grid !important;
+    grid-template-columns: repeat(3, 1fr) !important;
+    column-gap: 8px !important;
+    row-gap: 8px;
+    margin-top: 0px !important;
+  }
+
+  .stats-col {
+    width: 100% !important;
+    padding: 0 !important;
+  }
+
+  .stat-box {
+    padding: 10px 6px !important;
+    border-radius: 6px !important;
+    background: rgba(0, 0, 0, 0.75) !important;
+    border: 1px solid rgba(255, 255, 255, 0.15) !important;
+  }
+
+  .stat-number {
+    font-size: 15px !important;
+    font-weight: 800 !important;
+    margin-bottom: 2px !important;
+  }
+
+  .stat-label {
+    font-size: 9px !important;
+    line-height: 1.2 !important;
+    color: rgba(255, 255, 255, 0.6) !important;
   }
 }
 
@@ -590,16 +673,6 @@
   /* Ensure form inputs in modal display correctly on small screens */
   .modal-body {
     padding: 1rem;
-  }
-
-  .btn-apply,
-  .btn-explore {
-    width: 100%;
-    min-width: unset;
-  }
-
-  .hero-slider-warp {
-    background-image: url("~/assets/img/heros/mobileBanner.svg") !important;
   }
 }
 </style>

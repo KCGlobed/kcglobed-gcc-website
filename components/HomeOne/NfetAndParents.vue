@@ -2,16 +2,15 @@
   <div class="nfet-and-parents-container">
     <!-- Section 1: NFET Gateway (Dark Background) -->
     <div class="nfet-gateway-section">
-      <div class="container">
-        <!-- Top Row (Info & CTA Buttons) -->
-        <div class="row align-items-center justify-content-between g-4">
+      <div class="container nfet-layout-wrapper">
+        <div class="nfet-top-flex">
           <!-- Left Col: Title & Badges -->
-          <div class="col-lg-8 col-12 text-start">
+          <div class="nfet-info-block text-start">
             <span class="eyebrow gold-text">NFET · THE GATEWAY TO GCC SCHOOL</span>
             <h2 class="section-title text-white mt-2 mb-4">One Exam Opens Every Door.</h2>
 
             <!-- Badges Row -->
-            <div class="d-flex flex-wrap gap-4" style="margin-bottom: 35px;">
+            <div class="d-flex flex-wrap gap-4 badges-row">
               <span v-for="(badge, index) in nfetBadges" :key="index" class="nfet-badge-pill">
                 {{ badge }}
               </span>
@@ -19,7 +18,7 @@
           </div>
 
           <!-- Right Col: CTA Actions -->
-          <div class="col-lg-4 col-12 d-flex justify-content-lg-end justify-content-start gap-3 mt-lg-0 mt-4">
+          <div class="nfet-cta-block gap-3">
             <button class="btn btn-nfet-apply" data-bs-toggle="modal" data-bs-target="#enquiryModal">
               Apply For NFET <i class="ti ti-arrow-right ms-1"></i>
             </button>
@@ -30,7 +29,7 @@
         </div>
 
         <!-- Bottom Row (Step Strip) -->
-        <div class="step-strip-wrapper mt-50 mb-20">
+        <div class="step-strip-wrapper">
           <div class="step-strip-row">
             <div v-for="(step, index) in steps" :key="index" :class="['step-item', step.class]">
               <span class="step-num">{{ step.num }}</span>
@@ -176,6 +175,28 @@ const parentCards = [
   padding: 80px 0;
 }
 
+.nfet-top-flex {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 24px;
+}
+
+.nfet-info-block {
+  flex: 0 0 65%;
+}
+
+.badges-row {
+  margin-bottom: 35px;
+}
+
+.nfet-cta-block {
+  flex: 0 0 auto;
+  display: flex;
+  gap: 16px;
+  justify-content: flex-end;
+}
+
 .nfet-badge-pill {
   background-color: #51157C;
   /* Muted plum purple */
@@ -227,6 +248,8 @@ const parentCards = [
 /* Step Strip layout */
 .step-strip-wrapper {
   width: 100%;
+  margin-top: 50px;
+  margin-bottom: 20px;
 }
 
 .step-strip-row {
@@ -391,28 +414,91 @@ const parentCards = [
 }
 
 @media (max-width: 991px) {
-
   .nfet-gateway-section,
   .for-parents-section {
     padding: 60px 0;
   }
 
+  .nfet-layout-wrapper {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .nfet-top-flex {
+    display: contents;
+  }
+  
+  .nfet-info-block {
+    order: 1;
+    width: 100%;
+  }
+  
+  .step-strip-wrapper {
+    order: 2;
+    margin-top: 30px !important;
+    margin-bottom: 30px !important;
+  }
+  
+  .nfet-cta-block {
+    order: 3;
+    width: 100%;
+    margin-top: 0 !important;
+    display: flex;
+    justify-content: space-between;
+    gap: 12px;
+  }
+
   .step-strip-row {
-    flex-wrap: wrap;
+    display: grid !important;
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: 8px !important;
+    border-radius: 0 !important;
+    overflow: visible !important;
   }
 
   .step-item {
-    flex: 0 0 50%;
+    flex: none !important;
+    width: 100% !important;
+    border-radius: 6px !important;
+    padding: 12px 16px !important;
+  }
+
+  .step-1 {
+    border: 1.5px solid #F1A63E !important;
+    box-shadow: none !important;
+  }
+}
+
+@media (max-width: 767px) {
+  .btn-nfet-apply,
+  .btn-nfet-download {
+    flex: 1 !important;
+    font-size: 13px !important;
+    padding: 12px 10px !important;
+    height: 48px !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    white-space: nowrap !important;
+    text-align: center !important;
+    border-radius: 6px !important;
+  }
+
+  .badges-row {
+    gap: 8px 12px !important;
+    margin-bottom: 25px !important;
+  }
+
+  .nfet-badge-pill {
+    font-size: 10px !important;
+    padding: 6px 12px !important;
   }
 }
 
 @media (max-width: 575px) {
   .section-title {
-    font-size: 26px;
-  }
-
-  .step-item {
-    flex: 0 0 100%;
+    font-size: 32px !important;
+    line-height: 1.2 !important;
   }
 
   .parents-grid {

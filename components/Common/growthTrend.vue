@@ -213,7 +213,7 @@ GLOBAL CAPABILITY CENTERS (GCC)
     }
 
     .title {
-        font-size: 26px;
+        font-size: 24px;
     }
 
     .image-box {

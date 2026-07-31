@@ -79,16 +79,6 @@ const programs = [
     color: #181225;
 }
 
-/* .title::after {
-    content: "";
-    display: block;
-    width: 70px;
-    height: 4px;
-    background: #F1A63E;
-    margin: 15px auto 0;
-    border-radius: 10px;
-} */
-
 .highlight {
     color: #d6810b;
     font-weight: 700;
@@ -219,6 +209,11 @@ const programs = [
 }
 
 @media (max-width: 768px) {
+
+    .title {
+        font-size: 24px;
+        line-height: 37px;
+    }
 
     .govt-program-area {
         padding: 40px 0px;

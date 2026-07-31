@@ -9,7 +9,7 @@
           <p class="section-lead">Hear directly from the people whose careers and families changed in one hiring drive.</p>
         </div>
 
-        <div class="video-grid">
+        <div class="video-grid" ref="parentGridRef" @scroll="handleParentScroll">
           <div v-for="video in parentVideos" :key="video.youtubeId" class="video-card fade-up">
             <div class="video-thumb">
               <template v-if="activeYoutubeId === video.youtubeId">
@@ -27,6 +27,17 @@
             </div>
           </div>
         </div>
+        <div class="slider-dots">
+          <span 
+            v-for="(video, index) in parentVideos" 
+            :key="video.youtubeId" 
+            class="dot" 
+            :class="{ active: index === parentActiveIndex }"
+            @click="scrollToParentCard(index)"
+            role="button"
+            :aria-label="`Go to slide ${index + 1}`"
+          ></span>
+        </div>
       </div>
     </section>
 
@@ -39,7 +50,7 @@
           <p class="section-lead">Hear directly from the people whose careers changed in one hiring drive.</p>
         </div>
 
-        <div class="video-grid">
+        <div class="video-grid" ref="studentGridRef" @scroll="handleStudentScroll">
           <div v-for="video in studentVideos" :key="video.youtubeId" class="video-card fade-up">
             <div class="video-thumb">
               <template v-if="activeYoutubeId === video.youtubeId">
@@ -56,6 +67,17 @@
               </template>
             </div>
           </div>
+        </div>
+        <div class="slider-dots">
+          <span 
+            v-for="(video, index) in studentVideos" 
+            :key="video.youtubeId" 
+            class="dot" 
+            :class="{ active: index === studentActiveIndex }"
+            @click="scrollToStudentCard(index)"
+            role="button"
+            :aria-label="`Go to slide ${index + 1}`"
+          ></span>
         </div>
       </div>
     </section>
@@ -86,6 +108,82 @@ const studentVideos = [
   { youtubeId: 'ID5ZonOLiB0', alt: 'Student testimonial thumbnail' },
   { youtubeId: '1AD_U7WkLIw', alt: 'Student testimonial thumbnail' },
 ];
+
+const parentGridRef = ref<HTMLElement | null>(null);
+const parentActiveIndex = ref(0);
+
+const studentGridRef = ref<HTMLElement | null>(null);
+const studentActiveIndex = ref(0);
+
+const handleParentScroll = (event: Event) => {
+  const container = event.target as HTMLElement;
+  if (!container) return;
+
+  const containerCenter = container.getBoundingClientRect().left + container.clientWidth / 2;
+  const cards = container.querySelectorAll('.video-card');
+
+  let closestIndex = 0;
+  let minDiff = Infinity;
+
+  cards.forEach((card, index) => {
+    const cardRect = card.getBoundingClientRect();
+    const cardCenter = cardRect.left + cardRect.width / 2;
+    const diff = Math.abs(cardCenter - containerCenter);
+    if (diff < minDiff) {
+      minDiff = diff;
+      closestIndex = index;
+    }
+  });
+
+  parentActiveIndex.value = closestIndex;
+};
+
+const handleStudentScroll = (event: Event) => {
+  const container = event.target as HTMLElement;
+  if (!container) return;
+
+  const containerCenter = container.getBoundingClientRect().left + container.clientWidth / 2;
+  const cards = container.querySelectorAll('.video-card');
+
+  let closestIndex = 0;
+  let minDiff = Infinity;
+
+  cards.forEach((card, index) => {
+    const cardRect = card.getBoundingClientRect();
+    const cardCenter = cardRect.left + cardRect.width / 2;
+    const diff = Math.abs(cardCenter - containerCenter);
+    if (diff < minDiff) {
+      minDiff = diff;
+      closestIndex = index;
+    }
+  });
+
+  studentActiveIndex.value = closestIndex;
+};
+
+const scrollToParentCard = (index: number) => {
+  if (!parentGridRef.value) return;
+  const cards = parentGridRef.value.querySelectorAll('.video-card');
+  if (cards[index]) {
+    cards[index].scrollIntoView({
+      behavior: 'smooth',
+      block: 'nearest',
+      inline: 'center'
+    });
+  }
+};
+
+const scrollToStudentCard = (index: number) => {
+  if (!studentGridRef.value) return;
+  const cards = studentGridRef.value.querySelectorAll('.video-card');
+  if (cards[index]) {
+    cards[index].scrollIntoView({
+      behavior: 'smooth',
+      block: 'nearest',
+      inline: 'center'
+    });
+  }
+};
 </script>
 
 <style scoped>
@@ -97,7 +195,6 @@ const studentVideos = [
 }
 .video-testimonials-wrapper {
   background-color: #ffffff; /* matches lavender theme from mockup */
-  /* padding-bottom: 40px; */
 }
 
 .section {
@@ -160,7 +257,6 @@ const studentVideos = [
   justify-content: center;
   gap: 20px;
   margin-top: 32px;
-  
 }
 
 .video-card {
@@ -176,12 +272,6 @@ const studentVideos = [
   display: flex;
   flex-direction: column;
 }
-
-/* .video-card:hover {
-  transform: translateY(-6px);
-  box-shadow: 0 20px 40px rgba(81, 21, 124, 0.15);
-  border-color: rgba(124, 58, 237, 0.3);
-} */
 
 .video-thumb {
   aspect-ratio: 9/16;
@@ -245,6 +335,10 @@ const studentVideos = [
   transform: scale(1.1);
 }
 
+.slider-dots {
+  display: none;
+}
+
 @media (max-width: 991px) {
   .video-grid {
     justify-content: center;
@@ -255,18 +349,54 @@ const studentVideos = [
   }
 }
 
-@media (max-width: 640px) {
+@media (max-width: 767px) {
   .video-grid {
-    justify-content: center;
+    display: flex;
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    gap: 16px;
+    padding: 15px 30px;
+    margin: 32px -30px 0;
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+    justify-content: flex-start;
+
+    /* Hide scrollbar */
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+  }
+
+  .video-grid::-webkit-scrollbar {
+    display: none;
   }
 
   .video-card {
-    flex: 0 1 260px;
-    max-width: 100%;
+    flex: 0 0 82%;
+    max-width: 82%;
+    min-width: 82%;
+    scroll-snap-align: center;
   }
 
-  .video-thumb {
-    aspect-ratio: 9 / 16;
+  .slider-dots {
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+    margin-top: 18px;
+  }
+
+  .dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: #cfcfcf;
+    transition: 0.3s;
+    cursor: pointer;
+  }
+
+  .dot.active {
+    width: 22px;
+    border-radius: 20px;
+    background: #51157C;
   }
 }
 </style>
