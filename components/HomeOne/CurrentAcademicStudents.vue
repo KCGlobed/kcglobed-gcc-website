@@ -502,7 +502,7 @@ tr:last-child .gcc-cell {
 
 /* Faculty & Mentors Section Styles */
 .faculty-mentors-area {
-  background-color: #EEECF4;
+  background-color: #bcbbbe;
   padding: 80px 0;
   border-top: 1px solid #ECECF0;
 }

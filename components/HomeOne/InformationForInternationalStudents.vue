@@ -457,7 +457,7 @@ export default {
     flex: 0 0 calc(25% - 8px) !important;
     max-width: calc(25% - 8px) !important;
     background: #ffffff !important;
-    /* border: 1px solid #E5E5E5 !important; */
+    border: 1px solid #2f2f2f !important;
     border-radius: 8px !important;
     padding: 8px 4px !important;
     min-height: 70px !important;
@@ -465,8 +465,6 @@ export default {
     flex-direction: column !important;
     align-items: center !important;
     justify-content: center !important;
-    border-right: none !important;
-    border-bottom: none !important;
   }
 
   .boxes-container .box img {
@@ -474,7 +472,7 @@ export default {
   }
 
   .boxes-container .box span {
-    font-size: 8px !important;
+    font-size: 6px !important;
     margin-top: 4px !important;
   }
 
