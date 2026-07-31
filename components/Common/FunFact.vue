@@ -278,8 +278,8 @@ export default defineComponent({
     }
 
     .fun-fact-card .icon img {
-        max-width: 100px;
-        max-height: 45px;
+        max-width: 80px;
+        max-height: 25px;
         width: auto;
         height: auto;
         object-fit: contain;
