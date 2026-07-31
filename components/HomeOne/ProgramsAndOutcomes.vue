@@ -68,42 +68,23 @@
               </div>
               <!-- Card 2: Kreit & Chiu -->
               <div class="partner-card">
-                <div class="hiring-logo-box d-flex align-items-center">
-                  <div class="kc-badge d-flex align-items-center justify-content-center text-white font-weight-bold" style="background-color: #1A3E72; width: 36px; height: 36px; border-radius: 50%; font-size: 14px; font-weight: 800; margin-right: 8px;">KC</div>
-                  <div class="d-flex flex-column text-start">
-                    <span style="font-size: 10px; font-weight: 900; color: #1A3E72; line-height: 1.1; letter-spacing: 0.5px;">KREIT & CHIU CPA LLP</span>
-                    <span style="font-size: 8px; color: #666; font-style: italic; line-height: 1;">Accountants and Advisors</span>
-                  </div>
-                </div>
+               <img class="partner-logo" src="https://storage.googleapis.com/gcc_prod_static_files_backend/static/images/2b4b2a017e158573d1b6aa89b1e9fdad34408014.png" alt="">
               </div>
               <!-- Card 3: ASA -->
               <div class="partner-card">
-                <div class="hiring-logo-box d-flex flex-column text-center">
-                  <span style="font-size: 20px; font-weight: 900; color: #0C3E6E; letter-spacing: 1px; line-height: 1;">ASA</span>
-                  <span style="font-size: 8px; color: #E59824; font-weight: 700; text-transform: uppercase; margin-top: 2px;">Going The Extra Mile</span>
-                </div>
+               <img style="height: 80px;"  src="https://storage.googleapis.com/gcc_prod_static_files_backend/static/images/f18d9610299379a7802f53adaf17782b3d556016.png" alt="">
               </div>
               <!-- Card 4: J.C Bhalla & Co. -->
               <div class="partner-card">
-                <div class="hiring-logo-box d-flex flex-column text-center">
-                  <span style="font-size: 14px; font-weight: 800; color: #0A355C; line-height: 1;">J.C Bhalla & Co.</span>
-                  <span style="font-size: 7px; color: #027A86; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; margin-top: 3px;">CHARTERED ACCOUNTANTS</span>
-                </div>
+              <img style="height: 80px;" src="https://storage.googleapis.com/gcc_prod_static_files_backend/static/images/c5d94e39daa5850136b43e4c1baed4235695e8a9.jpg" alt="">
               </div>
               <!-- Card 5: Baker Tilly -->
               <div class="partner-card">
-                <div class="hiring-logo-box d-flex align-items-center">
-                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" style="margin-right: 6px;">
-                    <circle cx="12" cy="12" r="10" stroke="#F36F21" stroke-width="3" stroke-dasharray="10 5" />
-                  </svg>
-                  <span style="font-size: 16px; font-weight: 700; color: #000000; letter-spacing: -0.5px; font-family: sans-serif;">bakertilly</span>
-                </div>
+              <img class="partner-logo" src="https://storage.googleapis.com/gcc_prod_static_files_backend/static/images/ccc612e70958ff73c2eea50bb366a0b57537f0d8.png" alt="">
               </div>
               <!-- Card 6: BDO -->
               <div class="partner-card">
-                <div class="hiring-logo-box d-flex align-items-center justify-content-center">
-                  <span style="font-size: 24px; font-weight: 900; color: #C21B2F; letter-spacing: 1px;">BDO</span>
-                </div>
+                <img class="partner-logo" src="https://storage.googleapis.com/gcc_prod_static_files_backend/static/images/fcf40cc156290a432750ebfdc83c0bdc98be334c.png" alt="">
               </div>
             </div>
           </div>
@@ -178,6 +159,7 @@ const outcomeTags = [
 /* Container Layout */
 .programs-and-outcomes-container {
   width: 100%;
+  background-color: white;
 }
 
 /* Common Header Styles */
@@ -189,25 +171,28 @@ const outcomeTags = [
 .section-tag {
   color: #D5861B;
   font-weight: 700;
-  font-size: 13px;
+  font-size: 24px;
   letter-spacing: 1.5px;
   text-transform: uppercase;
 }
 
 .section-title {
-  font-size: 40px;
-  font-weight: 800;
-  color: #130922;
-  line-height: 1.2;
+  font-family: 'Inter', sans-serif;
+  font-style: normal;
+  font-weight: 700;
+  font-size: 36px;
+  line-height: 58px;
+  letter-spacing: -0.02em;
+  color: #181225;
   display: flex;
   text-align: left;
 }
 
 /* SECTION 1: Programs Section */
 .programs-section {
-  background-color: #F0EDE6; /* Warm light beige/sand */
+  background-color: #F0EDE6; 
   padding: 80px 0;
-  margin: 55px 196px;
+  /* margin: 55px 196px; */
 }
 
 .program-card {
@@ -294,12 +279,13 @@ const outcomeTags = [
 
 .btn-view {
   background-color: #ffffff;
-  color: #35083D !important;
+  color: #862E84 !important;
   font-weight: 700;
   font-size: 13px;
-  border-radius: 50px;
-  padding: 8px 20px;
+  border-radius: 5px;
+  padding: 5px 15px;
   text-decoration: none;
+  border-color: #862E84;
   display: inline-flex;
   align-items: center;
   transition: background-color 0.2s ease, transform 0.2s ease;
@@ -319,11 +305,11 @@ const outcomeTags = [
 .outcomes-section {
   background-color: #E6DFEC; /* Warm lavender background */
   padding: 80px 0;
-  margin: 55px 196px;
+  /* margin: 55px 196px; */
 }
 
 .outcome-tag {
-  background-color: #4A154B; /* Muted deep purple */
+  background-color: #51157C; /* Muted deep purple */
   color: #ffffff;
   font-size: 13px;
   font-weight: 600;

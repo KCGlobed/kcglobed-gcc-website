@@ -3,8 +3,9 @@
         <div class="container">
             <!-- Section Header -->
             <div class="section-header text-center  mb-3">
-                <h2 class="title">THE STRATEGIC RISE & GROWTH TRAJECTORY OF <span class="highlight"> GLOBAL CAPABILITY
-                        CENTERS (GCC) </span>
+                <h2 class="title">
+                    THE STRATEGIC RISE & GROWTH TRAJECTORY OF 
+GLOBAL CAPABILITY CENTERS (GCC)
                 </h2>
             </div>
 
@@ -96,12 +97,12 @@
 
 /* Image Box / Glassmorphism */
 .image-box {
-    background: rgba(255, 255, 255, 0.7);
+    /* background: rgba(255, 255, 255, 0.7); */
     backdrop-filter: blur(10px);
-    border: 1px solid rgba(255, 255, 255, 0.3);
+    /* border: 1px solid rgba(255, 255, 255, 0.3); */
     border-radius: 30px;
     padding: 30px;
-    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.05);
+    /* box-shadow: 0 20px 50px rgba(0, 0, 0, 0.05); */
     position: relative;
     transition: transform 0.4s ease, box-shadow 0.4s ease;
     width: 100%;

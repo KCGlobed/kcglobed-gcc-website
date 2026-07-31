@@ -22,7 +22,7 @@
 </template>
 
 <script setup lang="ts">
-import industryMentor1 from '@/assets/img/industoryMentorTwo/1.png'
+import industryMentor1 from '@/assets/img/industryMentortwo/1.png';
 import industryMentor2 from '@/assets/img/industoryMentorTwo/2.png'
 import industryMentor3 from '@/assets/img/industoryMentorTwo/3.png'
 import industryMentor4 from '@/assets/img/industoryMentorTwo/4.png'

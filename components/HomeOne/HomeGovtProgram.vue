@@ -68,16 +68,14 @@ const programs = [
     background-color: #f8f9fa;
 }
 
-.section-title {
-    margin-bottom: 50px;
-}
-
 .title {
-    font-size: 45px;
-    font-weight: 700;
-    color: #0d0d25;
-    margin-bottom: 20px;
-    position: relative;
+  font-family: 'Inter', sans-serif;
+  font-style: normal;
+  font-weight: 700;
+  font-size: 36px;
+  line-height: 58px;
+  letter-spacing: -0.02em;
+  color: #181225;
 }
 
 /* .title::after {
@@ -182,6 +180,8 @@ const programs = [
     display: flex;
     flex-direction: column;
 }
+
+
 
 .program-name {
     font-size: 20px;

@@ -1,7 +1,7 @@
 <template>
   <div class="video-testimonials-wrapper">
     <!-- Parents VIDEO TESTIMONIALS -->
-    <section class="section" aria-labelledby="parents-video-h2">
+    <section class="section section-parent" aria-labelledby="parents-video-h2">
       <div class="container">
         <div class="section-head">
           <span class="tag tag-accent">In Their Own Words</span>
@@ -31,7 +31,7 @@
     </section>
 
     <!-- Students VIDEO TESTIMONIALS -->
-    <section class="section" aria-labelledby="students-video-h2" style="padding: 46px 0;">
+    <section class="section section-students" aria-labelledby="students-video-h2" style="padding: 46px 0;">
       <div class="container">
         <div class="section-head">
           <span class="tag tag-accent">In Their Own Words</span>
@@ -89,16 +89,26 @@ const studentVideos = [
 </script>
 
 <style scoped>
+.section-parent{
+  background-color: #300241;
+}
+.section-students{
+  background-color: #51157C;
+}
 .video-testimonials-wrapper {
   background-color: #ffffff; /* matches lavender theme from mockup */
-  padding-bottom: 40px;
+  /* padding-bottom: 40px; */
 }
 
 .section {
   padding: 80px 0;
   position: relative;
 }
-
+.section-parent .container,.section-students .container{
+  background-color: white;
+  padding: 30px;
+  border-radius: 25px;
+}
 .tag {
   display: inline-block;
   padding: 6px 14px;
@@ -150,6 +160,7 @@ const studentVideos = [
   justify-content: center;
   gap: 20px;
   margin-top: 32px;
+  
 }
 
 .video-card {

@@ -69,7 +69,7 @@
               <div class="col stats-col">
                 <div class="stat-box">
                   <div class="stat-number">26 Lc+</div>
-                  <div class="stat-label">Employees Currently Working in India</div>
+                  <div class="stat-label">Employees Currently<br>Working in India</div>
                 </div>
               </div>
               <div class="col stats-col">
@@ -320,15 +320,17 @@
 }
 
 .hero-slider-warp {
-  min-height: 90vh;
+  min-height: 80vh;
   display: flex;
   align-items: flex-end;
   background-size: contain;
   background-repeat: no-repeat;
   background-position: center;
   background-position: center;
-  padding-bottom: 140px;
+  padding-bottom: 30px;
   padding-top: 237px;
+  background-position: center bottom;
+  /* background-size: 100%; */
   /* padding: 170px 0 60px 0; */
 }
 
@@ -606,7 +608,7 @@
 import { defineComponent } from "vue";
 
 // import image1 from "../../assets/img/heros/hero_bg.svg";
-import image1 from "../../assets/newimages/banner.jpg";
+import image1 from "../../assets/newimages/banner.png";
 
 import image2 from "../../assets/img/heros/hero2.jpg";
 import gccPdf from "../../assets/gcc.pdf";

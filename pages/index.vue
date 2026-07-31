@@ -20,9 +20,9 @@
     <HomeOneNfetAndParents />
     <CommonFunFact />
     <CommonNewsCard />
-    <CommonPowerHouse />
     <HomeOneSpotlightSection />
     <HomeOneStudentParentVideoSection />
+    <HomeOneInstagramReelsSection />
     <CommonTrustecoSystem />
     <HomeOneResourcesAndNews />
     <CommonFaqSection />

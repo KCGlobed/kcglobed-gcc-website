@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Invoice - GCC School NFET 2026</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --navy:#701A75;
+    --navy-2:#54125A;
+    --gold:#FFFFFF;
+    --gold-light:#FFFFFF;
+    --paper:#FBF7FB;
+    --card:#FFFFFF;
+    --ink:#232733;
+    --ink-soft:#6A6F7B;
+    --line:#E7D9E6;
+    --green-bg:#F1E4F0;
+    --green-ink:#54125A;
+  }
+  *{box-sizing:border-box;margin:0;padding:0;}
+  body{
+    background:#EAE7DC;
+    font-family:'Inter',sans-serif;
+    color:var(--ink);
+    padding:40px 16px;
+  }
+  .sheet{
+    max-width:820px;
+    margin:0 auto;
+    background:var(--card);
+    border-radius:14px;
+    overflow:hidden;
+    box-shadow:0 20px 50px rgba(19,34,65,0.18);
+    position:relative;
+  }
+  .band{
+    height:6px;
+    background:linear-gradient(90deg,var(--navy) 0%,var(--gold) 100%);
+  }
+  header{
+    display:flex;
+    justify-content:space-between;
+    align-items:flex-start;
+    padding:36px 44px 28px;
+    background:var(--navy);
+    color:#fff;
+  }
+  .brand{
+    display:flex;
+    /* align-items:center; */
+    gap:14px;
+  }
+  .brand img{
+    height:56px;
+    width:auto;
+    /* background:#fff; */
+    /* padding:6px 10px; */
+    /* border-radius:8px; */
+  }
+  .brand-name{
+    font-family:'Space Grotesk',sans-serif;
+    font-size:20px;
+    font-weight:600;
+    letter-spacing:0.2px;
+  }
+  .brand-sub{
+    font-size:12px;
+    color:#EBD3E8;
+    margin-top:2px;
+    letter-spacing:0.4px;
+  }
+  .invoice-tag{
+    text-align:right;
+  }
+  .invoice-tag .label{
+    font-family:'Space Grotesk',sans-serif;
+    font-size:21px;
+    font-weight:700;
+    letter-spacing:1.5px;
+    color:var(--gold-light);
+  }
+  .invoice-tag .num{
+    font-family:'JetBrains Mono',monospace;
+    font-size:13px;
+    color:#F0DCED;
+    margin-top:6px;
+  }
+  .status-pill{
+    display:inline-block;
+    margin-top:10px;
+    background:var(--green-bg);
+    color:var(--green-ink);
+    font-size:11px;
+    font-weight:600;
+    letter-spacing:1px;
+    padding:5px 12px;
+    border-radius:20px;
+    text-transform:uppercase;
+  }
+
+  .meta-row{
+    display:grid;
+    grid-template-columns:1.1fr 1fr 1fr;
+    gap:24px;
+    padding:32px 44px 0;
+  }
+  .meta-block .k{
+    font-size:11px;
+    text-transform:uppercase;
+    letter-spacing:1px;
+    color:var(--ink-soft);
+    margin-bottom:6px;
+  }
+  .meta-block .v{
+    font-size:14px;
+    font-weight:500;
+    line-height:1.5;
+  }
+  .meta-block .v.mono{
+    font-family:'JetBrains Mono',monospace;
+    font-size:13px;
+  }
+
+  .divider{
+    height:1px;
+    background:var(--line);
+    margin:28px 44px 0;
+  }
+
+  .items{
+    padding:28px 44px 0;
+  }
+  table{
+    width:100%;
+    border-collapse:collapse;
+  }
+  thead th{
+    text-align:left;
+    font-size:11px;
+    text-transform:uppercase;
+    letter-spacing:0.8px;
+    color:var(--ink-soft);
+    padding:0 0 12px;
+    border-bottom:1.5px solid var(--navy);
+    font-weight:600;
+  }
+  thead th:nth-child(2), tbody td:nth-child(2),
+  thead th:last-child, tbody td:last-child{
+    text-align:right;
+  }
+  tbody td{
+    padding:18px 0;
+    border-bottom:1px solid var(--line);
+    font-size:14px;
+    vertical-align:top;
+  }
+  .item-title{
+    font-weight:600;
+    font-family:'Space Grotesk',sans-serif;
+    font-size:15px;
+  }
+  .item-desc{
+    color:var(--ink-soft);
+    font-size:12.5px;
+    margin-top:4px;
+    line-height:1.5;
+  }
+  .amount-cell{
+    font-family:'JetBrains Mono',monospace;
+    font-weight:500;
+    white-space:nowrap;
+  }
+
+  .totals{
+    padding:20px 44px 8px;
+    display:flex;
+    justify-content:flex-end;
+  }
+  .totals-box{
+    width:280px;
+  }
+  .totals-line{
+    display:flex;
+    justify-content:space-between;
+    font-size:13.5px;
+    padding:8px 0;
+    color:var(--ink-soft);
+  }
+  .totals-line.grand{
+    color:var(--navy);
+    font-weight:700;
+    font-size:19px;
+    font-family:'Space Grotesk',sans-serif;
+    border-top:2px solid var(--navy);
+    margin-top:6px;
+    padding-top:14px;
+  }
+  .totals-line .amt{
+    font-family:'JetBrains Mono',monospace;
+  }
+
+  .seal{
+    position:absolute;
+    right:52px;
+    top:230px;
+    width:104px;
+    height:104px;
+    border:2px dashed var(--gold);
+    border-radius:50%;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    transform:rotate(-14deg);
+    opacity:0.9;
+  }
+  .seal-inner{
+    text-align:center;
+    color:var(--navy-2);
+  }
+  .seal-inner .p1{
+    font-family:'Space Grotesk',sans-serif;
+    font-weight:700;
+    font-size:15px;
+    letter-spacing:2px;
+  }
+  .seal-inner .p2{
+    font-size:8px;
+    letter-spacing:1.5px;
+    color:var(--ink-soft);
+    margin-top:2px;
+  }
+
+  footer{
+    background:var(--paper);
+    padding:26px 44px 32px;
+    border-top:1px solid var(--line);
+    display:flex;
+    justify-content:space-between;
+    gap:24px;
+  }
+  .footnote{
+    font-size:12px;
+    color:var(--ink-soft);
+    line-height:1.7;
+    max-width:420px;
+  }
+  .footnote strong{
+    color:var(--ink);
+  }
+  .contact{
+    font-size:12.5px;
+    color:var(--ink-soft);
+    text-align:right;
+    line-height:1.9;
+  }
+  .contact a{
+    color:var(--navy-2);
+    text-decoration:none;
+  }
+
+  @media (max-width:640px){
+    .meta-row{grid-template-columns:1fr;gap:18px;}
+    header{flex-direction:column;gap:20px;}
+    .invoice-tag{text-align:left;}
+    .seal{display:none;}
+    footer{flex-direction:column;}
+    .contact{text-align:left;}
+  }
+
+  @media print{
+    body{background:#fff;padding:0;}
+    .sheet{box-shadow:none;border-radius:0;}
+  }
+</style>
+</head>
+<body>
+
+  <div class="sheet">
+    <div class="band"></div>
+
+    <header>
+      <div class="brand">
+        <img src="https://storage.googleapis.com/gcc_prod_static_files_backend/static/images/shared%20image%20logo.png" alt="GCC School logo">
+        <div>
+          <div class="brand-name">GCC School</div>
+          <div class="brand-sub">National Fintech Entrance Test</div>
+          <div class="brand-sub" style="margin-top:6px;">GSTIN: 07AAJCG4521P1ZQ &nbsp;|&nbsp; PAN: AAJCG4521P</div>
+        </div>
+      </div>
+      <div class="invoice-tag">
+        <div class="label">TAX INVOICE</div>
+        <div class="num">INV-NFET26-73418</div>
+        <div class="status-pill">Paid</div>
+      </div>
+    </header>
+
+    <div class="meta-row">
+      <div class="meta-block">
+        <div class="k">Billed to</div>
+        <div class="v">Suneel Kumar <br>7500680909 <br>Chhattarpur, New Delhi<br>India</div>
+      </div>
+      <div class="meta-block">
+        <div class="k">Candidate ID</div>
+        <div class="v mono">NFET-2026-050272</div>
+        <div class="k" style="margin-top:14px;">Invoice date</div>
+        <div class="v">28 July 2026</div>
+      </div>
+      <div class="meta-block">
+        <div class="k">Payment mode</div>
+        <div class="v">UPI</div>
+        <div class="k" style="margin-top:14px;">Transaction ID</div>
+        <div class="v mono">UPI2607281942317</div>
+      </div>
+      <div class="meta-block">
+        <div class="k">Place of supply</div>
+        <div class="v">Delhi (07)</div>
+        <div class="k" style="margin-top:14px;">SAC code</div>
+        <div class="v mono">999293</div>
+      </div>
+    </div>
+
+    <div class="meta-row" style="padding-top:0;">
+      <div class="meta-block">
+        <div class="k">Reverse charge applicable</div>
+        <div class="v">No</div>
+      </div>
+      <div class="meta-block">
+        <div class="k">Supply type</div>
+        <div class="v">Intra-state (B2C)</div>
+      </div>
+    </div>
+
+    <div class="divider"></div>
+
+    <div class="items">
+      <table>
+        <thead>
+          <tr>
+            <th>Description</th>
+            <th>SAC</th>
+            <th>Taxable value</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>
+              <div class="item-title">NFET 2026 Exam Registration Fee</div>
+              <div class="item-desc">National Fintech Entrance Test — candidate registration and exam slot booking eligibility.</div>
+            </td>
+            <td class="amount-cell">999293</td>
+            <td class="amount-cell">₹2,500.00</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="totals">
+      <div class="totals-box">
+        <div class="totals-line"><span>Taxable value</span><span class="amt">₹2,500.00</span></div>
+        <div class="totals-line"><span>GST @ 18% (included)</span><span class="amt">₹450.00</span></div>
+        <!-- <div class="totals-line"><span>SGST @ 9% (included)</span><span class="amt">₹225.00</span></div> -->
+        <div class="totals-line grand"><span>Total paid</span><span class="amt">₹2,950.00</span></div>
+      </div>
+    </div>
+
+    <div class="seal">
+      <div class="seal-inner">
+        <div class="p1">PAID</div>
+        <div class="p2">GCC SCHOOL</div>
+      </div>
+    </div>
+
+    <footer>
+      <div class="footnote">
+        <strong>Note.</strong> This invoice confirms receipt of payment for NFET 2026. Log in to your candidate dashboard to book your exam slot; your admit card will be issued after slot booking. Keep your login credentials confidential.
+        <br><br>
+        <strong>Declaration.</strong> Tax is not payable on reverse charge basis. This is a computer-generated tax invoice and does not require a physical signature.
+      </div>
+      <div class="contact">
+        <div>GCC School</div>
+        <div>+91 97735 76111</div>
+        <div><a href="mailto:info@gccschool.com">info@gccschool.com</a></div>
+      </div>
+    </footer>
+  </div>
+
+</body>
+</html>

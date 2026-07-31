@@ -5,7 +5,7 @@
   ]">
     <div class="container-fluid">
       <NuxtLink class="navbar-brand" to="/">
-        <img src="/assets/newimages/logo.svg" alt="Logo" style="height: 120px; width: 220px;" />
+        <img src="~/assets/Logo/Logo/GCC-School-Logo-White.jpeg" alt="Logo" style="height: 75px;" />
       </NuxtLink>
       <button class="navbar-toggler home1-one-toggler" type="button" @click.prevent="stateStoreInstance.onMobileNavbarShow" @touchend.prevent="stateStoreInstance.onMobileNavbarShow" style="background: none; border: none; padding: 0; outline: none; box-shadow: none;">
         <span class="burger-menu">
@@ -14,9 +14,14 @@
           <span class="bottom-bar"></span>
         </span>
       </button>
-      <div class="collapse navbar-collapse justify-content-end align-items-center">
-        <ul class="navbar-nav align-items-center gap-2 gap-lg-3">
-          <!-- Programs Dropdown -->
+      <div class="collapse navbar-collapse">
+        <ul class="navbar-nav ms-auto">
+
+          <li class="nav-item">
+            <NuxtLink to="/" class="nav-link">
+              Home
+            </NuxtLink>
+          </li>
           <li class="nav-item">
             <a href="javascript:void(0)" class="dropdown-toggle nav-link">
               Programs
@@ -39,36 +44,60 @@
               </li>
             </ul>
           </li>
-
-          <!-- NFET Link -->
           <li class="nav-item">
             <NuxtLink to="/nfet-exam" class="nav-link">
-              NFET
+              NFET Exam
             </NuxtLink>
-          </li>
 
-          <!-- For Parents Link (styled purple) -->
+          </li>
+          <!-- <li class="nav-item">
+            <NuxtLink to="/admissions" class="nav-link">
+              Admission
+            </NuxtLink>
+          </li> -->
           <li class="nav-item">
-            <NuxtLink class="nav-link parents-nav-link">
-              For Parents
+            <NuxtLink to="/campus-life" class="nav-link">
+              Campus Life
             </NuxtLink>
           </li>
-
-          <!-- Apply Button (styled golden/orange) -->
-          <li class="nav-item px-1">
-            <button class="btn btn-navbar-apply" data-bs-toggle="modal" data-bs-target="#navApplyNowModal">
-              Apply
+          <li class="nav-item">
+            <NuxtLink to="/blogs" class="nav-link">
+              Blogs
+            </NuxtLink>
+          </li>
+          <li class="nav-item">
+            <NuxtLink to="/about-overview" class="nav-link">
+              About Us
+            </NuxtLink>
+          </li>
+          <li class="nav-item apply-btn">
+            <button class="nav-link apply-now-btn" data-bs-toggle="modal" data-bs-target="#navApplyNowModal">
+              Apply Now
             </button>
           </li>
 
-          <!-- Menu Button (rounded outlined pill with hamburger icon) -->
-          <li class="nav-item px-1">
-            <button class="btn btn-navbar-menu d-flex align-items-center gap-2" type="button">
-              <i class="ti ti-menu hamburger-icon"></i>
-              <span>Menu</span>
-            </button>
-          </li>
+
+          <!-- <li class="nav-item">
+            <NuxtLink to="/contact-us" class="nav-link">
+              Contact Us
+            </NuxtLink>
+          </li> -->
         </ul>
+        <div class="others-option d-flex align-items-center">
+          <!-- <div class="option-item">
+            <div class="search-bar main-menu__search search-toggler" @click="toggleSearch" style="cursor: pointer">
+              <div class="search-btn">
+                <img src="~/assets/img/svgs/search2.svg" alt="image" loading="lazy" decoding="async" />
+              </div>
+            </div>
+          </div> -->
+
+          <!-- <div class="option-item">
+            <button class="btn side-bar-btn" type="button" @click="stateStoreInstance.onSidebarShow">
+              <img src="~/assets/img/svgs/menu2.svg" alt="svg" loading="lazy" decoding="async" />
+            </button>
+          </div> -->
+        </div>
       </div>
     </div>
 
@@ -323,104 +352,41 @@ export default defineComponent({
 
 <style>
 .navbar {
-  background-color: #ffffff !important;
+  background-color: #020103;
   max-height: 90px;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
 }
 
 .navbar .navbar-nav .nav-item .nav-link {
-  color: #111111 !important;
-  font-weight: 500;
-  font-size: 17px;
-  padding: 10px 15px;
-}
-
-.navbar .navbar-nav .nav-item .nav-link:hover {
-  color: #A13E99 !important;
+  color: #fff;
+  padding: 10px 20px;
+  font-weight: 600;
+  font-size: 16px;
 }
 
 .navbar .navbar-nav .nav-item .nav-link:not(.dropdown-toggle).active,
 .navbar .navbar-nav .nav-item .nav-link:not(.dropdown-toggle).router-link-active {
-  color: #A13E99 !important;
+  color: #fff !important;
+  border-radius: 5px;
 }
 
 .navbar .navbar-nav .child .nav-link:not(.dropdown-toggle).router-link-active {
   background-color: #8321A5 !important;
-  color: #ffffff !important;
 }
 
-/* Purple color for For Parents link */
-.navbar .navbar-nav .nav-item .parents-nav-link {
-  color: #A13E99 !important;
-  font-weight: 500;
-}
-
-.navbar .navbar-nav .nav-item .parents-nav-link:hover {
-  color: #872980 !important;
-}
-
-/* Outlined Menu Button */
-.btn-navbar-menu {
-  background: transparent !important;
-  border: 1.5px solid #130922 !important;
-  border-radius: 50px !important;
-  color: #130922 !important;
-  font-weight: 700 !important;
-  font-size: 14px !important;
-  padding: 8px 20px !important;
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  transition: all 0.3s ease;
-  line-height: 1.2 !important;
-}
-
-.btn-navbar-menu:hover {
-  background: rgba(19, 9, 34, 0.05) !important;
-  transform: translateY(-1px);
-}
-
-.btn-navbar-menu .hamburger-icon {
-  font-size: 16px;
-  stroke-width: 2.5;
-}
-
-/* Orange/Gold Apply Button */
-.btn-navbar-apply {
-  background: #FFAF3D !important;
-  color: #000000 !important;
-  font-weight: 700 !important;
-  font-size: 14px !important;
-  padding: 10px 24px !important;
-  border-radius: 6px !important;
-  border: none !important;
-  transition: all 0.3s ease;
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
-  line-height: 1.2 !important;
-}
-
-.btn-navbar-apply:hover {
-  background: #E5A93C !important;
-  transform: translateY(-1px);
-  box-shadow: 0 4px 12px rgba(254, 175, 61, 0.2);
+.navbar .navbar-nav .nav-item .nav-link:not(.dropdown-toggle):hover {
+  color: #8321A5 !important;
 }
 
 @media (min-width: 992px) and (max-width: 1200px) {
   .navbar .navbar-nav .nav-item .nav-link {
-    /* padding-left: 10px; */
-    /* padding-right: 10px; */
+    padding-left: 10px;
+    padding-right: 10px;
     font-size: 14px;
   }
 }
 
 .navbar.sticky {
-  background-color: #ffffff !important;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
-}
-
-.navbar .navbar-toggler .burger-menu span {
-  background-color: #111111 !important;
+  background-color: #020103;
 }
 
 /* Search Dropdown Styles */
@@ -509,7 +475,7 @@ export default defineComponent({
 }
 
 .result-icon {
-  /* margin-right: 12px; */
+  margin-right: 12px;
   color: #3D2C5E;
   display: flex;
   align-items: center;

@@ -2,7 +2,7 @@
     <div class="news-area">
         <div class="container">
             <div class="section-header text-center">
-                <h2 class="section-title">AS FEATURED IN <span class="highlight">LEADING MEDIA</span></h2>
+                <h2 class="section-title">AS FEATURED IN LEADING MEDIA</h2>
             </div>
 
             <div class="news-slider-wrapper" data-aos="fade-up" data-aos-delay="100">

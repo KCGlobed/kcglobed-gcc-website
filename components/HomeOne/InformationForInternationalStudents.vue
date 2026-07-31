@@ -10,8 +10,7 @@
         </div>
         <!-- ACCA -->
         <div class="box">
-          <img src="../../assets/newimages/red-acca-logo.svg" alt="ACCA Logo"
-            loading="lazy" decoding="async" />
+          <img src="../../assets/newimages/red-acca-logo.svg" alt="ACCA Logo" loading="lazy" decoding="async" />
           <span>ACCA</span>
         </div>
         <!-- IRS -->
@@ -52,10 +51,10 @@
             Disrupting The Traditional, Ordinary, Conventional, Normal Education System.
           </h2>
           <div class="d-flex gap-3 flex-wrap mt-4">
-            <button class="btn btn-purple px-4 py-3" data-bs-toggle="modal" data-bs-target="#applyNowModal">
+            <button style="background-color: #51157C;color: white;" class="btn px-4 py-3" data-bs-toggle="modal" data-bs-target="#applyNowModal">
               Explore The Model &rarr;
             </button>
-            <button class="btn btn-outline-purple px-4 py-3" @click="toggleEligibilityModal">
+            <button style="outline: #DDD1EA;border: 1px solid #DDD1EA; background-color: white;" class="btn  px-4 py-3" @click="toggleEligibilityModal">
               View Career Paths
             </button>
           </div>
@@ -208,10 +207,13 @@ export default {
 }
 
 .hire-main-title {
-  font-size: 56px;
-  font-weight: 600;
-  line-height: 1.25;
-  color: #130922;
+  font-family: 'Inter', sans-serif;
+  font-style: normal;
+  font-weight: 700;
+  font-size: 36px;
+  line-height: 58px;
+  letter-spacing: -0.02em;
+  color: #181225;
 }
 
 .btn-purple {
@@ -300,16 +302,16 @@ export default {
   transform: scale(1.03);
 }
 
-  .play-overlay {
-    position: absolute;
-    inset: 0;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background: rgba(0, 0, 0, 0.45);
-    z-index: 4;
-    cursor: pointer;
-  }
+.play-overlay {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: rgba(0, 0, 0, 0.45);
+  z-index: 4;
+  cursor: pointer;
+}
 
 
 .play-overlay:hover {

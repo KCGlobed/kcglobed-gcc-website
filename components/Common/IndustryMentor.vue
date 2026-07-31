@@ -3,7 +3,7 @@
     <div class="think-tank-area ptb-100">
       <div class="container">
         <div class="section-title text-center mb-50">
-          <h2 class="title">OUR DISTINGUISHED INDUSTRY <span class="highlight">MENTORS</span></h2>
+          <h2 class="title">OUR DISTINGUISHED INDUSTRY MENTORS</h2>
           <!-- <p class="max-600 mx-auto">Our Industry Mentors are seasoned professionals who provide invaluable
               guidance and real-world insights to bridge the gap between academia and industry.</p> -->
         </div>
@@ -56,68 +56,59 @@
 </template>
 
 <script setup lang="ts">
-import classroomImg from '@/assets/img/campus/image5.png'
-import industryMentor1 from '@/assets/img/industoryMentorTwo/1.png'
-import industryMentor2 from '@/assets/img/industoryMentorTwo/2.png'
-import industryMentor3 from '@/assets/img/industoryMentorTwo/3.png'
-import industryMentor4 from '@/assets/img/industoryMentorTwo/4.png'
-import industryMentor5 from '@/assets/img/industoryMentorTwo/5.png'
-import industryMentor6 from '@/assets/img/industoryMentorTwo/6.png'
-import industryMentor7 from '@/assets/img/industoryMentorTwo/7.png'
-import industryMentor8 from '@/assets/img/industoryMentorTwo/8.png'
-import industryMentor9 from '@/assets/img/industoryMentorTwo/9.png'
-import industryMentor10 from '@/assets/img/industoryMentorTwo/17.png'
-import industryMentor11 from '@/assets/img/industoryMentorTwo/11.png'
-import industryMentor12 from '@/assets/img/industoryMentorTwo/12.png'
 import campusImg from '@/assets/newimages/campus-1.png';
 
 const images = [
     {
-        img: industryMentor1,
+        img: "https://storage.googleapis.com/gcc_prod_static_files_backend/static/images/Frame%2051456%201.png",
         link: "https://www.linkedin.com/in/senthil-kumar-5b8a1b8a/"
     },
     {
-        img: industryMentor2,
+        img: "https://storage.googleapis.com/gcc_prod_static_files_backend/static/images/Frame%2051456%20(1)%201.png",
         link: "https://www.linkedin.com/in/senthil-kumar-5b8a1b8a/"
     },
     {
-        img: industryMentor3,
+        img: "https://storage.googleapis.com/gcc_prod_static_files_backend/static/images/Frame%2051457%201.png",
         link: "https://www.linkedin.com/in/senthil-kumar-5b8a1b8a/"
     },
     {
-        img: industryMentor4,
+        img: "https://storage.googleapis.com/gcc_prod_static_files_backend/static/images/Frame%2051456%20(2)%201.png",
+        link: "https://www.linkedin.com/in/senthil-kumar-5b8a1b8a/"
+    },
+    // {
+    //     img: "https://storage.googleapis.com/gcc_prod_static_files_backend/static/images/Frame%2051456%20(3)%201.png",
+    //     link: "https://www.linkedin.com/in/senthil-kumar-5b8a1b8a/"
+    // },
+    {
+        img: "https://storage.googleapis.com/gcc_prod_static_files_backend/static/images/Frame%2049920%201.png",
         link: "https://www.linkedin.com/in/senthil-kumar-5b8a1b8a/"
     },
     {
-        img: industryMentor5,
+        img: "https://storage.googleapis.com/gcc_prod_static_files_backend/static/images/Frame%2051456%20(4)%201.png",
         link: "https://www.linkedin.com/in/senthil-kumar-5b8a1b8a/"
     },
     {
-        img: industryMentor6,
+        img: "https://storage.googleapis.com/gcc_prod_static_files_backend/static/images/Frame%2051456%20(5)%201.png",
         link: "https://www.linkedin.com/in/senthil-kumar-5b8a1b8a/"
     },
     {
-        img: industryMentor7,
+        img: "https://storage.googleapis.com/gcc_prod_static_files_backend/static/images/Frame%2051456%20(6)%201.png",
         link: "https://www.linkedin.com/in/senthil-kumar-5b8a1b8a/"
     },
     {
-        img: industryMentor8,
+        img: "https://storage.googleapis.com/gcc_prod_static_files_backend/static/images/Frame%2051456%20(7).png",
         link: "https://www.linkedin.com/in/senthil-kumar-5b8a1b8a/"
     },
     {
-        img: industryMentor9,
+        img: "https://storage.googleapis.com/gcc_prod_static_files_backend/static/images/Frame%2051457%20(1)%201.png",
         link: "https://www.linkedin.com/in/senthil-kumar-5b8a1b8a/"
     },
     {
-        img: industryMentor10,
+        img: "https://storage.googleapis.com/gcc_prod_static_files_backend/static/images/Frame%2051457%20(2)%201.png",
         link: "https://www.linkedin.com/in/senthil-kumar-5b8a1b8a/"
     },
     {
-        img: industryMentor11,
-        link: "https://www.linkedin.com/in/senthil-kumar-5b8a1b8a/"
-    },
-    {
-        img: industryMentor12,
+        img: "https://storage.googleapis.com/gcc_prod_static_files_backend/static/images/Frame%2051457%20(2)%201.png",
         link: "https://www.linkedin.com/in/senthil-kumar-5b8a1b8a/"
     },
 
@@ -127,17 +118,18 @@ const images = [
 
 <style scoped>
 .think-tank-area {
-    background: #e3e3e3;
+    background: #1E1E1E;
 }
 
 .section-title {
     margin-bottom: 50px;
+
 }
 
 .title {
     font-size: 32px;
     font-weight: 700;
-    color: #0d0d25;
+    color: white;
     margin-bottom: 20px;
     text-transform: uppercase;
 }

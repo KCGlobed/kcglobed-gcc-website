@@ -48,14 +48,16 @@
 <style scoped>
 .sec {
   padding: 80px 0;
-  background-color: #ffffff;
+  background-color: #51157C;
 }
 
 .wrap {
   width: 100%;
   max-width: 1200px;
   margin: 0 auto;
-  padding: 0 22px;
+  padding: 30px;
+  background-color: white;
+  border-radius: 20px;
 }
 
 .sec-head {

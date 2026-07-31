@@ -61,11 +61,16 @@
 }
 
 .title {
-    font-size: 32px;
+    font-family: 'Inter', sans-serif;
+    font-style: normal;
     font-weight: 700;
-    color: #0d0d25;
+    font-size: 36px;
+    line-height: 58px;
+    letter-spacing: -0.02em;
+    color: #181225;
     margin-bottom: 0;
-    line-height: 1.2;
+    display: flex;
+    justify-content: center;
 }
 
 .highlight {
@@ -99,7 +104,7 @@
     width: 100%;
     display: flex;
     justify-content: center;
-    background: #ffffff;
+    /* background: #ffffff; */
     border-radius: 30px;
     padding: 10px;
     transition: transform 0.3s ease;

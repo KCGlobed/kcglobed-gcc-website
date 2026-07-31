@@ -45,12 +45,17 @@
 }
 
 .section-header .title {
-    font-size: clamp(24px, 4vw, 36px);
-    font-weight: 500;
-    color: #0d0d25;
+    font-family: 'Inter', sans-serif;
+    font-style: normal;
+    font-weight: 700;
+    font-size: 36px;
+    /* line-height: 58px; */
+    /* display: flex; */
+    /* align-items: center; */
+    /* justify-content: center; */
+    letter-spacing: -0.02em;
+    color: #181225;
     margin-bottom: 20px;
-    text-transform: uppercase;
-    line-height: 1.2;
     max-width: 900px;
     margin-left: auto;
     margin-right: auto;
