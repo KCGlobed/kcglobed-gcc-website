@@ -74,7 +74,7 @@
 
           <!-- Right Cards Block -->
           <div class="col-lg-7 col-12">
-            <div class="d-flex flex-md-row flex-column -gap-8 justify-content-lg-end justify-content-center">
+            <div class="d-flex flex-md-row flex-column justify-content-center">
               <!-- Card 1: Nitish Khatri -->
                   <img :src="nitishImage" alt="CPA Nitish Khatri" class="faculty-img" loading="lazy" decoding="async" />
               <!-- Card 2: Ankur Sharma -->
@@ -497,7 +497,7 @@ tr:last-child .gcc-cell {
 }
 
 .faculty-img {
-  height: 200px;
+  height: 266px;
   width: auto;
   object-fit: contain;
   align-self: flex-end;

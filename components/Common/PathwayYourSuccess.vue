@@ -22,15 +22,14 @@
 
 <style scoped>
 .pathway-success-section {
-    padding: 25px 0;
+    padding: 73px 0;
     background-color: #eeeeee;
     overflow: hidden;
-    margin-bottom: 50px;
 }
 
 /* Header Styles */
 .section-header .title {
-    font-size: 32px;
+    font-size: 36px;
     font-weight: 700;
     color: #0d0d25;
     margin-bottom: 50px;

@@ -22,70 +22,55 @@
 </template>
 
 <script setup lang="ts">
-import industryMentor1 from '@/assets/img/industryMentortwo/1.png';
-import industryMentor2 from '@/assets/img/industoryMentorTwo/2.png'
-import industryMentor3 from '@/assets/img/industoryMentorTwo/3.png'
-import industryMentor4 from '@/assets/img/industoryMentorTwo/4.png'
-import industryMentor5 from '@/assets/img/industoryMentorTwo/5.png'
-import industryMentor6 from '@/assets/img/industoryMentorTwo/6.png'
-import industryMentor7 from '@/assets/img/industoryMentorTwo/7.png'
-import industryMentor8 from '@/assets/img/industoryMentorTwo/8.png'
-import industryMentor9 from '@/assets/img/industoryMentorTwo/9.png'
-import industryMentor10 from '@/assets/img/industoryMentorTwo/17.png'
-import industryMentor11 from '@/assets/img/industoryMentorTwo/11.png'
-import industryMentor12 from '@/assets/img/industoryMentorTwo/12.png'
-
 const images = [
     {
-        img: industryMentor1,
+        img: "https://storage.googleapis.com/gcc_prod_static_files_backend/static/images/Frame%2051456%201.png",
         link: "https://www.linkedin.com/in/senthil-kumar-5b8a1b8a/"
     },
     {
-        img: industryMentor2,
+        img: "https://storage.googleapis.com/gcc_prod_static_files_backend/static/images/Frame%2051456%20(1)%201.png",
         link: "https://www.linkedin.com/in/senthil-kumar-5b8a1b8a/"
     },
     {
-        img: industryMentor3,
+        img: "https://storage.googleapis.com/gcc_prod_static_files_backend/static/images/Frame%2051457%201.png",
         link: "https://www.linkedin.com/in/senthil-kumar-5b8a1b8a/"
     },
     {
-        img: industryMentor4,
+        img: "https://storage.googleapis.com/gcc_prod_static_files_backend/static/images/Frame%2051456%20(2)%201.png",
         link: "https://www.linkedin.com/in/senthil-kumar-5b8a1b8a/"
     },
     {
-        img: industryMentor5,
+        img: "https://storage.googleapis.com/gcc_prod_static_files_backend/static/images/Frame%2049920%201.png",
         link: "https://www.linkedin.com/in/senthil-kumar-5b8a1b8a/"
     },
     {
-        img: industryMentor6,
+        img: "https://storage.googleapis.com/gcc_prod_static_files_backend/static/images/Frame%2051456%20(4)%201.png",
         link: "https://www.linkedin.com/in/senthil-kumar-5b8a1b8a/"
     },
     {
-        img: industryMentor7,
+        img: "https://storage.googleapis.com/gcc_prod_static_files_backend/static/images/Frame%2051456%20(5)%201.png",
         link: "https://www.linkedin.com/in/senthil-kumar-5b8a1b8a/"
     },
     {
-        img: industryMentor8,
+        img: "https://storage.googleapis.com/gcc_prod_static_files_backend/static/images/Frame%2051456%20(6)%201.png",
         link: "https://www.linkedin.com/in/senthil-kumar-5b8a1b8a/"
     },
     {
-        img: industryMentor9,
+        img: "https://storage.googleapis.com/gcc_prod_static_files_backend/static/images/Frame%2051456%20(7).png",
         link: "https://www.linkedin.com/in/senthil-kumar-5b8a1b8a/"
     },
     {
-        img: industryMentor10,
+        img: "https://storage.googleapis.com/gcc_prod_static_files_backend/static/images/Frame%2051457%20(1)%201.png",
         link: "https://www.linkedin.com/in/senthil-kumar-5b8a1b8a/"
     },
     {
-        img: industryMentor11,
+        img: "https://storage.googleapis.com/gcc_prod_static_files_backend/static/images/Frame%2051457%20(2)%201.png",
         link: "https://www.linkedin.com/in/senthil-kumar-5b8a1b8a/"
     },
     {
-        img: industryMentor12,
+        img: "https://storage.googleapis.com/gcc_prod_static_files_backend/static/images/Frame%2051457%20(2)%201.png",
         link: "https://www.linkedin.com/in/senthil-kumar-5b8a1b8a/"
     },
-
-
 ]
 </script>
 

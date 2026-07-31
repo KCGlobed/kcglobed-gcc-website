@@ -29,7 +29,7 @@
 
                         <div class="signature mt-5">
                             <h5 class="mb-0">CPA Nitish Khatri</h5>
-                            <span>VP <strong>KC Globed</strong></span>
+                            <span>VP <strong style="text-transform: none;">KC GlobEd</strong></span>
 
                         </div>
 
@@ -83,7 +83,7 @@ const playVideo = () => {
     background-color: #F3EBEB;
     position: relative;
     overflow: hidden;
-    margin-top: 40px;
+    /* margin-top: 40px; */
 }
 
 .section-tag .badge {
