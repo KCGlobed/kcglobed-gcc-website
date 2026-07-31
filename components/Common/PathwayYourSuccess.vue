@@ -3,7 +3,7 @@
         <div class="container">
             <!-- Header -->
             <div class="section-header text-center mb-60">
-                <h2 class="title">PATHWAY TO <span>YOUR SUCCESS</span></h2>
+                <h2 class="title">Pathway To Your Success</h2>
                 <!-- <p class="subtitle max-800 mx-auto">
                     Your journey from preparation to professional excellence. Follow these steps to secure your future
                     at
@@ -33,7 +33,7 @@
     font-weight: 700;
     color: #0d0d25;
     margin-bottom: 50px;
-    text-transform: uppercase;
+    /* text-transform: uppercase; */
     line-height: 1.3;
 }
 

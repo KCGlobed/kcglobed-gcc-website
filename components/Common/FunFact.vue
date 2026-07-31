@@ -3,7 +3,7 @@
         <div class="container-fluid p-0">
             <div class="section-title text-center">
                 <h2 class="reveal2">
-                    <span class="highlight">200+</span> GLOBAL HIRING PARTNERS!
+                    <span class="highlight">200+</span>Global Hiring Partners
                 </h2>
                 <p class="max-600 mx-auto">Indulge in Career Accelerating Programs and Placement Drives!</p>
                 <div class="sub-highlight">Get hired by leading companies across diverse industries.</div>

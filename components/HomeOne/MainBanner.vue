@@ -34,7 +34,7 @@
                   <button class="btn btn-apply px-4 py-3" data-bs-toggle="modal" data-bs-target="#applyNowModal">
                     Apply for NFET
                   </button>
-                  <button class="btn btn-explore px-4 py-3">
+                  <button class="btn btn-explore px-4 py-3" data-bs-toggle="modal" data-bs-target="#enquiryModal">
                     Explore Programs
                   </button>
                 </div>
@@ -53,7 +53,7 @@
             </div>
 
             <!-- Stats Row at the bottom of the hero -->
-            <div class="row stats-row row-cols-2 row-cols-md-3 row-cols-lg-5">
+            <div class="row stats-row g-3 row-cols-2 row-cols-md-3 row-cols-lg-5">
               <div class="col stats-col">
                 <div class="stat-box">
                   <div class="stat-number">₹10 LPA</div>
@@ -185,7 +185,7 @@
               <input v-model="form.graduationProgramOther" class="form-control" placeholder="Please specify">
               <label>Please specify your graduation program</label>
               <small class="text-danger" v-if="errors.graduationProgramOther">{{ errors.graduationProgramOther
-              }}</small>
+                }}</small>
             </div>
 
             <!-- Graduation Status -->
@@ -323,13 +323,12 @@
   min-height: 80vh;
   display: flex;
   align-items: flex-end;
-  background-size: contain;
+  background-image: var(--banner-img);
+  background-size: cover;
   background-repeat: no-repeat;
   background-position: center;
-  background-position: center;
-  padding-bottom: 30px;
+  padding-bottom: 140px;
   padding-top: 237px;
-  background-position: center bottom;
 }
 
 .hero-container {
@@ -465,7 +464,6 @@
 .stats-row {
   width: 100%;
   margin-top: 50px;
-  gap: 3
 }
 
 .stat-box {
@@ -552,9 +550,8 @@
     background-size: cover !important;
     background-position: center !important;
     background-repeat: no-repeat !important;
-    padding-top: 40px !important;
+    padding-top: 60px !important;
     padding-bottom: 24px !important;
-    /* min-height: 100vh !important; */
     display: flex !important;
     align-items: flex-end !important;
   }
@@ -574,11 +571,14 @@
   }
 
   .hero-badge {
-    font-size: 11px !important;
+    font-size: 10px !important;
     padding: 6px 12px !important;
     letter-spacing: 0.5px !important;
     margin-bottom: 12px !important;
     border-radius: 20px !important;
+    border: 1.5px solid #E5A93C !important;
+    background: #FFFFFF !important;
+    color: #D98E23 !important;
   }
 
   .hero-title {
@@ -639,7 +639,6 @@
     display: grid !important;
     grid-template-columns: repeat(3, 1fr) !important;
     column-gap: 8px !important;
-    row-gap: 8px;
     margin-top: 0px !important;
   }
 
@@ -669,7 +668,6 @@
 }
 
 @media (max-width: 580px) {
-
   /* Ensure form inputs in modal display correctly on small screens */
   .modal-body {
     padding: 1rem;

@@ -3,7 +3,7 @@
     <div class="think-tank-area ptb-100">
       <div class="container">
         <div class="section-title text-center mb-50">
-          <h2 class="title">OUR DISTINGUISHED INDUSTRY MENTORS</h2>
+          <h2 class="title">Our Distinguished Industry Mentors</h2>
           <!-- <p class="max-600 mx-auto">Our Industry Mentors are seasoned professionals who provide invaluable
               guidance and real-world insights to bridge the gap between academia and industry.</p> -->
         </div>
@@ -38,6 +38,16 @@
           >
             <i class="ti ti-chevron-right"></i>
           </button>
+
+          <!-- Pagination Dots (Mobile Only) -->
+          <div class="mentor-dots-wrapper">
+            <span 
+              v-for="dotIndex in 5" 
+              :key="dotIndex" 
+              :class="['dot-indicator', { active: activeIndex === dotIndex - 1 }]"
+              @click="scrollToPage(dotIndex - 1)"
+            ></span>
+          </div>
         </div>
       </div>
     </div>
@@ -139,6 +149,7 @@ const images = [
 const mentorGridRef = ref<HTMLElement | null>(null);
 const showLeftArrow = ref(false);
 const showRightArrow = ref(true);
+const activeIndex = ref(0);
 
 const scroll = (direction: 'left' | 'right') => {
   const container = mentorGridRef.value;
@@ -150,6 +161,17 @@ const scroll = (direction: 'left' | 'right') => {
   
   container.scrollBy({
     left: scrollAmount,
+    behavior: 'smooth'
+  });
+};
+
+const scrollToPage = (index: number) => {
+  const container = mentorGridRef.value;
+  if (!container) return;
+
+  const cardWidth = 246; // 230px card width + 16px column gap
+  container.scrollTo({
+    left: index * cardWidth,
     behavior: 'smooth'
   });
 };
@@ -166,6 +188,13 @@ const checkScroll = () => {
   } else {
     showRightArrow.value = container.scrollLeft < maxScroll - 10;
   }
+
+  // Calculate active index on mobile scroll
+  const cardWidth = 246;
+  activeIndex.value = Math.min(
+    Math.round(container.scrollLeft / cardWidth),
+    4
+  );
 };
 
 onMounted(() => {
@@ -190,7 +219,7 @@ onMounted(() => {
     font-weight: 700;
     color: white;
     margin-bottom: 20px;
-    text-transform: uppercase;
+    /* text-transform: uppercase; */
 }
 
 .title::after {
@@ -382,6 +411,28 @@ onMounted(() => {
   right: -22px;
 }
 
+.mentor-dots-wrapper {
+  display: none; /* Hide on desktop */
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+  margin-top: 24px;
+}
+
+.dot-indicator {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background-color: rgba(255, 255, 255, 0.25);
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.dot-indicator.active {
+  background-color: #FFAF3D;
+  transform: scale(1.2);
+}
+
 @media (max-width: 991px) {
   .mentor-scroll-wrapper {
     grid-template-columns: repeat(2, 1fr);
@@ -424,15 +475,11 @@ onMounted(() => {
   }
 
   .scroll-btn {
-    display: flex !important; /* Show buttons on mobile horizontal scroll */
+    display: none !important; /* Hide arrows on mobile */
   }
 
-  .left-btn {
-    left: -10px !important;
-  }
-  
-  .right-btn {
-    right: -10px !important;
+  .mentor-dots-wrapper {
+    display: flex !important; /* Show dots on mobile */
   }
 }
 </style>

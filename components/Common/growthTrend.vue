@@ -4,8 +4,8 @@
             <!-- Section Header -->
             <div class="section-header text-center  mb-3">
                 <h2 class="title">
-                    THE STRATEGIC RISE & GROWTH TRAJECTORY OF 
-GLOBAL CAPABILITY CENTERS (GCC)
+                   The Strategic Rise & Growth Trajectory Of 
+Global Capability Centers (GCC)
                 </h2>
             </div>
 

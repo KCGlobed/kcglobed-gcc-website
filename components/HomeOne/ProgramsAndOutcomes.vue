@@ -408,6 +408,19 @@ const outcomeTags = [
   .outcome-tag {
     font-size: 10px;
   }
+
+  .tags-wrapper {
+    flex-wrap: nowrap !important;
+    overflow-x: auto !important;
+    scrollbar-width: none !important;
+    -ms-overflow-style: none !important;
+    padding-bottom: 8px !important;
+    margin-right: -15px !important;
+  }
+
+  .tags-wrapper::-webkit-scrollbar {
+    display: none !important;
+  }
 }
 
 @media (max-width: 575px) {
@@ -417,12 +430,13 @@ const outcomeTags = [
   }
   
   .ecosystem-grid {
-    grid-template-columns: 1fr;
-    gap: 15px;
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: 12px !important;
   }
   
   .partner-card {
     height: 80px;
+    padding: 10px !important;
   }
   
   .proof-card {

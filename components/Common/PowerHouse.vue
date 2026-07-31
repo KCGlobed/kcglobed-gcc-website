@@ -7,7 +7,7 @@
             </div>
             <div class="header-v2 mb-3">
                 <div>
-                    <h2 class="title">THE POWERHOUSE BEHIND GCC SCHOOL</h2>
+                    <h2 class="title">The Powerhouse Behind GCC SCHOOL</h2>
                 </div>
             </div>
 
@@ -66,7 +66,7 @@ const ecosystemData = [
     color: #0d0d25;
     margin-bottom: 5px;
     letter-spacing: -0.1px;
-    text-transform: uppercase;
+    /* text-transform: uppercase; */
 }
 
 .highlight {

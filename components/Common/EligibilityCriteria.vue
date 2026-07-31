@@ -4,7 +4,7 @@
             <div class="content-wrapper">
                 <!-- Title Section -->
                 <div class="title-box">
-                    <h2>NFET EXAM <span>ELIGIBILITY</span></h2>
+                    <h2>NFET EXAM ELIGIBILITY</h2>
                 </div>
 
                 <!-- Criteria Grid -->

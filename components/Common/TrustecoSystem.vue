@@ -4,7 +4,7 @@
             <div class="row">
                 <div class="header-v2 mb-3">
                     <div>
-                        <h2 class="title">TRUSTED ECO SYSTEM</h2>
+                        <h2 class="title">Trusted Eco System</h2>
                     </div>
                 </div>
                 <div class="organistion-grid">
@@ -57,7 +57,7 @@ const ecosystemImages = [
     color: #0d0d25;
     margin-bottom: 5px;
     letter-spacing: -0.1px;
-    text-transform: uppercase;
+    /* text-transform: uppercase; */
 }
 
 .highlight {

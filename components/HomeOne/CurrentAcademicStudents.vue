@@ -4,7 +4,7 @@
       <div class="container">
         <div class="section-title text-center">
           <!-- Kept the section title as per previous premium design -->
-          <h2 class="title">TRADITIONAL PATHWAY VS <span>GCC School JOURNEY</span></h2>
+          <h2 class="title">Traditional Pathway vs GCC SCHOOL Journey</h2>
           <p>See why GCC School Journey is most suited for professional world of new tomorrow.</p>
         </div>
 
