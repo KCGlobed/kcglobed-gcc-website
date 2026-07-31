@@ -54,14 +54,6 @@
                 We would rather you decide with full information than under pressure.
               </p>
             </div>
-            <div class="d-flex flex-wrap gap-3 mt-4">
-              <button class="btn btn-parent-download">
-                Download The Parent Guide
-              </button>
-              <button class="btn btn-parent-consult" data-bs-toggle="modal" data-bs-target="#enquiryModal">
-                Talk To A Counsellor
-              </button>
-            </div>
           </div>
 
           <!-- Right Column: 2x2 Grid & Helpdesk -->
@@ -72,6 +64,15 @@
                 <h4 class="card-title-text">{{ card.title }}</h4>
                 <p class="card-desc-text mt-2 mb-0">{{ card.desc }}</p>
               </div>
+            </div>
+
+            <div class="d-flex flex-wrap gap-3 mt-4">
+              <button class="btn btn-parent-download">
+                Download The Parent Guide
+              </button>
+              <button class="btn btn-parent-consult" data-bs-toggle="modal" data-bs-target="#enquiryModal">
+                Talk To A Counsellor
+              </button>
             </div>
 
             <!-- Bottom Helpdesk bar -->
@@ -144,7 +145,7 @@ const parentCards = [
 }
 
 .gold-text {
-  color: #FFAF3D ;
+  color: #FFAF3D;
 }
 
 .purple-text {
@@ -271,7 +272,7 @@ const parentCards = [
 .step-num {
   font-size: 11px;
   font-weight: 800;
-  color: #f0df22 ;
+  color: #f0df22;
   letter-spacing: 1px;
   text-transform: uppercase;
 }
@@ -340,7 +341,7 @@ const parentCards = [
 .btn-parent-consult {
   background-color: transparent !important;
   color: #4A154B !important;
-  border: 1.5px solid #DDD1EA!important;
+  border: 1.5px solid #DDD1EA !important;
   font-weight: 700;
   font-size: 14px;
   border-radius: 6px;
@@ -414,6 +415,7 @@ const parentCards = [
 }
 
 @media (max-width: 991px) {
+
   .nfet-gateway-section,
   .for-parents-section {
     padding: 60px 0;
@@ -423,22 +425,22 @@ const parentCards = [
     display: flex;
     flex-direction: column;
   }
-  
+
   .nfet-top-flex {
     display: contents;
   }
-  
+
   .nfet-info-block {
     order: 1;
     width: 100%;
   }
-  
+
   .step-strip-wrapper {
     order: 2;
     margin-top: 30px !important;
     margin-bottom: 30px !important;
   }
-  
+
   .nfet-cta-block {
     order: 3;
     width: 100%;
@@ -470,6 +472,7 @@ const parentCards = [
 }
 
 @media (max-width: 767px) {
+
   .btn-nfet-apply,
   .btn-nfet-download {
     flex: 1 !important;

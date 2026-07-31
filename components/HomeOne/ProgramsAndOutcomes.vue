@@ -50,10 +50,21 @@
         </div>
 
         <!-- Tags Row -->
-        <div class="tags-wrapper d-flex flex-wrap gap-2 mb-50">
-          <span v-for="(tag, index) in outcomeTags" :key="index" class="outcome-tag">
-            {{ tag }}
-          </span>
+        <div class="tags-carousel-container">
+          <div class="tags-wrapper d-flex flex-wrap gap-2 mb-50" ref="tagsScrollRef" @scroll="checkTagsScroll">
+            <span v-for="(tag, index) in outcomeTags" :key="index" class="outcome-tag">
+              {{ tag }}
+            </span>
+          </div>
+          <!-- Pagination Dots (Mobile Only) -->
+          <div class="tags-dots-wrapper">
+            <span 
+              v-for="dotIndex in 3" 
+              :key="dotIndex" 
+              :class="['dot-indicator', { active: activeTagIndex === dotIndex - 1 }]"
+              @click="scrollToTagsPage(dotIndex - 1)"
+            ></span>
+          </div>
         </div>
 
         <!-- Main Outcomes Row (Ecosystem Grid & Proof Card) -->
@@ -153,6 +164,31 @@ const outcomeTags = [
   "CFO Advisory",
   "GCC Finance Operations"
 ]
+
+const tagsScrollRef = ref<HTMLElement | null>(null)
+const activeTagIndex = ref(0)
+
+const scrollToTagsPage = (index: number) => {
+  const container = tagsScrollRef.value
+  if (!container) return
+  
+  const step = 200
+  container.scrollTo({
+    left: index * step,
+    behavior: 'smooth'
+  })
+}
+
+const checkTagsScroll = () => {
+  const container = tagsScrollRef.value
+  if (!container) return
+  
+  const step = 200
+  activeTagIndex.value = Math.min(
+    Math.round(container.scrollLeft / step),
+    2
+  )
+}
 </script>
 
 <style scoped>
@@ -407,19 +443,46 @@ const outcomeTags = [
 @media (max-width: 767px) {
   .outcome-tag {
     font-size: 10px;
+    white-space: nowrap !important;
   }
 
   .tags-wrapper {
-    flex-wrap: nowrap !important;
+    display: flex !important;
+    flex-flow: column wrap !important;
+    height: 85px !important;
     overflow-x: auto !important;
     scrollbar-width: none !important;
     -ms-overflow-style: none !important;
-    padding-bottom: 8px !important;
+    gap: 10px 8px !important;
+    padding-bottom: 5px !important;
     margin-right: -15px !important;
+    margin-bottom: 12px !important;
   }
 
   .tags-wrapper::-webkit-scrollbar {
     display: none !important;
+  }
+
+  .tags-dots-wrapper {
+    display: flex !important;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 24px;
+  }
+
+  .tags-dots-wrapper .dot-indicator {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background-color: rgba(81, 21, 124, 0.25);
+    cursor: pointer;
+    transition: all 0.3s ease;
+  }
+
+  .tags-dots-wrapper .dot-indicator.active {
+    background-color: #51157C;
+    transform: scale(1.2);
   }
 }
 
