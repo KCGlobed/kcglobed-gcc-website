@@ -54,7 +54,7 @@
             <button style="background-color: #51157C;color: white;" class="btn px-4 py-3" data-bs-toggle="modal" data-bs-target="#applyNowModal">
               Explore The Model &rarr;
             </button>
-            <button style="outline: #DDD1EA;border: 1px solid #DDD1EA; background-color: white;" class="btn  px-4 py-3" @click="toggleEligibilityModal">
+            <button style="color:#51157C; outline: #DDD1EA;border: 1px solid #DDD1EA; background-color: white;" class="btn  px-4 py-3" @click="toggleEligibilityModal">
               View Career Paths
             </button>
           </div>
@@ -139,7 +139,6 @@ export default {
   position: relative;
   padding-top: 0;
   background-color: #F7F7F8 !important;
-  margin-bottom: 25px;
 }
 
 .pb-50 {

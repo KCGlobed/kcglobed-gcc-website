@@ -150,8 +150,29 @@ const reelIds = [
 }
 
 @media (max-width: 767px) {
+  .video-grid {
+    display: flex;
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    gap: 16px;
+    padding-bottom: 15px;
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+
+    /* Hide scrollbar */
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+  }
+
+  .video-grid::-webkit-scrollbar {
+    display: none;
+  }
+
   .video-card {
-    flex: 0 1 calc(50% - 20px);
+    flex: 0 0 85%;
+    max-width: 85%;
+    min-width: 85%;
+    scroll-snap-align: center;
   }
 }
 

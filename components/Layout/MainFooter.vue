@@ -8,16 +8,16 @@
         <p class="cta-subtitle mb-4">Whether you are ready to apply or still weighing your options, the next move is simple.</p>
         
         <div class="d-flex justify-content-center align-items-center gap-3 flex-wrap">
-          <button class="btn btn-nfet-apply" data-bs-toggle="modal" data-bs-target="#enquiryModal">
+          <button class="btn btn-nfet-apply">
             Apply For NFET <i class="ti ti-arrow-right ms-1"></i>
           </button>
-          <button class="btn btn-parent-consult" data-bs-toggle="modal" data-bs-target="#enquiryModal">
+          <button class="btn btn-parent-consult">
             Talk To A Counsellor
           </button>
         </div>
         
         <div class="mt-4">
-          <a href="#" class="prospectus-link" data-bs-toggle="modal" data-bs-target="#enquiryModal">Download the Prospectus</a>
+          <a href="#" class="prospectus-link">Download the Prospectus</a>
         </div>
       </div>
     </div>

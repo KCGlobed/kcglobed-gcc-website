@@ -23,6 +23,7 @@
     <HomeOneSpotlightSection />
     <HomeOneStudentParentVideoSection />
     <HomeOneInstagramReelsSection />
+    <CommonPowerHouse />
     <CommonTrustecoSystem />
     <HomeOneResourcesAndNews />
     <CommonFaqSection />
