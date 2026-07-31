@@ -25,7 +25,8 @@
               </tr>
             </thead>
             <tbody>
-              <tr v-for="(item, index) in comparisonData" :key="index" :class="index % 2 === 0 ? 'even-row' : 'odd-row'">
+              <tr v-for="(item, index) in comparisonData" :key="index"
+                :class="index % 2 === 0 ? 'even-row' : 'odd-row'">
                 <td class="feature-name" v-html="item.feature"></td>
                 <td class="text-center traditional-cell">
                   <span v-if="item.traditional" class="icon-check-green">
@@ -59,12 +60,14 @@
       <div class="container">
         <div class="row align-items-center">
           <!-- Left Info Block -->
-          <div class="col-lg-5 col-12 mb-lg-0 mb-5">
+          <div class="col-lg-5 col-12 mb-lg-0 mb-5 faculty-info-col">
             <div class="faculty-info text-start">
               <span class="gold-tag">FACULTY & MENTORS</span>
-              <h2 class="faculty-heading mt-2">Taught By People Who<br class="d-none d-md-block" /> Have Done The Work.</h2>
+              <h2 class="faculty-heading mt-2">Taught By People Who<br class="d-none d-md-block" /> Have Done The Work.
+              </h2>
               <p class="faculty-desc mt-3">
-                Practising CPAs, Chartered Accountants and Enrolled Agents, not just lecturers. You learn how the work is really done, from people who have done it at a high level.
+                Practising CPAs, Chartered Accountants and Enrolled Agents, not just lecturers. You learn how the work
+                is really done, from people who have done it at a high level.
               </p>
               <NuxtLink to="/thinktank" style="background-color: #51157C;color: white;" class="btn mt-4">
                 Meet The Faculty <i class="ti ti-arrow-right ms-2"></i>
@@ -77,29 +80,29 @@
             <div class="faculty-carousel-container">
               <div class="faculty-scroll-wrapper" ref="facultyScrollRef" @scroll="checkScroll">
                 <div v-for="(faculty, index) in facultyMembers" :key="index" class="faculty-card-item">
-                  <img :src="faculty.image" :alt="faculty.alt" class="faculty-img" loading="lazy" decoding="async" @load="checkScroll" />
+                  <img :src="faculty.image" :alt="faculty.alt" class="faculty-img" loading="lazy" decoding="async"
+                    @load="checkScroll" />
                 </div>
               </div>
-              
+
               <!-- Left Scroll Button -->
-              <button 
-                v-show="showLeftArrow" 
-                class="scroll-btn left-btn" 
-                @click="scroll('left')" 
-                aria-label="Scroll Left"
-              >
+              <button v-show="showLeftArrow" class="scroll-btn left-btn" @click="scroll('left')"
+                aria-label="Scroll Left">
                 <i class="ti ti-chevron-left"></i>
               </button>
 
               <!-- Right Scroll Button -->
-              <button 
-                v-show="showRightArrow" 
-                class="scroll-btn right-btn" 
-                @click="scroll('right')" 
-                aria-label="Scroll Right"
-              >
+              <button v-show="showRightArrow" class="scroll-btn right-btn" @click="scroll('right')"
+                aria-label="Scroll Right">
                 <i class="ti ti-chevron-right"></i>
               </button>
+
+              <!-- Pagination Dots (Mobile Only) -->
+              <div class="faculty-dots-wrapper">
+                <span v-for="dotIndex in 3" :key="dotIndex"
+                  :class="['dot-indicator', { active: activeIndex === dotIndex - 1 }]"
+                  @click="scrollToPage(dotIndex - 1)"></span>
+              </div>
             </div>
           </div>
         </div>
@@ -121,17 +124,16 @@ export default {
       ankurImage: ankur,
       showLeftArrow: false,
       showRightArrow: true,
+      activeIndex: 0,
       facultyMembers: [
-        { image: nitish, alt: "CPA Nitish Khatri" },
-        { image: ankur, alt: "CA Ankur Sharma" },
-        { image: nitish, alt: "CPA Nitish Khatri" },
-        { image: ankur, alt: "CA Ankur Sharma" },
-        { image: nitish, alt: "CPA Nitish Khatri" },
-        { image: ankur, alt: "CA Ankur Sharma" },
-        { image: nitish, alt: "CPA Nitish Khatri" },
-        { image: ankur, alt: "CA Ankur Sharma" },
-        { image: nitish, alt: "CPA Nitish Khatri" },
-        { image: ankur, alt: "CA Ankur Sharma" },
+        { image: "https://storage.googleapis.com/gcc_prod_static_files_backend/static/images/image%20(4).png", alt: "Faculty 1" },
+        { image: "https://storage.googleapis.com/gcc_prod_static_files_backend/static/images/image%20(2).png", alt: "Faculty 2" },
+        { image: "https://storage.googleapis.com/gcc_prod_static_files_backend/static/images/image%20(10).png", alt: "Faculty 3" },
+        { image: "https://storage.googleapis.com/gcc_prod_static_files_backend/static/images/image%20(1).png", alt: "Faculty 4" },
+        { image: "https://storage.googleapis.com/gcc_prod_static_files_backend/static/images/image%20(3).png", alt: "Faculty 5" },
+        { image: "https://storage.googleapis.com/gcc_prod_static_files_backend/static/images/image%20(5).png", alt: "Faculty 6" },
+        { image: "https://storage.googleapis.com/gcc_prod_static_files_backend/static/images/image%20(6).png", alt: "Faculty 7" },
+        { image: "https://storage.googleapis.com/gcc_prod_static_files_backend/static/images/image%20(7).png", alt: "Faculty 8" },
       ],
       comparisonData: [
         { feature: "<strong>Globally Recognised</strong> Academic Credentials", traditional: true, gcc: true },
@@ -152,22 +154,32 @@ export default {
       const container = this.$refs.facultyScrollRef;
       if (!container) return;
 
-      // Scroll by 266px on mobile (width 250px + 16px gap), 350px on desktop
+      // Scroll by 260px on mobile (width 250px + 10px gap), 350px on desktop
       const isMobile = window.innerWidth <= 767;
-      const cardWidth = isMobile ? 266 : 350; 
+      const cardWidth = isMobile ? 260 : 350;
       const scrollAmount = direction === 'left' ? -cardWidth : cardWidth;
-      
+
       container.scrollBy({
         left: scrollAmount,
+        behavior: 'smooth'
+      });
+    },
+    scrollToPage(index) {
+      const container = this.$refs.facultyScrollRef;
+      if (!container) return;
+
+      const cardWidth = 260; // 250px card width + 10px gap
+      container.scrollTo({
+        left: index * cardWidth,
         behavior: 'smooth'
       });
     },
     checkScroll() {
       const container = this.$refs.facultyScrollRef;
       if (!container) return;
-      
+
       this.showLeftArrow = container.scrollLeft > 10;
-      
+
       const maxScroll = container.scrollWidth - container.clientWidth;
       if (maxScroll <= 0) {
         // Default to showing the right arrow initially if we have more than 2 items
@@ -175,6 +187,13 @@ export default {
       } else {
         this.showRightArrow = container.scrollLeft < maxScroll - 10;
       }
+
+      // Calculate active index on mobile scroll
+      const cardWidth = 260;
+      this.activeIndex = Math.min(
+        Math.round(container.scrollLeft / cardWidth),
+        2
+      );
     }
   },
   mounted() {
@@ -409,10 +428,7 @@ tr:last-child .gcc-cell {
   border: 1px solid #bbb;
 }
 
-@media (max-width : 768px) {
-
-
-
+@media (max-width : 767px) {
 
   .comparison-table th {
     padding: 15px 10px;
@@ -441,9 +457,17 @@ tr:last-child .gcc-cell {
   .title {
     font-size: 26px;
   }
+
+  .faculty-card-item {
+    height: none !important;
+  }
 }
 
 @media (max-width : 575px) {
+  .faculty-card-item {
+    height: none !important;
+  }
+
   .comparison-table {
     min-width: 400px;
     /* Ensure table doesn't squash too much */
@@ -575,30 +599,43 @@ tr:last-child .gcc-cell {
 }
 
 @media (max-width: 767px) {
+  .faculty-info-col {
+    margin-bottom: 0px !important;
+  }
+
   .faculty-card {
     margin: 0 auto;
+  }
+
+  .section-title {
+    margin-bottom: 0px;
   }
 
   .faculty-scroll-wrapper {
     display: flex !important;
     flex-flow: column wrap !important;
-    height: 510px !important; /* height to fit 2 rows of 230px cards + 12px vertical gap + padding */
-    gap: 12px 16px !important; /* row-gap: 12px, column-gap: 16px */
+    height: 388px !important;
+    /* height to fit 2 rows of 175px cards + 8px vertical gap + padding */
+    gap: 8px 10px !important;
+    /* row-gap: 8px, column-gap: 10px */
     overflow-x: auto !important;
     scroll-snap-type: x mandatory !important;
     padding: 15px 30px !important;
     margin: 0 -30px !important;
     align-content: flex-start !important;
-    justify-content: center !important; /* Centers the 2 rows vertically to keep gaps uniform */
+    justify-content: center !important;
+    /* Centers the 2 rows vertically to keep gaps uniform */
   }
 
   .faculty-card-item {
-    height: 230px !important; /* reduced card height on mobile */
+    height: 175px !important;
+    /* reduced card height on mobile */
     flex: 0 0 auto !important;
-    width: 250px !important; /* reduced card width on mobile */
+    width: 250px !important;
+    /* reduced card width on mobile */
     scroll-snap-align: center !important;
   }
-  
+
   .faculty-img {
     height: 100% !important;
     width: 100% !important;
@@ -608,9 +645,17 @@ tr:last-child .gcc-cell {
   .left-btn {
     left: -10px !important;
   }
-  
+
   .right-btn {
     right: -10px !important;
+  }
+
+  .faculty-dots-wrapper {
+    display: flex !important;
+  }
+
+  .scroll-btn {
+    display: none !important;
   }
 }
 
@@ -634,6 +679,7 @@ tr:last-child .gcc-cell {
   scrollbar-width: none;
   -ms-overflow-style: none;
   padding: 10px 0;
+  justify-content: none;
 }
 
 .faculty-scroll-wrapper::-webkit-scrollbar {
@@ -680,11 +726,34 @@ tr:last-child .gcc-cell {
   right: -22px;
 }
 
+.faculty-dots-wrapper {
+  display: none;
+  /* Hide on desktop */
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+  margin-top: 24px;
+}
+
+.dot-indicator {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background-color: rgba(81, 21, 124, 0.25);
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.dot-indicator.active {
+  background-color: #51157C;
+  transform: scale(1.2);
+}
+
 @media (max-width: 991px) {
   .left-btn {
     left: -10px;
   }
-  
+
   .right-btn {
     right: -10px;
   }

@@ -156,7 +156,7 @@ const scroll = (direction: 'left' | 'right') => {
   if (!container) return;
 
   const isMobile = window.innerWidth <= 767;
-  const cardWidth = isMobile ? 246 : 350; 
+  const cardWidth = isMobile ? 240 : 350; 
   const scrollAmount = direction === 'left' ? -cardWidth : cardWidth;
   
   container.scrollBy({
@@ -169,7 +169,7 @@ const scrollToPage = (index: number) => {
   const container = mentorGridRef.value;
   if (!container) return;
 
-  const cardWidth = 246; // 230px card width + 16px column gap
+  const cardWidth = 240; // 230px card width + 10px column gap
   container.scrollTo({
     left: index * cardWidth,
     behavior: 'smooth'
@@ -190,7 +190,7 @@ const checkScroll = () => {
   }
 
   // Calculate active index on mobile scroll
-  const cardWidth = 246;
+  const cardWidth = 240;
   activeIndex.value = Math.min(
     Math.round(container.scrollLeft / cardWidth),
     4
@@ -440,11 +440,15 @@ onMounted(() => {
 }
 
 @media (max-width: 767px) {
+  .section-title {
+    margin-bottom: 20px !important;
+  }
+
   .mentor-scroll-wrapper {
     display: flex !important;
     flex-flow: column wrap !important;
-    height: 312px !important; /* height to fit 2 rows of 140px cards + 12px vertical gap + padding */
-    gap: 12px 16px !important; /* row-gap: 12px, column-gap: 16px */
+    height: 308px !important; /* height to fit 2 rows of 140px cards + 8px vertical gap + padding */
+    gap: 8px 10px !important; /* row-gap: 8px, column-gap: 10px */
     overflow-x: auto !important;
     scroll-snap-type: x mandatory !important;
     padding: 10px 30px !important;
