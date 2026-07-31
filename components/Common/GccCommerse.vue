@@ -5,9 +5,9 @@
             <div class="section-header">
                 <h2 class="section-title">
 
-                    WORLD'S FIRST SCHOOL, BUILT BY GCC LEADERS TO SHAPE<br /> <span>THE NATION'S
-                        FUTURE GCC
-                        TALENT</span>
+                    World's First School, Built by GCC Leads To Shape<br /> <span>The Nation's
+                        Future GCC
+                        Talent</span>
                 </h2>
                 <h3 class="section-subtitle">
 

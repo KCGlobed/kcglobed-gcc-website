@@ -3,18 +3,50 @@
     <div class="think-tank-area ptb-100">
       <div class="container">
         <div class="section-title text-center mb-50">
-          <h2 class="title">OUR DISTINGUISHED INDUSTRY MENTORS</h2>
+          <h2 class="title">Our Distinguished Industry Mentors</h2>
           <!-- <p class="max-600 mx-auto">Our Industry Mentors are seasoned professionals who provide invaluable
               guidance and real-world insights to bridge the gap between academia and industry.</p> -->
         </div>
 
-        <div class="row g-4 justify-content-center align-items-center">
-          <div v-for="(img, index) in images" :key="index" class="col-lg-4 col-md-6 col-sm-12">
-            <a :href="img.link" target="_blank">
-              <div class="image-box">
-                <img :src="img.img" alt="Industry Mentor" class="img-fluid" loading="lazy" decoding="async">
-              </div>
-            </a>
+        <div class="mentor-carousel-container">
+          <div class="mentor-scroll-wrapper" ref="mentorGridRef" @scroll="checkScroll">
+            <div v-for="(img, index) in images" :key="index" class="mentor-card-item">
+              <a :href="img.link" target="_blank">
+                <div class="image-box">
+                  <img :src="img.img" alt="Industry Mentor" class="img-fluid" loading="lazy" decoding="async" @load="checkScroll">
+                </div>
+              </a>
+            </div>
+          </div>
+          
+          <!-- Left Scroll Button -->
+          <button 
+            v-show="showLeftArrow" 
+            class="scroll-btn left-btn" 
+            @click="scroll('left')" 
+            aria-label="Scroll Left"
+          >
+            <i class="ti ti-chevron-left"></i>
+          </button>
+
+          <!-- Right Scroll Button -->
+          <button 
+            v-show="showRightArrow" 
+            class="scroll-btn right-btn" 
+            @click="scroll('right')" 
+            aria-label="Scroll Right"
+          >
+            <i class="ti ti-chevron-right"></i>
+          </button>
+
+          <!-- Pagination Dots (Mobile Only) -->
+          <div class="mentor-dots-wrapper">
+            <span 
+              v-for="dotIndex in 5" 
+              :key="dotIndex" 
+              :class="['dot-indicator', { active: activeIndex === dotIndex - 1 }]"
+              @click="scrollToPage(dotIndex - 1)"
+            ></span>
           </div>
         </div>
       </div>
@@ -56,6 +88,7 @@
 </template>
 
 <script setup lang="ts">
+import { ref, onMounted } from 'vue';
 import campusImg from '@/assets/newimages/campus-1.png';
 
 const images = [
@@ -111,9 +144,64 @@ const images = [
         img: "https://storage.googleapis.com/gcc_prod_static_files_backend/static/images/Frame%2051457%20(2)%201.png",
         link: "https://www.linkedin.com/in/senthil-kumar-5b8a1b8a/"
     },
-
-
 ]
+
+const mentorGridRef = ref<HTMLElement | null>(null);
+const showLeftArrow = ref(false);
+const showRightArrow = ref(true);
+const activeIndex = ref(0);
+
+const scroll = (direction: 'left' | 'right') => {
+  const container = mentorGridRef.value;
+  if (!container) return;
+
+  const isMobile = window.innerWidth <= 767;
+  const cardWidth = isMobile ? 246 : 350; 
+  const scrollAmount = direction === 'left' ? -cardWidth : cardWidth;
+  
+  container.scrollBy({
+    left: scrollAmount,
+    behavior: 'smooth'
+  });
+};
+
+const scrollToPage = (index: number) => {
+  const container = mentorGridRef.value;
+  if (!container) return;
+
+  const cardWidth = 246; // 230px card width + 16px column gap
+  container.scrollTo({
+    left: index * cardWidth,
+    behavior: 'smooth'
+  });
+};
+
+const checkScroll = () => {
+  const container = mentorGridRef.value;
+  if (!container) return;
+  
+  showLeftArrow.value = container.scrollLeft > 10;
+  
+  const maxScroll = container.scrollWidth - container.clientWidth;
+  if (maxScroll <= 0) {
+    showRightArrow.value = images.length > 2;
+  } else {
+    showRightArrow.value = container.scrollLeft < maxScroll - 10;
+  }
+
+  // Calculate active index on mobile scroll
+  const cardWidth = 246;
+  activeIndex.value = Math.min(
+    Math.round(container.scrollLeft / cardWidth),
+    4
+  );
+};
+
+onMounted(() => {
+  setTimeout(() => {
+    checkScroll();
+  }, 500);
+});
 </script>
 
 <style scoped>
@@ -131,7 +219,7 @@ const images = [
     font-weight: 700;
     color: white;
     margin-bottom: 20px;
-    text-transform: uppercase;
+    /* text-transform: uppercase; */
 }
 
 .title::after {
@@ -257,6 +345,141 @@ const images = [
 @media (max-width: 575px) {
   .campus-heading {
     font-size: 30px;
+  }
+}
+
+/* Scroll Carousel Styles */
+.mentor-carousel-container {
+  position: relative;
+  width: 100%;
+}
+
+.mentor-scroll-wrapper {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+}
+
+.mentor-card-item {
+  width: 100%;
+}
+
+.mentor-card-item .image-box {
+  padding: 15px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.mentor-card-item .image-box img {
+  max-width: 100%;
+  height: auto;
+  transition: all 0.3s ease;
+}
+
+.scroll-btn {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background-color: #ffffff;
+  color: #130922;
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  display: none; /* Hide on desktop */
+  align-items: center;
+  justify-content: center;
+  font-size: 16px;
+  cursor: pointer;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  z-index: 10;
+  transition: all 0.3s ease;
+}
+
+.scroll-btn:hover {
+  background-color: #f8f9fa;
+  transform: translateY(-50%) scale(1.05);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.12);
+}
+
+.left-btn {
+  left: -22px;
+}
+
+.right-btn {
+  right: -22px;
+}
+
+.mentor-dots-wrapper {
+  display: none; /* Hide on desktop */
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+  margin-top: 24px;
+}
+
+.dot-indicator {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background-color: rgba(255, 255, 255, 0.25);
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.dot-indicator.active {
+  background-color: #FFAF3D;
+  transform: scale(1.2);
+}
+
+@media (max-width: 991px) {
+  .mentor-scroll-wrapper {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 767px) {
+  .mentor-scroll-wrapper {
+    display: flex !important;
+    flex-flow: column wrap !important;
+    height: 312px !important; /* height to fit 2 rows of 140px cards + 12px vertical gap + padding */
+    gap: 12px 16px !important; /* row-gap: 12px, column-gap: 16px */
+    overflow-x: auto !important;
+    scroll-snap-type: x mandatory !important;
+    padding: 10px 30px !important;
+    margin: 0 -30px !important;
+    align-content: flex-start !important;
+    justify-content: center !important; /* Centers the 2 rows vertically to keep gaps uniform */
+    grid-template-columns: none !important;
+  }
+
+  .mentor-card-item {
+    height: 140px !important; /* height of cards on mobile */
+    flex: 0 0 auto !important;
+    width: 230px !important; /* reduced width of cards on mobile */
+    scroll-snap-align: center !important;
+  }
+  
+  .mentor-card-item a,
+  .mentor-card-item .image-box,
+  .mentor-card-item img {
+    height: 100% !important;
+    width: 100% !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    object-fit: contain !important;
+    margin: 0 !important;
+    padding: 0 !important;
+  }
+
+  .scroll-btn {
+    display: none !important; /* Hide arrows on mobile */
+  }
+
+  .mentor-dots-wrapper {
+    display: flex !important; /* Show dots on mobile */
   }
 }
 </style>

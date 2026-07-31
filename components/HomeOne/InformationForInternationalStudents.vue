@@ -51,10 +51,12 @@
             Disrupting The Traditional, Ordinary, Conventional, Normal Education System.
           </h2>
           <div class="d-flex gap-3 flex-wrap mt-4">
-            <button style="background-color: #51157C;color: white;" class="btn px-4 py-3" data-bs-toggle="modal" data-bs-target="#applyNowModal">
+            <button style="background-color: #51157C;color: white;" class="title-btn" data-bs-toggle="modal"
+              data-bs-target="#applyNowModal">
               Explore The Model &rarr;
             </button>
-            <button style="color:#51157C; outline: #DDD1EA;border: 1px solid #DDD1EA; background-color: white;" class="btn  px-4 py-3" @click="toggleEligibilityModal">
+            <button style="color:#51157C; outline: #DDD1EA;border: 1px solid #DDD1EA; background-color: white;"
+              class=" title-btn px-4 py-3" @click="toggleEligibilityModal">
               View Career Paths
             </button>
           </div>
@@ -312,6 +314,13 @@ export default {
   cursor: pointer;
 }
 
+.title-btn {
+  padding: 5px 26px;
+  outline: none;
+  border: none;
+  border-radius: 7px;
+}
+
 
 .play-overlay:hover {
   background: rgba(0, 0, 0, 0.55);
@@ -431,16 +440,17 @@ export default {
 }
 
 @media (max-width: 767px) {
+  .hire-main-title {
+    font-size: 24px;
+    line-height: 37px;
+  }
+
   .boxes-container {
     grid-template-columns: repeat(3, 1fr);
   }
 
   .boxes-container .box:nth-child(4) {
     border-bottom: 1px solid #E5E5E5;
-  }
-
-  .hire-main-title {
-    font-size: 28px;
   }
 
   .play-btn-circle {
@@ -456,6 +466,14 @@ export default {
   .purple-badge {
     font-size: 10px;
     padding: 2px 8px;
+  }
+
+  .title-btn {
+    padding: 10px 22px;
+    font-size: 11px;
+    border-radius: 10px;
+    outline: none;
+
   }
 }
 

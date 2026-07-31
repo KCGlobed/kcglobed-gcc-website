@@ -3,8 +3,7 @@
         <div class="container text-center">
             <div class="section-header mb-60">
                 <h2 class="title">AT <span>GCC SCHOOL</span>
-                    We prepare finance leaders to achieve the next elevation - for their organisations and for
-                    themselves
+                    We prepare finance leaders to achieve the next elevation - for their organisations and for themselves
                 </h2>
                 <p class="subtitle max-800 mx-auto">
 

@@ -3,7 +3,7 @@
         <div class="container-fluid p-0">
             <div class="section-title text-center">
                 <h2 class="reveal2">
-                    <span class="highlight">200+</span> GLOBAL HIRING PARTNERS!
+                    <span class="highlight">200+</span>Global Hiring Partners
                 </h2>
                 <p class="max-600 mx-auto">Indulge in Career Accelerating Programs and Placement Drives!</p>
                 <div class="sub-highlight">Get hired by leading companies across diverse industries.</div>
@@ -260,5 +260,29 @@ export default defineComponent({
 /* Pause on hover optional */
 .marquee-wrapper:hover .marquee-row {
     animation-play-state: paused;
+}
+
+@media (max-width: 746px) {
+    .fun-fact-card {
+        width: 150px;
+        height: 80px;
+        background-color: #fff;
+        padding: 20px;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.03);
+        border-radius: 20px;
+        border: 1px solid #f1f5f9;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: all 0.3s ease;
+    }
+
+    .fun-fact-card .icon img {
+        max-width: 100px;
+        max-height: 45px;
+        width: auto;
+        height: auto;
+        object-fit: contain;
+    }
 }
 </style>

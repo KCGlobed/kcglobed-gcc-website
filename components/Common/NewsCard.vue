@@ -2,7 +2,7 @@
     <div class="news-area">
         <div class="container">
             <div class="section-header text-center">
-                <h2 class="section-title">AS FEATURED IN LEADING MEDIA</h2>
+                <h2 class="section-title">As Featured In Leading Media</h2>
             </div>
 
             <div class="news-slider-wrapper" data-aos="fade-up" data-aos-delay="100">
@@ -80,7 +80,7 @@ onMounted(() => {
     font-weight: 800;
     color: #0d0d25;
     line-height: 1.3;
-    text-transform: uppercase;
+    /* text-transform: uppercase; */
     letter-spacing: 0.5px;
     margin-bottom: 0;
 }
