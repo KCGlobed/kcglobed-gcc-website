@@ -58,6 +58,7 @@ Default Fonts Style
 /*
 Default  Styles
 ======================================================*/
+html,
 body {
   font-family: var(--bodyFont);
   color: var(--paragraph);

@@ -92,6 +92,7 @@ const scrollToCard = (index: number) => {
 .video-testimonials-wrapper {
   background-color: #ffffff;
   padding-bottom: 40px;
+  overflow: hidden;
 }
 
 .section {

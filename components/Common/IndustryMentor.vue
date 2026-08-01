@@ -207,6 +207,7 @@ onMounted(() => {
 <style scoped>
 .think-tank-area {
     background: #1E1E1E;
+    overflow: hidden;
 }
 
 .section-title {

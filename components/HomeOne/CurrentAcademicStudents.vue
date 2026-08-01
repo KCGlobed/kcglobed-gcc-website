@@ -505,6 +505,7 @@ tr:last-child .gcc-cell {
   background-color: #bcbbbe;
   padding: 80px 0;
   border-top: 1px solid #ECECF0;
+  overflow: hidden;
 }
 
 .gold-tag {
