@@ -196,6 +196,7 @@ const checkTagsScroll = () => {
 .programs-and-outcomes-container {
   width: 100%;
   background-color: white;
+  overflow: hidden;
 }
 
 /* Common Header Styles */

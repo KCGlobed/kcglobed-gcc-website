@@ -550,7 +550,7 @@
     background-size: cover !important;
     background-position: center !important;
     background-repeat: no-repeat !important;
-    padding-top: 60px !important;
+    padding-top: 29px !important;
     padding-bottom: 24px !important;
     display: flex !important;
     align-items: flex-end !important;
