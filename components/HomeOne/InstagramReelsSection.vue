@@ -14,20 +14,14 @@
               <iframe :src="`https://www.instagram.com/reel/${reelId}/embed/?hidecaption=true`" width="100%"
                 height="100%" frameborder="0" scrolling="no" allowtransparency="true"></iframe>
               <!-- Overlay to absorb touch events for smooth swiping on mobile, opens the reel in a new tab when tapped -->
-              <a :href="`https://www.instagram.com/reel/${reelId}/`" target="_blank" class="video-overlay" aria-label="Watch Reel on Instagram"></a>
+              <a :href="`https://www.instagram.com/reel/${reelId}/`" target="_blank" class="video-overlay"
+                aria-label="Watch Reel on Instagram"></a>
             </div>
           </div>
         </div>
         <div class="slider-dots">
-          <span 
-            v-for="(reelId, index) in reelIds" 
-            :key="index" 
-            class="dot" 
-            :class="{ active: index === activeIndex }"
-            @click="scrollToCard(index)"
-            role="button"
-            :aria-label="`Go to slide ${index + 1}`"
-          ></span>
+          <span v-for="(reelId, index) in reelIds" :key="index" class="dot" :class="{ active: index === activeIndex }"
+            @click="scrollToCard(index)" role="button" :aria-label="`Go to slide ${index + 1}`"></span>
         </div>
       </div>
     </section>
@@ -222,14 +216,14 @@ const scrollToCard = (index: number) => {
   .video-grid {
     display: flex;
     flex-wrap: nowrap;
+    justify-content: flex-start;
     overflow-x: auto;
     gap: 16px;
-    padding: 15px 30px;
-    margin: 32px -30px 0;
+    margin-top: 32px;
+    padding: 15px 0;
     scroll-snap-type: x mandatory;
+    scroll-padding-inline: 9%;
     -webkit-overflow-scrolling: touch;
-
-    /* Hide scrollbar */
     scrollbar-width: none;
     -ms-overflow-style: none;
   }
@@ -240,8 +234,7 @@ const scrollToCard = (index: number) => {
 
   .video-card {
     flex: 0 0 82%;
-    max-width: 82%;
-    min-width: 82%;
+    width: 82%;
     scroll-snap-align: center;
   }
 
