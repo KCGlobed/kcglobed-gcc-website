@@ -353,7 +353,7 @@
   border: 1.5px solid #E5A93C;
   background: #FFFFFF;
   color: #D98E23;
-  font-size: 12px;
+  font-size: 14px;
   font-weight: 700;
   letter-spacing: 0.8px;
   margin-bottom: 15px;

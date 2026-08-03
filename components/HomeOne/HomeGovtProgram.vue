@@ -3,7 +3,7 @@
         <div class="container">
             <!-- Section Header -->
             <div class="section-title text-center mb-50">
-                <span class="highlight">The GCC OPPORTUNITY</span>
+                <span class="highlight" style="font-size: 24px;">The GCC OPPORTUNITY</span>
                 <h2 class="title">India Is The World's GCC Capital. You Should Be Working In It.</h2>
                 <p style="max-width: 777px; margin: auto;">Global Capability Centres are the fastest-growing engine of
                     high-skill
