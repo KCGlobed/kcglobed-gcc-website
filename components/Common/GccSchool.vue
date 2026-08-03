@@ -1,9 +1,14 @@
 <template>
     <div class="gcc-school-section">
-        <div class="container text-center">
+        <div class="ticket_container">
+            <img src="https://storage.googleapis.com/gcc_prod_static_files_backend/static/images/Group%2051450%20(1).png"
+                alt="Ticket Image" loading="lazy" decoding="async" />
+        </div>
+        <div class="container text-center pt-5">
             <div class="section-header mb-60">
                 <h2 class="title">AT <span>GCC SCHOOL</span>
-                    We prepare finance leaders to achieve the next elevation - for their organisations and for themselves
+                    We prepare finance leaders to achieve the next elevation - for their organisations and for
+                    themselves
                 </h2>
                 <p class="subtitle max-800 mx-auto">
 
@@ -11,19 +16,22 @@
             </div>
             <div class="gcc-school-content">
                 <div class="row g-4 justify-content-center">
-                    <div class="col-lg-4 col-md-6 col-12"  >
+                    <div class="col-lg-4 col-md-6 col-12">
                         <div class="gcc-image-box">
-                            <img src="../../assets/img/heros/3.svg" class="img-fluid" alt="GCC School Feature 1" loading="lazy" decoding="async" />
+                            <img src="../../assets/img/heros/3.svg" class="img-fluid" alt="GCC School Feature 1"
+                                loading="lazy" decoding="async" />
                         </div>
                     </div>
                     <div class="col-lg-4 col-md-6 col-12">
                         <div class="gcc-image-box">
-                            <img src="../../assets/img/heros/1.svg" class="img-fluid" alt="GCC School Feature 2" loading="lazy" decoding="async" />
+                            <img src="../../assets/img/heros/1.svg" class="img-fluid" alt="GCC School Feature 2"
+                                loading="lazy" decoding="async" />
                         </div>
                     </div>
                     <div class="col-lg-4 col-md-6 col-12">
                         <div class="gcc-image-box">
-                            <img src="../../assets/img/heros/4.svg" class="img-fluid" alt="GCC School Feature 3" loading="lazy" decoding="async" />
+                            <img src="../../assets/img/heros/4.svg" class="img-fluid" alt="GCC School Feature 3"
+                                loading="lazy" decoding="async" />
                         </div>
                     </div>
                 </div>
@@ -37,10 +45,19 @@
 </script>
 <style scoped>
 .gcc-school-section {
-    padding: 80px 0;
-    /* Increased padding for premium look */
+    padding-bottom: 80px;
     background-color: #ececeddf;
     overflow: hidden;
+}
+
+.ticket_container {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #f2f2f2;
+    padding: 30px 120px;
+    padding-top: 75px;
 }
 
 .section-header .title {
@@ -48,10 +65,6 @@
     font-style: normal;
     font-weight: 700;
     font-size: 36px;
-    /* line-height: 58px; */
-    /* display: flex; */
-    /* align-items: center; */
-    /* justify-content: center; */
     letter-spacing: -0.02em;
     color: #181225;
     margin-bottom: 20px;
@@ -118,7 +131,6 @@
     border-radius: 10px;
 }
 
-/* Responsive Design Overrides */
 @media (max-width: 991px) {
     .gcc-school-section {
         padding: 60px 0;
@@ -130,8 +142,11 @@
 }
 
 @media (max-width: 767px) {
+    .ticket_container {
+        padding: 0 10px;
+    }
     .gcc-school-section {
-        padding: 50px 0;
+        padding: 34px 0;
     }
 
     .section-header .title {
@@ -144,7 +159,6 @@
     }
 }
 
-/* Mobile specific */
 @media (max-width: 480px) {
     .section-header .title {
         font-size: 20px;
