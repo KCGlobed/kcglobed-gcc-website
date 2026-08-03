@@ -616,24 +616,18 @@ tr:last-child .gcc-cell {
     display: flex !important;
     flex-flow: column wrap !important;
     height: 388px !important;
-    /* height to fit 2 rows of 175px cards + 8px vertical gap + padding */
     gap: 8px 10px !important;
-    /* row-gap: 8px, column-gap: 10px */
     overflow-x: auto !important;
     scroll-snap-type: x mandatory !important;
-    padding: 15px 30px !important;
     margin: 0 -30px !important;
     align-content: flex-start !important;
     justify-content: center !important;
-    /* Centers the 2 rows vertically to keep gaps uniform */
   }
 
   .faculty-card-item {
     height: 175px !important;
-    /* reduced card height on mobile */
     flex: 0 0 auto !important;
     width: 250px !important;
-    /* reduced card width on mobile */
     scroll-snap-align: center !important;
   }
 
@@ -679,8 +673,8 @@ tr:last-child .gcc-cell {
   scroll-behavior: smooth;
   scrollbar-width: none;
   -ms-overflow-style: none;
-  padding: 10px 0;
   justify-content: none;
+  border-radius: 42px;
 }
 
 .faculty-scroll-wrapper::-webkit-scrollbar {
@@ -720,11 +714,11 @@ tr:last-child .gcc-cell {
 }
 
 .left-btn {
-  left: -22px;
+  left: -52px;
 }
 
 .right-btn {
-  right: -22px;
+  right: -52px;
 }
 
 .faculty-dots-wrapper {
