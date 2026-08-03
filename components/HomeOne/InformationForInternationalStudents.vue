@@ -472,7 +472,7 @@ export default {
   }
 
   .boxes-container .box span {
-    font-size: 6px !important;
+    font-size: 5px !important;
     margin-top: 4px !important;
   }
 
@@ -500,6 +500,7 @@ export default {
 }
 
 @media (max-width: 575px) {
+
   .btn-purple,
   .btn-outline-purple {
     width: 100%;
@@ -508,6 +509,12 @@ export default {
 
   .decor-shape {
     display: none;
+  }
+}
+
+@media (max-width: 380px) {
+  .boxes-container .box span {
+    font-size: 4px;
   }
 }
 </style>

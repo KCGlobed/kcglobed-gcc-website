@@ -675,6 +675,12 @@
     padding: 1rem;
   }
 }
+
+@media (max-width: 380px) {
+  .hero-badge {
+    font-size: 9px !important;
+  }
+}
 </style>
 
 <script lang="ts">
