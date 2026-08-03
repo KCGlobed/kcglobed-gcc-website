@@ -511,7 +511,7 @@ tr:last-child .gcc-cell {
 .gold-tag {
   color: #D5861B;
   font-weight: 700;
-  font-size: 20px;
+  font-size: 24px;
   letter-spacing: 1.5px;
   text-transform: uppercase;
   display: block;
