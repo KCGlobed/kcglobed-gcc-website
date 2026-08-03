@@ -357,7 +357,7 @@ const accordionStyle = (index: number) => {
     text-transform: uppercase;
     letter-spacing: 3px;
     margin-bottom: 15px;
-    font-size: 14px;
+    font-size: 20px;
     background: rgba(241, 166, 62, 0.1);
     padding: 5px 15px;
     border-radius: 50px;

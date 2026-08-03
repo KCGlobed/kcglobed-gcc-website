@@ -89,7 +89,7 @@ const announcements = [
 /* Common Text Elements */
 .eyebrow {
   font-weight: 700;
-  font-size: 13px;
+  font-size: 20px;
   letter-spacing: 1.5px;
   text-transform: uppercase;
   display: block;
@@ -100,6 +100,7 @@ const announcements = [
 }
 
 .section-title {
+  display: flex;
   font-size: 38px;
   font-weight: 800;
   color: #130922;

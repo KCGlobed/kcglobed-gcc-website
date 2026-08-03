@@ -201,7 +201,7 @@ export default {
 /* Content block styles */
 .hire-badge-title {
   color: #D98E23;
-  font-size: 14px;
+  font-size: 20px;
   font-weight: 700;
   letter-spacing: 1.5px;
   text-transform: uppercase;

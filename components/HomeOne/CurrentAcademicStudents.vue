@@ -502,7 +502,7 @@ tr:last-child .gcc-cell {
 
 /* Faculty & Mentors Section Styles */
 .faculty-mentors-area {
-  background-color: #bcbbbe;
+  background-color: #e1e1e1;
   padding: 80px 0;
   border-top: 1px solid #ECECF0;
   overflow: hidden;
@@ -511,7 +511,7 @@ tr:last-child .gcc-cell {
 .gold-tag {
   color: #D5861B;
   font-weight: 700;
-  font-size: 21px;
+  font-size: 20px;
   letter-spacing: 1.5px;
   text-transform: uppercase;
   display: block;

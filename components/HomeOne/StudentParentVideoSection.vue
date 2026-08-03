@@ -210,7 +210,7 @@ const scrollToStudentCard = (index: number) => {
   display: inline-block;
   padding: 6px 14px;
   font-family: 'Inter', sans-serif;
-  font-size: 11px;
+  font-size: 20px;
   font-weight: 700;
   letter-spacing: .08em;
   text-transform: uppercase;
