@@ -324,12 +324,13 @@
   display: flex;
   align-items: flex-end;
   background-image: var(--banner-img);
-  background-size: contain;
+  background-size: cover;
   background-repeat: no-repeat;
   background-position: center;
-  padding-bottom: 140px;
+  padding-bottom: 30px;
   padding-top: 237px;
 }
+
 
 .hero-container {
   width: 100%;
