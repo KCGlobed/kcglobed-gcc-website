@@ -87,7 +87,7 @@
               </div>
               <!-- Card 4: J.C Bhalla & Co. -->
               <div class="partner-card">
-              <img style="height: 80px;" src="https://storage.googleapis.com/gcc_prod_static_files_backend/static/images/c5d94e39daa5850136b43e4c1baed4235695e8a9.jpg" alt="">
+              <img style="height: 80px;" src="https://storage.googleapis.com/gcc_prod_static_files_backend/static/images/2z2634.tif.Jz-5A6rG.png%20(1).png" alt="">
               </div>
               <!-- Card 5: Baker Tilly -->
               <div class="partner-card">
