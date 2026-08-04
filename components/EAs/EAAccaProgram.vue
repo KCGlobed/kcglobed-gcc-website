@@ -4,7 +4,7 @@
             <div class="ea-intro-content max-900 mx-auto" data-aos="fade-up">
                 <h2 class="ea-title">ENROLLED AGENT</h2>
                 <h2 class="ea-subtitle">
-                    Unlock boundless opportunities in tax preparation br and representation with the best Enrolled Agent
+                    Unlock boundless opportunities in tax preparation and representation with the best Enrolled Agent
                     course.
                 </h2>
                 <p class="ea-description">

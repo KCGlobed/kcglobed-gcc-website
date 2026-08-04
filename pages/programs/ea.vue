@@ -2,38 +2,15 @@
   <div>
     <LayoutTopHeader />
     <LayoutMainNavbar />
-
-     <EAsEaBanner />
+    <EAsEaBanner />
     <ProgramsGovtOnprogram />
-
-    <!-- <ProgramsAIProgram /> -->
-    
-    <!-- <ProgramsAeiap /> -->
-     <EAsEAaeiap />
-     <CareerPath />
-    <!-- <ProgramsIAProgram /> -->
+    <EAsEAaeiap />
+    <CareerPath />
     <EAIAProgram />
-
-    <!-- <ProgramsAccaProgram /> -->
-     <EAsEAAccaProgram />
-    <!-- <ProgramsAccQualification /> -->
-     <EAaccQualification />
-     
-
-    <!-- <HomeThreeAboutUniversity />
-
-    <HomeThreeGraduatePrograms />
-
-
-    <Events />
-    <HomeTwoApplyUniversityInEasySteps />
-    <NationalExecusive /> -->
-    <!-- <ProgramsProgramTimlineTwo /> -->
-     <EATimeLine/>
-
-    <!-- <ProgramsProgramTimeLine /> -->
-    <!-- <ProgramsTeeeProgram /> -->
-     <EABooks />
+    <EAsEAAccaProgram />
+    <EAaccQualification />
+    <EATimeLine />
+    <EABooks />
     <ProgramsLmsProgram />
 
 
@@ -56,7 +33,7 @@ useHead({
   title: "GCC School | Programs",
   meta: [
     { name: "description", content: "Advance your career with GCC School's professional programs. Explore specialized courses designed to equip graduates with industry-ready skills and global recognition." },
-     // Open Graph
+    // Open Graph
     {
       property: "og:type",
       content: "website",

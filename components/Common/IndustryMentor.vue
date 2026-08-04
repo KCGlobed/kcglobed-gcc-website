@@ -137,7 +137,7 @@ const images = [
         link: "https://www.linkedin.com/in/senthil-kumar-5b8a1b8a/"
     },
     {
-        img: "https://storage.googleapis.com/gcc_prod_static_files_backend/static/images/Nayan_bheda.png",
+        img: "https://storage.googleapis.com/gcc_prod_static_files_backend/static/images/Murli_Mohan.png",
         link: "https://www.linkedin.com/in/senthil-kumar-5b8a1b8a/"
     },
 ]

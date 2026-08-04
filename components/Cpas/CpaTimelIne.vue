@@ -36,13 +36,13 @@ const timeline = [
     {
         label: 'NFET\nEnrollment',
         icon: icon1,
-        date: 'July 15 Onwards',
+        date: 'Aug 15 Onwards',
         color: '#b516b5',
     },
     {
         label: 'NFET Slot\nBooking',
         icon: icon2,
-        date: 'July 15 – Sep 15, 2026',
+        date: 'Aug 15 – Oct 15, 2026',
         color: '#6c1a8f',
     },
     {
@@ -60,25 +60,25 @@ const timeline = [
     {
         label: 'Personal Interview Round',
         icon: icon5,
-        date: 'Sep 1 – Sep 25, 2026',
+        date: 'Oct 1 – Oct 25, 2026',
         color: '#5a1380',
     },
     {
         label: 'Conditional Offer Letter',
         icon: icon6,
-        date: 'Sep 1 – Sep 25, 2026',
+        date: 'Oct 1 – Oct 25, 2026',
         color: '#0b1154',
     },
     {
         label: 'Admission Confirmation',
         icon: icon7,
-        date: 'Sep 1 – Sep 30, 2026',
+        date: 'Oct 1 – Oct 30, 2026',
         color: '#5a1380',
     },
     {
         label: 'Cohort Start',
         icon: icon8,
-        date: 'Oct 1, 2026',
+        date: 'Nov 1, 2026',
         color: '#0b1154',
     },
 ]
@@ -168,7 +168,7 @@ const timeline = [
     padding: 10px 18px;
     background: #f0eeff;
     font-size: 13.5px;
-    font-weight: 500;
+    font-weight: 700;
     color: #1e1b4b;
     line-height: 1.4;
 }

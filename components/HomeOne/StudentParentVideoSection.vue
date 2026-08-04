@@ -5,7 +5,7 @@
       <div class="container">
         <div class="section-head">
           <span class="tag tag-accent">In Their Own Words</span>
-          <h2 class="section-title" id="parents-video-h2">Parents<span class="primary"> After the Offer Letter</span></h2>
+          <h2 class="section-title" id="parents-video-h2">What Parents <span class="primary">Say About GCC School</span></h2>
           <p class="section-lead">Hear directly from the people whose careers and families changed in one hiring drive.</p>
         </div>
 
@@ -47,7 +47,7 @@
         <div class="section-head">
           <span class="tag tag-accent">In Their Own Words</span>
           <h2 class="section-title" id="students-video-h2">Students <span class="primary">After the Offer Letter</span></h2>
-          <p class="section-lead">Hear directly from the people whose careers changed in one hiring drive.</p>
+          <p class="section-lead">Hear from the Candidates Who Chose GCC School to Build Their Global Careers</p>
         </div>
 
         <div class="video-grid" ref="studentGridRef" @scroll="handleStudentScroll">

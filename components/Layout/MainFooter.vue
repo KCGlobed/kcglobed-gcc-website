@@ -3,8 +3,8 @@
     <!-- Part 1: centered Lead CTA Banner -->
     <div class="footer-cta-banner ptb-80 text-center">
       <div class="container">
-        <span class="eyebrow gold-text">120 SEATS · ONE EXAM · JULY 2026</span>
-        <h2 class="cta-heading text-white mt-2 mb-3">Your Global Finance Career<br class="d-none d-md-block" /> Starts With One Step.</h2>
+        <span class="eyebrow gold-text">60 SEATS · ONE EXAM · SEP 2026</span>
+        <h2 class="cta-heading text-white mt-2 mb-3">Your US Taxation Career<br class="d-none d-md-block" /> Starts With One Step.</h2>
         <p class="cta-subtitle mb-4">Whether you are ready to apply or still weighing your options, the next move is simple.</p>
         
         <div class="d-flex justify-content-center align-items-center gap-3 flex-wrap">

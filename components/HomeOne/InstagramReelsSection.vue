@@ -5,7 +5,7 @@
         <div class="section-head">
           <span class="tag tag-accent">In Their Own Words</span>
           <h2 class="section-title" id="instagram-video-h2">Voice Of Policy Maker & Industry Leaders</h2>
-          <p class="section-lead">Hear directly from the people whose Shape Industry</p>
+          <!-- <p class="section-lead">Hear directly from the people whose Shape Industry</p> -->
         </div>
 
         <div class="video-grid" ref="videoGridRef" @scroll="handleScroll">
@@ -179,19 +179,17 @@ const scrollToCard = (index: number) => {
   overflow: hidden;
   background: #111;
   width: 100%;
-  aspect-ratio: 9 / 16;
+  aspect-ratio: 4 / 5; /* or keep 9/16 if you prefer */
 }
 
 .video-thumb iframe {
+  position: absolute;
+  top: -54px;
+  left: 0;
   width: 100%;
-  height: calc(100% + 110px);
-  /* Make iframe taller than container */
+  height: calc(100% + 230px);
   border: none;
   display: block;
-  position: absolute;
-  top: -55px;
-  /* Shift up to hide Instagram header */
-  left: 0;
 }
 
 .video-overlay {

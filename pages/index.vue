@@ -3,6 +3,7 @@
     <LayoutTopHeader />
     <LayoutMainNavbar />
     <HomeOneMainBanner />
+    <HomeOneCompanyBar />
     <HomeOneInformationForInternationalStudents />
     <HomeGovtProgram />
     <CommonPathwayYourSuccess />

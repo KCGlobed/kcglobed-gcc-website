@@ -1,6 +1,6 @@
 <template>
     <div class="ed-message-area ptb-100">
-        <div class="container-fluid w">
+        <div class="container-fluid w  px-lg-5 px-md-4 px-3">
             <div class="row align-items-center">
                 <div class="col-lg-6 col-md-12">
                     <div class="ed-message-content pe-lg-5" >
@@ -43,7 +43,7 @@
                     <div class="video-box-wrapper" >
                         <div class="video-preview-box shadow-lg" @click="playVideo">
                             <template v-if="!isPlaying">
-                                <img src="https://storage.googleapis.com/static_files_backend/media/images/nitish%20sir%20thmbnl_.jpg"
+                                <img src="https://storage.googleapis.com/gcc_prod_static_files_backend/static/images/nitish_sir_thmbnl.jpg"
                                     alt="ED Message Video Preview" class="preview-img">
                                 <div class="play-btn-wrap">
                                     <div class="play-btn">
@@ -124,7 +124,7 @@ const playVideo = () => {
 }
 
 .signature span {
-    color: #fc6441;
+    color: #8c3781;
     font-weight: 600;
     font-size: 14px;
     text-transform: uppercase;

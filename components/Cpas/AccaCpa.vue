@@ -5,8 +5,8 @@
             <!-- Main Heading -->
             <div class="cpa-heading-wrapper">
                 <h2 class="cpa-main-heading">
-                    US CPA - THE GLOBAL PASSPORT TO
-                    ACCOUNTING &amp; <span class="highlight">FINANCE CAREERS</span>
+                    US CPA A Passport to the Global <br>
+                    <span class="highlight">Audit, Accounting &amp; FINANCE CAREERS</span>
                 </h2>
 
                 <div class="heading-line"></div>
@@ -26,7 +26,7 @@
                     <p>
                         To become a licensed CPA, you must pass the CPA Exam, a
                         <br class="desktop-break" />
-                        four-section, 16-hour assessment.
+                        four-section, 4-hour assessment each section.
                     </p>
                 </div>
 
@@ -77,7 +77,7 @@
 .cpa-main-heading {
     color: #0d0d25;
     font-size: 32px;
-    line-height: 1.12;
+    line-height: 1.5;
     font-weight: 700;
     text-transform: uppercase;
     max-width: 1000px;

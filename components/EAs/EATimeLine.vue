@@ -33,13 +33,13 @@ import icon7 from "~/assets/icon/timlineicon/7.svg"
 import icon8 from "~/assets/icon/timlineicon/8.svg"
 const timeline = [
     {
-        label: 'NFET\nEnrollment',
+        label: 'NFET Enrollment',
         icon: icon1,
         date: 'July 26 onwards',
         color: 'linear-gradient(135deg, #4c1d95 0%, #6d28d9 100%)',
     },
     {
-        label: 'NFET Slot\nBooking',
+        label: 'NFET Slot Booking',
         icon: icon2,
         date: 'July 15 - Aug 15, 2026',
         color: 'linear-gradient(135deg, #5b21b6 0%, #7c3aed 100%)',
@@ -50,12 +50,6 @@ const timeline = [
         date: 'Second week of Aug, 2026',
         color: 'linear-gradient(135deg, #7c3aed 0%, #9333ea 100%)',
     },
-    // {
-    //     label: 'Pre-assessment to Qualify (Ticket to DLF Cyber City, Gurugram)',
-    //     icon: icon4,
-    //     date: 'May - June 2026',
-    //     color: 'linear-gradient(135deg, #a21caf 0%, #c026d3 100%)',
-    // },
     {
         label: 'Personal Interview Round',
         icon: icon5,
@@ -71,13 +65,13 @@ const timeline = [
     {
         label: 'Admission Confirmation',
         icon: icon7,
-        date: 'Aug 30, 2026',
+        date: 'Sep 14, 2026', // moved by 15 days
         color: 'linear-gradient(135deg, #6d28d9 0%, #9333ea 100%)',
     },
     {
         label: 'Cohort Start',
         icon: icon8,
-        date: 'Sep 1, 2026',
+        date: 'Sep 16, 2026', // moved by 15 days
         color: 'linear-gradient(135deg, #a21caf 0%, #c026d3 100%)',
     },
 ]
