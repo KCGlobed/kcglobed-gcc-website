@@ -4,11 +4,10 @@
             <!-- Section Header -->
             <div class="section-title text-center mb-50">
                 <span class="highlight" style="font-size: 24px;">The GCC OPPORTUNITY</span>
-                <h2 class="title">India Is The World's GCC Capital. You Should Be Working In It.</h2>
+                <h2 class="title">India Is The World's GCC Capital.</h2>
                 <p style="max-width: 777px; margin: auto;">Global Capability Centres are the fastest-growing engine of
-                    high-skill
-                    finance work in the country.
-                    GCC School exists to put commerce graduates at the centre of that shift.</p>
+                    high-skill finance work in the country. GCC School exists to put commerce graduates at the centre of
+                    that shift.</p>
                 <p style="margin-top: 15px;">FIGURES REFLECT WIDELY REPORTED ESTIMATES FOR INDIA'S GCC SECTOR</p>
             </div>
 

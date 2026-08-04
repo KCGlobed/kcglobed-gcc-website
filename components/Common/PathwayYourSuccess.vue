@@ -9,7 +9,7 @@
                     at
                     the heart of the corporate world.
                 </p> -->
-                <img src="../../assets/newimages/successPath.png" alt="">
+                <img src="https://storage.googleapis.com/gcc_prod_static_files_backend/static/images/Group_49993.png" alt="success_path">
             </div>
 
         </div>
@@ -40,6 +40,11 @@
 .section-header .highlight {
     color: #F1A63E;
     /* Purple color from design title */
+}
+
+.section-header img {
+    width: 800px;
+    height: 950px;
 }
 
 .section-header .subtitle {

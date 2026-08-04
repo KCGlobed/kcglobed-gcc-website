@@ -1,7 +1,7 @@
 <template>
     <div class="pathway-section ptb-100">
         <div class="container-fluid w">
-            <div class="row">
+            <div class="row px-lg-5 px-md-4 px-3">
                 <div class="col-12">
                     <div class="section-header text-center mb-60" >
 

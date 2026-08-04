@@ -5,7 +5,7 @@
             <img src="https://storage.googleapis.com/gcc_prod_static_files_backend/static/images/Group%2051450%20(1).png"
                 alt="Ticket Image" loading="lazy" decoding="async" />
         </div>
-        <div class="container text-center pt-5">
+        <div class="container text-center pt-5 px-lg-5 px-md-4 px-3">
             <div class="section-header mb-60">
                 <h2 class="title">AT <span>GCC SCHOOL</span>
                     We prepare finance leaders to achieve the next elevation - for their organisations and for

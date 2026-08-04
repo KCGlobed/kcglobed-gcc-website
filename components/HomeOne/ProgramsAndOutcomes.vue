@@ -1,8 +1,8 @@
 <template>
-    <div class="programs-and-outcomes-container">
+  <div class="programs-and-outcomes-container">
     <!-- Section 1: Pick A Career Path -->
     <div class="programs-section">
-      <div class="container-fluid w">
+      <div class="container-fluid w  px-lg-5 px-md-4 px-3">
         <div class="programs-header text-start mb-40">
           <span class="section-tag">THREE PROGRAMS · ONE SERIOUS OUTCOME</span>
           <h2 class="section-title mt-2">Pick A Career Path. The<br class="d-none d-md-block" /> Program Follows.</h2>
@@ -58,12 +58,9 @@
           </div>
           <!-- Pagination Dots (Mobile Only) -->
           <div class="tags-dots-wrapper">
-            <span 
-              v-for="dotIndex in 3" 
-              :key="dotIndex" 
+            <span v-for="dotIndex in 3" :key="dotIndex"
               :class="['dot-indicator', { active: activeTagIndex === dotIndex - 1 }]"
-              @click="scrollToTagsPage(dotIndex - 1)"
-            ></span>
+              @click="scrollToTagsPage(dotIndex - 1)"></span>
           </div>
         </div>
 
@@ -73,30 +70,47 @@
           <div class="col-lg-7">
             <h4 class="ecosystem-title mb-4">APPROVED HIRING-PARTNER ECOSYSTEM</h4>
             <div class="ecosystem-grid">
-              <!-- Card 1: KC GlobEd -->
+              <!-- Card 1: BDO -->
               <div class="partner-card">
-                <img src="@/assets/img/common/logo_kcglobed.svg" alt="KC GlobEd Logo" class="partner-logo" loading="lazy" decoding="async" />
+                <img class="partner-logo"
+                  src="https://storage.googleapis.com/gcc_prod_static_files_backend/static/images/fcf40cc156290a432750ebfdc83c0bdc98be334c.png"
+                  alt="">
               </div>
-              <!-- Card 2: Kreit & Chiu -->
+
+              <!-- Card 2: Baker Tilly -->
               <div class="partner-card">
-               <img class="partner-logo" src="https://storage.googleapis.com/gcc_prod_static_files_backend/static/images/2b4b2a017e158573d1b6aa89b1e9fdad34408014.png" alt="">
+                <img class="partner-logo"
+                  src="https://storage.googleapis.com/gcc_prod_static_files_backend/static/images/ccc612e70958ff73c2eea50bb366a0b57537f0d8.png"
+                  alt="">
               </div>
+
               <!-- Card 3: ASA -->
               <div class="partner-card">
-               <img style="height: 80px;"  src="https://storage.googleapis.com/gcc_prod_static_files_backend/static/images/f18d9610299379a7802f53adaf17782b3d556016.png" alt="">
+                <img style="height: 80px;"
+                  src="https://storage.googleapis.com/gcc_prod_static_files_backend/static/images/f18d9610299379a7802f53adaf17782b3d556016.png"
+                  alt="">
               </div>
+
               <!-- Card 4: J.C Bhalla & Co. -->
               <div class="partner-card">
-              <img style="height: 63px;" src="https://storage.googleapis.com/gcc_prod_static_files_backend/static/images/2z2634.tif.Jz-5A6rG.png%20(1).png" alt="">
+                <img style="height: 63px;"
+                  src="https://storage.googleapis.com/gcc_prod_static_files_backend/static/images/2z2634.tif.Jz-5A6rG.png%20(1).png"
+                  alt="">
               </div>
-              <!-- Card 5: Baker Tilly -->
+
+              <!-- Card 5: Kreit & Chiu -->
               <div class="partner-card">
-              <img class="partner-logo" src="https://storage.googleapis.com/gcc_prod_static_files_backend/static/images/ccc612e70958ff73c2eea50bb366a0b57537f0d8.png" alt="">
+                <img class="partner-logo"
+                  src="https://storage.googleapis.com/gcc_prod_static_files_backend/static/images/2b4b2a017e158573d1b6aa89b1e9fdad34408014.png"
+                  alt="">
               </div>
-              <!-- Card 6: BDO -->
+
+              <!-- Card 6: KC GlobEd -->
               <div class="partner-card">
-                <img class="partner-logo" src="https://storage.googleapis.com/gcc_prod_static_files_backend/static/images/fcf40cc156290a432750ebfdc83c0bdc98be334c.png" alt="">
+                <img src="@/assets/img/common/logo_kcglobed.svg" alt="KC GlobEd Logo" class="partner-logo"
+                  loading="lazy" decoding="async" />
               </div>
+
             </div>
           </div>
 
@@ -106,7 +120,9 @@
               <div>
                 <span class="proof-tag">PROOF, HONESTLY PRESENTED</span>
                 <p class="proof-text mt-3">
-                  Our first cohort begins July 2026, so our credibility rests on the model, the employer ecosystem, practitioner faculty and KC GlobEd's 20-year legacy of 20,000+ students across 120+ countries. Verified student outcomes will be published as they happen.
+                  Our first cohort begins July 2026, so our credibility rests on the model, the employer ecosystem,
+                  practitioner faculty and KC GlobEd's 20-year legacy of 20,000+ students across 120+ countries.
+                  Verified student outcomes will be published as they happen.
                 </p>
               </div>
               <NuxtLink to="/about-overview" class="proof-link mt-4">
@@ -144,7 +160,7 @@ const programCards = [
   },
   {
     title: "AI Enabled US Taxation Program (AEUTP)",
-    duration: "6 Months",
+    duration: "12 Months",
     approved: "AICTE Approved PGCM Program",
     offer: "6 LPA",
     image: us3,
@@ -171,7 +187,7 @@ const activeTagIndex = ref(0)
 const scrollToTagsPage = (index: number) => {
   const container = tagsScrollRef.value
   if (!container) return
-  
+
   const step = 200
   container.scrollTo({
     left: index * step,
@@ -182,7 +198,7 @@ const scrollToTagsPage = (index: number) => {
 const checkTagsScroll = () => {
   const container = tagsScrollRef.value
   if (!container) return
-  
+
   const step = 200
   activeTagIndex.value = Math.min(
     Math.round(container.scrollLeft / step),
@@ -227,12 +243,13 @@ const checkTagsScroll = () => {
 
 /* SECTION 1: Programs Section */
 .programs-section {
-  background-color: #F0EDE6; 
-  padding: 80px 196px;
+  background-color: #F0EDE6;
+  padding: 80px 0px;
 }
 
 .program-card {
-  background-color: #35083D; /* Rich deep purple */
+  background-color: #35083D;
+  /* Rich deep purple */
   border-radius: 16px;
   overflow: hidden;
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
@@ -339,13 +356,15 @@ const checkTagsScroll = () => {
 
 /* SECTION 2: Outcomes Section */
 .outcomes-section {
-  background-color: #E6DFEC; /* Warm lavender background */
+  background-color: #E6DFEC;
+  /* Warm lavender background */
   padding: 80px 0;
   /* margin: 55px 196px; */
 }
 
 .outcome-tag {
-  background-color: #51157C; /* Muted deep purple */
+  background-color: #51157C;
+  /* Muted deep purple */
   color: #ffffff;
   font-size: 13px;
   font-weight: 600;
@@ -386,7 +405,8 @@ const checkTagsScroll = () => {
 
 /* Proof Card styling */
 .proof-card {
-  background-color: #130922; /* Dark navy-charcoal */
+  background-color: #130922;
+  /* Dark navy-charcoal */
   border-radius: 16px;
   padding: 40px;
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
@@ -431,10 +451,12 @@ const checkTagsScroll = () => {
   .section-tag {
     font-size: 10px;
   }
-  .programs-section, .outcomes-section {
+
+  .programs-section,
+  .outcomes-section {
     padding: 60px 0;
   }
-  
+
   .ecosystem-grid {
     margin-bottom: 20px;
   }
@@ -491,17 +513,17 @@ const checkTagsScroll = () => {
     font-size: 24px;
     line-height: 37px;
   }
-  
+
   .ecosystem-grid {
     grid-template-columns: repeat(2, 1fr) !important;
     gap: 12px !important;
   }
-  
+
   .partner-card {
     height: 80px;
     padding: 10px !important;
   }
-  
+
   .proof-card {
     padding: 24px;
   }
