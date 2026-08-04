@@ -9,7 +9,8 @@
                     at
                     the heart of the corporate world.
                 </p> -->
-                <img src="https://storage.googleapis.com/gcc_prod_static_files_backend/static/images/Group_49993.png" alt="success_path">
+                <img src="https://storage.googleapis.com/gcc_prod_static_files_backend/static/images/Group_49993.png"
+                    alt="success_path">
             </div>
 
         </div>
@@ -298,6 +299,11 @@
 @media (max-width: 767px) {
     .timeline-line {
         left: 20px;
+    }
+
+    .section-header img {
+        width: 298px;
+        height: 426px;
     }
 
     .timeline-row,
