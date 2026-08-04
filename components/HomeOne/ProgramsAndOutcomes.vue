@@ -42,8 +42,8 @@
     </div>
 
     <!-- Section 2: Career Outcomes -->
-    <div class="outcomes-section">
-      <div class="container-fluid px-lg-5 px-md-4 px-3">
+    <div class="outcomes-section ">
+      <div class="container-fluid w px-lg-5 px-md-4 px-3">
         <div class="outcomes-header text-start mb-30">
           <span class="section-tag">CAREER OUTCOMES</span>
           <h2 class="section-title mt-2">A Clear Line From Classroom To<br class="d-none d-md-block" /> Career.</h2>
@@ -228,8 +228,7 @@ const checkTagsScroll = () => {
 /* SECTION 1: Programs Section */
 .programs-section {
   background-color: #F0EDE6; 
-  padding: 80px 0;
-  /* margin: 55px 196px; */
+  padding: 80px 196px;
 }
 
 .program-card {

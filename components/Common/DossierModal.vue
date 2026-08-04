@@ -2,7 +2,7 @@
     <div class="modal fade dossier-modal" :id="modalId" tabindex="-1" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content border-0">
-                <div class="modal-body px-4 py-3 p-md-5 position-relative">
+                <div class="modal-body px-4 py-3 px-md-5 py-md-4 position-relative">
                     <button type="button" class="btn-close position-absolute top-0 end-0 m-3" data-bs-dismiss="modal"
                         ref="closeModalBtn"></button>
 
@@ -913,9 +913,10 @@ export default defineComponent({
 
         // Helper to aggressively restore body scroll
         const restoreBodyScroll = () => {
-            document.body.style.overflow = '';
+            document.body.style.overflow = "";
             document.body.style.paddingRight = '';
             document.body.classList.remove('modal-open');
+            document.documentElement.classList.remove('modal-open');
             // Remove all leftover modal backdrops
             document.querySelectorAll('.modal-backdrop').forEach(el => el.remove());
         };
@@ -1303,11 +1304,15 @@ export default defineComponent({
         onMounted(() => {
             const el = document.getElementById(props.modalId);
             if (el) {
-                el.addEventListener('show.bs.modal', resetForm);
+                el.addEventListener('show.bs.modal', () => {
+                    resetForm();
+                    document.documentElement.classList.add('modal-open');
+                });
                 el.addEventListener('hidden.bs.modal', () => {
                     form.referral_code = '';
                     referralApplied.value = false;
                     errors.referral_code = '';
+                    document.documentElement.classList.remove('modal-open');
                 });
             }
             window.addEventListener('click', handleClickOutside);
@@ -1315,6 +1320,7 @@ export default defineComponent({
 
         onUnmounted(() => {
             window.removeEventListener('click', handleClickOutside);
+            document.documentElement.classList.remove('modal-open');
         });
 
         return {
@@ -1364,6 +1370,19 @@ export default defineComponent({
 </script>
 
 <style scoped>
+/* ─── Modal Scroll Overrides ───────────────────────────────────────────── */
+.dossier-modal.modal .modal-dialog {
+    margin: 1rem auto;
+    --bs-modal-margin: 1rem;
+}
+
+@media (max-width: 576px) {
+    .dossier-modal.modal .modal-dialog {
+        margin: 0.5rem auto;
+        --bs-modal-margin: 0.5rem;
+    }
+}
+
 /* ─── Referral Input Group ─────────────────────────────────────────────── */
 .referral-input-group {
     display: flex;

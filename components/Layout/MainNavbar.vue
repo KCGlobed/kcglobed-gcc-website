@@ -390,7 +390,21 @@ export default defineComponent({
 }
 
 .navbar.sticky {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
   background-color: #020103;
+  animation: slideDown 0.3s ease;
+}
+
+@keyframes slideDown {
+  from {
+    transform: translateY(-100%);
+  }
+  to {
+    transform: translateY(0);
+  }
 }
 
 /* Search Dropdown Styles */

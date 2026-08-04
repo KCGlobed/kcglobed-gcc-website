@@ -53,6 +53,12 @@ body {
   overflow-x: hidden;
 }
 
+/* Prevent background page scroll when Bootstrap modals are open */
+html.modal-open,
+html:has(body.modal-open) {
+  overflow: hidden !important;
+}
+
 .h1,
 .h2,
 .h3,
