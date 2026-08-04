@@ -1,6 +1,7 @@
 <template>
   <div class="top-header-warp">
-    <div class="container-fluid">
+
+    <div class="container-fluid w">
       <div class="row align-items-center justify-content-center">
         <div class="col-12">
           <div class="top-header-combined-content text-center">

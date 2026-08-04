@@ -1,6 +1,6 @@
 <template>
     <div class="ed-message-area ptb-100">
-        <div class="container">
+        <div class="container-fluid w">
             <div class="row align-items-center">
                 <div class="col-lg-6 col-md-12">
                     <div class="ed-message-content pe-lg-5" >
@@ -83,7 +83,7 @@ const playVideo = () => {
     background-color: #F3EBEB;
     position: relative;
     overflow: hidden;
-    /* margin-top: 40px; */
+    width: 100%;
 }
 
 .section-tag .badge {

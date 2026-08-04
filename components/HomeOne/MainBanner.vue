@@ -1,314 +1,315 @@
 <template>
-  <div class="hero-warp hero-section">
-    <Swiper :loop="banners.length > 1" effect="slide" :speed="2000" :pagination="{
-      el: '.swiper-pagination2',
-      clickable: true,
-    }" :modules="[SwiperEffectFade, SwiperPagination]" class="hero-slider">
-      <SwiperSlide v-for="banner in banners" :key="banner.id">
-        <div class="hero-slider-warp" :style="{
-          '--banner-img': `url(${banner.image})`,
-        }">
-          <div class="container-fluid hero-container px-lg-5 px-md-4 px-3">
-            <!-- Top Content (Main Hero Area) -->
-            <div class="row align-items-end justify-content-between main-hero-row">
-              <!-- Left Content -->
-              <div class="col-lg-7 text-start mb-lg-0 mb-4 heading">
-                <span class="hero-badge">
-                  <span>INDIA'S FIRST SCHOOL FOR COMMERCE GRADUATES</span>
-                </span>
+    <div class="hero-warp hero-section">
+      <Swiper :loop="banners.length > 1" effect="slide" :speed="2000" :pagination="{
+        el: '.swiper-pagination2',
+        clickable: true,
+      }" :modules="[SwiperEffectFade, SwiperPagination]" class="hero-slider">
+        <SwiperSlide v-for="banner in banners" :key="banner.id">
+          <div class="hero-slider-warp" :style="{
+            '--banner-img': `url(${banner.image})`,
+          }">
+            <div class="container-fluid hero-container w px-lg-5 px-md-4 px-3">
+              <!-- Top Content (Main Hero Area) -->
+              <div class="row align-items-end justify-content-between main-hero-row">
+                <!-- Left Content -->
+                <div class="col-lg-7 text-start mb-lg-0 mb-4 heading">
+                  <span class="hero-badge">
+                    <span>INDIA'S FIRST SCHOOL FOR COMMERCE GRADUATES</span>
+                  </span>
 
-                <h1 class="hero-title mt-3">
-                  India’s 1st School<br />
-                  For Commerce &<br />
-                  Management Graduates
-                </h1>
+                  <h1 class="hero-title mt-3">
+                    India’s 1st School<br />
+                    For Commerce &<br />
+                    Management Graduates
+                  </h1>
 
-                <p class="hero-subtitle mt-3">
-                  Powered by Industry titans, Defined by Performance
-                </p>
-                <p class="hero-description">
-                  At GCC School, you get hired first, then trained.
-                </p>
+                  <p class="hero-subtitle mt-3">
+                    Powered by Industry titans, Defined by Performance
+                  </p>
+                  <p class="hero-description">
+                    At GCC School, you get hired first, then trained.
+                  </p>
 
-                <div class="d-flex gap-3 flex-wrap mt-4">
-                  <button class="btn btn-apply px-4 py-3" data-bs-toggle="modal" data-bs-target="#applyNowModal">
-                    Apply for NFET
-                  </button>
-                  <button class="btn btn-explore px-4 py-3" data-bs-toggle="modal" data-bs-target="#enquiryModal">
-                    Explore Programs
-                  </button>
+                  <div class="d-flex gap-3 flex-wrap mt-4">
+                    <button class="btn btn-apply px-4 py-3" data-bs-toggle="modal" data-bs-target="#applyNowModal">
+                      Apply for NFET
+                    </button>
+                    <button class="btn btn-explore px-4 py-3" data-bs-toggle="modal" data-bs-target="#enquiryModal">
+                      Explore Programs
+                    </button>
+                  </div>
+                </div>
+
+                <!-- Right Card -->
+                <div class="col-lg-4 d-flex justify-content-lg-end justify-content-center">
+                  <div class="cohort-card">
+                    <div class="cohort-card-content">
+                      <div class="cohort-label">NOVEMBER 2026 COHORT</div>
+                      <div class="cohort-seats">120 SEATS - ONE EXAM</div>
+                      <div class="cohort-location">DLF CYBER CITY, GURUGRAM</div>
+                    </div>
+                  </div>
                 </div>
               </div>
 
-              <!-- Right Card -->
-              <div class="col-lg-4 d-flex justify-content-lg-end justify-content-center">
-                <div class="cohort-card">
-                  <div class="cohort-card-content">
-                    <div class="cohort-label">NOVEMBER 2026 COHORT</div>
-                    <div class="cohort-seats">120 SEATS - ONE EXAM</div>
-                    <div class="cohort-location">DLF CYBER CITY, GURUGRAM</div>
+              <!-- Stats Row at the bottom of the hero -->
+              <div class="row stats-row g-3 row-cols-2 row-cols-md-3 row-cols-lg-5">
+                <div class="col stats-col">
+                  <div class="stat-box">
+                    <div class="stat-number">₹10 LPA</div>
+                    <div class="stat-label">Pre-placement offer*</div>
+                  </div>
+                </div>
+                <div class="col stats-col">
+                  <div class="stat-box">
+                    <div class="stat-number">2,100+</div>
+                    <div class="stat-label">GCCs in India</div>
+                  </div>
+                </div>
+                <div class="col stats-col">
+                  <div class="stat-box">
+                    <div class="stat-number">26 Lc+</div>
+                    <div class="stat-label">Employees Currently<br>Working in India</div>
+                  </div>
+                </div>
+                <div class="col stats-col">
+                  <div class="stat-box">
+                    <div class="stat-number">$105B</div>
+                    <div class="stat-label">sector expected by 2030</div>
+                  </div>
+                </div>
+                <div class="col stats-col">
+                  <div class="stat-box">
+                    <div class="stat-number">120</div>
+                    <div class="stat-label">Seats Only</div>
                   </div>
                 </div>
               </div>
             </div>
-
-            <!-- Stats Row at the bottom of the hero -->
-            <div class="row stats-row g-3 row-cols-2 row-cols-md-3 row-cols-lg-5">
-              <div class="col stats-col">
-                <div class="stat-box">
-                  <div class="stat-number">₹10 LPA</div>
-                  <div class="stat-label">Pre-placement offer*</div>
-                </div>
-              </div>
-              <div class="col stats-col">
-                <div class="stat-box">
-                  <div class="stat-number">2,100+</div>
-                  <div class="stat-label">GCCs in India</div>
-                </div>
-              </div>
-              <div class="col stats-col">
-                <div class="stat-box">
-                  <div class="stat-number">26 Lc+</div>
-                  <div class="stat-label">Employees Currently<br>Working in India</div>
-                </div>
-              </div>
-              <div class="col stats-col">
-                <div class="stat-box">
-                  <div class="stat-number">$105B</div>
-                  <div class="stat-label">sector expected by 2030</div>
-                </div>
-              </div>
-              <div class="col stats-col">
-                <div class="stat-box">
-                  <div class="stat-number">120</div>
-                  <div class="stat-label">Seats Only</div>
-                </div>
-              </div>
-            </div>
           </div>
-        </div>
-      </SwiperSlide>
-    </Swiper>
-  </div>
+        </SwiperSlide>
+      </Swiper>
+    </div>
 
-  <div class="modal fade" id="enquiryModal" tabindex="-1" style="z-index: 99999;">
-    <div class="modal-dialog modal-lg modal-dialog-centered">
-      <div class="modal-content">
+    <div class="modal fade" id="enquiryModal" tabindex="-1" style="z-index: 99999;">
+      <div class="modal-dialog modal-lg modal-dialog-centered">
+        <div class="modal-content">
 
-        <div class="modal-header">
-          <h5 class="modal-title">GCC School – Enquiry Form</h5>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" ref="closeModalBtn"></button>
-        </div>
+          <div class="modal-header">
+            <h5 class="modal-title">GCC School – Enquiry Form</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" ref="closeModalBtn"></button>
+          </div>
 
-        <div class="modal-body">
-          <form @submit.prevent="submitForm">
+          <div class="modal-body">
+            <form @submit.prevent="submitForm">
 
-            <h6 class="mb-3">Personal Details</h6>
+              <h6 class="mb-3">Personal Details</h6>
 
-            <div class="row g-3">
-              <div class="col-md-6">
-                <div class="form-floating">
-                  <input v-model="form.name" class="form-control" placeholder="Full Name">
-                  <label>Full Name</label>
-                  <small class="text-danger" v-if="errors.name">{{ errors.name }}</small>
+              <div class="row g-3">
+                <div class="col-md-6">
+                  <div class="form-floating">
+                    <input v-model="form.name" class="form-control" placeholder="Full Name">
+                    <label>Full Name</label>
+                    <small class="text-danger" v-if="errors.name">{{ errors.name }}</small>
+                  </div>
+                </div>
+
+                <div class="col-md-6">
+                  <div class="form-floating ">
+                    <!-- <div class="prefix">+91</div> -->
+                    <input v-model="form.mobile" class="form-control" placeholder="Mobile Number">
+                    <label>Mobile Number</label>
+                    <small class="text-danger" v-if="errors.mobile">{{ errors.mobile }}</small>
+                  </div>
+                </div>
+
+                <div class="col-md-6">
+                  <div class="form-floating">
+                    <input v-model="form.email" class="form-control" placeholder="Email ID">
+                    <label>Email ID</label>
+                    <small class="text-danger" v-if="errors.email">{{ errors.email }}</small>
+                  </div>
+                </div>
+
+                <div class="col-md-6">
+                  <div class="form-floating">
+                    <select v-model="form.city" class="form-select" :disabled="!form.state">
+                      <option value="">Select City</option>
+                      <option v-for="city in citiesList" :key="city" :value="city">{{ city }}</option>
+                    </select>
+                    <label>District/City</label>
+                    <small class="text-danger" v-if="errors.city">{{ errors.city }}</small>
+                  </div>
+                </div>
+
+                <div class="col-md-6">
+                  <div class="form-floating">
+                    <select v-model="form.state" class="form-select" @change="onStateChange">
+                      <option value="">Select State</option>
+                      <option v-for="state in statesList" :key="state" :value="state">{{ state }}</option>
+                    </select>
+                    <label>State/UT</label>
+                    <small class="text-danger" v-if="errors.state">{{ errors.state }}</small>
+                  </div>
+                </div>
+
+                <div class="col-md-6">
+                  <div class="form-floating">
+                    <input v-model="form.pincode" class="form-control" placeholder="Pincode">
+                    <label>Pincode</label>
+                    <small class="text-danger" v-if="errors.pincode">{{ errors.pincode }}</small>
+                  </div>
                 </div>
               </div>
 
-              <div class="col-md-6">
-                <div class="form-floating ">
-                  <!-- <div class="prefix">+91</div> -->
-                  <input v-model="form.mobile" class="form-control" placeholder="Mobile Number">
-                  <label>Mobile Number</label>
-                  <small class="text-danger" v-if="errors.mobile">{{ errors.mobile }}</small>
-                </div>
-              </div>
+              <hr class="my-4">
 
-              <div class="col-md-6">
-                <div class="form-floating">
-                  <input v-model="form.email" class="form-control" placeholder="Email ID">
-                  <label>Email ID</label>
-                  <small class="text-danger" v-if="errors.email">{{ errors.email }}</small>
-                </div>
-              </div>
+              <h6 class="mb-3">Graduation Details</h6>
 
-              <div class="col-md-6">
-                <div class="form-floating">
-                  <select v-model="form.city" class="form-select" :disabled="!form.state">
-                    <option value="">Select City</option>
-                    <option v-for="city in citiesList" :key="city" :value="city">{{ city }}</option>
-                  </select>
-                  <label>District/City</label>
-                  <small class="text-danger" v-if="errors.city">{{ errors.city }}</small>
-                </div>
-              </div>
-
-              <div class="col-md-6">
-                <div class="form-floating">
-                  <select v-model="form.state" class="form-select" @change="onStateChange">
-                    <option value="">Select State</option>
-                    <option v-for="state in statesList" :key="state" :value="state">{{ state }}</option>
-                  </select>
-                  <label>State/UT</label>
-                  <small class="text-danger" v-if="errors.state">{{ errors.state }}</small>
-                </div>
-              </div>
-
-              <div class="col-md-6">
-                <div class="form-floating">
-                  <input v-model="form.pincode" class="form-control" placeholder="Pincode">
-                  <label>Pincode</label>
-                  <small class="text-danger" v-if="errors.pincode">{{ errors.pincode }}</small>
-                </div>
-              </div>
-            </div>
-
-            <hr class="my-4">
-
-            <h6 class="mb-3">Graduation Details</h6>
-
-            <!-- Graduation Program -->
-            <div class="form-floating mb-2">
-              <select v-model="form.graduationProgram" class="form-select " @change="resetGraduationFields">
-                <option value="">Select your graduation program</option>
-                <option>B.Com</option>
-                <option>B.B.A</option>
-                <option>B.Tech</option>
-                <option>Other</option>
-              </select>
-              <label>Graduation Program</label>
-              <small class="text-danger" v-if="errors.graduationProgram">{{ errors.graduationProgram }}</small>
-            </div>
-
-
-            <!-- Other Graduation Program (if selected) -->
-            <div v-if="form.graduationProgram === 'Other'" class="form-floating mb-2">
-              <input v-model="form.graduationProgramOther" class="form-control" placeholder="Please specify">
-              <label>Please specify your graduation program</label>
-              <small class="text-danger" v-if="errors.graduationProgramOther">{{ errors.graduationProgramOther
-              }}</small>
-            </div>
-
-            <!-- Graduation Status -->
-            <div class="form-floating mb-2">
-              <select v-model="form.graduationStatus" class="form-select" @change="resetStatusFields">
-                <option value="">Have you completed or are you pursuing your graduation?</option>
-                <option>Completed</option>
-                <option>Pursuing</option>
-              </select>
-              <label>Graduation Status</label>
-              <small class="text-danger" v-if="errors.graduationStatus">{{ errors.graduationStatus }}</small>
-            </div>
-
-
-            <!-- If Pursuing - Current CGPA/Percentage -->
-            <div v-if="form.graduationStatus === 'Pursuing'" class="form-floating mb-2">
-              <input v-model="form.currentCGPA" class="form-control" placeholder="Enter your current CGPA/Percentage">
-              <label>Current CGPA/Percentage</label>
-              <small class="text-danger" v-if="errors.currentCGPA">{{ errors.currentCGPA }}</small>
-            </div>
-
-            <!-- If Completed - First Division Check -->
-            <div v-if="form.graduationStatus === 'Completed'">
+              <!-- Graduation Program -->
               <div class="form-floating mb-2">
-                <select v-model="form.firstDivision" class="form-select " @change="resetHigherQualification">
-                  <option value="">Did you pass with First Division (≥60%)?</option>
-                  <option>Yes</option>
-                  <option>No</option>
-                </select>
-                <label>First Division (≥60%)</label>
-                <small class="text-danger" v-if="errors.firstDivision">{{ errors.firstDivision }}</small>
-              </div>
-
-
-              <!-- If Yes - Higher Qualification (Optional) -->
-              <div v-if="form.firstDivision === 'Yes'" class="form-floating mb-2">
-                <select v-model="form.higherQualification" class="form-select mb-3">
-                  <option value="">Higher Qualification (Optional)</option>
-                  <option>M.Com</option>
-                  <option>M.B.A</option>
-                  <option>M.Tech</option>
+                <select v-model="form.graduationProgram" class="form-select " @change="resetGraduationFields">
+                  <option value="">Select your graduation program</option>
+                  <option>B.Com</option>
+                  <option>B.B.A</option>
+                  <option>B.Tech</option>
                   <option>Other</option>
                 </select>
-                <label>Higher Qualification (Optional)</label>
+                <label>Graduation Program</label>
+                <small class="text-danger" v-if="errors.graduationProgram">{{ errors.graduationProgram }}</small>
               </div>
 
-              <!-- Other Higher Qualification (if selected) -->
-              <div v-if="form.higherQualification === 'Other'" class="form-floating mb-2">
-                <input v-model="form.higherQualificationOther" class="form-control" placeholder="Please specify">
-                <label>Please specify your higher qualification</label>
+
+              <!-- Other Graduation Program (if selected) -->
+              <div v-if="form.graduationProgram === 'Other'" class="form-floating mb-2">
+                <input v-model="form.graduationProgramOther" class="form-control" placeholder="Please specify">
+                <label>Please specify your graduation program</label>
+                <small class="text-danger" v-if="errors.graduationProgramOther">{{ errors.graduationProgramOther
+                  }}</small>
               </div>
-            </div>
+
+              <!-- Graduation Status -->
+              <div class="form-floating mb-2">
+                <select v-model="form.graduationStatus" class="form-select" @change="resetStatusFields">
+                  <option value="">Have you completed or are you pursuing your graduation?</option>
+                  <option>Completed</option>
+                  <option>Pursuing</option>
+                </select>
+                <label>Graduation Status</label>
+                <small class="text-danger" v-if="errors.graduationStatus">{{ errors.graduationStatus }}</small>
+              </div>
+
+
+              <!-- If Pursuing - Current CGPA/Percentage -->
+              <div v-if="form.graduationStatus === 'Pursuing'" class="form-floating mb-2">
+                <input v-model="form.currentCGPA" class="form-control" placeholder="Enter your current CGPA/Percentage">
+                <label>Current CGPA/Percentage</label>
+                <small class="text-danger" v-if="errors.currentCGPA">{{ errors.currentCGPA }}</small>
+              </div>
+
+              <!-- If Completed - First Division Check -->
+              <div v-if="form.graduationStatus === 'Completed'">
+                <div class="form-floating mb-2">
+                  <select v-model="form.firstDivision" class="form-select " @change="resetHigherQualification">
+                    <option value="">Did you pass with First Division (≥60%)?</option>
+                    <option>Yes</option>
+                    <option>No</option>
+                  </select>
+                  <label>First Division (≥60%)</label>
+                  <small class="text-danger" v-if="errors.firstDivision">{{ errors.firstDivision }}</small>
+                </div>
+
+
+                <!-- If Yes - Higher Qualification (Optional) -->
+                <div v-if="form.firstDivision === 'Yes'" class="form-floating mb-2">
+                  <select v-model="form.higherQualification" class="form-select mb-3">
+                    <option value="">Higher Qualification (Optional)</option>
+                    <option>M.Com</option>
+                    <option>M.B.A</option>
+                    <option>M.Tech</option>
+                    <option>Other</option>
+                  </select>
+                  <label>Higher Qualification (Optional)</label>
+                </div>
+
+                <!-- Other Higher Qualification (if selected) -->
+                <div v-if="form.higherQualification === 'Other'" class="form-floating mb-2">
+                  <input v-model="form.higherQualificationOther" class="form-control" placeholder="Please specify">
+                  <label>Please specify your higher qualification</label>
+                </div>
+              </div>
 
 
 
-            <!-- College / University -->
-            <div class="form-floating mb-2">
-              <select v-model="form.college" class="form-select">
-                <option value="">Select College / University</option>
-                <option v-for="college in colleges" :key="college.id" :value="college.name">
-                  {{ college.name }}
-                </option>
-              </select>
-              <label>College / University</label>
-              <small class="text-danger" v-if="errors.college">{{ errors.college }}</small>
-            </div>
+              <!-- College / University -->
+              <div class="form-floating mb-2">
+                <select v-model="form.college" class="form-select">
+                  <option value="">Select College / University</option>
+                  <option v-for="college in colleges" :key="college.id" :value="college.name">
+                    {{ college.name }}
+                  </option>
+                </select>
+                <label>College / University</label>
+                <small class="text-danger" v-if="errors.college">{{ errors.college }}</small>
+              </div>
 
 
-            <hr class="my-4">
+              <hr class="my-4">
 
-            <h6 class="mb-3">How Did You Hear About GCC School?</h6>
+              <h6 class="mb-3">How Did You Hear About GCC School?</h6>
 
-            <div class="form-floating mb-2">
-              <select v-model="form.source" class="form-select ">
-                <option value="">Select Source</option>
-                <option>College / University</option>
-                <option>Event / Seminar</option>
-                <option>Friend / Referral</option>
-                <option>Social Media</option>
-                <option>Website</option>
-                <option>Student Ambassador / Faculty Ambassador</option>
-                <option>Other</option>
-              </select>
-              <label>How Did You Hear About GCC School?</label>
-              <small class="text-danger" v-if="errors.source">{{ errors.source }}</small>
-            </div>
+              <div class="form-floating mb-2">
+                <select v-model="form.source" class="form-select ">
+                  <option value="">Select Source</option>
+                  <option>College / University</option>
+                  <option>Event / Seminar</option>
+                  <option>Friend / Referral</option>
+                  <option>Social Media</option>
+                  <option>Website</option>
+                  <option>Student Ambassador / Faculty Ambassador</option>
+                  <option>Other</option>
+                </select>
+                <label>How Did You Hear About GCC School?</label>
+                <small class="text-danger" v-if="errors.source">{{ errors.source }}</small>
+              </div>
 
 
-            <div class="form-floating mb-2">
-              <textarea v-model="form.remarks" class="form-control mt-3" rows="3"
-                placeholder="Query / Remarks (Optional)">
+              <div class="form-floating mb-2">
+                <textarea v-model="form.remarks" class="form-control mt-3" rows="3"
+                  placeholder="Query / Remarks (Optional)">
             </textarea>
-              <label>Query / Remarks (Optional)</label>
-            </div>
+                <label>Query / Remarks (Optional)</label>
+              </div>
 
-            <div class="form-check mt-3">
-              <input class="form-check-input" type="checkbox" v-model="form.consent">
-              <label class="form-check-label">
-                I agree to be contacted by GCC School.
-              </label>
-            </div>
-            <small class="text-danger" v-if="errors.consent">{{ errors.consent }}</small>
+              <div class="form-check mt-3">
+                <input class="form-check-input" type="checkbox" v-model="form.consent">
+                <label class="form-check-label">
+                  I agree to be contacted by GCC School.
+                </label>
+              </div>
+              <small class="text-danger" v-if="errors.consent">{{ errors.consent }}</small>
 
-            <div class="modal-footer">
-              <!-- <button class="btn btn-secondary" data-bs-dismiss="modal">Close</button> -->
-              <button class="btn btn-primary" type="submit" :disabled="isSubmitting">
-                <span v-if="isSubmitting" class="spinner-border spinner-border-sm" role="status"
-                  aria-hidden="true"></span>
-                <span v-else>Submit</span>
-              </button>
-            </div>
+              <div class="modal-footer">
+                <!-- <button class="btn btn-secondary" data-bs-dismiss="modal">Close</button> -->
+                <button class="btn btn-primary" type="submit" :disabled="isSubmitting">
+                  <span v-if="isSubmitting" class="spinner-border spinner-border-sm" role="status"
+                    aria-hidden="true"></span>
+                  <span v-else>Submit</span>
+                </button>
+              </div>
 
-          </form>
+            </form>
+          </div>
         </div>
       </div>
     </div>
-  </div>
 
-  <CommonDossierModal />
+    <CommonDossierModal />
 
-  <!-- Apply Now Modal -->
-  <CommonDossierModal modal-id="applyNowModal" modal-title="Apply Now"
-    subtitle="Enter your details to complete your application" mode="apply" />
+    <!-- Apply Now Modal -->
+    <CommonDossierModal modal-id="applyNowModal" modal-title="Apply Now"
+      subtitle="Enter your details to complete your application" mode="apply" />
+
 </template>
 
 <style scoped>
@@ -673,6 +674,12 @@
   /* Ensure form inputs in modal display correctly on small screens */
   .modal-body {
     padding: 1rem;
+  }
+}
+
+@media (max-width: 380px) {
+  .hero-badge {
+    font-size: 9px !important;
   }
 }
 </style>

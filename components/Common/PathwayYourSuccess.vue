@@ -1,6 +1,6 @@
 <template>
     <div class="pathway-success-section">
-        <div class="container">
+        <div class="container w">
             <!-- Header -->
             <div class="section-header text-center mb-60">
                 <h2 class="title">Pathway To Your Success</h2>

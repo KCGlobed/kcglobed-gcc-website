@@ -1,6 +1,6 @@
 <template>
     <div class="news-area">
-        <div class="container">
+        <div class="container-fluid w">
             <div class="section-header text-center">
                 <h2 class="section-title">As Featured In Leading Media</h2>
             </div>

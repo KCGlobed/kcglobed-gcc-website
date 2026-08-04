@@ -1,7 +1,7 @@
 <template>
   <div class="comparison-and-faculty-wrapper">
     <div class="comparison-warp ptb-100">
-      <div class="container">
+      <div class="container-fluid w">
         <div class="section-title text-center">
           <!-- Kept the section title as per previous premium design -->
           <h2 class="title">Traditional Pathway vs GCC SCHOOL Journey</h2>
@@ -619,7 +619,7 @@ tr:last-child .gcc-cell {
     gap: 8px 10px !important;
     overflow-x: auto !important;
     scroll-snap-type: x mandatory !important;
-    margin: 0 -30px !important;
+    margin: 0 0px !important;
     align-content: flex-start !important;
     justify-content: center !important;
   }
@@ -751,6 +751,15 @@ tr:last-child .gcc-cell {
 
   .right-btn {
     right: -10px;
+  }
+}
+
+@media (max-width: 400px) {
+  .table-responsive {
+    overflow-x: auto !important;
+  }
+  .comparison-table {
+    min-width: 480px !important;
   }
 }
 </style>

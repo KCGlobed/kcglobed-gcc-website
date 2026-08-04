@@ -1,6 +1,7 @@
 <template>
-    <div class="gcc-school-section">
-        <div class="ticket_container">
+     <div class="gcc-school-section ">
+        <div class="w">
+            <div class="ticket_container">
             <img src="https://storage.googleapis.com/gcc_prod_static_files_backend/static/images/Group%2051450%20(1).png"
                 alt="Ticket Image" loading="lazy" decoding="async" />
         </div>
@@ -36,6 +37,7 @@
                     </div>
                 </div>
             </div>
+        </div>
         </div>
     </div>
 

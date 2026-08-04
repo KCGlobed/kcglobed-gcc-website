@@ -1,105 +1,106 @@
 <template>
-  <div class="information-warp pb-50 ">
-    <!-- Accreditations / Logos Strip (Full-width flat bar) -->
-    <div class="panelBox">
-      <div class="boxes-container">
-        <!-- AICPA -->
-        <div class="box">
-          <img src="../../assets/img/AICPA_logo.png" alt="AICPA Logo" loading="lazy" decoding="async" />
-          <span>US CPA Pathway</span>
-        </div>
-        <!-- ACCA -->
-        <div class="box">
-          <img src="../../assets/newimages/red-acca-logo.svg" alt="ACCA Logo" loading="lazy" decoding="async" />
-          <span>ACCA</span>
-        </div>
-        <!-- IRS -->
-        <div class="box">
-          <img src="../../assets/img/IRS_logo.png" alt="IRS Logo" loading="lazy" decoding="async" />
-          <span>US Enrolled Agent</span>
-        </div>
-        <!-- British Council -->
-        <div class="box">
-          <img src="../../assets/img/heros/panleIcon4.png" alt="British Council Logo" loading="lazy" decoding="async" />
-        </div>
-        <!-- AIMA -->
-        <div class="box">
-          <img src="../../assets/img/heros/panleIcon5.png" alt="AIMA Logo" loading="lazy" decoding="async" />
-          <span>AICTE-Approved PGCM</span>
-        </div>
-        <!-- KC GlobEd -->
-        <div class="box">
-          <img src="../../assets/img/logo_kcglobed.svg" alt="KC GlobEd Logo" loading="lazy" decoding="async" />
-          <span>Backed by KC GlobEd - 30+ Years</span>
-        </div>
-        <!-- University of London -->
-        <div class="box">
-          <img src="../../assets/img/companylogo/4.png" alt="University of London Logo" loading="lazy"
-            decoding="async" />
-          <span>University of London MSc (Optional)</span>
-        </div>
-      </div>
-    </div>
-
-    <!-- Main Content Block (Introducing the Hire-First Model & Video Card) -->
-    <div class="container-fluid px-lg-5 px-md-4 px-3 mt-5">
-      <div class="row align-items-center justify-content-between g-5 content-row" style="background: #f8f6ff;">
-        <!-- Left Column: Content -->
-        <div class="col-lg-6 text-start">
-          <span class="hire-badge-title">INTRODUCING THE HIRE-FIRST MODEL</span>
-          <h2 class="hire-main-title mt-3">
-            Disrupting The Traditional, Ordinary, Conventional, Normal Education System.
-          </h2>
-          <div class="d-flex gap-3 flex-wrap mt-4">
-            <button style="background-color: #51157C;color: white;" class="title-btn" data-bs-toggle="modal"
-              data-bs-target="#applyNowModal">
-              Explore The Model &rarr;
-            </button>
-            <button style="color:#51157C; outline: #DDD1EA;border: 1px solid #DDD1EA; background-color: white;"
-              class=" title-btn px-4 py-3" @click="toggleEligibilityModal">
-              View Career Paths
-            </button>
+    <div class="information-warp pb-50 ">
+      <!-- Accreditations / Logos Strip (Full-width flat bar) -->
+      <div class="panelBox">
+        <div class="boxes-container w">
+          <!-- AICPA -->
+          <div class="box">
+            <img src="../../assets/img/AICPA_logo.png" alt="AICPA Logo" loading="lazy" decoding="async" />
+            <span>US CPA Pathway</span>
+          </div>
+          <!-- ACCA -->
+          <div class="box">
+            <img src="../../assets/newimages/red-acca-logo.svg" alt="ACCA Logo" loading="lazy" decoding="async" />
+            <span>ACCA</span>
+          </div>
+          <!-- IRS -->
+          <div class="box">
+            <img src="../../assets/img/IRS_logo.png" alt="IRS Logo" loading="lazy" decoding="async" />
+            <span>US Enrolled Agent</span>
+          </div>
+          <!-- British Council -->
+          <div class="box">
+            <img src="../../assets/img/heros/panleIcon4.png" alt="British Council Logo" loading="lazy"
+              decoding="async" />
+          </div>
+          <!-- AIMA -->
+          <div class="box">
+            <img src="../../assets/img/heros/panleIcon5.png" alt="AIMA Logo" loading="lazy" decoding="async" />
+            <span>AICTE-Approved PGCM</span>
+          </div>
+          <!-- KC GlobEd -->
+          <div class="box">
+            <img src="../../assets/img/logo_kcglobed.svg" alt="KC GlobEd Logo" loading="lazy" decoding="async" />
+            <span>Backed by KC GlobEd - 30+ Years</span>
+          </div>
+          <!-- University of London -->
+          <div class="box">
+            <img src="../../assets/img/companylogo/4.png" alt="University of London Logo" loading="lazy"
+              decoding="async" />
+            <span>University of London MSc (Optional)</span>
           </div>
         </div>
+      </div>
 
-        <!-- Right Column: Video Box -->
-        <div class="col-lg-6">
-          <div class="video-box-wrapper">
-            <div class="video-section shadow-lg">
-              <div class="video-container">
-                <video ref="infoVideo" controls muted loop controlsList="nodownload" oncontextmenu="return false;"
-                  class="w-100 h-100" @play="isVideoPlaying = true" @pause="isVideoPlaying = false"
-                  style="object-fit: cover; background: #0b0b1a;">
-                  <source
-                    src="https://storage.googleapis.com/static_files_backend/media/images/Kamal%20Sir%20Video_1.mp4"
-                    type="video/mp4">
-                  Your browser does not support the video tag.
-                </video>
-
-                <!-- Custom Play Overlay (visible before play) -->
-                <div v-if="!isVideoPlaying" class="play-overlay d-flex align-items-center px-lg-4 px-3"
-                  @click="playVideo">
-                  <div class="play-btn-circle me-lg-4 me-3">
-                    <i class="ti ti-player-play-filled"></i>
-                  </div>
-                </div>
-
-                <!-- Thumbnail Mask (visible before play) -->
-                <img v-if="!isVideoPlaying"
-                  src="https://storage.googleapis.com/static_files_backend/media/images/kamal%20sir%20thnml%202.jpg"
-                  class="video-poster-img" @click="playVideo" alt="Thumbnail">
-              </div>
+      <!-- Main Content Block (Introducing the Hire-First Model & Video Card) -->
+      <div class="container-fluid px-lg-5 px-md-4 px-3 mt-5">
+        <div class="row align-items-center justify-content-between g-5 content-row" style="background: #f8f6ff;">
+          <!-- Left Column: Content -->
+          <div class="col-lg-6 text-start">
+            <span class="hire-badge-title">INTRODUCING THE HIRE-FIRST MODEL</span>
+            <h2 class="hire-main-title mt-3">
+              Disrupting The Traditional, Ordinary, Conventional, Normal Education System.
+            </h2>
+            <div class="d-flex gap-3 flex-wrap mt-4">
+              <button style="background-color: #51157C;color: white;" class="title-btn" data-bs-toggle="modal"
+                data-bs-target="#applyNowModal">
+                Explore The Model &rarr;
+              </button>
+              <button style="color:#51157C; outline: #DDD1EA;border: 1px solid #DDD1EA; background-color: white;"
+                class=" title-btn px-4 py-3" @click="toggleEligibilityModal">
+                View Career Paths
+              </button>
             </div>
-            <!-- Decorative shapes -->
-            <div class="decor-shape shape-1"></div>
-            <div class="decor-shape shape-2"></div>
-            <div class="decor-shape shape-3"></div>
+          </div>
+
+          <!-- Right Column: Video Box -->
+          <div class="col-lg-6">
+            <div class="video-box-wrapper">
+              <div class="video-section shadow-lg">
+                <div class="video-container">
+                  <video ref="infoVideo" controls muted loop controlsList="nodownload" oncontextmenu="return false;"
+                    class="w-100 h-100" @play="isVideoPlaying = true" @pause="isVideoPlaying = false"
+                    style="object-fit: cover; background: #0b0b1a;">
+                    <source
+                      src="https://storage.googleapis.com/static_files_backend/media/images/Kamal%20Sir%20Video_1.mp4"
+                      type="video/mp4">
+                    Your browser does not support the video tag.
+                  </video>
+
+                  <!-- Custom Play Overlay (visible before play) -->
+                  <div v-if="!isVideoPlaying" class="play-overlay d-flex align-items-center px-lg-4 px-3"
+                    @click="playVideo">
+                    <div class="play-btn-circle me-lg-4 me-3">
+                      <i class="ti ti-player-play-filled"></i>
+                    </div>
+                  </div>
+
+                  <!-- Thumbnail Mask (visible before play) -->
+                  <img v-if="!isVideoPlaying"
+                    src="https://storage.googleapis.com/static_files_backend/media/images/kamal%20sir%20thnml%202.jpg"
+                    class="video-poster-img" @click="playVideo" alt="Thumbnail">
+                </div>
+              </div>
+              <!-- Decorative shapes -->
+              <div class="decor-shape shape-1"></div>
+              <div class="decor-shape shape-2"></div>
+              <div class="decor-shape shape-3"></div>
+            </div>
           </div>
         </div>
       </div>
-    </div>
-    <CheckEligibilityModal :isVisible="isEligibilityModalVisible" @close="toggleEligibilityModal" />
-  </div>
+      <CheckEligibilityModal :isVisible="isEligibilityModalVisible" @close="toggleEligibilityModal" />
+    </div> 
 </template>
 
 <script>
@@ -472,7 +473,7 @@ export default {
   }
 
   .boxes-container .box span {
-    font-size: 6px !important;
+    font-size: 5px !important;
     margin-top: 4px !important;
   }
 
@@ -500,6 +501,7 @@ export default {
 }
 
 @media (max-width: 575px) {
+
   .btn-purple,
   .btn-outline-purple {
     width: 100%;
@@ -508,6 +510,12 @@ export default {
 
   .decor-shape {
     display: none;
+  }
+}
+
+@media (max-width: 380px) {
+  .boxes-container .box span {
+    font-size: 4px;
   }
 }
 </style>

@@ -1,6 +1,6 @@
 <template>
     <div class="think-tank-area ptb-100">
-        <div class="container">
+        <div class="container-fluid w">
             <div class="row align-items-center g-5">
                 <!-- Left Side: Think Tank Cards -->
                 <div class="col-lg-6 col-12 order-lg-1 order-2">

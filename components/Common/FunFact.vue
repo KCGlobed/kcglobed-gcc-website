@@ -1,56 +1,57 @@
 <template>
-    <div class="fun-fact-warp ptb-100">
-        <div class="container-fluid p-0">
-            <div class="section-title text-center">
-                <h2 class="reveal2">
-                    <span class="highlight">200+</span>Global Hiring Partners
-                </h2>
-                <p class="max-600 mx-auto">Indulge in Career Accelerating Programs and Placement Drives!</p>
-                <div class="sub-highlight">Get hired by leading companies across diverse industries.</div>
-            </div>
-            <div class="marquee-wrapper">
-                <!-- First Row: Moves to Right -->
-                <div class="marquee-row scroll-right">
-                    <!-- Original Set -->
-                    <div class="fun-fact-item" v-for="funfact in rowOne" :key="funfact.id">
-                        <div class="fun-fact-card">
-                            <div class="icon">
-                                <div class="icon style">
-                                    <img :src="funfact.icon" :alt="funfact.alt" loading="lazy" decoding="async" />
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- Duplicate Set for Loop -->
-                    <div class="fun-fact-item" v-for="funfact in rowOne" :key="'dup-' + funfact.id">
-                        <div class="fun-fact-card">
-                            <div class="icon">
-                                <div class="icon style">
-                                    <img :src="funfact.icon" :alt="funfact.alt" loading="lazy" decoding="async" />
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+        <div class="fun-fact-warp ptb-100">
+            <div class="container-fluid w">
+                <div class="section-title text-center">
+                    <h2 class="reveal2">
+                        <span class="highlight">200+</span>Global Hiring Partners
+                    </h2>
+                    <p class="max-600 mx-auto">Indulge in Career Accelerating Programs and Placement Drives!</p>
+                    <div class="sub-highlight">Get hired by leading companies across diverse industries.</div>
                 </div>
-
-                <!-- Second Row: Moves to Left -->
-                <div class="marquee-row scroll-left mt-4">
-                    <!-- Original Set -->
-                    <div class="fun-fact-item" v-for="funfact in rowTwo" :key="funfact.id">
-                        <div class="fun-fact-card">
-                            <div class="icon">
-                                <div class="icon style">
-                                    <img :src="funfact.icon" :alt="funfact.alt" loading="lazy" decoding="async" />
+                <div class="marquee-wrapper">
+                    <!-- First Row: Moves to Right -->
+                    <div class="marquee-row scroll-right">
+                        <!-- Original Set -->
+                        <div class="fun-fact-item" v-for="funfact in rowOne" :key="funfact.id">
+                            <div class="fun-fact-card">
+                                <div class="icon">
+                                    <div class="icon style">
+                                        <img :src="funfact.icon" :alt="funfact.alt" loading="lazy" decoding="async" />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Duplicate Set for Loop -->
+                        <div class="fun-fact-item" v-for="funfact in rowOne" :key="'dup-' + funfact.id">
+                            <div class="fun-fact-card">
+                                <div class="icon">
+                                    <div class="icon style">
+                                        <img :src="funfact.icon" :alt="funfact.alt" loading="lazy" decoding="async" />
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <!-- Duplicate Set for Loop -->
-                    <div class="fun-fact-item" v-for="funfact in rowTwo" :key="'dup-' + funfact.id">
-                        <div class="fun-fact-card">
-                            <div class="icon">
-                                <div class="icon style">
-                                    <img :src="funfact.icon" :alt="funfact.alt" loading="lazy" decoding="async" />
+
+                    <!-- Second Row: Moves to Left -->
+                    <div class="marquee-row scroll-left mt-4">
+                        <!-- Original Set -->
+                        <div class="fun-fact-item" v-for="funfact in rowTwo" :key="funfact.id">
+                            <div class="fun-fact-card">
+                                <div class="icon">
+                                    <div class="icon style">
+                                        <img :src="funfact.icon" :alt="funfact.alt" loading="lazy" decoding="async" />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Duplicate Set for Loop -->
+                        <div class="fun-fact-item" v-for="funfact in rowTwo" :key="'dup-' + funfact.id">
+                            <div class="fun-fact-card">
+                                <div class="icon">
+                                    <div class="icon style">
+                                        <img :src="funfact.icon" :alt="funfact.alt" loading="lazy" decoding="async" />
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -58,7 +59,7 @@
                 </div>
             </div>
         </div>
-    </div>
+
 </template>
 
 <script lang="ts">

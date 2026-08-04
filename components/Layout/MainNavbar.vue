@@ -1,90 +1,93 @@
 <template>
-  <nav :class="[
-    'navbar navbar-expand-lg top-navbar first-navbar',
-    { sticky: isSticky },
-  ]">
-    <div class="container-fluid">
-      <NuxtLink class="navbar-brand" to="/">
-        <img src="~/assets/Logo/Logo/GCC-School-Logo-White.jpeg" alt="Logo" style="height: 75px;" />
-      </NuxtLink>
-      <button class="navbar-toggler home1-one-toggler" type="button" @click.prevent="stateStoreInstance.onMobileNavbarShow" @touchend.prevent="stateStoreInstance.onMobileNavbarShow" style="background: none; border: none; padding: 0; outline: none; box-shadow: none;">
-        <span class="burger-menu">
-          <span class="top-bar"></span>
-          <span class="middle-bar"></span>
-          <span class="bottom-bar"></span>
-        </span>
-      </button>
-      <div class="collapse navbar-collapse">
-        <ul class="navbar-nav ms-auto">
+    <nav :class="[
+      'navbar navbar-expand-lg top-navbar first-navbar',
+      { sticky: isSticky },
+    ]">
+      <div class="container-fluid w">
+        <NuxtLink class="navbar-brand" to="/">
+          <img src="~/assets/Logo/Logo/GCC-School-Logo-White.jpeg" alt="Logo" style="height: 75px;" />
+        </NuxtLink>
+        <button class="navbar-toggler home1-one-toggler" type="button"
+          @click.prevent="stateStoreInstance.onMobileNavbarShow"
+          @touchend.prevent="stateStoreInstance.onMobileNavbarShow"
+          style="background: none; border: none; padding: 0; outline: none; box-shadow: none;">
+          <span class="burger-menu">
+            <span class="top-bar"></span>
+            <span class="middle-bar"></span>
+            <span class="bottom-bar"></span>
+          </span>
+        </button>
+        <div class="collapse navbar-collapse">
+          <ul class="navbar-nav ms-auto">
 
-          <li class="nav-item">
-            <NuxtLink to="/" class="nav-link">
-              Home
-            </NuxtLink>
-          </li>
-          <li class="nav-item">
-            <a href="javascript:void(0)" class="dropdown-toggle nav-link">
-              Programs
-            </a>
-            <ul class="dropdown-menu">
-              <li class="nav-item">
-                <NuxtLink to="/programs/acca" class="nav-link">
-                  AEIAP
-                </NuxtLink>
-              </li>
-              <li class="nav-item">
-                <NuxtLink to="/programs/cpa" class="nav-link">
-                  AEUAP
-                </NuxtLink>
-              </li>
-              <li class="nav-item">
-                <NuxtLink to="/programs/ea" class="nav-link">
-                  AEUTP
-                </NuxtLink>
-              </li>
-            </ul>
-          </li>
-          <li class="nav-item">
-            <NuxtLink to="/nfet-exam" class="nav-link">
-              NFET Exam
-            </NuxtLink>
+            <li class="nav-item">
+              <NuxtLink to="/" class="nav-link">
+                Home
+              </NuxtLink>
+            </li>
+            <li class="nav-item">
+              <a href="javascript:void(0)" class="dropdown-toggle nav-link">
+                Programs
+              </a>
+              <ul class="dropdown-menu">
+                <li class="nav-item">
+                  <NuxtLink to="/programs/acca" class="nav-link">
+                    AEIAP
+                  </NuxtLink>
+                </li>
+                <li class="nav-item">
+                  <NuxtLink to="/programs/cpa" class="nav-link">
+                    AEUAP
+                  </NuxtLink>
+                </li>
+                <li class="nav-item">
+                  <NuxtLink to="/programs/ea" class="nav-link">
+                    AEUTP
+                  </NuxtLink>
+                </li>
+              </ul>
+            </li>
+            <li class="nav-item">
+              <NuxtLink to="/nfet-exam" class="nav-link">
+                NFET Exam
+              </NuxtLink>
 
-          </li>
-          <!-- <li class="nav-item">
+            </li>
+            <!-- <li class="nav-item">
             <NuxtLink to="/admissions" class="nav-link">
               Admission
             </NuxtLink>
           </li> -->
-          <li class="nav-item">
-            <NuxtLink to="/campus-life" class="nav-link">
-              Campus Life
-            </NuxtLink>
-          </li>
-          <li class="nav-item">
-            <NuxtLink to="/blogs" class="nav-link">
-              Blogs
-            </NuxtLink>
-          </li>
-          <li class="nav-item">
-            <NuxtLink to="/about-overview" class="nav-link">
-              About Us
-            </NuxtLink>
-          </li>
-          <li class="nav-item apply-btn">
-            <button class="nav-link apply-now-btn" data-bs-toggle="modal" data-bs-target="#navApplyNowModal">
-              Apply Now
-            </button>
-          </li>
+            <li class="nav-item">
+              <NuxtLink to="/campus-life" class="nav-link">
+                Campus Life
+              </NuxtLink>
+            </li>
+            <li class="nav-item">
+              <NuxtLink to="/blogs" class="nav-link">
+                Blogs
+              </NuxtLink>
+            </li>
+            <li class="nav-item">
+              <NuxtLink to="/about-overview" class="nav-link">
+                About Us
+              </NuxtLink>
+            </li>
+            <li class="nav-item apply-btn">
+              <button class="nav-link apply-now-btn" data-bs-toggle="modal" data-bs-target="#navApplyNowModal">
+                Apply Now
+              </button>
+            </li>
 
 
-          <!-- <li class="nav-item">
+            <!-- <li class="nav-item">
             <NuxtLink to="/contact-us" class="nav-link">
               Contact Us
             </NuxtLink>
           </li> -->
-        </ul>
-        <div class="others-option d-flex align-items-center">
-          <!-- <div class="option-item">
+          </ul>
+          <div class="others-option d-flex align-items-center">
+            <!-- <div class="option-item">
             <div class="search-bar main-menu__search search-toggler" @click="toggleSearch" style="cursor: pointer">
               <div class="search-btn">
                 <img src="~/assets/img/svgs/search2.svg" alt="image" loading="lazy" decoding="async" />
@@ -92,73 +95,74 @@
             </div>
           </div> -->
 
-          <!-- <div class="option-item">
+            <!-- <div class="option-item">
             <button class="btn side-bar-btn" type="button" @click="stateStoreInstance.onSidebarShow">
               <img src="~/assets/img/svgs/menu2.svg" alt="svg" loading="lazy" decoding="async" />
             </button>
           </div> -->
-        </div>
-      </div>
-    </div>
-
-    <!-- Search Dropdown -->
-    <div v-if="isSearchVisible" class="search-dropdown-overlay" @click="closeSearch">
-      <div class="search-dropdown-container" @click.stop>
-        <div class="search-input-wrapper">
-          <input ref="searchInput" v-model="searchQuery" type="text" class="search-input"
-            placeholder="Search pages, programs, or content..." @input="onSearchInput" />
-          <button class="search-close-btn" @click="closeSearch">
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <path d="M18 6L6 18M6 6L18 18" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                stroke-linejoin="round" />
-            </svg>
-          </button>
-        </div>
-
-        <div v-if="searchQuery.length > 0" class="search-results">
-          <div v-if="filteredResults.length > 0" class="results-list">
-            <div v-for="(result, index) in filteredResults" :key="index" class="result-item"
-              @click="navigateToResult(result)">
-              <div class="result-icon">
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <path
-                    d="M9 12H15M9 16H15M17 21H7C5.89543 21 5 20.1046 5 19V5C5 3.89543 5.89543 3 7 3H12.5858C12.851 3 13.1054 3.10536 13.2929 3.29289L18.7071 8.70711C18.8946 8.89464 19 9.149 19 9.41421V19C19 20.1046 18.1046 21 17 21Z"
-                    stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
-                </svg>
-              </div>
-              <div class="result-content">
-                <div class="result-title">{{ result.title }}</div>
-                <div class="result-description">{{ result.description }}</div>
-              </div>
-            </div>
-          </div>
-
-          <div v-else class="no-results">
-            <svg width="48" height="48" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <path
-                d="M21 21L15 15M17 10C17 13.866 13.866 17 10 17C6.13401 17 3 13.866 3 10C3 6.13401 6.13401 3 10 3C13.866 3 17 6.13401 17 10Z"
-                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
-            </svg>
-            <p>No results found for "{{ searchQuery }}"</p>
-          </div>
-        </div>
-
-        <div v-else class="search-suggestions">
-          <h3>Quick Links</h3>
-          <div class="suggestions-list">
-            <div v-for="(suggestion, index) in quickLinks" :key="index" class="suggestion-item"
-              @click="navigateToResult(suggestion)">
-              {{ suggestion.title }}
-            </div>
           </div>
         </div>
       </div>
-    </div>
-  </nav>
 
-  <!-- Apply Now Modal -->
-  <CommonDossierModal modal-id="navApplyNowModal" modal-title="Apply Now"
-    subtitle="Enter your details to complete your application" mode="apply" />
+      <!-- Search Dropdown -->
+      <div v-if="isSearchVisible" class="search-dropdown-overlay" @click="closeSearch">
+        <div class="search-dropdown-container" @click.stop>
+          <div class="search-input-wrapper">
+            <input ref="searchInput" v-model="searchQuery" type="text" class="search-input"
+              placeholder="Search pages, programs, or content..." @input="onSearchInput" />
+            <button class="search-close-btn" @click="closeSearch">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M18 6L6 18M6 6L18 18" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                  stroke-linejoin="round" />
+              </svg>
+            </button>
+          </div>
+
+          <div v-if="searchQuery.length > 0" class="search-results">
+            <div v-if="filteredResults.length > 0" class="results-list">
+              <div v-for="(result, index) in filteredResults" :key="index" class="result-item"
+                @click="navigateToResult(result)">
+                <div class="result-icon">
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path
+                      d="M9 12H15M9 16H15M17 21H7C5.89543 21 5 20.1046 5 19V5C5 3.89543 5.89543 3 7 3H12.5858C12.851 3 13.1054 3.10536 13.2929 3.29289L18.7071 8.70711C18.8946 8.89464 19 9.149 19 9.41421V19C19 20.1046 18.1046 21 17 21Z"
+                      stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                  </svg>
+                </div>
+                <div class="result-content">
+                  <div class="result-title">{{ result.title }}</div>
+                  <div class="result-description">{{ result.description }}</div>
+                </div>
+              </div>
+            </div>
+
+            <div v-else class="no-results">
+              <svg width="48" height="48" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path
+                  d="M21 21L15 15M17 10C17 13.866 13.866 17 10 17C6.13401 17 3 13.866 3 10C3 6.13401 6.13401 3 10 3C13.866 3 17 6.13401 17 10Z"
+                  stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+              </svg>
+              <p>No results found for "{{ searchQuery }}"</p>
+            </div>
+          </div>
+
+          <div v-else class="search-suggestions">
+            <h3>Quick Links</h3>
+            <div class="suggestions-list">
+              <div v-for="(suggestion, index) in quickLinks" :key="index" class="suggestion-item"
+                @click="navigateToResult(suggestion)">
+                {{ suggestion.title }}
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </nav>
+
+    <!-- Apply Now Modal -->
+    <CommonDossierModal modal-id="navApplyNowModal" modal-title="Apply Now"
+      subtitle="Enter your details to complete your application" mode="apply" />
+
 </template>
 
 <script lang="ts">

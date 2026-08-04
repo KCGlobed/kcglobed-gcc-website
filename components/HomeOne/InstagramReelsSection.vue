@@ -239,7 +239,7 @@ const scrollToCard = (index: number) => {
   }
 
   .video-overlay {
-    display: block;
+    display: none;
   }
 
   .slider-dots {

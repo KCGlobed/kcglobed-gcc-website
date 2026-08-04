@@ -1,7 +1,7 @@
 <template>
   <div class="mentors-and-campus-wrapper">
     <div class="think-tank-area ptb-100">
-      <div class="container">
+      <div class="container-fluid w">
         <div class="section-title text-center mb-50">
           <h2 class="title">Our Distinguished Industry Mentors</h2>
           <!-- <p class="max-600 mx-auto">Our Industry Mentors are seasoned professionals who provide invaluable

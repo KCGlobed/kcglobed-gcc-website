@@ -1,8 +1,8 @@
 <template>
-  <div class="programs-and-outcomes-container">
+    <div class="programs-and-outcomes-container">
     <!-- Section 1: Pick A Career Path -->
     <div class="programs-section">
-      <div class="container-fluid px-lg-5 px-md-4 px-3">
+      <div class="container-fluid w">
         <div class="programs-header text-start mb-40">
           <span class="section-tag">THREE PROGRAMS · ONE SERIOUS OUTCOME</span>
           <h2 class="section-title mt-2">Pick A Career Path. The<br class="d-none d-md-block" /> Program Follows.</h2>

@@ -1,6 +1,6 @@
 <template>
     <div class="gcc-commerce-section ptb-100">
-        <div class="container">
+        <div class="container w">
             <!-- Section Header -->
             <div class="section-header">
                 <h2 class="section-title">

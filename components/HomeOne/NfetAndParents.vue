@@ -2,7 +2,7 @@
   <div class="nfet-and-parents-container">
     <!-- Section 1: NFET Gateway (Dark Background) -->
     <div class="nfet-gateway-section">
-      <div class="container nfet-layout-wrapper">
+      <div class="container-fluid w">
         <div class="nfet-top-flex">
           <!-- Left Col: Title & Badges -->
           <div class="nfet-info-block text-start">
@@ -196,6 +196,7 @@ const parentCards = [
   display: flex;
   gap: 16px;
   justify-content: flex-end;
+  align-items: center;
 }
 
 .nfet-badge-pill {
@@ -476,7 +477,7 @@ const parentCards = [
   .btn-nfet-apply,
   .btn-nfet-download {
     flex: 1 !important;
-    font-size: 13px !important;
+    font-size: 10px !important;
     padding: 12px 10px !important;
     height: 48px !important;
     display: flex !important;
@@ -499,6 +500,7 @@ const parentCards = [
 }
 
 @media (max-width: 575px) {
+
   .section-title {
     font-size: 32px !important;
     line-height: 1.2 !important;
@@ -513,6 +515,14 @@ const parentCards = [
     flex-direction: column;
     align-items: flex-start;
     gap: 15px;
+  }
+
+  @media (max-width: 380px) {
+
+    .btn-nfet-apply,
+    .btn-nfet-download {
+      font-size: 10px;
+    }
   }
 }
 </style>
