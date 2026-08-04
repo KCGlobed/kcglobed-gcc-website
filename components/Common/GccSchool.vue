@@ -57,7 +57,6 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    background-color: #f2f2f2;
     padding: 30px 120px;
     padding-top: 75px;
 }

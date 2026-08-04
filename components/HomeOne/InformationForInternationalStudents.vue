@@ -43,7 +43,7 @@
       </div>
 
       <!-- Main Content Block (Introducing the Hire-First Model & Video Card) -->
-      <div class="container-fluid px-lg-5 px-md-4 px-3 mt-5">
+      <div class="container-fluid w px-lg-5 px-md-4 px-3 mt-5">
         <div class="row align-items-center justify-content-between g-5 content-row" style="background: #f8f6ff;">
           <!-- Left Column: Content -->
           <div class="col-lg-6 text-start">
@@ -161,7 +161,7 @@ export default {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 25px 40px;
+  padding: 25px 0px;
   background: #ffffff;
   /* max-width: 1300px; */
   margin: 0 auto;

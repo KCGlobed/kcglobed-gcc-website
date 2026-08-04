@@ -78,7 +78,7 @@ const programs = [
     font-style: normal;
     font-weight: 700;
     font-size: 36px;
-    line-height: 58px;
+    line-height: 1.3;
     letter-spacing: -0.02em;
     color: #181225;
 }
@@ -192,6 +192,10 @@ const programs = [
 }
 
 @media (max-width: 1200px) {
+    .container {
+        padding: 0 30px;
+    }
+
     .title {
         font-size: 28px;
     }
@@ -213,10 +217,13 @@ const programs = [
 }
 
 @media (max-width: 768px) {
+    .container {
+        padding: 0 15px;
+    }
 
     .title {
         font-size: 24px;
-        line-height: 37px;
+        line-height: 1.3;
     }
 
     .govt-program-area {
