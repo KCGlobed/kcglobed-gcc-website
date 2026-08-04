@@ -1,6 +1,6 @@
 <template>
     <div class="eligibility-section">
-        <div class="container">
+        <div class="container w">
             <div class="content-wrapper">
                 <!-- Title Section -->
                 <div class="title-box">

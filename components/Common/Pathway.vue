@@ -1,6 +1,6 @@
 <template>
     <div class="pathway-section ptb-100">
-        <div class="container">
+        <div class="container-fluid w">
             <div class="row">
                 <div class="col-12">
                     <div class="section-header text-center mb-60" >

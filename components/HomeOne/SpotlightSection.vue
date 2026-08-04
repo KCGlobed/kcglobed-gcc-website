@@ -1,6 +1,6 @@
 <template>
   <section class="sec" id="video-insights" aria-labelledby="video-insights-h2">
-    <div class="wrap">
+    <div class="wrap container-fluid w">
       <div class="sec-head">
         <h2 class="sec-title" id="video-insights-h2">GCC School in the <span style="color: #f3a531;">Spotlight</span></h2>
       </div>

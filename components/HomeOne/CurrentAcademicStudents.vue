@@ -1,7 +1,7 @@
 <template>
   <div class="comparison-and-faculty-wrapper">
     <div class="comparison-warp ptb-100">
-      <div class="container">
+      <div class="container-fluid w">
         <div class="section-title text-center">
           <!-- Kept the section title as per previous premium design -->
           <h2 class="title">Traditional Pathway vs GCC SCHOOL Journey</h2>

@@ -1,6 +1,6 @@
 <template>
     <div class="govt-program-area ptb-100">
-        <div class="container">
+        <div class="container w">
             <!-- Section Header -->
             <div class="section-title text-center mb-50">
                 <span class="highlight" style="font-size: 24px;">The GCC OPPORTUNITY</span>
@@ -67,6 +67,10 @@ const programs = [
 .govt-program-area {
     background-color: #f8f9fa;
     padding-bottom: 100px;
+}
+
+.container {
+    padding: 0 150px;
 }
 
 .title {

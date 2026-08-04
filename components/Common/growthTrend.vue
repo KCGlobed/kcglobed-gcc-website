@@ -1,6 +1,6 @@
 <template>
     <div class="growth-trend-section ptb-100">
-        <div class="container">
+        <div class="container-fluid w">
             <!-- Section Header -->
             <div class="section-header text-center  mb-3">
                 <h2 class="title">

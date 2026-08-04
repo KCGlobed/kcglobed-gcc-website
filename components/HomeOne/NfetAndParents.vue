@@ -2,7 +2,7 @@
   <div class="nfet-and-parents-container">
     <!-- Section 1: NFET Gateway (Dark Background) -->
     <div class="nfet-gateway-section">
-      <div class="container nfet-layout-wrapper">
+      <div class="container-fluid w">
         <div class="nfet-top-flex">
           <!-- Left Col: Title & Badges -->
           <div class="nfet-info-block text-start">
