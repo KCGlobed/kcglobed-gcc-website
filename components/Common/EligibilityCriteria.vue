@@ -20,7 +20,7 @@
                             <div class="icon-box">
                                 <!-- <i class="ti ti-circle-check-filled"></i> -->
                             </div>
-                            <span>B.Com + M.Com / MBA / BBA / PG (First Division)</span>
+                            <span>B.Com / BBA + M.Com / MBA / PG (First Division)</span>
                         </div>
                         <div class="criteria-item">
                             <div class="icon-box">
