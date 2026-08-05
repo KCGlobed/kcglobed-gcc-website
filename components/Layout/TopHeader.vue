@@ -103,7 +103,7 @@ export default {
 <style scoped>
 .top-header-warp {
   background-color: #51157C;
-  /* z-index: 99999; */
+  z-index: 99999;
   padding: 8px 0;
 }
 

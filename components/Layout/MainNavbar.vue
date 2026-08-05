@@ -370,7 +370,7 @@ export default defineComponent({
 .navbar .navbar-nav .nav-item .nav-link:not(.dropdown-toggle).active,
 .navbar .navbar-nav .nav-item .nav-link:not(.dropdown-toggle).router-link-active {
   color: #fff !important;
-  border-radius: 5px;
+  border-radius: 0px;
 }
 
 .navbar .navbar-nav .child .nav-link:not(.dropdown-toggle).router-link-active {
@@ -378,7 +378,7 @@ export default defineComponent({
 }
 
 .navbar .navbar-nav .nav-item .nav-link:not(.dropdown-toggle):hover {
-  color: #8321A5 !important;
+  color: #ffffff !important;
 }
 
 @media (min-width: 992px) and (max-width: 1200px) {
@@ -418,7 +418,7 @@ export default defineComponent({
   z-index: 9999;
   display: flex;
   justify-content: center;
-  padding-top: 100px;
+  padding-top: 10px;
 }
 
 .search-dropdown-container {
