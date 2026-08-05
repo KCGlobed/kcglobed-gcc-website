@@ -10,7 +10,7 @@
 
             <div class="row g-3 ae-cards-grid">
                 <!-- Card 1: ACCA -->
-                <div class="col-lg-3 col-md-6">
+                <div class="col-lg-4 col-md-6">
                     <div class="flip-card-wrapper">
                         <div class="flip-card">
                             <!-- Front Side: Logo -->
@@ -33,7 +33,7 @@
                 </div>
 
                 <!-- Card 2: British Council -->
-                <div class="col-lg-3 col-md-6">
+                <div class="col-lg-4 col-md-6">
                     <div class="flip-card-wrapper">
                         <div class="flip-card">
                             <div class="flip-card-front">
@@ -102,7 +102,7 @@
                 </div>
 
                 <!-- Card 3: PGCM -->
-                <div class="col-lg-3 col-md-6">
+                <div class="col-lg-4 col-md-6">
                     <div class="flip-card-wrapper">
                         <div class="flip-card">
                             <div class="flip-card-front">
@@ -133,7 +133,7 @@
                 </div>
 
                 <!-- Card 4: AI & Analytics -->
-                <div class="col-lg-3 col-md-6">
+                <div class="col-lg-4 col-md-6">
                     <div class="flip-card-wrapper">
                         <div class="flip-card">
                             <div class="flip-card-front">
@@ -180,66 +180,37 @@
                     </div>
                 </div>
 
-                <!-- Card 5: Practical Experience -->
-                <!-- <div class="col-lg-4 col-md-6">
-                    <div class="flip-card-wrapper">
-                        <div class="flip-card">
-                            <div class="flip-card-front flip-card-front--purple">
-                                <img src="https://storage.googleapis.com/static_files_backend/media/images/Background%2BBorder.png"
-                                    alt="Star Logo" class="flip-logo-img ">
-                            </div>
-                            <div class="flip-card-back flip-card-back--purple">
-                                <h3 class="card-title-back card-title-back--white">Practical Experience</h3>
-                                <hr class="divider-white">
-                                <div class="months-display">
-                                    <span class="months-number">6</span>
-                                    <p class="months-label">MONTHS</p>
-                                </div>
-                                <div class="internship-pill">Paid Internship</div>
-                                <p class="internship-desc">Gain real-world working experience with top firms.</p>
-                            </div>
-                        </div>
-                    </div>
-                </div> -->
-
-                <!-- Card 6: M.Sc. Professional Accountancy -->
-                <!-- <div class="col-lg-4 col-md-6">
+                <!-- Card 4: Analytics -->
+                <div class="col-lg-4 col-md-6">
                     <div class="flip-card-wrapper">
                         <div class="flip-card">
                             <div class="flip-card-front">
-                                <div class="optional-badge">Optional</div>
-                                <img src="https://storage.googleapis.com/gcc_prod_static_files_backend/static/images/University%20Logo.svg"
-                                    alt="UoL" class="flip-logo-img rounded">
+                                <img src="https://storage.googleapis.com/gcc_prod_static_files_backend/static/images/analytics.png"
+                                    alt="Analytics Logo" class="flip-logo-img">
+                                <!-- <p class="flip-hint">Hover to explore</p> -->
                             </div>
                             <div class="flip-card-back">
-                                <div class="optional-badge optional-badge--back">Optional</div>
-                                <h3 class="card-title-back">M.Sc. Professional Accountancy</h3>
-                                <p class="card-desc-back">A globally recognised master's programme from University of
-                                    London strengthening analytical and strategic capabilities.</p>
-                                <div class="msc-info">
-                                    <h5 class="msc-label">Structure (60 Credits):</h5>
-                                    <p class="msc-text">2 Elective Modules (15 credits each) + Capstone Project (30
-                                        credits).</p>
-                                </div>
-                                <div class="msc-info">
-                                    <h5 class="msc-label">Assessment:</h5>
-                                    <p class="msc-text">100% coursework (electives); Capstone (30% coursework + 70%
-                                        final).</p>
-                                </div>
-                                <div class="delivery-info">
-                                    <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                                        stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                        <circle cx="12" cy="12" r="10" />
-                                        <line x1="2" y1="12" x2="22" y2="12" />
-                                        <path
-                                            d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z" />
-                                    </svg>
-                                    <span><strong>Delivery:</strong> Online via UoL</span>
-                                </div>
+                                <h3 class="card-title-back">Analytics</h3>                                
                             </div>
                         </div>
                     </div>
-                </div> -->
+                </div>
+
+                <!-- Card 4: Analytics -->
+                <div class="col-lg-4 col-md-6">
+                    <div class="flip-card-wrapper">
+                        <div class="flip-card">
+                            <div class="flip-card-front">
+                                <img src="https://storage.googleapis.com/gcc_prod_static_files_backend/static/images/chx.png"
+                                    alt="CHX Logo" class="flip-logo-img">
+                                <!-- <p class="flip-hint">Hover to explore</p> -->
+                            </div>
+                            <div class="flip-card-back">
+                                <h3 class="card-title-back">CCH Tax Software</h3>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </section>
