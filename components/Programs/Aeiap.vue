@@ -190,7 +190,19 @@
                                 <!-- <p class="flip-hint">Hover to explore</p> -->
                             </div>
                             <div class="flip-card-back">
-                                <h3 class="card-title-back">Analytics</h3>                                
+                                <h3 class="card-title-back">Analytics</h3>   
+                                <p class="card-desc-back">Learn how to examine tax data, identify inconsistencies, assess tax positions, and support accurate return preparation and review.</p>
+                                <div class="course-badges">
+                                    <p class="course-badges-title">Key Skills</p>
+                                    <ul style="font-size: 11px;">
+                                        <li>Tax Analytics Overview</li>
+                                        <li>Tax Data Analysis</li>
+                                        <li>Tax Calculation &amp; Modeling</li>
+                                        <li>Financial Reporting &amp; Disclosure</li>
+                                        <li>Advanced Analytics in Tax</li>
+                                    </ul>
+                                    <!-- <p>This makes the distinction clearer:</p> -->
+                                </div>                             
                             </div>
                         </div>
                     </div>
@@ -442,6 +454,17 @@
 .course-badges {
     width: 100%;
 }
+
+.course-badges-title{
+    font-size: 0.78rem;
+    font-weight: 700;
+    color: #4a148c;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    margin-bottom: 6px;
+}
+
 
 .course-badge {
     background: #f9fafb;
