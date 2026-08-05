@@ -194,7 +194,7 @@
                                     assess tax positions, and support accurate return preparation and review.</p>
                                 <div class="course-badges">
                                     <p class="course-badges-title">Key Skills</p>
-                                    <ul style="font-size: 11px;">
+                                    <ul style="font-size: 11px; color: #4b5563;">
                                         <li>Tax Analytics Overview</li>
                                         <li>Tax Data Analysis</li>
                                         <li>Tax Calculation &amp; Modeling</li>
