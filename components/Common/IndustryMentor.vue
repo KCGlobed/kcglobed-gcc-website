@@ -65,7 +65,7 @@
                 Building 9B, DLF Cyber City, Gurugram, surrounded by the very companies you are training to join. That proximity is not a perk. It is part of how we prepare you.
               </p>
               <div class="d-flex flex-wrap gap-3 mt-4">
-                <button class="btn btn-gold" data-bs-toggle="modal" data-bs-target="#enquiryModal">
+                <button class="btn btn-gold">
                   Book A Campus Visit <i class="ti ti-arrow-right ms-2"></i>
                 </button>
                 <NuxtLink to="/campus-life" class="btn btn-outline-meet">
@@ -78,7 +78,7 @@
           <!-- Right Image -->
           <div class="col-lg-6 col-12">
             <!-- <div class="campus-img-box"> -->
-              <img :src="campusImg" alt="DLF Cyber City Campus Classroom" class="img-fluid" loading="lazy" decoding="async" />
+              <img :src="campusImg" alt="DLF Cyber City Campus Classroom" class="campus-img" loading="lazy" decoding="async" />
             <!-- </div> -->
           </div>
         </div>
@@ -259,6 +259,10 @@ onMounted(() => {
     max-width: 100%;
     height: auto;
     transition: all 0.3s ease;
+}
+
+.campus-img {
+  border-radius: 30px;
 }
 
 @media (max-width: 991px) {

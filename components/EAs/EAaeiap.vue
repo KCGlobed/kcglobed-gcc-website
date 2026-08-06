@@ -220,6 +220,18 @@
                             </div>
                             <div class="flip-card-back">
                                 <h3 class="card-title-back">CCH Tax Software</h3>
+                                <p class="card-desc-back">Gain hands-on exposure to professional tax software used for preparing, reviewing, and managing US tax returns efficiently.</p>
+                                <div class="course-badges">
+                                    <p class="course-badges-title">Key Skills</p>
+                                    <ul style="font-size: 11px; color: #4b5563;">
+                                        <li>Individual & Business Tax Returns</li>
+                                        <li>Tax Data Entry and Review</li>
+                                        <li>Tax Calculation &amp; Modeling</li>
+                                        <li>Compliance Workflows</li>
+                                        <li>Error Identification & Return Managemen</li>
+                                    </ul>
+                                    <!-- <p>This makes the distinction clearer:</p> -->
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -278,7 +290,7 @@
     margin-top: 10px;
 }
 
-.course-badges-title{
+.course-badges-title {
     font-size: 0.78rem;
     font-weight: 700;
     color: #4a148c;
