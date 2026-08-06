@@ -222,7 +222,7 @@
                                     <div class="video-section">
                                         <div class="video-wrapper">
                                             <template v-if="!banner.showVideo">
-                                                <img src="https://storage.googleapis.com/static_files_backend/media/images/nitish%20sir%20thmbnl_.jpg"
+                                                <img src="https://storage.googleapis.com/gcc_prod_static_files_backend/static/images/nitish_sir_thmbnl.jpg"
                                                     alt="Program Video" class="video-thumbnail">
                                                 <!-- <div class="video-badge-4k">
                                                     4k
@@ -599,7 +599,7 @@
     flex-grow: 1;
     display: flex;
     flex-direction: column;
-    min-height: 350px;
+    min-height: 400px;
 }
 
 .video-wrapper {
