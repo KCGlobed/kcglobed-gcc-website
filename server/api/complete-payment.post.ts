@@ -213,7 +213,7 @@ export default defineEventHandler(async (event) => {
                     body: paymentPayload
                 });
                 console.log(`[PAYMENT][complete] ✅ Sent to external API webhook_create_payment. Order: ${orderIdForDb}`);
-                paymentDbId = "external_" + orderIdForDb; // Dummy ID since we don't have local DB ID
+                paymentDbId = "external_" + orderIdForDb; // Dummyj ID since we don't have local DB ID
             } catch (apiError: any) {
                 console.log(apiError,'-----vishallllllfff',paymentPayload)
                 console.error(`[PAYMENT][complete] External API save failed:`, apiError?.message || apiError);
