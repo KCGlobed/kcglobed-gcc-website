@@ -25,7 +25,7 @@
 
 <script setup>
 import Mobile from '../../assets/img/Acca-img/Acca-mobile.png';
-import Desktop from '../../assets/img/Acca-img/Acca-desktop.png';
+import Desktop from '../../assets/img/Acca-img/Acca-desktop.svg';
 
 </script>
 
