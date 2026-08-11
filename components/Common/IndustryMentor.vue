@@ -65,9 +65,9 @@
                 Building 9B, DLF Cyber City, Gurugram, surrounded by the very companies you are training to join. That proximity is not a perk. It is part of how we prepare you.
               </p>
               <div class="d-flex flex-wrap gap-3 mt-4">
-                <button class="btn btn-gold">
+                <!-- <button class="btn btn-gold">
                   Book A Campus Visit <i class="ti ti-arrow-right ms-2"></i>
-                </button>
+                </button> -->
                 <NuxtLink to="/campus-life" class="btn btn-outline-meet">
                   View Gallery
                 </NuxtLink>

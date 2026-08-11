@@ -19,12 +19,12 @@
 
           <!-- Right Col: CTA Actions -->
           <div class="nfet-cta-block gap-3">
-            <button class="btn btn-nfet-apply" data-bs-toggle="modal" data-bs-target="#enquiryModal">
+            <NuxtLink to="/nfet-exam" class="btn btn-nfet-apply">
               Apply For NFET <i class="ti ti-arrow-right ms-1"></i>
-            </button>
-            <button class="btn btn-nfet-download">
+            </NuxtLink>
+            <!-- <button class="btn btn-nfet-download">
               Download NFET Pack
-            </button>
+            </button> -->
           </div>
         </div>
 
@@ -66,14 +66,14 @@
               </div>
             </div>
 
-            <div class="d-flex flex-wrap gap-3 mt-4">
+            <!-- <div class="d-flex flex-wrap gap-3 mt-4">
               <button class="btn btn-parent-download">
                 Download The Parent Guide
               </button>
               <button class="btn btn-parent-consult" data-bs-toggle="modal" data-bs-target="#enquiryModal">
                 Talk To A Counsellor
               </button>
-            </div>
+            </div> -->
 
             <!-- Bottom Helpdesk bar -->
             <div class="helpdesk-bar d-flex justify-content-between align-items-center flex-wrap g-3">

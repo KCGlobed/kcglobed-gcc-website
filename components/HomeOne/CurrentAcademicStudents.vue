@@ -69,9 +69,9 @@
                 Practising CPAs, Chartered Accountants and Enrolled Agents, not just lecturers. You learn how the work
                 is really done, from people who have done it at a high level.
               </p>
-              <NuxtLink to="/thinktank" style="background-color: #51157C;color: white;" class="btn mt-4">
+              <!-- <NuxtLink to="/thinktank" style="background-color: #51157C;color: white;" class="btn mt-4">
                 Meet The Faculty <i class="ti ti-arrow-right ms-2"></i>
-              </NuxtLink>
+              </NuxtLink> -->
             </div>
           </div>
 
