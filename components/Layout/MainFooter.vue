@@ -25,6 +25,7 @@
     <div class="container">
       <hr class="footer-divider" />
     </div>
+    
 
     <!-- Part 2: 5-Column Widgets Layout -->
     <div class="footer-main-info ptb-80">
