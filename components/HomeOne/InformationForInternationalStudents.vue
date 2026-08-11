@@ -11,14 +11,13 @@
               Disrupting The Traditional Education Eco-System.
             </h2>
             <div class="d-flex gap-3 flex-wrap mt-4">
-              <button style="background-color: #51157C;color: white;" class="title-btn" data-bs-toggle="modal"
-                data-bs-target="#applyNowModal">
+              <NuxtLink to="/nfet-exam"  style="background-color: #51157C;color: white;" class="title-btn px-4 py-3" >
                 Explore The Model &rarr;
-              </button>
-              <button style="color:#51157C; outline: #DDD1EA;border: 1px solid #DDD1EA; background-color: white;"
+              </NuxtLink>
+              <!-- <button style="color:#51157C; outline: #DDD1EA;border: 1px solid #DDD1EA; background-color: white;"
                 class=" title-btn px-4 py-3" @click="toggleEligibilityModal">
                 View Career Paths
-              </button>
+              </button> -->
             </div>
           </div>
 

@@ -8,12 +8,12 @@
         <p class="cta-subtitle mb-4">Whether you are ready to apply or still weighing your options, the next move is simple.</p>
         
         <div class="d-flex justify-content-center align-items-center gap-3 flex-wrap">
-          <button class="btn btn-nfet-apply">
+          <NuxtLink to="/nfet-exam" class="btn btn-nfet-apply">
             Apply For NFET <i class="ti ti-arrow-right ms-1"></i>
-          </button>
-          <button class="btn btn-parent-consult">
+          </NuxtLink>
+          <!-- <button class="btn btn-parent-consult">
             Talk To A Counsellor
-          </button>
+          </button> -->
         </div>
         
         <div class="mt-4">
