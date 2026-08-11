@@ -19,20 +19,29 @@
                 <div class="row g-4 justify-content-center">
                     <div class="col-lg-4 col-md-6 col-12">
                         <div class="gcc-image-box">
-                            <img src="../../assets/img/heros/1.png" class="img-fluid" alt="GCC School Feature 1"
+                            <img src="../../assets/img/heros/2.png" class="img-fluid" alt="GCC School Feature 1"
                                 loading="lazy" decoding="async" />
+                            <div class="gcc-image-text">
+                                Get Hired First By Top-Tier MNCs & Big Consulting Firms
+                            </div>
                         </div>
                     </div>
                     <div class="col-lg-4 col-md-6 col-12">
                         <div class="gcc-image-box">
-                            <img src="../../assets/img/heros/2.png" class="img-fluid" alt="GCC School Feature 2"
+                            <img src="../../assets/img/heros/3.png" class="img-fluid" alt="GCC School Feature 2"
                                 loading="lazy" decoding="async" />
+                            <div class="gcc-image-text">
+                                Get Trained In Globally-Aligned Skills GCCs Actually Need
+                            </div>
                         </div>
                     </div>
                     <div class="col-lg-4 col-md-6 col-12">
                         <div class="gcc-image-box">
-                            <img src="../../assets/img/heros/3.png" class="img-fluid" alt="GCC School Feature 3"
+                            <img src="../../assets/img/heros/1.png" class="img-fluid" alt="GCC School Feature 3"
                                 loading="lazy" decoding="async" />
+                            <div class="gcc-image-text">
+                                Build Career In Your Top-Tier Dream Organization
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -112,6 +121,7 @@
 }
 
 .gcc-image-box {
+    position: relative;
     background: #fff;
     border-radius: 16px;
     padding: 10px;
@@ -123,13 +133,41 @@
     box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03);
 }
 
-.gcc-image-box:hover {
+/* .gcc-image-box:hover {
     transform: translateY(-10px);
     box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
-}
+} */
 
 .gcc-image-box img {
     border-radius: 10px;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.gcc-image-text {
+    position: absolute;
+    bottom: 10px;
+    left: 10px;
+    right: 10px;
+    background-color: #723986;
+    color: #fff;
+    font-size: 16px;
+    font-weight: 600;
+    text-align: left;
+    padding: 15px 40px;
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
+    box-sizing: border-box;
+    line-height: 1.4;
+    font-family: 'Inter', sans-serif;
+}
+
+@media (max-width: 767px) {
+    .gcc-image-text {
+        font-size: 14px;
+        padding: 10px 8px;
+    }
 }
 
 @media (max-width: 991px) {
