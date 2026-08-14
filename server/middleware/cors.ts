@@ -1,15 +1,14 @@
 export default defineEventHandler((event) => {
-  if (event.node.req.url?.startsWith('/api/')) {
-    setResponseHeaders(event, {
-      'Access-Control-Allow-Origin': '*',
-      'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE, OPTIONS',
-      'Access-Control-Allow-Headers': 'Origin, X-Requested-With, Content-Type, Accept, Authorization',
-    });
+  setResponseHeaders(event, {
+    'Access-Control-Allow-Origin': '*', // or your frontend domain
+    'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE, OPTIONS',
+    'Access-Control-Allow-Headers': 'Content-Type, Authorization'
+  })
 
-    if (event.node.req.method === 'OPTIONS') {
-      event.node.res.statusCode = 204;
-      event.node.res.statusMessage = "No Content";
-      return '';
-    }
+  // ✅ Handle preflight request
+  if (event.node.req.method === 'OPTIONS') {
+    event.node.res.statusCode = 204
+    event.node.res.end()
+    return
   }
-});
+})
