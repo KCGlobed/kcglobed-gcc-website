@@ -159,6 +159,11 @@ export default defineNuxtConfig({
     }
   },
   plugins: ["~/plugins/scrollReveal.ts"],
+  routeRules: {
+    '/api/**': {
+      cors: true,
+    },
+  },
   aos: {
     duration: 1000,
     once: true,
