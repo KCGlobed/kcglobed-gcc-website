@@ -129,7 +129,10 @@
                                             </button>
                                             <p class="form-footer-text text-center mt-3 mb-0">
                                                 By submitting, you agree to our <NuxtLink to="/terms-conditions">Terms
-                                                </NuxtLink> and <NuxtLink to="/privacy-policy">Privacy Policy
+                                                </NuxtLink> , <NuxtLink to="/privacy-policy">Privacy Policy</NuxtLink>
+                                                and
+                                                <NuxtLink to="/refund-policy">
+                                                    Payment & Refund Policy
                                                 </NuxtLink>
                                             </p>
                                         </div>

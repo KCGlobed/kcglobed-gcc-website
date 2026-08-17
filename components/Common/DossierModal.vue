@@ -74,7 +74,8 @@
                                 <div class="searchable-select uni-select">
                                     <input type="text" class="form-control custom-input" v-model="searchQuery"
                                         placeholder="Search University..." autocomplete="off"
-                                        @focus="showUniDropdown = true; loadUniversities()" @input="showUniDropdown = true; loadUniversities()">
+                                        @focus="showUniDropdown = true; loadUniversities()"
+                                        @input="showUniDropdown = true; loadUniversities()">
                                     <div v-if="showUniDropdown && filteredUniversities.length > 0"
                                         class="dropdown-list shadow-sm">
                                         <div v-for="uni in filteredUniversities" :key="uni.id" class="dropdown-item"
@@ -161,10 +162,15 @@
                                             class="text-purple text-decoration-none fw-bold" @click="handleNavigation">
                                             Terms
                                         </NuxtLink>
-                                        and
+                                        ,
                                         <NuxtLink to="/privacy-policy" class="text-purple text-decoration-none fw-bold"
                                             @click="handleNavigation">
                                             Privacy Policy
+                                        </NuxtLink>
+                                        and
+                                        <NuxtLink to="/refund-policy" class="text-purple text-decoration-none fw-bold"
+                                            @click="handleNavigation">
+                                            Payment & Refund Policy
                                         </NuxtLink>
                                     </label>
                                 </div>
@@ -196,10 +202,15 @@
                                             class="text-purple text-decoration-none fw-bold" @click="handleNavigation">
                                             Terms
                                         </NuxtLink>
-                                        and
+                                        ,
                                         <NuxtLink to="/privacy-policy" class="text-purple text-decoration-none fw-bold"
                                             @click="handleNavigation">
                                             Privacy Policy
+                                        </NuxtLink>
+                                        and
+                                        <NuxtLink to="/refund-policy" class="text-purple text-decoration-none fw-bold"
+                                            @click="handleNavigation">
+                                            Payment & Refund Policy
                                         </NuxtLink>
                                     </p>
                                 </div>
@@ -218,11 +229,17 @@
                                                 @click="handleNavigation">
                                                 Terms
                                             </NuxtLink>
-                                            and
+                                            ,
                                             <NuxtLink to="/privacy-policy"
                                                 class="text-purple text-decoration-none fw-bold"
                                                 @click="handleNavigation">
                                                 Privacy Policy
+                                            </NuxtLink>
+                                            and
+                                            <NuxtLink to="/refund-policy"
+                                                class="text-purple text-decoration-none fw-bold"
+                                                @click="handleNavigation">
+                                                Payment & Refund Policy
                                             </NuxtLink>
                                         </label>
                                     </div>
@@ -844,7 +861,7 @@ export default defineComponent({
                             utm_source: utm_source.value,
                             utm_medium: utm_medium.value,
                             utm_campaign: utm_campaign.value,
-                            commingAmount:2950
+                            commingAmount: 2950
                         }
                     }).catch(() => { /* silent — never block user flow */ });
 
@@ -1139,7 +1156,7 @@ export default defineComponent({
                         state: form.state,
                         form_type: 2,
                         form_id: formId.value,
-                        commingAmount:2950
+                        commingAmount: 2950
                     }
                 });
 

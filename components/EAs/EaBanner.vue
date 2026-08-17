@@ -18,12 +18,12 @@
                                     </div>
 
                                     <form @submit.prevent="submitForm" class="registration-form">
-                                        
+
                                         <label for="fullName" class="form-label fw-bold small">Full Name*</label>
                                         <div class="">
 
-                                            <input type="text" class="form-control custom-input mb-2"
-                                                id="fullName" v-model="form.name" placeholder="Enter your full name"
+                                            <input type="text" class="form-control custom-input mb-2" id="fullName"
+                                                v-model="form.name" placeholder="Enter your full name"
                                                 :class="{ 'is-invalid': errors.name }"
                                                 @input="form.name = form.name.replace(/[^a-zA-Z\s]/g, '')">
                                             <div class="invalid-feedback" v-if="errors.name">{{ errors.name }}</div>
@@ -128,8 +128,12 @@
                                             </button>
                                             <p class="form-footer-text text-center mt-3 mb-0">
                                                 By submitting, you agree to our <NuxtLink to="/terms-conditions">Terms
-                                                </NuxtLink> and <NuxtLink to="/privacy-policy">Privacy Policy
+                                                </NuxtLink> , <NuxtLink to="/privacy-policy">Privacy Policy </NuxtLink>
+                                                and
+                                                <NuxtLink to="/refund-policy">
+                                                    Payment & Refund Policy
                                                 </NuxtLink>
+
                                             </p>
                                         </div>
 
