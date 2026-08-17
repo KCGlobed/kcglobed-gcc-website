@@ -66,19 +66,19 @@ const timeline = [
     {
         label: 'Pre-Placement Offer Letter',
         icon: icon6,
-        date: '1st - 3rd July 2026',
+        date: '1st - 18th Aug 2026',
         color: 'linear-gradient(135deg, #4c1d95 0%, #6d28d9 100%)',
     },
     {
-        label: 'Admission Confirmation',
+        label: 'Admission Closed',
         icon: icon7,
-        date: 'June 25, 2026',
+        date: '18th Aug 2026',
         color: 'linear-gradient(135deg, #6d28d9 0%, #9333ea 100%)',
     },
     {
         label: 'Cohort Start',
         icon: icon8,
-        date: '6th July, 2026',
+        date: '28th Aug 2026',
         color: 'linear-gradient(135deg, #a21caf 0%, #c026d3 100%)',
     },
 ]

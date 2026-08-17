@@ -1756,6 +1756,7 @@ export default defineComponent({
 .custom-checkbox .form-check-label {
     padding-left: 8px;
     padding-top: 3px;
+    font-size: 12px;
     cursor: pointer;
 }
 
