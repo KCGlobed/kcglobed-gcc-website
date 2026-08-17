@@ -10,7 +10,7 @@
     
     <!-- <ProgramsAeiap /> -->
      <EAsEAaeiap />
-     <CareerPath />
+     <EaCareerPath />
     <!-- <ProgramsIAProgram /> -->
     <EAIAProgram />
 
@@ -48,6 +48,7 @@ import CareerPath from '~/components/EAs/CareerPath.vue';
 import EABooks from '~/components/EAs/EABooks.vue';
 import EAIAProgram from '~/components/EAs/EAIAProgram.vue';
 import EATimeLine from '~/components/EAs/EATimeLine.vue';
+import EaCareerPath from '~/components/EAs/EaCareerPath.vue';
 
 // import { defineComponent } from "vue";
 
