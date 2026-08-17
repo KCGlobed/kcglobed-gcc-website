@@ -12,7 +12,7 @@
             <!-- Career Path Image -->
             <div class="career-path-image">
                 <img
-                    src="../../assets/img/career-path.png"
+                    src="../../assets/img/EA-img/EA-pathway.png"
                     alt="EA Career Path"
                     loading="lazy"
                     decoding="async"
