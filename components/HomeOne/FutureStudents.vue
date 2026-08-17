@@ -93,7 +93,7 @@
 
           <div class="info-group mt-3">
             <label>BOARDING TIME</label>
-            <span class="dark-text">July 2026</span>
+            <span class="dark-text">August 2026</span>
           </div>
 
           <div class="info-group mt-3">

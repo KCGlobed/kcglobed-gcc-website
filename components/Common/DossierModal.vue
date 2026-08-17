@@ -844,7 +844,7 @@ export default defineComponent({
                             utm_source: utm_source.value,
                             utm_medium: utm_medium.value,
                             utm_campaign: utm_campaign.value,
-                            commingAmount:1475
+                            commingAmount:2950
                         }
                     }).catch(() => { /* silent — never block user flow */ });
 
@@ -1139,7 +1139,7 @@ export default defineComponent({
                         state: form.state,
                         form_type: 2,
                         form_id: formId.value,
-                        commingAmount:1475
+                        commingAmount:2950
                     }
                 });
 

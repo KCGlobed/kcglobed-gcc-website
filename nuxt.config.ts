@@ -114,8 +114,8 @@ export default defineNuxtConfig({
     razorpayKeyId: process.env.RAZORPAY_KEY_ID,
     razorpayKeySecret: process.env.RAZORPAY_KEY_SECRET,
     razorpayCurrency: process.env.RAZORPAY_CURRENCY || 'INR',
-    razorpayAmount: process.env.RAZORPAY_PAYMENT_AMOUNT || '1475',
-    paymentAmount: process.env.PAYMENT_AMOUNT || '1475',
+    razorpayAmount: process.env.RAZORPAY_PAYMENT_AMOUNT || '2950',
+    paymentAmount: process.env.PAYMENT_AMOUNT || '2950',
     // ── Cashfree ──────────────────────────────────────────────────────────────
     cashfreeAppId: process.env.CASH_FREE_APP_ID_PROD,
     cashfreeSecretKey: process.env.CASH_FREE_SECRET_KEY_PROD,
@@ -123,7 +123,7 @@ export default defineNuxtConfig({
     cashfreeSecretKeyDev: process.env.CASH_FREE_SECRET_KEY_DEV,
     // Set to 'SANDBOX' for test, 'PRODUCTION' for live
     cashfreeEnvironment: process.env.CASHFREE_ENVIRONMENT || 'PRODUCTION',
-    cashfreePaymentAmount: process.env.CASHFREE_PAYMENT_AMOUNT || '1475',
+    cashfreePaymentAmount: process.env.CASHFREE_PAYMENT_AMOUNT || '2950',
     cashfreeWebhookSecret: process.env.CASHFREE_WEBHOOK_SECRET || '',
     reattemptDiscountPercentage: process.env.REATTEMPT_DISCOUNT_PERCENTAGE || '20',
 
@@ -148,7 +148,7 @@ export default defineNuxtConfig({
 
     public: {
       paymentGateway: process.env.PAYMENT_GATEWAY || 'CASHFREE',
-      paymentAmount: process.env.PAYMENT_AMOUNT || '1475',
+      paymentAmount: process.env.PAYMENT_AMOUNT || '2950',
       reattemptDiscountPercentage: process.env.REATTEMPT_DISCOUNT_PERCENTAGE || '20',
       apiBase: process.env.NUXT_PUBLIC_API_BASE,
       nfetDates: process.env.NUXT_PUBLIC_NFET_DATES || '',
@@ -159,6 +159,7 @@ export default defineNuxtConfig({
     }
   },
   plugins: ["~/plugins/scrollReveal.ts"],
+
   aos: {
     duration: 1000,
     once: true,
