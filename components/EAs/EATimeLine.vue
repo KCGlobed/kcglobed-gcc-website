@@ -50,12 +50,6 @@ const timeline = [
         date: 'Within 72 hours',
         color: 'linear-gradient(135deg, #7c3aed 0%, #9333ea 100%)',
     },
-    // {
-    //     label: 'Pre-assessment to Qualify (Ticket to DLF Cyber City, Gurugram)',
-    //     icon: icon4,
-    //     date: 'May - June 2026',
-    //     color: 'linear-gradient(135deg, #a21caf 0%, #c026d3 100%)',
-    // },
     {
         label: 'Personal Interview Round',
         icon: icon5,

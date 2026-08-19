@@ -70,7 +70,7 @@ const timeline = [
         color: '#0b1154',
     },
     {
-        label: 'Admission Closes',
+        label: 'Admission Confirmation',
         icon: icon7,
         date: '30th November 2026',
         color: '#5a1380',

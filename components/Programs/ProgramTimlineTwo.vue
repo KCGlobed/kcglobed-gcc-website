@@ -27,7 +27,6 @@
 import icon1 from "~/assets/icon/timlineicon/9.svg"
 import icon2 from "~/assets/icon/timlineicon/2.svg"
 import icon3 from "~/assets/icon/timlineicon/3.svg"
-import icon4 from "~/assets/icon/timlineicon/4.svg"
 import icon5 from "~/assets/icon/timlineicon/5.svg"
 import icon6 from "~/assets/icon/timlineicon/6.svg"
 import icon7 from "~/assets/icon/timlineicon/7.svg"
@@ -70,7 +69,7 @@ const timeline = [
         color: 'linear-gradient(135deg, #4c1d95 0%, #6d28d9 100%)',
     },
     {
-        label: 'Admission Closed',
+        label: 'Admission Confirmatioin',
         icon: icon7,
         date: '31st August 2026',
         color: 'linear-gradient(135deg, #6d28d9 0%, #9333ea 100%)',
