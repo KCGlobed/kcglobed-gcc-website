@@ -36,19 +36,19 @@ const timeline = [
     {
         label: 'NFET\nEnrollment',
         icon: icon1,
-        date: 'July 15 Onwards',
+        date: 'Live',
         color: '#b516b5',
     },
     {
         label: 'NFET Slot\nBooking',
         icon: icon2,
-        date: 'July 15 – Sep 15, 2026',
+        date: 'Live',
         color: '#6c1a8f',
     },
     {
         label: 'Result Communication',
         icon: icon3,
-        date: 'Monthly',
+        date: 'Within 72 hours',
         color: '#0b1154',
     },
     // {
@@ -60,25 +60,25 @@ const timeline = [
     {
         label: 'Personal Interview Round',
         icon: icon5,
-        date: 'Sep 1 – Sep 25, 2026',
+        date: 'November 2026',
         color: '#5a1380',
     },
     {
-        label: 'Conditional Offer Letter',
+        label: 'Pre-Placement Offer Letter',
         icon: icon6,
-        date: 'Sep 1 – Sep 25, 2026',
+        date: 'Realtime',
         color: '#0b1154',
     },
     {
-        label: 'Admission Confirmation',
+        label: 'Admission Closes',
         icon: icon7,
-        date: 'Sep 1 – Sep 30, 2026',
+        date: '30th November 2026',
         color: '#5a1380',
     },
     {
         label: 'Cohort Start',
         icon: icon8,
-        date: 'Oct 1, 2026',
+        date: '1st December 2026',
         color: '#0b1154',
     },
 ]

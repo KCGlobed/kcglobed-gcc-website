@@ -35,19 +35,19 @@ const timeline = [
     {
         label: 'NFET\nEnrollment',
         icon: icon1,
-        date: 'July 26 onwards',
+        date: 'Live',
         color: 'linear-gradient(135deg, #4c1d95 0%, #6d28d9 100%)',
     },
     {
         label: 'NFET Slot\nBooking',
         icon: icon2,
-        date: 'July 15 - Aug 15, 2026',
+        date: 'Live',
         color: 'linear-gradient(135deg, #5b21b6 0%, #7c3aed 100%)',
     },
     {
         label: 'Result Communication',
         icon: icon3,
-        date: 'Second week of Aug, 2026',
+        date: 'Within 72 hours',
         color: 'linear-gradient(135deg, #7c3aed 0%, #9333ea 100%)',
     },
     // {
@@ -59,25 +59,25 @@ const timeline = [
     {
         label: 'Personal Interview Round',
         icon: icon5,
-        date: 'Aug 15 - Aug 30, 2026',
+        date: 'Septmeber 2026',
         color: 'linear-gradient(135deg, #7c3aed 0%, #9333ea 100%)',
     },
     {
         label: 'Pre-Placement Offer Letter',
         icon: icon6,
-        date: 'Aug 15 - Aug 30, 2026',
+        date: 'Realtime',
         color: 'linear-gradient(135deg, #4c1d95 0%, #6d28d9 100%)',
     },
     {
         label: 'Admission Confirmation',
         icon: icon7,
-        date: 'Aug 30, 2026',
+        date: '30th September 2026',
         color: 'linear-gradient(135deg, #6d28d9 0%, #9333ea 100%)',
     },
     {
         label: 'Cohort Start',
         icon: icon8,
-        date: 'Sep 1, 2026',
+        date: '1st October 2026',
         color: 'linear-gradient(135deg, #a21caf 0%, #c026d3 100%)',
     },
 ]
