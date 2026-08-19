@@ -27,7 +27,6 @@
 import icon1 from "~/assets/icon/timlineicon/9.svg"
 import icon2 from "~/assets/icon/timlineicon/2.svg"
 import icon3 from "~/assets/icon/timlineicon/3.svg"
-import icon4 from "~/assets/icon/timlineicon/4.svg"
 import icon5 from "~/assets/icon/timlineicon/5.svg"
 import icon6 from "~/assets/icon/timlineicon/6.svg"
 import icon7 from "~/assets/icon/timlineicon/7.svg"
@@ -36,19 +35,19 @@ const timeline = [
     {
         label: 'NFET\nEnrollment',
         icon: icon1,
-        date: 'Feb 25 onwards',
+        date: 'Live',
         color: 'linear-gradient(135deg, #4c1d95 0%, #6d28d9 100%)',
     },
     {
         label: 'NFET Slot\nBooking',
         icon: icon2,
-        date: 'March 10 - June 27, 2026',
+        date: 'Live',
         color: 'linear-gradient(135deg, #5b21b6 0%, #7c3aed 100%)',
     },
     {
         label: 'Result Communication',
         icon: icon3,
-        date: 'Last week of June 2026',
+        date: 'Within 72 hours',
         color: 'linear-gradient(135deg, #7c3aed 0%, #9333ea 100%)',
     },
     // {
@@ -60,25 +59,25 @@ const timeline = [
     {
         label: 'Personal Interview Round',
         icon: icon5,
-        date: '1st - 3rd July 2026',
+        date: 'August 2026',
         color: 'linear-gradient(135deg, #7c3aed 0%, #9333ea 100%)',
     },
     {
         label: 'Pre-Placement Offer Letter',
         icon: icon6,
-        date: '1st - 18th Aug 2026',
+        date: 'Realtime',
         color: 'linear-gradient(135deg, #4c1d95 0%, #6d28d9 100%)',
     },
     {
-        label: 'Admission Closed',
+        label: 'Admission Confirmatioin',
         icon: icon7,
-        date: '18th Aug 2026',
+        date: '31st August 2026',
         color: 'linear-gradient(135deg, #6d28d9 0%, #9333ea 100%)',
     },
     {
         label: 'Cohort Start',
         icon: icon8,
-        date: '28th Aug 2026',
+        date: '1st September 2026',
         color: 'linear-gradient(135deg, #a21caf 0%, #c026d3 100%)',
     },
 ]
