@@ -140,7 +140,7 @@
                             </div>
 
                             <div class="col-md-6 mb-2">
-                                <label class="form-label fw-bold small">Referred By</label>
+                                <label class="form-label fw-bold small">Referred By (Optional)</label>
                                 <input v-model="form.reffered_by" type="text" class="form-control custom-input"
                                     placeholder="Enter referrer's name">
                                 <small class="text-danger" v-if="errors.reffered_by">
@@ -729,10 +729,10 @@ export default defineComponent({
                 errors.program = 'Program is required';
                 isValid = false;
             }
-            if (!form.reffered_by.trim()) {
-                errors.reffered_by = 'Referred By is required';
-                isValid = false;
-            }
+            // if (!form.reffered_by.trim()) {
+            //     errors.reffered_by = 'Referred By is required';
+            //     isValid = false;
+            // }
             /*
             if (!otpVerified.value) {
                 if (!otpSent.value) {
