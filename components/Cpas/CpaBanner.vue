@@ -14,7 +14,7 @@
                                 <div class="program-hero-card h-100">
                                     <div class="card-header">
                                         <h2>Apply Now</h2>
-                                        <p>Enter your details to receive the brochure instantly</p>
+                                        <!-- <p>Enter your details to receive the brochure instantly</p> -->
                                     </div>
 
                                     <form @submit.prevent="submitForm" class="registration-form">

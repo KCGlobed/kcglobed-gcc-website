@@ -7,7 +7,7 @@ export default defineEventHandler(async (event) => {
     const apiBase = process.env.NUXT_PUBLIC_API_BASE;
 
     if (!apiBase) {
-        console.error(`${tag} NUXT_PUBLIC_API_BASE is not set`);
+        console.error(`${tag} pa is not set`);
         return { success: false, error: 'Server misconfiguration' };
     }
 
