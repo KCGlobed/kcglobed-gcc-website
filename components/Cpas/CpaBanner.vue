@@ -145,7 +145,6 @@
                                             {{ notification.message }}
                                         </div>
 
-
                                     </form>
                                 </div>
                             </div>
