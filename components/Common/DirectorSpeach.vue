@@ -3,7 +3,7 @@
         <div class="container">
             <div class="row align-items-center">
                 <div class="col-lg-6 col-md-12">
-                    <div class="ed-message-content pe-lg-5" >
+                    <div class="ed-message-content pe-lg-5">
                         <!-- <div class="section-tag mb-3">
                             <span class="badge">Message from ED Desk</span>
                         </div> -->
@@ -28,9 +28,8 @@
                         </div> -->
 
                         <div class="signature mt-5">
-                            <h5 class="mb-0">Prof. (Dr.) Manpreet Singh Manna</h5>
-                            <span>Executive Director, <strong>GCC School</strong><br />Former Director,
-                                <strong>AICTE</strong></span>
+                            <h5 class="mb-0">CPA Nitish Khatri</h5>
+                            <span>VP <strong style="text-transform: none;">KC GlobEd</strong></span>
 
                         </div>
 
@@ -41,10 +40,10 @@
                 </div>
 
                 <div class="col-lg-6 col-md-12 mt-5 mt-lg-0">
-                    <div class="video-box-wrapper" >
+                    <div class="video-box-wrapper">
                         <div class="video-preview-box shadow-lg" @click="playVideo">
                             <template v-if="!isPlaying">
-                                <img src="https://storage.googleapis.com/gcc_static_files_backend/static/images/manna%20sir%20thmbnl.jpg"
+                                <img src="https://storage.googleapis.com/gcc_prod_static_files_backend/static/images/nitish_sir_thmbnl.jpg"
                                     alt="ED Message Video Preview" class="preview-img">
                                 <div class="play-btn-wrap">
                                     <div class="play-btn">
@@ -52,9 +51,10 @@
                                     </div>
                                 </div>
                             </template>
-                            <video v-else controls autoplay controlsList="nodownload" oncontextmenu="return false;" class="video-player">
+                            <video v-else controls autoplay controlsList="nodownload" oncontextmenu="return false;"
+                                class="video-player">
                                 <source
-                                    src="https://storage.googleapis.com/gcc_static_files_backend/static/videos/MANNA%20SIR%20WEBSITE_FINAL%20100.mp4"
+                                    src="https://storage.googleapis.com/gcc_static_files_backend/static/videos/Nitis%20Sir%20Website%20Video._final_gcc.mp4"
                                     type="video/mp4">
                                 Your browser does not support the video tag.
                             </video>
