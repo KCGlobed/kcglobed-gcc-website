@@ -351,7 +351,7 @@
                         <div class="step-line"></div>
 
                         <ul>
-                            <li>Online and Classroom Study with KC GlobEd</li>
+                            <li>Classroom Study with GCC School Schedule Exam</li>
                             <li>Schedule Exam (USA / Dubai / India &amp; Others)</li>
                             <li>Passing Score: 75</li>
                             <li>18 Months Passing Window</li>
