@@ -351,8 +351,8 @@
                         <div class="step-line"></div>
 
                         <ul>
-                            <li>Classroom Study with GCC School Schedule Exam</li>
-                            <li>Schedule Exam (USA / Dubai / India &amp; Others)</li>
+                            <li>Classroom Study with GCC School</li>
+                            <li>Schedule Exam</li>
                             <li>Passing Score: 75</li>
                             <li>18 Months Passing Window</li>
                         </ul>
