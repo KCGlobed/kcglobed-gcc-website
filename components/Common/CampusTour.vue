@@ -2,7 +2,6 @@
   <section class="gcc-campus-video" id="campus-video" aria-labelledby="campus-video-title">
     <div class="gcc-campus-video__inner">
 
-      <!-- Column 1: Text -->
       <div class="gcc-campus-video__content">
         <span class="gcc-campus-video__eyebrow">Campus Tour</span>
         <h2 class="gcc-campus-video__title" id="campus-video-title">
@@ -26,7 +25,6 @@
         </ul>
       </div>
 
-      <!-- Column 2: Video -->
       <div>
         <div class="gcc-campus-video__media">
           <iframe
@@ -47,8 +45,6 @@
 <script setup>
 import { ref } from 'vue'
 
-// TODO: replace with the real YouTube embed URL, e.g.
-// 'https://www.youtube-nocookie.com/embed/YOUR_VIDEO_ID?rel=0&modestbranding=1'
 const youtubeEmbedUrl = ref('https://www.youtube.com/embed/9RD8abW2_Jg?si=xj_pvxHLJG6V9arP&amp;start=1')
 
 const points = ref([
@@ -60,17 +56,16 @@ const points = ref([
 
 <style scoped>
 .gcc-campus-video {
-  /* Map these to the site's brand tokens */
   --cv-bg: #ffffff;
   --cv-text: #1a1a1a;
   --cv-muted: #4c4e53;
-  --cv-accent: #FF8C00;        /* brand primary — update to match site */
+  --cv-accent: #FF8C00;  
   --cv-accent-soft: #e8eefb;
   --cv-radius: 16px;
 
   background: var(--cv-bg);
   color: var(--cv-text);
-  font-family: inherit;         /* inherits the site's font */
+  font-family: inherit;
   padding: clamp(56px, 8vw, 104px) 0;
 }
 .gcc-campus-video__inner {
@@ -170,6 +165,6 @@ const points = ref([
 
 @media (max-width: 900px) {
   .gcc-campus-video__inner { grid-template-columns: 1fr; }
-  .gcc-campus-video__media { order: -1; }   /* video first on mobile */
+  .gcc-campus-video__media { order: -1; } 
 }
 </style>
