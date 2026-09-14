@@ -13,8 +13,8 @@
                             <div class="col-lg-6 col-md-12 mb-4 mb-lg-0">
                                 <div class="program-hero-card h-100">
                                     <div class="card-header">
-                                        <h2>Download Brochure</h2>
-                                        <p>Enter your details to receive the brochure instantly</p>
+                                        <h2>Apply Now</h2>
+                                        <!-- <p>Enter your details to receive the brochure instantly</p> -->
                                     </div>
 
                                     <form @submit.prevent="submitForm" class="registration-form">
@@ -119,17 +119,20 @@
 
 
 
-                                        <!-- Step 1: Download Now button -->
+                                        <!-- Step 1: Register Now button -->
                                         <div>
                                             <button type="submit" class="btn btn-primary w-100 register-btn"
                                                 :disabled="isSubmitting">
                                                 <span v-if="isSubmitting"
                                                     class="spinner-border spinner-border-sm me-2"></span>
-                                                {{ isSubmitting ? 'Processing...' : 'DOWNLOAD NOW' }}
+                                                {{ isSubmitting ? 'Processing...' : 'Register' }}
                                             </button>
                                             <p class="form-footer-text text-center mt-3 mb-0">
                                                 By submitting, you agree to our <NuxtLink to="/terms-conditions">Terms
-                                                </NuxtLink> and <NuxtLink to="/privacy-policy">Privacy Policy
+                                                </NuxtLink> , <NuxtLink to="/privacy-policy">Privacy Policy</NuxtLink>
+                                                and
+                                                <NuxtLink to="/refund-policy">
+                                                    Payment & Refund Policy
                                                 </NuxtLink>
                                             </p>
                                         </div>
@@ -142,13 +145,12 @@
                                             {{ notification.message }}
                                         </div>
 
-
                                     </form>
                                 </div>
                             </div>
-                            <div class="col-lg-6 col-md-12 banner" @click="focusInput">
+                            <a href="https://storage.googleapis.com/gcc_prod_static_files_backend/static/files/CPA-STUDENT-DOSSIER.pdf" target="_blank" rel="noopener noreferrer" class="col-lg-6 col-md-12 banner">
                                 <img :src="HeroBanner" alt="hero-image" style="width: 80%;">
-                            </div>
+                            </a>
                         </div>
 
                     </div>
@@ -1055,7 +1057,7 @@ import stateCityData from "~/state_city.json";
 import universitiesList from "~/universities.json";
 import selectUniversityList from "~/select-university.json";
 import OtpVerification from '../Common/OtpVerification.vue';
-import HeroBanner from '../../assets/img/CPA-img/CPA hero.png';
+import HeroBanner from '../../assets/img/CPA-img/CPA hero.jpg';
 
 import image1 from "../../assets/img/heros/hero_bg.svg";
 import gccPdf from "../../assets/gcc.pdf";
@@ -1087,28 +1089,28 @@ export default defineComponent({
 
         const nameInput = ref<HTMLInputElement | null>(null);
 
-        const focusInput = (event?: Event) => {
-            if (event?.currentTarget) {
-                const container = (event.currentTarget as HTMLElement).closest('.hero-slider-warp');
-                const input = container?.querySelector('#fullName') as HTMLInputElement | null;
-                if (input) {
-                    input.focus();
-                    return;
-                }
-            }
-            if (Array.isArray(nameInput.value)) {
-                (nameInput.value[0] as HTMLInputElement | null)?.focus();
-            } else {
-                nameInput.value?.focus();
-            }
-        };
+        // const focusInput = (event?: Event) => {
+        //     if (event?.currentTarget) {
+        //         const container = (event.currentTarget as HTMLElement).closest('.hero-slider-warp');
+        //         const input = container?.querySelector('#fullName') as HTMLInputElement | null;
+        //         if (input) {
+        //             input.focus();
+        //             return;
+        //         }
+        //     }
+        //     if (Array.isArray(nameInput.value)) {
+        //         (nameInput.value[0] as HTMLInputElement | null)?.focus();
+        //     } else {
+        //         nameInput.value?.focus();
+        //     }
+        // };
 
-        const showAlert = (title: string, message: string, type: 'error' | 'success' = 'error') => {
-            alertPopup.title = title;
-            alertPopup.message = message;
-            alertPopup.type = type;
-            alertPopup.show = true;
-        };
+        // const showAlert = (title: string, message: string, type: 'error' | 'success' = 'error') => {
+        //     alertPopup.title = title;
+        //     alertPopup.message = message;
+        //     alertPopup.type = type;
+        //     alertPopup.show = true;
+        // };
 
         const showCelebrationPopup = ref(false);
 
@@ -1189,7 +1191,7 @@ export default defineComponent({
                 description: "At GCC School, students don't wait for placements. They start with them. Learning is structured around real roles, real work, and real responsibility because capability is built on execution.",
                 btnText: "Apply Now",
                 btnLink: "/about-overview",
-                btnTextTwo: "Download Brochure",
+                btnTextTwo: "Apply Now",
                 btnLinkTwo: gccPdf,
                 updateTitle: "View all latest news updates of Tuva",
                 updateLink: "/blog",
@@ -1231,7 +1233,9 @@ export default defineComponent({
             }
         };
 
-
+        const handleDownload = () => {
+            window.open("https://storage.googleapis.com/gcc_prod_static_files_backend/static/files/CPA-STUDENT-DOSSIER.pdf", "_blank");
+        }
 
         const onStateChange = () => {
             form.city = "";
@@ -1321,16 +1325,6 @@ export default defineComponent({
                 errors.university = 'University is required';
                 isValid = false;
             }
-            /*
-            if (!otpVerified.value) {
-                if (!otpSent.value) {
-                    errors.mobile = 'Please click "Verify" to receive an OTP';
-                }
-                isValid = false;
-            }
-            */
-
-
             return isValid && Object.values(errors).every(error => error === "");
         };
 
@@ -1365,12 +1359,7 @@ export default defineComponent({
                 });
 
                 if (response.success) {
-                    const fileUrl = response.data.url;
-                    formId.value = response.data.id;
-                    const fileName = fileUrl.split('/').pop() || 'CPA Brochure.pdf';
-
-                    window.location.href = `/api/download?url=${encodeURIComponent(fileUrl)}&filename=${encodeURIComponent(fileName)}`;
-                    showNotification('success', 'Brochure downloaded successfully!');
+                    showNotification('success', 'Registered successfully!');
                 } else {
                     showNotification('error', response.message || "Something went wrong. Please try again.");
                 }
@@ -1387,7 +1376,7 @@ export default defineComponent({
         return {
             HeroBanner,
             nameInput,
-            focusInput,
+            handleDownload,
             form,
             formId,
             errors,

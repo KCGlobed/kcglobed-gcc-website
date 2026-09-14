@@ -45,7 +45,11 @@
           <!-- Bot message -->
           <div v-else-if="msg.type === 'bot'" class="gcc-mr">
             <div class="gcc-mava"><img :src="smallLogo" alt="Aria" class="gcc-mava__img" /></div>
-            <div class="gcc-bub gcc-bub--bot" v-html="msg.text"></div>
+            <div class="gcc-bub gcc-bub--bot">
+              <span v-html="msg.text"></span>
+              <span v-if="msg.required" class="gcc-req-star" title="Required field">*</span>
+              <span v-if="msg.optional && !msg.skipped && canSkip(i)" class="gcc-skip-btn" @click="handleSkip(i, msg)" title="Click to skip this question"> (Skip)</span>
+            </div>
           </div>
 
           <!-- Error message -->
@@ -275,10 +279,10 @@ function SKIP(label: string, value: string) {
  * apiKey: the FormData field name Django expects
  * section: for logging
  */
-function ASK(question: string | (() => string), key: string, apiKey: string, section: string, validate = 'any', placeholder?: string, delay = 700) {
+function ASK(question: string | (() => string), key: string, apiKey: string, section: string, validate = 'any', placeholder?: string, delay = 700, isOptional = false) {
   return () => withTyping(delay, () => {
     const text = typeof question === 'function' ? question() : question;
-    addMsg('bot', text);
+    addMsg('bot', text, { optional: isOptional, required: !isOptional, key, section });
     awaitField = { key, apiKey, section, validate };
     retryCount = 0;
     enableInput(placeholder);
@@ -289,10 +293,10 @@ function ASK(question: string | (() => string), key: string, apiKey: string, sec
 /**
  * CHOOSE — quick-reply buttons.
  */
-function CHOOSE(question: string | (() => string), options: { label: string; value?: any }[], onChoose: (val: any, label: string) => void, delay = 700) {
+function CHOOSE(question: string | (() => string), options: { label: string; value?: any }[], onChoose: (val: any, label: string) => void, delay = 700, isOptional = false, key?: string, section?: string) {
   return () => withTyping(delay, () => {
     const text = typeof question === 'function' ? question() : question;
-    addMsg('bot', text);
+    addMsg('bot', text, { optional: isOptional, required: !isOptional, key, section });
     addMsg('choices', '', { options, chosen: null });
     PAUSE();
     // onChoose is called from handleChoice
@@ -315,12 +319,50 @@ function handleChoice(msgIdx: number, opt: { label: string; value?: any }) {
 /**
  * UPLOAD — file picker step.
  */
-function UPLOAD(question: string, key: string, docType: string, btnLabel: string, accept: string, delay = 700) {
+function UPLOAD(question: string, key: string, docType: string, btnLabel: string, accept: string, delay = 700, isOptional = false, section = 'documents') {
   return () => withTyping(delay, () => {
-    addMsg('bot', question);
+    addMsg('bot', question, { optional: isOptional, required: !isOptional, key, section });
     addMsg('upload', '', { key, docType, btnLabel, accept, uploaded: false });
     PAUSE();
   });
+}
+
+function canSkip(msgIdx: number): boolean {
+  if (!queueLocked) return false;
+  for (let idx = messages.value.length - 1; idx >= 0; idx--) {
+    if (messages.value[idx].type === 'bot') {
+      return idx === msgIdx;
+    }
+  }
+  return false;
+}
+
+async function handleSkip(msgIdx: number, msg: any) {
+  if (msg.skipped) return;
+  msg.skipped = true;
+
+  if (msg.key && msg.section) {
+    logEvent('field_skip', msg.section, msg.key, { reason: 'user_skipped' });
+  }
+
+  addMsg('user', 'Skipped');
+  awaitField = null;
+  disableInput();
+
+  const lastChoicesMsg = [...messages.value].reverse().find(m => m.type === 'choices');
+  if (lastChoicesMsg && !lastChoicesMsg.chosen) {
+    lastChoicesMsg.chosen = 'Skipped';
+    if (choiceCallbacks.length > 0) {
+      choiceCallbacks.shift();
+    }
+  }
+
+  const lastUploadMsg = [...messages.value].reverse().find(m => m.type === 'upload');
+  if (lastUploadMsg && !lastUploadMsg.uploaded) {
+    lastUploadMsg.uploaded = true;
+  }
+
+  RESUME();
 }
 
 function DECLARATION_STEP(): (() => void)[] {
@@ -825,7 +867,7 @@ function section1(): (() => void)[] {
   } else {
     steps.push(ASK(
       () => `Great! What is your last name, ${fd.first_name || ''}?`,
-      'last_name', 'last_name', 'personal', 'name', 'e.g. Sharma'
+      'last_name', 'last_name', 'personal', 'name', 'e.g. Sharma', 700, false
     ));
   }
 
@@ -833,28 +875,28 @@ function section1(): (() => void)[] {
   if (isFilled(fd.email)) {
     steps.push(SKIP('email', fd.email));
   } else {
-    steps.push(ASK('Your email address?', 'email', 'email', 'personal', 'email', 'e.g. name@email.com'));
+    steps.push(ASK('Your email address?', 'email', 'email', 'personal', 'email', 'e.g. name@email.com', 700, false));
   }
 
   // mobile
   if (isFilled(fd.mobile)) {
     steps.push(SKIP('mobile number', fd.mobile));
   } else {
-    steps.push(ASK('Your mobile number?', 'mobile', 'phone', 'personal', 'phone', 'e.g. 9876543210'));
+    steps.push(ASK('Your mobile number?', 'mobile', 'phone', 'personal', 'phone', 'e.g. 9876543210', 700, false));
   }
 
   // father_name (Emergency Contact Name)
   if (isFilled(fd.father_name)) {
     steps.push(SKIP('emergency contact name', fd.father_name));
   } else {
-    steps.push(ASK('Emergency contact name?', 'father_name', 'contact_name', 'personal', 'name', 'e.g. Anil Sharma'));
+    steps.push(ASK('Emergency contact name?', 'father_name', 'contact_name', 'personal', 'name', 'e.g. Anil Sharma', 700, true));
   }
 
   // father_mobile (Emergency Contact Number)
   if (isFilled(fd.father_mobile)) {
     steps.push(SKIP('emergency contact number', fd.father_mobile));
   } else {
-    steps.push(ASK('Emergency contact number?', 'father_mobile', 'contact_phone', 'personal', 'phone', 'e.g. 9876543210'));
+    steps.push(ASK('Emergency contact number?', 'father_mobile', 'contact_phone', 'personal', 'phone', 'e.g. 9876543210', 700, true));
   }
 
   steps.push(
@@ -877,7 +919,7 @@ function section2(): (() => void)[] {
   if (isFilled(fd.guardian_name)) {
     steps.push(SKIP('guardian name', fd.guardian_name));
   } else {
-    steps.push(ASK('Parent/Guardian\'s full name?', 'guardian_name', 'guardian_name', 'guardian', 'name', 'e.g. Sunita Sharma'));
+    steps.push(ASK('Parent/Guardian\'s full name?', 'guardian_name', 'guardian_name', 'guardian', 'name', 'e.g. Sunita Sharma', 700, false));
   }
 
   // guardian_dropdown
@@ -887,14 +929,14 @@ function section2(): (() => void)[] {
       if (isFilled(fd.guardian_other_reason)) {
         steps.push(SKIP('specify relationship', fd.guardian_other_reason));
       } else {
-        steps.push(ASK('Please specify relationship', 'guardian_other_reason', 'guardian_other_reason', 'guardian', 'text', 'e.g. Uncle'));
+        steps.push(ASK('Please specify relationship', 'guardian_other_reason', 'guardian_other_reason', 'guardian', 'text', 'e.g. Uncle', 700, true));
       }
     }
     steps.push(...section1_part2());
   } else {
     steps.push(
       () => withTyping(700, () => {
-        addMsg('bot', 'What is your relationship with them?');
+        addMsg('bot', 'What is your relationship with them?', { required: true, key: 'guardian_dropdown', section: 'guardian' });
         addMsg('choices', '', {
           options: [{ label: 'Mother', value: 'Mother' }, { label: 'Father', value: 'Father' }, { label: 'Other', value: 'Other' }],
           chosen: null,
@@ -905,7 +947,7 @@ function section2(): (() => void)[] {
           await saveField('guardian', 'guardian_dropdown', 'guardian_dropdown', val, relMap[val] || '');
           if (val === 'Other') {
             push(
-              ASK('Please specify relationship', 'guardian_other_reason', 'guardian_other_reason', 'guardian', 'text', 'e.g. Uncle'),
+              ASK('Please specify relationship', 'guardian_other_reason', 'guardian_other_reason', 'guardian', 'text', 'e.g. Uncle', 700, true),
               ...section1_part2()
             );
           } else {
@@ -929,21 +971,21 @@ function section1_part2(): (() => void)[] {
   if (isFilled(fd.guardian_phone)) {
     steps.push(SKIP('guardian\'s phone', fd.guardian_phone));
   } else {
-    steps.push(ASK('Parent/Guardian\'s phone number?', 'guardian_phone', 'guardian_phone', 'guardian', 'phone', 'e.g. 9876543210'));
+    steps.push(ASK('Parent/Guardian\'s phone number?', 'guardian_phone', 'guardian_phone', 'guardian', 'phone', 'e.g. 9876543210', 700, false));
   }
 
   // guardian_email
   if (isFilled(fd.guardian_email)) {
     steps.push(SKIP('guardian\'s email', fd.guardian_email));
   } else {
-    steps.push(ASK('Parent/Guardian\'s email address?', 'guardian_email', 'guardian_email', 'guardian', 'email', 'e.g. parent@email.com'));
+    steps.push(ASK('Parent/Guardian\'s email address?', 'guardian_email', 'guardian_email', 'guardian', 'email', 'e.g. parent@email.com', 700, false));
   }
 
   // dob
   if (isFilled(fd.dob)) {
     steps.push(SKIP('date of birth', fd.dob));
   } else {
-    steps.push(ASK('What is your date of birth? (DD-MM-YYYY)', 'dob', 'date_of_birth', 'personal', 'date', 'e.g. 15-03-2001'));
+    steps.push(ASK('What is your date of birth? (DD-MM-YYYY)', 'dob', 'date_of_birth', 'personal', 'date', 'e.g. 15-03-2001', 700, false));
   }
 
   // gender
@@ -952,7 +994,7 @@ function section1_part2(): (() => void)[] {
   } else {
     steps.push(
       () => withTyping(700, () => {
-        addMsg('bot', 'What is your gender?');
+        addMsg('bot', 'What is your gender?', { required: true, key: 'gender', section: 'personal' });
         addMsg('choices', '', {
           options: [{ label: 'Male', value: 'Male' }, { label: 'Female', value: 'Female' }, { label: 'Other', value: 'Other' }],
           chosen: null,
@@ -972,28 +1014,28 @@ function section1_part2(): (() => void)[] {
   if (isFilled(fd.state)) {
     steps.push(SKIP('state', fd.state));
   } else {
-    steps.push(ASK('Which state do you live in?', 'state', 'state', 'personal', 'text', 'e.g. Uttar Pradesh'));
+    steps.push(ASK('Which state do you live in?', 'state', 'state', 'personal', 'text', 'e.g. Uttar Pradesh', 700, false));
   }
 
   // city
   if (isFilled(fd.city)) {
     steps.push(SKIP('city', fd.city));
   } else {
-    steps.push(ASK('Which city?', 'city', 'city', 'personal', 'text', 'e.g. Lucknow'));
+    steps.push(ASK('Which city?', 'city', 'city', 'personal', 'text', 'e.g. Lucknow', 700, false));
   }
 
   // pin_code
   if (isFilled(fd.pin_code)) {
     steps.push(SKIP('PIN code', fd.pin_code));
   } else {
-    steps.push(ASK('Your area PIN code?', 'pin_code', 'pincode', 'personal', 'pin', 'e.g. 226001'));
+    steps.push(ASK('Your area PIN code?', 'pin_code', 'pincode', 'personal', 'pin', 'e.g. 226001', 700, false));
   }
 
   // address
   if (isFilled(fd.complete_address)) {
     steps.push(SKIP('address', fd.complete_address));
   } else {
-    steps.push(ASK('Your complete address?', 'complete_address', 'address', 'personal', 'text', 'House no., area, city, state'));
+    steps.push(ASK('Your complete address?', 'complete_address', 'address', 'personal', 'text', 'House no., area, city, state', 700, false));
   }
 
   steps.push(
@@ -1021,13 +1063,13 @@ function section3(): (() => void)[] {
   if (isFilled(fd.class10_year)) {
     steps.push(SKIP('Class 10 passing year', fd.class10_year));
   } else {
-    steps.push(ASK('Which year did you pass Class 10?', 'class10_year', 'tenth_passing_year', 'academic', 'year', 'e.g. 2017'));
+    steps.push(ASK('Which year did you pass Class 10?', 'class10_year', 'tenth_passing_year', 'academic', 'year', 'e.g. 2017', 700, false));
   }
 
   if (!isFilled(fd.class10_type)) {
     steps.push(
       () => withTyping(700, () => {
-        addMsg('bot', 'Score type for Class 10?');
+        addMsg('bot', 'Score type for Class 10?', { required: true, key: 'class10_type', section: 'academic' });
         addMsg('choices', '', {
           options: [{ label: 'Percentage' }, { label: 'CGPA' }],
           chosen: null,
@@ -1045,13 +1087,13 @@ function section3(): (() => void)[] {
   if (isFilled(fd.class10_score)) {
     steps.push(SKIP('Class 10 score', fd.class10_score));
   } else {
-    steps.push(ASK('Your Class 10 score?', 'class10_score', 'tenth_passing_percentage', 'academic', 'score', 'e.g. 85 or 8.5'));
+    steps.push(ASK('Your Class 10 score?', 'class10_score', 'tenth_passing_percentage', 'academic', 'score', 'e.g. 85 or 8.5', 700, false));
   }
 
   if (!isFilled(fd.class10_medium)) {
     steps.push(
       () => withTyping(700, () => {
-        addMsg('bot', 'Medium of instruction in Class 10?');
+        addMsg('bot', 'Medium of instruction in Class 10?', { required: true, key: 'class10_medium', section: 'academic' });
         addMsg('choices', '', {
           options: [{ label: 'English' }, { label: 'Hindi' }, { label: 'Other' }],
           chosen: null,
@@ -1070,13 +1112,13 @@ function section3(): (() => void)[] {
   if (isFilled(fd.class12_year)) {
     steps.push(SKIP('Class 12 passing year', fd.class12_year));
   } else {
-    steps.push(ASK('Which year did you pass Class 12?', 'class12_year', 'twelveth_passing_year', 'academic', 'year', 'e.g. 2019'));
+    steps.push(ASK('Which year did you pass Class 12?', 'class12_year', 'twelveth_passing_year', 'academic', 'year', 'e.g. 2019', 700, false));
   }
 
   if (!isFilled(fd.class12_type)) {
     steps.push(
       () => withTyping(700, () => {
-        addMsg('bot', 'Score type for Class 12?');
+        addMsg('bot', 'Score type for Class 12?', { required: true, key: 'class12_type', section: 'academic' });
         addMsg('choices', '', {
           options: [{ label: 'Percentage' }, { label: 'CGPA' }],
           chosen: null,
@@ -1094,13 +1136,13 @@ function section3(): (() => void)[] {
   if (isFilled(fd.class12_score)) {
     steps.push(SKIP('Class 12 score', fd.class12_score));
   } else {
-    steps.push(ASK('Your Class 12 score?', 'class12_score', 'twelveth_passing_percentage', 'academic', 'score', 'e.g. 78 or 7.8'));
+    steps.push(ASK('Your Class 12 score?', 'class12_score', 'twelveth_passing_percentage', 'academic', 'score', 'e.g. 78 or 7.8', 700, false));
   }
 
   if (!isFilled(fd.class12_medium)) {
     steps.push(
       () => withTyping(700, () => {
-        addMsg('bot', 'Medium of instruction in Class 12?');
+        addMsg('bot', 'Medium of instruction in Class 12?', { required: true, key: 'class12_medium', section: 'academic' });
         addMsg('choices', '', {
           options: [{ label: 'English' }, { label: 'Hindi' }, { label: 'Other' }],
           chosen: null,
@@ -1119,7 +1161,7 @@ function section3(): (() => void)[] {
   if (!isFilled(fd.ug_status)) {
     steps.push(
       () => withTyping(700, () => {
-        addMsg('bot', 'Your undergraduate degree (B.Com/Hons) — completed or still pursuing?');
+        addMsg('bot', 'Your undergraduate degree (B.Com/Hons) — completed or still pursuing?', { required: true, key: 'ug_status', section: 'academic' });
         addMsg('choices', '', {
           options: [{ label: 'Completed', value: '1' }, { label: 'Still Pursuing', value: '2' }],
           chosen: null,
@@ -1137,7 +1179,7 @@ function section3(): (() => void)[] {
   if (!isFilled(fd.ug_type)) {
     steps.push(
       () => withTyping(700, () => {
-        addMsg('bot', 'Score type for your UG degree?');
+        addMsg('bot', 'Score type for your UG degree?', { required: true, key: 'ug_type', section: 'academic' });
         addMsg('choices', '', {
           options: [{ label: 'Percentage' }, { label: 'CGPA' }],
           chosen: null,
@@ -1155,19 +1197,19 @@ function section3(): (() => void)[] {
   if (isFilled(fd.ug_cgpa)) {
     steps.push(SKIP('UG score', fd.ug_cgpa));
   } else {
-    steps.push(ASK('Your UG score?', 'ug_cgpa', 'pg_percentage', 'academic', 'score', 'e.g. 72 or 7.2'));
+    steps.push(ASK('Your UG score?', 'ug_cgpa', 'pg_percentage', 'academic', 'score', 'e.g. 72 or 7.2', 700, false));
   }
 
   if (isFilled(fd.ug_institution)) {
     steps.push(SKIP('college name', fd.ug_institution));
   } else {
-    steps.push(ASK('College or institution name?', 'ug_institution', 'institution', 'academic', 'text', 'e.g. Lucknow University'));
+    steps.push(ASK('College or institution name?', 'ug_institution', 'institution', 'academic', 'text', 'e.g. Lucknow University', 700, false));
   }
 
   if (!isFilled(fd.ug_medium)) {
     steps.push(
       () => withTyping(700, () => {
-        addMsg('bot', 'Medium of instruction for your degree?');
+        addMsg('bot', 'Medium of instruction for your degree?', { required: true, key: 'ug_medium', section: 'academic' });
         addMsg('choices', '', {
           options: [{ label: 'English' }, { label: 'Hindi' }, { label: 'Other' }],
           chosen: null,
@@ -1186,7 +1228,7 @@ function section3(): (() => void)[] {
   if (!isFilled(fd.pg_exists)) {
     steps.push(
       () => withTyping(700, () => {
-        addMsg('bot', 'Do you have any higher qualification? (M.Com, MBA, etc.)');
+        addMsg('bot', 'Do you have any higher qualification? (M.Com, MBA, etc.)', { optional: true, key: 'pg_exists', section: 'academic' });
         addMsg('choices', '', {
           options: [{ label: 'Yes', value: 'Yes' }, { label: 'No', value: 'No' }],
           chosen: null,
@@ -1223,7 +1265,7 @@ function pgDetails(): (() => void)[] {
   if (!isFilled(fd.pg_type)) {
     steps.push(
       () => withTyping(700, () => {
-        addMsg('bot', 'Select qualification');
+        addMsg('bot', 'Select qualification', { optional: true, key: 'pg_type', section: 'academic' });
         addMsg('choices', '', {
           options: [{ label: 'M.Com' }, { label: 'M.B.A' }, { label: 'Other' }],
           chosen: null,
@@ -1233,13 +1275,13 @@ function pgDetails(): (() => void)[] {
           await saveField('academic', 'pg_type', 'higher_qualification', val);
           if (val === 'Other') {
             push(
-              ASK('Please specify', 'pg_other', 'pg_other', 'academic', 'text', 'e.g. CA'),
-              ASK('Institution name?', 'pg_institution', 'higher_qualification_institution', 'academic', 'text', 'e.g. Amity University'),
+              ASK('Please specify', 'pg_other', 'pg_other', 'academic', 'text', 'e.g. CA', 700, true),
+              ASK('Institution name?', 'pg_institution', 'higher_qualification_institution', 'academic', 'text', 'e.g. Amity University', 700, true),
               ...academicDone()
             );
           } else {
             push(
-              ASK('Institution name?', 'pg_institution', 'higher_qualification_institution', 'academic', 'text', 'e.g. Amity University'),
+              ASK('Institution name?', 'pg_institution', 'higher_qualification_institution', 'academic', 'text', 'e.g. Amity University', 700, true),
               ...academicDone()
             );
           }
@@ -1250,10 +1292,10 @@ function pgDetails(): (() => void)[] {
     );
   } else {
     if (fd.pg_type === 'Other' && !isFilled(fd.pg_other)) {
-      steps.push(ASK('Please specify', 'pg_other', 'pg_other', 'academic', 'text', 'e.g. CA'));
+      steps.push(ASK('Please specify', 'pg_other', 'pg_other', 'academic', 'text', 'e.g. CA', 700, true));
     }
     if (!isFilled(fd.pg_institution)) {
-      steps.push(ASK('Institution name?', 'pg_institution', 'higher_qualification_institution', 'academic', 'text', 'e.g. Amity University'));
+      steps.push(ASK('Institution name?', 'pg_institution', 'higher_qualification_institution', 'academic', 'text', 'e.g. Amity University', 700, true));
     }
     steps.push(...academicDone());
   }
@@ -1291,7 +1333,7 @@ function section4(): (() => void)[] {
     // If they are "Fresher" (which is the default) or unset, we ask them to explicitly confirm
     steps.push(
       () => withTyping(700, () => {
-        addMsg('bot', 'Are you a fresher or do you have work experience?');
+        addMsg('bot', 'Are you a fresher or do you have work experience?', { optional: true, key: 'employment_status', section: 'work' });
         addMsg('choices', '', {
           options: [{ label: 'Fresher', value: '1' }, { label: 'I have work experience', value: '2' }],
           chosen: null,
@@ -1323,25 +1365,25 @@ function workDetails(): (() => void)[] {
   if (isFilled(exp.org_name)) {
     steps.push(SKIP('organisation name', exp.org_name));
   } else {
-    steps.push(ASK('Current or most recent organisation name?', 'work_org', 'user_experience', 'work', 'text', 'e.g. Infosys BPM'));
+    steps.push(ASK('Current or most recent organisation name?', 'work_org', 'user_experience', 'work', 'text', 'e.g. Infosys BPM', 700, true));
   }
 
   if (isFilled(exp.designation)) {
     steps.push(SKIP('designation', exp.designation));
   } else {
-    steps.push(ASK('Your designation?', 'work_desig', 'user_experience', 'work', 'text', 'e.g. Finance Analyst'));
+    steps.push(ASK('Your designation?', 'work_desig', 'user_experience', 'work', 'text', 'e.g. Finance Analyst', 700, true));
   }
 
   if (isFilled(exp.functional_area)) {
     steps.push(SKIP('functional area', exp.functional_area));
   } else {
-    steps.push(ASK('Functional area? (Finance, Audit, Accounting etc.)', 'work_area', 'user_experience', 'work', 'text', 'e.g. Finance & Accounts'));
+    steps.push(ASK('Functional area? (Finance, Audit, Accounting etc.)', 'work_area', 'user_experience', 'work', 'text', 'e.g. Finance & Accounts', 700, true));
   }
 
   if (isFilled(exp.from)) {
     steps.push(SKIP('start date', exp.from));
   } else {
-    steps.push(ASK('When did you start? (DD-MM-YYYY)', 'work_from', 'user_experience', 'work', 'date', 'e.g. 15-01-2023'));
+    steps.push(ASK('When did you start? (DD-MM-YYYY)', 'work_from', 'user_experience', 'work', 'date', 'e.g. 15-01-2023', 700, true));
   }
 
   return steps;
@@ -1368,31 +1410,31 @@ function section5(): (() => void)[] {
   if (ex.aadhaar) {
     steps.push(SKIP('Aadhaar card', '(already uploaded)'));
   } else {
-    steps.push(UPLOAD('Your Aadhaar card:', 'aadhaar', 'aadhaar', 'Attach Aadhaar card', '.pdf,.jpg,.jpeg,.png'));
+    steps.push(UPLOAD('Your Aadhaar card:', 'aadhaar', 'aadhaar', 'Attach Aadhaar card', '.pdf,.jpg,.jpeg,.png', 700, false));
   }
 
   if (ex.dob_proof) {
     steps.push(SKIP('DOB proof', '(already uploaded)'));
   } else {
-    steps.push(UPLOAD('Proof of date of birth (marksheet or birth certificate):', 'dob_proof', 'dob_proof', 'Attach DOB proof', '.pdf,.jpg,.jpeg,.png'));
+    steps.push(UPLOAD('Proof of date of birth (marksheet or birth certificate):', 'dob_proof', 'dob_proof', 'Attach DOB proof', '.pdf,.jpg,.jpeg,.png', 700, false));
   }
 
   if (ex.photo) {
     steps.push(SKIP('passport photo', '(already uploaded)'));
   } else {
-    steps.push(UPLOAD('A recent passport-size photograph:', 'photo', 'photo', 'Attach photograph', '.jpg,.jpeg,.png'));
+    steps.push(UPLOAD('A recent passport-size photograph:', 'photo', 'photo', 'Attach photograph', '.jpg,.jpeg,.png', 700, false));
   }
 
   if (ex.signature) {
     steps.push(SKIP('signature', '(already uploaded)'));
   } else {
-    steps.push(UPLOAD('Your signature image:', 'signature', 'signature', 'Attach signature', '.jpg,.jpeg,.png,.pdf'));
+    steps.push(UPLOAD('Your signature image:', 'signature', 'signature', 'Attach signature', '.jpg,.jpeg,.png,.pdf', 700, false));
   }
 
   if (ex.resume) {
     steps.push(SKIP('resume', '(already uploaded)'));
   } else {
-    steps.push(UPLOAD('Finally, your resume:', 'resume', 'resume', 'Attach resume', '.pdf,.doc,.docx'));
+    steps.push(UPLOAD('Finally, your resume:', 'resume', 'resume', 'Attach resume', '.pdf,.doc,.docx', 700, true));
   }
 
   steps.push(
@@ -2069,6 +2111,29 @@ onMounted(() => {
   width: 15px;
   height: 15px;
   fill: #fff;
+}
+
+/* ── Required & Skip Indicators ───────────────────────────────────────── */
+.gcc-req-star {
+  color: #ef4444;
+  font-weight: bold;
+  margin-left: 4px;
+}
+
+.gcc-skip-btn {
+  color: #872980;
+  font-weight: 600;
+  font-size: 0.85em;
+  margin-left: 8px;
+  cursor: pointer;
+  text-decoration: underline;
+  user-select: none;
+  transition: opacity 0.2s ease, color 0.2s ease;
+}
+
+.gcc-skip-btn:hover {
+  opacity: 0.85;
+  color: #a13ea1;
 }
 
 /* ── Responsive ───────────────────────────────────────────────────────── */

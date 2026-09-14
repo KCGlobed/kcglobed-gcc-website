@@ -4,7 +4,7 @@ import * as fs from "fs";
 const buf = fs.readFileSync("final_university.xlsx");
 const workbook = XLSX.read(buf);
 
-console.log("📄 Available Sheets:", workbook.SheetNames);
+console.log("init")
 
 // Function to extract data
 function getDataFromSheet(sheetName, fallbackToFirst = false) {

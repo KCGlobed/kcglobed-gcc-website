@@ -74,7 +74,8 @@
                                 <div class="searchable-select uni-select">
                                     <input type="text" class="form-control custom-input" v-model="searchQuery"
                                         placeholder="Search University..." autocomplete="off"
-                                        @focus="showUniDropdown = true" @input="showUniDropdown = true">
+                                        @focus="showUniDropdown = true; loadUniversities()"
+                                        @input="showUniDropdown = true; loadUniversities()">
                                     <div v-if="showUniDropdown && filteredUniversities.length > 0"
                                         class="dropdown-list shadow-sm">
                                         <div v-for="uni in filteredUniversities" :key="uni.id" class="dropdown-item"
@@ -116,7 +117,7 @@
                                     </div>
                                 </div>
                                 <small class="text-danger" v-if="errors.referral_code">{{ errors.referral_code
-                                }}</small>
+                                    }}</small>
                             </div>
                         </div>
 
@@ -139,7 +140,7 @@
                             </div>
 
                             <div class="col-md-6 mb-2">
-                                <label class="form-label fw-bold small">Referred By</label>
+                                <label class="form-label fw-bold small">Referred By (Optional)</label>
                                 <input v-model="form.reffered_by" type="text" class="form-control custom-input"
                                     placeholder="Enter referrer's name">
                                 <small class="text-danger" v-if="errors.reffered_by">
@@ -161,10 +162,15 @@
                                             class="text-purple text-decoration-none fw-bold" @click="handleNavigation">
                                             Terms
                                         </NuxtLink>
-                                        and
+                                        ,
                                         <NuxtLink to="/privacy-policy" class="text-purple text-decoration-none fw-bold"
                                             @click="handleNavigation">
                                             Privacy Policy
+                                        </NuxtLink>
+                                        and
+                                        <NuxtLink to="/refund-policy" class="text-purple text-decoration-none fw-bold"
+                                            @click="handleNavigation">
+                                            Payment & Refund Policy
                                         </NuxtLink>
                                     </label>
                                 </div>
@@ -196,10 +202,15 @@
                                             class="text-purple text-decoration-none fw-bold" @click="handleNavigation">
                                             Terms
                                         </NuxtLink>
-                                        and
+                                        ,
                                         <NuxtLink to="/privacy-policy" class="text-purple text-decoration-none fw-bold"
                                             @click="handleNavigation">
                                             Privacy Policy
+                                        </NuxtLink>
+                                        and
+                                        <NuxtLink to="/refund-policy" class="text-purple text-decoration-none fw-bold"
+                                            @click="handleNavigation">
+                                            Payment & Refund Policy
                                         </NuxtLink>
                                     </p>
                                 </div>
@@ -218,11 +229,17 @@
                                                 @click="handleNavigation">
                                                 Terms
                                             </NuxtLink>
-                                            and
+                                            ,
                                             <NuxtLink to="/privacy-policy"
                                                 class="text-purple text-decoration-none fw-bold"
                                                 @click="handleNavigation">
                                                 Privacy Policy
+                                            </NuxtLink>
+                                            and
+                                            <NuxtLink to="/refund-policy"
+                                                class="text-purple text-decoration-none fw-bold"
+                                                @click="handleNavigation">
+                                                Payment & Refund Policy
                                             </NuxtLink>
                                         </label>
                                     </div>
@@ -536,17 +553,31 @@ export default defineComponent({
             referral_code: ''
         });
 
+        // Populate states immediately in setup to prevent hydration mismatch
         const states = ref<string[]>([]);
+        const statesArr = Object.keys(stateCityData);
+        states.value = statesArr.sort((a, b) => a.localeCompare(b));
+
         const citiesList = ref<string[]>([]);
-        const universityList = ref([
-            ...universitiesList
-                .filter(name => !selectUniversityList.includes(name))
-                .map((name, index) => ({ id: `u-${index}`, name, isHighlight: false })),
-            ...selectUniversityList.map((name, index) => ({ id: `s-${index}`, name, isHighlight: true }))
-        ]);
+
+        // Lazy initialize universityList to speed up initial hydration/page load
+        const universityList = ref<{ id: string, name: string, isHighlight: boolean }[]>([]);
+
+        const loadUniversities = () => {
+            if (universityList.value.length > 0) return;
+            universityList.value = [
+                ...universitiesList
+                    .filter(name => !selectUniversityList.includes(name))
+                    .map((name, index) => ({ id: `u-${index}`, name, isHighlight: false })),
+                ...selectUniversityList.map((name, index) => ({ id: `s-${index}`, name, isHighlight: true }))
+            ];
+        };
 
         const filteredUniversities = computed(() => {
             const query = searchQuery.value.trim().toLowerCase();
+            if (universityList.value.length === 0) {
+                loadUniversities();
+            }
             if (!query) return universityList.value;
             return universityList.value
                 .filter(u => u.name.toLowerCase().includes(query));
@@ -698,10 +729,10 @@ export default defineComponent({
                 errors.program = 'Program is required';
                 isValid = false;
             }
-            if (!form.reffered_by.trim()) {
-                errors.reffered_by = 'Referred By is required';
-                isValid = false;
-            }
+            // if (!form.reffered_by.trim()) {
+            //     errors.reffered_by = 'Referred By is required';
+            //     isValid = false;
+            // }
             /*
             if (!otpVerified.value) {
                 if (!otpSent.value) {
@@ -830,6 +861,7 @@ export default defineComponent({
                             utm_source: utm_source.value,
                             utm_medium: utm_medium.value,
                             utm_campaign: utm_campaign.value,
+                            commingAmount: 2950
                         }
                     }).catch(() => { /* silent — never block user flow */ });
 
@@ -1123,7 +1155,8 @@ export default defineComponent({
                         city: form.city,
                         state: form.state,
                         form_type: 2,
-                        form_id: formId.value
+                        form_id: formId.value,
+                        commingAmount: 2950
                     }
                 });
 
@@ -1295,9 +1328,6 @@ export default defineComponent({
                 });
             }
             window.addEventListener('click', handleClickOutside);
-            // Populate states from local JSON and sort alphabetically
-            const statesArr = Object.keys(stateCityData);
-            states.value = statesArr.sort((a, b) => a.localeCompare(b));
         });
 
         onUnmounted(() => {
@@ -1315,6 +1345,7 @@ export default defineComponent({
             showUniDropdown,
             filteredUniversities,
             selectUni,
+            loadUniversities,
             searchQueryProgram,
             showProgramDropdown,
             filteredPrograms,
@@ -1725,6 +1756,7 @@ export default defineComponent({
 .custom-checkbox .form-check-label {
     padding-left: 8px;
     padding-top: 3px;
+    font-size: 12px;
     cursor: pointer;
 }
 

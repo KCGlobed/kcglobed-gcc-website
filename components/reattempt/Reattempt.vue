@@ -111,7 +111,7 @@ const alert = reactive({
 
 const config = useRuntimeConfig();
 
-const originalPrice = computed(() => Number(config.public.paymentAmount || 2950));
+const originalPrice = computed(() => Number(config.public.paymentAmount || 1475));
 const discountPercent = computed(() => Number(config.public.reattemptDiscountPercentage || 20));
 
 const discountedPrice = computed(() => {

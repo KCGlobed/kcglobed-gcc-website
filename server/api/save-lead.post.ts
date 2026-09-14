@@ -12,7 +12,7 @@ export default defineEventHandler(async (event) => {
 
     try {
         const config = useRuntimeConfig(event);
-        const amount = Number(commingAmount || config.cashfreePaymentAmount || process.env.CASHFREE_PAYMENT_AMOUNT || 2950);
+        const amount = Number(commingAmount || config.cashfreePaymentAmount || process.env.CASHFREE_PAYMENT_AMOUNT || 1475);
 
         const isReattempt = body.payment_type === 'reattempt' || body.re_attempt_status === true || body.reAttemptStatus === true;
 

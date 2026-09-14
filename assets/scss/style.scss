@@ -401,6 +401,7 @@ Navbar Warp  Style
 
       .burger-menu {
         cursor: pointer;
+        pointer-events: none;
 
         span {
           height: 3px;
@@ -446,6 +447,7 @@ Navbar Warp  Style
 
     .burger-menu {
       cursor: pointer;
+      pointer-events: none;
 
       span {
         height: 3px;

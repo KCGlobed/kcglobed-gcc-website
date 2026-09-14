@@ -9,7 +9,7 @@
             <div class="pathway-image-wrapper">
                 <!-- Laptop View Image -->
                 <img 
-                    src="~/assets/img/CPA-img/CPA-table-laptop.png" 
+                    src="~/assets/img/CPA-img/CPA-table-laptop.svg" 
                     alt="I-Gen Pathway Laptop" 
                     class="w-100 d-none d-md-block img-fluid" 
                     loading="lazy" 

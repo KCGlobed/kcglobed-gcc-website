@@ -32,6 +32,7 @@ import expert6 from '@/assets/img/expert/expert6.png'
 import expert7 from '@/assets/img/expert/expert17.png'
 import expert8 from '@/assets/img/expert/expert8.png'
 import expert9 from '@/assets/img/expert/manpreet.png'
+import expert10 from '@/assets/img/expert/expert10.png'
 const images = [
     {
         img: expert1,
@@ -68,6 +69,9 @@ const images = [
     {
         img: expert2,
         link: ""
+    },{
+        img: expert10,
+        link: "https://www.linkedin.com/in/kamakshi-chopra-83b3b082"
     }
 ]
 </script>

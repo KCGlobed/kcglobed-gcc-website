@@ -79,13 +79,13 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
         "logo": "https://gccschool.com/_nuxt/GCC-School-Logo-White.BHjiCYnG.jpeg",
         "contactPoint": {
           "@type": "ContactPoint",
-          "telephone": "+919773576111",
+          "telephone": "+918796880189",
           "contactType": "customer service",
           "areaServed": "IN",
           "availableLanguage": ["en", "Hindi"]
         },
         "sameAs": [
-          "https://www.facebook.com/share/187jgT5gev/",
+          "https://www.facebook.com/share/187jgT5gev/", 
           "https://x.com/gccschool2026",
           "https://www.instagram.com/gccschool?igsh=MXQxc2JhazAwcG55cQ==",
           "https://www.youtube.com/@GCCSchool",
@@ -102,7 +102,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
         "image": "https://gccschool.com/_nuxt/information2.Ck4B6ICy.jpg",
         "@id": "",
         "url": "https://gccschool.com/",
-        "telephone": "+919773576111",
+        "telephone": "+918796880189",
         "address": {
           "@type": "PostalAddress",
           "streetAddress": "16th Floor, Tower-B, DLF Building No. 09",

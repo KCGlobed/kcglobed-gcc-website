@@ -3,6 +3,7 @@
         <LayoutTopHeader />
         <LayoutMainNavbar />
         <CampusLifeCampusBanner />
+        <CampusTour />
         <CommonFloorMap />
         <CampusLifeCampusOutcome />
         <CampusLifeCampusGoal />
@@ -12,6 +13,8 @@
 </template>
 
 <script setup lang="ts">
+import CampusTour from '~/components/Common/CampusTour.vue';
+
 // import { defineComponent } from "vue";
 
 // export default defineComponent({});

@@ -14,7 +14,7 @@ export default defineEventHandler(async (event) => {
     console.log(`Timestamp: ${new Date().toISOString()}`);
     console.log(`=================================================\n`);
 
-    let amount = Number(commingAmount || config.paymentAmount || 1475);
+    let amount = Number(commingAmount || config.paymentAmount || 2950);
     const currency = 'INR';
     console.log(amount, '-----amount')
     // Apply dynamic discount for reattempts
@@ -57,6 +57,7 @@ export default defineEventHandler(async (event) => {
                             student_id: form_id,
                             form_type: form_type || 1,
                             form_id: form_id || null,
+                            dossier_form_id: form_id || null,
                             razorpay_order_id: order.id,
                             razorpay_payment_id: 'N/A',
                             razorpay_signature: 'N/A',
@@ -143,6 +144,7 @@ export default defineEventHandler(async (event) => {
                             student_id: form_id,
                             form_type: form_type || 1,
                             form_id: form_id || null,
+                            dossier_form_id: form_id || null,
                             razorpay_order_id: orderData.order_id,
                             razorpay_payment_id: 'N/A',
                             razorpay_signature: 'N/A',
@@ -168,6 +170,7 @@ export default defineEventHandler(async (event) => {
                             student_id: form_id,
                             form_type: form_type || 1,
                             form_id: form_id || null,
+                            dossier_form_id: form_id || null,
                             razorpay_order_id: orderData.order_id,
                             razorpay_payment_id: 'N/A',
                             razorpay_signature: 'N/A',
