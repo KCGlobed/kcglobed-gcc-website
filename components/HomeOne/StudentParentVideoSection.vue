@@ -9,24 +9,39 @@
           <p class="section-lead">Hear directly from the people whose careers and families changed in one hiring drive.</p>
         </div>
 
-        <div class="video-grid" ref="parentGridRef" @scroll="handleParentScroll">
-          <div v-for="video in parentVideos" :key="video.youtubeId" class="video-card fade-up">
-            <div class="video-thumb">
-              <template v-if="activeYoutubeId === video.youtubeId">
-                <iframe :src="`https://www.youtube.com/embed/${video.youtubeId}?autoplay=1&enablejsapi=1`"
-                  title="YouTube video player"
-                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                  referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
-              </template>
-              <template v-else>
-                <img :src="`https://img.youtube.com/vi/${video.youtubeId}/hqdefault.jpg`" :alt="video.alt" loading="lazy">
-                <button class="play-btn" aria-label="Play Video" @click="playVideo(video.youtubeId)">
-                  ▶
-                </button>
-              </template>
+        <div class="video-carousel-container">
+          <button class="scroll-btn prev" @click="scrollParent('left')" aria-label="Scroll left" type="button">
+            <svg viewBox="0 0 24 24" width="20" height="20" stroke="currentColor" stroke-width="2.5" fill="none" stroke-linecap="round" stroke-linejoin="round">
+              <polyline points="15 18 9 12 15 6"></polyline>
+            </svg>
+          </button>
+
+          <div class="video-grid" ref="parentGridRef" @scroll="handleParentScroll">
+            <div v-for="video in parentVideos" :key="video.youtubeId" class="video-card fade-up">
+              <div class="video-thumb">
+                <template v-if="activeYoutubeId === video.youtubeId">
+                  <iframe :src="`https://www.youtube.com/embed/${video.youtubeId}?autoplay=1&enablejsapi=1`"
+                    title="YouTube video player"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                    referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+                </template>
+                <template v-else>
+                  <img :src="`https://img.youtube.com/vi/${video.youtubeId}/hqdefault.jpg`" :alt="video.alt" loading="lazy">
+                  <button class="play-btn" aria-label="Play Video" @click="playVideo(video.youtubeId)">
+                    ▶
+                  </button>
+                </template>
+              </div>
             </div>
           </div>
+
+          <button class="scroll-btn next" @click="scrollParent('right')" aria-label="Scroll right" type="button">
+            <svg viewBox="0 0 24 24" width="20" height="20" stroke="currentColor" stroke-width="2.5" fill="none" stroke-linecap="round" stroke-linejoin="round">
+              <polyline points="9 18 15 12 9 6"></polyline>
+            </svg>
+          </button>
         </div>
+
         <div class="slider-dots">
           <span 
             v-for="(video, index) in parentVideos" 
@@ -50,24 +65,39 @@
           <p class="section-lead">Hear from the Candidates Who Chose GCC School to Build Their Global Careers</p>
         </div>
 
-        <div class="video-grid" ref="studentGridRef" @scroll="handleStudentScroll">
-          <div v-for="video in studentVideos" :key="video.youtubeId" class="video-card fade-up">
-            <div class="video-thumb">
-              <template v-if="activeYoutubeId === video.youtubeId">
-                <iframe :src="`https://www.youtube.com/embed/${video.youtubeId}?autoplay=1&enablejsapi=1`"
-                  title="YouTube video player"
-                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                  referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
-              </template>
-              <template v-else>
-                <img :src="`https://img.youtube.com/vi/${video.youtubeId}/hqdefault.jpg`" :alt="video.alt" loading="lazy">
-                <button class="play-btn" aria-label="Play Video" @click="playVideo(video.youtubeId)">
-                  ▶
-                </button>
-              </template>
+        <div class="video-carousel-container">
+          <button class="scroll-btn prev" @click="scrollStudent('left')" aria-label="Scroll left" type="button">
+            <svg viewBox="0 0 24 24" width="20" height="20" stroke="currentColor" stroke-width="2.5" fill="none" stroke-linecap="round" stroke-linejoin="round">
+              <polyline points="15 18 9 12 15 6"></polyline>
+            </svg>
+          </button>
+
+          <div class="video-grid" ref="studentGridRef" @scroll="handleStudentScroll">
+            <div v-for="video in studentVideos" :key="video.youtubeId" class="video-card fade-up">
+              <div class="video-thumb">
+                <template v-if="activeYoutubeId === video.youtubeId">
+                  <iframe :src="`https://www.youtube.com/embed/${video.youtubeId}?autoplay=1&enablejsapi=1`"
+                    title="YouTube video player"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                    referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+                </template>
+                <template v-else>
+                  <img :src="`https://img.youtube.com/vi/${video.youtubeId}/hqdefault.jpg`" :alt="video.alt" loading="lazy">
+                  <button class="play-btn" aria-label="Play Video" @click="playVideo(video.youtubeId)">
+                    ▶
+                  </button>
+                </template>
+              </div>
             </div>
           </div>
+
+          <button class="scroll-btn next" @click="scrollStudent('right')" aria-label="Scroll right" type="button">
+            <svg viewBox="0 0 24 24" width="20" height="20" stroke="currentColor" stroke-width="2.5" fill="none" stroke-linecap="round" stroke-linejoin="round">
+              <polyline points="9 18 15 12 9 6"></polyline>
+            </svg>
+          </button>
         </div>
+
         <div class="slider-dots">
           <span 
             v-for="(video, index) in studentVideos" 
@@ -99,6 +129,8 @@ const parentVideos = [
   { youtubeId: '5H6_uvQRGD4', alt: 'Parent testimonial thumbnail' },
   { youtubeId: 's4PPX9_AxW0', alt: 'Parent testimonial thumbnail' },
   { youtubeId: 'wBbDIcQZE6k', alt: 'Parent testimonial thumbnail' },
+  { youtubeId: 'CQp15ZzbsAk', alt: 'Parent testimonial thumbnail' },
+  { youtubeId: '2mZZNH52Hqw', alt: 'Parent testimonial thumbnail' },
 ];
 
 const studentVideos = [
@@ -107,6 +139,8 @@ const studentVideos = [
   { youtubeId: 'CWYzQUQBqI8', alt: 'Student testimonial thumbnail' },
   { youtubeId: 'ID5ZonOLiB0', alt: 'Student testimonial thumbnail' },
   { youtubeId: '1AD_U7WkLIw', alt: 'Student testimonial thumbnail' },
+  { youtubeId: 'p1O5nI28_MU', alt: 'Student testimonial thumbnail' },
+  { youtubeId: 'jqmZyTW7r3o', alt: 'Student testimonial thumbnail' },
 ];
 
 const parentGridRef = ref<HTMLElement | null>(null);
@@ -114,6 +148,26 @@ const parentActiveIndex = ref(0);
 
 const studentGridRef = ref<HTMLElement | null>(null);
 const studentActiveIndex = ref(0);
+
+const scrollParent = (direction: 'left' | 'right') => {
+  if (!parentGridRef.value) return;
+  const cardWidth = parentGridRef.value.querySelector('.video-card')?.clientWidth || 220;
+  const scrollAmount = (cardWidth + 20) * 1.5;
+  parentGridRef.value.scrollBy({
+    left: direction === 'left' ? -scrollAmount : scrollAmount,
+    behavior: 'smooth',
+  });
+};
+
+const scrollStudent = (direction: 'left' | 'right') => {
+  if (!studentGridRef.value) return;
+  const cardWidth = studentGridRef.value.querySelector('.video-card')?.clientWidth || 220;
+  const scrollAmount = (cardWidth + 20) * 1.5;
+  studentGridRef.value.scrollBy({
+    left: direction === 'left' ? -scrollAmount : scrollAmount,
+    behavior: 'smooth',
+  });
+};
 
 const handleParentScroll = (event: Event) => {
   const container = event.target as HTMLElement;
@@ -187,25 +241,31 @@ const scrollToStudentCard = (index: number) => {
 </script>
 
 <style scoped>
-.section-parent{
+.section-parent {
   background-color: #300241;
 }
-.section-students{
+
+.section-students {
   background-color: #51157C;
 }
+
 .video-testimonials-wrapper {
-  background-color: #ffffff; /* matches lavender theme from mockup */
+  background-color: #ffffff;
 }
 
 .section {
   padding: 80px 0;
   position: relative;
 }
-.section-parent .container,.section-students .container{
+
+.section-parent .container,
+.section-students .container {
   background-color: white;
   padding: 30px;
   border-radius: 25px;
+  position: relative;
 }
+
 .tag {
   display: inline-block;
   padding: 6px 14px;
@@ -250,19 +310,43 @@ const scrollToStudentCard = (index: number) => {
   font-family: 'Roboto', sans-serif;
 }
 
-/* ════════════════ VIDEO TESTIMONIALS ════════════════ */
-.video-grid {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 20px;
+/* ════════════════ VIDEO TESTIMONIALS CAROUSEL ════════════════ */
+.video-carousel-container {
+  position: relative;
+  width: 100%;
   margin-top: 32px;
 }
 
+.video-grid {
+  display: flex;
+  flex-wrap: nowrap;
+  justify-content: flex-start;
+  align-items: stretch;
+  overflow-x: auto;
+  overflow-y: hidden;
+  gap: 20px;
+  padding: 10px 4px 22px;
+  scroll-behavior: smooth;
+  -webkit-overflow-scrolling: touch;
+  scroll-snap-type: x proximity;
+
+  /* Hide scrollbar for IE, Edge and Firefox */
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+/* Hide scrollbar for Chrome, Safari, and Opera */
+.video-grid::-webkit-scrollbar {
+  display: none;
+  width: 0;
+  height: 0;
+}
+
+
 .video-card {
-  flex: 0 1 calc(20% - 16px);
-  min-width: 180px;
-  max-width: 220px;
+  flex: 0 0 220px;
+  width: 220px;
+  min-width: 220px;
   background: #fff;
   border-radius: 16px;
   overflow: hidden;
@@ -271,6 +355,12 @@ const scrollToStudentCard = (index: number) => {
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   display: flex;
   flex-direction: column;
+  scroll-snap-align: start;
+}
+
+.video-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 14px 36px rgba(42, 11, 78, 0.14);
 }
 
 .video-thumb {
@@ -335,46 +425,101 @@ const scrollToStudentCard = (index: number) => {
   transform: scale(1.1);
 }
 
+/* ════════════════ SCROLL BUTTONS ════════════════ */
+.scroll-btn {
+  position: absolute;
+  top: calc(50% - 11px);
+  transform: translateY(-50%);
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: #ffffff;
+  color: #51157C;
+  border: 1.5px solid rgba(81, 21, 124, 0.16);
+  box-shadow: 0 6px 20px rgba(42, 11, 78, 0.16);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  z-index: 10;
+  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.scroll-btn:hover {
+  background: #51157C;
+  color: #ffffff;
+  border-color: #51157C;
+  box-shadow: 0 8px 24px rgba(81, 21, 124, 0.32);
+  transform: translateY(-50%) scale(1.08);
+}
+
+.scroll-btn:active {
+  transform: translateY(-50%) scale(0.95);
+}
+
+.scroll-btn.prev {
+  left: -18px;
+}
+
+.scroll-btn.next {
+  right: -18px;
+}
+
 .slider-dots {
   display: none;
 }
 
 @media (max-width: 991px) {
-  .video-grid {
-    justify-content: center;
+  .scroll-btn.prev {
+    left: -10px;
+  }
+  .scroll-btn.next {
+    right: -10px;
   }
   .video-card {
-    flex: 0 1 calc(33.333% - 14px);
-    min-width: 180px;
+    flex: 0 0 200px;
+    width: 200px;
+    min-width: 200px;
   }
 }
 
 @media (max-width: 767px) {
-  .video-grid {
-    display: flex;
-    flex-wrap: nowrap;
-    overflow-x: auto;
-    gap: 16px;
-    padding: 15px 30px;
-    margin: 32px -30px 0;
-    scroll-snap-type: x mandatory;
-    -webkit-overflow-scrolling: touch;
-    justify-content: flex-start;
+  .video-carousel-container {
+    margin-top: 24px;
+  }
 
-    /* Hide scrollbar */
-    scrollbar-width: none;
+  .video-grid {
+    gap: 16px;
+    padding: 10px 4px 18px;
+    scroll-snap-type: x mandatory;
     -ms-overflow-style: none;
+    scrollbar-width: none;
   }
 
   .video-grid::-webkit-scrollbar {
     display: none;
+    width: 0;
+    height: 0;
   }
 
   .video-card {
-    flex: 0 0 82%;
-    max-width: 82%;
-    min-width: 82%;
+    flex: 0 0 210px;
+    width: 210px;
+    min-width: 210px;
     scroll-snap-align: center;
+  }
+
+  .scroll-btn {
+    width: 38px;
+    height: 38px;
+  }
+
+  .scroll-btn.prev {
+    left: -8px;
+  }
+
+  .scroll-btn.next {
+    right: -8px;
   }
 
   .slider-dots {
