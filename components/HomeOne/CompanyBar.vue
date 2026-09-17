@@ -4,17 +4,17 @@
       <!-- AICPA -->
       <div class="box">
         <img src="../../assets/img/AICPA_logo.png" alt="AICPA Logo" loading="lazy" decoding="async" style="max-height: 60px;" />
-        <span>US CPA Pathway</span>
+        <!-- <span>US CPA Pathway</span> -->
       </div>
       <!-- ACCA -->
       <div class="box">
         <img src="../../assets/newimages/red-acca-logo.svg" alt="ACCA Logo" loading="lazy" decoding="async" />
-        <span>ACCA</span>
+        <!-- <span>ACCA</span> -->
       </div>
       <!-- IRS -->
       <div class="box">
         <img src="../../assets/img/IRS_logo.png" alt="IRS Logo" loading="lazy" decoding="async" />
-        <span>US Enrolled Agent</span>
+        <!-- <span>US Enrolled Agent</span> -->
       </div>
       <!-- British Council -->
       <div class="box">
@@ -24,19 +24,19 @@
       <!-- AIMA -->
       <div class="box">
         <img src="../../assets/img/heros/panleIcon5.png" alt="AIMA Logo" loading="lazy" decoding="async" />
-        <span>AICTE-Approved PGCM</span>
+        <!-- <span>AICTE-Approved PGCM</span> -->
       </div>
       <!-- KC GlobEd -->
       <div class="box">
         <img src="../../assets/img/logo_kcglobed.svg" alt="KC GlobEd Logo" loading="lazy" decoding="async" />
-        <span>Backed by KC GlobEd - 30+ Years</span>
+        <!-- <span>Backed by KC GlobEd - 30+ Years</span> -->
       </div>
       <!-- University of London -->
-      <div class="box">
+      <!-- <div class="box">
         <img src="../../assets/img/companylogo/4.png" alt="University of London Logo" loading="lazy"
           decoding="async" />
         <span>University of London MSc (Optional)</span>
-      </div>
+      </div> -->
     </div>
   </div>
 </template>
