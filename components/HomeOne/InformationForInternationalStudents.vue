@@ -1,64 +1,65 @@
 <template>
-    <div class="information-warp pb-50 ">
+  <div class="information-warp pb-50 ">
 
-      <!-- Main Content Block (Introducing the Hire-First Model & Video Card) -->
-      <div class="container-fluid w px-lg-5 px-md-4 px-3 mt-5">
-        <div class="row align-items-center justify-content-between g-5 content-row" style="background: #f8f6ff;">
-          <!-- Left Column: Content -->
-          <div class="col-lg-6 text-start">
-            <span class="hire-badge-title">INTRODUCING THE HIRE-FIRST MODEL</span>
-            <h2 class="hire-main-title mt-3">
-              Disrupting The Traditional Education Eco-System.
-            </h2>
-            <div class="d-flex gap-3 flex-wrap mt-4">
-              <NuxtLink to="/nfet-exam"  style="background-color: #51157C;color: white;" class="title-btn px-4 py-3" >
-                Explore The Model &rarr;
-              </NuxtLink>
-              <!-- <button style="color:#51157C; outline: #DDD1EA;border: 1px solid #DDD1EA; background-color: white;"
+    <!-- Main Content Block (Introducing the Hire-First Model & Video Card) -->
+    <div class="container-fluid w px-lg-5 px-md-4 px-3 mt-5">
+      <div class="row align-items-center justify-content-between g-5 content-row" style="background: #f8f6ff;">
+        <!-- Left Column: Content -->
+        <div class="col-lg-6 text-start">
+          <span class="hire-badge-title">THE VISION BEHIND GCC SCHOOL</span>
+          <h2 class="hire-main-title mt-3">
+            What if your career was secured before your training even began? Discover how GCC School is rethinking the
+            traditional education journey with a Hire-First, Train-Next model.
+          </h2>
+          <div class="d-flex gap-3 flex-wrap mt-4">
+            <NuxtLink to="/nfet-exam" style="background-color: #51157C;color: white;" class="title-btn px-4 py-3">
+              Explore The Model &rarr;
+            </NuxtLink>
+            <!-- <button style="color:#51157C; outline: #DDD1EA;border: 1px solid #DDD1EA; background-color: white;"
                 class=" title-btn px-4 py-3" @click="toggleEligibilityModal">
                 View Career Paths
               </button> -->
-            </div>
           </div>
+        </div>
 
-          <!-- Right Column: Video Box -->
-          <div class="col-lg-6">
-            <div class="video-box-wrapper">
-              <div class="video-section shadow-lg">
-                <div class="video-container">
-                  <video ref="infoVideo" controls muted loop controlsList="nodownload" oncontextmenu="return false;"
-                    class="w-100 h-100" @play="isVideoPlaying = true" @pause="isVideoPlaying = false"
-                    style="object-fit: cover; background: #0b0b1a;">
-                    <source
-                      src="https://storage.googleapis.com/static_files_backend/media/images/Kamal%20Sir%20Video_1.mp4"
-                      type="video/mp4">
-                    Your browser does not support the video tag.
-                  </video>
+        <!-- Right Column: Video Box -->
+        <div class="col-lg-6">
+          <div class="video-box-wrapper">
+            <div class="video-section shadow-lg">
+              <div class="video-container">
+                <video ref="infoVideo" controls muted loop controlsList="nodownload" oncontextmenu="return false;"
+                  class="w-100 h-100" @play="isVideoPlaying = true" @pause="isVideoPlaying = false"
+                  style="object-fit: cover; background: #0b0b1a;">
+                  <source
+                    src="https://storage.googleapis.com/static_files_backend/media/images/Kamal%20Sir%20Video_1.mp4"
+                    type="video/mp4">
+                  Your browser does not support the video tag.
+                </video>
 
-                  <!-- Custom Play Overlay (visible before play) -->
-                  <div v-if="!isVideoPlaying" class="play-overlay d-flex align-items-center px-lg-4 px-3"
-                    @click="playVideo">
-                    <div class="play-btn-circle me-lg-4 me-3">
-                      <i class="ti ti-player-play-filled"></i>
-                    </div>
+                <!-- Custom Play Overlay (visible before play) -->
+                <div v-if="!isVideoPlaying" class="play-overlay d-flex align-items-center px-lg-4 px-3"
+                  @click="playVideo">
+                  <div class="play-btn-circle me-lg-4 me-3">
+                    <i class="ti ti-player-play-filled"></i>
                   </div>
-
-                  <!-- Thumbnail Mask (visible before play) -->
-                  <img v-if="!isVideoPlaying"
-                    src="https://storage.googleapis.com/static_files_backend/media/images/kamal%20sir%20thnml%202.jpg"
-                    class="video-poster-img" @click="playVideo" alt="Thumbnail">
                 </div>
+
+                <!-- Thumbnail Mask (visible before play) -->
+                <img v-if="!isVideoPlaying"
+                  src="https://storage.googleapis.com/static_files_backend/media/images/kamal%20sir%20thnml%202.jpg"
+                  class="video-poster-img" @click="playVideo" alt="Thumbnail">
               </div>
-              <!-- Decorative shapes -->
-              <div class="decor-shape shape-1"></div>
-              <div class="decor-shape shape-2"></div>
-              <div class="decor-shape shape-3"></div>
             </div>
+            <!-- Decorative shapes -->
+            <div class="decor-shape shape-1"></div>
+            <div class="decor-shape shape-2"></div>
+            <div class="decor-shape shape-3"></div>
           </div>
         </div>
       </div>
-      <CheckEligibilityModal :isVisible="isEligibilityModalVisible" @close="toggleEligibilityModal" />
-    </div> 
+    </div>
+    <CheckEligibilityModal :isVisible="isEligibilityModalVisible" @close="toggleEligibilityModal" />
+  </div>
 </template>
 
 <script>

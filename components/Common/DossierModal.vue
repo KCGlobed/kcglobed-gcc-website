@@ -1,5 +1,253 @@
 <template>
-    <div class="modal fade dossier-modal" :id="modalId" tabindex="-1" aria-hidden="true">
+    <!-- Inline Mode -->
+    <div v-if="inline" class="dossier-inline-card">
+        <div class="text-center mb-4">
+            <h2 class="modal-title mb-2">{{ modalTitle }}</h2>
+            <p class="text-muted">{{ subtitle }}</p>
+        </div>
+
+        <form @submit.prevent="submitForm" class="dossier-form">
+            <div class="mb-2">
+                <label class="form-label fw-bold small">Full Name*</label>
+                <input v-model="form.name" type="text" class="form-control custom-input"
+                    placeholder="Enter your full name"
+                    @input="form.name = form.name.replace(/[^a-zA-Z\s]/g, '')">
+                <small class="text-danger" v-if="errors.name">{{ errors.name }}</small>
+            </div>
+            <div class="row">
+                <div class="col-md-6 mb-2">
+                    <label class="form-label fw-bold small">Email Address*</label>
+                    <input v-model="form.email" type="email" class="form-control custom-input"
+                        placeholder="Enter your email address">
+                    <small class="text-danger" v-if="errors.email">{{ errors.email }}</small>
+                </div>
+
+                <div class="col-md-6 mb-2">
+                    <label class="form-label fw-bold small">Phone Number*</label>
+                    <input v-model="form.phone" type="tel" class="form-control custom-input"
+                        placeholder="Enter your phone number">
+                    <small class="text-danger" v-if="errors.phone">{{ errors.phone }}</small>
+                </div>
+            </div>
+
+            <!-- OTP verification input commented out -->
+            <!--
+            <div v-if="otpSent && !otpVerified" class="mb-2">
+                <OtpVerification 
+                    v-model="form.phone"
+                    v-model:verified="otpVerified"
+                    v-model:sent="otpSent"
+                    :show-phone="false"
+                    @error-clear="errors.phone = ''"
+                />
+            </div>
+            -->
+
+            <div class="row">
+                <div class="col-md-6 mb-2">
+                    <label class="form-label fw-bold small">State/UT*</label>
+                    <select v-model="form.state" class="form-select custom-input" @change="onStateChange">
+                        <option value="" disabled>Select State</option>
+                        <option v-for="state in states" :key="state" :value="state">{{ state }}</option>
+                    </select>
+                    <small class="text-danger" v-if="errors.state">{{ errors.state }}</small>
+                </div>
+
+                <div class="col-md-6 mb-2">
+                    <label class="form-label fw-bold small">City*</label>
+                    <select v-model="form.city" class="form-select custom-input">
+                        <option value="" disabled>Select City</option>
+                        <option v-for="city in citiesList" :key="city" :value="city">{{ city }}</option>
+                    </select>
+                    <small class="text-danger" v-if="errors.city">{{ errors.city }}</small>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-6 mb-2 position-relative">
+                    <label class="form-label fw-bold small">Institution/University*</label>
+                    <div class="searchable-select uni-select">
+                        <input type="text" class="form-control custom-input" v-model="searchQuery"
+                            placeholder="Search University..." autocomplete="off"
+                            @focus="showUniDropdown = true; loadUniversities()" @input="showUniDropdown = true; loadUniversities()">
+                        <div v-if="showUniDropdown && filteredUniversities.length > 0"
+                            class="dropdown-list shadow-sm">
+                            <div v-for="uni in filteredUniversities" :key="uni.id" class="dropdown-item"
+                                @click="selectUni(uni)">
+                                {{ uni.name }}
+                            </div>
+                        </div>
+                    </div>
+                    <small class="text-danger" v-if="errors.university">{{ errors.university }}</small>
+                </div>
+
+                <div class="col-md-6 mb-2">
+                    <label class="form-label fw-bold small d-flex align-items-center gap-1">
+                        Referral Code <span class="text-muted fw-normal">(Optional)</span>
+                        <span class="custom-tooltip-wrapper ms-1">
+                            <i class="ti ti-info-circle text-muted" style="font-size: 16px;"></i>
+                            <span class="custom-tooltip-content">
+                                Enter a referral code to avail special discounts or offers on your
+                                application.
+                            </span>
+                        </span>
+                    </label>
+                    <div class="referral-input-group">
+                        <input v-model="form.referral_code" type="text"
+                            class="form-control custom-input referral-field"
+                            placeholder="Enter referral code"
+                            :class="{ 'referral-verified': referralApplied, 'is-invalid': errors.referral_code }"
+                            :readonly="referralApplied"
+                            @input="referralApplied = false; errors.referral_code = ''">
+                        <button v-if="!referralApplied" type="button" class="btn-apply-coupon"
+                            :disabled="isVerifyingReferral || !form.referral_code.trim()"
+                            @click="verifyAndApplyReferral">
+                            <span v-if="isVerifyingReferral"
+                                class="spinner-border spinner-border-sm"></span>
+                            <span v-else>Apply</span>
+                        </button>
+                        <div v-else class="referral-applied-badge">
+                            <i class="ti ti-check"></i> Applied
+                        </div>
+                    </div>
+                    <small class="text-danger" v-if="errors.referral_code">{{ errors.referral_code }}</small>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-6 mb-2 position-relative">
+                    <label class="form-label fw-bold small">Program*</label>
+                    <div class="searchable-select program-select">
+                        <input type="text" class="form-control custom-input" v-model="searchQueryProgram"
+                            placeholder="Select Program..." autocomplete="off"
+                            @focus="showProgramDropdown = true" @input="showProgramDropdown = true">
+                        <div v-if="showProgramDropdown && filteredPrograms.length > 0"
+                            class="dropdown-list shadow-sm">
+                            <div v-for="prog in filteredPrograms" :key="prog" class="dropdown-item"
+                                @click="selectProgram(prog)">
+                                {{ prog }}
+                            </div>
+                        </div>
+                    </div>
+                    <small class="text-danger" v-if="errors.program">{{ errors.program }}</small>
+                </div>
+
+                <div class="col-md-6 mb-2">
+                    <label class="form-label fw-bold small">Referred By</label>
+                    <input v-model="form.reffered_by" type="text" class="form-control custom-input"
+                        placeholder="Enter referrer's name">
+                    <small class="text-danger" v-if="errors.reffered_by">
+                        {{ errors.reffered_by }}
+                    </small>
+                </div>
+            </div>
+
+            <!-- Apply mode: single PAY NOW submit button -->
+            <div v-if="mode === 'apply'">
+                <div class="mb-3">
+                    <div
+                        class="form-check custom-checkbox d-flex align-items-center justify-content-start gap-2">
+                        <input class="form-check-input mt-0" type="checkbox"
+                            v-model="form.isCommerceGraduate" :id="'commerceCheckApply_' + modalId">
+                        <label class="form-check-label small text-muted mb-0" :for="'commerceCheckApply_' + modalId">
+                            By submitting, you agree to our
+                            <NuxtLink to="/terms-conditions"
+                                class="text-purple text-decoration-none fw-bold" @click="handleNavigation">
+                                Terms
+                            </NuxtLink>
+                            and
+                            <NuxtLink to="/privacy-policy" class="text-purple text-decoration-none fw-bold"
+                                @click="handleNavigation">
+                                Privacy Policy
+                            </NuxtLink>
+                        </label>
+                    </div>
+                    <div class="text-center">
+                        <small class="text-danger" v-if="errors.isCommerceGraduate">
+                            {{ errors.isCommerceGraduate }}
+                        </small>
+                    </div>
+                </div>
+                <button type="submit" class="btn btn-register w-100 py-3 fw-bold text-uppercase"
+                    :disabled="isSubmitting">
+                    <span v-if="isSubmitting" class="spinner-border spinner-border-sm me-2"></span>
+                    {{ isSubmitting ? 'Processing...' : 'Apply Now' }}
+                </button>
+            </div>
+
+            <!-- Dossier mode: DOWNLOAD NOW first, then PAY NOW -->
+            <template v-else>
+                <div v-if="!isDownloaded">
+                    <button type="submit" class="btn btn-register w-100 py-3 fw-bold text-uppercase"
+                        :disabled="isSubmitting">
+                        <span v-if="isSubmitting" class="spinner-border spinner-border-sm me-2"></span>
+                        {{ isSubmitting ? 'Processing...' : 'DOWNLOAD NOW' }}
+                    </button>
+                    <div class="text-center mt-3">
+                        <p class="small text-muted mb-0">
+                            By submitting, you agree to our
+                            <NuxtLink to="/terms-conditions"
+                                class="text-purple text-decoration-none fw-bold" @click="handleNavigation">
+                                Terms
+                            </NuxtLink>
+                            and
+                            <NuxtLink to="/privacy-policy" class="text-purple text-decoration-none fw-bold"
+                                @click="handleNavigation">
+                                Privacy Policy
+                            </NuxtLink>
+                        </p>
+                    </div>
+                </div>
+
+                <div v-else>
+                    <div class="mb-3">
+                        <div
+                            class="form-check custom-checkbox d-flex align-items-center justify-content-start gap-2">
+                            <input class="form-check-input mt-0" type="checkbox"
+                                v-model="form.isCommerceGraduate" :id="'commerceCheckPay_' + modalId">
+                            <label class="form-check-label small text-muted mb-0" :for="'commerceCheckPay_' + modalId">
+                                By submitting, you agree to our
+                                <NuxtLink to="/terms-conditions"
+                                    class="text-purple text-decoration-none fw-bold"
+                                    @click="handleNavigation">
+                                    Terms
+                                </NuxtLink>
+                                and
+                                <NuxtLink to="/privacy-policy"
+                                    class="text-purple text-decoration-none fw-bold"
+                                    @click="handleNavigation">
+                                    Privacy Policy
+                                </NuxtLink>
+                            </label>
+                        </div>
+                        <div class="text-center">
+                            <small class="text-danger" v-if="errors.isCommerceGraduate">
+                                {{ errors.isCommerceGraduate }}
+                            </small>
+                        </div>
+                    </div>
+                    <button type="button" @click="handlePayment"
+                        class="btn btn-register w-100 py-3 fw-bold text-uppercase"
+                        :disabled="isPaymentInProgress">
+                        <span v-if="isPaymentInProgress"
+                            class="spinner-border spinner-border-sm me-2"></span>
+                        {{ isPaymentInProgress ? 'Opening Payment...' : 'PAY NOW' }}
+                    </button>
+                </div>
+            </template>
+
+            <div v-if="notification.message"
+                :class="['alert mt-3 mb-0 py-2 px-3 rounded-3 small', notification.type === 'success' ? 'alert-success' : 'alert-danger']"
+                role="alert">
+                <span v-if="notification.type === 'success'">✅</span>
+                <span v-else>❌</span>
+                {{ notification.message }}
+            </div>
+        </form>
+    </div>
+
+    <!-- Modal Mode -->
+    <div v-else class="modal fade dossier-modal" :id="modalId" tabindex="-1" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content border-0">
                 <div class="modal-body px-4 py-3 px-md-5 py-md-4 position-relative">
@@ -93,7 +341,7 @@
                                         <i class="ti ti-info-circle text-muted" style="font-size: 16px;"></i>
                                         <span class="custom-tooltip-content">
                                             Enter a referral code to avail special discounts or offers on your
-                                            application.
+                                             application.
                                         </span>
                                     </span>
                                 </label>
@@ -154,8 +402,8 @@
                                 <div
                                     class="form-check custom-checkbox d-flex align-items-center justify-content-start gap-2">
                                     <input class="form-check-input mt-0" type="checkbox"
-                                        v-model="form.isCommerceGraduate" id="commerceCheckApply">
-                                    <label class="form-check-label small text-muted mb-0" for="commerceCheckApply">
+                                        v-model="form.isCommerceGraduate" :id="'commerceCheckApply_' + modalId">
+                                    <label class="form-check-label small text-muted mb-0" :for="'commerceCheckApply_' + modalId">
                                         By submitting, you agree to our
                                         <NuxtLink to="/terms-conditions"
                                             class="text-purple text-decoration-none fw-bold" @click="handleNavigation">
@@ -210,8 +458,8 @@
                                     <div
                                         class="form-check custom-checkbox d-flex align-items-center justify-content-start gap-2">
                                         <input class="form-check-input mt-0" type="checkbox"
-                                            v-model="form.isCommerceGraduate" id="commerceCheckPay">
-                                        <label class="form-check-label small text-muted mb-0" for="commerceCheckPay">
+                                            v-model="form.isCommerceGraduate" :id="'commerceCheckPay_' + modalId">
+                                        <label class="form-check-label small text-muted mb-0" :for="'commerceCheckPay_' + modalId">
                                             By submitting, you agree to our
                                             <NuxtLink to="/terms-conditions"
                                                 class="text-purple text-decoration-none fw-bold"
@@ -356,6 +604,10 @@ export default defineComponent({
         mode: {
             type: String,
             default: 'dossier' // 'dossier' | 'apply'
+        },
+        inline: {
+            type: Boolean,
+            default: false
         }
     },
     setup(props) {
@@ -1370,6 +1622,37 @@ export default defineComponent({
 </script>
 
 <style scoped>
+/* ─── Inline Card Styling ──────────────────────────────────────────────── */
+.dossier-inline-card {
+    background: #ffffff;
+    border-radius: 24px;
+    padding: 2.2rem 2rem;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.35);
+    max-width: 540px;
+    width: 100%;
+    margin: 0 auto;
+    position: relative;
+    z-index: 10;
+}
+
+.dossier-inline-card .modal-title {
+    color: #511970 !important;
+    text-align: center;
+    font-family: 'Inter', sans-serif;
+    font-size: 24px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 1.2;
+    letter-spacing: -0.5px;
+}
+
+@media (max-width: 576px) {
+    .dossier-inline-card {
+        padding: 1.5rem 1.1rem;
+        border-radius: 18px;
+    }
+}
+
 /* ─── Modal Scroll Overrides ───────────────────────────────────────────── */
 .dossier-modal.modal .modal-dialog {
     margin: 1rem auto;

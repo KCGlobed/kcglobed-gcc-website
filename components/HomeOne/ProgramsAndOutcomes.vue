@@ -92,11 +92,11 @@
               </div>
 
               <!-- Card 4: J.C Bhalla & Co. -->
-              <div class="partner-card">
+              <!-- <div class="partner-card">
                 <img style="height: 63px;"
                   src="https://storage.googleapis.com/gcc_prod_static_files_backend/static/images/2z2634.tif.Jz-5A6rG.png%20(1).png"
                   alt="">
-              </div>
+              </div> -->
 
               <!-- Card 5: Kreit & Chiu -->
               <div class="partner-card">
