@@ -269,6 +269,10 @@
     min-height: auto;
   }
 
+  .main-hero-row {
+    margin-bottom: 0;
+  }
+
   .hero-title {
     font-size: 30px;
   }
