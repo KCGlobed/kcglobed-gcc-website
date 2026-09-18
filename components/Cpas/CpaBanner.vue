@@ -13,7 +13,7 @@
                             <div class="col-lg-6 col-md-12 mb-4 mb-lg-0">
                                 <div class="program-hero-card h-100">
                                     <div class="card-header">
-                                        <h2>Apply Now</h2>
+                                        <h2>Download Dossier</h2>
                                         <!-- <p>Enter your details to receive the brochure instantly</p> -->
                                     </div>
 
@@ -125,7 +125,7 @@
                                                 :disabled="isSubmitting">
                                                 <span v-if="isSubmitting"
                                                     class="spinner-border spinner-border-sm me-2"></span>
-                                                {{ isSubmitting ? 'Processing...' : 'Register' }}
+                                                {{ isSubmitting ? 'Processing...' : 'Downlaod Dossier' }}
                                             </button>
                                             <p class="form-footer-text text-center mt-3 mb-0">
                                                 By submitting, you agree to our <NuxtLink to="/terms-conditions">Terms
@@ -148,9 +148,9 @@
                                     </form>
                                 </div>
                             </div>
-                            <a href="https://storage.googleapis.com/gcc_prod_static_files_backend/static/files/CPA-STUDENT-DOSSIER.pdf" target="_blank" rel="noopener noreferrer" class="col-lg-6 col-md-12 banner">
+                            <div class="col-lg-6 col-md-12 banner">
                                 <img :src="HeroBanner" alt="hero-image" style="width: 80%;">
-                            </a>
+                            </div>
                         </div>
 
                     </div>
@@ -219,6 +219,7 @@
         </Transition>
     </Teleport> -->
 </template>
+
 
 <style scoped>
 /* Hero Section Styling */
@@ -1189,9 +1190,9 @@ export default defineComponent({
                 image: image1,
                 heading: "World's 1st School Backed  by Industry, Built on Execution",
                 description: "At GCC School, students don't wait for placements. They start with them. Learning is structured around real roles, real work, and real responsibility because capability is built on execution.",
-                btnText: "Apply Now",
+                btnText: "Download Dossier",
                 btnLink: "/about-overview",
-                btnTextTwo: "Apply Now",
+                btnTextTwo: "Download Dossier",
                 btnLinkTwo: gccPdf,
                 updateTitle: "View all latest news updates of Tuva",
                 updateLink: "/blog",
@@ -1233,9 +1234,34 @@ export default defineComponent({
             }
         };
 
+        const downloadFile = async (fileUrl: string, fileName: string = 'CPA-STUDENT-DOSSIER.pdf') => {
+            try {
+                const downloadUrl = `/api/download?url=${encodeURIComponent(fileUrl)}&filename=${encodeURIComponent(fileName)}`;
+                const response = await fetch(downloadUrl);
+                if (!response.ok) throw new Error('Download failed');
+                const blob = await response.blob();
+                const blobUrl = window.URL.createObjectURL(blob);
+                const link = document.createElement('a');
+                link.href = blobUrl;
+                link.setAttribute('download', fileName);
+                document.body.appendChild(link);
+                link.click();
+                document.body.removeChild(link);
+                setTimeout(() => window.URL.revokeObjectURL(blobUrl), 1500);
+            } catch (err) {
+                console.error('Direct download error, fallback to anchor:', err);
+                const link = document.createElement('a');
+                link.href = `/api/download?url=${encodeURIComponent(fileUrl)}&filename=${encodeURIComponent(fileName)}`;
+                link.setAttribute('download', fileName);
+                document.body.appendChild(link);
+                link.click();
+                document.body.removeChild(link);
+            }
+        };
+
         const handleDownload = () => {
-            window.open("https://storage.googleapis.com/gcc_prod_static_files_backend/static/files/CPA-STUDENT-DOSSIER.pdf", "_blank");
-        }
+            downloadFile("https://storage.googleapis.com/gcc_prod_static_files_backend/static/files/CPA-STUDENT-DOSSIER.pdf", "CPA-STUDENT-DOSSIER.pdf");
+        };
 
         const onStateChange = () => {
             form.city = "";
@@ -1359,6 +1385,12 @@ export default defineComponent({
                 });
 
                 if (response.success) {
+                    const fileUrl = response.data?.url || "https://storage.googleapis.com/gcc_prod_static_files_backend/static/files/CPA-STUDENT-DOSSIER.pdf";
+                    formId.value = response.data?.id;
+                    const rawFileName = fileUrl.split('/').pop() || 'CPA-STUDENT-DOSSIER.pdf';
+                    const fileName = rawFileName.split('?')[0] || 'CPA-STUDENT-DOSSIER.pdf';
+
+                    await downloadFile(fileUrl, fileName);
                     showNotification('success', 'Registered successfully!');
                 } else {
                     showNotification('error', response.message || "Something went wrong. Please try again.");
