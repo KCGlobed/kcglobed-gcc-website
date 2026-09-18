@@ -220,7 +220,6 @@
     </Teleport> -->
 </template>
 
-
 <style scoped>
 /* Hero Section Styling */
 .hero-warp {
