@@ -11,19 +11,9 @@
           <div class="container-fluid hero-container px-lg-5 px-md-4 px-3 ">
             <!-- Top Content (Main Hero Area) -->
             <div class="row align-items-center justify-content-between main-hero-row gy-4 mt-4">
-              <!-- Left Side: Apply Now Form Card -->
-              <div class="col-lg-5 col-xl-5 order-2 order-lg-1 mt-[40px]">
-                <CommonDossierModal
-                  :inline="true"
-                  modal-id="mainBannerInlineForm"
-                  modal-title="Apply Now"
-                  subtitle="Enter your details to complete your application"
-                  mode="apply"
-                />
-              </div>
 
-              <!-- Right Side: Heading Content -->
-              <div class="col-lg-7 col-xl-6 text-start mb-lg-0 mb-4 heading order-1 order-lg-2 ">
+              <!-- Left Side: Heading Content -->
+              <div class="col-lg-7 col-xl-6 text-start mb-lg-0 mb-4 heading">
                 <div class="hero-badge">
                   <span>Cohort 2026 Application are open</span>
                 </div>
@@ -40,7 +30,7 @@
                   At GCC School, you get hired first, then trained.
                 </p>
 
-                <div class="d-flex gap-3 flex-wrap mt-4 justify-content-lg-end justify-content-center">
+                <div class="d-flex gap-3 flex-wrap mt-4 justify-content-lg-start justify-content-center">
                   <button class="btn btn-apply px-4 py-3" data-bs-toggle="modal" data-bs-target="#applyNowModal">
                     Apply for NFET
                   </button>
@@ -49,6 +39,14 @@
                     </button> -->
                 </div>
               </div>
+
+              <!-- Right Side: Apply Now Form Card -->
+              <div class="col-lg-5 col-xl-5 mt-[40px]">
+                <CommonDossierModal :inline="true" modal-id="mainBannerInlineForm" modal-title="Apply Now"
+                  subtitle="Enter your details to complete your application" mode="apply" />
+              </div>
+
+
 
               <!-- Right Card -->
               <!-- <div class="col-lg-4 d-flex justify-content-lg-end justify-content-center">
@@ -147,7 +145,6 @@
   display: flex;
   align-items: center;
   width: fit-content;
-  margin-left: auto;
   padding: 8px 18px;
   border-radius: 50px;
   border: 1.5px solid #E5A93C;
@@ -166,7 +163,7 @@
   line-height: 1.2;
   font-weight: 800;
   color: #FFFFFF;
-  text-align: right;
+  text-align: left;
 }
 
 /* Subtitle styling */
@@ -175,7 +172,7 @@
   font-weight: 500;
   color: rgba(255, 255, 255, 0.85);
   margin-top: 10px;
-  text-align: right;
+  text-align: left;
 }
 
 /* Description styling */
@@ -185,7 +182,7 @@
   color: #FFFFFF;
   margin-top: 8px;
   margin-bottom: 20px;
-  text-align: right;
+  text-align: left;
 }
 
 /* CTA buttons */
