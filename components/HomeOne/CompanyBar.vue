@@ -7,8 +7,8 @@
         <!-- <span>US CPA Pathway</span> -->
       </div>
       <!-- ACCA -->
-      <div class="box">
-        <img src="../../assets/newimages/red-acca-logo.svg" alt="ACCA Logo" loading="lazy" decoding="async" />
+      <div class="spcific_box">
+        <img style="width: 400px !important; height: 50px !important;" src="../../assets/newimages/red-acca-logo.svg" alt="ACCA Logo" loading="lazy" decoding="async" />
         <!-- <span>ACCA</span> -->
       </div>
       <!-- IRS -->
@@ -81,6 +81,17 @@ export default {
   min-height: 80px;
 }
 
+.spcific_box {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  border-right: 1px solid #E5E5E5;
+  padding: 0 12px;
+  min-height: 80px;
+}
 .boxes-container .box:last-child {
   border-right: none;
 }
