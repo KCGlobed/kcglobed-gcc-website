@@ -8,7 +8,7 @@
       </div>
       <!-- ACCA -->
       <div class="spcific_box">
-        <img style="width: 400px !important; height: 50px !important;" src="../../assets/newimages/red-acca-logo.svg" alt="ACCA Logo" loading="lazy" decoding="async" />
+        <img style="height: 50px !important;" src="../../assets/newimages/red-acca-logo.svg" alt="ACCA Logo" loading="lazy" decoding="async" />
         <!-- <span>ACCA</span> -->
       </div>
       <!-- IRS -->
