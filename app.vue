@@ -85,7 +85,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
           "availableLanguage": ["en", "Hindi"]
         },
         "sameAs": [
-          "https://www.facebook.com/share/187jgT5gev/", 
+          "https://www.facebook.com/share/187jgT5gev/",
           "https://x.com/gccschool2026",
           "https://www.instagram.com/gccschool?igsh=MXQxc2JhazAwcG55cQ==",
           "https://www.youtube.com/@GCCSchool",
@@ -129,17 +129,25 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
           "closes": "06:30"
         }
       })
+    },
+    {
+      src: "https://ai.kcglobed.com/widget.js",
+      "data-project-id": "cmumk7spn001do79wlxphylee",
+      "data-api-key": "pk_live_529615bfcf06c0413adb708325c60ee41064fe882daa5fbd"
     }
+
   ],
   noscript: [
     // Google Tag Manager (noscript)
     {
-      innerHTML: `<iframe src="https://www.googletagmanager.com/ns.html?id=GTM-5NVDGXLR" height="0" width="0" style="display:none;visibility:hidden"></iframe>`,
+      innerHTML: `<iframe src="https://www.googletagmanager.com/ns.html?id=GTM-5NVDGXLR" height="0" width="0"
+  style="display:none;visibility:hidden"></iframe>`,
       tagPosition: 'bodyOpen'
     },
     // Meta Pixel Code (noscript)
     {
-      innerHTML: `<img height="1" width="1" style="display:none" src="https://www.facebook.com/tr?id=1308129784468579&ev=PageView&noscript=1" />`,
+      innerHTML: `<img height="1" width="1" style="display:none"
+  src="https://www.facebook.com/tr?id=1308129784468579&ev=PageView&noscript=1" />`,
       tagPosition: 'bodyOpen'
     }
   ]
