@@ -1029,7 +1029,7 @@ const profileCompletion = computed(() => {
     }
 
     // 5. Documents (dynamically weighted)
-    const docFields = ['aadhaar', 'dob_proof', 'photo', 'signature', 'resume'];
+    const docFields = ['aadhaar', 'dob_proof', 'twelveth_marksheet', 'photo', 'signature', 'resume'];
     if (resumeKeyStatus.value) {
         const index = docFields.indexOf('resume');
         if (index > -1) {
@@ -1142,7 +1142,7 @@ const completionSteps = computed(() => {
     const workDone = p.employment_status === 'Fresher' || (p.work_experience && p.work_experience.length > 0 && !!p.work_experience[0].org_name);
 
     // Documents (5)
-    const docFields = ['aadhaar', 'dob_proof', 'photo', 'signature', 'resume'];
+    const docFields = ['aadhaar', 'dob_proof', 'twelveth_marksheet', 'photo', 'signature', 'resume'];
     if (resumeKeyStatus.value) {
         const index = docFields.indexOf('resume');
         if (index > -1) {
@@ -1399,6 +1399,9 @@ const fetchStudentDetail = async () => {
                 identity_proof: d.identity_proof || null,
                 tenth_marksheet: d.tenth_marksheet || null,
                 twelth_marksheet: d.twelth_marksheet || null,
+                twelveth_marksheet: d.twelveth_marksheet || null,
+                pancard: d.pancard || null,
+                graduation_certificate: d.graduation_certificate || null,
                 graduation_first_marksheet: d.graduation_first_marksheet || null,
                 graduation_second_marksheet: d.graduation_second_marksheet || null,
                 graduation_third_marksheet: d.graduation_third_marksheet || null,
@@ -2080,6 +2083,9 @@ const formData = reactive({
         identity_proof: null,
         tenth_marksheet: null,
         twelth_marksheet: null,
+        twelveth_marksheet: null,
+        pancard: null,
+        graduation_certificate: null,
         graduation_first_marksheet: null,
         graduation_second_marksheet: null,
         graduation_third_marksheet: null,
@@ -2107,6 +2113,9 @@ const formData = reactive({
         identity_proof: null,
         tenth_marksheet: null,
         twelth_marksheet: null,
+        twelveth_marksheet: null,
+        pancard: null,
+        graduation_certificate: null,
         graduation_first_marksheet: null,
         graduation_second_marksheet: null,
         graduation_third_marksheet: null,
@@ -2321,6 +2330,7 @@ const buildPayloadForSection = (sectionIndex: number) => {
 
         const extraDocKeys = [
             'identity_proof', 'tenth_marksheet', 'twelth_marksheet',
+            'pancard', 'twelveth_marksheet', 'graduation_certificate',
             'graduation_first_marksheet', 'graduation_second_marksheet', 'graduation_third_marksheet',
             'graduation_forth_marksheet', 'graduation_fifth_marksheet', 'graduation_sixth_marksheet',
             'additional_document', 'co_applicant_pan_card', 'co_applicant_aadhaar',
@@ -2579,6 +2589,9 @@ const handleFinalSubmit = async (isSilent = false, isBot = false): Promise<boole
             appendDoc('photo', 'photo');
             appendDoc('signature', 'signature');
             appendDoc('resume', 'resume');
+            appendDoc('pancard', 'pancard');
+            appendDoc('twelveth_marksheet', 'twelveth_marksheet');
+            appendDoc('graduation_certificate', 'graduation_certificate');
 
             console.log(`[SUBMIT] Total upload payload: ${(totalFileSize / 1024 / 1024).toFixed(2)} MB`);
 

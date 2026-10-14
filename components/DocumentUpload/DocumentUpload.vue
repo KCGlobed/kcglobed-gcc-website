@@ -27,10 +27,32 @@
                 </div>
             </div>
 
-            <!-- Proof of DOB -->
+            <!-- PAN Card -->
             <div class="col-md-6">
                 <div class="upload-field mb-0">
-                    <label class="form-label fw-bold">Proof of DOB (X Marksheet / Birth Cert) <span>*</span></label>
+                    <label class="form-label fw-bold">PAN Card</label>
+                    <div class="input-group">
+                        <input type="file" class="form-control" accept=".pdf,.jpg,.jpeg,.png"
+                            @change="handleFileChange('pancard', $event)" :class="{ 'is-invalid': errors.pancard }"
+                            :disabled="isDisabled">
+                        <span class="input-group-text bg-white" v-if="formData.documents.pancard">
+                            <i class="ti ti-circle-check-filled text-success fs-5"></i>
+                        </span>
+                    </div>
+                    <div class="invalid-feedback d-block" v-if="errors.pancard">{{ errors.pancard }}</div>
+                    <div class="mt-2" v-if="formData.existingDocuments && formData.existingDocuments.pancard">
+                        <a :href="formData.existingDocuments.pancard" target="_blank"
+                            class="btn btn-sm btn-outline-primary">
+                            <i class="ti ti-eye"></i> View Current Document
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Class 10th Marksheet -->
+            <div class="col-md-6">
+                <div class="upload-field mb-0">
+                    <label class="form-label fw-bold">Class 10th Marksheet <span>*</span></label>
                     <div class="input-group">
                         <input type="file" class="form-control" accept=".pdf,.jpg,.jpeg,.png"
                             @change="handleFileChange('dob_proof', $event)" :class="{ 'is-invalid': errors.dob_proof }"
@@ -42,6 +64,50 @@
                     <div class="invalid-feedback d-block" v-if="errors.dob_proof">{{ errors.dob_proof }}</div>
                     <div class="mt-2" v-if="formData.existingDocuments && formData.existingDocuments.dob_proof">
                         <a :href="formData.existingDocuments.dob_proof" target="_blank"
+                            class="btn btn-sm btn-outline-primary">
+                            <i class="ti ti-eye"></i> View Current Document
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Class 12th Marksheet -->
+            <div class="col-md-6">
+                <div class="upload-field mb-0">
+                    <label class="form-label fw-bold">Class 12th Marksheet <span>*</span></label>
+                    <div class="input-group">
+                        <input type="file" class="form-control" accept=".pdf,.jpg,.jpeg,.png"
+                            @change="handleFileChange('twelveth_marksheet', $event)" :class="{ 'is-invalid': errors.twelveth_marksheet }"
+                            :disabled="isDisabled">
+                        <span class="input-group-text bg-white" v-if="formData.documents.twelveth_marksheet">
+                            <i class="ti ti-circle-check-filled text-success fs-5"></i>
+                        </span>
+                    </div>
+                    <div class="invalid-feedback d-block" v-if="errors.twelveth_marksheet">{{ errors.twelveth_marksheet }}</div>
+                    <div class="mt-2" v-if="formData.existingDocuments && formData.existingDocuments.twelveth_marksheet">
+                        <a :href="formData.existingDocuments.twelveth_marksheet" target="_blank"
+                            class="btn btn-sm btn-outline-primary">
+                            <i class="ti ti-eye"></i> View Current Document
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Graduation Marksheet / Result -->
+            <div class="col-md-6">
+                <div class="upload-field mb-0">
+                    <label class="form-label fw-bold">Graduation Marksheet / Result</label>
+                    <div class="input-group">
+                        <input type="file" class="form-control" accept=".pdf,.jpg,.jpeg,.png"
+                            @change="handleFileChange('graduation_certificate', $event)" :class="{ 'is-invalid': errors.graduation_certificate }"
+                            :disabled="isDisabled">
+                        <span class="input-group-text bg-white" v-if="formData.documents.graduation_certificate">
+                            <i class="ti ti-circle-check-filled text-success fs-5"></i>
+                        </span>
+                    </div>
+                    <div class="invalid-feedback d-block" v-if="errors.graduation_certificate">{{ errors.graduation_certificate }}</div>
+                    <div class="mt-2" v-if="formData.existingDocuments && formData.existingDocuments.graduation_certificate">
+                        <a :href="formData.existingDocuments.graduation_certificate" target="_blank"
                             class="btn btn-sm btn-outline-primary">
                             <i class="ti ti-eye"></i> View Current Document
                         </a>
@@ -167,9 +233,9 @@ export default {
 
             // Accepted type check (Basic)
             const allowedTypes = [
-                'application/pdf', 
-                'image/jpeg', 
-                'image/png', 
+                'application/pdf',
+                'image/jpeg',
+                'image/png',
                 'image/jpg',
                 'application/msword',
                 'application/vnd.openxmlformats-officedocument.wordprocessingml.document'
@@ -191,7 +257,8 @@ export default {
 
             const requiredFields = {
                 aadhaar: "Aadhaar Card is required",
-                dob_proof: "Proof of DOB is required",
+                dob_proof: "Class 10th Marksheet is required",
+                twelveth_marksheet: "Class 12th Marksheet is required",
                 photo: "Photograph is required",
                 signature: "Signature is required"
             };
