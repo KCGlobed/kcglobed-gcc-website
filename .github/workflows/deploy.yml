@@ -3,7 +3,7 @@ name: Deploy Application
 on:
   push:
     branches:
-      - main
+      - staging
 
 jobs:
 
@@ -13,6 +13,10 @@ jobs:
 
     steps:
 
+      ######################################################
+      # Trigger Deployment
+      ######################################################
+
       - name: Trigger Deployment
         uses: appleboy/ssh-action@v1.2.2
         with:
@@ -20,4 +24,10 @@ jobs:
           username: ${{ secrets.SERVER_USER }}
           key: ${{ secrets.SERVER_SSH_KEY }}
           script: |
-            /opt/deploy-platform/scripts/deploy.sh "gcc-website-prod"
+            set -e
+
+            echo "=============================================="
+            echo "Deploying gcc-website-staging"
+            echo "=============================================="
+
+            sudo /opt/deploy-platform/scripts/deploy.sh "gcc-website-staging"
