@@ -1,7 +1,15 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
+import { fileURLToPath } from 'node:url'
+
 export default defineNuxtConfig({
   compatibilityDate: '2026-05-25',
   devtools: { enabled: false },
+  // Vue's template compiler strips the leading "~/" from asset URLs, so
+  // <img src="~/assets/x.png"> becomes import "assets/x.png". Without this
+  // alias that bare import fails to resolve on Linux builds.
+  alias: {
+    assets: fileURLToPath(new URL('./assets', import.meta.url)),
+  },
   app: {
     // baseURL: "/tuva/",
     head: {
