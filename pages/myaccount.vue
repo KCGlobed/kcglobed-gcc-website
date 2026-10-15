@@ -1288,9 +1288,10 @@ const fetchStudentDetail = async () => {
             const mapGender = (val: any): string => {
                 if (val === undefined || val === null || val === "") return "";
                 const strVal = String(val).trim().toLowerCase();
-                if (strVal === "0" || strVal === "male") return "Male";
-                if (strVal === "1" || strVal === "female") return "Female";
-                if (strVal === "2" || strVal === "other") return "Other";
+                // backend Gender enum: 1=Male, 2=Female, 3=Other ("0" purane galat map ka leftover hai)
+                if (strVal === "1" || strVal === "male") return "Male";
+                if (strVal === "2" || strVal === "female") return "Female";
+                if (strVal === "3" || strVal === "other") return "Other";
                 return "";
             };
             formData.gender = mapGender(d.gender);
@@ -2271,7 +2272,8 @@ const buildPayloadForSection = (sectionIndex: number) => {
         data.append('guardian_dropdown', relationshipMap[formData.guardian_dropdown] || "");
         data.append('guardian_other_reason', formData.guardian_dropdown === 'Other' && formData.guardian_other_reason ? formData.guardian_other_reason : "");
 
-        const genderMap: any = { "Male": 0, "Female": 1, "Other": 2 };
+        // backend Gender enum: MALE=1, FEMALE=2, OTHER=3 (0 bhejne par backend/CRM dono me gender lost ho jata tha)
+        const genderMap: any = { "Male": 1, "Female": 2, "Other": 3 };
         data.append('gender', formData.gender && genderMap[formData.gender] !== undefined ? String(genderMap[formData.gender]) : "");
     }
 
