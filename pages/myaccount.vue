@@ -1287,6 +1287,8 @@ const fetchStudentDetail = async () => {
             formData.complete_address = d.address || "";
             formData.mock_test_status = d.mock_test_status ?? 0;
             formData.interview_detail = d.interview_detail || [];
+            // declaration checkbox dono side maintain: apna saved value ya CRM ki accepted state
+            formData.declaration = d.declaration === true || d.declaration === 'true' || d.crm_declaration === true;
 
             // Mappings for Choices with robust helper functions supporting strings, numbers, and case-insensitivity
             const mapGender = (val: any): string => {
@@ -2254,6 +2256,10 @@ const buildPayloadForSection = (sectionIndex: number) => {
     console.log(`[SUBMIT] buildPayloadForSection(${sectionIndex}) started...`);
     const data = new FormData();
     data.append('user', String(userId.value || ""));
+    // declaration checkbox state har save me persist ho (draft + final dono)
+    if (formData.declaration) {
+        data.append('declaration', 'true');
+    }
 
     if (sectionIndex >= 2) {
         data.append('first_name', formData.first_name || "");
@@ -2582,11 +2588,8 @@ const handleFinalSubmit = async (isSilent = false, isBot = false): Promise<boole
             requestHeaders['Content-Type'] = 'application/json';
             bodyPayload = JSON.stringify({ token: token });
         } else {
-            // ── 3. Build FormData payload ───────────────────────────────────────
+            // ── 3. Build FormData payload (declaration base payload me hi shamil hai) ──
             const data = buildPayloadForSection(5);
-            if (formData.declaration) {
-                data.append('declaration', 'true');
-            }
 
             // ── 4. Append documents & measure total size ────────────────────────
             const appendDoc = (fieldKey: string, apiKey: string) => {
