@@ -408,7 +408,8 @@ export default defineComponent({
                     resume_path: this.uploadedResumePath,
                     linkedin_profile: this.form.linkedinProfile,
                     notice_period: this.form.noticePeriod,
-                    consent: this.form.consent
+                    consent: this.form.consent,
+                    referrer: document.referrer || ""
                 };
 
                 try {

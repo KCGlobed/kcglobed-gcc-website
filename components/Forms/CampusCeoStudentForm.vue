@@ -490,7 +490,8 @@ export default defineComponent({
                     inspiration: this.form.inspiration,
                     promotion_channels: this.form.promotionChannels,
                     student_reach: "",
-                    consent: this.form.consent
+                    consent: this.form.consent,
+                    referrer: document.referrer || ""
                 };
 
                 try {

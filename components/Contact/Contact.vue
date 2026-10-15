@@ -367,7 +367,8 @@ export default defineComponent({
         college: this.form.college,
         source: this.form.source,
         remarks: this.form.remarks,
-        pincode: this.form.pincode
+        pincode: this.form.pincode,
+        referrer: document.referrer || ""
       };
 
       try {

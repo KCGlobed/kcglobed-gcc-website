@@ -98,6 +98,7 @@ async function handleSubmit() {
       body: {
         subject: form.subject.trim(),
         message: form.message.trim(),
+        referrer: document.referrer || "",
       },
     });
 

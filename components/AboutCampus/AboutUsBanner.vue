@@ -153,7 +153,7 @@ export default defineComponent({
                     headers: {
                         "Content-Type": "application/json"
                     },
-                    body: JSON.stringify(this.form)
+                    body: JSON.stringify({ ...this.form, referrer: document.referrer || "" })
                 })
 
                 if (response.ok) {

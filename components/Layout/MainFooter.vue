@@ -188,7 +188,7 @@ export default {
       try {
         const { data, error } = await useFetch('/api/subscribe', {
           method: 'POST',
-          body: { email: this.email }
+          body: { email: this.email, referrer: document.referrer || "" }
         });
 
         if (error.value) {
