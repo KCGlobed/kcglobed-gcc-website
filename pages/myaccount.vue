@@ -1236,6 +1236,10 @@ const fetchStudentDetail = async () => {
             isFinalSubmitted.value = true;
         }
 
+        // CRM me declaration accept hui ho (counsellor/website kahin se bhi) to form submitted dikhao
+        if (activeResponse?.data?.crm_declaration === true) {
+            isFinalSubmitted.value = true;
+        }
         resultStatus.value = activeResponse?.data?.result_status === true;
         resumeKeyStatus.value = activeResponse?.data?.resume_key_status === true || activeResponse?.data?.resume_key_status === "true" || activeResponse?.resume_key_status === true || activeResponse?.resume_key_status === "true";
         guardianKeyStatus.value = activeResponse?.data?.guardian_key_status === true || activeResponse?.data?.guardian_key_status === "true" || activeResponse?.guardian_key_status === true || activeResponse?.guardian_key_status === "true";
