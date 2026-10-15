@@ -35,11 +35,20 @@
         <div class="col-lg-3">
           <div class="input-box mb-0">
             <label class="form-label fw-bold">Medium of Instruction <span>*</span></label>
-            <select class="form-select" v-model="formData.class10_medium">
+            <select class="form-select" v-model="formData.class10_medium" @change="onMediumChange('class10')">
               <option>English</option>
               <option>Hindi</option>
               <option>Other</option>
             </select>
+          </div>
+        </div>
+        <div class="col-lg-3" v-if="formData.class10_medium === 'Other'">
+          <div class="input-box mb-0">
+            <label class="form-label fw-bold">Specify Medium <span>*</span></label>
+            <input type="text" class="form-control" maxlength="100" placeholder="e.g. Marathi"
+              v-model="formData.class10_medium_other" @input="validateField('class10_medium_other')"
+              @blur="validateField('class10_medium_other')" :class="{ 'is-invalid': errors.class10_medium_other }" />
+            <div class="invalid-feedback d-block" v-if="errors.class10_medium_other">{{ errors.class10_medium_other }}</div>
           </div>
         </div>
 
@@ -76,18 +85,53 @@
         <div class="col-lg-3">
           <div class="input-box mb-0">
             <label class="form-label fw-bold">Medium of Instruction <span>*</span></label>
-            <select class="form-select" v-model="formData.class12_medium">
+            <select class="form-select" v-model="formData.class12_medium" @change="onMediumChange('class12')">
               <option>English</option>
               <option>Hindi</option>
               <option>Other</option>
             </select>
           </div>
         </div>
+        <div class="col-lg-3" v-if="formData.class12_medium === 'Other'">
+          <div class="input-box mb-0">
+            <label class="form-label fw-bold">Specify Medium <span>*</span></label>
+            <input type="text" class="form-control" maxlength="100" placeholder="e.g. Marathi"
+              v-model="formData.class12_medium_other" @input="validateField('class12_medium_other')"
+              @blur="validateField('class12_medium_other')" :class="{ 'is-invalid': errors.class12_medium_other }" />
+            <div class="invalid-feedback d-block" v-if="errors.class12_medium_other">{{ errors.class12_medium_other }}</div>
+          </div>
+        </div>
 
         <!-- Undergraduate -->
         <div class="col-lg-12">
           <div class="border-top pt-4 mt-2">
-            <h5 class="fw-bold mb-3">Undergraduate Qualification (B.Com/Hons) <span>*</span></h5>
+            <h5 class="fw-bold mb-3">Undergraduate Qualification <span>*</span></h5>
+            <div class="row g-4 mb-3">
+              <div class="col-lg-3">
+                <div class="input-box mb-0">
+                  <label class="form-label fw-bold">Qualification <span>*</span></label>
+                  <select class="form-select" v-model="formData.ug_qualification" @change="onUgQualificationChange"
+                    :class="{ 'is-invalid': errors.ug_qualification }">
+                    <option value="" disabled>--Select--</option>
+                    <option>B.Com</option>
+                    <option>BBA</option>
+                    <option>BMS</option>
+                    <option>Other</option>
+                  </select>
+                  <div class="invalid-feedback d-block" v-if="errors.ug_qualification">{{ errors.ug_qualification }}</div>
+                </div>
+              </div>
+              <div class="col-lg-4" v-if="formData.ug_qualification === 'Other'">
+                <div class="input-box mb-0">
+                  <label class="form-label fw-bold">Specify Qualification <span>*</span></label>
+                  <input type="text" class="form-control" maxlength="150" placeholder="e.g. B.Sc Economics"
+                    v-model="formData.ug_qualification_other" @input="validateField('ug_qualification_other')"
+                    @blur="validateField('ug_qualification_other')"
+                    :class="{ 'is-invalid': errors.ug_qualification_other }" />
+                  <div class="invalid-feedback d-block" v-if="errors.ug_qualification_other">{{ errors.ug_qualification_other }}</div>
+                </div>
+              </div>
+            </div>
             <div class="d-flex gap-4">
               <div class="form-check">
                 <input class="form-check-input" type="radio" value="1" id="ugCompleted" v-model="formData.ug_status" @change="validateField('ug_status')" />
@@ -133,11 +177,20 @@
           <div class="col-lg-3">
             <div class="input-box mb-0">
               <label class="form-label fw-bold">Medium of Instruction <span>*</span></label>
-              <select class="form-select" v-model="formData.ug_medium">
+              <select class="form-select" v-model="formData.ug_medium" @change="onMediumChange('ug')">
                 <option>English</option>
                 <option>Hindi</option>
                 <option>Other</option>
               </select>
+            </div>
+          </div>
+          <div class="col-lg-3" v-if="formData.ug_medium === 'Other'">
+            <div class="input-box mb-0">
+              <label class="form-label fw-bold">Specify Medium <span>*</span></label>
+              <input type="text" class="form-control" maxlength="100" placeholder="e.g. Marathi"
+                v-model="formData.ug_medium_other" @input="validateField('ug_medium_other')"
+                @blur="validateField('ug_medium_other')" :class="{ 'is-invalid': errors.ug_medium_other }" />
+              <div class="invalid-feedback d-block" v-if="errors.ug_medium_other">{{ errors.ug_medium_other }}</div>
             </div>
           </div>
         </template>
@@ -312,8 +365,53 @@ export default {
             this.errors.pg_exists = "Confirmation required";
           }
           break;
+
+        case 'class10_medium_other':
+          if (this.formData.class10_medium === 'Other' && !String(this.formData.class10_medium_other || '').trim()) {
+            this.errors.class10_medium_other = "Please specify the medium";
+          }
+          break;
+
+        case 'class12_medium_other':
+          if (this.formData.class12_medium === 'Other' && !String(this.formData.class12_medium_other || '').trim()) {
+            this.errors.class12_medium_other = "Please specify the medium";
+          }
+          break;
+
+        case 'ug_medium_other':
+          if ((this.formData.ug_status == "1" || this.formData.ug_status == "2") &&
+            this.formData.ug_medium === 'Other' && !String(this.formData.ug_medium_other || '').trim()) {
+            this.errors.ug_medium_other = "Please specify the medium";
+          }
+          break;
+
+        case 'ug_qualification':
+          if ((this.formData.ug_status == "1" || this.formData.ug_status == "2") && !this.formData.ug_qualification) {
+            this.errors.ug_qualification = "Qualification is required";
+          }
+          break;
+
+        case 'ug_qualification_other':
+          if (this.formData.ug_qualification === 'Other' && !String(this.formData.ug_qualification_other || '').trim()) {
+            this.errors.ug_qualification_other = "Please specify the qualification";
+          }
+          break;
       }
       return !this.errors[field];
+    },
+    onMediumChange(block) {
+      const key = `${block}_medium_other`;
+      if (this.formData[`${block}_medium`] !== 'Other') {
+        this.formData[key] = "";
+        delete this.errors[key];
+      }
+    },
+    onUgQualificationChange() {
+      if (this.formData.ug_qualification !== 'Other') {
+        this.formData.ug_qualification_other = "";
+        delete this.errors.ug_qualification_other;
+      }
+      this.validateField('ug_qualification');
     },
     handleInput(field) {
       if (this.formData[field] < 0) {
@@ -327,8 +425,10 @@ export default {
     },
     validate() {
       const fields = [
-        'class10_year', 'class10_score', 'class12_year', 'class12_score',
-        'ug_status', 'ug_cgpa', 'ug_institution', 'pg_exists'
+        'class10_year', 'class10_score', 'class10_medium_other',
+        'class12_year', 'class12_score', 'class12_medium_other',
+        'ug_status', 'ug_qualification', 'ug_qualification_other',
+        'ug_cgpa', 'ug_institution', 'ug_medium_other', 'pg_exists'
       ];
       let isValid = true;
       fields.forEach(field => {

@@ -1308,11 +1308,13 @@ const fetchStudentDetail = async () => {
             };
             formData.class10_type = d.tenth_score_type || "Percentage";
             formData.class10_medium = mapMedium(d.tenth_medium);
+            formData.class10_medium_other = d.tenth_medium_other || "";
 
             formData.class12_year = d.twelveth_passing_year || "";
             formData.class12_score = d.twelveth_passing_percentage || "";
             formData.class12_type = d.twelveth_score_type || "Percentage";
             formData.class12_medium = mapMedium(d.twelveth_medium);
+            formData.class12_medium_other = d.twelveth_medium_other || "";
 
             const mapUgStatus = (val: any): string => {
                 if (!val) return "1";
@@ -1322,9 +1324,12 @@ const fetchStudentDetail = async () => {
                 return String(val);
             };
             formData.ug_status = mapUgStatus(d.pg_status);
+            formData.ug_qualification = d.ug_qualification || "";
+            formData.ug_qualification_other = d.ug_qualification_other || "";
             formData.ug_cgpa = d.pg_percentage || "";
             formData.ug_type = d.ug_score_type || "CGPA";
             formData.ug_medium = mapMedium(d.medium_instruction);
+            formData.ug_medium_other = d.other_instruction || "";
             formData.ug_institution = d.institution || "";
 
             const mapHigherEd = (val: any): string => {
@@ -2057,6 +2062,8 @@ const formData = reactive({
     medium: "",
     medium_other: "",
     ug_status: "1",
+    ug_qualification: "",
+    ug_qualification_other: "",
     ug_type: "CGPA",
     ug_cgpa: "",
     ug_medium: "English",
@@ -2274,15 +2281,19 @@ const buildPayloadForSection = (sectionIndex: number) => {
         data.append('tenth_passing_percentage', formData.class10_score || "");
         data.append('tenth_score_type', formData.class10_type || "");
         data.append('tenth_medium', mediumMap[formData.class10_medium] || "");
+        data.append('tenth_medium_other', formData.class10_medium === 'Other' ? (formData.class10_medium_other || "") : "");
         data.append('twelveth_passing_year', formData.class12_year || "");
         data.append('twelveth_passing_percentage', formData.class12_score || "");
         data.append('twelveth_score_type', formData.class12_type || "");
         data.append('twelveth_medium', mediumMap[formData.class12_medium] || "");
+        data.append('twelveth_medium_other', formData.class12_medium === 'Other' ? (formData.class12_medium_other || "") : "");
         data.append('medium_instruction', mediumMap[formData.ug_medium] || "");
-        data.append('other_instruction', formData.medium_other || "");
+        data.append('other_instruction', formData.ug_medium === 'Other' ? (formData.ug_medium_other || "") : "");
 
         const pgStatusMap: any = { "1": 1, "2": 2 };
         data.append('pg_status', pgStatusMap[formData.ug_status] || "");
+        data.append('ug_qualification', formData.ug_qualification || "");
+        data.append('ug_qualification_other', formData.ug_qualification === 'Other' ? (formData.ug_qualification_other || "") : "");
         data.append('pg_percentage', formData.ug_cgpa || "");
         data.append('ug_score_type', formData.ug_type || "");
         data.append('institution', formData.ug_institution || "");

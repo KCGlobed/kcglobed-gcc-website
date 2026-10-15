@@ -96,7 +96,7 @@
             <!-- Graduation Marksheet / Result -->
             <div class="col-md-6">
                 <div class="upload-field mb-0">
-                    <label class="form-label fw-bold">Graduation Marksheet / Result</label>
+                    <label class="form-label fw-bold">Graduation Marksheet / Result <span v-if="graduationRequired">*</span></label>
                     <div class="input-group">
                         <input type="file" class="form-control" accept=".pdf,.jpg,.jpeg,.png"
                             @change="handleFileChange('graduation_certificate', $event)" :class="{ 'is-invalid': errors.graduation_certificate }"
@@ -206,6 +206,12 @@ export default {
             errors: {}
         };
     },
+    computed: {
+        // The graduation result applies (and is mandatory) once the UG is Completed
+        graduationRequired() {
+            return String(this.formData.ug_status) === '1';
+        }
+    },
     methods: {
         scrollToFirstError() {
             this.$nextTick(() => {
@@ -265,6 +271,9 @@ export default {
 
             if (!this.resumeKeyStatus) {
                 requiredFields.resume = "Resume is required";
+            }
+            if (this.graduationRequired) {
+                requiredFields.graduation_certificate = "Graduation Marksheet / Result is required";
             }
 
             Object.keys(requiredFields).forEach(field => {
