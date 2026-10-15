@@ -669,6 +669,7 @@ export default defineComponent({
                             utm_source: utm_source.value,
                             utm_medium: utm_medium.value,
                             utm_campaign: utm_campaign.value,
+                            referrer: document.referrer || "",
                         }
                     });
                 } catch (err) {
@@ -797,7 +798,8 @@ export default defineComponent({
                     utm_source: utm_source.value,
                     utm_medium: utm_medium.value,
                     utm_campaign: utm_campaign.value,
-                    referred_code: form.referral_code || ""
+                    referred_code: form.referral_code || "",
+                    referrer: document.referrer || ""
                 };
 
                 if (referralVerified) {

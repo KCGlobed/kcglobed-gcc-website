@@ -397,7 +397,8 @@ export default defineComponent({
 
           description: this.form.description || null,
           value_add: this.form.valueAdd || null,
-          declaration: this.form.declaration === true
+          declaration: this.form.declaration === true,
+          referrer: document.referrer || ""
         };
 
 

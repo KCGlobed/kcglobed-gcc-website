@@ -1317,6 +1317,7 @@ export default defineComponent({
                     utm_source: utm_source.value,
                     utm_medium: utm_medium.value,
                     utm_campaign: utm_campaign.value,
+                    referrer: document.referrer || "",
                     university: form.university
                 };
 

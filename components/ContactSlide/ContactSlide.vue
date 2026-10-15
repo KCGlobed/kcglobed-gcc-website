@@ -128,7 +128,7 @@ const submitForm = async () => {
 
     await $fetch(`${config.public.apiBase}/api/students/contact-us/`, {
       method: "POST",
-      body: form.value
+      body: { ...form.value, referrer: document.referrer || "" }
     })
 
     form.value = {
