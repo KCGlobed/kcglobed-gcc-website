@@ -1124,6 +1124,7 @@ export default defineComponent({
             const skipEmailCheck = opts?.skipEmailCheck === true;
 
             notification.message = '';
+            
             notification.type = '';
 
             const config = useRuntimeConfig();
