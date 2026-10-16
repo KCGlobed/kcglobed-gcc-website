@@ -30,7 +30,7 @@
             <!-- PAN Card -->
             <div class="col-md-6">
                 <div class="upload-field mb-0">
-                    <label class="form-label fw-bold">PAN Card</label>
+                    <label class="form-label fw-bold">PAN Card <span>*</span></label>
                     <div class="input-group">
                         <input type="file" class="form-control" accept=".pdf,.jpg,.jpeg,.png"
                             @change="handleFileChange('pancard', $event)" :class="{ 'is-invalid': errors.pancard }"
@@ -263,6 +263,7 @@ export default {
 
             const requiredFields = {
                 aadhaar: "Aadhaar Card is required",
+                pancard: "PAN Card is required",
                 dob_proof: "Class 10th Marksheet is required",
                 twelveth_marksheet: "Class 12th Marksheet is required",
                 photo: "Photograph is required",
