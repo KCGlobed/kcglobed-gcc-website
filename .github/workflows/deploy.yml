@@ -3,7 +3,7 @@ name: Deploy Application
 on:
   push:
     branches:
-      - staging
+      - main
 
 jobs:
 
@@ -27,7 +27,7 @@ jobs:
             set -e
 
             echo "=============================================="
-            echo "Deploying gcc-website-staging"
+            echo "Deploying gcc-website-prod"
             echo "=============================================="
 
-            sudo /opt/deploy-platform/scripts/deploy.sh "gcc-website-staging"
+            sudo /opt/deploy-platform/scripts/deploy.sh "gcc-website-prod"
