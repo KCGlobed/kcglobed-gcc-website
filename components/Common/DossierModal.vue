@@ -807,6 +807,7 @@ export default defineComponent({
                     utm_content: utm_content.value,
                     landing_page: window.location.href,
                     referred_code: form.referral_code || "",
+                  
                     referrer: document.referrer || ""
                 };
 
