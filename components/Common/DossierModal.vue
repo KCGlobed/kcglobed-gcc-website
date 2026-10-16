@@ -117,7 +117,7 @@
                                     </div>
                                 </div>
                                 <small class="text-danger" v-if="errors.referral_code">{{ errors.referral_code
-                                    }}</small>
+                                }}</small>
                             </div>
                         </div>
 
@@ -539,6 +539,8 @@ export default defineComponent({
         const utm_source = computed(() => (route.query.utm_source as string) || (useCookie('utm_source').value) || '');
         const utm_medium = computed(() => (route.query.utm_medium as string) || (useCookie('utm_medium').value) || '');
         const utm_campaign = computed(() => (route.query.utm_campaign as string) || (useCookie('utm_campaign').value) || '');
+        const utm_term = computed(() => (route.query.utm_term as string) || (useCookie('utm_term').value) || '');
+        const utm_content = computed(() => (route.query.utm_content as string) || (useCookie('utm_content').value) || '');
 
         const errors = reactive({
             name: '',
@@ -669,6 +671,9 @@ export default defineComponent({
                             utm_source: utm_source.value,
                             utm_medium: utm_medium.value,
                             utm_campaign: utm_campaign.value,
+                            utm_term: utm_term.value,
+                            utm_content: utm_content.value,
+                            landing_page: window.location.href,
                             referrer: document.referrer || "",
                         }
                     });
@@ -798,7 +803,11 @@ export default defineComponent({
                     utm_source: utm_source.value,
                     utm_medium: utm_medium.value,
                     utm_campaign: utm_campaign.value,
+                    utm_term: utm_term.value,
+                    utm_content: utm_content.value,
+                    landing_page: window.location.href,
                     referred_code: form.referral_code || "",
+                  
                     referrer: document.referrer || ""
                 };
 
@@ -886,7 +895,7 @@ export default defineComponent({
                         showNotification('success', 'Details submitted! Opening payment...');
                         isDownloaded.value = true;
                         // Trigger payment automatically
-                        await handlePayment();
+                        await handlePayment({ skipEmailCheck: true });
                     } else {
                         // In dossier mode: trigger download
                         window.location.href = `/api/download?url=${encodeURIComponent(fileUrl)}&filename=${encodeURIComponent(fileName)}`;
@@ -1108,38 +1117,43 @@ export default defineComponent({
             }
         };
 
-        const handlePayment = async () => {
+        const handlePayment = async (opts?: any) => {
             if (!validateForm()) return;
+
+            // submitForm already ran check_email in this same flow, so don't repeat it.
+            const skipEmailCheck = opts?.skipEmailCheck === true;
 
             notification.message = '';
             notification.type = '';
 
             const config = useRuntimeConfig();
 
-            // 1. Pre-Payment Email Validation (Checked BEFORE showing any modal)
-            try {
-                const checkRes: any = await $fetch(
-                    `${config.public.apiBase}/api/users/check_email/`,
-                    {
-                        method: 'POST',
-                        headers: { 'Content-Type': 'application/json' },
-                        body: { email: form.email },
-                    }
-                );
+            if (!skipEmailCheck) {
+                // 1. Pre-Payment Email Validation (Checked BEFORE showing any modal)
+                try {
+                    const checkRes: any = await $fetch(
+                        `${config.public.apiBase}/api/users/check_email/`,
+                        {
+                            method: 'POST',
+                            headers: { 'Content-Type': 'application/json' },
+                            body: { email: form.email },
+                        }
+                    );
 
-                if (checkRes.data?.isExist) {
-                    await closeDossierModal(); // Close dossier before showing error
-                    showAlert('', 'An account with this email address already exists. Please <a href="/login" class="text-purple fw-bold">log in</a> or <a href="/forgot-password" class="text-purple fw-bold">reset your password</a> if you <a href="/forgot-password" class="text-purple fw-bold">forgot it</a>.', 'error');
-                    return;
+                    if (checkRes.data?.isExist) {
+                        await closeDossierModal(); // Close dossier before showing error
+                        showAlert('', 'An account with this email address already exists. Please <a href="/login" class="text-purple fw-bold">log in</a> or <a href="/forgot-password" class="text-purple fw-bold">reset your password</a> if you <a href="/forgot-password" class="text-purple fw-bold">forgot it</a>.', 'error');
+                        return;
+                    }
+                } catch (checkErr: any) {
+                    // If status is 404, it means email is NOT registered, so we proceed.
+                    if (checkErr.status !== 404) {
+                        console.error('[CheckEmail] Error:', checkErr);
+                        showAlert('Validation Error', 'Failed to validate email status. Please try again.', 'error');
+                        return;
+                    }
+                    // If 404, email is available, so we continue to payment.
                 }
-            } catch (checkErr: any) {
-                // If status is 404, it means email is NOT registered, so we proceed.
-                if (checkErr.status !== 404) {
-                    console.error('[CheckEmail] Error:', checkErr);
-                    showAlert('Validation Error', 'Failed to validate email status. Please try again.', 'error');
-                    return;
-                }
-                // If 404, email is available, so we continue to payment.
             }
 
             // Open the Status Modal in processing mode only AFTER validation passes

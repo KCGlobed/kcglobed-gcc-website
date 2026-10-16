@@ -2,8 +2,8 @@
   <div class="personal-information-warp">
     <form @submit.prevent>
       <div class="row g-4">
-        <!-- Applicant Name -->
-        <div class="col-lg-6">
+        <!-- Applicant Name & Email -->
+        <div class="col-lg-4">
           <div class="input-box mb-0">
             <label class="form-label fw-bold">First Name <span>*</span></label>
             <input type="text" class="form-control" placeholder="First Name" v-model="formData.first_name"
@@ -12,7 +12,7 @@
             <div class="invalid-feedback" v-if="errors.first_name">{{ errors.first_name }}</div>
           </div>
         </div>
-        <div class="col-lg-6">
+        <div class="col-lg-4">
           <div class="input-box mb-0">
             <label class="form-label fw-bold">Last Name <span>*</span></label>
             <input type="text" class="form-control" placeholder="Last Name" v-model="formData.last_name"
@@ -21,9 +21,7 @@
             <div class="invalid-feedback" v-if="errors.last_name">{{ errors.last_name }}</div>
           </div>
         </div>
-
-        <!-- Contact Info -->
-        <div class="col-lg-6">
+        <div class="col-lg-4">
           <div class="input-box mb-0">
             <label class="form-label fw-bold">Email ID <span>*</span></label>
             <input type="email" class="form-control" placeholder="Email ID" v-model="formData.email"
@@ -31,7 +29,9 @@
             <div class="invalid-feedback" v-if="errors.email">{{ errors.email }}</div>
           </div>
         </div>
-        <div class="col-lg-6">
+
+        <!-- Mobile, Date of Birth, Age -->
+        <div class="col-lg-4">
           <div class="input-box mb-0">
             <label class="form-label fw-bold">Mobile Number <span>*</span></label>
             <div class="input-group">
@@ -41,30 +41,97 @@
                 :class="{ 'is-invalid': errors.mobile }" />
             </div>
             <div class="invalid-feedback d-block" v-if="errors.mobile">{{ errors.mobile }}</div>
+            <div class="field-hint" v-else>10 digits</div>
+          </div>
+        </div>
+        <div class="col-lg-4">
+          <div class="input-box mb-0">
+            <label class="form-label fw-bold">Date of Birth <span>*</span></label>
+            <input type="date" class="form-control" v-model="formData.dob" @change="validateField('dob')"
+              :class="{ 'is-invalid': errors.dob }" min="1996-01-01" :max="getMaxDOB()" />
+            <div class="invalid-feedback" v-if="errors.dob">{{ errors.dob }}</div>
+          </div>
+        </div>
+        <div class="col-lg-4">
+          <div class="input-box mb-0">
+            <!-- Display-only: derived from Date of Birth, never stored in formData or sent to the API -->
+            <label class="form-label fw-bold font-muted">Age</label>
+            <input type="text" class="form-control text-muted bg-light" readonly tabindex="-1" placeholder="—"
+              :value="calculatedAge" />
+            <div class="field-hint">Calculated from date of birth</div>
           </div>
         </div>
 
-        <!-- Emergency Contact -->
-        <div class="col-lg-6">
+        <!-- Gender, State, City -->
+        <div class="col-lg-4">
           <div class="input-box mb-0">
-            <label class="form-label fw-bold">Emergency Contact Name</label>
-            <input type="text" class="form-control" placeholder="Contact Name" v-model="formData.father_name"
-              @blur="validateField('father_name')" @input="validateField('father_name')"
-              :class="{ 'is-invalid': errors.father_name }" />
-            <div class="invalid-feedback" v-if="errors.father_name">{{ errors.father_name }}</div>
+            <label class="form-label fw-bold">Gender <span>*</span></label>
+            <select class="form-select" v-model="formData.gender" @change="validateField('gender')"
+              :class="{ 'is-invalid': errors.gender }">
+              <option selected disabled value="">Select gender...</option>
+              <option value="Male">Male</option>
+              <option value="Female">Female</option>
+              <option value="Other">Other / Prefer not to say</option>
+            </select>
+            <div class="invalid-feedback" v-if="errors.gender">{{ errors.gender }}</div>
           </div>
         </div>
-        <div class="col-lg-6">
+        <div class="col-lg-4">
           <div class="input-box mb-0">
-            <label class="form-label fw-bold">Emergency Contact Number</label>
-            <input type="tel" class="form-control" placeholder="Mobile Number" v-model="formData.father_mobile"
-              @blur="validateField('father_mobile')" @input="validateField('father_mobile')"
-              :class="{ 'is-invalid': errors.father_mobile }" />
-            <div class="invalid-feedback" v-if="errors.father_mobile">{{ errors.father_mobile }}</div>
+            <label class="form-label fw-bold">Current State <span>*</span></label>
+            <select class="form-select" v-model="formData.state" @change="onStateChange(); validateField('state')"
+              :class="{ 'is-invalid': errors.state }">
+              <option value="" disabled>Select state...</option>
+              <option v-for="state in statesList" :key="state" :value="state">{{ state }}</option>
+            </select>
+            <div class="invalid-feedback" v-if="errors.state">{{ errors.state }}</div>
+          </div>
+        </div>
+        <div class="col-lg-4">
+          <div class="input-box mb-0">
+            <label class="form-label fw-bold">Current City <span>*</span></label>
+            <select class="form-select" v-model="formData.city" @change="validateField('city')"
+              :disabled="!formData.state" :class="{ 'is-invalid': errors.city }">
+              <option value="" disabled>{{ formData.state ? 'Select city...' : 'Choose a state first' }}</option>
+              <option v-for="city in citiesList" :key="city" :value="city">{{ city }}</option>
+            </select>
+            <div class="invalid-feedback" v-if="errors.city">{{ errors.city }}</div>
+          </div>
+        </div>
+
+        <!-- PIN Code, Nationality -->
+        <div class="col-lg-4">
+          <div class="input-box mb-0">
+            <label class="form-label fw-bold">PIN Code <span>*</span></label>
+            <input type="text" class="form-control" placeholder="PIN Code" v-model="formData.pin_code"
+              @blur="validateField('pin_code')" @input="validateField('pin_code')"
+              :class="{ 'is-invalid': errors.pin_code }" />
+            <div class="invalid-feedback" v-if="errors.pin_code">{{ errors.pin_code }}</div>
+          </div>
+        </div>
+        <div class="col-lg-4">
+          <div class="input-box mb-0">
+            <label class="form-label fw-bold font-muted">Nationality</label>
+            <input type="text" class="form-control text-muted bg-light" readonly v-model="formData.nationality" />
+          </div>
+        </div>
+
+        <!-- Address -->
+        <div class="col-lg-12">
+          <div class="input-box mb-0">
+            <label class="form-label fw-bold">Complete Address <span>*</span></label>
+            <textarea class="form-control" placeholder="Enter full address" v-model="formData.complete_address"
+              @blur="validateField('complete_address')" @input="validateField('complete_address')"
+              :class="{ 'is-invalid': errors.complete_address }" rows="3" maxlength="250"></textarea>
+            <div class="invalid-feedback" v-if="errors.complete_address">{{ errors.complete_address }}</div>
+            <div class="field-hint" v-else>Max 250 characters</div>
           </div>
         </div>
 
         <!-- Parent/Guardian Details -->
+        <div class="col-12">
+          <h6 class="section-subheading">Parent / Guardian Details</h6>
+        </div>
         <div class="col-lg-6">
           <div class="input-box mb-0">
             <label class="form-label fw-bold">Parent/Guardian Name <span v-if="!guardianKeyStatus">*</span></label>
@@ -121,79 +188,6 @@
             <div class="invalid-feedback" v-if="errors.guardian_email">{{ errors.guardian_email }}</div>
           </div>
         </div>
-
-        <!-- Personal Details -->
-        <div class="col-lg-4">
-          <div class="input-box mb-0">
-            <label class="form-label fw-bold">Date Of Birth <span>*</span></label>
-            <input type="date" class="form-control" v-model="formData.dob" @change="validateField('dob')"
-              :class="{ 'is-invalid': errors.dob }" min="1996-01-01" :max="getMaxDOB()" />
-            <div class="invalid-feedback" v-if="errors.dob">{{ errors.dob }}</div>
-          </div>
-        </div>
-        <div class="col-lg-4">
-          <div class="input-box mb-0">
-            <label class="form-label fw-bold">Gender <span>*</span></label>
-            <select class="form-select" v-model="formData.gender" @change="validateField('gender')"
-              :class="{ 'is-invalid': errors.gender }">
-              <option selected disabled value="">--Select--</option>
-              <option value="Male">Male</option>
-              <option value="Female">Female</option>
-              <option value="Other">Other / Prefer not to say</option>
-            </select>
-            <div class="invalid-feedback" v-if="errors.gender">{{ errors.gender }}</div>
-          </div>
-        </div>
-        <div class="col-lg-4">
-          <div class="input-box mb-0">
-            <label class="form-label fw-bold font-muted">Nationality</label>
-            <input type="text" class="form-control text-muted bg-light" readonly v-model="formData.nationality" />
-          </div>
-        </div>
-
-        <!-- Address Info -->
-        <div class="col-lg-4">
-          <div class="input-box mb-0">
-            <label class="form-label fw-bold">State/UT <span>*</span></label>
-            <select class="form-select" v-model="formData.state" @change="onStateChange(); validateField('state')"
-              :class="{ 'is-invalid': errors.state }">
-              <option value="" disabled>Select State</option>
-              <option v-for="state in statesList" :key="state" :value="state">{{ state }}</option>
-            </select>
-            <div class="invalid-feedback" v-if="errors.state">{{ errors.state }}</div>
-          </div>
-        </div>
-        <div class="col-lg-4">
-          <div class="input-box mb-0">
-            <label class="form-label fw-bold">City <span>*</span></label>
-            <select class="form-select" v-model="formData.city" @change="validateField('city')"
-              :class="{ 'is-invalid': errors.city }">
-              <option value="" disabled>Select City</option>
-              <option v-for="city in citiesList" :key="city" :value="city">{{ city }}</option>
-            </select>
-            <div class="invalid-feedback" v-if="errors.city">{{ errors.city }}</div>
-          </div>
-        </div>
-
-        <div class="col-lg-4">
-          <div class="input-box mb-0">
-            <label class="form-label fw-bold">PIN Code <span>*</span></label>
-            <input type="text" class="form-control" placeholder="PIN Code" v-model="formData.pin_code"
-              @blur="validateField('pin_code')" @input="validateField('pin_code')"
-              :class="{ 'is-invalid': errors.pin_code }" />
-            <div class="invalid-feedback" v-if="errors.pin_code">{{ errors.pin_code }}</div>
-          </div>
-        </div>
-
-        <div class="col-lg-12">
-          <div class="input-box mb-0">
-            <label class="form-label fw-bold">Complete Address <span>*</span></label>
-            <textarea class="form-control" placeholder="Enter full address" v-model="formData.complete_address"
-              @blur="validateField('complete_address')" @input="validateField('complete_address')"
-              :class="{ 'is-invalid': errors.complete_address }" rows="3"></textarea>
-            <div class="invalid-feedback" v-if="errors.complete_address">{{ errors.complete_address }}</div>
-          </div>
-        </div>
       </div>
     </form>
   </div>
@@ -221,6 +215,23 @@ export default {
       statesList: [],
       citiesList: []
     };
+  },
+  computed: {
+    // Display-only: derived from formData.dob. Never written to formData, so it is
+    // never part of the API payload, the localStorage draft or the completion checks.
+    calculatedAge() {
+      const dob = this.formData.dob;
+      if (!dob) return "";
+      const parts = String(dob).split("-");
+      if (parts.length !== 3) return "";
+      const [year, month, day] = parts.map(Number);
+      if (!year || !month || !day) return "";
+      const today = new Date();
+      let age = today.getFullYear() - year;
+      const monthDiff = today.getMonth() + 1 - month;
+      if (monthDiff < 0 || (monthDiff === 0 && today.getDate() < day)) age--;
+      return age >= 0 ? String(age) : "";
+    }
   },
   mounted() {
     // Populate states from local JSON and sort alphabetically
@@ -276,16 +287,6 @@ export default {
           if (!this.formData.mobile) {
             error = "Mobile Number is required";
           } else if (!isValidMobile(this.formData.mobile)) {
-            error = "Invalid mobile number (10 digits)";
-          }
-          break;
-        case 'father_name':
-          if (this.formData.father_name && !/^[A-Za-z ]+$/.test(this.formData.father_name)) {
-            error = "Only alphabets and spaces are allowed.";
-          }
-          break;
-        case 'father_mobile':
-          if (this.formData.father_mobile && !isValidMobile(this.formData.father_mobile)) {
             error = "Invalid mobile number (10 digits)";
           }
           break;
@@ -369,7 +370,11 @@ export default {
           }
           break;
         case 'complete_address':
-          if (!this.formData.complete_address) error = "Complete Address is required";
+          if (!this.formData.complete_address) {
+            error = "Complete Address is required";
+          } else if (String(this.formData.complete_address).length > 250) {
+            error = "Complete Address must be 250 characters or less";
+          }
           break;
       }
 
@@ -400,7 +405,7 @@ export default {
     },
     validate() {
       const fields = [
-        'first_name', 'last_name', 'email', 'mobile', 'father_name', 'father_mobile',
+        'first_name', 'last_name', 'email', 'mobile',
         'dob', 'gender', 'state', 'city', 'pin_code', 'complete_address',
         'guardian_name', 'guardian_phone', 'guardian_email', 'guardian_dropdown', 'guardian_other_reason'
       ];
@@ -469,6 +474,23 @@ export default {
 
 .bg-light {
   background-color: #F3F4F6 !important;
+}
+
+.field-hint {
+  font-size: 12px;
+  color: #6B7280;
+  margin-top: 6px;
+}
+
+.section-subheading {
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: #4B5563;
+  margin: 8px 0 0;
+  padding-top: 20px;
+  border-top: 1px solid #E5E7EB;
 }
 
 .invalid-feedback {

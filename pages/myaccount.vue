@@ -1029,7 +1029,7 @@ const profileCompletion = computed(() => {
     }
 
     // 5. Documents (dynamically weighted)
-    const docFields = ['aadhaar', 'dob_proof', 'photo', 'signature', 'resume'];
+    const docFields = ['aadhaar', 'dob_proof', 'twelveth_marksheet', 'photo', 'signature', 'resume'];
     if (resumeKeyStatus.value) {
         const index = docFields.indexOf('resume');
         if (index > -1) {
@@ -1142,7 +1142,7 @@ const completionSteps = computed(() => {
     const workDone = p.employment_status === 'Fresher' || (p.work_experience && p.work_experience.length > 0 && !!p.work_experience[0].org_name);
 
     // Documents (5)
-    const docFields = ['aadhaar', 'dob_proof', 'photo', 'signature', 'resume'];
+    const docFields = ['aadhaar', 'dob_proof', 'twelveth_marksheet', 'photo', 'signature', 'resume'];
     if (resumeKeyStatus.value) {
         const index = docFields.indexOf('resume');
         if (index > -1) {
@@ -1236,6 +1236,10 @@ const fetchStudentDetail = async () => {
             isFinalSubmitted.value = true;
         }
 
+        // CRM me declaration accept hui ho (counsellor/website kahin se bhi) to form submitted dikhao
+        if (activeResponse?.data?.crm_declaration === true) {
+            isFinalSubmitted.value = true;
+        }
         resultStatus.value = activeResponse?.data?.result_status === true;
         resumeKeyStatus.value = activeResponse?.data?.resume_key_status === true || activeResponse?.data?.resume_key_status === "true" || activeResponse?.resume_key_status === true || activeResponse?.resume_key_status === "true";
         guardianKeyStatus.value = activeResponse?.data?.guardian_key_status === true || activeResponse?.data?.guardian_key_status === "true" || activeResponse?.guardian_key_status === true || activeResponse?.guardian_key_status === "true";
@@ -1283,14 +1287,17 @@ const fetchStudentDetail = async () => {
             formData.complete_address = d.address || "";
             formData.mock_test_status = d.mock_test_status ?? 0;
             formData.interview_detail = d.interview_detail || [];
+            // declaration checkbox dono side maintain: apna saved value ya CRM ki accepted state
+            formData.declaration = d.declaration === true || d.declaration === 'true' || d.crm_declaration === true;
 
             // Mappings for Choices with robust helper functions supporting strings, numbers, and case-insensitivity
             const mapGender = (val: any): string => {
                 if (val === undefined || val === null || val === "") return "";
                 const strVal = String(val).trim().toLowerCase();
-                if (strVal === "0" || strVal === "male") return "Male";
-                if (strVal === "1" || strVal === "female") return "Female";
-                if (strVal === "2" || strVal === "other") return "Other";
+                // backend Gender enum: 1=Male, 2=Female, 3=Other ("0" purane galat map ka leftover hai)
+                if (strVal === "1" || strVal === "male") return "Male";
+                if (strVal === "2" || strVal === "female") return "Female";
+                if (strVal === "3" || strVal === "other") return "Other";
                 return "";
             };
             formData.gender = mapGender(d.gender);
@@ -1308,11 +1315,13 @@ const fetchStudentDetail = async () => {
             };
             formData.class10_type = d.tenth_score_type || "Percentage";
             formData.class10_medium = mapMedium(d.tenth_medium);
+            formData.class10_medium_other = d.tenth_medium_other || "";
 
             formData.class12_year = d.twelveth_passing_year || "";
             formData.class12_score = d.twelveth_passing_percentage || "";
             formData.class12_type = d.twelveth_score_type || "Percentage";
             formData.class12_medium = mapMedium(d.twelveth_medium);
+            formData.class12_medium_other = d.twelveth_medium_other || "";
 
             const mapUgStatus = (val: any): string => {
                 if (!val) return "1";
@@ -1322,9 +1331,12 @@ const fetchStudentDetail = async () => {
                 return String(val);
             };
             formData.ug_status = mapUgStatus(d.pg_status);
+            formData.ug_qualification = d.ug_qualification || "";
+            formData.ug_qualification_other = d.ug_qualification_other || "";
             formData.ug_cgpa = d.pg_percentage || "";
             formData.ug_type = d.ug_score_type || "CGPA";
             formData.ug_medium = mapMedium(d.medium_instruction);
+            formData.ug_medium_other = d.other_instruction || "";
             formData.ug_institution = d.institution || "";
 
             const mapHigherEd = (val: any): string => {
@@ -1399,6 +1411,9 @@ const fetchStudentDetail = async () => {
                 identity_proof: d.identity_proof || null,
                 tenth_marksheet: d.tenth_marksheet || null,
                 twelth_marksheet: d.twelth_marksheet || null,
+                twelveth_marksheet: d.twelveth_marksheet || null,
+                pancard: d.pancard || null,
+                graduation_certificate: d.graduation_certificate || null,
                 graduation_first_marksheet: d.graduation_first_marksheet || null,
                 graduation_second_marksheet: d.graduation_second_marksheet || null,
                 graduation_third_marksheet: d.graduation_third_marksheet || null,
@@ -2054,6 +2069,8 @@ const formData = reactive({
     medium: "",
     medium_other: "",
     ug_status: "1",
+    ug_qualification: "",
+    ug_qualification_other: "",
     ug_type: "CGPA",
     ug_cgpa: "",
     ug_medium: "English",
@@ -2080,6 +2097,9 @@ const formData = reactive({
         identity_proof: null,
         tenth_marksheet: null,
         twelth_marksheet: null,
+        twelveth_marksheet: null,
+        pancard: null,
+        graduation_certificate: null,
         graduation_first_marksheet: null,
         graduation_second_marksheet: null,
         graduation_third_marksheet: null,
@@ -2107,6 +2127,9 @@ const formData = reactive({
         identity_proof: null,
         tenth_marksheet: null,
         twelth_marksheet: null,
+        twelveth_marksheet: null,
+        pancard: null,
+        graduation_certificate: null,
         graduation_first_marksheet: null,
         graduation_second_marksheet: null,
         graduation_third_marksheet: null,
@@ -2233,6 +2256,10 @@ const buildPayloadForSection = (sectionIndex: number) => {
     console.log(`[SUBMIT] buildPayloadForSection(${sectionIndex}) started...`);
     const data = new FormData();
     data.append('user', String(userId.value || ""));
+    // declaration checkbox state har save me persist ho (draft + final dono)
+    if (formData.declaration) {
+        data.append('declaration', 'true');
+    }
 
     if (sectionIndex >= 2) {
         data.append('first_name', formData.first_name || "");
@@ -2255,7 +2282,8 @@ const buildPayloadForSection = (sectionIndex: number) => {
         data.append('guardian_dropdown', relationshipMap[formData.guardian_dropdown] || "");
         data.append('guardian_other_reason', formData.guardian_dropdown === 'Other' && formData.guardian_other_reason ? formData.guardian_other_reason : "");
 
-        const genderMap: any = { "Male": 0, "Female": 1, "Other": 2 };
+        // backend Gender enum: MALE=1, FEMALE=2, OTHER=3 (0 bhejne par backend/CRM dono me gender lost ho jata tha)
+        const genderMap: any = { "Male": 1, "Female": 2, "Other": 3 };
         data.append('gender', formData.gender && genderMap[formData.gender] !== undefined ? String(genderMap[formData.gender]) : "");
     }
 
@@ -2265,15 +2293,19 @@ const buildPayloadForSection = (sectionIndex: number) => {
         data.append('tenth_passing_percentage', formData.class10_score || "");
         data.append('tenth_score_type', formData.class10_type || "");
         data.append('tenth_medium', mediumMap[formData.class10_medium] || "");
+        data.append('tenth_medium_other', formData.class10_medium === 'Other' ? (formData.class10_medium_other || "") : "");
         data.append('twelveth_passing_year', formData.class12_year || "");
         data.append('twelveth_passing_percentage', formData.class12_score || "");
         data.append('twelveth_score_type', formData.class12_type || "");
         data.append('twelveth_medium', mediumMap[formData.class12_medium] || "");
+        data.append('twelveth_medium_other', formData.class12_medium === 'Other' ? (formData.class12_medium_other || "") : "");
         data.append('medium_instruction', mediumMap[formData.ug_medium] || "");
-        data.append('other_instruction', formData.medium_other || "");
+        data.append('other_instruction', formData.ug_medium === 'Other' ? (formData.ug_medium_other || "") : "");
 
         const pgStatusMap: any = { "1": 1, "2": 2 };
         data.append('pg_status', pgStatusMap[formData.ug_status] || "");
+        data.append('ug_qualification', formData.ug_qualification || "");
+        data.append('ug_qualification_other', formData.ug_qualification === 'Other' ? (formData.ug_qualification_other || "") : "");
         data.append('pg_percentage', formData.ug_cgpa || "");
         data.append('ug_score_type', formData.ug_type || "");
         data.append('institution', formData.ug_institution || "");
@@ -2321,6 +2353,7 @@ const buildPayloadForSection = (sectionIndex: number) => {
 
         const extraDocKeys = [
             'identity_proof', 'tenth_marksheet', 'twelth_marksheet',
+            'pancard', 'twelveth_marksheet', 'graduation_certificate',
             'graduation_first_marksheet', 'graduation_second_marksheet', 'graduation_third_marksheet',
             'graduation_forth_marksheet', 'graduation_fifth_marksheet', 'graduation_sixth_marksheet',
             'additional_document', 'co_applicant_pan_card', 'co_applicant_aadhaar',
@@ -2555,11 +2588,8 @@ const handleFinalSubmit = async (isSilent = false, isBot = false): Promise<boole
             requestHeaders['Content-Type'] = 'application/json';
             bodyPayload = JSON.stringify({ token: token });
         } else {
-            // ── 3. Build FormData payload ───────────────────────────────────────
+            // ── 3. Build FormData payload (declaration base payload me hi shamil hai) ──
             const data = buildPayloadForSection(5);
-            if (formData.declaration) {
-                data.append('declaration', 'true');
-            }
 
             // ── 4. Append documents & measure total size ────────────────────────
             const appendDoc = (fieldKey: string, apiKey: string) => {
@@ -2579,6 +2609,9 @@ const handleFinalSubmit = async (isSilent = false, isBot = false): Promise<boole
             appendDoc('photo', 'photo');
             appendDoc('signature', 'signature');
             appendDoc('resume', 'resume');
+            appendDoc('pancard', 'pancard');
+            appendDoc('twelveth_marksheet', 'twelveth_marksheet');
+            appendDoc('graduation_certificate', 'graduation_certificate');
 
             console.log(`[SUBMIT] Total upload payload: ${(totalFileSize / 1024 / 1024).toFixed(2)} MB`);
 
