@@ -117,7 +117,7 @@
                                     </div>
                                 </div>
                                 <small class="text-danger" v-if="errors.referral_code">{{ errors.referral_code
-                                    }}</small>
+                                }}</small>
                             </div>
                         </div>
 
@@ -539,6 +539,8 @@ export default defineComponent({
         const utm_source = computed(() => (route.query.utm_source as string) || (useCookie('utm_source').value) || '');
         const utm_medium = computed(() => (route.query.utm_medium as string) || (useCookie('utm_medium').value) || '');
         const utm_campaign = computed(() => (route.query.utm_campaign as string) || (useCookie('utm_campaign').value) || '');
+        const utm_term = computed(() => (route.query.utm_term as string) || (useCookie('utm_term').value) || '');
+        const utm_content = computed(() => (route.query.utm_content as string) || (useCookie('utm_content').value) || '');
 
         const errors = reactive({
             name: '',
@@ -669,6 +671,9 @@ export default defineComponent({
                             utm_source: utm_source.value,
                             utm_medium: utm_medium.value,
                             utm_campaign: utm_campaign.value,
+                            utm_term: utm_term.value,
+                            utm_content: utm_content.value,
+                            landing_page: window.location.href,
                             referrer: document.referrer || "",
                         }
                     });
@@ -798,6 +803,9 @@ export default defineComponent({
                     utm_source: utm_source.value,
                     utm_medium: utm_medium.value,
                     utm_campaign: utm_campaign.value,
+                    utm_term: utm_term.value,
+                    utm_content: utm_content.value,
+                    landing_page: window.location.href,
                     referred_code: form.referral_code || "",
                     referrer: document.referrer || ""
                 };
