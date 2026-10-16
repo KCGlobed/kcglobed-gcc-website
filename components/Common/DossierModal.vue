@@ -886,7 +886,7 @@ export default defineComponent({
                         showNotification('success', 'Details submitted! Opening payment...');
                         isDownloaded.value = true;
                         // Trigger payment automatically
-                        await handlePayment();
+                        await handlePayment({ skipEmailCheck: true });
                     } else {
                         // In dossier mode: trigger download
                         window.location.href = `/api/download?url=${encodeURIComponent(fileUrl)}&filename=${encodeURIComponent(fileName)}`;
@@ -1108,38 +1108,43 @@ export default defineComponent({
             }
         };
 
-        const handlePayment = async () => {
+        const handlePayment = async (opts?: any) => {
             if (!validateForm()) return;
+
+            // submitForm already ran check_email in this same flow, so don't repeat it.
+            const skipEmailCheck = opts?.skipEmailCheck === true;
 
             notification.message = '';
             notification.type = '';
 
             const config = useRuntimeConfig();
 
-            // 1. Pre-Payment Email Validation (Checked BEFORE showing any modal)
-            try {
-                const checkRes: any = await $fetch(
-                    `${config.public.apiBase}/api/users/check_email/`,
-                    {
-                        method: 'POST',
-                        headers: { 'Content-Type': 'application/json' },
-                        body: { email: form.email },
-                    }
-                );
+            if (!skipEmailCheck) {
+                // 1. Pre-Payment Email Validation (Checked BEFORE showing any modal)
+                try {
+                    const checkRes: any = await $fetch(
+                        `${config.public.apiBase}/api/users/check_email/`,
+                        {
+                            method: 'POST',
+                            headers: { 'Content-Type': 'application/json' },
+                            body: { email: form.email },
+                        }
+                    );
 
-                if (checkRes.data?.isExist) {
-                    await closeDossierModal(); // Close dossier before showing error
-                    showAlert('', 'An account with this email address already exists. Please <a href="/login" class="text-purple fw-bold">log in</a> or <a href="/forgot-password" class="text-purple fw-bold">reset your password</a> if you <a href="/forgot-password" class="text-purple fw-bold">forgot it</a>.', 'error');
-                    return;
+                    if (checkRes.data?.isExist) {
+                        await closeDossierModal(); // Close dossier before showing error
+                        showAlert('', 'An account with this email address already exists. Please <a href="/login" class="text-purple fw-bold">log in</a> or <a href="/forgot-password" class="text-purple fw-bold">reset your password</a> if you <a href="/forgot-password" class="text-purple fw-bold">forgot it</a>.', 'error');
+                        return;
+                    }
+                } catch (checkErr: any) {
+                    // If status is 404, it means email is NOT registered, so we proceed.
+                    if (checkErr.status !== 404) {
+                        console.error('[CheckEmail] Error:', checkErr);
+                        showAlert('Validation Error', 'Failed to validate email status. Please try again.', 'error');
+                        return;
+                    }
+                    // If 404, email is available, so we continue to payment.
                 }
-            } catch (checkErr: any) {
-                // If status is 404, it means email is NOT registered, so we proceed.
-                if (checkErr.status !== 404) {
-                    console.error('[CheckEmail] Error:', checkErr);
-                    showAlert('Validation Error', 'Failed to validate email status. Please try again.', 'error');
-                    return;
-                }
-                // If 404, email is available, so we continue to payment.
             }
 
             // Open the Status Modal in processing mode only AFTER validation passes
