@@ -542,6 +542,9 @@ export default defineComponent({
         const utm_term = computed(() => (route.query.utm_term as string) || (useCookie('utm_term').value) || '');
         const utm_content = computed(() => (route.query.utm_content as string) || (useCookie('utm_content').value) || '');
 
+        // Program always goes out as 1 (AEUAP), 2 (AEUTP) or 3 (anything else)
+        const programCode = computed(() => (form.program === 1 ? 1 : form.program === 2 ? 2 : 3));
+
         const errors = reactive({
             name: '',
             email: '',
@@ -796,7 +799,7 @@ export default defineComponent({
                     state: form.state,
                     city: form.city,
                     university: form.university,
-                    program: form.program,
+                    program: programCode.value,
                     reffered_by: form.reffered_by,
                     source: 1,
                     source_form: props.mode === 'apply' ? 1 : 2,
@@ -864,7 +867,7 @@ export default defineComponent({
                             mobile: form.phone,
                             state: form.state,
                             city: form.city,
-                            program: form.program,
+                            program: programCode.value,
                             reffered_by: form.reffered_by,
                             form_type: 2,
                             form_id: formId.value,
