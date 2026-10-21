@@ -59,7 +59,8 @@
                           Start Your Journey With GCC School
                         </span>
                         <br />
-                        For A Unique 12 Months AI-Enabled International Accounting Professionals (AEIAP) Program
+                        <!-- For A Unique 12 Months AI-Enabled International Accounting Professionals (AEIAP) Program -->
+                         AI-Enabled US Accounting Professional (AEUAP) Program
                       </h2>
 
                       <!-- <p class="text-muted small mb-4">For A Unique 12 Months Professional Program</p> -->
