@@ -123,6 +123,8 @@ import { ref, computed, watch } from "vue";
 import BlogSearchBanner from "~/components/Blog/BlogSearchBanner.vue";
 import BlogCard from "~/components/Blog/BlogCard.vue";
 
+const { $asset } = useNuxtApp()
+
 useHead({
   title: "GCC School",
   meta: [
@@ -153,7 +155,7 @@ useHead({
     {
       property: "og:image",
       content:
-        "https://storage.googleapis.com/gcc_static_files_backend/static/images/GCC_OG_IMAGE.png",
+        $asset('static/images/GCC_OG_IMAGE.png'),
     },
     {
       property: "og:locale",
@@ -177,7 +179,7 @@ useHead({
     {
       name: "twitter:image",
       content:
-        "https://storage.googleapis.com/gcc_static_files_backend/static/images/GCC_OG_IMAGE.png",
+        $asset('static/images/GCC_OG_IMAGE.png'),
     },
   ],
 

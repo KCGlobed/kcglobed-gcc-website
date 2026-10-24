@@ -225,7 +225,7 @@
                                     <div class="video-section">
                                         <div class="video-wrapper">
                                             <template v-if="!banner.showVideo">
-                                                <img src="https://storage.googleapis.com/static_files_backend/media/images/nitish%20sir%20thmbnl_.jpg"
+                                                <img :src="$asset('media/images/nitish%20sir%20thmbnl_.jpg')"
                                                     alt="Program Video" class="video-thumbnail">
                                                 <!-- <div class="video-badge-4k">
                                                     4k
@@ -243,7 +243,7 @@
                                             <video v-else controls autoplay controlsList="nodownload"
                                                 oncontextmenu="return false;" class="video-element w-100 h-100">
                                                 <source
-                                                    src="https://storage.googleapis.com/gcc_static_files_backend/static/videos/Nitis%20Sir%20Website%20Video._final_gcc.mp4"
+                                                    :src="$asset('static/videos/Nitis%20Sir%20Website%20Video._final_gcc.mp4')"
                                                     type="video/mp4">
                                                 Your browser does not support the video tag.
                                             </video>

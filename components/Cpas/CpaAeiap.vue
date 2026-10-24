@@ -105,7 +105,7 @@
                     <div class="flip-card-wrapper">
                         <div class="flip-card">
                             <div class="flip-card-front">
-                                <img src="https://storage.googleapis.com/gcc_prod_static_files_backend/static/images/AIMA%20Logo.svg"
+                                <img :src="$asset('static/images/AIMA%20Logo.svg')"
                                     alt="AIMA" class="flip-logo-img">
                                 <!-- <p class="flip-hint">Hover to explore</p> -->
                             </div>
@@ -136,7 +136,7 @@
                     <div class="flip-card-wrapper">
                         <div class="flip-card">
                             <div class="flip-card-front">
-                                <img src="https://storage.googleapis.com/gcc_prod_static_files_backend/static/images/AI%20Logo.svg"
+                                <img :src="$asset('static/images/AI%20Logo.svg')"
                                     alt="AI Logo" class="flip-logo-img">
                                 <!-- <p class="flip-hint">Hover to explore</p> -->
                             </div>
@@ -184,7 +184,7 @@
                     <div class="flip-card-wrapper">
                         <div class="flip-card">
                             <div class="flip-card-front">
-                                <img src="https://storage.googleapis.com/gcc_prod_static_files_backend/static/images/analytics.png"
+                                <img :src="$asset('static/images/analytics.png')"
                                     alt="Analytics Logo" class="flip-logo-img">
                                 <!-- <p class="flip-hint">Hover to explore</p> -->
                             </div>

@@ -21,7 +21,7 @@
             <div class="goals-grid px-2 px-lg-4 mt-4 mt-lg-5 mb-4 mb-lg-5 mx-3 mx-lg-5">
                 <div v-for="(image, index) in goals" :key="index" class="goal-item"
                     :class="{ 'is-active': activeGoalIndexes.includes(index + 1) }">
-                    <img class="goal-image" :src="`${bucketURL}${image}`" :alt="`Goal ${index + 1}`" loading="lazy" decoding="async" />
+                    <img class="goal-image" :src="$asset(image)" :alt="`Goal ${index + 1}`" loading="lazy" decoding="async" />
                 </div>
             </div>
         </div>
@@ -40,7 +40,6 @@ export default defineComponent({
     name: 'AUGoalsSection',
     setup() {
         // Replace these with your actual image imports or paths
-        const bucketURL = 'https://storage.googleapis.com/static_files_backend'; // Update with your actual bucket URL
         const yellowSquareDots = 'https://www.kcglobed.com/assets/yellow_squre_dots.svg';
         const purpleSquareDots = 'https://www.kcglobed.com/assets/purple_squre_dots.svg';
 
@@ -71,7 +70,6 @@ export default defineComponent({
 
         return {
             goals,
-            bucketURL,
             yellowSquareDots,
             purpleSquareDots,
             activeGoalIndexes

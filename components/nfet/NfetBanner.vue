@@ -33,7 +33,7 @@
                     <div class="video-wrapper">
                         <div class="video-container" @click="playVideo">
                             <template v-if="!isPlaying">
-                                <img src="https://storage.googleapis.com/gcc_prod_static_files_backend/static/images/nitish_sir_thmbnl.jpg"
+                                <img :src="$asset('static/images/nitish_sir_thmbnl.jpg')"
                                     alt="ED Message Video Preview" class="preview-img">
                                 <div class="play-overlay">
                                     <div class="play-btn">
@@ -44,7 +44,7 @@
                             <video v-else controls autoplay controlsList="nodownload" oncontextmenu="return false;"
                                 class="video-player">
                                 <source
-                                    src="https://storage.googleapis.com/gcc_static_files_backend/static/videos/Nitis%20Sir%20Website%20Video._final_gcc.mp4"
+                                    :src="$asset('static/videos/Nitis%20Sir%20Website%20Video._final_gcc.mp4')"
                                     type="video/mp4">
                                 Your browser does not support the video tag.
                             </video>

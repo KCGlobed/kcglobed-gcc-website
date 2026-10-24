@@ -145,8 +145,8 @@ export default defineNuxtConfig({
     emailPassword: process.env.EMAIL_HOST_PASSWORD,
 
     // ── PDF ──────────────────────────────────────────────────────
-    // cpaPdfUrl: process.env.NUXT_PUBLIC_CPA_PDF_URL || process.env.CPA_PDF_URL || 'https://storage.googleapis.com/gcc_static_files_backend/static/files/CPA-STUDENT-BROCHURE.pdf',
-    // eaPdfUrl: process.env.NUXT_PUBLIC_EA_PDF_URL || process.env.EA_PDF_URL || 'https://storage.googleapis.com/gcc_static_files_backend/static/files/GCC%20SCHOOL%20Dossier.pdf',
+    // cpaPdfUrl: process.env.NUXT_PUBLIC_CPA_PDF_URL || process.env.CPA_PDF_URL || 'https://pub-036d749647594301a3092e501d1d3b5f.r2.dev/static/files/CPA-STUDENT-BROCHURE.pdf',
+    // eaPdfUrl: process.env.NUXT_PUBLIC_EA_PDF_URL || process.env.EA_PDF_URL || 'https://pub-036d749647594301a3092e501d1d3b5f.r2.dev/static/files/GCC%20SCHOOL%20Dossier.pdf',
 
     // ── SMS (WebInfosys) ──────────────────────────────────────────────────────
     smsApiKey: '',
@@ -159,11 +159,17 @@ export default defineNuxtConfig({
       paymentAmount: process.env.PAYMENT_AMOUNT || '2950',
       reattemptDiscountPercentage: process.env.REATTEMPT_DISCOUNT_PERCENTAGE || '20',
       apiBase: process.env.NUXT_PUBLIC_API_BASE,
+      // Public assets bucket (Cloudflare R2), differs per environment
+      assetBaseUrl: process.env.NUXT_PUBLIC_ASSET_BASE_URL || '',
+      // Bucket for `media/...` paths; falls back to assetBaseUrl when empty
+      mediaBaseUrl: process.env.NUXT_PUBLIC_MEDIA_BASE_URL || '',
+      // Second bucket tried when an assetBaseUrl image/video/download fails to load
+      assetFallbackUrl: process.env.NUXT_PUBLIC_ASSET_FALLBACK_URL || '',
       nfetDates: process.env.NUXT_PUBLIC_NFET_DATES || '',
       nfetSlots: process.env.NUXT_PUBLIC_NFET_SLOTS || '',
       nfetSlotBufferHours: process.env.NUXT_PUBLIC_NFET_SLOT_BUFFER_HOURS || '48',
-      // eaPdfUrl: process.env.NUXT_PUBLIC_EA_PDF_URL || process.env.EA_PDF_URL || 'https://storage.googleapis.com/gcc_static_files_backend/static/files/GCC%20SCHOOL%20Dossier.pdf',
-      // cpaPdfUrl: process.env.NUXT_PUBLIC_CPA_PDF_URL || process.env.CPA_PDF_URL || 'https://storage.googleapis.com/gcc_static_files_backend/static/files/CPA-STUDENT-BROCHURE.pdf',
+      // eaPdfUrl: process.env.NUXT_PUBLIC_EA_PDF_URL || process.env.EA_PDF_URL || 'https://pub-036d749647594301a3092e501d1d3b5f.r2.dev/static/files/GCC%20SCHOOL%20Dossier.pdf',
+      // cpaPdfUrl: process.env.NUXT_PUBLIC_CPA_PDF_URL || process.env.CPA_PDF_URL || 'https://pub-036d749647594301a3092e501d1d3b5f.r2.dev/static/files/CPA-STUDENT-BROCHURE.pdf',
     }
   },
   plugins: ["~/plugins/scrollReveal.ts"],

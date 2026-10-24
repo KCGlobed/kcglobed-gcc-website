@@ -19,15 +19,17 @@
 </template>
 
 <script setup>
+const { $asset } = useNuxtApp()
+
 const partners = [
     {
         name: 'AON',
-        logo: 'https://storage.googleapis.com/static_files_backend/media/images/image%201.png',
+        logo: $asset('media/images/image%201.png'),
         description: 'Global professional services firm supporting talent assessment and benchmarking',
     },
     {
         name: 'Meritto',
-        logo: 'https://storage.googleapis.com/static_files_backend/media/images/image%202.png',
+        logo: $asset('media/images/image%202.png'),
         description: 'Technology partner enabling secure and scalable examination delivery',
     },
 ]

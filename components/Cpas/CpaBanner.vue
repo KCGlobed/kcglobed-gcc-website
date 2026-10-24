@@ -1072,6 +1072,7 @@ export default defineComponent({
         OtpVerification
     },
     setup() {
+        const { $asset } = useNuxtApp();
         const isSubmitting = ref(false);
         const formId = ref<number | null>(null);
         const notification = reactive({ type: '', message: '' });
@@ -1260,7 +1261,7 @@ export default defineComponent({
         };
 
         const handleDownload = () => {
-            downloadFile("https://storage.googleapis.com/gcc_prod_static_files_backend/static/files/CPA-STUDENT-DOSSIER.pdf", "CPA-STUDENT-DOSSIER.pdf");
+            downloadFile($asset('static/files/CPA-STUDENT-DOSSIER.pdf'), "CPA-STUDENT-DOSSIER.pdf");
         };
 
         const onStateChange = () => {
@@ -1386,7 +1387,7 @@ export default defineComponent({
                 });
 
                 if (response.success) {
-                    const fileUrl = response.data?.url || "https://storage.googleapis.com/gcc_prod_static_files_backend/static/files/CPA-STUDENT-DOSSIER.pdf";
+                    const fileUrl = response.data?.url || $asset('static/files/CPA-STUDENT-DOSSIER.pdf');
                     formId.value = response.data?.id;
                     const rawFileName = fileUrl.split('/').pop() || 'CPA-STUDENT-DOSSIER.pdf';
                     const fileName = rawFileName.split('?')[0] || 'CPA-STUDENT-DOSSIER.pdf';
