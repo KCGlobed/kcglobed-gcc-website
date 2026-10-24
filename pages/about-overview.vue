@@ -54,7 +54,7 @@ useHead({
     {
       property: "og:image",
       content:
-        "https://storage.googleapis.com/gcc_static_files_backend/static/images/GCC_OG_IMAGE.png",
+        "https://pub-036d749647594301a3092e501d1d3b5f.r2.dev/static/images/GCC_OG_IMAGE.png",
     },
     {
       property: "og:image:width",
@@ -86,7 +86,7 @@ useHead({
     {
       name: "twitter:image",
       content:
-        "https://storage.googleapis.com/gcc_static_files_backend/static/images/GCC_OG_IMAGE.png",
+        "https://pub-036d749647594301a3092e501d1d3b5f.r2.dev/static/images/GCC_OG_IMAGE.png",
     },
   ],
   link: [

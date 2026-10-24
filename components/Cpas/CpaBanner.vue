@@ -1260,7 +1260,7 @@ export default defineComponent({
         };
 
         const handleDownload = () => {
-            downloadFile("https://storage.googleapis.com/gcc_prod_static_files_backend/static/files/CPA-STUDENT-DOSSIER.pdf", "CPA-STUDENT-DOSSIER.pdf");
+            downloadFile("https://pub-036d749647594301a3092e501d1d3b5f.r2.dev/static/files/CPA-STUDENT-DOSSIER.pdf", "CPA-STUDENT-DOSSIER.pdf");
         };
 
         const onStateChange = () => {
@@ -1386,7 +1386,7 @@ export default defineComponent({
                 });
 
                 if (response.success) {
-                    const fileUrl = response.data?.url || "https://storage.googleapis.com/gcc_prod_static_files_backend/static/files/CPA-STUDENT-DOSSIER.pdf";
+                    const fileUrl = response.data?.url || "https://pub-036d749647594301a3092e501d1d3b5f.r2.dev/static/files/CPA-STUDENT-DOSSIER.pdf";
                     formId.value = response.data?.id;
                     const rawFileName = fileUrl.split('/').pop() || 'CPA-STUDENT-DOSSIER.pdf';
                     const fileName = rawFileName.split('?')[0] || 'CPA-STUDENT-DOSSIER.pdf';

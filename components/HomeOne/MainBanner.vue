@@ -775,7 +775,7 @@ export default defineComponent({
           alert("Thank you! Our team will contact you soon.")
           const closeBtn = this.$refs.closeModalBtn as HTMLButtonElement;
           closeBtn.click();
-          window.open("https://storage.googleapis.com/static_files_backend/media/landing/GCC%20School%20Brochure%201.pdf", "_blank");
+          window.open("https://pub-036d749647594301a3092e501d1d3b5f.r2.dev/media/landing/GCC%20School%20Brochure%201.pdf", "_blank");
 
           this.form = {
             name: "",

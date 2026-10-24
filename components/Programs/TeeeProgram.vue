@@ -26,7 +26,7 @@
 
                             <!-- Main Image container -->
                             <div class="image-frame">
-                                <img src="https://storage.googleapis.com/static_files_backend/media/images/Rectangle%20(8).png"
+                                <img src="https://pub-036d749647594301a3092e501d1d3b5f.r2.dev/media/images/Rectangle%20(8).png"
                                     alt="LMS Dashboard Mockup" class="img-fluid rounded-15">
                             </div>
 

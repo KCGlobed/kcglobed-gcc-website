@@ -40,7 +40,7 @@ export default defineComponent({
     name: 'AUGoalsSection',
     setup() {
         // Replace these with your actual image imports or paths
-        const bucketURL = 'https://storage.googleapis.com/static_files_backend'; // Update with your actual bucket URL
+        const bucketURL = 'https://pub-036d749647594301a3092e501d1d3b5f.r2.dev'; // Update with your actual bucket URL
         const yellowSquareDots = 'https://www.kcglobed.com/assets/yellow_squre_dots.svg';
         const purpleSquareDots = 'https://www.kcglobed.com/assets/purple_squre_dots.svg';
 
