@@ -16,7 +16,7 @@
                         <div class="flip-card">
                             <!-- Front Side: Logo -->
                             <div class="flip-card-front">
-                                <img src="https://pub-036d749647594301a3092e501d1d3b5f.r2.dev/media/images/image%2062.png"
+                                <img :src="$asset('media/images/image%2062.png')"
                                     alt="ACCA" class="flip-logo-img">
                                 <!-- <p class="flip-hint">Hover to explore</p> -->
                             </div>
@@ -106,7 +106,7 @@
                     <div class="flip-card-wrapper">
                         <div class="flip-card">
                             <div class="flip-card-front">
-                                <img src="https://pub-036d749647594301a3092e501d1d3b5f.r2.dev/static/images/AIMA%20Logo.svg"
+                                <img :src="$asset('static/images/AIMA%20Logo.svg')"
                                     alt="AIMA" class="flip-logo-img">
                                 <!-- <p class="flip-hint">Hover to explore</p> -->
                             </div>
@@ -137,7 +137,7 @@
                     <div class="flip-card-wrapper">
                         <div class="flip-card">
                             <div class="flip-card-front">
-                                <img src="https://pub-036d749647594301a3092e501d1d3b5f.r2.dev/static/images/AI%20Logo.svg"
+                                <img :src="$asset('static/images/AI%20Logo.svg')"
                                     alt="AI Logo" class="flip-logo-img">
                                 <!-- <p class="flip-hint">Hover to explore</p> -->
                             </div>
@@ -185,7 +185,7 @@
                     <div class="flip-card-wrapper">
                         <div class="flip-card">
                             <div class="flip-card-front">
-                                <img src="https://pub-036d749647594301a3092e501d1d3b5f.r2.dev/static/images/analytics.png"
+                                <img :src="$asset('static/images/analytics.png')"
                                     alt="Analytics Logo" class="flip-logo-img">
                                 <!-- <p class="flip-hint">Hover to explore</p> -->
                             </div>

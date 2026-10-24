@@ -23,6 +23,8 @@
 <script setup lang="ts">
 import NfetBanner from '~/components/nfet/NfetBanner.vue';
 
+const { $asset } = useNuxtApp()
+
 useHead({
   title: "NFET Exam 2026 | National Finance Entrance Test – GCC School",
   meta: [
@@ -57,7 +59,7 @@ useHead({
     {
       property: "og:image",
       content:
-        "https://pub-036d749647594301a3092e501d1d3b5f.r2.dev/static/images/GCC_OG_IMAGE.png",
+        $asset('static/images/GCC_OG_IMAGE.png'),
     },
     {
       property: "og:locale",
@@ -82,7 +84,7 @@ useHead({
     {
       name: "twitter:image",
       content:
-        "https://pub-036d749647594301a3092e501d1d3b5f.r2.dev/static/images/GCC_OG_IMAGE.png",
+        $asset('static/images/GCC_OG_IMAGE.png'),
     },
   ],
 

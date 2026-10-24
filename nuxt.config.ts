@@ -159,6 +159,8 @@ export default defineNuxtConfig({
       paymentAmount: process.env.PAYMENT_AMOUNT || '2950',
       reattemptDiscountPercentage: process.env.REATTEMPT_DISCOUNT_PERCENTAGE || '20',
       apiBase: process.env.NUXT_PUBLIC_API_BASE,
+      // Public assets bucket (Cloudflare R2), differs per environment
+      assetBaseUrl: process.env.NUXT_PUBLIC_ASSET_BASE_URL || '',
       nfetDates: process.env.NUXT_PUBLIC_NFET_DATES || '',
       nfetSlots: process.env.NUXT_PUBLIC_NFET_SLOTS || '',
       nfetSlotBufferHours: process.env.NUXT_PUBLIC_NFET_SLOT_BUFFER_HOURS || '48',

@@ -15,8 +15,8 @@
             <img class="gi gi-5" :src="images[4]" alt="Round Table" loading="lazy" decoding="async" />
         </div>
         <!-- Video -->
-        <!-- <VideoBox video-src="https://pub-036d749647594301a3092e501d1d3b5f.r2.dev/static/videos/lms_tutorial.mp4"
-            thumbnail-src="https://pub-036d749647594301a3092e501d1d3b5f.r2.dev/static/images/kamalchhabbraadd.jpeg" /> -->
+        <!-- <VideoBox :video-src="$asset('static/videos/lms_tutorial.mp4')"
+            :thumbnail-src="$asset('static/images/kamalchhabbraadd.jpeg')" /> -->
 
         <!-- Dots -->
         <!-- <div class="dots">

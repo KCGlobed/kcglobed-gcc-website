@@ -9,6 +9,8 @@
 </template>
 
 <script setup lang="ts">
+const { $asset } = useNuxtApp()
+
 useHead({
   title: "GCC School",
   meta: [
@@ -37,7 +39,7 @@ useHead({
     {
       property: "og:image",
       content:
-        "https://pub-036d749647594301a3092e501d1d3b5f.r2.dev/static/images/GCC_OG_IMAGE.png",
+        $asset('static/images/GCC_OG_IMAGE.png'),
     },
     {
       property: "og:locale",
@@ -61,7 +63,7 @@ useHead({
     {
       name: "twitter:image",
       content:
-        "https://pub-036d749647594301a3092e501d1d3b5f.r2.dev/static/images/GCC_OG_IMAGE.png",
+        $asset('static/images/GCC_OG_IMAGE.png'),
     },
   ],
 

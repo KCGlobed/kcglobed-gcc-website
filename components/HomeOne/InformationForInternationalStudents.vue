@@ -53,7 +53,7 @@
                   class="w-100 h-100" @play="isVideoPlaying = true" @pause="isVideoPlaying = false"
                   style="object-fit: contain; background: #0b0b1a;">
                   <source
-                    src="https://pub-036d749647594301a3092e501d1d3b5f.r2.dev/media/images/Kamal%20Sir%20Video_1.mp4"
+                    :src="$asset('media/images/Kamal%20Sir%20Video_1.mp4')"
                     type="video/mp4">
                   Your browser does not support the video tag.
                 </video>
@@ -66,7 +66,7 @@
                 </div>
                 <!-- Thumbnail Mask (visible before play) -->
                 <img v-if="!isVideoPlaying"
-                  src="https://pub-036d749647594301a3092e501d1d3b5f.r2.dev/media/images/kamal%20sir%20thnml%202.jpg"
+                  :src="$asset('media/images/kamal%20sir%20thnml%202.jpg')"
                   class="video-poster-img" @click="playVideo" alt="Thumbnail">
               </div>
               <!-- <div class="video-badge-new">

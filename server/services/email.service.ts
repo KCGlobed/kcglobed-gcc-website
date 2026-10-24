@@ -1,4 +1,5 @@
 import nodemailer from 'nodemailer';
+import { joinURL } from 'ufo';
 
 interface PaymentEmailOptions {
   to: string;
@@ -30,6 +31,8 @@ export async function sendPaymentConfirmationEmail(opts: PaymentEmailOptions) {
     minimumFractionDigits: 0
   }).format(opts.amount);
 
+  const logoUrl = joinURL(useRuntimeConfig().public.assetBaseUrl as string, 'static/images/gcc_school_logo.png');
+
   const html = `
 <!DOCTYPE html>
 <html lang="en">
@@ -49,7 +52,7 @@ export async function sendPaymentConfirmationEmail(opts: PaymentEmailOptions) {
           <!-- Header -->
           <tr>
             <td style="background:linear-gradient(135deg,#3D1C6E 0%,#A13E99 100%);padding:40px 40px 30px;text-align:center;">
-              <img src="https://pub-036d749647594301a3092e501d1d3b5f.r2.dev/static/images/gcc_school_logo.png"
+              <img src="${logoUrl}"
                    alt="GCC School" height="60"
                    style="height:60px;display:block;margin:0 auto 20px;" />
               <h1 style="color:#ffffff;font-size:26px;font-weight:700;margin:0;letter-spacing:-0.5px;">
