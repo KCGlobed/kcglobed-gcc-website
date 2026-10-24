@@ -147,7 +147,7 @@ const pendingMockLink = ref("");
 // Student Kits configuration
 const studentKits = computed(() => [
     { title: "GCC School Journey Overview", mediaUrl: $asset('static/videos/GCC%20School%20Journey%20Overview.mp4'), type: "video", duration: "1:54 mins", thumb: $asset('media/images/kamal%20sir%20thnml%202.jpg') },
-    { title: "NFET Exam Walkthrough Video", mediaUrl: $asset('static/videos/MANNA%20SIR%20WEBSITE_FINAL%20100.mp4'), type: "video", duration: "7:36 mins", thumb: $asset('static/images/manna%20sir%20thmbnl.jpg') },
+    { title: "NFET Exam Walkthrough Video", mediaUrl: $asset('static/videos/MANNA%20SIR%20WEBSITE_FINAL%20100.mp4'), type: "video", duration: "7:36 mins", thumb: $asset('media/images/manna%20sir%20thmbnl.jpg') },
     { title: "AEIAP Program Overview", mediaUrl: $asset('static/videos/Nitis%20Sir%20Website%20Video._final_gcc.mp4'), type: "video", duration: "4:30 mins", thumb: $asset('media/images/nitish%20sir%20thmbnl_.jpg') },
     { title: "British Council - English for Work", mediaUrl: $asset('static/videos/British%20Council%20%E2%80%93%20English%20for%20Work%20Course%20Overview.mp4'), type: "video", duration: "1:23 mins", thumb: thumb5 },
     { title: "AON - Test Platform Walkthrough", mediaUrl: $asset('static/videos/AON%20%E2%80%93%20Test%20Platform%20Walkthrough.mp4'), type: "video", duration: "2:36 mins", thumb: thumb3 },

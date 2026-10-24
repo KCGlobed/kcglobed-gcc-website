@@ -161,6 +161,10 @@ export default defineNuxtConfig({
       apiBase: process.env.NUXT_PUBLIC_API_BASE,
       // Public assets bucket (Cloudflare R2), differs per environment
       assetBaseUrl: process.env.NUXT_PUBLIC_ASSET_BASE_URL || '',
+      // Bucket for `media/...` paths; falls back to assetBaseUrl when empty
+      mediaBaseUrl: process.env.NUXT_PUBLIC_MEDIA_BASE_URL || '',
+      // Second bucket tried when an assetBaseUrl image/video/download fails to load
+      assetFallbackUrl: process.env.NUXT_PUBLIC_ASSET_FALLBACK_URL || '',
       nfetDates: process.env.NUXT_PUBLIC_NFET_DATES || '',
       nfetSlots: process.env.NUXT_PUBLIC_NFET_SLOTS || '',
       nfetSlotBufferHours: process.env.NUXT_PUBLIC_NFET_SLOT_BUFFER_HOURS || '48',

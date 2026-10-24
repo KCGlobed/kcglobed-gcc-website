@@ -1,3 +1,5 @@
+import { withTrailingSlash } from 'ufo';
+
 export default defineEventHandler(async (event) => {
     const query = getQuery(event);
     const url = query.url as string;
@@ -11,7 +13,14 @@ export default defineEventHandler(async (event) => {
     }
 
     try {
-        const response = await fetch(url);
+        let response = await fetch(url);
+
+        // Retry from the fallback bucket when the primary R2 bucket doesn't have the file
+        const { assetBaseUrl, assetFallbackUrl } = useRuntimeConfig(event).public;
+        const primary = withTrailingSlash(assetBaseUrl);
+        if (!response.ok && assetBaseUrl && assetFallbackUrl && url.startsWith(primary)) {
+            response = await fetch(withTrailingSlash(assetFallbackUrl) + url.slice(primary.length));
+        }
 
         if (!response.ok) {
             throw createError({
