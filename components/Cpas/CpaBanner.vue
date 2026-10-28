@@ -125,7 +125,7 @@
                                                 :disabled="isSubmitting">
                                                 <span v-if="isSubmitting"
                                                     class="spinner-border spinner-border-sm me-2"></span>
-                                                {{ isSubmitting ? 'Processing...' : 'Downlaod Dossier' }}
+                                                {{ isSubmitting ? 'Processing...' : 'Download Dossier' }}
                                             </button>
                                             <p class="form-footer-text text-center mt-3 mb-0">
                                                 By submitting, you agree to our <NuxtLink to="/terms-conditions">Terms
