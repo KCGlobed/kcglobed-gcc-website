@@ -4,7 +4,7 @@
 // Receipt number = our order id, Payment ID = Cashfree payment id.
 import { PDFDocument, StandardFonts, rgb, type PDFFont } from "pdf-lib";
 import { PAY_MERCHANT, getPayPlan, getReceiptItem } from "../utils/pay-plans";
-import { formatPayDate, type PayOrder } from "../utils/pay-finalize";
+import { formatPayDate, formatPayMethod, amountInWords, type PayOrder } from "../utils/pay-finalize";
 
 const PURPLE = rgb(0.322, 0.09, 0.471);       // #521778 — logo purple
 const LAVENDER = rgb(0.957, 0.937, 0.98);     // section headers / table head
@@ -23,7 +23,7 @@ const safe = (value: unknown) =>
     String(value ?? "").replace(/[^\x20-\x7E\xA0-\xFF–—‘’“”•]/g, "").trim();
 const money = (n: number) => new Intl.NumberFormat("en-IN", { minimumFractionDigits: 2, maximumFractionDigits: 2 }).format(n);
 
-async function loadLogo(): Promise<Uint8Array | null> {
+export async function loadReceiptLogo(): Promise<Uint8Array | null> {
     try {
         const raw = await useStorage("assets:server").getItemRaw("pay-receipt-logo.jpg");
         return raw ? new Uint8Array(raw as ArrayBuffer) : null;
@@ -103,7 +103,7 @@ export async function buildPayInvoicePdf(order: PayOrder): Promise<Uint8Array> {
     rect(0, 0, W, 6, { fill: PURPLE });
 
     // ── Header: big logo (left) · PAYMENT RECEIPT + PAID (right) ─────────────
-    const logoBytes = await loadLogo();
+    const logoBytes = await loadReceiptLogo();
     if (logoBytes) {
         const logo = await pdf.embedJpg(logoBytes);
         const lw = 210;
@@ -134,7 +134,7 @@ export async function buildPayInvoicePdf(order: PayOrder): Promise<Uint8Array> {
         ["Receipt No.", order.orderId],
         ["Payment ID", order.paymentId],
         ["Date Paid", paidAt],
-        ["Payment Method", order.paymentMethod],
+        ["Payment Method", formatPayMethod(order.paymentMethod)],
     ];
     meta.forEach(([label, value], i) => {
         const top = 124 + i * 15;
@@ -202,6 +202,11 @@ export async function buildPayInvoicePdf(order: PayOrder): Promise<Uint8Array> {
     // ── Totals ───────────────────────────────────────────────────────────────
     let y = tTop + 24 + itemH + 20;
     const totalsX = 340;
+
+    // Amount in words (left of the totals)
+    text("Amount in words", L, y, { size: 8.5, color: MUTED });
+    wrap(amountInWords(amount), bold, 9.5, 260).forEach((line, i) => text(line, L, y + 15 + i * 13, { font: bold, size: 9.5 }));
+
     text("Subtotal", totalsX, y, { size: 9.5, color: MUTED });
     textRight(`${currency} ${money(amount)}`, cAmt, y);
     y += 17;
@@ -213,14 +218,36 @@ export async function buildPayInvoicePdf(order: PayOrder): Promise<Uint8Array> {
     textRight(`${currency} ${money(amount)}`, cAmt, y + 17, { font: bold, size: 10.5, color: WHITE });
     y += 26;
 
-    // ── Confirmation statement ───────────────────────────────────────────────
-    y += 36;
+    // ── Confirmation statement + next steps ──────────────────────────────────
+    const fTop = 712;
+    y += 20;
     const statement =
         "Your payment has been successfully received. Thank you for taking the next step towards your academic journey with GCC School.";
-    wrap(statement, regular, 10.5, R - L).forEach((line, i) => text(line, L, y + i * 15, { size: 10.5 }));
+    const stLines = wrap(statement, bold, 10.5, R - L - 36);
+    const steps = [
+        "Our admissions team will get in touch with you shortly with the next steps.",
+        "Please keep this receipt for your records.",
+        "Quote your Receipt No. for any payment-related query.",
+    ];
+    const boxH = 16 + stLines.length * 15 + 6 + 14 + steps.length * 13 + 4;
+    if (y + boxH < fTop - 12) {
+        rect(L, y, R - L, boxH, { fill: LAVENDER });
+        rect(L, y, 4, boxH, { fill: PURPLE });
+        let by = y + 21;
+        stLines.forEach((line) => { text(line, L + 18, by, { font: bold, size: 10.5, color: PURPLE }); by += 15; });
+        by += 6;
+        text("WHAT HAPPENS NEXT", L + 18, by, { font: bold, size: 8, color: MUTED });
+        by += 14;
+        steps.forEach((step) => {
+            page.drawCircle({ x: L + 21, y: H - by + 3, size: 1.8, color: PURPLE });
+            text(step, L + 30, by, { size: 9.5 });
+            by += 13;
+        });
+    } else {
+        stLines.forEach((line, i) => text(line, L, y + 14 + i * 15, { font: bold, size: 10.5, color: PURPLE }));
+    }
 
     // ── Footer ───────────────────────────────────────────────────────────────
-    const fTop = 712;
     hr(fTop, PURPLE, 1.2);
     center("Thank you for choosing GCC School.", fTop + 22, { font: bold, size: 12, color: PURPLE });
     center("For payment-related queries, contact our admissions team:", fTop + 40, { size: 9.5, color: MUTED });

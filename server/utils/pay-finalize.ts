@@ -129,3 +129,37 @@ export function formatPayDate(date: Date): string {
     const get = (type: string) => parts.find((p) => p.type === type)?.value || "";
     return `${get("day")} ${get("month")} ${get("year")}, ${get("hour")}:${get("minute")} ${get("dayPeriod").toUpperCase()}`;
 }
+
+// "DEBIT_CARD" -> "Debit Card", "UPI" -> "UPI", "NET_BANKING" -> "Net Banking"
+export function formatPayMethod(method: string): string {
+    const keepUpper = new Set(["UPI", "EMI", "NEFT", "IMPS"]);
+    return String(method || "")
+        .split(/[_\s]+/)
+        .filter(Boolean)
+        .map((w) => (keepUpper.has(w.toUpperCase()) ? w.toUpperCase() : w.charAt(0).toUpperCase() + w.slice(1).toLowerCase()))
+        .join(" ");
+}
+
+// Indian-system amount in words: 100000 -> "Rupees One Lakh Only"
+export function amountInWords(amount: number): string {
+    const ones = ["", "One", "Two", "Three", "Four", "Five", "Six", "Seven", "Eight", "Nine", "Ten", "Eleven", "Twelve",
+        "Thirteen", "Fourteen", "Fifteen", "Sixteen", "Seventeen", "Eighteen", "Nineteen"];
+    const tens = ["", "", "Twenty", "Thirty", "Forty", "Fifty", "Sixty", "Seventy", "Eighty", "Ninety"];
+    const two = (n: number) => (n < 20 ? ones[n] : `${tens[Math.floor(n / 10)]} ${ones[n % 10]}`.trim());
+    const three = (n: number) =>
+        [n >= 100 ? `${ones[Math.floor(n / 100)]} Hundred` : "", two(n % 100)].filter(Boolean).join(" ");
+
+    const rupees = Math.floor(amount);
+    const paise = Math.round((amount - rupees) * 100);
+    const parts: string[] = [];
+    const crore = Math.floor(rupees / 1e7);
+    const lakh = Math.floor((rupees % 1e7) / 1e5);
+    const thousand = Math.floor((rupees % 1e5) / 1e3);
+    const rest = rupees % 1e3;
+    if (crore) parts.push(`${three(crore)} Crore`);
+    if (lakh) parts.push(`${two(lakh)} Lakh`);
+    if (thousand) parts.push(`${two(thousand)} Thousand`);
+    if (rest) parts.push(three(rest));
+    const words = parts.join(" ") || "Zero";
+    return `Rupees ${words}${paise ? ` and ${two(paise)} Paise` : ""} Only`;
+}

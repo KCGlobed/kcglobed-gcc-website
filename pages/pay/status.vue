@@ -2,11 +2,8 @@
   <div class="pay-page">
     <div class="pay-card">
       <header class="pay-header">
-        <img src="/img/pay-logo.jpg" alt="GCC School" width="48" height="48" />
-        <div>
-          <small>Paying to</small>
-          <strong>GCC School</strong>
-        </div>
+        <img src="/img/pay-logo-white.png" alt="GCC School" height="52" />
+        <span class="pay-chip"><i class="ti ti-lock"></i>Secured by Cashfree</span>
       </header>
 
       <section class="pay-status">
@@ -49,7 +46,11 @@
 
 <script setup lang="ts">
 definePageMeta({ layout: "blank" });
-useHead({ title: "Payment Status | GCC School", meta: [{ name: "robots", content: "noindex, nofollow" }] });
+useHead({
+  title: "Payment Status | GCC School",
+  meta: [{ name: "robots", content: "noindex, nofollow" }, { name: "theme-color", content: "#3d0f5e" }],
+  link: [{ rel: "stylesheet", href: "https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&display=swap" }],
+});
 
 const route = useRoute();
 const orderId = String(route.query.order_id || "");
@@ -95,12 +96,26 @@ onBeforeUnmount(() => timer && clearTimeout(timer));
 </script>
 
 <style scoped>
-.pay-page { --purple: #61358f; min-height: 100vh; background: #f3f4f7; padding: 32px 16px; color: #2b2b3a; }
-.pay-card { max-width: 640px; margin: 0 auto; background: #fff; border-radius: 12px; overflow: hidden; box-shadow: 0 6px 30px rgba(0, 0, 0, 0.08); }
-.pay-header { display: flex; align-items: center; gap: 16px; background: var(--purple); color: #fff; padding: 20px 24px; }
-.pay-header img { border-radius: 4px; }
-.pay-header small { display: block; opacity: 0.85; }
-.pay-header strong { font-size: 1.25rem; font-weight: 600; }
+.pay-page {
+  --purple: #521778;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 32px 16px;
+  color: #2b2b3a;
+  font-family: "DM Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
+  background:
+    radial-gradient(900px 500px at 8% 6%, rgba(217, 166, 46, 0.22), transparent 60%),
+    radial-gradient(800px 600px at 95% 95%, rgba(160, 90, 230, 0.35), transparent 60%),
+    linear-gradient(135deg, #2a0b45 0%, #4a1570 50%, #2f0c4d 100%);
+  background-attachment: fixed;
+}
+.pay-card { width: 100%; max-width: 600px; margin: 0 auto; background: #fff; border-radius: 22px; overflow: hidden; box-shadow: 0 30px 80px rgba(10, 0, 25, 0.45); }
+.pay-header { display: flex; align-items: center; justify-content: space-between; gap: 16px; background: linear-gradient(135deg, #5b1d88, #3d0f5e); color: #fff; padding: 16px 24px; }
+.pay-header img { height: 52px; width: auto; margin-left: -8px; }
+.pay-chip { display: inline-flex; align-items: center; gap: 6px; padding: 6px 12px; border-radius: 999px; background: rgba(255, 255, 255, 0.12); border: 1px solid rgba(255, 255, 255, 0.18); font-size: 0.74rem; font-weight: 600; white-space: nowrap; }
+.pay-chip i { color: #d9a62e; }
 .pay-status { padding: 40px 24px; text-align: center; }
 .pay-status h1 { font-size: 1.5rem; margin: 12px 0; }
 .pay-status p { color: #555; line-height: 1.6; }
@@ -110,8 +125,8 @@ onBeforeUnmount(() => timer && clearTimeout(timer));
 dl { display: grid; grid-template-columns: auto 1fr; gap: 6px 16px; text-align: left; max-width: 440px; margin: 24px auto 0; font-size: 0.9rem; }
 dt { color: #777; }
 dd { margin: 0; font-family: monospace; word-break: break-all; }
-.pay-btn { display: inline-block; margin-top: 16px; background: var(--purple); color: #fff; padding: 12px 32px; border-radius: 6px; text-decoration: none; }
+.pay-btn { display: inline-block; margin-top: 16px; background: linear-gradient(135deg, #6a2a9a, var(--purple)); color: #fff; padding: 13px 34px; border-radius: 12px; font-weight: 700; text-decoration: none; }
 .pay-spinner { width: 48px; height: 48px; margin: 0 auto; border: 4px solid #e2d9f3; border-top-color: var(--purple); border-radius: 50%; animation: spin 0.8s linear infinite; }
 @keyframes spin { to { transform: rotate(360deg); } }
-@media (max-width: 768px) { .pay-page { padding: 0; } .pay-card { border-radius: 0; } }
+@media (max-width: 768px) { .pay-page { padding: 0; align-items: stretch; } .pay-card { border-radius: 0; } }
 </style>
