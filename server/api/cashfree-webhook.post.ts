@@ -82,6 +82,14 @@ export default defineEventHandler(async (event) => {
     }
 
     const eventType: string = payload?.type || "";
+
+    // ── Payment Links (Dashboard → Developers → Webhooks → Payment Links) ────
+    // Link events have a different shape (data.link_*, data.order.transaction_*)
+    // so they are handled separately.
+    if (eventType === "PAYMENT_LINK_EVENT") {
+        return handlePaymentLinkEvent(payload?.data || {}, config);
+    }
+
     const data = payload?.data || {};
     const orderData = data?.order || {};
     const paymentData = data?.payment || {};
@@ -230,3 +238,109 @@ export default defineEventHandler(async (event) => {
         return { success: true };
     }
 });
+
+
+// Mirror fee-waiver logic from complete-payment.post.ts
+function getFeeWaiverCategory(amount: number, config: any): string {
+    const baseAmount = Number(config.paymentAmount || 1475);
+    if (amount === 1 || amount === 0 || amount === 2) {
+        return "Free of cost (FOC)";
+    }
+    if (amount < baseAmount) {
+        const pct = Math.round(((baseAmount - amount) / baseAmount) * 100);
+        return `${pct}% Fee Waiver`;
+    }
+    return "No Waiver";
+}
+
+// ── PAYMENT_LINK_EVENT ────────────────────────────────────────────────────────
+// Payload shape:
+//   data.link_id, data.link_status ("PAID" | "PARTIALLY_PAID" | ...),
+//   data.customer_details, data.link_notes,
+//   data.order.{order_id, order_amount, transaction_id, transaction_status}
+//
+// form_id / form_type / source / city / state / payment_type are read from
+// link_notes. Add them as notes when creating the link, otherwise the payment
+// reaches the backend without a student/form id.
+async function handlePaymentLinkEvent(data: any, config: any) {
+    const order = data?.order || {};
+    const customer = data?.customer_details || {};
+    const notes = data?.link_notes || {};
+
+    const linkId: string = data?.link_id || "";
+    const linkStatus: string = data?.link_status || "";
+    const txnStatus: string = order?.transaction_status || "";
+    const cfOrderId: string = order?.order_id || "";
+    const cfPaymentId: string = String(order?.transaction_id || "N/A");
+    const amount: number = Number(order?.order_amount || data?.link_amount_paid || 0);
+    const currency: string = data?.link_currency || "INR";
+
+    console.log(`\n====== [WEBHOOK][cashfree][link] ======`);
+    console.log(`Link     : ${linkId} (${linkStatus})`);
+    console.log(`Order    : ${cfOrderId}`);
+    console.log(`Payment  : ${cfPaymentId}`);
+    console.log(`Status   : ${txnStatus}`);
+    console.log(`Amount   : ${amount} ${currency}`);
+    console.log(`=======================================\n`);
+
+    if (txnStatus !== "SUCCESS") {
+        console.log(`[WEBHOOK][cashfree][link] Ignoring non-success event for link: ${linkId}`);
+        return { success: true };
+    }
+
+    const formId = notes?.form_id || null;
+    const formType = notes?.form_type ? parseInt(String(notes.form_type)) : 1;
+    const source = notes?.source ? parseInt(String(notes.source)) : 1;
+
+    if (!formId) {
+        console.warn(`[WEBHOOK][cashfree][link] ⚠️ link_notes.form_id missing for link: ${linkId}`);
+    }
+
+    const paymentPayload = {
+        re_attempt_status: notes?.payment_type === "reattempt",
+        student_id: formId,
+        form_type: formType || 1,
+        form_id: formId,
+        dossier_form_id: formId,
+        razorpay_order_id: cfOrderId,
+        razorpay_payment_id: cfPaymentId,
+        razorpay_signature: "cashfree_webhook_verified",
+        amount,
+        currency,
+        status: "success",
+        response: JSON.stringify({
+            order_id: cfOrderId,
+            payment_id: cfPaymentId,
+            link_id: linkId,
+            link_status: linkStatus,
+            gateway: "cashfree",
+            event_type: "PAYMENT_LINK_EVENT",
+            source_channel: "payment_link_webhook",
+            name: customer?.customer_name || "",
+            email: customer?.customer_email || "",
+            mobile: customer?.customer_phone || "",
+            city: notes?.city || "",
+            state: notes?.state || "",
+            timestamp: new Date().toISOString()
+        }),
+        source: source || 1,
+        fee_waiver_category: getFeeWaiverCategory(amount, config)
+    };
+    console.log(`[WEBHOOK][cashfree][link] ✅ Payment payload: ${JSON.stringify(paymentPayload)}`);
+
+    try {
+        const apiBase = process.env.NUXT_PUBLIC_API_BASE;
+        // Django backend handles duplicate checking on razorpay_order_id
+        await $fetch(`${apiBase}/api/students/webhook_create_payment/`, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: paymentPayload
+        });
+        console.log(`[WEBHOOK][cashfree][link] ✅ Sent to webhook_create_payment. Order: ${cfOrderId}`);
+    } catch (err: any) {
+        console.error(`[WEBHOOK][cashfree][link] ❌ webhook_create_payment failed for order: ${cfOrderId} — ${err?.message}`);
+    }
+
+    // Always return 200 to stop Cashfree retry loop
+    return { success: true };
+}
