@@ -3,9 +3,10 @@
     <!-- Part 1: centered Lead CTA Banner -->
     <div class="footer-cta-banner ptb-80 text-center">
       <div class="container">
-        <span class="eyebrow gold-text">60 SEATS · ONE EXAM · SEP 2026</span>
-        <h2 class="cta-heading text-white mt-2 mb-3">Your US Taxation Career<br class="d-none d-md-block" /> Starts With One Step.</h2>
-        <p class="cta-subtitle mb-4">Whether you are ready to apply or still weighing your options, the next move is simple.</p>
+        <span class="eyebrow gold-text">{{ ctaEyebrow || '60 SEATS · ONE EXAM · SEP 2026' }}</span>
+        <h2 v-if="ctaTitle" class="cta-heading text-white mt-2 mb-3">{{ ctaTitle }}</h2>
+        <h2 v-else class="cta-heading text-white mt-2 mb-3">Your US Taxation Career<br class="d-none d-md-block" /> Starts With One Step.</h2>
+        <p class="cta-subtitle mb-4">{{ ctaSubtitle || 'Whether you are ready to apply or still weighing your options, the next move is simple.' }}</p>
         
         <div class="d-flex justify-content-center align-items-center gap-3 flex-wrap">
           <NuxtLink to="/nfet-exam" class="btn btn-nfet-apply">
@@ -147,6 +148,13 @@
 <script setup>
 import { useAuth } from '~/composables/useAuth'
 import { onMounted } from 'vue'
+
+// Optional CTA banner text; pages that pass nothing keep the default copy.
+defineProps({
+  ctaEyebrow: { type: String, default: '' },
+  ctaTitle: { type: String, default: '' },
+  ctaSubtitle: { type: String, default: '' },
+})
 
 const { init } = useAuth()
 

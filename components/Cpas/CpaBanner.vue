@@ -146,7 +146,7 @@
                                     </form>
                                 </div>
                             </div>
-                            <a href="https://storage.googleapis.com/gcc_prod_static_files_backend/static/files/CPA-STUDENT-DOSSIER.pdf" target="_blank" rel="noopener noreferrer" class="col-lg-6 col-md-12 banner">
+                            <a href="https://pub-1c3aa4d882c24d66ac8e49a3fe6fbb71.r2.dev/static/files/CPA-STUDENT-DOSSIER.pdf" target="_blank" rel="noopener noreferrer" class="col-lg-6 col-md-12 banner">
                                 <img :src="HeroBanner" alt="hero-image" style="width: 80%;">
                             </a>
                         </div>

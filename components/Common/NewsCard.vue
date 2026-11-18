@@ -2,7 +2,10 @@
     <div class="news-area">
         <div class="container-fluid w">
             <div class="section-header text-center">
-                <h2 class="section-title">As Featured In Leading Media</h2>
+                <span class="section-eyebrow">In the News</span>
+                <h2 class="section-title">Our Media Presence</h2>
+                <p class="section-lead">Take a look at how the media covers GCC School and the students we’re building
+                    careers for.</p>
             </div>
 
             <div class="news-slider-wrapper" data-aos="fade-up" data-aos-delay="100">
@@ -97,6 +100,24 @@ onMounted(() => {
 
 .highlight {
     color: #F1A63E;
+}
+
+.section-eyebrow {
+    display: block;
+    color: #D5861B;
+    font-weight: 700;
+    font-size: 18px;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    margin-bottom: 8px;
+}
+
+.section-lead {
+    font-size: 17px;
+    line-height: 1.6;
+    color: #4b5563;
+    max-width: 820px;
+    margin: 20px auto 0;
 }
 
 /* ========== Slider Wrapper ========== */

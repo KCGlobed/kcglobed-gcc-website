@@ -3,10 +3,12 @@
             <div class="container-fluid w">
                 <div class="section-title text-center">
                     <h2 class="reveal2">
-                        <span class="highlight">200+</span>Global Hiring Partners
+                        Connecting Global Talent with <span class="highlight">Leading Employers</span>
                     </h2>
-                    <p class="max-600 mx-auto">Indulge in Career Accelerating Programs and Placement Drives!</p>
-                    <div class="sub-highlight">Get hired by leading companies across diverse industries.</div>
+                    <p class="max-600 mx-auto">Opening doors to corporate career opportunities through industry-aligned
+                        programs, exclusive hiring drives and access to a network of leading employers across the global
+                        business ecosystem.</p>
+                    <div class="sub-highlight">200+ Global Hiring Partners</div>
                 </div>
                 <div class="marquee-wrapper">
                     <!-- First Row: Moves to Right -->

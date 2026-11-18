@@ -2,17 +2,16 @@
      <div class="gcc-school-section ">
         <div class="w">
             <div class="ticket_container">
-            <img src="https://storage.googleapis.com/gcc_prod_static_files_backend/static/images/Group%2051450%20(1).png"
+            <img src="https://pub-1c3aa4d882c24d66ac8e49a3fe6fbb71.r2.dev/static/images/Group%2051450%20(1).png"
                 alt="Ticket Image" loading="lazy" decoding="async" />
         </div>
         <div class="container text-center pt-5 px-lg-5 px-md-4 px-3">
             <div class="section-header mb-60">
-                <h2 class="title">AT <span>GCC SCHOOL</span>
-                    We prepare finance leaders to achieve the next elevation - for their organisations and for
-                    themselves
-                </h2>
+                <h2 class="title">Building Talent for Tomorrow’s <span>Global Finance Industry</span></h2>
                 <p class="subtitle max-800 mx-auto">
-
+                    At GCC School, we aim to shape graduates into confident, capable professionals who can meet the
+                    evolving expectations of global organisations, contribute to business success, and grow into
+                    future industry leaders.
                 </p>
             </div>
             <div class="gcc-school-content">
@@ -78,7 +77,7 @@
     letter-spacing: -0.02em;
     color: #181225;
     margin-bottom: 20px;
-    max-width: 900px;
+    /* max-width: 900px; */
     margin-left: auto;
     margin-right: auto;
 }
@@ -105,6 +104,9 @@
     font-weight: 500;
     color: #4b5563;
     line-height: 1.6;
+    max-width: 800px;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 .max-800 {

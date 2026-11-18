@@ -6,7 +6,7 @@
         <div class="section-head">
           <span class="tag tag-accent">In Their Own Words</span>
           <h2 class="section-title" id="parents-video-h2">What Parents <span class="primary">Say About GCC School</span></h2>
-          <p class="section-lead">Hear directly from the people whose careers and families changed in one hiring drive.</p>
+          <p class="section-lead">Hear from families as they share their experiences with GCC School, the confidence behind their decisions and their aspirations for their children's future.</p>
         </div>
 
         <div class="video-carousel-container">
@@ -60,9 +60,9 @@
     <section class="section section-students" aria-labelledby="students-video-h2" style="padding: 46px 0;">
       <div class="container">
         <div class="section-head">
-          <span class="tag tag-accent">In Their Own Words</span>
-          <h2 class="section-title" id="students-video-h2">Students <span class="primary">After the Offer Letter</span></h2>
-          <p class="section-lead">Hear from the Candidates Who Chose GCC School to Build Their Global Careers</p>
+          <span class="tag tag-accent">Student Success Stories</span>
+          <h2 class="section-title" id="students-video-h2">Hear It Directly <span class="primary">from Our Students</span></h2>
+          <p class="section-lead">From facing corporate interviews to receiving their conditional pre-placement offers, GCC School students share their personal experiences, defining moments and what this opportunity means for their future.</p>
         </div>
 
         <div class="video-carousel-container">

@@ -19,20 +19,19 @@
                 </div>
 
                 <h1 class="hero-title mt-3">
-                  India’s First School Designed for Commerce & Management Graduates, Built on a Reverse Career Model -
-                  Get Hired First, Then Get Trained.
+                  India’s First Career-Focused School for Commerce & Management Graduates
                 </h1>
 
-                <p class="hero-subtitle mt-3">
-                  Powered by Industry titans, Defined by Performance
-                </p>
-                <p class="hero-description">
-                  At GCC School, you get hired first, then trained.
+                <p class="hero-subtitle hero-intro mt-3">
+                  GCC School is transforming how commerce and management graduates prepare for careers in global
+                  finance. Through its unique reverse career model, <em>"Get Hired First. Then Trained."</em>, it brings
+                  corporate selection and industry-led professional training together, creating a structured pathway
+                  from academic learning to global career opportunities.
                 </p>
 
                 <div class="d-flex gap-3 flex-wrap mt-4 justify-content-lg-start justify-content-center">
                   <button class="btn btn-apply px-4 py-3" data-bs-toggle="modal" data-bs-target="#applyNowModal">
-                    Apply for NFET
+                    Apply Now
                   </button>
                   <!-- <button class="btn btn-explore px-4 py-3">
                       Explore Programs
@@ -173,6 +172,12 @@
   color: rgba(255, 255, 255, 0.85);
   margin-top: 10px;
   text-align: left;
+}
+
+.hero-intro {
+  font-size: 17px;
+  line-height: 1.6;
+  max-width: 640px;
 }
 
 /* Description styling */

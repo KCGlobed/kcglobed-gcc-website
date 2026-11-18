@@ -3,8 +3,8 @@
     <section class="section section-instagram" aria-labelledby="instagram-video-h2">
       <div class="container">
         <div class="section-head">
-          <span class="tag tag-accent">In Their Own Words</span>
-          <h2 class="section-title" id="instagram-video-h2">Voice Of Policy Maker & Industry Leaders</h2>
+          <span class="tag tag-accent">Leadership Perspectives</span>
+          <h2 class="section-title" id="instagram-video-h2">Voices of Policymakers &amp; Industry Leaders</h2>
           <!-- <p class="section-lead">Hear directly from the people whose Shape Industry</p> -->
         </div>
 

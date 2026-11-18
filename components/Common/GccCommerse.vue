@@ -4,9 +4,7 @@
             <!-- Section Header -->
             <div class="section-header">
                 <h2 class="section-title">
-
-                    World's First School, Built by GCC Leads To Shape<br /> <span>The Nation's
-                        Future GCC
+                    The World’s First School Built by GCC Leaders to Shape<br /> <span>India’s Future Finance
                         Talent</span>
                 </h2>
                 <h3 class="section-subtitle">

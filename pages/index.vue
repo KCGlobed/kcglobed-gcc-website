@@ -6,6 +6,7 @@
     <HomeOneCompanyBar />
     <HomeOneInformationForInternationalStudents />
     <HomeGovtProgram />
+    <CommonGrowthTrend />
     <CommonPathwayYourSuccess />
     <CommonEligibilityCriteria />
     <HomeOneProgramsAndOutcomes />
@@ -13,11 +14,11 @@
     <CommonGccSchool />
     <CommonDirectorSpeach />
     <CommonGccCommerse />
-    <CommonGrowthTrend />
     <CommonPathway />
+    <!-- Faculty & Mentors: Think Tank, Subject Matter Experts and Industry Mentors are tabs inside this section -->
     <HomeOneCurrentAcademicStudents />
-    <CommonThinkTank />
-    <CommonIndustryMentor />
+    <!-- <CommonThinkTank /> -->
+    <CommonIndustryMentor :show-mentors="false" />
     <HomeOneNfetAndParents />
     <CommonFunFact />
     <CommonNewsCard />
@@ -29,7 +30,10 @@
     <HomeOneResourcesAndNews />
     <CommonFaqSection />
     <CommonCampus />
-    <LayoutMainFooter />
+    <LayoutMainFooter
+      cta-eyebrow="YOUR NEXT CHAPTER STARTS HERE"
+      cta-title="The Next Chapter of Your Professional Journey Starts Here."
+      cta-subtitle="Take the next step towards a career shaped by industry expectations, professional expertise and opportunities in the evolving world of global finance." />
     <LayoutCopyRight />
 
     <!-- Event Popup -->
