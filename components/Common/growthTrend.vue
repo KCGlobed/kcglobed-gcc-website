@@ -4,8 +4,7 @@
             <!-- Section Header -->
             <div class="section-header text-center  mb-3">
                 <h2 class="title">
-                   The Strategic Rise & Growth Trajectory Of 
-Global Capability Centers (GCC)
+                   GCC Industry Growth &amp; the Evolving Demand for Finance Talent
                 </h2>
             </div>
 

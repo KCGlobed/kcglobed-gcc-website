@@ -24,51 +24,51 @@
 <script setup lang="ts">
 const images = [
     {
-        img: "https://storage.googleapis.com/gcc_prod_static_files_backend/static/images/Frame%2051456%201.png",
+        img: "https://pub-1c3aa4d882c24d66ac8e49a3fe6fbb71.r2.dev/static/images/Frame%2051456%201.png",
         link: "https://www.linkedin.com/in/senthil-kumar-5b8a1b8a/"
     },
     {
-        img: "https://storage.googleapis.com/gcc_prod_static_files_backend/static/images/Frame%2051456%20(1)%201.png",
+        img: "https://pub-1c3aa4d882c24d66ac8e49a3fe6fbb71.r2.dev/static/images/Frame%2051456%20(1)%201.png",
         link: "https://www.linkedin.com/in/senthil-kumar-5b8a1b8a/"
     },
     {
-        img: "https://storage.googleapis.com/gcc_prod_static_files_backend/static/images/Frame%2051457%201.png",
+        img: "https://pub-1c3aa4d882c24d66ac8e49a3fe6fbb71.r2.dev/static/images/Frame%2051457%201.png",
         link: "https://www.linkedin.com/in/senthil-kumar-5b8a1b8a/"
     },
     {
-        img: "https://storage.googleapis.com/gcc_prod_static_files_backend/static/images/Frame%2051456%20(2)%201.png",
+        img: "https://pub-1c3aa4d882c24d66ac8e49a3fe6fbb71.r2.dev/static/images/Frame%2051456%20(2)%201.png",
         link: "https://www.linkedin.com/in/senthil-kumar-5b8a1b8a/"
     },
     {
-        img: "https://storage.googleapis.com/gcc_prod_static_files_backend/static/images/Frame%2049920%201.png",
+        img: "https://pub-1c3aa4d882c24d66ac8e49a3fe6fbb71.r2.dev/static/images/Frame%2049920%201.png",
         link: "https://www.linkedin.com/in/senthil-kumar-5b8a1b8a/"
     },
     {
-        img: "https://storage.googleapis.com/gcc_prod_static_files_backend/static/images/Frame%2051456%20(4)%201.png",
+        img: "https://pub-1c3aa4d882c24d66ac8e49a3fe6fbb71.r2.dev/static/images/Frame%2051456%20(4)%201.png",
         link: "https://www.linkedin.com/in/senthil-kumar-5b8a1b8a/"
     },
     {
-        img: "https://storage.googleapis.com/gcc_prod_static_files_backend/static/images/Frame%2051456%20(5)%201.png",
+        img: "https://pub-1c3aa4d882c24d66ac8e49a3fe6fbb71.r2.dev/static/images/Frame%2051456%20(5)%201.png",
         link: "https://www.linkedin.com/in/senthil-kumar-5b8a1b8a/"
     },
     {
-        img: "https://storage.googleapis.com/gcc_prod_static_files_backend/static/images/Frame%2051456%20(6)%201.png",
+        img: "https://pub-1c3aa4d882c24d66ac8e49a3fe6fbb71.r2.dev/static/images/Frame%2051456%20(6)%201.png",
         link: "https://www.linkedin.com/in/senthil-kumar-5b8a1b8a/"
     },
     {
-        img: "https://storage.googleapis.com/gcc_prod_static_files_backend/static/images/Frame%2051456%20(7).png",
+        img: "https://pub-1c3aa4d882c24d66ac8e49a3fe6fbb71.r2.dev/static/images/Frame%2051456%20(7).png",
         link: "https://www.linkedin.com/in/senthil-kumar-5b8a1b8a/"
     },
     {
-        img: "https://storage.googleapis.com/gcc_prod_static_files_backend/static/images/Frame%2051457%20(1)%201.png",
+        img: "https://pub-1c3aa4d882c24d66ac8e49a3fe6fbb71.r2.dev/static/images/Frame%2051457%20(1)%201.png",
         link: "https://www.linkedin.com/in/senthil-kumar-5b8a1b8a/"
     },
     {
-        img: "https://storage.googleapis.com/gcc_prod_static_files_backend/static/images/Frame%2051457%20(2)%201.png",
+        img: "https://pub-1c3aa4d882c24d66ac8e49a3fe6fbb71.r2.dev/static/images/Frame%2051457%20(2)%201.png",
         link: "https://www.linkedin.com/in/senthil-kumar-5b8a1b8a/"
     },
     {
-        img: "https://storage.googleapis.com/gcc_prod_static_files_backend/static/images/Frame%2051457%20(2)%201.png",
+        img: "https://pub-1c3aa4d882c24d66ac8e49a3fe6fbb71.r2.dev/static/images/Frame%2051457%20(2)%201.png",
         link: "https://www.linkedin.com/in/senthil-kumar-5b8a1b8a/"
     },
 ]

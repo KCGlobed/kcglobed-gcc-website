@@ -48,10 +48,11 @@
           <div class="col-lg-5 col-12 d-flex flex-column justify-content-between text-start">
             <div>
               <span class="eyebrow purple-text">FOR PARENTS</span>
-              <h2 class="section-title mt-2">For Parents Making A<br class="d-none d-md-block" /> Serious Decision.</h2>
+              <h2 class="section-title mt-2">Your Confidence in Their Future Matters</h2>
               <p class="section-desc mt-3">
-                A finance career is a big investment of money, time and hope, and you deserve clarity before you commit.
-                We would rather you decide with full information than under pressure.
+                Choosing the right professional education is an important decision for every family. At GCC School, we
+                believe parents should have a clear understanding of the admission process, financial commitments, and
+                support available throughout their child's journey.
               </p>
             </div>
           </div>
@@ -78,8 +79,9 @@
             <!-- Bottom Helpdesk bar -->
             <div class="helpdesk-bar d-flex justify-content-between align-items-center flex-wrap g-3">
               <div class="text-start">
-                <h5 class="helpdesk-title m-0">A Dedicated Parent Helpdesk</h5>
-                <p class="helpdesk-subtitle m-0 mt-1">Your questions, answered directly.</p>
+                <h5 class="helpdesk-title m-0">Speak with Our Admissions Team</h5>
+                <p class="helpdesk-subtitle m-0 mt-1">Have questions about your child's education at GCC School? Connect
+                  directly with our team.</p>
               </div>
               <div class="helpdesk-phone">
                 +91 87968 80189
@@ -112,20 +114,20 @@ const steps = [
 
 const parentCards = [
   {
-    title: "Transparency On Fees",
-    desc: "Full fee structure, milestones and financing, explained openly before admission."
+    title: "Clear Fee & Financing Information",
+    desc: "Understand program fees, payment options and available financing before making a commitment."
   },
   {
-    title: "A Real Process",
-    desc: "Merit-based selection through NFET, not vague promises."
+    title: "Structured Admission & Selection",
+    desc: "Know the eligibility requirements, assessments, corporate selection stages and admission process."
   },
   {
-    title: "A Campus You Can Visit",
-    desc: "See it, walk it, meet the team in person."
+    title: "Visit the GCC School Campus",
+    desc: "Experience the Gurugram campus firsthand and interact with the admissions team."
   },
   {
-    title: "Support That Stays",
-    desc: "Academic help, counselling and career guidance throughout."
+    title: "Academic & Career Guidance",
+    desc: "Understand the academic support, mentoring and career guidance available to students."
   }
 ]
 </script>

@@ -8,12 +8,16 @@
         <div class="col-lg-6 text-start">
           <span class="hire-badge-title">THE VISION BEHIND GCC SCHOOL</span>
           <h2 class="hire-main-title mt-3">
-            What if your career was secured before your training even began? Discover how GCC School is rethinking the
-            traditional education journey with a Hire-First, Train-Next model.
+            Why Should Your Career Have to Wait Until Your Education Is Complete?
           </h2>
+          <p class="hire-main-desc mt-3">
+            Hear from GCC School's Founder & CEO, Dr. Kamal Chhabra, as he shares the vision behind a distinctive
+            education model that integrates corporate selection with industry-led professional training, redefining how
+            students prepare for careers in global finance and accounting.
+          </p>
           <div class="d-flex gap-3 flex-wrap mt-4">
             <NuxtLink to="/nfet-exam" style="background-color: #51157C;color: white;" class="title-btn px-4 py-3">
-              Explore The Model &rarr;
+              Explore the Model &rarr;
             </NuxtLink>
             <!-- <button style="color:#51157C; outline: #DDD1EA;border: 1px solid #DDD1EA; background-color: white;"
                 class=" title-btn px-4 py-3" @click="toggleEligibilityModal">
@@ -31,7 +35,7 @@
                   class="w-100 h-100" @play="isVideoPlaying = true" @pause="isVideoPlaying = false"
                   style="object-fit: cover; background: #0b0b1a;">
                   <source
-                    src="https://storage.googleapis.com/static_files_backend/media/images/Kamal%20Sir%20Video_1.mp4"
+                    src="https://pub-9c0647755fb64a018ac13430cf4fc25f.r2.dev/media/images/Kamal%20Sir%20Video_1.mp4"
                     type="video/mp4">
                   Your browser does not support the video tag.
                 </video>
@@ -46,7 +50,7 @@
 
                 <!-- Thumbnail Mask (visible before play) -->
                 <img v-if="!isVideoPlaying"
-                  src="https://storage.googleapis.com/static_files_backend/media/images/kamal%20sir%20thnml%202.jpg"
+                  src="https://pub-9c0647755fb64a018ac13430cf4fc25f.r2.dev/media/images/kamal%20sir%20thnml%202.jpg"
                   class="video-poster-img" @click="playVideo" alt="Thumbnail">
               </div>
             </div>
@@ -126,6 +130,13 @@ export default {
   line-height: 52px;
   letter-spacing: -0.02em;
   color: #181225;
+}
+
+.hire-main-desc {
+  font-size: 17px;
+  line-height: 1.7;
+  color: #4a4458;
+  margin-bottom: 0;
 }
 
 .btn-purple {

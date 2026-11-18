@@ -2,7 +2,7 @@
   <div>
     <!-- Side Button -->
     <div class="contact-tab" @click="toggleForm">
-      Quick Contact
+      Get in Touch
     </div>
 
     <!-- Slide Form -->

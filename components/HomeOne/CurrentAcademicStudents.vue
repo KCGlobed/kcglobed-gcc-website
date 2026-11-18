@@ -4,8 +4,8 @@
       <div class="container-fluid w">
         <div class="section-title text-center">
           <!-- Kept the section title as per previous premium design -->
-          <h2 class="title">Traditional Pathway vs GCC SCHOOL Journey</h2>
-          <p>See why GCC School Journey is most suited for professional world of new tomorrow.</p>
+          <h2 class="title">What Sets the GCC School Experience Apart?</h2>
+          <p>See why GCC School Journey is most suited for the professional world of new tomorrow.</p>
         </div>
 
         <div class="table-responsive">
@@ -62,13 +62,16 @@
           <!-- Left Info Block -->
           <div class="col-lg-5 col-12 mb-lg-0 mb-5 faculty-info-col">
             <div class="faculty-info text-start">
-              <span class="gold-tag">FACULTY & MENTORS</span>
-              <h2 class="faculty-heading mt-2">Taught By People Who<br class="d-none d-md-block" /> Have Done The Work.
-              </h2>
-              <p class="faculty-desc mt-3">
-                Practising CPAs, Chartered Accountants and Enrolled Agents, not just lecturers. You learn how the work
-                is really done, from people who have done it at a high level.
-              </p>
+              <!-- All tab contents share one grid cell so the box always takes the tallest one's height (no layout shift) -->
+              <div class="faculty-info-stack">
+                <div v-for="tab in facultyTabs" :key="'info-' + tab.key"
+                  :class="['faculty-info-panel', { active: activeFacultyTab === tab.key }]"
+                  :aria-hidden="activeFacultyTab !== tab.key">
+                  <span class="gold-tag">{{ tab.tag }}</span>
+                  <h2 class="faculty-heading mt-2">{{ tab.heading }}</h2>
+                  <p class="faculty-desc mt-3">{{ tab.desc }}</p>
+                </div>
+              </div>
               <!-- <NuxtLink to="/thinktank" style="background-color: #51157C;color: white;" class="btn mt-4">
                 Meet The Faculty <i class="ti ti-arrow-right ms-2"></i>
               </NuxtLink> -->
@@ -77,9 +80,18 @@
 
           <!-- Right Cards Block -->
           <div class="col-lg-7 col-12">
+            <div class="faculty-tabs mb-4" role="tablist">
+              <button v-for="tab in facultyTabs" :key="tab.key" type="button" role="tab"
+                :aria-selected="activeFacultyTab === tab.key"
+                :class="['faculty-tab-btn', { active: activeFacultyTab === tab.key }]"
+                @click="selectFacultyTab(tab.key)">
+                {{ tab.label }}
+              </button>
+            </div>
             <div class="faculty-carousel-container">
-              <div class="faculty-scroll-wrapper" ref="facultyScrollRef" @scroll="checkScroll">
-                <div v-for="(faculty, index) in facultyMembers" :key="index" class="faculty-card-item">
+              <div :class="['faculty-scroll-wrapper', 'tab-' + activeFacultyTab]" ref="facultyScrollRef" @scroll="checkScroll">
+                <div v-for="(faculty, index) in activeFacultyList" :key="activeFacultyTab + '-' + index"
+                  class="faculty-card-item">
                   <img :src="faculty.image" :alt="faculty.alt" class="faculty-img" loading="lazy" decoding="async"
                     @load="checkScroll" />
                 </div>
@@ -125,15 +137,39 @@ export default {
       showLeftArrow: false,
       showRightArrow: true,
       activeIndex: 0,
+      activeFacultyTab: "thinktank",
+      thinkTankMembers: [
+        { image: "/mentor/1.svg", alt: "Strategic Think Tank Member 1" },
+        { image: "/mentor/2.svg", alt: "Strategic Think Tank Member 2" },
+        { image: "/mentor/3.svg", alt: "Strategic Think Tank Member 3" },
+        { image: "/mentor/4.svg", alt: "Strategic Think Tank Member 4" },
+      ],
+      industryMentors: [
+        "1.png",
+        "2.png",
+        "3.png",
+        "4.png",
+        "5.png",
+        "6.png",
+        "7.png",
+        "8.png",
+        "9.png",
+        "10.png",
+        "11.png",
+        "12.png",
+      ].map((file, i) => ({
+        image: `https://pub-036d749647594301a3092e501d1d3b5f.r2.dev/static/images/${file}`,
+        alt: `Industry Mentor ${i + 1}`,
+      })),
       facultyMembers: [
-        { image: "https://storage.googleapis.com/gcc_prod_static_files_backend/static/images/image%20(4).png", alt: "Faculty 1" },
-        { image: "https://storage.googleapis.com/gcc_prod_static_files_backend/static/images/image%20(2).png", alt: "Faculty 2" },
-        { image: "https://storage.googleapis.com/gcc_prod_static_files_backend/static/images/image%20(10).png", alt: "Faculty 3" },
-        { image: "https://storage.googleapis.com/gcc_prod_static_files_backend/static/images/image%20(1).png", alt: "Faculty 4" },
-        { image: "https://storage.googleapis.com/gcc_prod_static_files_backend/static/images/image%20(3).png", alt: "Faculty 5" },
-        { image: "https://storage.googleapis.com/gcc_prod_static_files_backend/static/images/image%20(5).png", alt: "Faculty 6" },
-        { image: "https://storage.googleapis.com/gcc_prod_static_files_backend/static/images/image%20(6).png", alt: "Faculty 7" },
-        { image: "https://storage.googleapis.com/gcc_prod_static_files_backend/static/images/image%20(7).png", alt: "Faculty 8" },
+        { image: "https://pub-1c3aa4d882c24d66ac8e49a3fe6fbb71.r2.dev/static/images/image%20(4).png", alt: "Faculty 1" },
+        { image: "https://pub-1c3aa4d882c24d66ac8e49a3fe6fbb71.r2.dev/static/images/image%20(2).png", alt: "Faculty 2" },
+        { image: "https://pub-1c3aa4d882c24d66ac8e49a3fe6fbb71.r2.dev/static/images/image%20(10).png", alt: "Faculty 3" },
+        { image: "https://pub-1c3aa4d882c24d66ac8e49a3fe6fbb71.r2.dev/static/images/image%20(1).png", alt: "Faculty 4" },
+        { image: "https://pub-1c3aa4d882c24d66ac8e49a3fe6fbb71.r2.dev/static/images/image%20(3).png", alt: "Faculty 5" },
+        { image: "https://pub-1c3aa4d882c24d66ac8e49a3fe6fbb71.r2.dev/static/images/image%20(5).png", alt: "Faculty 6" },
+        { image: "https://pub-1c3aa4d882c24d66ac8e49a3fe6fbb71.r2.dev/static/images/image%20(6).png", alt: "Faculty 7" },
+        { image: "https://pub-1c3aa4d882c24d66ac8e49a3fe6fbb71.r2.dev/static/images/image%20(7).png", alt: "Faculty 8" },
       ],
       comparisonData: [
         { feature: "<strong>Globally Recognised</strong> Academic Credentials", traditional: true, gcc: true },
@@ -149,7 +185,45 @@ export default {
       ],
     };
   },
+  computed: {
+    facultyTabs() {
+      return [
+        {
+          key: "thinktank", label: "Strategic Think Tank", items: this.thinkTankMembers,
+          tag: "STRATEGIC THINK TANK",
+          heading: "Where Strategic Vision Meets Industry Expertise",
+          desc: "Bringing together accomplished business leaders, senior executives and industry specialists, the GCC School Strategic Think Tank provides a platform for informed dialogue, forward-looking perspectives and strategic insights that contribute to the institution's long-term vision and direction.",
+        },
+        {
+          key: "sme", label: "Subject Matter Experts", items: this.facultyMembers,
+          tag: "SUBJECT MATTER EXPERTS",
+          heading: "Specialised Expertise. Broader Industry Perspectives.",
+          desc: "GCC School brings together distinguished professionals from diverse industries who share their expertise, experiences and insights into the evolving business landscape. Their perspectives introduce students to emerging trends, industry expectations and the realities of the corporate world.",
+        },
+        {
+          key: "mentors", label: "Industry Mentors", items: this.industryMentors,
+          tag: "FACULTY & MENTORS",
+          heading: "Learn from the Professionals Who Shape Global Finance",
+          desc: "Gain insights from experienced US CPAs, Chartered Accountants, Enrolled Agents and GCC industry leaders who bring extensive corporate expertise, practical knowledge and real-world perspectives to your learning experience.",
+        },
+      ];
+    },
+    activeFacultyList() {
+      const tab = this.facultyTabs.find((t) => t.key === this.activeFacultyTab);
+      return tab ? tab.items : [];
+    },
+  },
   methods: {
+    selectFacultyTab(key) {
+      if (this.activeFacultyTab === key) return;
+      this.activeFacultyTab = key;
+      this.activeIndex = 0;
+      this.$nextTick(() => {
+        const container = this.$refs.facultyScrollRef;
+        if (container) container.scrollLeft = 0;
+        this.checkScroll();
+      });
+    },
     scroll(direction) {
       const container = this.$refs.facultyScrollRef;
       if (!container) return;
@@ -183,7 +257,7 @@ export default {
       const maxScroll = container.scrollWidth - container.clientWidth;
       if (maxScroll <= 0) {
         // Default to showing the right arrow initially if we have more than 2 items
-        this.showRightArrow = this.facultyMembers.length > 2;
+        this.showRightArrow = this.activeFacultyList.length > 2;
       } else {
         this.showRightArrow = container.scrollLeft < maxScroll - 10;
       }
@@ -502,7 +576,7 @@ tr:last-child .gcc-cell {
 
 /* Faculty & Mentors Section Styles */
 .faculty-mentors-area {
-  background-color: #aeaeae;
+  background-color: #d9d9d9;
   padding: 80px 0;
   border-top: 1px solid #ECECF0;
   overflow: hidden;
@@ -528,6 +602,58 @@ tr:last-child .gcc-cell {
   font-size: 19px;
   color: #555555;
   line-height: 1.6;
+}
+
+.faculty-info-stack {
+  display: grid;
+}
+
+.faculty-info-panel {
+  grid-area: 1 / 1;
+  visibility: hidden;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.faculty-info-panel.active {
+  visibility: visible;
+  opacity: 1;
+}
+
+.faculty-tabs {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 10px;
+}
+
+.faculty-tab-btn {
+  background: #ffffff;
+  color: #4A154B;
+  border: 1px solid #DDD1EA;
+  border-radius: 999px;
+  padding: 10px 18px;
+  font-size: 15px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background-color 0.2s ease, color 0.2s ease, border-color 0.2s ease;
+}
+
+.faculty-tab-btn:hover {
+  border-color: #4A154B;
+}
+
+.faculty-tab-btn.active {
+  background: #4A154B;
+  color: #ffffff;
+  border-color: #4A154B;
+}
+
+@media (max-width: 575px) {
+  .faculty-tab-btn {
+    font-size: 13px;
+    padding: 8px 14px;
+  }
 }
 
 .btn-purple-meet {
@@ -674,7 +800,6 @@ tr:last-child .gcc-cell {
   scrollbar-width: none;
   -ms-overflow-style: none;
   justify-content: none;
-  border-radius: 42px;
 }
 
 .faculty-scroll-wrapper::-webkit-scrollbar {
@@ -685,6 +810,18 @@ tr:last-child .gcc-cell {
   flex: 0 0 auto;
   display: flex;
   align-items: flex-end;
+}
+
+/* Industry Mentors tab: smaller cards */
+.faculty-scroll-wrapper.tab-mentors .faculty-img {
+  height: 200px;
+}
+
+@media (max-width: 767px) {
+  .faculty-scroll-wrapper.tab-mentors .faculty-card-item {
+    height: 140px !important;
+    width: 200px !important;
+  }
 }
 
 .scroll-btn {

@@ -4,11 +4,11 @@
             <!-- Section Header -->
             <div class="section-title text-center mb-50">
                 <span class="highlight" style="font-size: 24px;">The GCC OPPORTUNITY</span>
-                <h2 class="title">India Is The World's GCC Capital.</h2>
-                <p style="max-width: 777px; margin: auto;">Global Capability Centres are the fastest-growing engine of
-                    high-skill finance work in the country. GCC School exists to put commerce graduates at the centre of
-                    that shift.</p>
-                <p style="margin-top: 15px;">FIGURES REFLECT WIDELY REPORTED ESTIMATES FOR INDIA'S GCC SECTOR</p>
+                <h2 class="title">India at the Centre of GCC Growth: A New World of Finance Career Opportunities</h2>
+                <p style="max-width: 777px; margin: auto;">Global Capability Centres are transforming India’s finance
+                    landscape, creating growing demand for skilled professionals. GCC School exists to connect commerce
+                    and management graduates with the opportunities emerging from this shift.</p>
+                <p style="margin-top: 15px; font-weight: 600;">Figures Reflect Widely Reported Estimates for India's GCC Sector</p>
             </div>
 
             <!-- Program Cards Grid -->

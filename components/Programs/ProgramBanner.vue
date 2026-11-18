@@ -222,7 +222,7 @@
                                     <div class="video-section">
                                         <div class="video-wrapper">
                                             <template v-if="!banner.showVideo">
-                                                <img src="https://storage.googleapis.com/gcc_prod_static_files_backend/static/images/nitish_sir_thmbnl.jpg"
+                                                <img src="https://pub-1c3aa4d882c24d66ac8e49a3fe6fbb71.r2.dev/static/images/nitish_sir_thmbnl.jpg"
                                                     alt="Program Video" class="video-thumbnail">
                                                 <!-- <div class="video-badge-4k">
                                                     4k

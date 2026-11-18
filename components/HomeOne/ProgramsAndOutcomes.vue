@@ -4,8 +4,12 @@
     <div class="programs-section">
       <div class="container-fluid w  px-lg-5 px-md-4 px-3">
         <div class="programs-header text-start mb-40">
-          <span class="section-tag">THREE PROGRAMS · ONE SERIOUS OUTCOME</span>
-          <h2 class="section-title mt-2">Pick A Career Path. The<br class="d-none d-md-block" /> Program Follows.</h2>
+          <span class="section-tag">THREE PROGRAMS. CHOOSE YOUR DIRECTION.</span>
+          <h2 class="section-title mt-2">Explore Programs Designed for Global Finance Careers</h2>
+          <p class="section-desc mt-2">
+            GCC School offers three focused programs covering distinct areas of accounting and taxation. Explore their
+            curriculum, learning objectives and professional pathways to make an informed choice about your next step.
+          </p>
         </div>
 
         <div class="row g-4 justify-content-center mt-3">
@@ -46,7 +50,11 @@
       <div class="container-fluid w px-lg-5 px-md-4 px-3">
         <div class="outcomes-header text-start mb-30">
           <span class="section-tag">CAREER OUTCOMES</span>
-          <h2 class="section-title mt-2">A Clear Line From Classroom To<br class="d-none d-md-block" /> Career.</h2>
+          <h2 class="section-title mt-2">Build Your Career Where Global Businesses Operate</h2>
+          <p class="section-desc mt-2">
+            Stepping into the world of global finance opens up diverse career opportunities, from specialised roles to
+            long-term professional growth and leadership positions.
+          </p>
         </div>
 
         <!-- Tags Row -->
@@ -68,40 +76,40 @@
         <div class="row g-5 align-items-stretch">
           <!-- Left Column: Ecosystem Grid -->
           <div class="col-lg-7">
-            <h4 class="ecosystem-title mb-4">APPROVED HIRING-PARTNER ECOSYSTEM</h4>
+            <h4 class="ecosystem-title mb-4">OUR CORPORATE HIRING PARTNERS</h4>
             <div class="ecosystem-grid">
               <!-- Card 1: BDO -->
               <div class="partner-card">
                 <img class="partner-logo"
-                  src="https://storage.googleapis.com/gcc_prod_static_files_backend/static/images/fcf40cc156290a432750ebfdc83c0bdc98be334c.png"
+                  src="https://pub-1c3aa4d882c24d66ac8e49a3fe6fbb71.r2.dev/static/images/fcf40cc156290a432750ebfdc83c0bdc98be334c.png"
                   alt="">
               </div>
 
               <!-- Card 2: Baker Tilly -->
               <div class="partner-card">
                 <img class="partner-logo"
-                  src="https://storage.googleapis.com/gcc_prod_static_files_backend/static/images/ccc612e70958ff73c2eea50bb366a0b57537f0d8.png"
+                  src="https://pub-1c3aa4d882c24d66ac8e49a3fe6fbb71.r2.dev/static/images/ccc612e70958ff73c2eea50bb366a0b57537f0d8.png"
                   alt="">
               </div>
 
               <!-- Card 3: ASA -->
               <div class="partner-card">
                 <img style="height: 80px;"
-                  src="https://storage.googleapis.com/gcc_prod_static_files_backend/static/images/f18d9610299379a7802f53adaf17782b3d556016.png"
+                  src="https://pub-1c3aa4d882c24d66ac8e49a3fe6fbb71.r2.dev/static/images/f18d9610299379a7802f53adaf17782b3d556016.png"
                   alt="">
               </div>
 
               <!-- Card 4: J.C Bhalla & Co. -->
               <!-- <div class="partner-card">
                 <img style="height: 63px;"
-                  src="https://storage.googleapis.com/gcc_prod_static_files_backend/static/images/2z2634.tif.Jz-5A6rG.png%20(1).png"
+                  src="https://pub-1c3aa4d882c24d66ac8e49a3fe6fbb71.r2.dev/static/images/2z2634.tif.Jz-5A6rG.png%20(1).png"
                   alt="">
               </div> -->
 
               <!-- Card 5: Kreit & Chiu -->
               <div class="partner-card">
                 <img class="partner-logo"
-                  src="https://storage.googleapis.com/gcc_prod_static_files_backend/static/images/2b4b2a017e158573d1b6aa89b1e9fdad34408014.png"
+                  src="https://pub-1c3aa4d882c24d66ac8e49a3fe6fbb71.r2.dev/static/images/2b4b2a017e158573d1b6aa89b1e9fdad34408014.png"
                   alt="">
               </div>
 
@@ -146,7 +154,7 @@ const programCards = [
     title: "AI Enabled International Accounting Program (AEIAP)",
     duration: "12 Months",
     approved: "AICTE Approved PGCM Program",
-    offer: "10 LPA",
+    offer: "₹10 LPA",
     image: us1,
     link: "/programs/acca"
   },
@@ -154,7 +162,7 @@ const programCards = [
     title: "AI Enabled US Accounting Program (AEUAP)",
     duration: "12 Months",
     approved: "AICTE Approved PGCM Program",
-    offer: "10 LPA",
+    offer: "₹10 LPA",
     image: us2,
     link: "/programs/cpa"
   },
@@ -162,7 +170,7 @@ const programCards = [
     title: "AI Enabled US Taxation Program (AEUTP)",
     duration: "12 Months",
     approved: "AICTE Approved PGCM Program",
-    offer: "6 LPA",
+    offer: "₹6 LPA",
     image: us3,
     link: "/programs/ea"
   }
@@ -219,6 +227,19 @@ const checkTagsScroll = () => {
 .programs-header,
 .outcomes-header {
   text-align: left !important;
+}
+
+.programs-header .section-title,
+.outcomes-header .section-title {
+  margin-bottom: 8px;
+}
+
+.section-desc {
+  font-size: 17px;
+  line-height: 1.7;
+  color: #4a4458;
+  max-width: 860px;
+  margin-bottom: 0;
 }
 
 .section-tag {

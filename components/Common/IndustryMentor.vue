@@ -1,6 +1,6 @@
 <template>
   <div class="mentors-and-campus-wrapper">
-    <div class="think-tank-area ptb-100">
+    <div v-if="showMentors" class="think-tank-area ptb-100">
       <div class="container-fluid w">
         <div class="section-title text-center mb-50">
           <h2 class="title">Our Distinguished Industry Mentors</h2>
@@ -59,10 +59,12 @@
           <!-- Left Content -->
           <div class="col-lg-6 col-12 text-start">
             <div class="campus-info">
-              <span class="gold-tag">CAMPUS · DLF CYBER CITY</span>
-              <h2 class="campus-heading mt-2">Learn Where Global<br class="d-none d-md-block" /> Finance Actually<br class="d-none d-md-block" /> Happens.</h2>
+              <span class="gold-tag">EXPLORE OUR CAMPUS</span>
+              <h2 class="campus-heading mt-2">Experience Campus Life at the Heart of India's Corporate Hub</h2>
               <p class="campus-desc mt-3">
-                Building 9B, DLF Cyber City, Gurugram, surrounded by the very companies you are training to join. That proximity is not a perk. It is part of how we prepare you.
+                Located at Building 9B, DLF Cyber City, Gurugram, GCC School places students in one of India's leading
+                corporate business districts, offering an environment that brings them closer to the professional
+                world they aspire to enter.
               </p>
               <div class="d-flex flex-wrap gap-3 mt-4">
                 <!-- <button class="btn btn-gold">
@@ -93,54 +95,57 @@ import campusImg from '@/assets/newimages/campus-1.png';
 
 const images = [
     {
-        img: "https://storage.googleapis.com/gcc_prod_static_files_backend/static/images/Frame%2051456%201.png",
+        img: "https://pub-1c3aa4d882c24d66ac8e49a3fe6fbb71.r2.dev/static/images/Frame%2051456%201.png",
         link: "https://www.linkedin.com/in/senthil-kumar-5b8a1b8a/"
     },
     {
-        img: "https://storage.googleapis.com/gcc_prod_static_files_backend/static/images/Frame%2051456%20(1)%201.png",
+        img: "https://pub-1c3aa4d882c24d66ac8e49a3fe6fbb71.r2.dev/static/images/Frame%2051456%20(1)%201.png",
         link: "https://www.linkedin.com/in/senthil-kumar-5b8a1b8a/"
     },
     {
-        img: "https://storage.googleapis.com/gcc_prod_static_files_backend/static/images/Frame%2051457%201.png",
+        img: "https://pub-1c3aa4d882c24d66ac8e49a3fe6fbb71.r2.dev/static/images/Frame%2051457%201.png",
         link: "https://www.linkedin.com/in/senthil-kumar-5b8a1b8a/"
     },
     {
-        img: "https://storage.googleapis.com/gcc_prod_static_files_backend/static/images/Frame%2051456%20(2)%201.png",
+        img: "https://pub-1c3aa4d882c24d66ac8e49a3fe6fbb71.r2.dev/static/images/Frame%2051456%20(2)%201.png",
         link: "https://www.linkedin.com/in/senthil-kumar-5b8a1b8a/"
     },
     {
-        img: "https://storage.googleapis.com/gcc_prod_static_files_backend/static/images/Frame%2049920%201.png",
+        img: "https://pub-1c3aa4d882c24d66ac8e49a3fe6fbb71.r2.dev/static/images/Frame%2049920%201.png",
         link: "https://www.linkedin.com/in/senthil-kumar-5b8a1b8a/"
     },
     {
-        img: "https://storage.googleapis.com/gcc_prod_static_files_backend/static/images/Frame%2051456%20(4)%201.png",
+        img: "https://pub-1c3aa4d882c24d66ac8e49a3fe6fbb71.r2.dev/static/images/Frame%2051456%20(4)%201.png",
         link: "https://www.linkedin.com/in/senthil-kumar-5b8a1b8a/"
     },
     {
-        img: "https://storage.googleapis.com/gcc_prod_static_files_backend/static/images/Frame%2051456%20(5)%201.png",
+        img: "https://pub-1c3aa4d882c24d66ac8e49a3fe6fbb71.r2.dev/static/images/Frame%2051456%20(5)%201.png",
         link: "https://www.linkedin.com/in/senthil-kumar-5b8a1b8a/"
     },
     {
-        img: "https://storage.googleapis.com/gcc_prod_static_files_backend/static/images/Frame%2051456%20(6)%201.png",
+        img: "https://pub-1c3aa4d882c24d66ac8e49a3fe6fbb71.r2.dev/static/images/Frame%2051456%20(6)%201.png",
         link: "https://www.linkedin.com/in/senthil-kumar-5b8a1b8a/"
     },
     {
-        img: "https://storage.googleapis.com/gcc_prod_static_files_backend/static/images/Frame%2051456%20(7).png",
+        img: "https://pub-1c3aa4d882c24d66ac8e49a3fe6fbb71.r2.dev/static/images/Frame%2051456%20(7).png",
         link: "https://www.linkedin.com/in/senthil-kumar-5b8a1b8a/"
     },
     {
-        img: "https://storage.googleapis.com/gcc_prod_static_files_backend/static/images/Frame%2051457%20(1)%201.png",
+        img: "https://pub-1c3aa4d882c24d66ac8e49a3fe6fbb71.r2.dev/static/images/Frame%2051457%20(1)%201.png",
         link: "https://www.linkedin.com/in/senthil-kumar-5b8a1b8a/"
     },
     {
-        img: "https://storage.googleapis.com/gcc_prod_static_files_backend/static/images/Frame%2051457%20(2)%201.png",
+        img: "https://pub-1c3aa4d882c24d66ac8e49a3fe6fbb71.r2.dev/static/images/Frame%2051457%20(2)%201.png",
         link: "https://www.linkedin.com/in/senthil-kumar-5b8a1b8a/"
     },
     {
-        img: "https://storage.googleapis.com/gcc_prod_static_files_backend/static/images/Murli_Mohan.png",
+        img: "https://pub-1c3aa4d882c24d66ac8e49a3fe6fbb71.r2.dev/static/images/Murli_Mohan.png",
         link: "https://www.linkedin.com/in/senthil-kumar-5b8a1b8a/"
     },
 ]
+
+// Pages that show mentors elsewhere (e.g. the home page faculty tabs) can hide this carousel.
+withDefaults(defineProps<{ showMentors?: boolean }>(), { showMentors: true });
 
 const mentorGridRef = ref<HTMLElement | null>(null);
 const showLeftArrow = ref(false);
