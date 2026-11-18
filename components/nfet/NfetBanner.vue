@@ -33,7 +33,7 @@
                     <div class="video-wrapper">
                         <div class="video-container" @click="playVideo">
                             <template v-if="!isPlaying">
-                                <img src="https://storage.googleapis.com/gcc_static_files_backend/static/images/manna%20sir%20thmbnl.jpg"
+                                <img src="https://pub-036d749647594301a3092e501d1d3b5f.r2.dev/static/images/manna%20sir%20thmbnl.jpg"
                                     alt="NFET Video Thumbnail" class="video-thumb" />
                                 <div class="play-overlay">
                                     <div class="play-btn">
@@ -44,7 +44,7 @@
                             <video v-else controls autoplay controlsList="nodownload" oncontextmenu="return false;"
                                 class="video-player">
                                 <source
-                                    src="https://storage.googleapis.com/gcc_static_files_backend/static/videos/MANNA%20SIR%20WEBSITE_FINAL%20100.mp4"
+                                    src="https://pub-036d749647594301a3092e501d1d3b5f.r2.dev/static/videos/MANNA%20SIR%20WEBSITE_FINAL%20100.mp4"
                                     type="video/mp4">
                                 Your browser does not support the video tag.
                             </video>
