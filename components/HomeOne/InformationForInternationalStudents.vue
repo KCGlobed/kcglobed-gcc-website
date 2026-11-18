@@ -11,9 +11,9 @@
             Why Should Your Career Have to Wait Until Your Education Is Complete?
           </h2>
           <p class="hire-main-desc mt-3">
-            Hear from GCC School's Founder &amp; CEO, Dr. Kamal Chhabra, as he shares the vision behind a new approach
-            to professional education, where corporate expectations shape learning and career opportunities become
-            part of the journey from the very beginning.
+            Hear from GCC School's Founder & CEO, Dr. Kamal Chhabra, as he shares the vision behind a distinctive
+            education model that integrates corporate selection with industry-led professional training, redefining how
+            students prepare for careers in global finance and accounting.
           </p>
           <div class="d-flex gap-3 flex-wrap mt-4">
             <NuxtLink to="/nfet-exam" style="background-color: #51157C;color: white;" class="title-btn px-4 py-3">

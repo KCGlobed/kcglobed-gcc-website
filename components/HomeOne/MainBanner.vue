@@ -23,10 +23,9 @@
                 </h1>
 
                 <p class="hero-subtitle hero-intro mt-3">
-                  GCC School is transforming how commerce and management graduates prepare for careers in global
-                  finance. Through its unique reverse career model, <em>"Get Hired First. Then Trained."</em>, it brings
-                  corporate selection and industry-led professional training together, creating a structured pathway
-                  from academic learning to global career opportunities.
+                  GCC School is transforming how students prepare for careers in global finance and accounting. Through
+                  its unique “Get Hired First. Then Trained.” model, it brings corporate selection, professional
+                  qualifications and industry-led training together to prepare students for the corporate world.
                 </p>
 
                 <div class="d-flex gap-3 flex-wrap mt-4 justify-content-lg-start justify-content-center">

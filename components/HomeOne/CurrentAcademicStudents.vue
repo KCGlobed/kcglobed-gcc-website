@@ -62,12 +62,16 @@
           <!-- Left Info Block -->
           <div class="col-lg-5 col-12 mb-lg-0 mb-5 faculty-info-col">
             <div class="faculty-info text-start">
-              <span class="gold-tag">FACULTY & MENTORS</span>
-              <h2 class="faculty-heading mt-2">Learn from the Professionals Who Shape Global Finance</h2>
-              <p class="faculty-desc mt-3">
-                Gain insights from practising US CPAs, Chartered Accountants, Enrolled Agents and industry leaders who
-                bring firsthand corporate experience, and real-world perspectives to your professional development.
-              </p>
+              <!-- All tab contents share one grid cell so the box always takes the tallest one's height (no layout shift) -->
+              <div class="faculty-info-stack">
+                <div v-for="tab in facultyTabs" :key="'info-' + tab.key"
+                  :class="['faculty-info-panel', { active: activeFacultyTab === tab.key }]"
+                  :aria-hidden="activeFacultyTab !== tab.key">
+                  <span class="gold-tag">{{ tab.tag }}</span>
+                  <h2 class="faculty-heading mt-2">{{ tab.heading }}</h2>
+                  <p class="faculty-desc mt-3">{{ tab.desc }}</p>
+                </div>
+              </div>
               <!-- <NuxtLink to="/thinktank" style="background-color: #51157C;color: white;" class="btn mt-4">
                 Meet The Faculty <i class="ti ti-arrow-right ms-2"></i>
               </NuxtLink> -->
@@ -85,7 +89,7 @@
               </button>
             </div>
             <div class="faculty-carousel-container">
-              <div class="faculty-scroll-wrapper" ref="facultyScrollRef" @scroll="checkScroll">
+              <div :class="['faculty-scroll-wrapper', 'tab-' + activeFacultyTab]" ref="facultyScrollRef" @scroll="checkScroll">
                 <div v-for="(faculty, index) in activeFacultyList" :key="activeFacultyTab + '-' + index"
                   class="faculty-card-item">
                   <img :src="faculty.image" :alt="faculty.alt" class="faculty-img" loading="lazy" decoding="async"
@@ -184,9 +188,24 @@ export default {
   computed: {
     facultyTabs() {
       return [
-        { key: "thinktank", label: "Strategic Think Tank", items: this.thinkTankMembers },
-        { key: "sme", label: "Subject Matter Experts", items: this.facultyMembers },
-        { key: "mentors", label: "Industry Mentors", items: this.industryMentors },
+        {
+          key: "thinktank", label: "Strategic Think Tank", items: this.thinkTankMembers,
+          tag: "STRATEGIC THINK TANK",
+          heading: "Where Strategic Vision Meets Industry Expertise",
+          desc: "Bringing together accomplished business leaders, senior executives and industry specialists, the GCC School Strategic Think Tank provides a platform for informed dialogue, forward-looking perspectives and strategic insights that contribute to the institution's long-term vision and direction.",
+        },
+        {
+          key: "sme", label: "Subject Matter Experts", items: this.facultyMembers,
+          tag: "SUBJECT MATTER EXPERTS",
+          heading: "Specialised Expertise. Broader Industry Perspectives.",
+          desc: "GCC School brings together distinguished professionals from diverse industries who share their expertise, experiences and insights into the evolving business landscape. Their perspectives introduce students to emerging trends, industry expectations and the realities of the corporate world.",
+        },
+        {
+          key: "mentors", label: "Industry Mentors", items: this.industryMentors,
+          tag: "FACULTY & MENTORS",
+          heading: "Learn from the Professionals Who Shape Global Finance",
+          desc: "Gain insights from experienced US CPAs, Chartered Accountants, Enrolled Agents and GCC industry leaders who bring extensive corporate expertise, practical knowledge and real-world perspectives to your learning experience.",
+        },
       ];
     },
     activeFacultyList() {
@@ -585,6 +604,22 @@ tr:last-child .gcc-cell {
   line-height: 1.6;
 }
 
+.faculty-info-stack {
+  display: grid;
+}
+
+.faculty-info-panel {
+  grid-area: 1 / 1;
+  visibility: hidden;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.faculty-info-panel.active {
+  visibility: visible;
+  opacity: 1;
+}
+
 .faculty-tabs {
   display: flex;
   flex-wrap: wrap;
@@ -775,6 +810,18 @@ tr:last-child .gcc-cell {
   flex: 0 0 auto;
   display: flex;
   align-items: flex-end;
+}
+
+/* Industry Mentors tab: smaller cards */
+.faculty-scroll-wrapper.tab-mentors .faculty-img {
+  height: 200px;
+}
+
+@media (max-width: 767px) {
+  .faculty-scroll-wrapper.tab-mentors .faculty-card-item {
+    height: 140px !important;
+    width: 200px !important;
+  }
 }
 
 .scroll-btn {

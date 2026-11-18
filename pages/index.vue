@@ -6,6 +6,7 @@
     <HomeOneCompanyBar />
     <HomeOneInformationForInternationalStudents />
     <HomeGovtProgram />
+    <CommonGrowthTrend />
     <CommonPathwayYourSuccess />
     <CommonEligibilityCriteria />
     <HomeOneProgramsAndOutcomes />
@@ -13,15 +14,15 @@
     <CommonGccSchool />
     <CommonDirectorSpeach />
     <CommonGccCommerse />
-    <CommonGrowthTrend />
+    
     <CommonPathway />
     <!-- Faculty & Mentors: Think Tank, Subject Matter Experts and Industry Mentors are tabs inside this section -->
     <HomeOneCurrentAcademicStudents />
-    <!-- <CommonThinkTank /> -->
+    <CommonThinkTank />
     <CommonIndustryMentor :show-mentors="false" />
     <HomeOneNfetAndParents />
     <CommonFunFact />
-    <CommonNewsCard />
+    <!-- <CommonNewsCard /> -->
     <HomeOneSpotlightSection />
     <HomeOneStudentParentVideoSection />
     <HomeOneInstagramReelsSection />
