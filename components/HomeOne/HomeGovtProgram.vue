@@ -3,7 +3,7 @@
         <div class="container w">
             <!-- Section Header -->
             <div class="section-title text-center mb-50">
-                <span class="highlight" style="font-size: 24px;">The GCC Opportunity</span>
+                <span class="highlight" style="font-size: 24px;">The GCC OPPORTUNITY</span>
                 <h2 class="title">India at the Centre of GCC Growth: A New World of Finance Career Opportunities</h2>
                 <p style="max-width: 777px; margin: auto;">Global Capability Centres are transforming India’s finance
                     landscape, creating growing demand for skilled professionals. GCC School exists to connect commerce
