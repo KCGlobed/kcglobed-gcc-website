@@ -38,9 +38,9 @@ import CareerPath from '~/components/EAs/CareerPath.vue';
 const { $asset } = useNuxtApp()
 
 useHead({
-  title: "GCC School | Programs",
+  title: "US Accounting Program | GCC School",
   meta: [
-    { name: "description", content: "Advance your career with GCC School's professional programs. Explore specialized courses designed to equip graduates with industry-ready skills and global recognition." },
+    { name: "description", content: "Explore GCC School's AEUAP, an AI-enabled US Accounting Professional Program featuring US CPA preparation, practical accounting skills and corporate interview opportunities." },
     // Open Graph
     {
       property: "og:type",
@@ -49,12 +49,12 @@ useHead({
     {
       property: "og:title",
       content:
-        "Programs at GCC School | CA, CPA & Finance Career Courses",
+        "US Accounting Program | GCC School",
     },
     {
       property: "og:description",
       content:
-        "Explore industry-focused finance, accounting and professional certification programs designed for career success.",
+        "Explore GCC School's AEUAP, an AI-enabled US Accounting Professional Program featuring US CPA preparation, practical accounting skills and corporate interview opportunities.",
     },
     {
       property: "og:url",
@@ -82,12 +82,12 @@ useHead({
     {
       name: "twitter:title",
       content:
-        "Programs at GCC School | CA, CPA & Finance Career Courses",
+        "US Accounting Program | GCC School",
     },
     {
       name: "twitter:description",
       content:
-        "Explore industry-focused finance, accounting and professional certification programs designed for career success.",
+        "Explore GCC School's AEUAP, an AI-enabled US Accounting Professional Program featuring US CPA preparation, practical accounting skills and corporate interview opportunities.",
     },
     {
       name: "twitter:image",

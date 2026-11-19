@@ -28,9 +28,9 @@
 const { $asset } = useNuxtApp()
 
 useHead({
-  title: "GCC School | About US",
+  title: "About GCC School",
   meta: [
-    { name: "description", content: "Discover the vision, mission, and core values of GCC School. Learn how we are empowering the future workforce through excellence in professional education." },
+    { name: "description", content: "Learn about GCC School's vision, leadership and distinctive Get Hired First. Then Trained. model for connecting professional education with corporate opportunities." },
     // Open Graph
     {
       property: "og:type",
@@ -38,12 +38,12 @@ useHead({
     },
     {
       property: "og:title",
-      content: "About GCC School | Career-Focused Finance Education",
+      content: "About GCC School",
     },
     {
       property: "og:description",
       content:
-        "Learn about GCC School’s mission, industry-focused learning approach, expert faculty and career-driven finance education ecosystem.",
+        "Learn about GCC School's vision, leadership and distinctive Get Hired First. Then Trained. model for connecting professional education with corporate opportunities.",
     },
     {
       property: "og:url",
@@ -78,12 +78,12 @@ useHead({
     },
     {
       name: "twitter:title",
-      content: "About GCC School | Career-Focused Finance Education",
+      content: "About GCC School",
     },
     {
       name: "twitter:description",
       content:
-        "Learn about GCC School’s mission, industry-focused learning approach, expert faculty and career-driven finance education ecosystem.",
+        "Learn about GCC School's vision, leadership and distinctive Get Hired First. Then Trained. model for connecting professional education with corporate opportunities.",
     },
     {
       name: "twitter:image",

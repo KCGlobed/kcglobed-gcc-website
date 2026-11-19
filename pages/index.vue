@@ -34,21 +34,21 @@
 const { $asset } = useNuxtApp()
 
 useHead({
-  title: "GCC School: Get Hired First, Then Trained",
+  title: "GCC School | Get Hired First. Then Trained.",
   meta: [
-    { name: 'description', content: 'GCC school redefines career education with a hire-first model, industry immersion, and credentials designed to shape learners into accounting professionals.' },
+    { name: 'description', content: "Discover GCC School's hire-first education model for commerce and management graduates, combining corporate selection with industry-led training in global finance." },
     {
       property: "og:type",
       content: "website",
     },
     {
       property: "og:title",
-      content: "GCC School: Get Hired First, Then Trained",
+      content: "GCC School | Get Hired First. Then Trained.",
     },
     {
       property: "og:description",
       content:
-        "Industry-focused finance and accounting education programs designed to build successful global careers in CA, CPA and finance.",
+        "Discover GCC School's hire-first education model for commerce and management graduates, combining corporate selection with industry-led training in global finance.",
     },
     {
       property: "og:url",
@@ -82,12 +82,12 @@ useHead({
     },
     {
       name: "twitter:title",
-      content: "GCC School: Get Hired First, Then Trained",
+      content: "GCC School | Get Hired First. Then Trained.",
     },
     {
       name: "twitter:description",
       content:
-        "Industry-focused finance and accounting education programs designed to build successful global careers in CA, CPA and finance.",
+        "Discover GCC School's hire-first education model for commerce and management graduates, combining corporate selection with industry-led training in global finance.",
     },
     {
       name: "twitter:image",

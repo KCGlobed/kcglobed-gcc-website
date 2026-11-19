@@ -26,12 +26,12 @@ import NfetBanner from '~/components/nfet/NfetBanner.vue';
 const { $asset } = useNuxtApp()
 
 useHead({
-  title: "NFET Exam 2026 | National Finance Entrance Test – GCC School",
+  title: "Admissions & NFET | GCC School",
   meta: [
     {
       name: "description",
       content:
-        "Apply for NFET Exam 2026 by GCC School, a national-level finance entrance test for commerce graduates. Get access to top MNC interviews, global career pathways, and AI-proctored online exam. Register now."
+        "Find information on GCC School admissions, NFET entrance exam, eligibility criteria, selection stages and the process for applying to its professional programs."
     },
     // Open Graph
     {
@@ -41,12 +41,12 @@ useHead({
     {
       property: "og:title",
       content:
-        "NFET Exam 2026 | National Finance Entrance Test",
+        "Admissions & NFET | GCC School",
     },
     {
       property: "og:description",
       content:
-        "Apply for NFET 2026 and unlock opportunities in finance, accounting and global professional education.",
+        "Find information on GCC School admissions, NFET entrance exam, eligibility criteria, selection stages and the process for applying to its professional programs.",
     },
     {
       property: "og:url",
@@ -74,12 +74,12 @@ useHead({
     {
       name: "twitter:title",
       content:
-        "NFET Exam 2026 | National Finance Entrance Test",
+        "Admissions & NFET | GCC School",
     },
     {
       name: "twitter:description",
       content:
-        "Apply for NFET 2026 and unlock opportunities in finance, accounting and global professional education.",
+        "Find information on GCC School admissions, NFET entrance exam, eligibility criteria, selection stages and the process for applying to its professional programs.",
     },
     {
       name: "twitter:image",
