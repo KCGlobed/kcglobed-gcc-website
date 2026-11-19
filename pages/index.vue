@@ -99,5 +99,6 @@ useHead({
       href: "https://www.gccschool.com/",
     },
   ],
+  
 })
 </script>
