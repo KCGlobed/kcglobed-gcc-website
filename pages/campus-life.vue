@@ -21,9 +21,9 @@ import CampusTour from '~/components/Common/CampusTour.vue';
 const { $asset } = useNuxtApp()
 
 useHead({
-    title: "GCC School | Campus Life",
+    title: "Campus Life | GCC School",
     meta: [
-        { name: "description", content: "Experience life at GCC School. Explore our vibrant campus culture, student organizations, state-of-the-art facilities, and diverse extracurricular activities." },
+        { name: "description", content: "Explore life at GCC School's Gurugram campus, from practical training in SAP FI-CO, NetSuite and Applied AI to mentorship and a corporate learning environment." },
         // Open Graph
         {
             property: "og:type",
@@ -32,12 +32,12 @@ useHead({
         {
             property: "og:title",
             content:
-                "Campus Life at GCC School | Student Experience & Culture",
+                "Campus Life | GCC School",
         },
         {
             property: "og:description",
             content:
-                "Explore student life, events, networking opportunities, learning culture and experiences at GCC School.",
+                "Explore life at GCC School's Gurugram campus, from practical training in SAP FI-CO, NetSuite and Applied AI to mentorship and a corporate learning environment.",
         },
         {
             property: "og:url",
@@ -65,12 +65,12 @@ useHead({
         {
             name: "twitter:title",
             content:
-                "Campus Life at GCC School | Student Experience & Culture",
+                "Campus Life | GCC School",
         },
         {
             name: "twitter:description",
             content:
-                "Explore student life, events, networking opportunities, learning culture and experiences at GCC School.",
+                "Explore life at GCC School's Gurugram campus, from practical training in SAP FI-CO, NetSuite and Applied AI to mentorship and a corporate learning environment.",
         },
         {
             name: "twitter:image",

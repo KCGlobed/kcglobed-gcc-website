@@ -56,9 +56,9 @@ import EaCareerPath from '~/components/EAs/EaCareerPath.vue';
 const { $asset } = useNuxtApp()
 
 useHead({
-  title: "GCC School | Programs",
+  title: "US Taxation Program | GCC School",
   meta: [
-    { name: "description", content: "Advance your career with GCC School's professional programs. Explore specialized courses designed to equip graduates with industry-ready skills and global recognition." },
+    { name: "description", content: "Explore GCC School's AEUTP, an AI-enabled US Taxation Professional Program featuring Enrolled Agent preparation, practical US tax skills and career opportunities." },
      // Open Graph
     {
       property: "og:type",
@@ -67,12 +67,12 @@ useHead({
     {
       property: "og:title",
       content:
-        "Programs at GCC School | CA, CPA & Finance Career Courses",
+        "US Taxation Program | GCC School",
     },
     {
       property: "og:description",
       content:
-        "Explore industry-focused finance, accounting and professional certification programs designed for career success.",
+        "Explore GCC School's AEUTP, an AI-enabled US Taxation Professional Program featuring Enrolled Agent preparation, practical US tax skills and career opportunities.",
     },
     {
       property: "og:url",
@@ -100,12 +100,12 @@ useHead({
     {
       name: "twitter:title",
       content:
-        "Programs at GCC School | CA, CPA & Finance Career Courses",
+        "US Taxation Program | GCC School",
     },
     {
       name: "twitter:description",
       content:
-        "Explore industry-focused finance, accounting and professional certification programs designed for career success.",
+        "Explore GCC School's AEUTP, an AI-enabled US Taxation Professional Program featuring Enrolled Agent preparation, practical US tax skills and career opportunities.",
     },
     {
       name: "twitter:image",
