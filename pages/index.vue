@@ -23,7 +23,6 @@
     <CommonCampus />
     <LayoutMainFooter />
     <LayoutCopyRight />
-
     <!-- Event Popup -->
     <!-- <CommonEventPopup /> -->
   </div>
