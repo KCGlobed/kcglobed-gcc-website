@@ -100,5 +100,4 @@ useHead({
     },
   ],
 })
-
 </script>
