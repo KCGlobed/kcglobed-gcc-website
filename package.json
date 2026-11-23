@@ -3,7 +3,10 @@
   "private": true,
   "type": "module",
   "scripts": {
+    "icons:subset": "node scripts/subset-tabler-icons.mjs",
+    "prebuild": "node scripts/subset-tabler-icons.mjs",
     "build": "nuxt build",
+    "predev": "node scripts/subset-tabler-icons.mjs",
     "dev": "nuxt dev",
     "start": "node dist/server/index.mjs",
     "generate": "nuxt generate",

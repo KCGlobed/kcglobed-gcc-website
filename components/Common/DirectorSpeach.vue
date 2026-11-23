@@ -44,7 +44,7 @@
                         <div class="video-preview-box shadow-lg" @click="playVideo">
                             <template v-if="!isPlaying">
                                 <img :src="$asset('static/images/nitish_sir_thmbnl.jpg')"
-                                    alt="ED Message Video Preview" class="preview-img">
+                                    alt="ED Message Video Preview" class="preview-img" loading="lazy" decoding="async">
                                 <div class="play-btn-wrap">
                                     <div class="play-btn">
                                         <i class="ti ti-player-play-filled"></i>
