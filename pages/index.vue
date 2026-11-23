@@ -3,32 +3,37 @@
     <LayoutTopHeader />
     <LayoutMainNavbar />
     <HomeOneMainBanner />
-    <HomeOneInformationForInternationalStudents />
-    <CommonPathwayYourSuccess />
-    <CommonEligibilityCriteria />
-    <HomeOneFutureStudents />
-    <CommonGccSchool />
-    <CommonDirectorSpeach />
-    <CommonGccCommerse />
-    <CommonGrowthTrend />
-    <CommonPathway />
-    <HomeOneCurrentAcademicStudents />
-    <CommonThinkTank />
-    <CommonSubjectMatterExpert />
-    <CommonIndustryMentor />
-    <CommonFunFact />
-    <CommonNewsCard />
-    <CommonTrustecoSystem />
-    <CommonFaqSection />
-    <CommonCampus />
-    <LayoutMainFooter />
-    <LayoutCopyRight />
+    <!-- Everything below the hero is still server-rendered (same HTML, same SEO), but its
+         JavaScript is loaded and hydrated only when the section scrolls near the viewport.
+         This keeps the main thread free during page load. -->
+    <LazyHomeOneInformationForInternationalStudents hydrate-on-visible />
+    <LazyCommonPathwayYourSuccess hydrate-on-visible />
+    <LazyCommonEligibilityCriteria hydrate-on-visible />
+    <LazyHomeOneFutureStudents hydrate-on-visible />
+    <LazyCommonGccSchool hydrate-on-visible />
+    <LazyCommonDirectorSpeach hydrate-on-visible />
+    <LazyCommonGccCommerse hydrate-on-visible />
+    <LazyCommonGrowthTrend hydrate-on-visible />
+    <LazyCommonPathway hydrate-on-visible />
+    <LazyHomeOneCurrentAcademicStudents hydrate-on-visible />
+    <LazyCommonThinkTank hydrate-on-visible />
+    <LazyCommonSubjectMatterExpert hydrate-on-visible />
+    <LazyCommonIndustryMentor hydrate-on-visible />
+    <LazyCommonFunFact hydrate-on-visible />
+    <LazyCommonNewsCard hydrate-on-visible />
+    <LazyCommonTrustecoSystem hydrate-on-visible />
+    <LazyCommonFaqSection hydrate-on-visible />
+    <LazyCommonCampus hydrate-on-visible />
+    <LazyLayoutMainFooter hydrate-on-visible />
+    <LazyLayoutCopyRight hydrate-on-visible />
     <!-- Event Popup -->
     <!-- <CommonEventPopup /> -->
   </div>
 </template>
 
 <script setup lang="ts">
+
+import mobileBanner from "~/assets/img/heros/mobileBanner.svg"
 
 const { $asset } = useNuxtApp()
 
@@ -97,6 +102,14 @@ useHead({
     {
       rel: "canonical",
       href: "https://www.gccschool.com/",
+    },
+    // Mobile hero background (the LCP element on phones): start fetching it early.
+    {
+      rel: "preload",
+      as: "image",
+      href: mobileBanner,
+      media: "(max-width: 580px)",
+      fetchpriority: "high",
     },
   ],
   

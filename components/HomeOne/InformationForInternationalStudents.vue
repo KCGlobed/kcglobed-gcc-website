@@ -49,7 +49,7 @@
           <div class="video-box-wrapper">
             <div class="video-section shadow-lg">
               <div class="video-container">
-                <video ref="infoVideo" controls muted loop controlsList="nodownload" oncontextmenu="return false;"
+                <video ref="infoVideo" controls muted loop preload="none" controlsList="nodownload" oncontextmenu="return false;"
                   class="w-100 h-100" @play="isVideoPlaying = true" @pause="isVideoPlaying = false"
                   style="object-fit: contain; background: #0b0b1a;">
                   <source
@@ -67,7 +67,7 @@
                 <!-- Thumbnail Mask (visible before play) -->
                 <img v-if="!isVideoPlaying"
                   :src="$asset('media/images/kamal%20sir%20thnml%202.jpg')"
-                  class="video-poster-img" @click="playVideo" alt="Thumbnail">
+                  class="video-poster-img" @click="playVideo" alt="Thumbnail" loading="lazy" decoding="async">
               </div>
               <!-- <div class="video-badge-new">
                 <img src="~/assets/Logo/Logo/GCC-School-Logo-White.png" alt="GCC Logo" loading="lazy" decoding="async" />

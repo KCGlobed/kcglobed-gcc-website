@@ -15,7 +15,7 @@
                         <div class="image-wrapper">
                             <div class="WebImageGraphImag">
                                 <img :src="$asset('media/images/Group%2051402%20(1).png')"
-                                    alt="GCC Learning Pathway" class="pathway-graphic">
+                                    alt="GCC Learning Pathway" class="pathway-graphic" loading="lazy" decoding="async">
                             </div>
                             <div class="mobileImageGraphImag">
                                 <img src="/img/mobilestair.svg" alt="GCC Learning Pathway" class="pathway-graphic" loading="lazy" decoding="async">

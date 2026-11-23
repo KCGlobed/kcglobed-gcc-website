@@ -125,7 +125,11 @@
     </Swiper>
   </div>
 
-  <div class="modal fade" id="enquiryModal" tabindex="-1" style="z-index: 99999;">
+  <!-- The only button that opens this modal (data-bs-target="#enquiryModal", above) is
+       commented out, so the modal is not rendered: its College select alone put ~1,900
+       <option>s (215 KB) into the home page HTML. Set enquiryModalEnabled to true in
+       data() when re-enabling that button. -->
+  <div v-if="enquiryModalEnabled" class="modal fade" id="enquiryModal" tabindex="-1" style="z-index: 99999;">
     <div class="modal-dialog modal-lg modal-dialog-centered">
       <div class="modal-content">
 
@@ -671,12 +675,18 @@ import { defineComponent } from "vue";
 import image1 from "../../assets/img/heros/hero_bg.svg";
 import image2 from "../../assets/img/heros/hero2.jpg";
 import gccPdf from "../../assets/gcc.pdf";
-import universities from "../../assets/universities.json";
 import stateCityData from "~/state_city.json";
 
 export default defineComponent({
 
   name: "MainBanner",
+  mounted() {
+    if (this.enquiryModalEnabled) {
+      import("../../assets/universities.json").then((m) => {
+        this.colleges = m.default as { id: number | string; name: string }[];
+      });
+    }
+  },
   methods: {
     validateForm() {
       this.errors = {
@@ -809,7 +819,10 @@ export default defineComponent({
   },
   data() {
     return {
-      colleges: universities,
+      // See the comment on #enquiryModal in the template.
+      enquiryModalEnabled: false,
+      // Loaded on demand in mounted() (229 KB list, only needed by the enquiry modal).
+      colleges: [] as { id: number | string; name: string }[],
       statesData: stateCityData as Record<string, string[]>,
       form: {
         name: "",

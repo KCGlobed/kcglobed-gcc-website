@@ -12,7 +12,7 @@
                 <div class="col-lg-12">
                     <div class="campus-image">
                         <img :src="$asset('media/images/AdobeStock_946334569_Editorial_Use_Only.jpeg')"
-                            alt="Our Campus" />
+                            alt="Our Campus" loading="lazy" decoding="async" />
                     </div>
                 </div>
             </div>
