@@ -52,7 +52,7 @@ const delayedTrackersScript = {
 
 useHead({
   htmlAttrs: {
-    lang: 'eng'
+    lang: 'en'
   },
   title: "GCC School",
   meta: [

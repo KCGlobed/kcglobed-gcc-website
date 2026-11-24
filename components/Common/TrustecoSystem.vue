@@ -33,10 +33,8 @@
     <div class="trus-eco-sy">
         <div class="container">
             <div class="row">
-                <div class="header-v2  >
-                    <div class="">
-                        <h2 class=" title">TRUSTED <span class="highlight">ECO SYSTEM</span></h2>
-
+                <div class="header-v2">
+                    <h2 class="title">TRUSTED <span class="highlight">ECO SYSTEM</span></h2>
                 </div>
 
             </div>

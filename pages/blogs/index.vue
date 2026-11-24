@@ -126,7 +126,7 @@ import BlogCard from "~/components/Blog/BlogCard.vue";
 const { $asset } = useNuxtApp()
 
 useHead({
-  title: "GCC School",
+  title: "Finance & Career Blogs | GCC School",
   meta: [
     { name: "description", content: "Stay updated with the GCC School blog. Read expert insights, career guidance, educational trends, and professional tips for accounting and finance students." },
 

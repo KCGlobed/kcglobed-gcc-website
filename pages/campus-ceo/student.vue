@@ -19,7 +19,7 @@
 const { $asset } = useNuxtApp()
 
 useHead({
-    title: "GCC School | Campus CEO - Student",
+    title: "Campus CEO - Student Leadership Program | GCC School",
     meta: [
         { name: "description", content: "Become a student leader with the GCC School Campus CEO program. Develop essential leadership, marketing, and corporate skills while driving growth on campus." },
          // Open Graph

@@ -14,7 +14,7 @@
                             <img :src="program.image" :alt="program.title" class="img-fluid" loading="lazy" decoding="async">
                             <div class="image-overlay">
                                 <NuxtLink :to="program.link" target="_blank" class="btn-learn-more">
-                                    Read More <i class="ti ti-arrow-right"></i>
+                                    Read More<span class="visually-hidden"> about {{ program.title }}</span> <i class="ti ti-arrow-right"></i>
                                 </NuxtLink>
                             </div>
                         </div>

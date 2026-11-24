@@ -22,7 +22,7 @@
             </h3>
             <p>{{ displayExcerpt }}</p>
             <a :href="displayUrl" class="read-more-btn" :target="displayUrl.startsWith('http') ? '_blank' : '_self'" rel="noopener">
-                Read More
+                Read More<span class="visually-hidden"> about {{ news.title }}</span>
                 <!-- <span class="btn-arrow"><i class="ri-arrow-right-line"></i></span> -->
             </a>
         </div>

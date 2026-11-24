@@ -41,7 +41,7 @@ import CareerPath from '~/components/EAs/CareerPath.vue';
 const { $asset } = useNuxtApp()
 
 useHead({
-  title: "International Accounting | GCC School",
+  title: "ACCA International Accounting Program (AEIAP) | GCC School",
   meta: [
     { name: "description", content: "Discover GCC School's AEIAP, an AI-enabled International Accounting Professional Program with ACCA-focused learning, industry-led training and global finance exposure." },
      // Open Graph
@@ -52,7 +52,7 @@ useHead({
     {
       property: "og:title",
       content:
-        "International Accounting | GCC School",
+        "ACCA International Accounting Program (AEIAP) | GCC School",
     },
     {
       property: "og:description",
@@ -85,7 +85,7 @@ useHead({
     {
       name: "twitter:title",
       content:
-        "International Accounting | GCC School",
+        "ACCA International Accounting Program (AEIAP) | GCC School",
     },
     {
       name: "twitter:description",

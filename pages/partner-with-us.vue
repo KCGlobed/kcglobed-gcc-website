@@ -16,7 +16,7 @@
 const { $asset } = useNuxtApp()
 
 useHead({
-    title: "GCC School | Partner With Us",
+    title: "Partner With GCC School | Collaboration Opportunities",
     meta: [
         { name: "description", content: "Partner with GCC School to bridge the gap between education and industry. Explore institutional collaborations, affiliate opportunities, and corporate alliances." },
         // Open Graph
