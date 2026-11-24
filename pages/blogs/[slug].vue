@@ -310,12 +310,31 @@ useHead(() => ({
   meta: [
     { name: 'description', content: blog.value?.metaDescription || blog.value?.excerpt }
   ],
-  script: cleanSchema ? [
-    {
-      type: 'application/ld+json',
-      children: cleanSchema
-    }
-  ] : []
+  script: [
+    ...(cleanSchema ? [
+      {
+        type: 'application/ld+json',
+        children: cleanSchema
+      }
+    ] : []),
+    // BreadcrumbList (Home > Blogs > this post), unless the schema entered in the
+    // CMS for this post already contains one. Hidden structured data only.
+    ...(blog.value?.title && !/BreadcrumbList/.test(cleanSchema || '') ? [
+      {
+        key: 'breadcrumb-schema',
+        type: 'application/ld+json',
+        innerHTML: JSON.stringify({
+          "@context": "https://schema.org",
+          "@type": "BreadcrumbList",
+          "itemListElement": [
+            { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://gccschool.com/" },
+            { "@type": "ListItem", "position": 2, "name": "Blogs", "item": "https://gccschool.com/blogs" },
+            { "@type": "ListItem", "position": 3, "name": blog.value.title, "item": `https://gccschool.com${route.path.replace(/\/+$/, '')}` },
+          ],
+        }),
+      }
+    ] : []),
+  ]
 }));
 </script>
 

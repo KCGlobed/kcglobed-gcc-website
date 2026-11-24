@@ -5,7 +5,7 @@
   ]">
     <div class="container-fluid">
       <NuxtLink class="navbar-brand" to="/">
-        <img src="~/assets/Logo/Logo/GCC-School-Logo-White.jpeg" alt="Logo" style="height: 75px;" />
+        <img src="~/assets/Logo/Logo/GCC-School-Logo-White.jpeg" alt="GCC School" style="height: 75px;" />
       </NuxtLink>
       <button class="navbar-toggler home1-one-toggler" type="button" @click.prevent="stateStoreInstance.onMobileNavbarShow" @touchend.prevent="stateStoreInstance.onMobileNavbarShow" style="background: none; border: none; padding: 0; outline: none; box-shadow: none;">
         <span class="burger-menu">

@@ -34,7 +34,7 @@
                 <div class="col-md-6">
                     <div class="image-box">
                         <div class="image-box-inner">
-                            <img src="/img/graph.svg" alt="finance proffesionals gap " srcset="" loading="lazy" decoding="async">
+                            <img src="/img/graph.svg" alt="Finance professionals talent gap" srcset="" loading="lazy" decoding="async">
                         </div>
                     </div>
                 </div>

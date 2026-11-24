@@ -2,7 +2,7 @@
     <div class="trust-ecosystem-section">
         <div class="container">
             <div class="header-logo d-flex justify-content-center align-items-center mb-3">
-                <img src="@/assets/img/common/logo_kcglobed.svg" alt="Logo" class="header-logo" loading="lazy"
+                <img src="@/assets/img/common/logo_kcglobed.svg" alt="KC GlobEd logo" class="header-logo" loading="lazy"
                     decoding="async">
             </div>
             <div class="header-v2 mb-3">

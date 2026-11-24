@@ -10,7 +10,7 @@
             </div>
             <div class="boxes-container">
               <div class="box">
-                <img src="../../assets/img/heros/panleIcon1.png" class="icon" loading="lazy" decoding="async" />
+                <img src="../../assets/img/heros/panleIcon1.png" alt="" class="icon" loading="lazy" decoding="async" />
                 <p>Hired First</p>
                 <span>Then Trained</span>
               </div>
@@ -36,7 +36,7 @@
                 <span class="mt-2">AICTE Approved PGCM Certificate from AIMA</span>
               </div>
               <div class="box">
-                <img src="../../assets/img/heros/panleIcon6.png" class="icon" loading="lazy" decoding="async" />
+                <img src="../../assets/img/heros/panleIcon6.png" alt="" class="icon" loading="lazy" decoding="async" />
                 <p>AI First</p>
                 <span>Integrated Curriculum</span>
               </div>
@@ -67,7 +67,7 @@
                 <!-- Thumbnail Mask (visible before play) -->
                 <img v-if="!isVideoPlaying"
                   :src="$asset('media/images/kamal%20sir%20thnml%202.jpg')"
-                  class="video-poster-img" @click="playVideo" alt="Thumbnail" loading="lazy" decoding="async">
+                  class="video-poster-img" @click="playVideo" alt="Play the GCC School introduction video" loading="lazy" decoding="async">
               </div>
               <!-- <div class="video-badge-new">
                 <img src="~/assets/Logo/Logo/GCC-School-Logo-White.png" alt="GCC Logo" loading="lazy" decoding="async" />

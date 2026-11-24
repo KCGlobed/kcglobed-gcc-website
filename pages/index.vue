@@ -38,21 +38,21 @@ import mobileBanner from "~/assets/img/heros/mobileBanner.svg"
 const { $asset } = useNuxtApp()
 
 useHead({
-  title: "GCC School | Get Hired First. Then Trained.",
+  title: "GCC School | Accounting & Finance Careers for Graduates",
   meta: [
-    { name: 'description', content: "Discover GCC School's hire-first education model for commerce and management graduates, combining corporate selection with industry-led training in global finance." },
+    { name: 'description', content: "GCC School prepares commerce graduates for global accounting and finance careers through AI-enabled programs in International Accounting, US Accounting and US Taxation." },
     {
       property: "og:type",
       content: "website",
     },
     {
       property: "og:title",
-      content: "GCC School | Get Hired First. Then Trained.",
+      content: "GCC School | Accounting & Finance Careers for Graduates",
     },
     {
       property: "og:description",
       content:
-        "Discover GCC School's hire-first education model for commerce and management graduates, combining corporate selection with industry-led training in global finance.",
+        "GCC School prepares commerce graduates for global accounting and finance careers through AI-enabled programs in International Accounting, US Accounting and US Taxation.",
     },
     {
       property: "og:url",
@@ -86,12 +86,12 @@ useHead({
     },
     {
       name: "twitter:title",
-      content: "GCC School | Get Hired First. Then Trained.",
+      content: "GCC School | Accounting & Finance Careers for Graduates",
     },
     {
       name: "twitter:description",
       content:
-        "Discover GCC School's hire-first education model for commerce and management graduates, combining corporate selection with industry-led training in global finance.",
+        "GCC School prepares commerce graduates for global accounting and finance careers through AI-enabled programs in International Accounting, US Accounting and US Taxation.",
     },
     {
       name: "twitter:image",
