@@ -12,7 +12,7 @@
 const { $asset } = useNuxtApp()
 
 useHead({
-  title: "GCC School",
+  title: "Terms & Conditions | GCC School",
   meta: [
     { name: "description", content: "Read the official terms and conditions for using the GCC School website, services, and academic programs. Stay informed about our guidelines and policies." },
     {
@@ -30,7 +30,7 @@ useHead({
     },
     {
       property: "og:url",
-      content: "https://www.gccschool.com/terms-conditions",
+      content: "https://gccschool.com/terms-conditions",
     },
     {
       property: "og:site_name",
@@ -70,7 +70,7 @@ useHead({
   link: [
     {
       rel: "canonical",
-      href: "https://www.gccschool.com/terms-conditions",
+      href: "https://gccschool.com/terms-conditions",
     },
   ]
 })

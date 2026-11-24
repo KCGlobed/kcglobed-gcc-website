@@ -9,7 +9,7 @@
 
 
 const route = useRoute();
-const canonicalUrl = computed(() => `https://www.gccschool.com${route.path}`);
+const canonicalUrl = computed(() => `https://gccschool.com${route.path}`);
 
 // Home page only: the four trackers (Meta Pixel, Google Analytics, Google Tag Manager,
 // Microsoft Clarity) are downloaded on the visitor's first interaction, or 4 seconds
@@ -52,7 +52,7 @@ const delayedTrackersScript = {
 
 useHead({
   htmlAttrs: {
-    lang: 'eng'
+    lang: 'en'
   },
   title: "GCC School",
   meta: [
@@ -116,9 +116,12 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
       innerHTML: JSON.stringify({
         "@context": "https://schema.org",
         "@type": "Organization",
+        "@id": "https://gccschool.com/#organization",
         "name": "GCC School",
         "url": "https://gccschool.com/",
-        "logo": "https://gccschool.com/_nuxt/GCC-School-Logo-White.BHjiCYnG.jpeg",
+        // Permanent address (public/gcc-school-logo.jpeg). The previous value was a
+        // build-generated /_nuxt/ file name that changes whenever the logo file does.
+        "logo": "https://gccschool.com/gcc-school-logo.jpeg",
         "contactPoint": {
           "@type": "ContactPoint",
           "telephone": "+918796880189",
@@ -141,8 +144,9 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
         "@context": "https://schema.org",
         "@type": "LocalBusiness",
         "name": "GCC School",
-        "image": "https://gccschool.com/_nuxt/information2.Ck4B6ICy.jpg",
-        "@id": "",
+        // The previous image address (a /_nuxt/ build file) no longer existed (404).
+        "image": "https://gccschool.com/gcc-school-logo.jpeg",
+        "@id": "https://gccschool.com/#localbusiness",
         "url": "https://gccschool.com/",
         "telephone": "+918796880189",
         "address": {
@@ -168,8 +172,20 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
             "Saturday"
           ],
           "opens": "09:30",
-          "closes": "06:30"
+          "closes": "18:30"
         }
+      })
+    },
+    // WebSite: tells Google the site's official name and home address.
+    {
+      type: 'application/ld+json',
+      innerHTML: JSON.stringify({
+        "@context": "https://schema.org",
+        "@type": "WebSite",
+        "@id": "https://gccschool.com/#website",
+        "url": "https://gccschool.com/",
+        "name": "GCC School",
+        "publisher": { "@id": "https://gccschool.com/#organization" }
       })
     }
   ],
@@ -186,6 +202,47 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     }
   ]
 });
+// BreadcrumbList schema: tells Google where a page sits in the site
+// (for example Home > About Us). Hidden structured data only - nothing is displayed.
+// The home page needs none. Blog posts add their own in pages/blogs/[slug].vue,
+// because the post title is only known there.
+// "Programs" is not a level yet because /programs is not a real page (it redirects).
+const breadcrumbLabels: Record<string, string> = {
+  '/about-overview': 'About Us',
+  '/programs/acca': 'AEIAP – International Accounting',
+  '/programs/cpa': 'AEUAP – US Accounting',
+  '/programs/ea': 'AEUTP – US Taxation',
+  '/nfet-exam': 'NFET Exam',
+  '/campus-life': 'Campus Life',
+  '/career': 'Careers',
+  '/blogs': 'Blogs',
+  '/partner-with-us': 'Corporate Partner',
+  '/campus-ceo/student': 'Student Ambassador',
+  '/campus-ceo/faculty': 'Faculty Ambassador',
+  '/terms-conditions': 'Terms & Conditions',
+  '/privacy-policy': 'Privacy Policy',
+  '/refund-policy': 'Payment & Refund Policy',
+};
+useHead(() => {
+  const path = route.path.replace(/\/+$/, '') || '/';
+  const label = breadcrumbLabels[path];
+  if (!label) return {};
+  return {
+    script: [{
+      key: 'breadcrumb-schema',
+      type: 'application/ld+json',
+      innerHTML: JSON.stringify({
+        "@context": "https://schema.org",
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+          { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://gccschool.com/" },
+          { "@type": "ListItem", "position": 2, "name": label, "item": `https://gccschool.com${path}` },
+        ],
+      }),
+    }],
+  };
+});
+
 // app.vue
 onMounted(() => {
   const { init } = useAuth()

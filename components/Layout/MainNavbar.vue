@@ -5,7 +5,7 @@
   ]">
     <div class="container-fluid">
       <NuxtLink class="navbar-brand" to="/">
-        <img src="~/assets/Logo/Logo/GCC-School-Logo-White.jpeg" alt="Logo" style="height: 75px;" />
+        <img src="~/assets/Logo/Logo/GCC-School-Logo-White.jpeg" alt="GCC School" style="height: 75px;" />
       </NuxtLink>
       <button class="navbar-toggler home1-one-toggler" type="button" @click.prevent="stateStoreInstance.onMobileNavbarShow" @touchend.prevent="stateStoreInstance.onMobileNavbarShow" style="background: none; border: none; padding: 0; outline: none; box-shadow: none;">
         <span class="burger-menu">
@@ -384,6 +384,35 @@ export default defineComponent({
 
 .navbar.sticky {
   background-color: #020103;
+}
+
+/* The 1200–1399px rule in responsive.css gives every .nav-item an 18px side margin
+   with !important, which also indented the items inside the dropdown. */
+.navbar.first-navbar .navbar-nav .nav-item .dropdown-menu .nav-item {
+  margin-left: 0 !important;
+  margin-right: 0 !important;
+  border-bottom: none;
+}
+
+/* Programs dropdown: same look as the Ambassador dropdown in the top header. */
+.navbar.first-navbar .navbar-nav .nav-item .dropdown-menu {
+  width: 200px;
+  padding: 10px 0;
+  border-radius: 4px;
+  overflow: hidden;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+}
+
+.navbar.first-navbar .navbar-nav .nav-item .dropdown-menu .nav-item .nav-link {
+  padding: 8px 20px;
+  border-radius: 0;
+  transition: all 0.2s ease;
+}
+
+.navbar.first-navbar .navbar-nav .nav-item .dropdown-menu .nav-item .nav-link:hover,
+.navbar.first-navbar .navbar-nav .nav-item .dropdown-menu .nav-item .nav-link.router-link-active {
+  background-color: #862E84;
+  color: #fff !important;
 }
 
 /* Search Dropdown Styles */

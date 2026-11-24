@@ -19,7 +19,7 @@
 const { $asset } = useNuxtApp()
 
 useHead({
-    title: "GCC School | Campus CEO - Student",
+    title: "Campus CEO - Student Leadership Program | GCC School",
     meta: [
         { name: "description", content: "Become a student leader with the GCC School Campus CEO program. Develop essential leadership, marketing, and corporate skills while driving growth on campus." },
          // Open Graph
@@ -39,7 +39,7 @@ useHead({
     },
     {
       property: "og:url",
-      content: "https://www.gccschool.com/campus-ceo/student",
+      content: "https://gccschool.com/campus-ceo/student",
     },
     {
       property: "og:site_name",
@@ -80,7 +80,7 @@ useHead({
   link: [
     {
       rel: "canonical",
-      href: "https://www.gccschool.com/campus-ceo/student",
+      href: "https://gccschool.com/campus-ceo/student",
     },
     ]
 })

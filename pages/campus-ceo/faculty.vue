@@ -18,7 +18,7 @@
 const { $asset } = useNuxtApp()
 
 useHead({
-    title: "GCC School | Campus CEO - Faculty",
+    title: "Campus CEO Faculty | GCC School",
     meta: [
         { name: "description", content: "Empower your students as a GCC School Faculty Campus CEO. Mentor the next generation of professionals and lead corporate engagement initiatives at your college." },
          // Open Graph
@@ -37,7 +37,7 @@ useHead({
     },
     {
       property: "og:url",
-      content: "https://www.gccschool.com/campus-ceo/faculty",
+      content: "https://gccschool.com/campus-ceo/faculty",
     },
     {
       property: "og:site_name",
@@ -77,7 +77,7 @@ useHead({
   link: [
     {
       rel: "canonical",
-      href: "https://www.gccschool.com/campus-ceo/faculty",
+      href: "https://gccschool.com/campus-ceo/faculty",
     },
     ]
 })

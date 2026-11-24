@@ -4,7 +4,11 @@
     <MobileDeviceNavbar />
     <NuxtPage />
     <SearchPopup />
-    <MainSidebar />
+    <!-- MainSidebar is not rendered: it is an unused leftover from the site template
+         ("Join Tuva", lorem ipsum, links to /blog and /blog-details, which do not
+         exist). Nothing can open it (its menu button is commented out in
+         MainNavbar), but its text and broken links were in the HTML of every page. -->
+    <!-- <MainSidebar /> -->
     <GoTop />
     <HelpSupportModal v-model="showHelpModal" />
 

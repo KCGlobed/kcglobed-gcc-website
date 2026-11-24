@@ -788,7 +788,9 @@ useHead({
         {
             name: "description",
             content: "View and update your GCC application profile — personal, academic, work experience and documents."
-        }
+        },
+        // Private account page: keep it out of search results.
+        { name: "robots", content: "noindex, follow" }
     ]
 });
 

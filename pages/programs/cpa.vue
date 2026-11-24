@@ -38,7 +38,7 @@ import CareerPath from '~/components/EAs/CareerPath.vue';
 const { $asset } = useNuxtApp()
 
 useHead({
-  title: "US Accounting Program | GCC School",
+  title: "US CPA Accounting Program (AEUAP) | GCC School",
   meta: [
     { name: "description", content: "Explore GCC School's AEUAP, an AI-enabled US Accounting Professional Program featuring US CPA preparation, practical accounting skills and corporate interview opportunities." },
     // Open Graph
@@ -49,7 +49,7 @@ useHead({
     {
       property: "og:title",
       content:
-        "US Accounting Program | GCC School",
+        "US CPA Accounting Program (AEUAP) | GCC School",
     },
     {
       property: "og:description",
@@ -58,7 +58,7 @@ useHead({
     },
     {
       property: "og:url",
-      content: "https://www.gccschool.com/programs",
+      content: "https://gccschool.com/programs/cpa",
     },
     {
       property: "og:site_name",
@@ -82,7 +82,7 @@ useHead({
     {
       name: "twitter:title",
       content:
-        "US Accounting Program | GCC School",
+        "US CPA Accounting Program (AEUAP) | GCC School",
     },
     {
       name: "twitter:description",
@@ -99,7 +99,7 @@ useHead({
   link: [
     {
       rel: "canonical",
-      href: "https://www.gccschool.com/programs",
+      href: "https://gccschool.com/programs/cpa",
     },
   ]
 })

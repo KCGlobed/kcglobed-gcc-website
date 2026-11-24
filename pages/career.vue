@@ -18,7 +18,7 @@
 const { $asset } = useNuxtApp()
 
 useHead({
-    title: "GCC School | Career",
+    title: "Careers at GCC School | Join Our Team",
     meta: [
         { name: "description", content: "Build a rewarding career with GCC School. Explore corporate job openings, faculty positions, and exciting growth opportunities within our educational community." },
           // Open Graph
@@ -37,7 +37,7 @@ useHead({
     },
     {
       property: "og:url",
-      content: "https://www.gccschool.com/career",
+      content: "https://gccschool.com/career",
     },
     {
       property: "og:site_name",
@@ -77,7 +77,7 @@ useHead({
   link: [
     {
       rel: "canonical",
-      href: "https://www.gccschool.com/career",
+      href: "https://gccschool.com/career",
     },
     ]
 })

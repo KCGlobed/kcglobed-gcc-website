@@ -28,10 +28,10 @@
                   Defined by Performance
                 </p>
 
-                <p class="hero-subtitle">
-                  At GCC School, you get hired first, then trained.
-
-                </p>
+                <!-- Primary H2 of the home page (wording supplied by the DM team). -->
+                <h2 class="hero-subtitle">
+                  Get Hired First, Then Trained
+                </h2>
 
                 <!-- <p class="hero-description">
                   Don't just prepare for the corporate world — you enter it. Every session, project,
@@ -99,7 +99,7 @@
                       </div> -->
 
                       <button class="btn btn-gradient w-100 mb-2" data-bs-toggle="modal" data-bs-target="#dossierModal">
-                        Download Dossier <img src="../../assets/img/heros/heroSec5.png" />
+                        Download Dossier <img src="../../assets/img/heros/heroSec5.png" alt="Get Dossier" />
                       </button>
 
                       <!-- <p class="text-center text-muted small">Join to transform your career</p> -->
@@ -108,7 +108,7 @@
                     <!-- Right side - Profile Image -->
                     <div class="col-5 rightSideBox">
                       <div class="profile-badge">
-                        <img src="../../assets/img/heros/heroSec4.png" />
+                        <img src="../../assets/img/heros/heroSec4.png" alt="profile image" />
                         <div>
                           <div class="fw-bold small">Global Recognition</div>
                           <small class="text-muted">Certified AI-Accountant</small>
