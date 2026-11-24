@@ -285,7 +285,11 @@ async function handleSubmit() {
 // --- Meta ---
 useHead({
     title: 'Reset Password — GCC School',
-    meta: [{ name: 'description', content: 'Set a new password for your GCC School account.' }],
+    meta: [
+        { name: 'description', content: 'Set a new password for your GCC School account.' },
+        // Utility page: keep it out of search results.
+        { name: 'robots', content: 'noindex, follow' },
+    ],
 })
 </script>
 

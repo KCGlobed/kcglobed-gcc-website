@@ -56,7 +56,7 @@ import EaCareerPath from '~/components/EAs/EaCareerPath.vue';
 const { $asset } = useNuxtApp()
 
 useHead({
-  title: "Enrolled Agent US Taxation Program (AEUTP) | GCC School",
+  title: "US Taxation Program | GCC School",
   meta: [
     { name: "description", content: "Explore GCC School's AEUTP, an AI-enabled US Taxation Professional Program featuring Enrolled Agent preparation, practical US tax skills and career opportunities." },
      // Open Graph
@@ -67,7 +67,7 @@ useHead({
     {
       property: "og:title",
       content:
-        "Enrolled Agent US Taxation Program (AEUTP) | GCC School",
+        "US Taxation Program | GCC School",
     },
     {
       property: "og:description",
@@ -76,7 +76,7 @@ useHead({
     },
     {
       property: "og:url",
-      content: "https://www.gccschool.com/programs",
+      content: "https://www.gccschool.com/programs/ea",
     },
     {
       property: "og:site_name",
@@ -100,7 +100,7 @@ useHead({
     {
       name: "twitter:title",
       content:
-        "Enrolled Agent US Taxation Program (AEUTP) | GCC School",
+        "US Taxation Program | GCC School",
     },
     {
       name: "twitter:description",
@@ -117,7 +117,7 @@ useHead({
   link: [
     {
       rel: "canonical",
-      href: "https://www.gccschool.com/programs",
+      href: "https://www.gccschool.com/programs/ea",
     },
   ]
 })

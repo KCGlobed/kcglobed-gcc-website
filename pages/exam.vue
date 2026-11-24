@@ -171,7 +171,8 @@
 
 <script setup lang="ts">
 definePageMeta({ layout: 'blank' });
-useHead({ title: 'FAR Practice Test - KCG' });
+// Utility page: keep it out of search results.
+useHead({ title: 'FAR Practice Test - KCG', meta: [{ name: 'robots', content: 'noindex, follow' }] });
 
 const MOCK_QUESTIONS = [
   { id: 1, code: 'KCGFARCCE0001', text: "Runner Co.'s checkbook balance on December 31, was $20,000. On that date, Runner held the following items in its safe:\n\n- Check payable to Runner worth $8,000, postdated January 3, and not included in the December 31 checkbook balance.\n- Check payable to Runner worth $2,000, deposited December 15, but returned by the bank on December 30 stamped \"NSF.\"\n\nIn its December 31 balance sheet what amount should Runner report as cash?", options: ['$28,000', '$18,000', '$26,000', '$20,000'] },

@@ -386,6 +386,35 @@ export default defineComponent({
   background-color: #020103;
 }
 
+/* The 1200–1399px rule in responsive.css gives every .nav-item an 18px side margin
+   with !important, which also indented the items inside the dropdown. */
+.navbar.first-navbar .navbar-nav .nav-item .dropdown-menu .nav-item {
+  margin-left: 0 !important;
+  margin-right: 0 !important;
+  border-bottom: none;
+}
+
+/* Programs dropdown: same look as the Ambassador dropdown in the top header. */
+.navbar.first-navbar .navbar-nav .nav-item .dropdown-menu {
+  width: 200px;
+  padding: 10px 0;
+  border-radius: 4px;
+  overflow: hidden;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+}
+
+.navbar.first-navbar .navbar-nav .nav-item .dropdown-menu .nav-item .nav-link {
+  padding: 8px 20px;
+  border-radius: 0;
+  transition: all 0.2s ease;
+}
+
+.navbar.first-navbar .navbar-nav .nav-item .dropdown-menu .nav-item .nav-link:hover,
+.navbar.first-navbar .navbar-nav .nav-item .dropdown-menu .nav-item .nav-link.router-link-active {
+  background-color: #862E84;
+  color: #fff !important;
+}
+
 /* Search Dropdown Styles */
 .search-dropdown-overlay {
   position: fixed;
