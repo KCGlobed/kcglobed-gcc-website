@@ -38,7 +38,7 @@ useHead({
     },
     {
       property: "og:url",
-      content: "https://www.gccschool.com/login",
+      content: "https://gccschool.com/login",
     },
     {
       property: "og:site_name",
@@ -78,7 +78,7 @@ useHead({
   link: [
     {
       rel: "canonical",
-      href: "https://www.gccschool.com/login",
+      href: "https://gccschool.com/login",
     },
   ],
 });

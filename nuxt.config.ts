@@ -223,6 +223,13 @@ export default defineNuxtConfig({
         // entire multipart body into memory — this bypasses it.
         cache: false,
       },
+      // Permanent (301) redirects for addresses that have no page of their own, so
+      // search engines drop the old address instead of listing it as a duplicate.
+      // Same destinations as before (pages/programs/index.vue, pages/nfet.vue,
+      // pages/admissions.vue); only the redirect type changes from temporary to permanent.
+      '/programs': { redirect: { to: '/programs/cpa', statusCode: 301 } },
+      '/nfet': { redirect: { to: '/nfet-exam', statusCode: 301 } },
+      '/admissions': { redirect: { to: '/login', statusCode: 301 } },
     },
     experimental: {
       // Required to keep the async context alive during streaming proxy calls

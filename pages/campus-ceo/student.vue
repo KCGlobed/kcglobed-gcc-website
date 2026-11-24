@@ -39,7 +39,7 @@ useHead({
     },
     {
       property: "og:url",
-      content: "https://www.gccschool.com/campus-ceo/student",
+      content: "https://gccschool.com/campus-ceo/student",
     },
     {
       property: "og:site_name",
@@ -80,7 +80,7 @@ useHead({
   link: [
     {
       rel: "canonical",
-      href: "https://www.gccschool.com/campus-ceo/student",
+      href: "https://gccschool.com/campus-ceo/student",
     },
     ]
 })

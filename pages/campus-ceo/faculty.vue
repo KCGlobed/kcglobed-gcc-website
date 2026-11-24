@@ -37,7 +37,7 @@ useHead({
     },
     {
       property: "og:url",
-      content: "https://www.gccschool.com/campus-ceo/faculty",
+      content: "https://gccschool.com/campus-ceo/faculty",
     },
     {
       property: "og:site_name",
@@ -77,7 +77,7 @@ useHead({
   link: [
     {
       rel: "canonical",
-      href: "https://www.gccschool.com/campus-ceo/faculty",
+      href: "https://gccschool.com/campus-ceo/faculty",
     },
     ]
 })

@@ -61,7 +61,7 @@ useHead({
     },
     {
       property: "og:url",
-      content: "https://www.gccschool.com/programs/acca",
+      content: "https://gccschool.com/programs/acca",
     },
     {
       property: "og:site_name",
@@ -102,7 +102,7 @@ useHead({
   link: [
     {
       rel: "canonical",
-      href: "https://www.gccschool.com/programs/acca",
+      href: "https://gccschool.com/programs/acca",
     },
   ]
 })

@@ -25,4 +25,4 @@ Allow: /
 User-agent: Claude-SearchBot
 Allow: /
 
-Sitemap: https://www.gccschool.com/sitemap.xml
+Sitemap: https://gccschool.com/sitemap.xml

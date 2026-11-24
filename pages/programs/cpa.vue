@@ -58,7 +58,7 @@ useHead({
     },
     {
       property: "og:url",
-      content: "https://www.gccschool.com/programs/cpa",
+      content: "https://gccschool.com/programs/cpa",
     },
     {
       property: "og:site_name",
@@ -99,7 +99,7 @@ useHead({
   link: [
     {
       rel: "canonical",
-      href: "https://www.gccschool.com/programs/cpa",
+      href: "https://gccschool.com/programs/cpa",
     },
   ]
 })

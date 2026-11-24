@@ -56,7 +56,7 @@ useHead({
     },
     {
       property: "og:url",
-      content: "https://www.gccschool.com/",
+      content: "https://gccschool.com/",
     },
     {
       property: "og:site_name",
@@ -101,7 +101,7 @@ useHead({
   link: [
     {
       rel: "canonical",
-      href: "https://www.gccschool.com/",
+      href: "https://gccschool.com/",
     },
     // Mobile hero background (the LCP element on phones): start fetching it early.
     {

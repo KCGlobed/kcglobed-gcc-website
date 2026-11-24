@@ -146,7 +146,7 @@ useHead({
     },
     {
       property: "og:url",
-      content: "https://www.gccschool.com/blogs",
+      content: "https://gccschool.com/blogs",
     },
     {
       property: "og:site_name",
@@ -186,7 +186,7 @@ useHead({
   link: [
     {
       rel: "canonical",
-      href: "https://www.gccschool.com/blogs",
+      href: "https://gccschool.com/blogs",
     },
   ]
 })

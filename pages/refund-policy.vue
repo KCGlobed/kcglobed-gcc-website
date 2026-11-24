@@ -31,7 +31,7 @@ useHead({
     },
     {
       property: "og:url",
-      content: "https://www.gccschool.com/refund-policy",
+      content: "https://gccschool.com/refund-policy",
     },
     {
       property: "og:site_name",
@@ -71,7 +71,7 @@ useHead({
   link: [
     {
       rel: "canonical",
-      href: "https://www.gccschool.com/refund-policy",
+      href: "https://gccschool.com/refund-policy",
     },
   ]
 })

@@ -37,7 +37,7 @@ useHead({
     },
     {
       property: "og:url",
-      content: "https://www.gccschool.com/career",
+      content: "https://gccschool.com/career",
     },
     {
       property: "og:site_name",
@@ -77,7 +77,7 @@ useHead({
   link: [
     {
       rel: "canonical",
-      href: "https://www.gccschool.com/career",
+      href: "https://gccschool.com/career",
     },
     ]
 })

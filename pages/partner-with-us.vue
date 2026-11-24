@@ -36,7 +36,7 @@ useHead({
         },
         {
             property: "og:url",
-            content: "https://www.gccschool.com/partner-with-us",
+            content: "https://gccschool.com/partner-with-us",
         },
         {
             property: "og:site_name",
@@ -77,7 +77,7 @@ useHead({
     link: [
         {
             rel: "canonical",
-            href: "https://www.gccschool.com/partner-with-us",
+            href: "https://gccschool.com/partner-with-us",
         },
 
     ]

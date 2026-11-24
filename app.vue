@@ -9,7 +9,7 @@
 
 
 const route = useRoute();
-const canonicalUrl = computed(() => `https://www.gccschool.com${route.path}`);
+const canonicalUrl = computed(() => `https://gccschool.com${route.path}`);
 
 // Home page only: the four trackers (Meta Pixel, Google Analytics, Google Tag Manager,
 // Microsoft Clarity) are downloaded on the visitor's first interaction, or 4 seconds

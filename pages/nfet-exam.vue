@@ -50,7 +50,7 @@ useHead({
     },
     {
       property: "og:url",
-      content: "https://www.gccschool.com/nfet-exam",
+      content: "https://gccschool.com/nfet-exam",
     },
     {
       property: "og:site_name",
@@ -91,7 +91,7 @@ useHead({
   link: [
     {
       rel: "canonical",
-      href: "https://www.gccschool.com/nfet-exam",
+      href: "https://gccschool.com/nfet-exam",
     },
   ]
 })
