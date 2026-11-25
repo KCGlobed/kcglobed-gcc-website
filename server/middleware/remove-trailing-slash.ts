@@ -1,7 +1,3 @@
-// Permanent (301) redirect from "/about-overview/" to "/about-overview".
-// Both addresses used to return the same page, which lets search engines list
-// one page twice. Only page requests are touched: API calls, build assets and
-// anything that is not a GET/HEAD request pass through unchanged.
 export default defineEventHandler((event) => {
     if (event.method !== "GET" && event.method !== "HEAD") return;
 
