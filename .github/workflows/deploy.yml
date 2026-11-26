@@ -1,14 +1,12 @@
 name: Deploy to DigitalOcean
 
-# Runs alongside the AWS workflow (deploy.yml), which is left unchanged.
-# Runs on every push to the digitalocean-deploy branch, or by hand from the Actions tab
-# (the Run workflow button appears once this file is on the default branch).
-# Server setup this relies on: docs/deploy-nuxt-digitalocean.md
+# Runs on every push to main, or by hand from the Actions tab.
 #
-# Secrets used:
-#   SSH_HOST, SSH_USER, SSH_PASSWORD  login for the droplet (user "deploy")
-#   ENV_FILE                          the whole .env file. Used for the build, and written to
-#                                     $APP_DIR/shared/.env on the server on every deploy.
+# Secrets used: SSH_HOST, SSH_USER, SSH_PASSWORD (login for the droplet, user "deploy").
+#
+# The .env file is kept on the server only, at $APP_DIR/shared/.env, and is read by the
+# gcc-website service when it starts. The build needs no .env: the values nuxt.config.ts reads
+# at build time (PAYMENT_GATEWAY, PAYMENT_AMOUNT, REATTEMPT_DISCOUNT_PERCENTAGE) use its defaults.
 on:
   workflow_dispatch:
   push:
@@ -44,21 +42,6 @@ jobs:
           node-version: 22
 
       ######################################################
-      # Write .env from the ENV_FILE secret
-      # nuxt.config.ts reads some values at build time (payment gateway, amounts)
-      ######################################################
-      - name: Write .env
-        env:
-          ENV_FILE: ${{ secrets.ENV_FILE }}
-        run: |
-          set -e
-          [ -n "$ENV_FILE" ] || { echo "ERROR: the ENV_FILE secret is empty or missing"; exit 1; }
-          printf '%s\n' "$ENV_FILE" | tr -d '\r' > .env
-          ENV_B64="$(base64 -w0 .env)"
-          echo "::add-mask::$ENV_B64"
-          echo "ENV_B64=$ENV_B64" >> "$GITHUB_ENV"
-
-      ######################################################
       # Install and Build (package-lock.json is not in git, so npm install)
       # Output: dist/server (Node server with its own node_modules) and dist/public
       ######################################################
@@ -69,7 +52,7 @@ jobs:
         run: npm run build
 
       ######################################################
-      # Package: dist/ only (.env is not included)
+      # Package: dist/ only
       ######################################################
       - name: Package Build
         run: |
@@ -97,7 +80,7 @@ jobs:
           command_timeout: 20m
 
       ######################################################
-      # Write .env, unpack, switch, restart, check
+      # Unpack, switch, restart, check
       ######################################################
       - name: Activate Release
         uses: appleboy/ssh-action@v1.2.2
@@ -105,16 +88,13 @@ jobs:
           host: ${{ secrets.SSH_HOST }}
           username: ${{ secrets.SSH_USER }}
           password: ${{ secrets.SSH_PASSWORD }}
-          envs: APP_DIR,APP_PORT,RELEASE,ARCHIVE,KEEP_RELEASES,ENV_B64
+          envs: APP_DIR,APP_PORT,RELEASE,ARCHIVE,KEEP_RELEASES
           command_timeout: 15m
           script: |
             set -e
             TARGET="$APP_DIR/releases/$RELEASE"
 
-            echo "Writing $APP_DIR/shared/.env"
-            mkdir -p "$APP_DIR/shared"
-            ( umask 077; printf '%s' "$ENV_B64" | base64 -d > "$APP_DIR/shared/.env.tmp" )
-            mv -f "$APP_DIR/shared/.env.tmp" "$APP_DIR/shared/.env"
+            test -f "$APP_DIR/shared/.env" || { echo "ERROR: $APP_DIR/shared/.env is missing on the server"; exit 1; }
 
             echo "Unpacking release $RELEASE"
             mkdir -p "$TARGET"
