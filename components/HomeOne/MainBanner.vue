@@ -15,7 +15,7 @@
               <!-- Left Side: Heading Content -->
               <div class="col-lg-7 col-xl-6 text-start mb-lg-0 mb-4 heading">
                 <div class="hero-badge">
-                  <span>Cohort 2026 Application are open</span>
+                  <span>Cohort 2026 Applications are open</span>
                 </div>
 
                 <h1 class="hero-title mt-3">
@@ -23,9 +23,7 @@
                 </h1>
 
                 <p class="hero-subtitle hero-intro mt-3">
-                  GCC School is transforming how students prepare for careers in global finance and accounting. Through
-                  its unique “Get Hired First. Then Trained.” model, it brings corporate selection, professional
-                  qualifications and industry-led training together to prepare students for the corporate world.
+                  GCC School is shaping the future of global finance talent through its unique “Get Hired First. Then Trained.” model, making corporate careers more accessible through global qualifications and industry-led training.
                 </p>
 
                 <div class="d-flex gap-3 flex-wrap mt-4 justify-content-lg-start justify-content-center">
@@ -38,11 +36,11 @@
                 </div>
               </div>
 
-              <!-- Right Side: Apply Now Form Card -->
-              <div class="col-lg-5 col-xl-5 mt-[40px]">
+              <!-- Right Side: Apply Now Form Card (hidden: the form now opens from the "Apply Now" side tab) -->
+              <!-- <div class="col-lg-5 col-xl-5 mt-[40px]">
                 <CommonDossierModal :inline="true" modal-id="mainBannerInlineForm" modal-title="Apply Now"
                   subtitle="Enter your details to complete your application" mode="apply" />
-              </div>
+              </div> -->
 
 
 
@@ -166,7 +164,7 @@
 
 /* Subtitle styling */
 .hero-subtitle {
-  font-size: 20px;
+  font-size: 18px;
   font-weight: 500;
   color: rgba(255, 255, 255, 0.85);
   margin-top: 10px;
@@ -228,6 +226,13 @@
 .stats-row {
   width: 100%;
   margin-top: 40px;
+}
+
+/* Desktop: sit the stats cards a bit lower in the hero */
+@media (min-width: 992px) {
+  .stats-row {
+    margin-top: 90px;
+  }
 }
 
 .stat-box {

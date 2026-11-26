@@ -3,7 +3,7 @@
     <!-- Section 1: Pick A Career Path -->
     <div class="programs-section">
       <div class="container-fluid w  px-lg-5 px-md-4 px-3">
-        <div class="programs-header text-start mb-40">
+        <div class="programs-header text-center mb-40">
           <span class="section-tag">THREE PROGRAMS. CHOOSE YOUR DIRECTION.</span>
           <h2 class="section-title mt-2">Explore Programs Designed for Global Finance Careers</h2>
           <p class="section-desc mt-2">
@@ -40,7 +40,7 @@
         </div>
 
         <div class="footer-note mt-4">
-          <p>*Pre-placement offer for selected candidates, subject to offer terms.</p>
+          <!-- <p>*Pre-placement offer for selected candidates, subject to offer terms.</p> -->
         </div>
       </div>
     </div>
@@ -72,11 +72,11 @@
           </div>
         </div>
 
-        <!-- Main Outcomes Row (Ecosystem Grid & Proof Card) -->
+        <!-- Main Outcomes Row (Ecosystem Grid) -->
         <div class="row g-5 align-items-stretch">
-          <!-- Left Column: Ecosystem Grid -->
-          <div class="col-lg-7">
-            <h4 class="ecosystem-title mb-4">OUR CORPORATE HIRING PARTNERS</h4>
+          <!-- Ecosystem Grid (full width) -->
+          <div class="col-12">
+            <h4 class="ecosystem-title text-center mb-4">OUR CORPORATE HIRING PARTNERS</h4>
             <div class="ecosystem-grid">
               <!-- Card 1: BDO -->
               <div class="partner-card">
@@ -125,23 +125,6 @@
                   loading="lazy" decoding="async" />
               </div>
 
-            </div>
-          </div>
-
-          <!-- Right Column: Proof Card -->
-          <div class="col-lg-5 d-flex align-items-stretch">
-            <div class="proof-card w-100 d-flex flex-column justify-content-between">
-              <div>
-                <span class="proof-tag">PROOF, HONESTLY PRESENTED</span>
-                <p class="proof-text mt-3">
-                  Our first cohort begins July 2026, so our credibility rests on the model, the employer ecosystem,
-                  practitioner faculty and KC GlobEd's 20-year legacy of 20,000+ students across 120+ countries.
-                  Verified student outcomes will be published as they happen.
-                </p>
-              </div>
-              <NuxtLink to="/about-overview" class="proof-link mt-4">
-                How we think about outcomes <i class="ti ti-arrow-right ms-2"></i>
-              </NuxtLink>
             </div>
           </div>
         </div>
@@ -232,12 +215,32 @@ const checkTagsScroll = () => {
 /* Common Header Styles */
 .programs-header,
 .outcomes-header {
-  text-align: left !important;
+  text-align: center !important;
 }
 
 .programs-header .section-title,
 .outcomes-header .section-title {
   margin-bottom: 8px;
+}
+
+/* "Explore Programs..." and "Career Outcomes" headers: centre the tag, title and description */
+.programs-header .section-title,
+.outcomes-header .section-title {
+  justify-content: center;
+  text-align: center;
+}
+
+/* Career tags: centred under the heading (phones keep their sideways-scrolling strip) */
+@media (min-width: 768px) {
+  .tags-wrapper {
+    justify-content: center;
+  }
+}
+
+.programs-header .section-desc,
+.outcomes-header .section-desc {
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .section-desc {
@@ -409,7 +412,7 @@ const checkTagsScroll = () => {
 
 .ecosystem-grid {
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
+  grid-template-columns: repeat(3, 1fr);
   gap: 20px;
 }
 
@@ -428,43 +431,6 @@ const checkTagsScroll = () => {
   max-height: 45px;
   max-width: 100%;
   object-fit: contain;
-}
-
-/* Proof Card styling */
-.proof-card {
-  background-color: #130922;
-  /* Dark navy-charcoal */
-  border-radius: 16px;
-  padding: 40px;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
-}
-
-.proof-tag {
-  color: #E5A93C;
-  font-size: 15opx;
-  font-weight: 700;
-  letter-spacing: 1.5px;
-  text-transform: uppercase;
-}
-
-.proof-text {
-  font-size: 15px;
-  color: rgba(255, 255, 255, 0.85);
-  line-height: 1.6;
-}
-
-.proof-link {
-  color: #E5A93C !important;
-  font-weight: 700;
-  font-size: 14px;
-  text-decoration: none;
-  display: inline-flex;
-  align-items: center;
-  transition: transform 0.2s ease;
-}
-
-.proof-link:hover {
-  transform: translateX(4px);
 }
 
 /* Responsive adjustments */
@@ -549,10 +515,6 @@ const checkTagsScroll = () => {
   .partner-card {
     height: 80px;
     padding: 10px !important;
-  }
-
-  .proof-card {
-    padding: 24px;
   }
 }
 </style>

@@ -55,67 +55,71 @@
       </div>
     </div>
 
-    <!-- Faculty & Mentors Section -->
-    <div class="faculty-mentors-area ptb-100">
+    <!-- Strategic Think Tank -->
+    <div class="people-section people-section-light ptb-100">
       <div class="container">
-        <div class="row align-items-center">
-          <!-- Left Info Block -->
-          <div class="col-lg-5 col-12 mb-lg-0 mb-5 faculty-info-col">
-            <div class="faculty-info text-start">
-              <!-- All tab contents share one grid cell so the box always takes the tallest one's height (no layout shift) -->
-              <div class="faculty-info-stack">
-                <div v-for="tab in facultyTabs" :key="'info-' + tab.key"
-                  :class="['faculty-info-panel', { active: activeFacultyTab === tab.key }]"
-                  :aria-hidden="activeFacultyTab !== tab.key">
-                  <span class="gold-tag">{{ tab.tag }}</span>
-                  <h2 class="faculty-heading mt-2">{{ tab.heading }}</h2>
-                  <p class="faculty-desc mt-3">{{ tab.desc }}</p>
-                </div>
-              </div>
-              <!-- <NuxtLink to="/thinktank" style="background-color: #51157C;color: white;" class="btn mt-4">
-                Meet The Faculty <i class="ti ti-arrow-right ms-2"></i>
-              </NuxtLink> -->
+        <div class="people-title-wrap text-center">
+          <h2 class="people-title">GCC School Strategic <span class="people-highlight">Think Tank</span></h2>
+        </div>
+        <div class="row g-0 justify-content-center align-items-center">
+          <div v-for="(member, index) in thinkTankMembers" :key="'tt-' + index" class="col-lg-3 col-md-4 col-6">
+            <div class="people-card think-tank-card">
+              <img :src="member.image" :alt="member.alt" class="img-fluid" loading="lazy" decoding="async" />
             </div>
           </div>
+        </div>
+      </div>
+    </div>
 
-          <!-- Right Cards Block -->
-          <div class="col-lg-7 col-12">
-            <div class="faculty-tabs mb-4" role="tablist">
-              <button v-for="tab in facultyTabs" :key="tab.key" type="button" role="tab"
-                :aria-selected="activeFacultyTab === tab.key"
-                :class="['faculty-tab-btn', { active: activeFacultyTab === tab.key }]"
-                @click="selectFacultyTab(tab.key)">
-                {{ tab.label }}
-              </button>
-            </div>
-            <div class="faculty-carousel-container">
-              <div :class="['faculty-scroll-wrapper', 'tab-' + activeFacultyTab]" ref="facultyScrollRef" @scroll="checkScroll">
-                <div v-for="(faculty, index) in activeFacultyList" :key="activeFacultyTab + '-' + index"
-                  class="faculty-card-item">
-                  <img :src="faculty.image" :alt="faculty.alt" class="faculty-img" loading="lazy" decoding="async"
-                    @load="checkScroll" />
-                </div>
+    <!-- Subject Matter Experts -->
+    <div class="people-section people-section-white ptb-100">
+      <div class="container">
+        <div class="people-title-wrap text-center">
+          <h2 class="people-title">Our Eminent <span class="people-highlight">Subject Matter Experts</span></h2>
+        </div>
+        <div class="sme-grid" role="list">
+          <article v-for="(expert, index) in subjectMatterExperts" :key="expert.name" class="sme-card" role="listitem">
+            <div class="sme-visual">
+              <div class="sme-experience">
+                <span class="sme-experience-value">{{ expert.experience }}</span>
+                <span class="sme-experience-label">Exp.</span>
               </div>
-
-              <!-- Left Scroll Button -->
-              <button v-show="showLeftArrow" class="scroll-btn left-btn" @click="scroll('left')"
-                aria-label="Scroll Left">
-                <i class="ti ti-chevron-left"></i>
-              </button>
-
-              <!-- Right Scroll Button -->
-              <button v-show="showRightArrow" class="scroll-btn right-btn" @click="scroll('right')"
-                aria-label="Scroll Right">
-                <i class="ti ti-chevron-right"></i>
-              </button>
-
-              <!-- Pagination Dots (Mobile Only) -->
-              <div class="faculty-dots-wrapper">
-                <span v-for="dotIndex in 3" :key="dotIndex"
-                  :class="['dot-indicator', { active: activeIndex === dotIndex - 1 }]"
-                  @click="scrollToPage(dotIndex - 1)"></span>
+              <span class="sme-ring" aria-hidden="true"></span>
+              <img class="sme-portrait" :src="expert.portrait" :alt="expert.name + ', Subject Matter Expert'"
+                loading="lazy" decoding="async" />
+              <span class="sme-index" aria-hidden="true">{{ String(index + 1).padStart(2, '0') }}</span>
+            </div>
+            <div class="sme-copy">
+              <h3 class="sme-name">{{ expert.name }}</h3>
+              <p class="sme-role">{{ expert.role }}</p>
+              <a v-if="expert.link" class="sme-link" :href="expert.link" target="_blank" rel="noopener noreferrer"
+                :aria-label="'Open ' + expert.name + ' LinkedIn profile'">
+                <svg viewBox="0 0 24 24" width="14" height="14" fill="none" aria-hidden="true">
+                  <path d="M6 18 18 6M7 6h11v11" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"
+                    stroke-linejoin="round" />
+                </svg>
+              </a>
+            </div>
+            <div class="sme-logos" aria-label="Professional affiliations">
+              <div v-for="logo in expert.logos" :key="logo.name" class="sme-logo-slot">
+                <img :src="logo.src" :alt="logo.name" :width="Math.round(logo.width * 0.7)"
+                  :height="Math.round(logo.height * 0.7)" loading="lazy" decoding="async" />
               </div>
             </div>
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <!-- Industry Mentors -->
+    <div class="people-section people-section-light ptb-100">
+      <div class="container">
+        <div class="people-title-wrap text-center">
+          <h2 class="people-title">Our Distinguished Industry <span class="people-highlight">Mentors</span></h2>
+        </div>
+        <div class="people-grid">
+          <div v-for="(mentor, index) in industryMentors" :key="'im-' + index" class="people-card">
+            <img :src="mentor.image" :alt="mentor.alt" class="img-fluid" loading="lazy" decoding="async" />
           </div>
         </div>
       </div>
@@ -125,52 +129,171 @@
 
 
 <script>
-import nitish from '@/assets/img/expert/nitish.png'
-import ankur from '@/assets/img/expert/ankur.png'
-
 export default {
   name: "CurrentAcademicStudents",
   data() {
     return {
-      nitishImage: nitish,
-      ankurImage: ankur,
-      showLeftArrow: false,
-      showRightArrow: true,
-      activeIndex: 0,
-      activeFacultyTab: "thinktank",
       thinkTankMembers: [
-        { image: "/mentor/1.svg", alt: "Strategic Think Tank Member 1" },
-        { image: "/mentor/2.svg", alt: "Strategic Think Tank Member 2" },
-        { image: "/mentor/3.svg", alt: "Strategic Think Tank Member 3" },
-        { image: "/mentor/4.svg", alt: "Strategic Think Tank Member 4" },
+        { image: "/mentor/1.svg", alt: "Prof. (Dr.) N.S. Kalsi IAS (Retd.), GCC School Strategic Think Tank" },
+        { image: "/mentor/2.svg", alt: "CA Harinderjit Singh, GCC School Strategic Think Tank" },
+        { image: "/mentor/3.svg", alt: "Kamalesh Agarwalla, GCC School Strategic Think Tank" },
+        { image: "/mentor/4.svg", alt: "CA Parveen Kumar, GCC School Strategic Think Tank" },
       ],
+      // Same cards (order, photos, text, logos and links) as the Instructors section in US-CPA-Web.html
+      // (images extracted to public/img/experts/).
+      subjectMatterExperts: [
+        
+        {
+          name: "CPA Nitish Khatri",
+          role: "Vice President",
+          experience: "15+",
+          link: "https://www.linkedin.com/in/nitish-khatri-045117b9/",
+          portrait: "/img/experts/nitish-khatri.webp",
+          logos: [
+            { name: "KC GlobEd", src: "/img/experts/nitish-khatri-logo-kc-globed.webp", width: 130, height: 36 },
+            { name: "Accenture", src: "/img/experts/nitish-khatri-logo-accenture.webp", width: 108, height: 39 },
+            { name: "Genpact", src: "/img/experts/nitish-khatri-logo-genpact.webp", width: 108, height: 43 },
+          ],
+        },
+        {
+          name: "CA Manpreet Ahuja",
+          role: "Ex. Senior Manager",
+          experience: "20+",
+          link: "https://www.linkedin.com/company/kc-globed/",
+          portrait: "/img/experts/manpreet-ahuja.webp",
+          logos: [
+            { name: "KPMG", src: "/img/experts/manpreet-ahuja-logo-kpmg.webp", width: 116, height: 49 },
+          ],
+        },
+        {
+          name: "CA Ankur Sharma",
+          role: "Managing Partner",
+          experience: "15+",
+          link: "https://www.linkedin.com/company/kc-globed/",
+          portrait: "/img/experts/ankur-sharma.webp",
+          logos: [
+            { name: "Kreit & Chiu", src: "/img/experts/ankur-sharma-logo-kreit-and-chiu.webp", width: 140, height: 38 },
+            { name: "EY", src: "/img/experts/ankur-sharma-logo-ey.webp", width: 48, height: 56 },
+            { name: "PwC", src: "/img/experts/ankur-sharma-logo-pwc.webp", width: 96, height: 48 },
+          ],
+        },
+        {
+          name: "CA Varun Singhal",
+          role: "Executive Director, GCC School",
+          experience: "25+",
+          link: "",
+          portrait: "/img/experts/varun-singhal.webp",
+          logos: [
+            { name: "GCC School", src: "/img/experts/varun-singhal-logo-gcc-school.webp", width: 132, height: 35 },
+            { name: "KPMG", src: "/img/experts/varun-singhal-logo-kpmg.webp", width: 112, height: 49 },
+            { name: "EY", src: "/img/experts/varun-singhal-logo-ey.webp", width: 54, height: 53 },
+          ],
+        },
+        {
+          name: "CA Kapileshwar Bhalla",
+          role: "Author & Trainer\nIFRS | Ind AS | ACCA",
+          experience: "25+",
+          link: "",
+          portrait: "/img/experts/kapileshwar-bhalla.webp",
+          logos: [
+            { name: "Commercial Law Publishers", src: "/img/experts/kapileshwar-bhalla-logo-commercial-law-publishers.webp", width: 150, height: 39 },
+            { name: "Taxmann", src: "/img/experts/kapileshwar-bhalla-logo-taxmann.webp", width: 118, height: 44 },
+          ],
+        },
+        {
+          name: "CA Anish Thomas",
+          role: "Ex. Senior Manager",
+          experience: "15+",
+          link: "",
+          portrait: "/img/experts/anish-thomas.webp",
+          logos: [
+            { name: "EY", src: "/img/experts/anish-thomas-logo-ey.webp", width: 54, height: 53 },
+            { name: "Deloitte", src: "/img/experts/anish-thomas-logo-deloitte.webp", width: 134, height: 35 },
+          ],
+        },
+        {
+          name: "EA Ravi Yathiraj",
+          role: "Practicing\nEnrolled Agent",
+          experience: "15+",
+          link: "",
+          portrait: "/img/experts/ravi-yathiraj.webp",
+          logos: [
+            { name: "HDFC Life", src: "/img/experts/ravi-yathiraj-logo-hdfc-life.webp", width: 94, height: 59 },
+            { name: "mytaxfiler", src: "/img/experts/ravi-yathiraj-logo-mytaxfiler.webp", width: 130, height: 55 },
+          ],
+        },
+        {
+          name: "CA Santhosh Chandrashekar",
+          role: "Ex. Senior Manager",
+          experience: "15+",
+          link: "",
+          portrait: "/img/experts/santhosh-chandrashekar.webp",
+          logos: [
+            { name: "KPMG", src: "/img/experts/santhosh-chandrashekar-logo-kpmg.webp", width: 112, height: 50 },
+            { name: "EY", src: "/img/experts/santhosh-chandrashekar-logo-ey.webp", width: 54, height: 53 },
+          ],
+        },
+        {
+          name: "CA Inderpal Singh",
+          role: "CEO & CO-FOUNDER\n4x4 ADVISORY",
+          experience: "20+",
+          link: "",
+          portrait: "/img/experts/inderpal-singh.webp",
+          logos: [
+            { name: "4x4 Advisory", src: "/img/experts/inderpal-singh-logo-4x4-advisory.webp", width: 58, height: 61 },
+            { name: "EY", src: "/img/experts/inderpal-singh-logo-ey.webp", width: 54, height: 53 },
+          ],
+        },
+        {
+          name: "CPA & CA Vinay Aggarwal",
+          role: "Partner\nVinay Aggarwal & Associates",
+          experience: "20+",
+          link: "",
+          portrait: "/img/experts/vinay-aggarwal.webp",
+          logos: [
+            { name: "Goldman Financing Corporates", src: "/img/experts/vinay-aggarwal-logo-goldman-financing-corporates.webp", width: 65, height: 67 },
+            { name: "Barclays", src: "/img/experts/vinay-aggarwal-logo-barclays.webp", width: 55, height: 55 },
+          ],
+        },
+        {
+          name: "CA Ram Sachdeva",
+          role: "Ex. Senior Manager",
+          experience: "20+",
+          link: "",
+          portrait: "/img/experts/ram-sachdeva.webp",
+          logos: [
+            { name: "PwC", src: "/img/experts/ram-sachdeva-logo-pwc.webp", width: 102, height: 48 },
+            { name: "KPMG", src: "/img/experts/ram-sachdeva-logo-kpmg.webp", width: 112, height: 52 },
+          ],
+        },
+        {
+          name: "CA Saurabh Handa",
+          role: "Practice Lead,\nTrustlane Partners",
+          experience: "20+",
+          link: "",
+          portrait: "/img/experts/saurabh-handa.webp",
+          logos: [
+            { name: "Trustlane Partners", src: "/img/experts/saurabh-handa-logo-trustlane-partners.webp", width: 62, height: 58 },
+            { name: "Deloitte", src: "/img/experts/saurabh-handa-logo-deloitte.webp", width: 128, height: 34 },
+            { name: "KPMG", src: "/img/experts/saurabh-handa-logo-kpmg.webp", width: 106, height: 49 },
+          ],
+        },
+      ],
+      // Mentor cards as on the live site (images saved in public/img/mentors/), in the requested order
       industryMentors: [
-        "1.png",
-        "2.png",
-        "3.png",
-        "4.png",
-        "5.png",
-        "6.png",
-        "7.png",
-        "8.png",
-        "9.png",
-        "10.png",
-        "11.png",
-        "12.png",
-      ].map((file, i) => ({
-        image: `https://pub-036d749647594301a3092e501d1d3b5f.r2.dev/static/images/${file}`,
-        alt: `Industry Mentor ${i + 1}`,
-      })),
-      facultyMembers: [
-        { image: "https://pub-1c3aa4d882c24d66ac8e49a3fe6fbb71.r2.dev/static/images/image%20(4).png", alt: "Faculty 1" },
-        { image: "https://pub-1c3aa4d882c24d66ac8e49a3fe6fbb71.r2.dev/static/images/image%20(2).png", alt: "Faculty 2" },
-        { image: "https://pub-1c3aa4d882c24d66ac8e49a3fe6fbb71.r2.dev/static/images/image%20(10).png", alt: "Faculty 3" },
-        { image: "https://pub-1c3aa4d882c24d66ac8e49a3fe6fbb71.r2.dev/static/images/image%20(1).png", alt: "Faculty 4" },
-        { image: "https://pub-1c3aa4d882c24d66ac8e49a3fe6fbb71.r2.dev/static/images/image%20(3).png", alt: "Faculty 5" },
-        { image: "https://pub-1c3aa4d882c24d66ac8e49a3fe6fbb71.r2.dev/static/images/image%20(5).png", alt: "Faculty 6" },
-        { image: "https://pub-1c3aa4d882c24d66ac8e49a3fe6fbb71.r2.dev/static/images/image%20(6).png", alt: "Faculty 7" },
-        { image: "https://pub-1c3aa4d882c24d66ac8e49a3fe6fbb71.r2.dev/static/images/image%20(7).png", alt: "Faculty 8" },
-      ],
+        { file: "pavan-duggal", name: "Dr. Pavan Duggal" },
+        { file: "akshdeep-singh", name: "CISA Akshdeep Singh" },
+        { file: "nitesh-jain", name: "Mr. Nitesh Jain" },
+        { file: "ashwani-jhamb", name: "CA Ashwani Jhamb" },
+        { file: "vikram-khurana", name: "CA Vikram Khurana" },
+        { file: "arvind-tuli", name: "CA Arvind Tuli" },
+        { file: "amlan-chakraborty", name: "Dr. Amlan Chakraborty" },
+        { file: "goutam-bhattacharya", name: "Mr. Goutam Bhattacharya" },
+        { file: "vikrant-rana", name: "Adv. Vikrant Rana" },
+        { file: "nimisha-chiripal", name: "CPA Nimisha Chiripal" },
+        { file: "murli-mohan", name: "Dr. Murli Mohan" },
+        { file: "nayan-bheda", name: "Dr. Nayan Bheda" },
+      ].map((m) => ({ image: `/img/mentors/${m.file}.webp`, alt: `${m.name}, GCC School Industry Mentor` })),
       comparisonData: [
         { feature: "<strong>Globally Recognised</strong> Academic Credentials", traditional: true, gcc: true },
         { feature: "<strong>Strong</strong> Theoretical Foundation", traditional: true, gcc: true },
@@ -185,96 +308,6 @@ export default {
       ],
     };
   },
-  computed: {
-    facultyTabs() {
-      return [
-        {
-          key: "thinktank", label: "Strategic Think Tank", items: this.thinkTankMembers,
-          tag: "STRATEGIC THINK TANK",
-          heading: "Where Strategic Vision Meets Industry Expertise",
-          desc: "Bringing together accomplished business leaders, senior executives and industry specialists, the GCC School Strategic Think Tank provides a platform for informed dialogue, forward-looking perspectives and strategic insights that contribute to the institution's long-term vision and direction.",
-        },
-        {
-          key: "sme", label: "Subject Matter Experts", items: this.facultyMembers,
-          tag: "SUBJECT MATTER EXPERTS",
-          heading: "Specialised Expertise. Broader Industry Perspectives.",
-          desc: "GCC School brings together distinguished professionals from diverse industries who share their expertise, experiences and insights into the evolving business landscape. Their perspectives introduce students to emerging trends, industry expectations and the realities of the corporate world.",
-        },
-        {
-          key: "mentors", label: "Industry Mentors", items: this.industryMentors,
-          tag: "FACULTY & MENTORS",
-          heading: "Learn from the Professionals Who Shape Global Finance",
-          desc: "Gain insights from experienced US CPAs, Chartered Accountants, Enrolled Agents and GCC industry leaders who bring extensive corporate expertise, practical knowledge and real-world perspectives to your learning experience.",
-        },
-      ];
-    },
-    activeFacultyList() {
-      const tab = this.facultyTabs.find((t) => t.key === this.activeFacultyTab);
-      return tab ? tab.items : [];
-    },
-  },
-  methods: {
-    selectFacultyTab(key) {
-      if (this.activeFacultyTab === key) return;
-      this.activeFacultyTab = key;
-      this.activeIndex = 0;
-      this.$nextTick(() => {
-        const container = this.$refs.facultyScrollRef;
-        if (container) container.scrollLeft = 0;
-        this.checkScroll();
-      });
-    },
-    scroll(direction) {
-      const container = this.$refs.facultyScrollRef;
-      if (!container) return;
-
-      // Scroll by 260px on mobile (width 250px + 10px gap), 350px on desktop
-      const isMobile = window.innerWidth <= 767;
-      const cardWidth = isMobile ? 260 : 350;
-      const scrollAmount = direction === 'left' ? -cardWidth : cardWidth;
-
-      container.scrollBy({
-        left: scrollAmount,
-        behavior: 'smooth'
-      });
-    },
-    scrollToPage(index) {
-      const container = this.$refs.facultyScrollRef;
-      if (!container) return;
-
-      const cardWidth = 260; // 250px card width + 10px gap
-      container.scrollTo({
-        left: index * cardWidth,
-        behavior: 'smooth'
-      });
-    },
-    checkScroll() {
-      const container = this.$refs.facultyScrollRef;
-      if (!container) return;
-
-      this.showLeftArrow = container.scrollLeft > 10;
-
-      const maxScroll = container.scrollWidth - container.clientWidth;
-      if (maxScroll <= 0) {
-        // Default to showing the right arrow initially if we have more than 2 items
-        this.showRightArrow = this.activeFacultyList.length > 2;
-      } else {
-        this.showRightArrow = container.scrollLeft < maxScroll - 10;
-      }
-
-      // Calculate active index on mobile scroll
-      const cardWidth = 260;
-      this.activeIndex = Math.min(
-        Math.round(container.scrollLeft / cardWidth),
-        2
-      );
-    }
-  },
-  mounted() {
-    setTimeout(() => {
-      this.checkScroll();
-    }, 500);
-  }
 };
 </script>
 
@@ -531,17 +564,9 @@ tr:last-child .gcc-cell {
   .title {
     font-size: 26px;
   }
-
-  .faculty-card-item {
-    height: none !important;
-  }
 }
 
 @media (max-width : 575px) {
-  .faculty-card-item {
-    height: none !important;
-  }
-
   .comparison-table {
     min-width: 400px;
     /* Ensure table doesn't squash too much */
@@ -574,320 +599,345 @@ tr:last-child .gcc-cell {
 
 }
 
-/* Faculty & Mentors Section Styles */
-.faculty-mentors-area {
-  background-color: #d9d9d9;
-  padding: 80px 0;
-  border-top: 1px solid #ECECF0;
-  overflow: hidden;
+/* Think Tank / Subject Matter Experts / Industry Mentors sections */
+.people-section-light {
+  background-color: #F8F9FB;
 }
 
-.gold-tag {
-  color: #D5861B;
+.people-section-white {
+  background-color: #ffffff;
+}
+
+.people-title-wrap {
+  margin-bottom: 50px;
+}
+
+.people-title {
+  font-family: 'Inter', sans-serif;
+  font-size: 36px;
   font-weight: 700;
-  font-size: 24px;
-  letter-spacing: 1.5px;
+  color: #130922;
   text-transform: uppercase;
-  display: block;
-}
-
-.faculty-heading {
-  font-size: 42px;
-  font-weight: 800;
-  color: #130922;
-  line-height: 1.25;
-}
-
-.faculty-desc {
-  font-size: 19px;
-  color: #555555;
-  line-height: 1.6;
-}
-
-.faculty-info-stack {
-  display: grid;
-}
-
-.faculty-info-panel {
-  grid-area: 1 / 1;
-  visibility: hidden;
-  opacity: 0;
-  transition: opacity 0.3s ease;
-}
-
-.faculty-info-panel.active {
-  visibility: visible;
-  opacity: 1;
-}
-
-.faculty-tabs {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 10px;
-}
-
-.faculty-tab-btn {
-  background: #ffffff;
-  color: #4A154B;
-  border: 1px solid #DDD1EA;
-  border-radius: 999px;
-  padding: 10px 18px;
-  font-size: 15px;
-  font-weight: 700;
-  cursor: pointer;
-  transition: background-color 0.2s ease, color 0.2s ease, border-color 0.2s ease;
-}
-
-.faculty-tab-btn:hover {
-  border-color: #4A154B;
-}
-
-.faculty-tab-btn.active {
-  background: #4A154B;
-  color: #ffffff;
-  border-color: #4A154B;
-}
-
-@media (max-width: 575px) {
-  .faculty-tab-btn {
-    font-size: 13px;
-    padding: 8px 14px;
-  }
-}
-
-.btn-purple-meet {
-  background-color: #4A154B !important;
-  color: #ffffff !important;
-  font-weight: 700;
-  font-size: 14px;
-  padding: 10px 24px;
-  border-radius: 6px;
-  display: inline-flex;
-  align-items: center;
-  text-decoration: none;
-  transition: all 0.3s ease;
-}
-
-.btn-purple-meet:hover {
-  background-color: #320d33 !important;
-  transform: translateY(-2px);
-}
-
-.faculty-card {
-  background: #ffffff;
-  border-radius: 12px;
-  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.05);
-  padding: 24px 20px 0 20px;
-  display: flex;
-  justify-content: space-between;
-  align-items: flex-end;
-  height: 210px;
-  width: 330px;
-  position: relative;
-  overflow: hidden;
-}
-
-.exp-badge {
-  position: absolute;
-  top: 0;
-  right: 20px;
-  background-color: #FFAF3D;
-  color: #35083D;
-  font-size: 10px;
-  font-weight: 800;
-  padding: 6px 8px;
-  width: 34px;
-  text-align: center;
-  line-height: 1.2;
-  border-bottom-left-radius: 4px;
-  border-bottom-right-radius: 4px;
-}
-
-.faculty-name {
-  font-size: 16px;
-  font-weight: 700;
-  color: #130922;
-  margin-bottom: 4px;
-}
-
-.faculty-title {
-  font-size: 12px;
-  color: #6B1B75;
-  font-weight: 600;
-}
-
-.faculty-img {
-  height: 266px;
-  width: auto;
-  object-fit: contain;
-  align-self: flex-end;
+  letter-spacing: 0.02em;
   margin-bottom: 0;
 }
 
-@media (max-width: 767px) {
-  .faculty-info-col {
-    margin-bottom: 0px !important;
-  }
-
-  .faculty-card {
-    margin: 0 auto;
-  }
-
-  .section-title {
-    margin-bottom: 0px;
-  }
-
-  .faculty-scroll-wrapper {
-    display: flex !important;
-    flex-flow: column wrap !important;
-    height: 388px !important;
-    gap: 8px 10px !important;
-    overflow-x: auto !important;
-    scroll-snap-type: x mandatory !important;
-    margin: 0 0px !important;
-    align-content: flex-start !important;
-    justify-content: center !important;
-  }
-
-  .faculty-card-item {
-    height: 175px !important;
-    flex: 0 0 auto !important;
-    width: 250px !important;
-    scroll-snap-align: center !important;
-  }
-
-  .faculty-img {
-    height: 100% !important;
-    width: 100% !important;
-    object-fit: contain !important;
-  }
-
-  .left-btn {
-    left: -10px !important;
-  }
-
-  .right-btn {
-    right: -10px !important;
-  }
-
-  .faculty-dots-wrapper {
-    display: flex !important;
-  }
-
-  .scroll-btn {
-    display: none !important;
-  }
+.people-title::after {
+  content: "";
+  display: block;
+  width: 70px;
+  height: 4px;
+  background: #F1A63E;
+  margin: 18px auto 0;
+  border-radius: 10px;
 }
 
-@media (max-width: 575px) {
-  .faculty-heading {
+.people-highlight {
+  color: #F1A63E;
+}
+
+.people-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px 40px;
+}
+
+.people-card {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.people-card a {
+  display: block;
+}
+
+.people-card img {
+  max-width: 100%;
+  height: auto;
+  transition: transform 0.3s ease;
+}
+
+.people-card:hover img {
+  transform: translateY(-4px);
+}
+
+.think-tank-card img {
+  max-width: 220px;
+  width: 100%;
+}
+
+@media (max-width: 1200px) {
+  .people-title {
     font-size: 30px;
   }
 }
 
-.faculty-carousel-container {
-  position: relative;
-  width: 100%;
-}
+@media (max-width: 991px) {
+  .people-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+  }
 
-.faculty-scroll-wrapper {
-  display: flex;
-  flex-direction: row;
-  overflow-x: auto;
-  gap: 20px;
-  scroll-behavior: smooth;
-  scrollbar-width: none;
-  -ms-overflow-style: none;
-  justify-content: none;
-}
-
-.faculty-scroll-wrapper::-webkit-scrollbar {
-  display: none;
-}
-
-.faculty-card-item {
-  flex: 0 0 auto;
-  display: flex;
-  align-items: flex-end;
-}
-
-/* Industry Mentors tab: smaller cards */
-.faculty-scroll-wrapper.tab-mentors .faculty-img {
-  height: 200px;
+  .people-title {
+    font-size: 26px;
+  }
 }
 
 @media (max-width: 767px) {
-  .faculty-scroll-wrapper.tab-mentors .faculty-card-item {
-    height: 140px !important;
-    width: 200px !important;
+  .people-title-wrap {
+    margin-bottom: 30px;
+  }
+
+  .people-title {
+    font-size: 20px;
+    letter-spacing: 1px;
+  }
+
+  .people-title::after {
+    width: 50px;
+    height: 3px;
+    margin-top: 10px;
+  }
+
+  .people-grid {
+    grid-template-columns: 1fr;
   }
 }
 
-.scroll-btn {
+/* Subject Matter Expert cards (same design as the Instructors cards in US-CMA-Web.html) */
+.sme-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 24px;
+  align-items: stretch;
+}
+
+.sme-card {
+  min-width: 0;
+  overflow: hidden;
+  background: #fff;
+  border-radius: 14px;
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.15);
+  display: flex;
+  flex-direction: column;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.sme-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 16px 34px rgba(0, 0, 0, 0.25);
+}
+
+/* 10 cards: center the last one in the 3-column grid */
+.sme-card:last-child:nth-child(3n + 1) {
+  grid-column: 2;
+}
+
+.sme-visual {
+  height: 185px;
+  position: relative;
+  overflow: hidden;
+  /* Site theme: deep plum to brand magenta, with a soft gold glow (same colours as the
+     program cards, the logo-box heading and the Apply Now buttons) */
+  background:
+    radial-gradient(ellipse at 100% 100%, rgba(229, 169, 60, 0.35) 0%, transparent 55%),
+    linear-gradient(135deg, #35083D 0%, #5E1460 50%, #A13E99 100%);
+  background-size: 110% 110%;
+  background-position: 0% 30%;
+  animation: sme-gradient-drift 26s ease-in-out infinite alternate;
+}
+
+@keyframes sme-gradient-drift {
+  from { background-position: 0% 30%; }
+  to { background-position: 100% 70%; }
+}
+
+.sme-ring {
   position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
-  width: 44px;
-  height: 44px;
+  width: 240px;
+  height: 240px;
+  left: 28%;
+  top: -30px;
+  border: 1px solid rgba(255, 255, 255, 0.33);
   border-radius: 50%;
-  background-color: #ffffff;
-  color: #130922;
-  border: 1px solid rgba(0, 0, 0, 0.08);
+  opacity: 0.38;
+  box-shadow: 0 0 0 16px rgba(255, 255, 255, 0.04), 0 0 0 48px rgba(255, 255, 255, 0.02);
+}
+
+.sme-portrait {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  width: 78%;
+  height: calc(100% - 10px);
+  object-fit: contain;
+  object-position: center bottom;
+  filter: drop-shadow(0 6px 8px rgba(0, 0, 0, 0.19));
+}
+
+.sme-experience {
+  position: absolute;
+  z-index: 2;
+  left: 20px;
+  top: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  color: #f6f7fc;
+}
+
+.sme-experience-value {
+  font-size: 26px;
+  line-height: 1;
+  font-weight: 700;
+  letter-spacing: -1px;
+}
+
+.sme-experience-label {
+  margin-top: 7px;
+  padding: 3px 7px;
+  font-size: 9px;
+  line-height: 1.5;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  background: #e9c488;
+  color: #493314;
+  border-radius: 4px;
+}
+
+.sme-index {
+  position: absolute;
+  left: 20px;
+  bottom: 14px;
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 2px;
+  color: #b9c2d6;
+}
+
+.sme-copy {
+  flex: 1;
+  position: relative;
+  min-height: 105px;
+  padding: 18px 20px 16px;
+  background: #22071F;
+}
+
+.sme-name {
+  margin: 0 30px 8px 0;
+  font-family: 'Inter', sans-serif;
+  font-size: 21px;
+  font-weight: 700;
+  line-height: 1.3;
+  letter-spacing: -0.3px;
+  color: #ffffff;
+  overflow-wrap: break-word;
+}
+
+.sme-role {
+  margin: 0;
+  white-space: pre-line;
+  font-size: 13px;
+  line-height: 1.55;
+  font-weight: 500;
+  color: #e5daef;
+}
+
+.sme-link {
+  position: absolute;
+  right: 16px;
+  top: 18px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 26px;
+  height: 26px;
+  border: 1px solid rgba(255, 255, 255, 0.33);
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.04);
+  color: #fff;
+}
+
+.sme-link:hover {
+  color: #e9c488;
+  border-color: #e9c488;
+}
+
+.sme-link:focus-visible {
+  outline: 3px solid #f1d5a2;
+  outline-offset: 3px;
+}
+
+.sme-logos {
+  flex-shrink: 0;
+  height: 72px;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 16px;
-  cursor: pointer;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
-  z-index: 10;
-  transition: all 0.3s ease;
+  gap: 16px;
+  padding: 12px 20px;
+  background: #ededee;
 }
 
-.scroll-btn:hover {
-  background-color: #f8f9fa;
-  transform: translateY(-50%) scale(1.05);
-  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.12);
-}
-
-.left-btn {
-  left: -52px;
-}
-
-.right-btn {
-  right: -52px;
-}
-
-.faculty-dots-wrapper {
-  display: none;
-  /* Hide on desktop */
-  justify-content: center;
+.sme-logo-slot {
+  display: flex;
   align-items: center;
-  gap: 8px;
-  margin-top: 24px;
+  justify-content: center;
+  flex: 1 1 0;
+  min-width: 0;
+  max-width: 112px;
+  height: 48px;
 }
 
-.dot-indicator {
-  width: 8px;
-  height: 8px;
-  border-radius: 50%;
-  background-color: rgba(81, 21, 124, 0.25);
-  cursor: pointer;
-  transition: all 0.3s ease;
-}
-
-.dot-indicator.active {
-  background-color: #51157C;
-  transform: scale(1.2);
+.sme-logo-slot img {
+  max-width: 100%;
+  max-height: 100%;
+  width: auto;
+  height: auto;
+  object-fit: contain;
 }
 
 @media (max-width: 991px) {
-  .left-btn {
-    left: -10px;
+  .sme-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 20px;
   }
 
-  .right-btn {
-    right: -10px;
+  .sme-card:last-child:nth-child(3n + 1) {
+    grid-column: auto;
+  }
+
+  .sme-card:last-child:nth-child(2n + 1) {
+    grid-column: 1 / -1;
+    width: calc((100% - 20px) / 2);
+    justify-self: center;
+  }
+}
+
+@media (max-width: 767px) {
+  .sme-grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .sme-card:last-child:nth-child(n) {
+    grid-column: auto;
+    width: 100%;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .sme-visual {
+    animation: none;
+  }
+
+  .sme-card {
+    transition: none;
+  }
+
+  .sme-card:hover {
+    transform: none;
   }
 }
 

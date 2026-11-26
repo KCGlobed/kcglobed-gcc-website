@@ -1,5 +1,7 @@
 <template>
   <div class="panelBox">
+    <div class="company-card">
+    <h2 class="company-card-title">CUSTOMIZED FOR GCCs TALENT REQUIREMENTS</h2>
     <div class="boxes-container">
       <!-- AICPA -->
       <div class="box">
@@ -38,6 +40,7 @@
         <span>University of London MSc (Optional)</span>
       </div> -->
     </div>
+    </div>
   </div>
 </template>
 
@@ -50,11 +53,68 @@ export default {
 <style scoped>
 .panelBox {
   background-color: #ffffff;
-  border-bottom: 1px solid #eaeaea;
-  border-top: 1px solid #eaeaea;
-  padding: 0 20px;
+  padding: 30px 20px;
   width: 100%;
   z-index: 10;
+}
+
+/* Boxed layout with a heading bar */
+.company-card {
+  max-width: 1400px;
+  margin: 0 auto;
+  background: #ffffff;
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+  border: 1px solid #eeeaf2;
+}
+
+.company-card-title {
+  margin: 0;
+  padding: 22px 20px;
+  text-align: center;
+  font-family: 'Inter', sans-serif;
+  font-size: 26px;
+  font-weight: 700;
+  line-height: 1.3;
+  letter-spacing: 0.5px;
+  color: #ffffff;
+  background: linear-gradient(90deg, #4A0B40 0%, #5E1460 50%, #6E2179 100%);
+}
+
+/* Desktop: the box overlaps the bottom of the hero banner by about 30% of its height */
+@media (min-width: 992px) {
+  .panelBox {
+    padding-top: 0;
+  }
+
+  .company-card {
+    position: relative;
+    z-index: 5;
+    margin-top: -65px;
+  }
+}
+
+@media (max-width: 991px) {
+  .company-card-title {
+    font-size: 20px;
+    padding: 18px 16px;
+  }
+}
+
+@media (max-width: 767px) {
+  .panelBox {
+    padding: 20px 12px;
+  }
+
+  .company-card {
+    border-radius: 12px;
+  }
+
+  .company-card-title {
+    font-size: 15px;
+    padding: 14px 12px;
+  }
 }
 
 .boxes-container {

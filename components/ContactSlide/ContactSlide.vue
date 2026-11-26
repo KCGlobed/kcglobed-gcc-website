@@ -1,298 +1,139 @@
 <template>
-  <div>
+  <!-- The tab and the panel move together, so the tab stays clickable to close the form. -->
+  <div class="apply-slide" :class="{ open: isOpen }">
     <!-- Side Button -->
-    <div class="contact-tab" @click="toggleForm">
-      Get in Touch
-    </div>
+    <button type="button" class="contact-tab" :aria-expanded="isOpen" aria-controls="applySlidePanel"
+      @click="toggleForm">
+      Apply Now
+    </button>
 
-    <!-- Slide Form -->
-    <div class="contact-panel" :class="{ open: isOpen }">
-
-      <!-- Header -->
-      <div class="panel-header">
-        <h3>Quick Contact Form</h3>
-        <span class="close" @click="toggleForm">✕</span>
-      </div>
-
-      <!-- Form -->
-      <form @submit.prevent="submitForm">
-
-        <div class="row">
-          <div class="input-group">
-            <label>First Name*</label>
-            <input v-model="form.first_name" type="text" placeholder="First Name" required />
-          </div>
-
-          <div class="input-group">
-            <label>Last Name*</label>
-            <input v-model="form.last_name" type="text" placeholder="Last Name" required />
-          </div>
-        </div>
-
-        <div class="row">
-          <div class="input-group">
-            <label>Mobile*</label>
-            <input v-model="form.phone" type="text" placeholder="Mobile Number" required />
-          </div>
-
-          <div class="input-group">
-            <label>Email*</label>
-            <input v-model="form.email" type="email" placeholder="Email Address" required />
-          </div>
-        </div>
-
-        <div class="row">
-            <div class="input-group">
-                <label>State/UT*</label>
-                <select v-model="form.state" required>
-                <option value="">Select State</option>
-                <option v-for="state in states" :key="state" :value="state">
-                    {{ state }}
-                </option>
-                </select>
-            </div>
- 
-            <div class="input-group">
-                <label>City*</label>
-                <select v-model="form.city" required>
-                <option value="">Select City</option>
-                <option v-for="city in cities" :key="city" :value="city">
-                    {{ city }}
-                </option>
-                </select>
-            </div>
-        </div>
-
-        <button type="submit" class="submit-btn" :disabled="loading">
-          {{ loading ? "Submitting..." : "SUBMIT" }}
-        </button>
-
-        <p v-if="message" class="error-msg">
-          {{ message }}
-        </p>
-
-      </form>
-
+    <!-- Slide Form: same form and layout as the Apply Now (dossier) popup -->
+    <div id="applySlidePanel" class="contact-panel" :aria-hidden="!isOpen" :inert="!isOpen || undefined">
+      <component :is="dossierForm" v-if="dossierForm" :inline="true" modal-id="sideApplyForm"
+        modal-title="Apply Now" subtitle="Enter your details to complete your application" mode="apply" />
     </div>
   </div>
 </template>
 
 <script setup>
-import { ref, onMounted, watch } from "vue"
-import stateCityData from "~/state_city.json"
+import { ref, shallowRef, nextTick } from "vue"
 
 const isOpen = ref(false)
-const loading = ref(false)
-const message = ref("")
+// The form component is loaded on the first click, so pages don't download it until it's needed.
+const dossierForm = shallowRef(null)
 
-const states = ref([])
-const cities = ref([])
-
-const form = ref({
-  first_name: "",
-  last_name: "",
-  email: "",
-  phone: "",
-  state: "",
-  city: ""
-})
-
-const toggleForm = () => {
+const toggleForm = async () => {
+  if (!dossierForm.value) {
+    const mod = await import("~/components/Common/DossierModal.vue")
+    dossierForm.value = mod.default
+    await nextTick()
+    // let the browser paint the closed position first so the slide animation runs
+    await new Promise((resolve) => requestAnimationFrame(() => requestAnimationFrame(resolve)))
+  }
   isOpen.value = !isOpen.value
-}
-
-onMounted(() => {
-  // Populate states from local JSON and sort alphabetically
-  const statesArr = Object.keys(stateCityData)
-  states.value = statesArr.sort((a, b) => a.localeCompare(b))
-})
-
-watch(() => form.value.state, (state) => {
-  if (!state) {
-    cities.value = []
-    return
-  }
-  // Populate cities from local JSON and sort alphabetically
-  const citiesArr = stateCityData[state] || []
-  cities.value = [...citiesArr].sort((a, b) => a.localeCompare(b))
-})
-
-const submitForm = async () => {
-
-  loading.value = true
-  message.value = ""
-
-  try {
-
-    const config = useRuntimeConfig()
-
-    await $fetch(`${config.public.apiBase}/api/students/contact-us/`, {
-      method: "POST",
-      body: form.value
-    })
-
-    form.value = {
-      first_name: "",
-      last_name: "",
-      email: "",
-      phone: "",
-      state: "",
-      city: ""
-    }
-
-    isOpen.value = false
-
-  } catch (err) {
-
-    message.value = "Something went wrong"
-
-  } finally {
-
-    loading.value = false
-
-  }
-
 }
 </script>
 
 <style scoped>
-.contact-tab {
+.apply-slide {
+  --panel-width: 560px;
+  --tab-width: 44px;
   position: fixed;
-  right: 45px;
-  top: 45%;
-  transform: rotate(-90deg);
-  transform-origin: right top;
-  background: #A13E99 !important;
-  color: white;
-  padding: 10px 22px;
-  font-weight: 600;
-  cursor: pointer;
-  z-index: 10000;
-  border-radius: 6px 6px 0 0;
-}
-
-.contact-panel {
-  position: fixed;
-  right: -520px;
-  top: 200px;
-  width: 520px;
-  max-width: 95%;
-  background: white;
-  border-radius: 10px;
-  box-shadow: 0 12px 30px rgba(0,0,0,0.2);
-  transition: all 0.20s ease;
-  padding: 22px;
-  z-index: 100000;
-}
-
-.contact-panel.open {
+  top: 50%;
   right: 0;
-}
-
-.panel-header {
+  z-index: 1050;
   display: flex;
-  justify-content: space-between;
   align-items: center;
-  margin-bottom: 18px;
+  /* closed: only the tab is on screen */
+  transform: translate(var(--panel-width), -50%);
+  transition: transform 0.45s cubic-bezier(0.22, 1, 0.36, 1);
+  pointer-events: none;
 }
 
-.panel-header h3 {
-  font-size: 18px;
-  font-weight: 600;
+.apply-slide.open {
+  transform: translate(0, -50%);
 }
 
-.close {
-  cursor: pointer;
-  font-size: 20px;
-  color: #666;
-}
-
-.row {
-  display: flex;
-  gap: 12px;
-  margin-bottom: 14px;
-}
-
-.input-group {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-}
-
-.input-group label {
-  font-size: 13px;
-  margin-bottom: 4px;
-  color: #444;
-}
-
-.input-group input {
-  border: 1px solid #ddd;
-  padding: 9px 10px;
-  border-radius: 6px;
-  font-size: 14px;
-}
-
-.input-group input:focus {
-  outline: none;
-  border-color: #A13E99 !important;
-}
-
-.input-group select {
-  width: 100%;
-  border: 1px solid #ddd;
-  padding: 9px 10px;
-  border-radius: 6px;
-  font-size: 14px;
-  background: white;
-}
-
-.input-group select:focus {
-  outline: none;
-  border-color: #f5a623;
-}
-
-.submit-btn {
-  width: 100%;
-  padding: 12px;
+.contact-tab {
+  pointer-events: auto;
+  width: var(--tab-width);
+  flex: none;
+  writing-mode: vertical-rl;
+  transform: rotate(180deg);
   background: #A13E99 !important;
   color: white;
   border: none;
-  border-radius: 6px;
+  padding: 22px 10px;
   font-weight: 600;
+  font-size: 16px;
+  line-height: 24px;
   cursor: pointer;
+  border-radius: 0 6px 6px 0;
 }
 
-.error-msg {
-  margin-top: 10px;
-  color: red;
-  font-size: 14px;
+.contact-tab:focus-visible {
+  outline: 3px solid #f1d5a2;
+  outline-offset: 2px;
 }
 
+.contact-panel {
+  pointer-events: auto;
+  width: var(--panel-width);
+  max-height: calc(100vh - 24px);
+  overflow-y: auto;
+  overflow-x: hidden;
+  border-radius: 24px 0 0 24px;
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.2);
+  visibility: hidden;
+  transition: visibility 0s linear 0.45s;
+}
+
+.apply-slide.open .contact-panel {
+  visibility: visible;
+  transition: visibility 0s;
+}
+
+.contact-panel :deep(.dossier-inline-card) {
+  max-width: none;
+  border-radius: 24px 0 0 24px;
+  box-shadow: none;
+}
+
+/* Referral-code tooltip: open towards the left so it stays inside the panel
+   (centred, it stuck out past the right edge and caused a horizontal scrollbar). */
+.contact-panel :deep(.custom-tooltip-content) {
+  left: auto;
+  right: -14px;
+  transform: none;
+  max-width: calc(100vw - 80px);
+}
+
+.contact-panel :deep(.custom-tooltip-content::after) {
+  left: auto;
+  right: 16px;
+  transform: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .apply-slide {
+    transition: none;
+  }
+}
 
 /* 📱 Mobile responsive */
-
 @media (max-width: 768px) {
-
-  .contact-panel {
-    width: 100%;
-    top: auto;
-    bottom: 0;
-    right: -100%;
-    border-radius: 12px 12px 0 0;
-  }
-
-  .contact-panel.open {
-    right: 0;
-  }
-
-  .row {
-    flex-direction: column;
+  .apply-slide {
+    --tab-width: 34px;
+    --panel-width: calc(100vw - var(--tab-width));
   }
 
   .contact-tab {
-    right: 30px;
-    padding: 5px 10px;
+    padding: 14px 5px;
+    font-size: 14px;
   }
 
+  .contact-panel {
+    max-height: calc(100vh - 16px);
+  }
 }
 </style>

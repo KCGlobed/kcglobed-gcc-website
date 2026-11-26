@@ -37,7 +37,7 @@
     font-size: 36px;
     font-weight: 700;
     color: #0d0d25;
-    margin-bottom: 50px;
+    margin-bottom: 20px;
     /* text-transform: uppercase; */
     line-height: 1.3;
 }

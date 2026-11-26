@@ -18,7 +18,7 @@
     <CommonPathway />
     <!-- Faculty & Mentors: Think Tank, Subject Matter Experts and Industry Mentors are tabs inside this section -->
     <HomeOneCurrentAcademicStudents />
-    <CommonThinkTank />
+    <!-- <CommonThinkTank /> -->
     <CommonIndustryMentor :show-mentors="false" />
     <HomeOneNfetAndParents />
     <CommonFunFact />

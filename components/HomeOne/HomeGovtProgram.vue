@@ -3,12 +3,11 @@
         <div class="container w">
             <!-- Section Header -->
             <div class="section-title text-center mb-50">
-                <span class="highlight" style="font-size: 24px;">The GCC OPPORTUNITY</span>
-                <h2 class="title">India at the Centre of GCC Growth: A New World of Finance Career Opportunities</h2>
-                <p style="max-width: 777px; margin: auto;">Global Capability Centres are transforming India’s finance
-                    landscape, creating growing demand for skilled professionals. GCC School exists to connect commerce
+                <!-- <span class="highlight" style="font-size: 24px;">The GCC OPPORTUNITY</span> -->
+                <h2 class="title">India at the Centre of GCC Growth</h2>
+                <p style="max-width: 777px; margin: auto;">GCC School exists to connect commerce
                     and management graduates with the opportunities emerging from this shift.</p>
-                <p style="margin-top: 15px; font-weight: 600;">Figures Reflect Widely Reported Estimates for India's GCC Sector</p>
+                <!-- <p style="margin-top: 15px; font-weight: 600;">Figures Reflect Widely Reported Estimates for India's GCC Sector</p> -->
             </div>
 
             <!-- Program Cards Grid -->
@@ -45,7 +44,7 @@ const programs = [
         title: "The Rise of Indian GCC",
         desc: "India has emerged as the global leader in GCCs, hosting over 1,800 centres under visionary leadership.",
         image: PMModi,
-        link: "https://www.narendramodi.in/reader/-india-s-global-capability-centre-from-outsourcing-to-outpacing-#:~:text=Prime%20Minister%20Narendra%20Modi%20has%20led%20India%27s,that%20drive%20global%20innovation%20and%20economic%20growth."
+        link: "https://ddnews.gov.in/en/india-hosts-over-half-of-global-capability-centres-ranks-among-top-three-ai-ecosystems-pm-modi/"
     },
     {
         title: "Employment Growth",
@@ -80,6 +79,7 @@ const programs = [
     line-height: 1.3;
     letter-spacing: -0.02em;
     color: #181225;
+    
 }
 
 .highlight {
