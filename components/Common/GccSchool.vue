@@ -27,7 +27,7 @@
                     </div>
                     <div class="col-lg-4 col-md-6 col-12">
                         <div class="gcc-image-box">
-                            <img src="../../assets/img/heros/3.png" class="img-fluid" alt="GCC School Feature 2"
+                            <img src="../../assets/img/acca-book.png" class="img-fluid" alt="GCC School Feature 2"
                                 loading="lazy" decoding="async" />
                             <div class="gcc-image-text">
                                 Get Trained In Globally-Aligned Skills GCCs Actually Need

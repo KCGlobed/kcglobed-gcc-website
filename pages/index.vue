@@ -12,7 +12,7 @@
     <HomeOneProgramsAndOutcomes />
     <!-- <HomeOneFutureStudents /> -->
     <CommonGccSchool />
-    <CommonDirectorSpeach />
+    <!-- <CommonDirectorSpeach /> -->
     <CommonGccCommerse />
     
     <CommonPathway />

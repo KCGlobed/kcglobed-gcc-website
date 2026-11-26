@@ -119,6 +119,12 @@
                   loading="lazy" decoding="async" />
               </div>
 
+              <!-- Card 7: Keysight Technologies -->
+              <div class="partner-card">
+                <img style="height: 80px;" src="@/assets/img/keyinsight.png" alt="Keysight Technologies Logo"
+                  loading="lazy" decoding="async" />
+              </div>
+
             </div>
           </div>
 
@@ -151,7 +157,7 @@ import us3 from '~/assets/newimages/us-3.png'
 
 const programCards = [
   {
-    title: "AI Enabled International Accounting Program (AEIAP)",
+    title: "AI Enabled International Accounting Program (AEIAP) with UK ACCA",
     duration: "12 Months",
     approved: "AICTE Approved PGCM Program",
     offer: "₹10 LPA",
@@ -159,7 +165,7 @@ const programCards = [
     link: "/programs/acca"
   },
   {
-    title: "AI Enabled US Accounting Program (AEUAP)",
+    title: "AI Enabled US Accounting Program (AEUAP) with US CPA",
     duration: "12 Months",
     approved: "AICTE Approved PGCM Program",
     offer: "₹10 LPA",
@@ -167,7 +173,7 @@ const programCards = [
     link: "/programs/cpa"
   },
   {
-    title: "AI Enabled US Taxation Program (AEUTP)",
+    title: "AI Enabled US Taxation Program (AEUTP) with US EA",
     duration: "12 Months",
     approved: "AICTE Approved PGCM Program",
     offer: "₹6 LPA",
