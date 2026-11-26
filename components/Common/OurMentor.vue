@@ -619,6 +619,7 @@ export default {
         text-align: center;
         gap: 16px;
     }
+    
 
     .mentor-overlay {
         opacity: 1;
