@@ -233,6 +233,13 @@
   .stats-row {
     margin-top: 90px;
   }
+
+  /* The "Customized for GCCs" box below overlaps the hero's bottom 65px (CompanyBar.vue).
+     Keep that much space plus a gap free below the stats so the box never covers them,
+     whatever the window height. */
+  .hero-slider-warp {
+    padding-bottom: 110px;
+  }
 }
 
 .stat-box {
