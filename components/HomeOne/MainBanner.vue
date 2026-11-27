@@ -8,7 +8,7 @@
         <div class="hero-slider-warp" :style="{
           '--banner-img': `url(${banner.image})`,
         }">
-          <div class="container-fluid hero-container px-lg-5 px-md-4 px-3 ">
+          <div class="container-fluid w hero-container px-lg-5 px-md-4 px-3 ">
             <!-- Top Content (Main Hero Area) -->
             <div class="row align-items-center justify-content-between main-hero-row gy-4 mt-4">
 
