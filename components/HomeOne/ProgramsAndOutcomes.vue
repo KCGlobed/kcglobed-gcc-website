@@ -7,8 +7,7 @@
           <span class="section-tag">THREE PROGRAMS. CHOOSE YOUR DIRECTION.</span>
           <h2 class="section-title mt-2">Explore Programs Designed for Global Finance Careers</h2>
           <p class="section-desc mt-2">
-            GCC School offers three focused programs covering distinct areas of accounting and taxation. Explore their
-            curriculum, learning objectives and professional pathways to make an informed choice about your next step.
+            Explore three distinct career pathways in global accounting and taxation, each designed around professional qualifications, industry requirements and corporate opportunities. 
           </p>
         </div>
 

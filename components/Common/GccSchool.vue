@@ -2,12 +2,11 @@
      <div class="gcc-school-section ">
         <div class="w">
             <div class="ticket_container">
-            <img src="https://pub-1c3aa4d882c24d66ac8e49a3fe6fbb71.r2.dev/static/images/Group%2051450%20(1).png"
-                alt="Ticket Image" loading="lazy" decoding="async" />
+            <img :src="ticket" alt="Ticket Image" loading="lazy" decoding="async" />
         </div>
         <div class="container text-center pt-5 px-lg-5 px-md-4 px-3">
             <div class="section-header mb-60">
-                <h2 class="title">Building Talent for Tomorrow’s <span>Global Finance Industry</span></h2>
+                <h2 class="title">Building Talent for <span class="highlight"> Tomorrow’s Global Finance Industry</span></h2>
                 <p class="subtitle max-800 mx-auto">
                     At GCC School, we aim to shape graduates into confident, capable professionals who can meet the
                     evolving expectations of global organisations, contribute to business success, and grow into
@@ -51,7 +50,7 @@
 
 </template>
 <script setup lang="ts">
-
+import ticket from '../../assets/GCC_ticket.png';
 </script>
 <style scoped>
 .gcc-school-section {
@@ -80,6 +79,16 @@
     /* max-width: 900px; */
     margin-left: auto;
     margin-right: auto;
+}
+
+.section-header .title::after {
+    content: "";
+    display: block;
+    width: 70px;
+    height: 4px;
+    background: #F1A63E;
+    margin: 18px auto 0;
+    border-radius: 10px;
 }
 
 .section-header .highlight {
@@ -119,7 +128,8 @@
 }
 
 .gcc-school-content {
-    margin-top: 50px;
+    margin: 50px auto 0;
+    max-width: 840px;
 }
 
 .gcc-image-box {
@@ -127,7 +137,9 @@
     background: #fff;
     border-radius: 16px;
     padding: 10px;
-    height: 100%;
+    width: 100%;
+    max-width: 256px;
+    margin: 0 auto;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -143,7 +155,7 @@
 .gcc-image-box img {
     border-radius: 10px;
     width: 100%;
-    height: 100%;
+    aspect-ratio: 7 / 10;
     object-fit: cover;
 }
 
@@ -154,10 +166,10 @@
     right: 10px;
     background-color: #723986;
     color: #fff;
-    font-size: 16px;
+    font-size: 13px;
     font-weight: 600;
     text-align: left;
-    padding: 15px 40px;
+    padding: 12px 18px;
     border-bottom-left-radius: 10px;
     border-bottom-right-radius: 10px;
     box-sizing: border-box;
@@ -167,8 +179,8 @@
 
 @media (max-width: 767px) {
     .gcc-image-text {
-        font-size: 14px;
-        padding: 10px 8px;
+        font-size: 13px;
+        padding: 10px 14px;
     }
 }
 
@@ -195,7 +207,7 @@
     }
 
     .gcc-image-box {
-        max-width: 400px;
+        max-width: 256px;
         margin: 0 auto;
     }
 }

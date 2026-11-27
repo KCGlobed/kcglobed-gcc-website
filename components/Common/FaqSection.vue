@@ -389,6 +389,16 @@ const accordionStyle = (index: number) => {
     letter-spacing: -1px;
 }
 
+.section-title h2::after {
+    content: "";
+    display: block;
+    width: 70px;
+    height: 4px;
+    background: #F1A63E;
+    margin: 18px auto 0;
+    border-radius: 10px;
+}
+
 .section-title p {
     font-size: 18px;
     color: #64748b;

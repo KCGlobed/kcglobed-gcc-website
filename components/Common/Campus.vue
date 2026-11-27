@@ -44,6 +44,16 @@
     line-height: 1.3;
 }
 
+.campus-content h2::after {
+    content: "";
+    display: block;
+    width: 70px;
+    height: 4px;
+    background: #F1A63E;
+    margin: 18px auto 0;
+    border-radius: 10px;
+}
+
 .highlight {
     color: #F1A63E;
 }

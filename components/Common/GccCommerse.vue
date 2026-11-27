@@ -4,7 +4,7 @@
             <!-- Section Header -->
             <div class="section-header">
                 <h2 class="section-title">
-                    The World’s First School Built by GCC Leaders to Shape<br /> <span>India’s Future Finance
+                    The World’s First School Built by GCC Leaders to Shape<br /> <span class="highlight">India’s Future Finance
                         Talent</span>
                 </h2>
                 <h3 class="section-subtitle">
@@ -130,7 +130,17 @@ export default {
     color: #0d0d25;
     margin-bottom: 15px;
     line-height: 1.3;
-    text-transform: uppercase;
+    /* text-transform: uppercase; */
+}
+
+.section-title::after {
+    content: "";
+    display: block;
+    width: 70px;
+    height: 4px;
+    background: #F1A63E;
+    margin: 18px auto 0;
+    border-radius: 10px;
 }
 
 .highlight {
