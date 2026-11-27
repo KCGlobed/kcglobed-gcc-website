@@ -1,73 +1,63 @@
 name: Deploy to DigitalOcean
-
-# Runs on every push to main, or by hand from the Actions tab.
-#
-# Secrets used: SSH_HOST, SSH_USER, SSH_PASSWORD (login for the droplet, user "deploy").
-#
-# The .env file is kept on the server only, at $APP_DIR/shared/.env, and is read by the
-# gcc-website service when it starts. The build needs no .env: the values nuxt.config.ts reads
-# at build time (PAYMENT_GATEWAY, PAYMENT_AMOUNT, REATTEMPT_DISCOUNT_PERCENTAGE) use its defaults.
+ 
+# Builds the React app "gcc-admin-panel" and deploys it to the droplet 168.144.211.139.
+# Created from the stats panel. Runs on every push to main, or by hand from the Actions tab.
+# Secrets used: SSH_HOST, SSH_USER, SSH_PASSWORD, and ENV_FILE (optional: the .env for the build).
 on:
   workflow_dispatch:
   push:
     branches:
       - main
-
+ 
 concurrency:
-  group: deploy-digitalocean-gcc-website
+  group: deploy-digitalocean-gcc-admin-panel
   cancel-in-progress: false
-
+ 
 env:
-  APP_DIR: /var/www/apps/gcc-website   # releases/, shared/ and the "current" symlink live here
-  APP_PORT: 3001                       # Nuxt listens on 127.0.0.1:3001, nginx proxies to it
-  KEEP_RELEASES: 3                     # each release is about 300 MB, so keep only 3
-
+  APP_DIR: /var/www/apps/gcc-admin-panel   # releases/ and the "current" symlink live here
+  KEEP_RELEASES: 5                 # older releases are deleted after a deploy
+ 
 jobs:
   deploy:
     runs-on: ubuntu-latest
-
+ 
     steps:
-      ######################################################
-      # Checkout Repository (uses the built-in GITHUB_TOKEN)
-      ######################################################
       - name: Checkout Repository
         uses: actions/checkout@v4
-
-      ######################################################
-      # Setup Node.js (the server must run the same major version)
-      ######################################################
+ 
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
           node-version: 22
-
-      ######################################################
-      # Install and Build (package-lock.json is not in git, so npm install)
-      # Output: dist/server (Node server with its own node_modules) and dist/public
-      ######################################################
+ 
+      # Optional: the build settings (VITE_... or REACT_APP_...) from the ENV_FILE secret
+      - name: Write .env
+        env:
+          ENV_FILE: ${{ secrets.ENV_FILE }}
+        run: |
+          if [ -n "$ENV_FILE" ]; then printf '%s\n' "$ENV_FILE" > .env; echo "Wrote .env"; else echo "No ENV_FILE secret: using the repo's own settings"; fi
+ 
       - name: Install Dependencies
-        run: npm install --no-audit --no-fund
-
-      - name: Build Nuxt Application
+        run: |
+          if [ -f package-lock.json ]; then npm ci --legacy-peer-deps; else npm install --legacy-peer-deps; fi
+ 
+      - name: Build React Application
         run: npm run build
-
-      ######################################################
-      # Package: dist/ only
-      ######################################################
+ 
+      # Package the build output: dist/ (Vite) or build/ (Create React App)
       - name: Package Build
         run: |
           set -e
-          test -f dist/server/index.mjs || { echo "ERROR: dist/server/index.mjs missing after build"; exit 1; }
           RELEASE="$(date +%Y%m%d_%H%M%S)"
           ARCHIVE="release_${RELEASE}.tar.gz"
-          tar -czf "$ARCHIVE" dist
+          if [ -f dist/index.html ]; then BUILD_DIR=dist
+          elif [ -f build/index.html ]; then BUILD_DIR=build
+          else echo "ERROR: no dist/index.html or build/index.html after the build"; exit 1; fi
+          tar -czf "$ARCHIVE" -C "$BUILD_DIR" .
           echo "RELEASE=$RELEASE" >> "$GITHUB_ENV"
           echo "ARCHIVE=$ARCHIVE" >> "$GITHUB_ENV"
           ls -lh "$ARCHIVE"
-
-      ######################################################
-      # Upload Package to the Droplet
-      ######################################################
+ 
       - name: Copy Package
         uses: appleboy/scp-action@v0.1.7
         with:
@@ -76,49 +66,24 @@ jobs:
           password: ${{ secrets.SSH_PASSWORD }}
           source: ${{ env.ARCHIVE }}
           target: ${{ env.APP_DIR }}/uploads
-          timeout: 120s
-          command_timeout: 20m
-
-      ######################################################
-      # Unpack, switch, restart, check
-      ######################################################
+ 
+      # Unpack, check, switch the "current" link in one step, keep the newest releases
       - name: Activate Release
         uses: appleboy/ssh-action@v1.2.2
         with:
           host: ${{ secrets.SSH_HOST }}
           username: ${{ secrets.SSH_USER }}
           password: ${{ secrets.SSH_PASSWORD }}
-          envs: APP_DIR,APP_PORT,RELEASE,ARCHIVE,KEEP_RELEASES
-          command_timeout: 15m
+          envs: APP_DIR,RELEASE,ARCHIVE,KEEP_RELEASES
           script: |
             set -e
             TARGET="$APP_DIR/releases/$RELEASE"
-
-            test -f "$APP_DIR/shared/.env" || { echo "ERROR: $APP_DIR/shared/.env is missing on the server"; exit 1; }
-
-            echo "Unpacking release $RELEASE"
             mkdir -p "$TARGET"
             tar -xzf "$APP_DIR/uploads/$ARCHIVE" -C "$TARGET"
             rm -f "$APP_DIR/uploads/$ARCHIVE"
-
-            test -f "$TARGET/dist/server/index.mjs" || { echo "ERROR: dist/server/index.mjs missing in release"; exit 1; }
-
-            # Switch to the new release in one step
+            test -f "$TARGET/index.html" || { echo "ERROR: index.html missing in release"; exit 1; }
             ln -sfn "$TARGET" "$APP_DIR/current.tmp"
             mv -Tf "$APP_DIR/current.tmp" "$APP_DIR/current"
-
-            echo "Restarting the site"
-            sudo -n /usr/bin/systemctl restart gcc-website
-
-            # Wait up to 60 seconds for Nuxt to answer
-            for i in $(seq 1 30); do
-              curl -fsS -o /dev/null "http://127.0.0.1:$APP_PORT/" && break
-              sleep 2
-            done
-            curl -fsS -o /dev/null "http://127.0.0.1:$APP_PORT/" || { echo "ERROR: site is not answering on port $APP_PORT"; exit 1; }
-
-            # Keep only the newest releases
             cd "$APP_DIR/releases"
             ls -1t | tail -n +$((KEEP_RELEASES + 1)) | xargs -r rm -rf
-
             echo "Live: $(readlink -f "$APP_DIR/current")"
