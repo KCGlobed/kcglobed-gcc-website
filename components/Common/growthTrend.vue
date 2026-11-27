@@ -4,7 +4,7 @@
             <!-- Section Header -->
             <div class="section-header text-center  mb-3">
                 <h2 class="title">
-                   GCC Industry Growth &amp; the Evolving Demand for Finance Talent
+                   GCC Industry Growth &amp; the Evolving Demand for <span class="highlight">Finance Talent</span>
                 </h2>
             </div>
 
@@ -84,7 +84,17 @@
     color: #0d0d25;
     margin: 0;
     line-height: 1.2;
-    text-transform: uppercase;
+    /* text-transform: uppercase; */
+}
+
+.title::after {
+    content: "";
+    display: block;
+    width: 70px;
+    height: 4px;
+    background: #F1A63E;
+    margin: 18px auto 0;
+    border-radius: 10px;
 }
 
 .highlight {

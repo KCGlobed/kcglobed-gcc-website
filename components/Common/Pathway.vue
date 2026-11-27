@@ -5,16 +5,16 @@
                 <div class="col-12">
                     <div class="section-header text-center mb-60" >
 
-                        <h2 class="title">GCC Experiential Learning Pathway</h2>
+                        <h2 class="title">GCC <span class="highlight">Experiential</span> Learning Pathway</h2>
 
                     </div>
                 </div>
 
-                <div class="col-lg-10 offset-lg-1">
+                <div class="col-12">
                     <div class="pathway-visual-container">
                         <div class="image-wrapper">
                             <div class="WebImageGraphImag">
-                                <img src="https://pub-9c0647755fb64a018ac13430cf4fc25f.r2.dev/media/images/Group%2051402%20(1).png"
+                                <img :src='LearningPathWay'
                                     alt="GCC Learning Pathway" class="pathway-graphic">
                             </div>
                             <div class="mobileImageGraphImag">
@@ -32,6 +32,7 @@
 </template>
 
 <script setup lang="ts">
+import LearningPathWay from "../../assets/img/LeaningPathWay.png";
 // Static component
 </script>
 
@@ -69,8 +70,17 @@
     letter-spacing: -0.02em;
     color: #181225;
     margin-bottom: 0;
-    display: flex;
-    justify-content: center;
+    text-align: center;
+}
+
+.title::after {
+    content: "";
+    display: block;
+    width: 70px;
+    height: 4px;
+    background: #F1A63E;
+    margin: 14px auto 0;
+    border-radius: 10px;
 }
 
 .highlight {
@@ -116,6 +126,12 @@
     object-fit: contain;
     border-radius: 20px;
     display: block;
+}
+
+.WebImageGraphImag .pathway-graphic {
+    width: 100%;
+    max-width: 1080px;
+    height: auto;
 }
 
 .mobileImageGraphImag {

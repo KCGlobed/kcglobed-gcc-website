@@ -4,8 +4,8 @@
       <div class="container-fluid w">
         <div class="section-title text-center">
           <!-- Kept the section title as per previous premium design -->
-          <h2 class="title">What Sets the GCC School Experience Apart?</h2>
-          <p>See why GCC School Journey is most suited for the professional world of new tomorrow.</p>
+          <h2 class="title">What Sets <span class="highlight"> the GCC School Experience Apart?</span></h2>
+          <p style="font-size: 20px;">See why GCC School Journey is most suited for the professional world of new tomorrow.</p>
         </div>
 
         <div class="table-responsive">
@@ -79,6 +79,8 @@
         </div>
         <div class="sme-grid" role="list">
           <article v-for="(expert, index) in subjectMatterExperts" :key="expert.name" class="sme-card" role="listitem">
+            <a v-if="expert.link" class="sme-card-overlay" :href="expert.link" target="_blank" rel="noopener noreferrer"
+              :aria-label="'Open ' + expert.name + ' LinkedIn profile'"></a>
             <div class="sme-visual">
               <div class="sme-experience">
                 <span class="sme-experience-value">{{ expert.experience }}</span>
@@ -92,13 +94,12 @@
             <div class="sme-copy">
               <h3 class="sme-name">{{ expert.name }}</h3>
               <p class="sme-role">{{ expert.role }}</p>
-              <a v-if="expert.link" class="sme-link" :href="expert.link" target="_blank" rel="noopener noreferrer"
-                :aria-label="'Open ' + expert.name + ' LinkedIn profile'">
+              <span v-if="expert.link" class="sme-link" aria-hidden="true">
                 <svg viewBox="0 0 24 24" width="14" height="14" fill="none" aria-hidden="true">
                   <path d="M6 18 18 6M7 6h11v11" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"
                     stroke-linejoin="round" />
                 </svg>
-              </a>
+              </span>
             </div>
             <div class="sme-logos" aria-label="Professional affiliations">
               <div v-for="logo in expert.logos" :key="logo.name" class="sme-logo-slot">
@@ -136,7 +137,7 @@ export default {
       thinkTankMembers: [
         { image: "/mentor/1.svg", alt: "Prof. (Dr.) N.S. Kalsi IAS (Retd.), GCC School Strategic Think Tank" },
         { image: "/mentor/2.svg", alt: "CA Harinderjit Singh, GCC School Strategic Think Tank" },
-        { image: "/mentor/3.svg", alt: "Kamalesh Agarwalla, GCC School Strategic Think Tank" },
+        { image: "/mentor/mentor_3.png", alt: "Kamalesh Agarwalla, GCC School Strategic Think Tank" },
         { image: "/mentor/4.svg", alt: "CA Parveen Kumar, GCC School Strategic Think Tank" },
       ],
       // Same cards (order, photos, text, logos and links) as the Instructors section in US-CPA-Web.html
@@ -147,7 +148,7 @@ export default {
           name: "CPA Nitish Khatri",
           role: "Vice President",
           experience: "15+",
-          link: "https://www.linkedin.com/in/nitish-khatri-045117b9/",
+          link: "https://www.linkedin.com/in/cpa-nitish-khatri-045117b9/",
           portrait: "/img/experts/nitish-khatri.webp",
           logos: [
             { name: "KC GlobEd", src: "/img/experts/nitish-khatri-logo-kc-globed.webp", width: 130, height: 36 },
@@ -156,32 +157,10 @@ export default {
           ],
         },
         {
-          name: "CA Manpreet Ahuja",
-          role: "Ex. Senior Manager",
-          experience: "20+",
-          link: "https://www.linkedin.com/company/kc-globed/",
-          portrait: "/img/experts/manpreet-ahuja.webp",
-          logos: [
-            { name: "KPMG", src: "/img/experts/manpreet-ahuja-logo-kpmg.webp", width: 116, height: 49 },
-          ],
-        },
-        {
-          name: "CA Ankur Sharma",
-          role: "Managing Partner",
-          experience: "15+",
-          link: "https://www.linkedin.com/company/kc-globed/",
-          portrait: "/img/experts/ankur-sharma.webp",
-          logos: [
-            { name: "Kreit & Chiu", src: "/img/experts/ankur-sharma-logo-kreit-and-chiu.webp", width: 140, height: 38 },
-            { name: "EY", src: "/img/experts/ankur-sharma-logo-ey.webp", width: 48, height: 56 },
-            { name: "PwC", src: "/img/experts/ankur-sharma-logo-pwc.webp", width: 96, height: 48 },
-          ],
-        },
-        {
           name: "CA Varun Singhal",
           role: "Executive Director, GCC School",
           experience: "25+",
-          link: "",
+          link: "https://www.linkedin.com/in/varun-singhal-7b717918/",
           portrait: "/img/experts/varun-singhal.webp",
           logos: [
             { name: "GCC School", src: "/img/experts/varun-singhal-logo-gcc-school.webp", width: 132, height: 35 },
@@ -190,10 +169,32 @@ export default {
           ],
         },
         {
+          name: "CA Ankur Sharma",
+          role: "Managing Partner",
+          experience: "15+",
+          link: "https://www.linkedin.com/in/ankur-sharma-77450510a/",
+          portrait: "/img/experts/ankur-sharma.webp",
+          logos: [
+            { name: "Kreit & Chiu", src: "/img/experts/ankur-sharma-logo-kreit-and-chiu.webp", width: 140, height: 38 },
+            { name: "EY", src: "/img/experts/ankur-sharma-logo-ey.webp", width: 48, height: 56 },
+            { name: "PwC", src: "/img/experts/ankur-sharma-logo-pwc.webp", width: 96, height: 48 },
+          ],
+        },
+        {
+          name: "CA Manpreet Ahuja",
+          role: "Ex. Senior Manager",
+          experience: "20+",
+          link: "https://www.linkedin.com/in/manpreet-kaur-ahuja-538b81378/",
+          portrait: "/img/experts/manpreet-ahuja.webp",
+          logos: [
+            { name: "KPMG", src: "/img/experts/manpreet-ahuja-logo-kpmg.webp", width: 116, height: 49 },
+          ],
+        },
+        {
           name: "CA Kapileshwar Bhalla",
           role: "Author & Trainer\nIFRS | Ind AS | ACCA",
           experience: "25+",
-          link: "",
+          link: "https://www.linkedin.com/in/kapileshwar-bhalla-39275b1a6/",
           portrait: "/img/experts/kapileshwar-bhalla.webp",
           logos: [
             { name: "Commercial Law Publishers", src: "/img/experts/kapileshwar-bhalla-logo-commercial-law-publishers.webp", width: 150, height: 39 },
@@ -201,21 +202,22 @@ export default {
           ],
         },
         {
-          name: "CA Anish Thomas",
-          role: "Ex. Senior Manager",
-          experience: "15+",
-          link: "",
-          portrait: "/img/experts/anish-thomas.webp",
+          name: "CA Saurabh Handa",
+          role: "Practice Lead,\nTrustlane Partners",
+          experience: "20+",
+          link: "https://www.linkedin.com/in/saurabhhanda/",
+          portrait: "/img/experts/saurabh-handa.webp",
           logos: [
-            { name: "EY", src: "/img/experts/anish-thomas-logo-ey.webp", width: 54, height: 53 },
-            { name: "Deloitte", src: "/img/experts/anish-thomas-logo-deloitte.webp", width: 134, height: 35 },
+            { name: "Trustlane Partners", src: "/img/experts/saurabh-handa-logo-trustlane-partners.webp", width: 62, height: 58 },
+            { name: "Deloitte", src: "/img/experts/saurabh-handa-logo-deloitte.webp", width: 128, height: 34 },
+            { name: "KPMG", src: "/img/experts/saurabh-handa-logo-kpmg.webp", width: 106, height: 49 },
           ],
         },
         {
           name: "EA Ravi Yathiraj",
           role: "Practicing\nEnrolled Agent",
           experience: "15+",
-          link: "",
+          link: "https://www.linkedin.com/in/ravi-yathiraj-irs-enrolled-agent-mba-resolving-the-irs-state-notices-and-audits-174b9432/",
           portrait: "/img/experts/ravi-yathiraj.webp",
           logos: [
             { name: "HDFC Life", src: "/img/experts/ravi-yathiraj-logo-hdfc-life.webp", width: 94, height: 59 },
@@ -226,7 +228,7 @@ export default {
           name: "CA Santhosh Chandrashekar",
           role: "Ex. Senior Manager",
           experience: "15+",
-          link: "",
+          link: "https://www.linkedin.com/in/santhosh-chandrashekar-647263125/",
           portrait: "/img/experts/santhosh-chandrashekar.webp",
           logos: [
             { name: "KPMG", src: "/img/experts/santhosh-chandrashekar-logo-kpmg.webp", width: 112, height: 50 },
@@ -237,7 +239,7 @@ export default {
           name: "CA Inderpal Singh",
           role: "CEO & CO-FOUNDER\n4x4 ADVISORY",
           experience: "20+",
-          link: "",
+          link: "https://www.linkedin.com/in/inder-p-singh-4x4advisory/",
           portrait: "/img/experts/inderpal-singh.webp",
           logos: [
             { name: "4x4 Advisory", src: "/img/experts/inderpal-singh-logo-4x4-advisory.webp", width: 58, height: 61 },
@@ -248,7 +250,7 @@ export default {
           name: "CPA & CA Vinay Aggarwal",
           role: "Partner\nVinay Aggarwal & Associates",
           experience: "20+",
-          link: "",
+          link: "https://www.linkedin.com/in/vinay-aggarwal-2a7a8624/",
           portrait: "/img/experts/vinay-aggarwal.webp",
           logos: [
             { name: "Goldman Financing Corporates", src: "/img/experts/vinay-aggarwal-logo-goldman-financing-corporates.webp", width: 65, height: 67 },
@@ -259,7 +261,7 @@ export default {
           name: "CA Ram Sachdeva",
           role: "Ex. Senior Manager",
           experience: "20+",
-          link: "",
+          link: "https://www.linkedin.com/in/ram-s-a5b560154/",
           portrait: "/img/experts/ram-sachdeva.webp",
           logos: [
             { name: "PwC", src: "/img/experts/ram-sachdeva-logo-pwc.webp", width: 102, height: 48 },
@@ -267,15 +269,14 @@ export default {
           ],
         },
         {
-          name: "CA Saurabh Handa",
-          role: "Practice Lead,\nTrustlane Partners",
-          experience: "20+",
-          link: "",
-          portrait: "/img/experts/saurabh-handa.webp",
+          name: "CA Anish Thomas",
+          role: "Ex. Senior Manager",
+          experience: "15+",
+          link: "https://www.linkedin.com/in/anish-thomas-06106a14/",
+          portrait: "/img/experts/anish-thomas.webp",
           logos: [
-            { name: "Trustlane Partners", src: "/img/experts/saurabh-handa-logo-trustlane-partners.webp", width: 62, height: 58 },
-            { name: "Deloitte", src: "/img/experts/saurabh-handa-logo-deloitte.webp", width: 128, height: 34 },
-            { name: "KPMG", src: "/img/experts/saurabh-handa-logo-kpmg.webp", width: 106, height: 49 },
+            { name: "EY", src: "/img/experts/anish-thomas-logo-ey.webp", width: 54, height: 53 },
+            { name: "Deloitte", src: "/img/experts/anish-thomas-logo-deloitte.webp", width: 134, height: 35 },
           ],
         },
       ],
@@ -347,6 +348,16 @@ export default {
   letter-spacing: -0.02em;
   color: #181225;
   margin-bottom: 20px;
+}
+
+.title::after {
+  content: "";
+  display: block;
+  width: 70px;
+  height: 4px;
+  background: #F1A63E;
+  margin: 14px auto 0;
+  border-radius: 10px;
 }
 
 .highlight {
@@ -714,6 +725,7 @@ tr:last-child .gcc-cell {
 }
 
 .sme-card {
+  position: relative;
   min-width: 0;
   overflow: hidden;
   background: #fff;
@@ -724,9 +736,26 @@ tr:last-child .gcc-cell {
   transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
+.sme-card-overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 3;
+  border-radius: inherit;
+}
+
+.sme-card-overlay:focus-visible {
+  outline: 3px solid #f1d5a2;
+  outline-offset: -3px;
+}
+
 .sme-card:hover {
   transform: translateY(-4px);
   box-shadow: 0 16px 34px rgba(0, 0, 0, 0.25);
+}
+
+.sme-card:hover .sme-link {
+  color: #e9c488;
+  border-color: #e9c488;
 }
 
 /* 10 cards: center the last one in the 3-column grid */

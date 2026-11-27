@@ -4,7 +4,7 @@
             <!-- Section Header -->
             <div class="section-title text-center mb-50">
                 <!-- <span class="highlight" style="font-size: 24px;">The GCC OPPORTUNITY</span> -->
-                <h2 class="title">India at the Centre of GCC Growth</h2>
+                <h2 class="title">India at the Centre of <span class="highlight">GCC Growth</span></h2>
                 <p style="max-width: 777px; margin: auto;">GCC School exists to connect commerce
                     and management graduates with the opportunities emerging from this shift.</p>
                 <!-- <p style="margin-top: 15px; font-weight: 600;">Figures Reflect Widely Reported Estimates for India's GCC Sector</p> -->
@@ -80,6 +80,16 @@ const programs = [
     letter-spacing: -0.02em;
     color: #181225;
     
+}
+
+.title::after {
+    content: "";
+    display: block;
+    width: 70px;
+    height: 4px;
+    background: #F1A63E;
+    margin: 16px auto 18px;
+    border-radius: 10px;
 }
 
 .highlight {

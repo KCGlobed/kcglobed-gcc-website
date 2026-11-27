@@ -15,12 +15,14 @@
     <!-- <CommonDirectorSpeach /> -->
     <CommonGccCommerse />
     
+    
     <CommonPathway />
     <!-- Faculty & Mentors: Think Tank, Subject Matter Experts and Industry Mentors are tabs inside this section -->
     <HomeOneCurrentAcademicStudents />
     <!-- <CommonThinkTank /> -->
     <CommonIndustryMentor :show-mentors="false" />
-    <HomeOneNfetAndParents />
+    <CampusView />
+    <!-- <HomeOneNfetAndParents /> -->
     <CommonFunFact />
     <!-- <CommonNewsCard /> -->
     <HomeOneSpotlightSection />
@@ -28,7 +30,7 @@
     <HomeOneInstagramReelsSection />
     <CommonPowerHouse />
     <CommonTrustecoSystem />
-    <HomeOneResourcesAndNews />
+    <!-- <HomeOneResourcesAndNews /> -->
     <CommonFaqSection />
     <CommonCampus />
     <LayoutMainFooter
@@ -50,6 +52,8 @@ import HomeOneSpotlightSection from '~/components/HomeOne/SpotlightSection.vue';
 import HomeOneStudentParentVideoSection from '~/components/HomeOne/StudentParentVideoSection.vue';
 import HomeOneResourcesAndNews from '~/components/HomeOne/ResourcesAndNews.vue';
 import EligibilityCriteria from '~/components/Common/EligibilityCriteria.vue';
+import FloorMap from '~/components/Common/FloorMap.vue';
+import CampusView from '~/components/HomeOne/CampusView.vue';
 
 useHead({
   title: "GCC School: Get Hired First, Then Trained",

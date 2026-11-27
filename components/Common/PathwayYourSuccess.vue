@@ -3,17 +3,16 @@
         <div class="container w">
             <!-- Header -->
             <div class="section-header text-center mb-60">
-                <h2 class="title">A Structured Pathway to Your Corporate Career</h2>
+                <h2 class="title">A <span class="highlight">Structured Pathway</span> to Your Corporate Career</h2>
                 <p class="subtitle max-800 mx-auto">
-                    Discover the GCC School admission and selection journey, beginning with eligibility and NFET,
-                    followed by corporate interviews and the opportunity to secure a conditional pre-placement offer.
+                    Discover how GCC School brings you closer to your dream corporate career through a structured admission and selection process. 
                 </p>
                 <!-- <p class="subtitle max-800 mx-auto">
                     Your journey from preparation to professional excellence. Follow these steps to secure your future
                     at
                     the heart of the corporate world.
                 </p> -->
-                <img src="https://pub-1c3aa4d882c24d66ac8e49a3fe6fbb71.r2.dev/static/images/Group_49993.png"
+                <img :src="timelineImage"
                     alt="success_path">
             </div>
 
@@ -23,6 +22,7 @@
 
 <script setup lang="ts">
 // No logic needed mostly static content
+import timelineImage from "../../assets/GCC_Journey_Timeline.png"
 </script>
 
 <style scoped>
@@ -42,14 +42,24 @@
     line-height: 1.3;
 }
 
+.section-header .title::after {
+    content: "";
+    display: block;
+    width: 70px;
+    height: 4px;
+    background: #F1A63E;
+    margin: 18px auto 0;
+    border-radius: 10px;
+}
+
 .section-header .highlight {
     color: #F1A63E;
     /* Purple color from design title */
 }
 
 .section-header img {
-    width: 800px;
-    height: 950px;
+    width: 1032px;
+    height: 309px;
 }
 
 .section-header .subtitle {

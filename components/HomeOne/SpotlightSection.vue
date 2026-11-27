@@ -73,6 +73,16 @@
   color: #1A1228;
 }
 
+.sec-title::after {
+  content: "";
+  display: block;
+  width: 70px;
+  height: 4px;
+  background: #F1A63E;
+  margin: 18px auto 0;
+  border-radius: 10px;
+}
+
 .video-grid-custom {
   display: flex;
   flex-direction: column;
