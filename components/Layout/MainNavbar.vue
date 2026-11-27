@@ -389,6 +389,57 @@ export default defineComponent({
   }
 }
 
+/* Desktop menu: keep every link on one line ("NFET Exam", "Apply Now" used to wrap
+   between 992px and 1399px because responsive.css gives each item 36px of margin) */
+@media (min-width: 992px) {
+  nav.navbar.first-navbar .navbar-nav .nav-item .nav-link,
+  nav.navbar.first-navbar .apply-now-btn {
+    white-space: nowrap;
+  }
+
+  /* never squeeze the logo to make room for the menu */
+  nav.navbar.first-navbar .navbar-brand {
+    flex-shrink: 0;
+  }
+}
+
+@media (min-width: 1200px) and (max-width: 1399px) {
+  nav.navbar.first-navbar .navbar-nav .nav-item {
+    margin-left: 4px !important;
+    margin-right: 4px !important;
+  }
+
+  nav.navbar.first-navbar .navbar-nav > .nav-item > .nav-link {
+    padding-left: 12px !important;
+    padding-right: 12px !important;
+  }
+
+  nav.navbar.first-navbar .navbar-nav > .nav-item > .nav-link.dropdown-toggle {
+    padding-right: 20px !important;
+  }
+}
+
+@media (min-width: 992px) and (max-width: 1199px) {
+  nav.navbar.first-navbar .navbar-nav .nav-item {
+    margin-left: 2px !important;
+    margin-right: 2px !important;
+  }
+
+  nav.navbar.first-navbar .navbar-nav > .nav-item > .nav-link {
+    padding-left: 8px !important;
+    padding-right: 8px !important;
+  }
+
+  nav.navbar.first-navbar .navbar-nav > .nav-item > .nav-link.dropdown-toggle {
+    padding-right: 18px !important;
+  }
+
+  nav.navbar.first-navbar .apply-now-btn {
+    padding: 10px 18px !important;
+    letter-spacing: 0.5px;
+  }
+}
+
 .navbar.sticky {
   position: fixed;
   top: 0;
