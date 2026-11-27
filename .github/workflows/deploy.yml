@@ -1,33 +1,126 @@
-name: Deploy Application
+name: Deploy dev to DigitalOcean (droplet 3)
  
+# Runs on every push to dev, or by hand from the Actions tab.
+# Replaces the old deploy-platform workflow on this branch. Production (main) stays on droplet 1.
+#
+# Secrets used: DROPLET3_SSH_HOST, DROPLET3_SSH_PASSWORD (droplet 3, user "deploy") and SSH_USER.
+# They are separate from SSH_HOST / SSH_PASSWORD, which point to droplet 1 for production.
+#
+# The .env file is kept on the server only, at $APP_DIR/shared/.env, and is read by the
+# gcc-website-dev service when it starts. The build needs no .env: the values nuxt.config.ts reads
+# at build time (PAYMENT_GATEWAY, PAYMENT_AMOUNT, REATTEMPT_DISCOUNT_PERCENTAGE) use its defaults.
 on:
+  workflow_dispatch:
   push:
     branches:
       - dev
  
+concurrency:
+  group: deploy-digitalocean-gcc-website-dev
+  cancel-in-progress: false
+ 
+env:
+  APP_DIR: /var/www/apps/gcc-website-dev   # releases/, shared/ and the "current" symlink live here
+  APP_PORT: 3001                       # Nuxt listens on 127.0.0.1:3001, nginx proxies to it
+  KEEP_RELEASES: 3                     # each release is about 300 MB, so keep only 3
+ 
 jobs:
- 
   deploy:
- 
     runs-on: ubuntu-latest
  
     steps:
+      ######################################################
+      # Checkout Repository (uses the built-in GITHUB_TOKEN)
+      ######################################################
+      - name: Checkout Repository
+        uses: actions/checkout@v4
  
       ######################################################
-      # Trigger Deployment
+      # Setup Node.js (the server must run the same major version)
       ######################################################
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
  
-      - name: Trigger Deployment
+      ######################################################
+      # Install and Build (package-lock.json is not in git, so npm install)
+      # Output: dist/server (Node server with its own node_modules) and dist/public
+      ######################################################
+      - name: Install Dependencies
+        run: npm install --no-audit --no-fund
+ 
+      - name: Build Nuxt Application
+        run: npm run build
+ 
+      ######################################################
+      # Package: dist/ only
+      ######################################################
+      - name: Package Build
+        run: |
+          set -e
+          test -f dist/server/index.mjs || { echo "ERROR: dist/server/index.mjs missing after build"; exit 1; }
+          RELEASE="$(date +%Y%m%d_%H%M%S)"
+          ARCHIVE="release_${RELEASE}.tar.gz"
+          tar -czf "$ARCHIVE" dist
+          echo "RELEASE=$RELEASE" >> "$GITHUB_ENV"
+          echo "ARCHIVE=$ARCHIVE" >> "$GITHUB_ENV"
+          ls -lh "$ARCHIVE"
+ 
+      ######################################################
+      # Upload Package to the Droplet
+      ######################################################
+      - name: Copy Package
+        uses: appleboy/scp-action@v0.1.7
+        with:
+          host: ${{ secrets.DROPLET3_SSH_HOST }}
+          username: ${{ secrets.SSH_USER }}
+          password: ${{ secrets.DROPLET3_SSH_PASSWORD }}
+          source: ${{ env.ARCHIVE }}
+          target: ${{ env.APP_DIR }}/uploads
+          timeout: 120s
+          command_timeout: 20m
+ 
+      ######################################################
+      # Unpack, switch, restart, check
+      ######################################################
+      - name: Activate Release
         uses: appleboy/ssh-action@v1.2.2
         with:
-          host: ${{ secrets.SERVER_HOST }}
-          username: ${{ secrets.SERVER_USER }}
-          key: ${{ secrets.SERVER_SSH_KEY }}
+          host: ${{ secrets.DROPLET3_SSH_HOST }}
+          username: ${{ secrets.SSH_USER }}
+          password: ${{ secrets.DROPLET3_SSH_PASSWORD }}
+          envs: APP_DIR,APP_PORT,RELEASE,ARCHIVE,KEEP_RELEASES
+          command_timeout: 15m
           script: |
             set -e
+            TARGET="$APP_DIR/releases/$RELEASE"
  
-            echo "=============================================="
-            echo "Deploying gcc-website-dev"
-            echo "=============================================="
+            test -f "$APP_DIR/shared/.env" || { echo "ERROR: $APP_DIR/shared/.env is missing on the server"; exit 1; }
  
-            sudo /opt/deploy-platform/scripts/deploy.sh "gcc-website-dev"
+            echo "Unpacking release $RELEASE"
+            mkdir -p "$TARGET"
+            tar -xzf "$APP_DIR/uploads/$ARCHIVE" -C "$TARGET"
+            rm -f "$APP_DIR/uploads/$ARCHIVE"
+ 
+            test -f "$TARGET/dist/server/index.mjs" || { echo "ERROR: dist/server/index.mjs missing in release"; exit 1; }
+ 
+            # Switch to the new release in one step
+            ln -sfn "$TARGET" "$APP_DIR/current.tmp"
+            mv -Tf "$APP_DIR/current.tmp" "$APP_DIR/current"
+ 
+            echo "Restarting the site"
+            sudo -n /usr/bin/systemctl restart gcc-website-dev
+ 
+            # Wait up to 60 seconds for Nuxt to answer
+            for i in $(seq 1 30); do
+              curl -fsS -o /dev/null "http://127.0.0.1:$APP_PORT/" && break
+              sleep 2
+            done
+            curl -fsS -o /dev/null "http://127.0.0.1:$APP_PORT/" || { echo "ERROR: site is not answering on port $APP_PORT"; exit 1; }
+ 
+            # Keep only the newest releases
+            cd "$APP_DIR/releases"
+            ls -1t | tail -n +$((KEEP_RELEASES + 1)) | xargs -r rm -rf
+ 
+            echo "Live: $(readlink -f "$APP_DIR/current")"
