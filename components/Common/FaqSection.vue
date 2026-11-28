@@ -2,7 +2,7 @@
     <section class="faq-section ptb-100">
         <div class="container">
             <div class="section-title text-center mb-50">
-                <span class="subtitle">Got Questions?</span>
+                <!-- <span class="subtitle">Got Questions?</span> -->
                 <h2>Frequently Asked <span class="highlight">Questions</span></h2>
                 <p>Everything you need to know about GCC School, NFET, and your future career in Global Capability Centres.
                 </p>
@@ -94,7 +94,7 @@ const faqs = [
     {
         category: 0,
         question: 'Who leads GCC School?',
-        answer: 'GCC School is led by Dr. Kamal Chhabra and Prof. (Dr.) Manpreet Singh Manna, Executive Director, GCC School.'
+        answer: 'GCC School is led by Dr. Kamal Chhabra, a U.S. Certified Public Accountant (CPA) and Indian Chartered Accountant (CA), with over 20 years of experience in leading consulting firms.'
     },
     {
         category: 0,
