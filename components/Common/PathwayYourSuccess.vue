@@ -59,7 +59,7 @@ import timelineImage from "../../assets/GCC_Journey_Timeline.png"
 
 .section-header img {
     width: 1032px;
-    height: 309px;
+    height: 350px;
 }
 
 .section-header .subtitle {

@@ -77,11 +77,31 @@
             </div>
           </div>
 
-          <!-- Right Image -->
+          <!-- Right Image Slider -->
           <div class="col-lg-6 col-12">
-            <!-- <div class="campus-img-box"> -->
-              <img :src="campusImg" alt="DLF Cyber City Campus Classroom" class="campus-img" loading="lazy" decoding="async" />
-            <!-- </div> -->
+            <div
+              class="campus-slider-wrapper"
+              @touchstart.passive="onCampusTouchStart"
+              @touchend.passive="onCampusTouchEnd"
+            >
+              <button type="button" class="campus-nav-btn campus-nav-left" @click="prevCampus" aria-label="Previous campus image">
+                <img src="@/assets/img/campus/left.png" alt="" loading="lazy" decoding="async" />
+              </button>
+
+              <div
+                v-for="(item, i) in campusImages"
+                :key="i"
+                class="campus-slide"
+                :class="getCampusSlideClass(i)"
+                @click="goToCampus(i)"
+              >
+                <img :src="item.src" :alt="item.alt" loading="lazy" decoding="async" />
+              </div>
+
+              <button type="button" class="campus-nav-btn campus-nav-right" @click="nextCampus" aria-label="Next campus image">
+                <img src="@/assets/img/campus/right.png" alt="" loading="lazy" decoding="async" />
+              </button>
+            </div>
           </div>
         </div>
       </div>
@@ -92,6 +112,65 @@
 <script setup lang="ts">
 import { ref, onMounted } from 'vue';
 import campusImg from '@/assets/newimages/campus-1.png';
+import campusImg5 from '@/assets/img/campus/image5.png';
+import campusImg6 from '@/assets/img/campus/image6.jpg';
+import campusImg7 from '@/assets/img/campus/image7.jpg';
+
+const homeCampusGlob = import.meta.glob<{ default: string }>('../../assets/img/HomeCampus/campus_img*.jpg', { eager: true });
+
+const homeCampusImages = Object.entries(homeCampusGlob)
+  .sort(([a], [b]) => {
+    const numA = Number(a.match(/(\d+)\.jpg$/)?.[1] ?? 0);
+    const numB = Number(b.match(/(\d+)\.jpg$/)?.[1] ?? 0);
+    return numA - numB;
+  })
+  .map(([, mod]) => ({
+    src: mod.default,
+    alt: 'GCC School Campus'
+  }));
+
+const campusImages = [
+  { src: campusImg, alt: 'DLF Cyber City Campus Classroom' },
+  { src: campusImg5, alt: 'Classroom' },
+  { src: campusImg6, alt: 'Campus' },
+  { src: campusImg7, alt: 'Campus' },
+  ...homeCampusImages
+];
+
+const currentCampus = ref(0);
+let campusTouchStartX = 0;
+
+function goToCampus(i: number) {
+  currentCampus.value = i;
+}
+
+function nextCampus() {
+  currentCampus.value = (currentCampus.value + 1) % campusImages.length;
+}
+
+function prevCampus() {
+  currentCampus.value = (currentCampus.value - 1 + campusImages.length) % campusImages.length;
+}
+
+function getCampusSlideClass(i: number) {
+  const len = campusImages.length;
+  if (i === currentCampus.value) return 'active';
+  if (i === (currentCampus.value - 1 + len) % len) return 'prev';
+  if (i === (currentCampus.value + 1) % len) return 'next';
+  return 'hidden';
+}
+
+function onCampusTouchStart(e: TouchEvent) {
+  campusTouchStartX = e.changedTouches[0]?.clientX ?? 0;
+}
+
+function onCampusTouchEnd(e: TouchEvent) {
+  const deltaX = (e.changedTouches[0]?.clientX ?? 0) - campusTouchStartX;
+  if (Math.abs(deltaX) > 40) {
+    if (deltaX < 0) nextCampus();
+    else prevCampus();
+  }
+}
 
 const images = [
     {
@@ -270,6 +349,148 @@ onMounted(() => {
   border-radius: 30px;
 }
 
+/* Campus Right Slider */
+.campus-slider-wrapper {
+  position: relative;
+  width: 100%;
+  height: 380px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: visible;
+}
+
+.campus-slide {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 82%;
+  aspect-ratio: 16 / 10;
+  border-radius: 20px;
+  overflow: hidden;
+  cursor: pointer;
+  transition: transform 0.45s cubic-bezier(0.4, 0, 0.2, 1),
+    opacity 0.45s ease,
+    z-index 0s;
+  transform: translate(-50%, -50%) scale(0.86);
+  opacity: 0;
+  z-index: 1;
+  background: transparent;
+}
+
+.campus-slide img {
+  width: 100%;
+  height: 100%;
+  display: block;
+  object-fit: cover;
+}
+
+.campus-slide.active {
+  transform: translate(-50%, -50%) scale(1);
+  opacity: 1;
+  z-index: 3;
+  box-shadow: 0 20px 45px rgba(0, 0, 0, 0.22);
+}
+
+.campus-slide.prev {
+  transform: translate(calc(-50% - 14%), -50%) scale(0.86);
+  opacity: 0.85;
+  z-index: 2;
+}
+
+.campus-slide.next {
+  transform: translate(calc(-50% + 14%), -50%) scale(0.86);
+  opacity: 0.85;
+  z-index: 2;
+}
+
+.campus-slide.hidden {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.campus-nav-btn {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 10;
+  width: 38px;
+  height: 38px;
+  padding: 0;
+  border-radius: 50%;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.2s ease;
+}
+
+.campus-nav-btn:hover {
+  transform: translateY(-50%) scale(1.08);
+}
+
+.campus-nav-btn img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  display: block;
+}
+
+.campus-nav-left {
+  left: -38px;
+}
+
+.campus-nav-right {
+  right: -38px;
+}
+
+@media (max-width: 991px) {
+  .campus-slide {
+    width: 76%;
+  }
+
+  .campus-slide.prev {
+    transform: translate(calc(-50% - 10%), -50%) scale(0.84);
+  }
+
+  .campus-slide.next {
+    transform: translate(calc(-50% + 10%), -50%) scale(0.84);
+  }
+
+  .campus-nav-left {
+    left: 2px;
+  }
+
+  .campus-nav-right {
+    right: 2px;
+  }
+}
+
+@media (max-width: 575px) {
+  .campus-slider-wrapper {
+    height: 250px;
+  }
+
+  .campus-slide {
+    width: 72%;
+  }
+
+  .campus-nav-btn {
+    width: 30px;
+    height: 30px;
+  }
+
+  .campus-nav-left {
+    left: 2px;
+  }
+
+  .campus-nav-right {
+    right: 2px;
+  }
+}
+
 @media (max-width: 991px) {
     .section-title h2 {
         font-size: 28px;
@@ -281,6 +502,7 @@ onMounted(() => {
   background-color: #F8F9FA;
   padding: 80px 0;
   border-top: 1px solid #ECECF0;
+  overflow: hidden;
 }
 
 .gold-tag {

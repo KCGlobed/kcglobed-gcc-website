@@ -93,19 +93,6 @@ import ticket from '../../assets/GCC_ticket.png';
 
 .section-header .highlight {
     color: #F1A63E;
-    position: relative;
-    display: inline-block;
-}
-
-.section-header .highlight::after {
-    content: '';
-    position: absolute;
-    bottom: -2px;
-    left: 0;
-    width: 100%;
-    height: 4px;
-    background: rgba(241, 166, 62, 0.2);
-    border-radius: 2px;
 }
 
 .section-header .subtitle {

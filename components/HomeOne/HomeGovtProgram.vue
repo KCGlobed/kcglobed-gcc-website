@@ -44,7 +44,7 @@ const programs = [
         title: "The Rise of Indian GCC",
         desc: "India has emerged as the global leader in GCCs, hosting over 1,800 centres under visionary leadership.",
         image: PMModi,
-        link: "https://ddnews.gov.in/en/india-hosts-over-half-of-global-capability-centres-ranks-among-top-three-ai-ecosystems-pm-modi/"
+        link: "https://www.pmindia.gov.in/en/news_updates/pm-addresses-the-ndtv-world-summit-2026-in-new-delhi/"
     },
     {
         title: "Employment Growth",

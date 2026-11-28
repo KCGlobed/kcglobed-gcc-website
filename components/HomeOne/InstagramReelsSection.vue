@@ -154,15 +154,15 @@ const scrollToCard = (index: number) => {
 /* ════════════════ VIDEO TESTIMONIALS ════════════════ */
 .video-grid {
   display: flex;
-  flex-wrap: wrap;
+  flex-wrap: nowrap;
   justify-content: center;
   gap: 20px;
   margin-top: 32px;
 }
 
 .video-card {
-  flex: 0 1 calc(20% - 16px);
-  min-width: 220px;
+  flex: 1 1 0;
+  min-width: 0;
   max-width: 250px;
   background: #fff;
   border-radius: 16px;
@@ -205,8 +205,8 @@ const scrollToCard = (index: number) => {
 }
 
 @media (max-width: 1199px) {
-  .video-card {
-    flex: 0 1 calc(33.333% - 20px);
+  .video-grid {
+    gap: 14px;
   }
 }
 
