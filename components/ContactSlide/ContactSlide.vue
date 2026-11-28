@@ -52,6 +52,7 @@ const toggleForm = async () => {
 
 .apply-slide.open {
   transform: translate(0, -50%);
+  z-index: 10000000;
 }
 
 .contact-tab {
@@ -79,7 +80,9 @@ const toggleForm = async () => {
 .contact-panel {
   pointer-events: auto;
   width: var(--panel-width);
-  max-height: calc(100vh - 24px);
+  margin: 10px 0 5px;
+  max-height: calc(100vh - 15px);
+  max-height: calc(100dvh - 15px);
   overflow-y: auto;
   overflow-x: hidden;
   border-radius: 24px 0 0 24px;
@@ -134,7 +137,9 @@ const toggleForm = async () => {
   }
 
   .contact-panel {
-    max-height: calc(100vh - 16px);
+    margin: 10px 0 5px;
+    max-height: calc(100vh - 15px);
+    max-height: calc(100dvh - 15px);
   }
 }
 </style>
