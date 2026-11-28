@@ -141,6 +141,7 @@ const studentVideos = [
   { youtubeId: '1AD_U7WkLIw', alt: 'Student testimonial thumbnail' },
   { youtubeId: 'p1O5nI28_MU', alt: 'Student testimonial thumbnail' },
   { youtubeId: 'jqmZyTW7r3o', alt: 'Student testimonial thumbnail' },
+  { youtubeId: 'D7x0-9nhO9A', alt: 'Student testimonial thumbnail' },
 ];
 
 const parentGridRef = ref<HTMLElement | null>(null);

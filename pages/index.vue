@@ -21,7 +21,6 @@
     <HomeOneCurrentAcademicStudents />
     <!-- <CommonThinkTank /> -->
     <CommonIndustryMentor :show-mentors="false" />
-    <CampusView />
     <!-- <HomeOneNfetAndParents /> -->
     <CommonFunFact />
     <!-- <CommonNewsCard /> -->
@@ -53,7 +52,6 @@ import HomeOneStudentParentVideoSection from '~/components/HomeOne/StudentParent
 import HomeOneResourcesAndNews from '~/components/HomeOne/ResourcesAndNews.vue';
 import EligibilityCriteria from '~/components/Common/EligibilityCriteria.vue';
 import FloorMap from '~/components/Common/FloorMap.vue';
-import CampusView from '~/components/HomeOne/CampusView.vue';
 
 useHead({
   title: "GCC School: Get Hired First, Then Trained",

@@ -150,14 +150,20 @@ export default defineComponent({
     line-height: 1.1;
 }
 
-.section-title h2::after {
+.section-title h2::after,
+.section-title h2.reveal2.active::after {
     content: "";
+    position: static;
+    top: auto;
+    left: auto;
+    right: auto;
     display: block;
     width: 70px;
     height: 4px;
     background: #F1A63E;
     margin: 18px auto 0;
     border-radius: 10px;
+    transition: none;
 }
 
 .section-title .highlight {
