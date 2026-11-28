@@ -97,6 +97,7 @@ const toggleForm = async () => {
   max-width: none;
   border-radius: 24px 0 0 24px;
   box-shadow: none;
+  padding-top: 1.1rem;
 }
 
 /* Referral-code tooltip: open towards the left so it stays inside the panel

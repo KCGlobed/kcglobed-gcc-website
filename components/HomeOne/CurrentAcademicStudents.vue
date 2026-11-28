@@ -714,6 +714,14 @@ tr:last-child .gcc-cell {
   .people-grid {
     grid-template-columns: 1fr;
   }
+
+  .think-tank-card {
+    padding: 8px;
+  }
+
+  .think-tank-card img {
+    max-width: 155px;
+  }
 }
 
 /* Subject Matter Expert cards (same design as the Instructors cards in US-CMA-Web.html) */

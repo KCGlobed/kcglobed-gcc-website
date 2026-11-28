@@ -68,7 +68,8 @@ const programs = [
 }
 
 .container {
-    padding: 0 150px;
+    max-width: 1200px;
+    padding: 0 30px;
 }
 
 .title {

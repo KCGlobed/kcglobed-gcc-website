@@ -203,7 +203,8 @@ export default {
     padding: 12px 6px !important;
   }
 
-  .boxes-container .box {
+  .boxes-container .box,
+  .boxes-container .spcific_box {
     flex: 0 0 calc(25% - 8px) !important;
     max-width: calc(25% - 8px) !important;
     background: #ffffff !important;
@@ -219,6 +220,11 @@ export default {
 
   .boxes-container .box img {
     max-height: 25px !important;
+  }
+
+  .boxes-container .spcific_box img {
+    max-width: 100%;
+    object-fit: contain;
   }
 
   .boxes-container .box span {

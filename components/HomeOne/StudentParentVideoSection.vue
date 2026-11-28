@@ -60,7 +60,7 @@
     <section class="section section-students" aria-labelledby="students-video-h2" style="padding: 46px 0;">
       <div class="container">
         <div class="section-head">
-          <span class="tag tag-accent">Student Success Stories</span>
+          <!-- <span class="tag tag-accent">Student Success Stories</span> -->
           <h2 class="section-title" id="students-video-h2">Hear It Directly <span class="primary">from Our Students</span></h2>
           <p class="section-lead">From facing corporate interviews to receiving their conditional pre-placement offers, GCC School students share their personal experiences, defining moments and what this opportunity means for their future.</p>
         </div>
@@ -130,18 +130,19 @@ const parentVideos = [
   { youtubeId: 's4PPX9_AxW0', alt: 'Parent testimonial thumbnail' },
   { youtubeId: 'wBbDIcQZE6k', alt: 'Parent testimonial thumbnail' },
   { youtubeId: 'CQp15ZzbsAk', alt: 'Parent testimonial thumbnail' },
-  { youtubeId: '2mZZNH52Hqw', alt: 'Parent testimonial thumbnail' },
+  // { youtubeId: '2mZZNH52Hqw', alt: 'Parent testimonial thumbnail' },
 ];
 
 const studentVideos = [
-  { youtubeId: 'n83fF8DivYw', alt: 'Student testimonial thumbnail' },
+  { youtubeId: 'D7x0-9nhO9A', alt: 'Student testimonial thumbnail' },
   { youtubeId: 'JDGF3OaamM0', alt: 'Student testimonial thumbnail' },
   { youtubeId: 'CWYzQUQBqI8', alt: 'Student testimonial thumbnail' },
   { youtubeId: 'ID5ZonOLiB0', alt: 'Student testimonial thumbnail' },
   { youtubeId: '1AD_U7WkLIw', alt: 'Student testimonial thumbnail' },
   { youtubeId: 'p1O5nI28_MU', alt: 'Student testimonial thumbnail' },
   { youtubeId: 'jqmZyTW7r3o', alt: 'Student testimonial thumbnail' },
-  { youtubeId: 'D7x0-9nhO9A', alt: 'Student testimonial thumbnail' },
+  { youtubeId: 'n83fF8DivYw', alt: 'Student testimonial thumbnail' },
+  
 ];
 
 const parentGridRef = ref<HTMLElement | null>(null);
