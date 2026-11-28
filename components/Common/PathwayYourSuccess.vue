@@ -319,7 +319,7 @@ import timelineImage from "../../assets/GCC_Journey_Timeline.png"
 
     .section-header img {
         width: 298px;
-        height: 426px;
+        height: 100px;
     }
 
     .timeline-row,

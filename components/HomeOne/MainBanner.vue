@@ -308,13 +308,18 @@
     background-size: cover !important;
     background-position: 65% center;
     background-repeat: no-repeat !important;
-    padding-top: 90px !important;
+    padding-top: 50px !important;
     padding-bottom: 24px !important;
     display: flex !important;
     align-items: flex-end !important;
   }
 
+  .main-hero-row {
+    margin-top: 0 !important;
+  }
+
   .heading {
+    margin-top: 0 !important;
     margin-bottom: 20px;
   }
 
